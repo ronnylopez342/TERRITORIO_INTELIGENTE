@@ -9,7 +9,8 @@
 </head>
 <body>
 
-  <!-- Franja gubernamental superior -->
+  <div class="tricolor"></div>
+
   <div class="franja-gov">
     <div class="contenedor">
       <span>República de Colombia · Departamento de Cundinamarca</span>
@@ -21,53 +22,68 @@
     </div>
   </div>
 
-  <!-- Encabezado -->
   <header class="encabezado">
-    <div class="barra-nav">
-      <a class="logo" href="index.html">
-        <span class="escudo">S</span>
-        <span class="rotulo">
-          <small>Alcaldía Municipal</small>
-          <strong>Subachoque</strong>
-          <span>Territorio Inteligente</span>
-        </span>
-      </a>
-      <button class="hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
-      <nav class="menu">
-        <a href="index.html" class="activo">Inicio</a>
-        <a href="data-territorio.html">Data Territorio</a>
-        <a href="plan-desarrollo.html">Plan de Desarrollo</a>
-        <a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a>
-        <a href="politicas-publicas.html">Políticas Públicas</a>
-        <a href="login.html" class="btn-sesion">Ingresar</a>
-      </nav>
-    </div>
+    <a class="marca-superior" href="index.html">
+      <span class="escudo">S</span>
+      <span class="rotulo">
+        <small>Alcaldía Municipal de</small>
+        <strong>Subachoque</strong>
+        <span>Territorio Inteligente · Cundinamarca</span>
+      </span>
+    </a>
   </header>
 
-  <!-- Hero -->
+  <div class="menu-barra">
+    <button class="hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <nav class="menu">
+      <a href="index.html" class="activo">Inicio</a>
+      <a href="data-territorio.html">Data Territorio</a>
+      <a href="plan-desarrollo.html">Plan de Desarrollo</a>
+      <a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a>
+      <a href="politicas-publicas.html">Políticas Públicas</a>
+      <a href="login.html" class="btn-sesion">Ingresar</a>
+    </nav>
+  </div>
+
+  <!-- Hero con imagen real (paisaje rural) + overlay -->
   <section class="hero">
     <div class="contenedor">
-      <span class="kicker">Administración 2024 – 2027</span>
-      <h1>Un municipio que se gobierna con información y con la gente</h1>
-      <p>Consulta la gestión, los proyectos en ejecución y los datos que orientan las decisiones de tu municipio.</p>
-      <div class="acciones">
-        <a href="plan-desarrollo.html" class="boton boton-primario">Conoce el Plan de Desarrollo</a>
-        <a href="unidad-cumplimiento.html" class="boton boton-linea">Seguimiento de proyectos</a>
+      <div class="contenido-hero">
+        <span class="kicker">Administración 2024 – 2027</span>
+        <h1>Un municipio que se gobierna con información y con la gente</h1>
+        <p>Consulta la gestión, los proyectos en ejecución y los datos que orientan las decisiones de Subachoque.</p>
+        <div class="acciones">
+          <a href="plan-desarrollo.html" class="boton boton-primario">Plan de Desarrollo</a>
+          <a href="unidad-cumplimiento.html" class="boton boton-linea">Seguimiento de proyectos</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Noticias -->
+  <!-- Accesos rápidos con iconos circulares (estilo Gobernación) -->
+  <section class="accesos">
+    <div class="contenedor">
+      <div class="accesos-grid">
+        <a class="acceso" href="unidad-cumplimiento.html"><div class="circulo">📊</div><div class="txt">Rendición de cuentas</div></a>
+        <a class="acceso" href="#"><div class="circulo">📝</div><div class="txt">PQRSD</div></a>
+        <a class="acceso" href="plan-desarrollo.html"><div class="circulo">📘</div><div class="txt">Plan de Desarrollo</div></a>
+        <a class="acceso" href="#"><div class="circulo">💰</div><div class="txt">Impuestos</div></a>
+        <a class="acceso" href="#"><div class="circulo">🖥️</div><div class="txt">Ventanilla única</div></a>
+        <a class="acceso" href="data-territorio.html"><div class="circulo">📈</div><div class="txt">Data Territorio</div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Noticias reales -->
   <div class="contenedor">
     <header class="encabezado-seccion">
       <span class="sobre">Sala de prensa</span>
-      <h2>Noticias de la entidad</h2>
+      <h2>Actualidad de Subachoque</h2>
     </header>
 
     <div class="noticias-grid">
-      <!-- Noticia destacada REAL: desempeño fiscal (El Espectador, oct 2025) -->
       <article class="noticia-mayor">
-        <div class="foto" style="background-image:linear-gradient(135deg,#4a6741,#2e4a2c);">
+        <div class="foto" style="background-image:linear-gradient(135deg,#1d5c34,#0e3a1f);">
           <span class="etiqueta">Subachoque</span>
         </div>
         <div class="cuerpo">
@@ -80,31 +96,30 @@
         </div>
       </article>
 
-      <!-- Lista lateral: noticias REALES (Gobernación de Cundinamarca) -->
       <div class="lista-noticias">
         <article class="item">
-          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/via-subachoque-la-cuesta-puente-piedra-alcanza-65-de-ejecucion/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#7a5c3e,#4d3a26);"></div></a>
+          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/via-subachoque-la-cuesta-puente-piedra-alcanza-65-de-ejecucion/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#6b5636,#3d3020);"></div></a>
           <div>
             <span class="fecha">Gobernación de Cundinamarca</span>
             <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/via-subachoque-la-cuesta-puente-piedra-alcanza-65-de-ejecucion/" target="_blank" rel="noopener"><h4>La vía Subachoque–La Cuesta–Puente Piedra alcanza el 65 % de ejecución</h4></a>
           </div>
         </article>
         <article class="item">
-          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-renueva-alcantarillado-en-el-bosque-por-fallo-del-rio-bogota/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#42607a,#243b4d);"></div></a>
+          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-renueva-alcantarillado-en-el-bosque-por-fallo-del-rio-bogota/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#345a7a,#1c3348);"></div></a>
           <div>
             <span class="fecha">Alcaldía de Subachoque</span>
-            <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-renueva-alcantarillado-en-el-bosque-por-fallo-del-rio-bogota/" target="_blank" rel="noopener"><h4>Renovación del alcantarillado en el barrio El Bosque por cerca de $300 millones</h4></a>
+            <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-renueva-alcantarillado-en-el-bosque-por-fallo-del-rio-bogota/" target="_blank" rel="noopener"><h4>Renovación del alcantarillado en El Bosque por cerca de $300 millones</h4></a>
           </div>
         </article>
         <article class="item">
-          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-invierte-50-millones-para-preparar-a-468-estudiantes-para-el-icfes/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#3f6b52,#1f4030);"></div></a>
+          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-invierte-50-millones-para-preparar-a-468-estudiantes-para-el-icfes/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#2f6b47,#184028);"></div></a>
           <div>
             <span class="fecha">Alcaldía de Subachoque</span>
             <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-invierte-50-millones-para-preparar-a-468-estudiantes-para-el-icfes/" target="_blank" rel="noopener"><h4>$50 millones para preparar a 468 estudiantes en las Pruebas Saber 11</h4></a>
           </div>
         </article>
         <article class="item" style="border-bottom:none;">
-          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-sistema-de-monitoreo-ante-riesgos-asociados-al-fenomeno-de-el-nino/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#6a3b5e,#3d2038);"></div></a>
+          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-sistema-de-monitoreo-ante-riesgos-asociados-al-fenomeno-de-el-nino/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#5a3b6a,#33203d);"></div></a>
           <div>
             <span class="fecha">Alcaldía de Subachoque</span>
             <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-sistema-de-monitoreo-ante-riesgos-asociados-al-fenomeno-de-el-nino/" target="_blank" rel="noopener"><h4>Subachoque activa sistema de monitoreo ante el Fenómeno de El Niño</h4></a>
@@ -114,16 +129,14 @@
     </div>
   </div>
 
-  <!-- Portafolio de servicios -->
-  <section class="franja-tinto">
+  <!-- Servicios -->
+  <section class="franja-azul">
     <div class="contenedor">
       <header class="encabezado-seccion" style="margin-top:0;">
         <span class="sobre">Atención al ciudadano</span>
-        <h2>Portafolio de servicios</h2>
+        <h2>Trámites y servicios</h2>
       </header>
-      <p class="intro">Trámites, gestiones y atenciones que la Alcaldía ofrece a la ciudadanía: impuestos,
-      SISBEN, autorizaciones urbanísticas, nomenclatura, licencias y más.</p>
-
+      <p class="intro">Impuestos, SISBEN, certificados, autorizaciones urbanísticas, nomenclatura y licencias.</p>
       <div class="servicios">
         <a class="servicio" href="#"><div class="n">Trámite en línea</div><h4>Impuesto predial unificado</h4><p>Consulta y pago · Sin costo</p></a>
         <a class="servicio" href="#"><div class="n">Trámite en línea</div><h4>Industria y comercio</h4><p>Declaración y liquidación</p></a>
@@ -133,94 +146,54 @@
     </div>
   </section>
 
-  <!-- Identidad del municipio -->
+  <!-- Identidad -->
   <div class="contenedor">
     <header class="encabezado-seccion">
       <span class="sobre">Nuestra identidad</span>
       <h2>Conozca a Subachoque</h2>
     </header>
-
     <div class="identidad">
       <article class="ident-card">
         <div class="franja-color c1"></div>
-        <div class="contenido-card">
-          <h4>Símbolos patrios</h4>
-          <p>Himno, escudo y bandera que representan la historia y los valores de nuestro municipio.</p>
-          <a href="#" class="vinculo">Ver símbolos →</a>
-        </div>
+        <div class="contenido-card"><h4>Símbolos patrios</h4><p>Himno, escudo y bandera que representan la historia y los valores de nuestro municipio.</p><a href="#" class="vinculo">Ver símbolos →</a></div>
       </article>
       <article class="ident-card">
-        <div class="franja-color c1" style="background:var(--verde-band);"></div>
-        <div class="contenido-card">
-          <h4>Nuestro territorio</h4>
-          <p>Ubicación, veredas, división político-administrativa y riqueza ambiental de Subachoque.</p>
-          <a href="#" class="vinculo">Explorar el territorio →</a>
-        </div>
+        <div class="franja-color c1" style="background:var(--verde);"></div>
+        <div class="contenido-card"><h4>Nuestro territorio</h4><p>Ubicación, veredas, división político-administrativa y riqueza ambiental de Subachoque.</p><a href="#" class="vinculo">Explorar el territorio →</a></div>
       </article>
       <article class="ident-card">
-        <div class="franja-color c1" style="background:var(--azul-gob);"></div>
-        <div class="contenido-card">
-          <h4>Galería</h4>
-          <p>Imágenes de los paisajes, eventos y la vida cotidiana de nuestra comunidad.</p>
-          <a href="#" class="vinculo">Ver galería →</a>
-        </div>
+        <div class="franja-color c1" style="background:var(--azul-med);"></div>
+        <div class="contenido-card"><h4>Galería</h4><p>Imágenes de los paisajes, eventos y la vida cotidiana de nuestra comunidad.</p><a href="#" class="vinculo">Ver galería →</a></div>
       </article>
     </div>
   </div>
 
-  <!-- Cifras del municipio -->
+  <!-- Cifras -->
   <section class="cifras">
     <div class="contenedor">
       <div class="cifras-grid">
         <div class="cifra"><div class="num">18.259</div><div class="desc">Habitantes (proyección 2026)</div></div>
         <div class="cifra"><div class="num">87,3</div><div class="desc">Habitantes por km²</div></div>
         <div class="cifra"><div class="num">44,2%</div><div class="desc">Población rural</div></div>
-        <div class="cifra"><div class="num">109</div><div class="desc">Metas del Plan de Desarrollo</div></div>
+        <div class="cifra"><div class="num">74,3</div><div class="desc">Índice de Desempeño Fiscal 2024</div></div>
       </div>
     </div>
   </section>
 
-  <!-- Pie de página -->
+  <!-- Footer -->
   <footer class="pie-pagina">
     <div class="contenedor">
       <div class="pie-grid">
         <div>
-          <div class="marca">
-            <span class="escudo">S</span>
-            <div><strong style="font-family:var(--serif); font-size:18px; color:#fff;">Alcaldía de Subachoque</strong><br><span style="font-size:13px;">Territorio Inteligente</span></div>
-          </div>
+          <div class="marca"><span class="escudo">S</span><div><strong style="font-family:var(--serif); font-size:18px; color:#fff;">Alcaldía de Subachoque</strong><br><span style="font-size:13px;">Territorio Inteligente</span></div></div>
           <p>Trabajamos por un municipio transparente, sostenible y cercano a su gente.</p>
-          <div class="redes">
-            <a href="#" title="Facebook">f</a>
-            <a href="#" title="Instagram">◎</a>
-            <a href="#" title="X">✕</a>
-            <a href="#" title="YouTube">▶</a>
-            <a href="#" title="WhatsApp">✆</a>
-          </div>
+          <div class="redes"><a href="#">f</a><a href="#">◎</a><a href="#">✕</a><a href="#">▶</a><a href="#">✆</a></div>
         </div>
-        <div>
-          <h3>Contacto</h3>
-          <p>Palacio Municipal<br>Carrera 5 No. 3 – 40, Subachoque</p>
-          <p>Cundinamarca, Colombia</p>
-          <p>Tel: (601) 000 0000<br>contactenos@subachoque.gov.co</p>
-        </div>
-        <div>
-          <h3>Enlaces</h3>
-          <ul>
-            <li><a href="data-territorio.html">Data Territorio</a></li>
-            <li><a href="plan-desarrollo.html">Plan de Desarrollo</a></li>
-            <li><a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a></li>
-            <li><a href="politicas-publicas.html">Políticas Públicas</a></li>
-          </ul>
-        </div>
+        <div><h3>Contacto</h3><p>Palacio Municipal<br>Carrera 5 No. 3 – 40, Subachoque</p><p>Cundinamarca, Colombia</p><p>contactenos@subachoque.gov.co</p></div>
+        <div><h3>Enlaces</h3><ul><li><a href="data-territorio.html">Data Territorio</a></li><li><a href="plan-desarrollo.html">Plan de Desarrollo</a></li><li><a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a></li><li><a href="politicas-publicas.html">Políticas Públicas</a></li></ul></div>
       </div>
     </div>
-    <div class="pie-legal">
-      <div class="contenedor">
-        <span>© 2026 Alcaldía Municipal de Subachoque. Todos los derechos reservados.</span>
-        <span>Horario: Lunes a viernes, 8:00 a.m. – 5:00 p.m.</span>
-      </div>
-    </div>
+    <div class="pie-legal"><div class="contenedor"><span>© 2026 Alcaldía Municipal de Subachoque. Todos los derechos reservados.</span><span>Horario: Lunes a viernes, 8:00 a.m. – 5:00 p.m.</span></div></div>
   </footer>
 
   <script src="js/principal.js"></script>
