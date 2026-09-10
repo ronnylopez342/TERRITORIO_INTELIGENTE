@@ -137,6 +137,7 @@ h1, h2, h3, h4 { font-family: var(--serif); color: var(--azul); line-height: 1.3
 .t-foto { height: 130px; background-size: cover; background-position: center; }
 .t-pie { padding: 12px 14px; font-size: 13.5px; font-weight: 700; color: var(--azul); line-height: 1.35; }
 .t-ident .t-pie { text-align: center; text-transform: uppercase; letter-spacing: .3px; font-size: 13px; }
+.ident-bg { display: grid; place-items: center; }
 
 /* ============ Portafolio de servicios (bloque de texto, como el PDF) ============ */
 .portafolio { background: var(--gris-suave); border: 1px solid var(--linea); border-left: 5px solid var(--amarillo); border-radius: 6px; padding: 32px 34px; margin: 12px 0; }
