@@ -157,7 +157,7 @@ h1, h2, h3, h4 { font-family: var(--serif); color: var(--azul); line-height: 1.3
 .grid-tarjetas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
 .t-noticia, .t-ident { display: block; background: #fff; border: 1px solid var(--linea); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.05); transition: transform .18s, box-shadow .18s; }
 .t-noticia:hover, .t-ident:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(0,0,0,.12); }
-.t-foto { height: 140px; background-color: #294055; background-size: cover; background-position: center; }
+.t-foto { width: 100%; height: 140px; object-fit: cover; display: block; background-color: #294055; }
 .t-pie { padding: 12px 14px; font-size: 13.5px; font-weight: 700; color: var(--azul); line-height: 1.35; }
 .t-ident .t-pie { text-align: center; text-transform: uppercase; letter-spacing: .3px; font-size: 13px; }
 .ident-bg { display: grid; place-items: center; }
