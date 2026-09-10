@@ -9,30 +9,35 @@
 </head>
 <body>
 
-  <div class="tricolor"></div>
-
-  <div class="franja-gov">
+  <!-- Barra gov.co (marca del Estado) -->
+  <div class="govco">
     <div class="contenedor">
-      <span>República de Colombia · Departamento de Cundinamarca</span>
-      <span class="gov-links">
-        <a href="#">Atención al ciudadano</a>
-        <a href="#">Transparencia</a>
-        <a href="#">PQRSD</a>
-      </span>
+      <span class="logo-govco"><b>GOV.CO</b></span>
     </div>
   </div>
 
+  <!-- Encabezado: escudo + nombre a la izquierda, login + buscador a la derecha -->
   <header class="encabezado">
-    <a class="marca-superior" href="index.html">
-      <span class="escudo">S</span>
-      <span class="rotulo">
-        <small>Alcaldía Municipal de</small>
-        <strong>Subachoque</strong>
-        <span>Territorio Inteligente · Cundinamarca</span>
-      </span>
-    </a>
+    <div class="contenedor">
+      <a class="marca-superior" href="index.html">
+        <span class="escudo">S</span>
+        <span class="rotulo">
+          <small>Alcaldía Municipal de</small>
+          <strong>Subachoque</strong>
+          <span>Territorio Inteligente · Cundinamarca</span>
+        </span>
+      </a>
+      <div class="header-derecha">
+        <a href="login.html" class="link-login">Inicia sesión</a>
+        <form class="buscador" onsubmit="event.preventDefault();">
+          <input type="text" placeholder="Buscar en la entidad" aria-label="Buscar">
+          <button type="submit" aria-label="Buscar">🔍</button>
+        </form>
+      </div>
+    </div>
   </header>
 
+  <!-- Menú de navegación (Inicio en bloque azul, como gov.co) -->
   <div class="menu-barra">
     <button class="hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
     <nav class="menu">
@@ -45,11 +50,20 @@
     </nav>
   </div>
 
+  <!-- Widget de accesibilidad (como gov.co) -->
+  <div class="accesibilidad">
+    <button title="Contraste" onclick="document.body.classList.toggle('alto-contraste')">◐</button>
+    <button title="Aumentar texto" onclick="cambiarTexto(1)">A+</button>
+    <button title="Reducir texto" onclick="cambiarTexto(-1)">A-</button>
+  </div>
+
   <!-- ============ 1. NOTICIAS (FRANJA + CARRUSEL) — como en el PDF ============ -->
   <div class="franja-titulo">Noticias de entidades nacionales y departamentales</div>
 
   <div class="contenedor">
     <div class="carrusel">
+      <button class="flecha-carr izq" aria-label="Anterior">‹</button>
+      <button class="flecha-carr der" aria-label="Siguiente">›</button>
       <div class="slide activo" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/033._Iglesia_Subocka_1.jpg/1280px-033._Iglesia_Subocka_1.jpg');">
         <div class="slide-txt">
           <span class="slide-etq">Alcaldía de Subachoque</span>

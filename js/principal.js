@@ -42,11 +42,24 @@ document.addEventListener('DOMContentLoaded', function () {
       p.addEventListener('click', function () { mostrar(idx); });
     });
 
+    /* Flechas anterior / siguiente */
+    var flechaIzq = carrusel.querySelector('.flecha-carr.izq');
+    var flechaDer = carrusel.querySelector('.flecha-carr.der');
+    if (flechaIzq) flechaIzq.addEventListener('click', function () { mostrar((actual - 1 + slides.length) % slides.length); });
+    if (flechaDer) flechaDer.addEventListener('click', function () { mostrar((actual + 1) % slides.length); });
+
     if (slides.length > 1) {
       setInterval(function () {
         mostrar((actual + 1) % slides.length);
-      }, 5000);
+      }, 6000);
     }
   }
 
 });
+
+/* ---------- Widget de accesibilidad: cambiar tamaño de texto ---------- */
+var nivelTexto = 0;
+function cambiarTexto(dir) {
+  nivelTexto = Math.max(-1, Math.min(3, nivelTexto + dir));
+  document.documentElement.style.fontSize = (100 + nivelTexto * 10) + '%';
+}

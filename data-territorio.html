@@ -4,24 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Territorio · Alcaldía de Subachoque</title>
-  <link rel="stylesheet" href="css/estilos.css?v=3">
+  <link rel="stylesheet" href="css/estilos.css?v=5">
 </head>
 <body>
 
-  <div class="tricolor"></div>
-  <div class="franja-gov">
+  <div class="govco">
     <div class="contenedor">
-      <span>República de Colombia · Departamento de Cundinamarca</span>
-      <span class="gov-links"><a href="#">Atención al ciudadano</a><a href="#">Transparencia</a><a href="#">PQRSD</a></span>
+      <span class="logo-govco"><b>GOV.CO</b></span>
     </div>
   </div>
 
   <header class="encabezado">
-    <a class="marca-superior" href="index.html">
-      <span class="escudo">S</span>
-      <span class="rotulo"><small>Alcaldía Municipal de</small><strong>Subachoque</strong><span>Territorio Inteligente · Cundinamarca</span></span>
-    </a>
+    <div class="contenedor">
+      <a class="marca-superior" href="index.html">
+        <span class="escudo">S</span>
+        <span class="rotulo">
+          <small>Alcaldía Municipal de</small>
+          <strong>Subachoque</strong>
+          <span>Territorio Inteligente · Cundinamarca</span>
+        </span>
+      </a>
+      <div class="header-derecha">
+        <a href="login.html" class="link-login">Inicia sesión</a>
+        <form class="buscador" onsubmit="event.preventDefault();">
+          <input type="text" placeholder="Buscar en la entidad" aria-label="Buscar">
+          <button type="submit" aria-label="Buscar">&#128269;</button>
+        </form>
+      </div>
+    </div>
   </header>
+
   <div class="menu-barra">
     <button class="hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
     <nav class="menu">
@@ -33,6 +45,13 @@
       <a href="login.html" class="btn-sesion">Ingresar</a>
     </nav>
   </div>
+
+  <div class="accesibilidad">
+    <button title="Contraste" onclick="document.body.classList.toggle('alto-contraste')">&#9680;</button>
+    <button title="Aumentar texto" onclick="cambiarTexto(1)">A+</button>
+    <button title="Reducir texto" onclick="cambiarTexto(-1)">A-</button>
+  </div>
+
 
   <div class="layout">
     <aside class="sidebar">

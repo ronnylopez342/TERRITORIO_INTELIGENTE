@@ -33,43 +33,55 @@ ul { list-style: none; }
 h1, h2, h3, h4 { font-family: var(--serif); color: var(--azul); line-height: 1.3; }
 .contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 22px; }
 
-/* ============ Franja tricolor superior (identidad Colombia) ============ */
-.tricolor { height: 5px; background: linear-gradient(to right, var(--amarillo) 0 33%, var(--azul) 33% 66%, var(--rojo-linea) 66% 100%); }
+/* ============ Barra gov.co (marca del Estado colombiano) ============ */
+.govco { background: #3366cc; color: #fff; }
+.govco .contenedor { display: flex; align-items: center; padding: 8px 22px; }
+.govco .logo-govco { font-weight: 700; font-size: 16px; letter-spacing: .5px; }
+.govco .logo-govco b { font-weight: 800; }
 
-.franja-gov { background: var(--gris-suave); border-bottom: 1px solid var(--linea); font-size: 13px; color: var(--tenue); }
-.franja-gov .contenedor { display: flex; justify-content: space-between; align-items: center; padding: 7px 22px; flex-wrap: wrap; gap: 6px; }
-.franja-gov a { color: var(--tenue); }
-.franja-gov .gov-links a { margin-left: 18px; }
-.franja-gov .gov-links a:hover { color: var(--azul); }
-
-/* ============ Encabezado (logo centrado tipo gobernación) ============ */
+/* ============ Encabezado: escudo + nombre a la izq, login/buscador a la der ============ */
 .encabezado { background: #fff; }
-.marca-superior { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 18px 22px 14px; }
+.encabezado .contenedor { display: flex; align-items: center; gap: 18px; padding: 16px 22px; flex-wrap: wrap; }
+.marca-superior { display: flex; align-items: center; gap: 14px; }
 .escudo {
-  width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%;
-  background: var(--azul); border: 3px solid var(--amarillo);
-  display: grid; place-items: center; color: #fff;
+  width: 54px; height: 60px; flex-shrink: 0;
+  background: var(--tinto);
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
+  display: grid; place-items: center; color: var(--amarillo);
   font-family: var(--serif); font-weight: 900; font-size: 22px;
 }
-.marca-superior .rotulo { text-align: left; }
-.marca-superior .rotulo small { display: block; font-size: 12px; letter-spacing: 1px; color: var(--tenue); text-transform: uppercase; }
-.marca-superior .rotulo strong { font-family: var(--serif); font-size: 26px; color: var(--azul); display: block; line-height: 1.1; }
-.marca-superior .rotulo span { font-size: 13px; color: var(--tinto); font-weight: 500; }
+.marca-superior .rotulo { text-align: left; line-height: 1.15; }
+.marca-superior .rotulo small { display: block; font-size: 11.5px; letter-spacing: .5px; color: var(--tenue); }
+.marca-superior .rotulo strong { font-family: var(--serif); font-size: 22px; color: var(--azul); display: block; }
+.marca-superior .rotulo span { font-size: 12px; color: var(--tinto); font-weight: 500; }
 
-/* Menú horizontal centrado */
-.menu-barra { border-top: 1px solid var(--linea); border-bottom: 3px solid var(--azul); background: #fff; position: relative; }
-.menu { max-width: var(--ancho); margin: 0 auto; display: flex; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+.header-derecha { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.link-login { font-size: 13.5px; color: var(--texto); }
+.link-login:hover { color: var(--azul); }
+.buscador { display: flex; align-items: center; border: 1px solid var(--linea); border-radius: 4px; overflow: hidden; }
+.buscador input { border: none; padding: 9px 12px; font-size: 14px; width: 240px; outline: none; }
+.buscador button { border: none; background: var(--azul); color: #fff; width: 40px; cursor: pointer; font-size: 15px; }
+.buscador button:hover { background: #082d55; }
+
+/* Menú horizontal a la izquierda con pestaña activa tipo bloque azul (gov.co) */
+.menu-barra { border-top: 1px solid var(--linea); border-bottom: 1px solid var(--linea); background: #fff; position: relative; }
+.menu { max-width: var(--ancho); margin: 0 auto; display: flex; align-items: stretch; flex-wrap: wrap; }
 .menu a {
-  padding: 13px 18px; font-size: 14.5px; font-weight: 500; color: var(--texto);
-  border-bottom: 3px solid transparent; margin-bottom: -3px; transition: color .15s, border-color .15s;
+  padding: 14px 20px; font-size: 14px; font-weight: 500; color: var(--texto);
+  border-bottom: 3px solid transparent; margin-bottom: -1px; transition: all .15s;
 }
-.menu a:hover { color: var(--azul-claro); }
-.menu a.activo { color: var(--azul); border-bottom-color: var(--amarillo); font-weight: 700; }
-.menu .btn-sesion { background: var(--tinto); color: #fff !important; margin-left: 6px; }
+.menu a:hover { color: var(--azul); background: var(--gris-suave); }
+.menu a.activo { background: var(--azul); color: #fff; font-weight: 700; }
+.menu .btn-sesion { margin-left: auto; background: var(--tinto); color: #fff !important; }
 .menu .btn-sesion:hover { background: #5c1127; }
 
 .hamburguesa { display: none; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
 .hamburguesa span { width: 26px; height: 3px; background: var(--azul); }
+
+/* Widget de accesibilidad flotante (como gov.co) */
+.accesibilidad { position: fixed; right: 0; top: 180px; z-index: 80; display: flex; flex-direction: column; }
+.accesibilidad button { width: 40px; height: 40px; border: none; background: var(--azul); color: #fff; cursor: pointer; font-size: 15px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,.25); }
+.accesibilidad button:hover { background: #082d55; }
 
 /* ============ HERO con imagen + overlay (no gradiente plano) ============ */
 .hero {
@@ -135,6 +147,11 @@ h1, h2, h3, h4 { font-family: var(--serif); color: var(--azul); line-height: 1.3
 .puntos { text-align: center; margin-top: 14px; }
 .punto { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: #c9d3dd; margin: 0 4px; cursor: pointer; transition: background .2s; }
 .punto.activo { background: var(--tinto); }
+/* Flechas del carrusel (como gov.co / Chocó) */
+.flecha-carr { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: none; background: rgba(0,0,0,.4); color: #fff; font-size: 24px; cursor: pointer; z-index: 3; display: grid; place-items: center; transition: background .2s; }
+.flecha-carr:hover { background: rgba(0,0,0,.65); }
+.flecha-carr.izq { left: 14px; }
+.flecha-carr.der { right: 14px; }
 
 /* ============ Grilla de tarjetas iguales (Actualidad / Aprendamos) ============ */
 .grid-tarjetas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
