@@ -105,6 +105,44 @@ h1, h2, h3, h4 { font-family: var(--serif); color: var(--azul); line-height: 1.3
 .acceso:hover .circulo { transform: translateY(-4px); }
 .acceso .txt { font-size: 12.5px; font-weight: 700; color: var(--azul); text-transform: uppercase; letter-spacing: .4px; line-height: 1.25; }
 
+/* ============ Franja roja de noticias (como el PDF) ============ */
+.franja-titulo {
+  background: var(--tinto); color: #fff; text-align: center;
+  font-family: var(--serif); font-weight: 700; font-size: 19px;
+  padding: 13px 20px; letter-spacing: .3px;
+}
+
+/* ============ Carrusel de noticias (grilla central que se mueve) ============ */
+.carrusel { position: relative; margin: 24px 0; }
+.slide { display: none; }
+.slide.activo { display: block; }
+.slide-txt {
+  background: linear-gradient(115deg, #0b3d73, #1565a8);
+  color: #fff; border-radius: 8px; padding: 44px 40px; min-height: 220px;
+  display: flex; flex-direction: column; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+}
+.slide-etq { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--amarillo); margin-bottom: 8px; }
+.slide-txt h2 { color: #fff; font-size: 30px; margin-bottom: 10px; }
+.slide-txt p { color: #eaf1f8; font-size: 16px; max-width: 640px; }
+.slide-detalle { font-weight: 700; margin-top: 8px; }
+.puntos { text-align: center; margin-top: 14px; }
+.punto { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: #c9d3dd; margin: 0 4px; cursor: pointer; transition: background .2s; }
+.punto.activo { background: var(--tinto); }
+
+/* ============ Grilla de tarjetas iguales (Actualidad / Aprendamos) ============ */
+.grid-tarjetas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.t-noticia, .t-ident { display: block; background: #fff; border: 1px solid var(--linea); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.05); transition: transform .18s, box-shadow .18s; }
+.t-noticia:hover, .t-ident:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(0,0,0,.12); }
+.t-foto { height: 130px; background-size: cover; background-position: center; }
+.t-pie { padding: 12px 14px; font-size: 13.5px; font-weight: 700; color: var(--azul); line-height: 1.35; }
+.t-ident .t-pie { text-align: center; text-transform: uppercase; letter-spacing: .3px; font-size: 13px; }
+
+/* ============ Portafolio de servicios (bloque de texto, como el PDF) ============ */
+.portafolio { background: var(--gris-suave); border: 1px solid var(--linea); border-left: 5px solid var(--amarillo); border-radius: 6px; padding: 32px 34px; margin: 12px 0; }
+.portafolio h2 { font-size: 26px; margin-bottom: 12px; }
+.portafolio p { max-width: 900px; margin-bottom: 18px; }
+
 /* ============ Títulos de sección ============ */
 .encabezado-seccion { margin: 46px 0 22px; }
 .encabezado-seccion .sobre { font-size: 12.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--verde); }
@@ -244,8 +282,12 @@ h1, h2, h3, h4 { font-family: var(--serif); color: var(--azul); line-height: 1.3
   .noticias-grid, .layout, .pie-grid { grid-template-columns: 1fr; }
   .servicios, .cifras-grid, .stats, .indicadores, .identidad { grid-template-columns: repeat(2, 1fr); }
   .cifra + .cifra { border-left: none; }
+  .grid-tarjetas { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 560px) {
   .accesos-grid, .servicios, .cifras-grid, .stats, .indicadores, .identidad { grid-template-columns: 1fr 1fr; }
+  .grid-tarjetas { grid-template-columns: 1fr 1fr; }
   .marca-superior .rotulo strong { font-size: 20px; }
+  .slide-txt { padding: 30px 24px; }
+  .slide-txt h2 { font-size: 23px; }
 }

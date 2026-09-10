@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alcaldía de Subachoque · Territorio Inteligente</title>
   <meta name="description" content="Portal oficial de la Alcaldía Municipal de Subachoque, Cundinamarca.">
-  <link rel="stylesheet" href="css/estilos.css?v=3">
+  <link rel="stylesheet" href="css/estilos.css?v=4">
 </head>
 <body>
 
@@ -45,142 +45,95 @@
     </nav>
   </div>
 
-  <!-- Hero con imagen real (paisaje rural) + overlay -->
-  <section class="hero">
-    <div class="contenedor">
-      <div class="contenido-hero">
-        <span class="kicker">Administración 2024 – 2027</span>
-        <h1>Un municipio que se gobierna con información y con la gente</h1>
-        <p>Consulta la gestión, los proyectos en ejecución y los datos que orientan las decisiones de Subachoque.</p>
-        <div class="acciones">
-          <a href="plan-desarrollo.html" class="boton boton-primario">Plan de Desarrollo</a>
-          <a href="unidad-cumplimiento.html" class="boton boton-linea">Seguimiento de proyectos</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ============ 1. NOTICIAS (FRANJA + CARRUSEL) — como en el PDF ============ -->
+  <div class="franja-titulo">Noticias de entidades nacionales y departamentales</div>
 
-  <!-- Accesos rápidos con iconos circulares (estilo Gobernación) -->
-  <section class="accesos">
-    <div class="contenedor">
-      <div class="accesos-grid">
-        <a class="acceso" href="unidad-cumplimiento.html"><div class="circulo">📊</div><div class="txt">Rendición de cuentas</div></a>
-        <a class="acceso" href="#"><div class="circulo">📝</div><div class="txt">PQRSD</div></a>
-        <a class="acceso" href="plan-desarrollo.html"><div class="circulo">📘</div><div class="txt">Plan de Desarrollo</div></a>
-        <a class="acceso" href="#"><div class="circulo">💰</div><div class="txt">Impuestos</div></a>
-        <a class="acceso" href="#"><div class="circulo">🖥️</div><div class="txt">Ventanilla única</div></a>
-        <a class="acceso" href="data-territorio.html"><div class="circulo">📈</div><div class="txt">Data Territorio</div></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Noticias reales -->
   <div class="contenedor">
-    <header class="encabezado-seccion">
-      <span class="sobre">Sala de prensa</span>
-      <h2>Actualidad de Subachoque</h2>
-    </header>
-
-    <div class="noticias-grid">
-      <article class="noticia-mayor">
-        <div class="foto" style="background-image:linear-gradient(135deg,#1d5c34,#0e3a1f);">
-          <span class="etiqueta">Subachoque</span>
+    <div class="carrusel">
+      <div class="slide activo">
+        <div class="slide-txt">
+          <span class="slide-etq">Gobernación de Cundinamarca</span>
+          <h2>Festival de Empleo</h2>
+          <p>+30 empresas aliadas y más de 3.000 vacantes disponibles para los habitantes de la región.</p>
+          <p class="slide-detalle">21 de agosto de 2026 · Plazoleta Principal · 8:00 a.m. – 4:00 p.m.</p>
         </div>
-        <div class="cuerpo">
-          <span class="fecha">8 de octubre de 2025 · Alcaldía de Subachoque</span>
-          <h3>Subachoque, el municipio líder en desempeño fiscal de Cundinamarca</h3>
-          <p>Con una calificación de 74,3 puntos, Subachoque es el mejor municipio de Cundinamarca entre
-          116 poblaciones y el número 13 del país en el Índice de Desempeño Fiscal 2024 del Departamento
-          Nacional de Planeación (DNP).</p>
-          <a href="https://www.elespectador.com/colombia/cundinamarca/subachoque-ordeno-la-casa-y-ahora-es-lider-en-desempeno-fiscal-en-cundinamarca/" target="_blank" rel="noopener" class="leer-mas">Leer nota completa →</a>
+      </div>
+      <div class="slide">
+        <div class="slide-txt">
+          <span class="slide-etq">Alcaldía de Subachoque</span>
+          <h2>Subachoque, líder en desempeño fiscal</h2>
+          <p>El mejor municipio de Cundinamarca entre 116 poblaciones, con 74,3 puntos en el Índice del DNP 2024.</p>
+          <p class="slide-detalle">Fuente: El Espectador · octubre de 2025</p>
         </div>
-      </article>
-
-      <div class="lista-noticias">
-        <article class="item">
-          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/via-subachoque-la-cuesta-puente-piedra-alcanza-65-de-ejecucion/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#6b5636,#3d3020);"></div></a>
-          <div>
-            <span class="fecha">Gobernación de Cundinamarca</span>
-            <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/via-subachoque-la-cuesta-puente-piedra-alcanza-65-de-ejecucion/" target="_blank" rel="noopener"><h4>La vía Subachoque–La Cuesta–Puente Piedra alcanza el 65 % de ejecución</h4></a>
-          </div>
-        </article>
-        <article class="item">
-          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-renueva-alcantarillado-en-el-bosque-por-fallo-del-rio-bogota/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#345a7a,#1c3348);"></div></a>
-          <div>
-            <span class="fecha">Alcaldía de Subachoque</span>
-            <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-renueva-alcantarillado-en-el-bosque-por-fallo-del-rio-bogota/" target="_blank" rel="noopener"><h4>Renovación del alcantarillado en El Bosque por cerca de $300 millones</h4></a>
-          </div>
-        </article>
-        <article class="item">
-          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-invierte-50-millones-para-preparar-a-468-estudiantes-para-el-icfes/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#2f6b47,#184028);"></div></a>
-          <div>
-            <span class="fecha">Alcaldía de Subachoque</span>
-            <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-invierte-50-millones-para-preparar-a-468-estudiantes-para-el-icfes/" target="_blank" rel="noopener"><h4>$50 millones para preparar a 468 estudiantes en las Pruebas Saber 11</h4></a>
-          </div>
-        </article>
-        <article class="item" style="border-bottom:none;">
-          <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-sistema-de-monitoreo-ante-riesgos-asociados-al-fenomeno-de-el-nino/" target="_blank" rel="noopener"><div class="mini" style="background-image:linear-gradient(135deg,#5a3b6a,#33203d);"></div></a>
-          <div>
-            <span class="fecha">Alcaldía de Subachoque</span>
-            <a href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-sistema-de-monitoreo-ante-riesgos-asociados-al-fenomeno-de-el-nino/" target="_blank" rel="noopener"><h4>Subachoque activa sistema de monitoreo ante el Fenómeno de El Niño</h4></a>
-          </div>
-        </article>
+      </div>
+      <div class="slide">
+        <div class="slide-txt">
+          <span class="slide-etq">Gobernación de Cundinamarca</span>
+          <h2>Vía Subachoque – Puente Piedra</h2>
+          <p>El corredor vial alcanza el 65 % de ejecución, con una inversión superior a $21.500 millones.</p>
+          <p class="slide-detalle">Instituto de Caminos de Cundinamarca (ICCU)</p>
+        </div>
+      </div>
+      <div class="puntos">
+        <span class="punto activo"></span>
+        <span class="punto"></span>
+        <span class="punto"></span>
       </div>
     </div>
   </div>
 
-  <!-- Servicios -->
-  <section class="franja-azul">
-    <div class="contenedor">
-      <header class="encabezado-seccion" style="margin-top:0;">
-        <span class="sobre">Atención al ciudadano</span>
-        <h2>Trámites y servicios</h2>
-      </header>
-      <p class="intro">Impuestos, SISBEN, certificados, autorizaciones urbanísticas, nomenclatura y licencias.</p>
-      <div class="servicios">
-        <a class="servicio" href="#"><div class="n">Trámite en línea</div><h4>Impuesto predial unificado</h4><p>Consulta y pago · Sin costo</p></a>
-        <a class="servicio" href="#"><div class="n">Trámite en línea</div><h4>Industria y comercio</h4><p>Declaración y liquidación</p></a>
-        <a class="servicio" href="#"><div class="n">Trámite presencial</div><h4>Certificado de residencia</h4><p>Solicitud en ventanilla</p></a>
-        <a class="servicio" href="#"><div class="n">Trámite en línea</div><h4>SISBEN</h4><p>Consulta y actualización</p></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Identidad -->
+  <!-- ============ 2. ACTUALIDAD DE LA ENTIDAD — 5 tarjetas (como el PDF) ============ -->
   <div class="contenedor">
-    <header class="encabezado-seccion">
-      <span class="sobre">Nuestra identidad</span>
-      <h2>Conozca a Subachoque</h2>
-    </header>
-    <div class="identidad">
-      <article class="ident-card">
-        <div class="franja-color c1"></div>
-        <div class="contenido-card"><h4>Símbolos patrios</h4><p>Himno, escudo y bandera que representan la historia y los valores de nuestro municipio.</p><a href="#" class="vinculo">Ver símbolos →</a></div>
-      </article>
-      <article class="ident-card">
-        <div class="franja-color c1" style="background:var(--verde);"></div>
-        <div class="contenido-card"><h4>Nuestro territorio</h4><p>Ubicación, veredas, división político-administrativa y riqueza ambiental de Subachoque.</p><a href="#" class="vinculo">Explorar el territorio →</a></div>
-      </article>
-      <article class="ident-card">
-        <div class="franja-color c1" style="background:var(--azul-med);"></div>
-        <div class="contenido-card"><h4>Galería</h4><p>Imágenes de los paisajes, eventos y la vida cotidiana de nuestra comunidad.</p><a href="#" class="vinculo">Ver galería →</a></div>
-      </article>
+    <header class="encabezado-seccion"><h2>Actualidad de la entidad</h2></header>
+    <div class="grid-tarjetas">
+      <a class="t-noticia" href="https://www.elespectador.com/colombia/cundinamarca/subachoque-ordeno-la-casa-y-ahora-es-lider-en-desempeno-fiscal-en-cundinamarca/" target="_blank" rel="noopener">
+        <div class="t-foto" style="background:linear-gradient(135deg,#1d5c34,#0e3a1f);"></div>
+        <div class="t-pie">Subachoque, líder en desempeño fiscal de Cundinamarca</div>
+      </a>
+      <a class="t-noticia" href="https://eldoradoradio.cundinamarca.gov.co/noticias/via-subachoque-la-cuesta-puente-piedra-alcanza-65-de-ejecucion/" target="_blank" rel="noopener">
+        <div class="t-foto" style="background:linear-gradient(135deg,#6b5636,#3d3020);"></div>
+        <div class="t-pie">Vía Subachoque – Puente Piedra al 65 % de ejecución</div>
+      </a>
+      <a class="t-noticia" href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-renueva-alcantarillado-en-el-bosque-por-fallo-del-rio-bogota/" target="_blank" rel="noopener">
+        <div class="t-foto" style="background:linear-gradient(135deg,#345a7a,#1c3348);"></div>
+        <div class="t-pie">Renovación del alcantarillado en El Bosque</div>
+      </a>
+      <a class="t-noticia" href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-invierte-50-millones-para-preparar-a-468-estudiantes-para-el-icfes/" target="_blank" rel="noopener">
+        <div class="t-foto" style="background:linear-gradient(135deg,#2f6b47,#184028);"></div>
+        <div class="t-pie">$50 millones para preparar 468 estudiantes al ICFES</div>
+      </a>
+      <a class="t-noticia" href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-sistema-de-monitoreo-ante-riesgos-asociados-al-fenomeno-de-el-nino/" target="_blank" rel="noopener">
+        <div class="t-foto" style="background:linear-gradient(135deg,#5a3b6a,#33203d);"></div>
+        <div class="t-pie">Monitoreo ante el Fenómeno de El Niño</div>
+      </a>
     </div>
   </div>
 
-  <!-- Cifras -->
-  <section class="cifras">
-    <div class="contenedor">
-      <div class="cifras-grid">
-        <div class="cifra"><div class="num">18.259</div><div class="desc">Habitantes (proyección 2026)</div></div>
-        <div class="cifra"><div class="num">87,3</div><div class="desc">Habitantes por km²</div></div>
-        <div class="cifra"><div class="num">44,2%</div><div class="desc">Población rural</div></div>
-        <div class="cifra"><div class="num">74,3</div><div class="desc">Índice de Desempeño Fiscal 2024</div></div>
-      </div>
-    </div>
-  </section>
+  <!-- ============ 3. PORTAFOLIO DE SERVICIOS — bloque texto (como el PDF) ============ -->
+  <div class="contenedor">
+    <section class="portafolio">
+      <h2>Portafolio de servicios de Subachoque</h2>
+      <p>El portafolio de servicios de la Alcaldía de Subachoque es el conjunto de trámites, gestiones y
+      atenciones que la administración municipal ofrece a la ciudadanía, incluyendo impuestos como predial e
+      industria y comercio, actualización del SISBEN, autorizaciones urbanísticas, asignación de nomenclatura,
+      licencias y otros servicios orientados a facilitar la relación entre la comunidad y el gobierno local.</p>
+      <a href="#" class="boton boton-primario">Ver más información</a>
+    </section>
+  </div>
 
-  <!-- Footer -->
+  <!-- ============ 4. APRENDAMOS DE NUESTRO TERRITORIO — 5 tarjetas (como el PDF) ============ -->
+  <div class="contenedor">
+    <header class="encabezado-seccion"><h2>Aprendamos de nuestro territorio</h2></header>
+    <div class="grid-tarjetas">
+      <a class="t-ident" href="#"><div class="t-foto" style="background:linear-gradient(135deg,#7a1834,#5c1127);"></div><div class="t-pie">Nuestro himno</div></a>
+      <a class="t-ident" href="#"><div class="t-foto" style="background:linear-gradient(135deg,#2e7d32,#1b5e20);"></div><div class="t-pie">Nuestro escudo</div></a>
+      <a class="t-ident" href="#"><div class="t-foto" style="background:linear-gradient(135deg,#1565a8,#0b3d73);"></div><div class="t-pie">Nuestra bandera</div></a>
+      <a class="t-ident" href="#"><div class="t-foto" style="background:linear-gradient(135deg,#8a6d3b,#5c4826);"></div><div class="t-pie">Nuestro territorio</div></a>
+      <a class="t-ident" href="#"><div class="t-foto" style="background:linear-gradient(135deg,#c8102e,#8a0b20);"></div><div class="t-pie">Galería</div></a>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
   <footer class="pie-pagina">
     <div class="contenedor">
       <div class="pie-grid">
