@@ -3,57 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar Sesión · Subachoque</title>
+  <title>Ingresar · Alcaldía de Subachoque</title>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
-  <!-- ============ HEADER + MENÚ ============ -->
+  <div class="franja-gov">
+    <div class="contenedor">
+      <span>República de Colombia · Departamento de Cundinamarca</span>
+      <span class="gov-links"><a href="#">Atención al ciudadano</a><a href="#">Transparencia</a><a href="#">PQRSD</a></span>
+    </div>
+  </div>
+
   <header class="encabezado">
-    <nav class="barra-nav">
+    <div class="barra-nav">
       <a class="logo" href="index.html">
-        <span class="logo-icono">🌎</span>
-        <span><small>TERRITORIO</small><strong>INTELIGENTE</strong></span>
+        <span class="escudo">S</span>
+        <span class="rotulo"><small>Alcaldía Municipal</small><strong>Subachoque</strong><span>Territorio Inteligente</span></span>
       </a>
-      <button class="hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
-      <div class="menu">
-        <a href="index.html">HOME</a>
-        <a href="data-territorio.html">DATA TERRITORIO</a>
-        <a href="plan-desarrollo.html">PLAN DE DESARROLLO</a>
-        <a href="unidad-cumplimiento.html">UNIDAD DE CUMPLIMIENTO</a>
-        <a href="politicas-publicas.html">POLÍTICAS PÚBLICAS</a>
-        <a href="login.html" class="btn-sesion activo">INICIAR SESIÓN</a>
-      </div>
-    </nav>
+      <button class="hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      <nav class="menu">
+        <a href="index.html">Inicio</a>
+        <a href="data-territorio.html">Data Territorio</a>
+        <a href="plan-desarrollo.html">Plan de Desarrollo</a>
+        <a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a>
+        <a href="politicas-publicas.html">Políticas Públicas</a>
+        <a href="login.html" class="btn-sesion activo">Ingresar</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- ============ FORMULARIO DE LOGIN ============ -->
   <div class="login-wrap">
-    <form class="login-card" onsubmit="event.preventDefault(); alert('Función de inicio de sesión pendiente de conectar con el servidor.');">
-      <h1>🔐 Iniciar Sesión</h1>
-      <label for="usuario">Usuario o correo</label>
-      <input type="text" id="usuario" name="usuario" placeholder="ejemplo@subachoque.gov.co" required>
+    <form class="login-card" onsubmit="event.preventDefault(); alert('El inicio de sesión estará disponible próximamente.');">
+      <h1>Ingreso al sistema</h1>
+      <span class="subt">Acceso para funcionarios de la Alcaldía</span>
+      <label for="usuario">Usuario o correo institucional</label>
+      <input type="text" id="usuario" name="usuario" placeholder="nombre@subachoque.gov.co" required>
       <label for="clave">Contraseña</label>
-      <input type="password" id="clave" name="clave" placeholder="••••••••" required>
-      <button type="submit">INGRESAR</button>
-      <p style="text-align:center; margin-top:16px; font-size:13px;">
-        <a href="#" style="color:var(--azul);">¿Olvidaste tu contraseña?</a>
-      </p>
+      <input type="password" id="clave" name="clave" placeholder="Ingresa tu contraseña" required>
+      <button type="submit">Iniciar sesión</button>
+      <p style="text-align:center; margin-top:16px; font-size:13.5px;"><a href="#">¿Olvidaste tu contraseña?</a></p>
     </form>
   </div>
 
-  <!-- ============ FOOTER ============ -->
   <footer class="pie-pagina">
     <div class="contenedor">
-      <h3>MÁS INFORMACIÓN DE LA ENTIDAD TERRITORIAL</h3>
-      <div class="redes">
-        <a class="red-tiktok" href="#">♪</a><a class="red-ig" href="#">📷</a>
-        <a class="red-fb" href="#">f</a><a class="red-x" href="#">✕</a>
-        <a class="red-tg" href="#">✈</a><a class="red-web" href="#">🌐</a>
-        <a class="red-wa" href="#">✆</a>
+      <div class="pie-grid">
+        <div>
+          <div class="marca"><span class="escudo">S</span><div><strong style="font-family:var(--serif); font-size:18px; color:#fff;">Alcaldía de Subachoque</strong><br><span style="font-size:13px;">Territorio Inteligente</span></div></div>
+          <p>Trabajamos por un municipio transparente, sostenible y cercano a su gente.</p>
+          <div class="redes"><a href="#">f</a><a href="#">◎</a><a href="#">✕</a><a href="#">▶</a><a href="#">✆</a></div>
+        </div>
+        <div><h3>Contacto</h3><p>Palacio Municipal<br>Carrera 5 No. 3 – 40, Subachoque</p><p>Cundinamarca, Colombia</p><p>contactenos@subachoque.gov.co</p></div>
+        <div><h3>Enlaces</h3><ul><li><a href="data-territorio.html">Data Territorio</a></li><li><a href="plan-desarrollo.html">Plan de Desarrollo</a></li><li><a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a></li><li><a href="politicas-publicas.html">Políticas Públicas</a></li></ul></div>
       </div>
-      <p class="copyright">© 2026 Alcaldía de Subachoque · Territorio Inteligente</p>
     </div>
+    <div class="pie-legal"><div class="contenedor"><span>© 2026 Alcaldía Municipal de Subachoque.</span><span>Lunes a viernes, 8:00 a.m. – 5:00 p.m.</span></div></div>
   </footer>
 
   <script src="js/principal.js"></script>

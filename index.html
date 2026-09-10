@@ -3,107 +3,222 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Territorio Inteligente · Subachoque</title>
+  <title>Alcaldía de Subachoque · Territorio Inteligente</title>
+  <meta name="description" content="Portal oficial de la Alcaldía Municipal de Subachoque, Cundinamarca.">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
-  <!-- ============ HEADER + MENÚ ============ -->
+  <!-- Franja gubernamental superior -->
+  <div class="franja-gov">
+    <div class="contenedor">
+      <span>República de Colombia · Departamento de Cundinamarca</span>
+      <span class="gov-links">
+        <a href="#">Atención al ciudadano</a>
+        <a href="#">Transparencia</a>
+        <a href="#">PQRSD</a>
+      </span>
+    </div>
+  </div>
+
+  <!-- Encabezado -->
   <header class="encabezado">
-    <nav class="barra-nav">
+    <div class="barra-nav">
       <a class="logo" href="index.html">
-        <span class="logo-icono">🌎</span>
-        <span><small>TERRITORIO</small><strong>INTELIGENTE</strong></span>
+        <span class="escudo">S</span>
+        <span class="rotulo">
+          <small>Alcaldía Municipal</small>
+          <strong>Subachoque</strong>
+          <span>Territorio Inteligente</span>
+        </span>
       </a>
-      <button class="hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
-      <div class="menu">
-        <a href="index.html" class="activo">HOME</a>
-        <a href="data-territorio.html">DATA TERRITORIO</a>
-        <a href="plan-desarrollo.html">PLAN DE DESARROLLO</a>
-        <a href="unidad-cumplimiento.html">UNIDAD DE CUMPLIMIENTO</a>
-        <a href="politicas-publicas.html">POLÍTICAS PÚBLICAS</a>
-        <a href="login.html" class="btn-sesion">INICIAR SESIÓN</a>
-      </div>
-    </nav>
+      <button class="hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      <nav class="menu">
+        <a href="index.html" class="activo">Inicio</a>
+        <a href="data-territorio.html">Data Territorio</a>
+        <a href="plan-desarrollo.html">Plan de Desarrollo</a>
+        <a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a>
+        <a href="politicas-publicas.html">Políticas Públicas</a>
+        <a href="login.html" class="btn-sesion">Ingresar</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- ============ NOTICIAS (CARRUSEL) ============ -->
-  <div class="franja-titulo rojo">NOTICIAS DE ENTIDADES NACIONALES Y DEPARTAMENTALES</div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="contenedor">
+      <span class="kicker">Administración 2024 – 2027</span>
+      <h1>Un municipio que se gobierna con información y con la gente</h1>
+      <p>Consulta la gestión, los proyectos en ejecución y los datos que orientan las decisiones de tu municipio.</p>
+      <div class="acciones">
+        <a href="plan-desarrollo.html" class="boton boton-primario">Conoce el Plan de Desarrollo</a>
+        <a href="unidad-cumplimiento.html" class="boton boton-linea">Seguimiento de proyectos</a>
+      </div>
+    </div>
+  </section>
 
+  <!-- Noticias -->
   <div class="contenedor">
-    <div class="carrusel" style="position:relative; margin:18px 0;">
-      <div class="slide activo" style="background:linear-gradient(120deg,#0a3d62,#1e7be0); color:#fff; border-radius:10px; padding:40px; text-align:center;">
-        <h2 style="color:#fff; font-size:30px;">FESTIVAL DE EMPLEO SOACHA</h2>
-        <p style="color:#fff;">+30 empresas aliadas · +3.000 vacantes disponibles</p>
-        <p style="color:#fff; font-weight:700;">21 de agosto de 2026 · Plazoleta Principal de Soacha · 8:00 a.m. – 4:00 p.m.</p>
-      </div>
-      <div class="slide" style="display:none; background:linear-gradient(120deg,#176e33,#2fb457); color:#fff; border-radius:10px; padding:40px; text-align:center;">
-        <h2 style="color:#fff; font-size:30px;">GOBERNACIÓN DE CUNDINAMARCA</h2>
-        <p style="color:#fff;">Programas de apoyo a los municipios de la región.</p>
-      </div>
-      <div class="slide" style="display:none; background:linear-gradient(120deg,#7a1e6b,#b01050); color:#fff; border-radius:10px; padding:40px; text-align:center;">
-        <h2 style="color:#fff; font-size:30px;">CONVOCATORIAS NACIONALES</h2>
-        <p style="color:#fff;">Oportunidades de formación y emprendimiento.</p>
-      </div>
-      <div style="text-align:center; margin-top:12px;">
-        <span class="punto activo" style="display:inline-block; width:12px; height:12px; border-radius:50%; background:#B01050; margin:0 4px; cursor:pointer;"></span>
-        <span class="punto" style="display:inline-block; width:12px; height:12px; border-radius:50%; background:#ccc; margin:0 4px; cursor:pointer;"></span>
-        <span class="punto" style="display:inline-block; width:12px; height:12px; border-radius:50%; background:#ccc; margin:0 4px; cursor:pointer;"></span>
+    <header class="encabezado-seccion">
+      <span class="sobre">Sala de prensa</span>
+      <h2>Noticias de la entidad</h2>
+    </header>
+
+    <div class="noticias-grid">
+      <!-- Noticia destacada -->
+      <article class="noticia-mayor">
+        <div class="foto" style="background-image:linear-gradient(135deg,#4a6741,#2e4a2c);">
+          <span class="etiqueta">Gestión</span>
+        </div>
+        <div class="cuerpo">
+          <span class="fecha">10 de septiembre de 2026</span>
+          <h3>Subachoque pasó del puesto 38 al primer lugar en desempeño municipal</h3>
+          <p>El municipio escaló posiciones en la medición departamental de gestión gracias al
+          fortalecimiento institucional y al uso de datos para la toma de decisiones.</p>
+          <a href="#" class="leer-mas">Leer nota completa →</a>
+        </div>
+      </article>
+
+      <!-- Lista lateral -->
+      <div class="lista-noticias">
+        <article class="item">
+          <a href="#"><div class="mini" style="background-image:linear-gradient(135deg,#7a5c3e,#4d3a26);"></div></a>
+          <div>
+            <span class="fecha">8 de septiembre de 2026</span>
+            <a href="#"><h4>La Inspección de La Pradera cumple 133 años de historia</h4></a>
+          </div>
+        </article>
+        <article class="item">
+          <a href="#"><div class="mini" style="background-image:linear-gradient(135deg,#42607a,#243b4d);"></div></a>
+          <div>
+            <span class="fecha">5 de septiembre de 2026</span>
+            <a href="#"><h4>Subachoque refuerza la seguridad en la vía hacia El Rosal</h4></a>
+          </div>
+        </article>
+        <article class="item">
+          <a href="#"><div class="mini" style="background-image:linear-gradient(135deg,#3f6b52,#1f4030);"></div></a>
+          <div>
+            <span class="fecha">1 de septiembre de 2026</span>
+            <a href="#"><h4>Campaña por la recuperación del humedal del municipio</h4></a>
+          </div>
+        </article>
+        <article class="item" style="border-bottom:none;">
+          <a href="#"><div class="mini" style="background-image:linear-gradient(135deg,#6a3b5e,#3d2038);"></div></a>
+          <div>
+            <span class="fecha">28 de agosto de 2026</span>
+            <a href="#"><h4>Ya está disponible el asistente virtual de trámites</h4></a>
+          </div>
+        </article>
       </div>
     </div>
   </div>
 
-  <!-- ============ ACTUALIDAD DE LA ENTIDAD ============ -->
+  <!-- Portafolio de servicios -->
+  <section class="franja-tinto">
+    <div class="contenedor">
+      <header class="encabezado-seccion" style="margin-top:0;">
+        <span class="sobre">Atención al ciudadano</span>
+        <h2>Portafolio de servicios</h2>
+      </header>
+      <p class="intro">Trámites, gestiones y atenciones que la Alcaldía ofrece a la ciudadanía: impuestos,
+      SISBEN, autorizaciones urbanísticas, nomenclatura, licencias y más.</p>
+
+      <div class="servicios">
+        <a class="servicio" href="#"><div class="n">Trámite en línea</div><h4>Impuesto predial unificado</h4><p>Consulta y pago · Sin costo</p></a>
+        <a class="servicio" href="#"><div class="n">Trámite en línea</div><h4>Industria y comercio</h4><p>Declaración y liquidación</p></a>
+        <a class="servicio" href="#"><div class="n">Trámite presencial</div><h4>Certificado de residencia</h4><p>Solicitud en ventanilla</p></a>
+        <a class="servicio" href="#"><div class="n">Trámite en línea</div><h4>SISBEN</h4><p>Consulta y actualización</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Identidad del municipio -->
   <div class="contenedor">
-    <h2 class="titulo-seccion">ACTUALIDAD DE LA ENTIDAD</h2>
-    <div class="grid grid-5">
-      <article class="tarjeta"><div class="miniatura">📰</div><div class="pie">Subachoque pasó del puesto 38 al primero</div></article>
-      <article class="tarjeta"><div class="miniatura">🏛️</div><div class="pie">Inspección La Pradera · 133 años</div></article>
-      <article class="tarjeta"><div class="miniatura">🤝</div><div class="pie">Subachoque refuerza la seguridad</div></article>
-      <article class="tarjeta"><div class="miniatura">🌿</div><div class="pie">Subachoque está muriendo · cuidemos el humedal</div></article>
-      <article class="tarjeta"><div class="miniatura">📢</div><div class="pie">Novedades del mes · asistente virtual</div></article>
+    <header class="encabezado-seccion">
+      <span class="sobre">Nuestra identidad</span>
+      <h2>Conozca a Subachoque</h2>
+    </header>
+
+    <div class="identidad">
+      <article class="ident-card">
+        <div class="franja-color c1"></div>
+        <div class="contenido-card">
+          <h4>Símbolos patrios</h4>
+          <p>Himno, escudo y bandera que representan la historia y los valores de nuestro municipio.</p>
+          <a href="#" class="vinculo">Ver símbolos →</a>
+        </div>
+      </article>
+      <article class="ident-card">
+        <div class="franja-color c1" style="background:var(--verde-band);"></div>
+        <div class="contenido-card">
+          <h4>Nuestro territorio</h4>
+          <p>Ubicación, veredas, división político-administrativa y riqueza ambiental de Subachoque.</p>
+          <a href="#" class="vinculo">Explorar el territorio →</a>
+        </div>
+      </article>
+      <article class="ident-card">
+        <div class="franja-color c1" style="background:var(--azul-gob);"></div>
+        <div class="contenido-card">
+          <h4>Galería</h4>
+          <p>Imágenes de los paisajes, eventos y la vida cotidiana de nuestra comunidad.</p>
+          <a href="#" class="vinculo">Ver galería →</a>
+        </div>
+      </article>
     </div>
   </div>
 
-  <!-- ============ PORTAFOLIO DE SERVICIOS ============ -->
-  <div class="contenedor">
-    <div class="bloque-destacado">
-      <h2 class="titulo-seccion" style="margin-top:0;">PORTAFOLIO DE SERVICIOS DE SUBACHOQUE</h2>
-      <p>El portafolio de servicios de la Alcaldía de Subachoque es el conjunto de trámites, gestiones y
-      atenciones que la administración municipal ofrece a la ciudadanía, incluyendo impuestos como
-      predial e industria y comercio, actualización del SISBEN, autorizaciones urbanísticas, asignación
-      de nomenclatura, licencias y otros servicios orientados a facilitar la relación entre la comunidad
-      y el gobierno local.</p>
-      <a href="#" style="display:inline-block; background:#fff; border:1px solid #ccc; border-radius:20px; padding:8px 18px; font-weight:700; font-size:13px;">MORE INFO ⓘ</a>
+  <!-- Cifras del municipio -->
+  <section class="cifras">
+    <div class="contenedor">
+      <div class="cifras-grid">
+        <div class="cifra"><div class="num">18.259</div><div class="desc">Habitantes (proyección 2026)</div></div>
+        <div class="cifra"><div class="num">87,3</div><div class="desc">Habitantes por km²</div></div>
+        <div class="cifra"><div class="num">44,2%</div><div class="desc">Población rural</div></div>
+        <div class="cifra"><div class="num">109</div><div class="desc">Metas del Plan de Desarrollo</div></div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ============ APRENDAMOS DE NUESTRO TERRITORIO ============ -->
-  <div class="contenedor">
-    <h2 class="titulo-seccion">APRENDAMOS DE NUESTRO TERRITORIO</h2>
-    <div class="grid grid-5">
-      <article class="tarjeta"><div class="miniatura">🎵</div><div class="pie">NUESTRO HIMNO</div></article>
-      <article class="tarjeta"><div class="miniatura">🛡️</div><div class="pie">NUESTRO ESCUDO</div></article>
-      <article class="tarjeta"><div class="miniatura">🚩</div><div class="pie">NUESTRA BANDERA</div></article>
-      <article class="tarjeta"><div class="miniatura">🗺️</div><div class="pie">NUESTRO TERRITORIO</div></article>
-      <article class="tarjeta"><div class="miniatura">📸</div><div class="pie">GALERÍA</div></article>
-    </div>
-  </div>
-
-  <!-- ============ FOOTER ============ -->
+  <!-- Pie de página -->
   <footer class="pie-pagina">
     <div class="contenedor">
-      <h3>MÁS INFORMACIÓN DE LA ENTIDAD TERRITORIAL</h3>
-      <div class="redes">
-        <a class="red-tiktok" href="#" title="TikTok">♪</a>
-        <a class="red-ig" href="#" title="Instagram">📷</a>
-        <a class="red-fb" href="#" title="Facebook">f</a>
-        <a class="red-x" href="#" title="X">✕</a>
-        <a class="red-tg" href="#" title="Telegram">✈</a>
-        <a class="red-web" href="#" title="Sitio web">🌐</a>
-        <a class="red-wa" href="#" title="WhatsApp">✆</a>
+      <div class="pie-grid">
+        <div>
+          <div class="marca">
+            <span class="escudo">S</span>
+            <div><strong style="font-family:var(--serif); font-size:18px; color:#fff;">Alcaldía de Subachoque</strong><br><span style="font-size:13px;">Territorio Inteligente</span></div>
+          </div>
+          <p>Trabajamos por un municipio transparente, sostenible y cercano a su gente.</p>
+          <div class="redes">
+            <a href="#" title="Facebook">f</a>
+            <a href="#" title="Instagram">◎</a>
+            <a href="#" title="X">✕</a>
+            <a href="#" title="YouTube">▶</a>
+            <a href="#" title="WhatsApp">✆</a>
+          </div>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <p>Palacio Municipal<br>Carrera 5 No. 3 – 40, Subachoque</p>
+          <p>Cundinamarca, Colombia</p>
+          <p>Tel: (601) 000 0000<br>contactenos@subachoque.gov.co</p>
+        </div>
+        <div>
+          <h3>Enlaces</h3>
+          <ul>
+            <li><a href="data-territorio.html">Data Territorio</a></li>
+            <li><a href="plan-desarrollo.html">Plan de Desarrollo</a></li>
+            <li><a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a></li>
+            <li><a href="politicas-publicas.html">Políticas Públicas</a></li>
+          </ul>
+        </div>
       </div>
-      <p class="copyright">© 2026 Alcaldía de Subachoque · Territorio Inteligente</p>
+    </div>
+    <div class="pie-legal">
+      <div class="contenedor">
+        <span>© 2026 Alcaldía Municipal de Subachoque. Todos los derechos reservados.</span>
+        <span>Horario: Lunes a viernes, 8:00 a.m. – 5:00 p.m.</span>
+      </div>
     </div>
   </footer>
 

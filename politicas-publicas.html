@@ -3,79 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Políticas Públicas · Subachoque</title>
+  <title>Políticas Públicas · Alcaldía de Subachoque</title>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
-  <!-- ============ HEADER + MENÚ ============ -->
+  <div class="franja-gov">
+    <div class="contenedor">
+      <span>República de Colombia · Departamento de Cundinamarca</span>
+      <span class="gov-links"><a href="#">Atención al ciudadano</a><a href="#">Transparencia</a><a href="#">PQRSD</a></span>
+    </div>
+  </div>
+
   <header class="encabezado">
-    <nav class="barra-nav">
+    <div class="barra-nav">
       <a class="logo" href="index.html">
-        <span class="logo-icono">🌎</span>
-        <span><small>TERRITORIO</small><strong>INTELIGENTE</strong></span>
+        <span class="escudo">S</span>
+        <span class="rotulo"><small>Alcaldía Municipal</small><strong>Subachoque</strong><span>Territorio Inteligente</span></span>
       </a>
-      <button class="hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
-      <div class="menu">
-        <a href="index.html">HOME</a>
-        <a href="data-territorio.html">DATA TERRITORIO</a>
-        <a href="plan-desarrollo.html">PLAN DE DESARROLLO</a>
-        <a href="unidad-cumplimiento.html">UNIDAD DE CUMPLIMIENTO</a>
-        <a href="politicas-publicas.html" class="activo">POLÍTICAS PÚBLICAS</a>
-        <a href="login.html" class="btn-sesion">INICIAR SESIÓN</a>
-      </div>
-    </nav>
+      <button class="hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      <nav class="menu">
+        <a href="index.html">Inicio</a>
+        <a href="data-territorio.html">Data Territorio</a>
+        <a href="plan-desarrollo.html">Plan de Desarrollo</a>
+        <a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a>
+        <a href="politicas-publicas.html" class="activo">Políticas Públicas</a>
+        <a href="login.html" class="btn-sesion">Ingresar</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- ============ LAYOUT CON SIDEBAR ============ -->
   <div class="layout">
-
-    <aside class="sidebar" style="--rojo:#7B2F9E;">
-      <div class="titulo-sidebar" style="background:#7B2F9E;">5. POLÍTICAS PÚBLICAS</div>
+    <aside class="sidebar morado">
+      <div class="titulo-sidebar">Políticas Públicas</div>
       <ul>
-        <li><a href="#conoce">5.1 Conoce las Políticas Públicas</a></li>
-        <li><a href="#infancia">5.2 Infancia y Adolescencia</a></li>
-        <li><a href="#mujer">5.3 Mujer y Equidad de Género</a></li>
-        <li><a href="#adulto">5.4 Adulto Mayor</a></li>
-        <li><a href="#discapacidad">5.5 Discapacidad</a></li>
-        <li><a href="#juventud">5.6 Juventud</a></li>
-        <li><a href="#ambiente">5.7 Medio Ambiente</a></li>
-        <li><a href="#publicaciones">5.8 Publicaciones</a></li>
-        <li><a href="#glosario">5.9 Glosario</a></li>
+        <li><a href="#conoce">Conoce las políticas</a></li>
+        <li><a href="#lineas">Infancia y adolescencia</a></li>
+        <li><a href="#lineas">Mujer y equidad de género</a></li>
+        <li><a href="#lineas">Adulto mayor</a></li>
+        <li><a href="#lineas">Discapacidad</a></li>
+        <li><a href="#lineas">Juventud</a></li>
+        <li><a href="#lineas">Medio ambiente</a></li>
+        <li><a href="#conoce">Publicaciones</a></li>
+        <li><a href="#conoce">Glosario</a></li>
       </ul>
     </aside>
 
     <main class="contenido">
       <section id="conoce">
-        <h1>¿QUÉ SON LAS POLÍTICAS PÚBLICAS?</h1>
+        <h1>Políticas Públicas</h1>
+        <span class="subt">Decisiones y acciones para garantizar derechos y equidad</span>
+
         <p>Las políticas públicas son el conjunto de decisiones, planes y acciones que la administración
         municipal define e implementa para responder a las necesidades y demandas de la comunidad, orientadas
         a garantizar derechos, promover la equidad y mejorar la calidad de vida de los distintos grupos
         poblacionales del municipio de Subachoque.</p>
+      </section>
 
-        <h2>Líneas de política pública</h2>
-        <div class="acordeon"><button class="cabeza" style="border-left-color:#7B2F9E;">Infancia y Adolescencia <span class="flecha">+</span></button><div class="cuerpo"><p>Protección integral y garantía de derechos de niñas, niños y adolescentes.</p></div></div>
-        <div class="acordeon"><button class="cabeza" style="border-left-color:#7B2F9E;">Mujer y Equidad de Género <span class="flecha">+</span></button><div class="cuerpo"><p>Promoción de la igualdad de oportunidades y prevención de violencias.</p></div></div>
-        <div class="acordeon"><button class="cabeza" style="border-left-color:#7B2F9E;">Adulto Mayor <span class="flecha">+</span></button><div class="cuerpo"><p>Bienestar, participación y protección de las personas mayores.</p></div></div>
-        <div class="acordeon"><button class="cabeza" style="border-left-color:#7B2F9E;">Discapacidad <span class="flecha">+</span></button><div class="cuerpo"><p>Inclusión y accesibilidad para personas con discapacidad.</p></div></div>
-        <div class="acordeon"><button class="cabeza" style="border-left-color:#7B2F9E;">Juventud <span class="flecha">+</span></button><div class="cuerpo"><p>Oportunidades de formación, empleo y participación juvenil.</p></div></div>
-        <div class="acordeon"><button class="cabeza" style="border-left-color:#7B2F9E;">Medio Ambiente <span class="flecha">+</span></button><div class="cuerpo"><p>Sostenibilidad ambiental y protección de los recursos naturales.</p></div></div>
+      <section id="lineas">
+        <h2>Líneas de política</h2>
+        <div class="acordeon"><button class="cabeza">Infancia y adolescencia <span class="flecha">+</span></button><div class="cuerpo"><p>Protección integral y garantía de derechos de niñas, niños y adolescentes.</p></div></div>
+        <div class="acordeon"><button class="cabeza">Mujer y equidad de género <span class="flecha">+</span></button><div class="cuerpo"><p>Igualdad de oportunidades y prevención de violencias.</p></div></div>
+        <div class="acordeon"><button class="cabeza">Adulto mayor <span class="flecha">+</span></button><div class="cuerpo"><p>Bienestar, participación y protección de las personas mayores.</p></div></div>
+        <div class="acordeon"><button class="cabeza">Discapacidad <span class="flecha">+</span></button><div class="cuerpo"><p>Inclusión y accesibilidad para personas con discapacidad.</p></div></div>
+        <div class="acordeon"><button class="cabeza">Juventud <span class="flecha">+</span></button><div class="cuerpo"><p>Oportunidades de formación, empleo y participación juvenil.</p></div></div>
+        <div class="acordeon"><button class="cabeza">Medio ambiente <span class="flecha">+</span></button><div class="cuerpo"><p>Sostenibilidad ambiental y protección de los recursos naturales.</p></div></div>
       </section>
     </main>
   </div>
 
-  <!-- ============ FOOTER ============ -->
   <footer class="pie-pagina">
     <div class="contenedor">
-      <h3>MÁS INFORMACIÓN DE LA ENTIDAD TERRITORIAL</h3>
-      <div class="redes">
-        <a class="red-tiktok" href="#">♪</a><a class="red-ig" href="#">📷</a>
-        <a class="red-fb" href="#">f</a><a class="red-x" href="#">✕</a>
-        <a class="red-tg" href="#">✈</a><a class="red-web" href="#">🌐</a>
-        <a class="red-wa" href="#">✆</a>
+      <div class="pie-grid">
+        <div>
+          <div class="marca"><span class="escudo">S</span><div><strong style="font-family:var(--serif); font-size:18px; color:#fff;">Alcaldía de Subachoque</strong><br><span style="font-size:13px;">Territorio Inteligente</span></div></div>
+          <p>Trabajamos por un municipio transparente, sostenible y cercano a su gente.</p>
+          <div class="redes"><a href="#">f</a><a href="#">◎</a><a href="#">✕</a><a href="#">▶</a><a href="#">✆</a></div>
+        </div>
+        <div><h3>Contacto</h3><p>Palacio Municipal<br>Carrera 5 No. 3 – 40, Subachoque</p><p>Cundinamarca, Colombia</p><p>contactenos@subachoque.gov.co</p></div>
+        <div><h3>Enlaces</h3><ul><li><a href="data-territorio.html">Data Territorio</a></li><li><a href="plan-desarrollo.html">Plan de Desarrollo</a></li><li><a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a></li><li><a href="politicas-publicas.html">Políticas Públicas</a></li></ul></div>
       </div>
-      <p class="copyright">© 2026 Alcaldía de Subachoque · Territorio Inteligente</p>
     </div>
+    <div class="pie-legal"><div class="contenedor"><span>© 2026 Alcaldía Municipal de Subachoque.</span><span>Lunes a viernes, 8:00 a.m. – 5:00 p.m.</span></div></div>
   </footer>
 
   <script src="js/principal.js"></script>
