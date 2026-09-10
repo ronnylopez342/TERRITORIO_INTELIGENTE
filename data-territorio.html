@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Territorio · Subachoque</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- ============ HEADER + MENÚ ============ -->
+  <header class="encabezado">
+    <nav class="barra-nav">
+      <a class="logo" href="index.html">
+        <span class="logo-icono">🌎</span>
+        <span><small>TERRITORIO</small><strong>INTELIGENTE</strong></span>
+      </a>
+      <button class="hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
+      <div class="menu">
+        <a href="index.html">HOME</a>
+        <a href="data-territorio.html" class="activo">DATA TERRITORIO</a>
+        <a href="plan-desarrollo.html">PLAN DE DESARROLLO</a>
+        <a href="unidad-cumplimiento.html">UNIDAD DE CUMPLIMIENTO</a>
+        <a href="politicas-publicas.html">POLÍTICAS PÚBLICAS</a>
+        <a href="login.html" class="btn-sesion">INICIAR SESIÓN</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ LAYOUT CON SIDEBAR ============ -->
+  <div class="layout">
+
+    <!-- Barra lateral -->
+    <aside class="sidebar rojo">
+      <div class="titulo-sidebar">2. DATA TERRITORIO</div>
+      <ul>
+        <li><a href="#conoce">2.1 Conoce Data Territorio</a></li>
+        <li><a href="#plan-estadistico">2.2 Plan Estadístico</a></li>
+        <li><a href="#dane">2.3 Datos del DANE</a></li>
+        <li><a href="#nacionales">2.4 Datos Fuentes Nacionales</a></li>
+        <li><a href="#departamentales">2.5 Datos Fuentes Departamentales</a></li>
+        <li><a href="#municipales">2.6 Datos Fuentes Municipales</a></li>
+        <li><a href="#encuesta">2.7 Encuesta Municipal</a></li>
+        <li><a href="#georreferenciador">2.8 Georreferenciador Data Municipal</a></li>
+        <li><a href="#publicaciones">2.9 Publicaciones</a></li>
+        <li><a href="#glosario">2.10 Glosario</a></li>
+      </ul>
+    </aside>
+
+    <!-- Contenido -->
+    <main class="contenido">
+      <section id="conoce">
+        <h1>¿QUÉ ES DATA TERRITORIO?</h1>
+        <p>Es el sistema integral que reúne, organiza y armoniza toda la información existente sobre un
+        municipio proveniente de fuentes internacionales, nacionales, departamentales y municipales para
+        ofrecer una visión completa, coherente y actualizada de su realidad en cada sector (social,
+        económico, ambiental, institucional, urbano, rural, financiero y de infraestructura). Su propósito
+        es totalizar y consolidar la data dispersa, garantizar su calidad y convertirla en insumo
+        estratégico para la planificación, la toma de decisiones y la gestión pública basada en evidencia.</p>
+
+        <h2>PRINCIPIOS DE DATA TERRITORIO</h2>
+        <p><strong>1. Priorizar la información crítica para la toma de decisiones:</strong> cuando la data es
+        limitada, el territorio debe concentrarse en variables esenciales: población, finanzas públicas,
+        infraestructura básica, riesgos y necesidades sociales.</p>
+        <p><strong>2. Integrar fuentes diversas y de fácil acceso:</strong> la falta de sistemas locales se
+        compensa articulando fuentes internacionales, nacionales, departamentales y comunitarias (DANE, IGAC,
+        SUI, RUNT, SISBEN, POT, juntas de acción comunal).</p>
+        <p><strong>3. Validar la información con actores del territorio:</strong> la verificación comunitaria
+        (líderes, veredas, sectores productivos, instituciones locales) asegura pertinencia y precisión.</p>
+        <p><strong>4. Documentar y estandarizar cada dato recolectado:</strong> crear protocolos simples para
+        registrar, clasificar y actualizar información evita pérdida de datos.</p>
+        <p><strong>5. Construir capacidades locales para la gestión de información:</strong> formar equipos
+        municipales y comunitarios en alfabetización de datos y uso de herramientas básicas.</p>
+      </section>
+
+      <!-- Datos del DANE -->
+      <section id="dane">
+        <h2>2.3 DATOS DEL DANE · Indicadores principales</h2>
+        <div class="grid grid-4">
+          <div class="dato"><div class="etq">PRINCIPAL</div><div class="nombre">Población total</div><div class="valor">18.259</div><div class="nota">↗ +16,6% vs. 2018</div></div>
+          <div class="dato"><div class="etq">PRINCIPAL</div><div class="nombre">Densidad poblacional</div><div class="valor">87,3</div><div class="nota">hab/km² · ↗ +16,6% vs. 2018</div></div>
+          <div class="dato"><div class="etq">PRINCIPAL</div><div class="nombre">Población rural</div><div class="valor">44,2%</div><div class="nota">↘ -17,1% vs. 2018</div></div>
+          <div class="dato"><div class="etq">PRINCIPAL</div><div class="nombre">Población urbana</div><div class="valor">55,8%</div><div class="nota">↗ +19,5% vs. 2018</div></div>
+        </div>
+      </section>
+
+      <!-- Categorías de datos (acordeones) -->
+      <section id="categorias">
+        <h2>Categorías de información</h2>
+
+        <div class="acordeon">
+          <button class="cabeza">1. Demografía y Población <span class="flecha">+</span></button>
+          <div class="cuerpo">
+            <p>Pirámide poblacional, población total y proyecciones (Censo 2018 – proyección 2035).</p>
+            <div class="grid grid-3">
+              <div class="dato"><div class="nombre">Población 2026</div><div class="valor">18.259</div></div>
+              <div class="dato"><div class="nombre">Proyección 2035</div><div class="valor">20.601</div></div>
+              <div class="dato"><div class="nombre">Densidad</div><div class="valor">87,3</div><div class="nota">hab/km²</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acordeon"><button class="cabeza">2. Salud <span class="flecha">+</span></button><div class="cuerpo"><p>Indicadores de cobertura, morbilidad, mortalidad y afiliación al sistema de salud.</p></div></div>
+        <div class="acordeon"><button class="cabeza">3. Educación <span class="flecha">+</span></button><div class="cuerpo"><p>Cobertura escolar, matrícula, deserción y establecimientos educativos.</p></div></div>
+        <div class="acordeon"><button class="cabeza">4. Economía <span class="flecha">+</span></button><div class="cuerpo"><p>Actividades productivas, empleo, industria y comercio del municipio.</p></div></div>
+        <div class="acordeon"><button class="cabeza">5. Convivencia y Seguridad <span class="flecha">+</span></button><div class="cuerpo"><p>Estadísticas de seguridad ciudadana y convivencia.</p></div></div>
+        <div class="acordeon"><button class="cabeza">6. Acceso a Servicios Públicos <span class="flecha">+</span></button><div class="cuerpo"><p>Cobertura de acueducto, alcantarillado, energía, gas e internet.</p></div></div>
+        <div class="acordeon"><button class="cabeza">7. Vivienda <span class="flecha">+</span></button><div class="cuerpo"><p>Déficit de vivienda cualitativo y cuantitativo.</p></div></div>
+        <div class="acordeon"><button class="cabeza">8. Vías <span class="flecha">+</span></button><div class="cuerpo"><p>Estado de la red vial urbana y rural.</p></div></div>
+        <div class="acordeon"><button class="cabeza">9. Ordenamiento Territorial <span class="flecha">+</span></button><div class="cuerpo"><p>Plan de Ordenamiento Territorial y usos del suelo.</p></div></div>
+        <div class="acordeon"><button class="cabeza">10. Medición Institucional <span class="flecha">+</span></button><div class="cuerpo"><p>Índices de desempeño y gestión institucional.</p></div></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="pie-pagina">
+    <div class="contenedor">
+      <h3>MÁS INFORMACIÓN DE LA ENTIDAD TERRITORIAL</h3>
+      <div class="redes">
+        <a class="red-tiktok" href="#">♪</a><a class="red-ig" href="#">📷</a>
+        <a class="red-fb" href="#">f</a><a class="red-x" href="#">✕</a>
+        <a class="red-tg" href="#">✈</a><a class="red-web" href="#">🌐</a>
+        <a class="red-wa" href="#">✆</a>
+      </div>
+      <p class="copyright">© 2026 Alcaldía de Subachoque · Territorio Inteligente</p>
+    </div>
+  </footer>
+
+  <script src="js/principal.js"></script>
+</body>
+</html>

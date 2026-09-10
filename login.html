@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión · Subachoque</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- ============ HEADER + MENÚ ============ -->
+  <header class="encabezado">
+    <nav class="barra-nav">
+      <a class="logo" href="index.html">
+        <span class="logo-icono">🌎</span>
+        <span><small>TERRITORIO</small><strong>INTELIGENTE</strong></span>
+      </a>
+      <button class="hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
+      <div class="menu">
+        <a href="index.html">HOME</a>
+        <a href="data-territorio.html">DATA TERRITORIO</a>
+        <a href="plan-desarrollo.html">PLAN DE DESARROLLO</a>
+        <a href="unidad-cumplimiento.html">UNIDAD DE CUMPLIMIENTO</a>
+        <a href="politicas-publicas.html">POLÍTICAS PÚBLICAS</a>
+        <a href="login.html" class="btn-sesion activo">INICIAR SESIÓN</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ FORMULARIO DE LOGIN ============ -->
+  <div class="login-wrap">
+    <form class="login-card" onsubmit="event.preventDefault(); alert('Función de inicio de sesión pendiente de conectar con el servidor.');">
+      <h1>🔐 Iniciar Sesión</h1>
+      <label for="usuario">Usuario o correo</label>
+      <input type="text" id="usuario" name="usuario" placeholder="ejemplo@subachoque.gov.co" required>
+      <label for="clave">Contraseña</label>
+      <input type="password" id="clave" name="clave" placeholder="••••••••" required>
+      <button type="submit">INGRESAR</button>
+      <p style="text-align:center; margin-top:16px; font-size:13px;">
+        <a href="#" style="color:var(--azul);">¿Olvidaste tu contraseña?</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="pie-pagina">
+    <div class="contenedor">
+      <h3>MÁS INFORMACIÓN DE LA ENTIDAD TERRITORIAL</h3>
+      <div class="redes">
+        <a class="red-tiktok" href="#">♪</a><a class="red-ig" href="#">📷</a>
+        <a class="red-fb" href="#">f</a><a class="red-x" href="#">✕</a>
+        <a class="red-tg" href="#">✈</a><a class="red-web" href="#">🌐</a>
+        <a class="red-wa" href="#">✆</a>
+      </div>
+      <p class="copyright">© 2026 Alcaldía de Subachoque · Territorio Inteligente</p>
+    </div>
+  </footer>
+
+  <script src="js/principal.js"></script>
+</body>
+</html>
