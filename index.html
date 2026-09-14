@@ -1,215 +1,379 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alcaldía de Subachoque · Territorio Inteligente</title>
-  <meta name="description" content="Portal oficial de la Alcaldía Municipal de Subachoque, Cundinamarca.">
-  <link rel="stylesheet" href="css/estilos.css?v=8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111820">
+<title>Territorio Inteligente</title>
+<!--
+  HERO AUDIOVISUAL
+  ===============
+  Opción preferida: guarda el MP4 como assets/video/asi-cumplimos.mp4.
+  Si ese archivo no existe o no carga, la página intenta usar el enlace de YouTube configurado al final.
+  Si YouTube no puede reproducirse, quedan las fotografías de respaldo.
+-->
+<style>
+:root{
+  --ink:#111820;
+  --ink2:#1b242c;
+  --paper:#f4f1e8;
+  --white:#fff;
+  --yellow:#ffe500;
+  --line:rgba(17,24,32,.18);
+  --max:1480px;
+  --pad:clamp(22px,3.6vw,64px);
+  --nav-h:86px;
+  --announcement-h:46px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input{font:inherit}
+button{color:inherit}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%}
+::selection{background:var(--yellow);color:var(--ink)}
+
+/* HEADER — visual logic referenced from Delivery Associates */
+.site-header{position:fixed;z-index:1000;top:0;left:0;right:0;color:#fff;transition:.3s ease}
+.site-header.scrolled,.site-header.force-dark{background:rgba(15,22,28,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.12)}
+.nav{height:var(--nav-h);display:flex;align-items:center;gap:28px;max-width:var(--max);margin:auto;padding:0 var(--pad)}
+.brand{width:196px;min-width:172px;display:flex;align-items:center;border:0;background:transparent;padding:0;cursor:pointer;text-align:left}
+.brand img{height:auto;filter:drop-shadow(0 3px 14px rgba(0,0,0,.22))}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:clamp(18px,1.55vw,30px);font-size:12.5px;line-height:1;font-weight:750;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
+.nav-link{border:0;background:none;color:#fff;padding:14px 0;cursor:pointer;font-weight:750;text-transform:uppercase;transition:color .18s ease}
+.nav-link:hover,.nav-link:focus-visible,.nav-link.active{color:var(--yellow)}
+.nav-cta{border:0;padding:16px 21px;background:#fff;color:var(--ink);font-weight:850;text-transform:uppercase;cursor:pointer;transition:background .18s ease,color .18s ease}
+.nav-cta:hover,.nav-cta:focus-visible,.nav-cta.active{background:var(--yellow);color:var(--ink)}
+.menu-toggle{display:none;margin-left:auto;width:46px;height:46px;border:1px solid rgba(255,255,255,.45);background:rgba(0,0,0,.12);color:#fff;place-items:center;cursor:pointer}
+.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{content:"";width:20px;height:2px;background:currentColor;display:block;position:relative}.menu-toggle span:before{position:absolute;top:-6px}.menu-toggle span:after{position:absolute;top:6px}
+
+/* Global top banner */
+.announcement{position:fixed;z-index:990;top:var(--nav-h);left:0;right:0;min-height:var(--announcement-h);padding:10px var(--pad);display:flex;align-items:center;justify-content:center;text-align:center;background:rgba(16,23,30,.88);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.08);color:#fff;font-size:14px}
+.announcement button{border:0;background:none;color:var(--yellow);font-weight:850;margin-left:10px;padding:0;cursor:pointer}
+.announcement button span{display:inline-block;transition:transform .18s}.announcement button:hover span{transform:translateX(5px)}
+
+.mobile-menu{position:fixed;inset:0;z-index:1200;background:var(--ink);color:#fff;padding:26px var(--pad);transform:translateY(-105%);transition:transform .45s cubic-bezier(.7,0,.2,1)}
+.mobile-menu.open{transform:none}.mobile-menu-head{display:flex;align-items:center;justify-content:space-between}.mobile-menu .brand{width:190px}.mobile-close{width:48px;height:48px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:28px;cursor:pointer}.mobile-nav{margin-top:7vh;border-top:1px solid rgba(255,255,255,.18)}
+.mobile-nav button{width:100%;border:0;background:none;color:#fff;display:grid;grid-template-columns:48px 1fr 34px;align-items:center;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.18);font-size:clamp(26px,6.4vw,50px);font-weight:850;letter-spacing:-.04em;text-align:left;cursor:pointer;transition:color .18s}.mobile-nav button:hover,.mobile-nav button.active{color:var(--yellow)}.mobile-nav small{font-size:11px;letter-spacing:.12em;color:var(--yellow)}.mobile-nav b{font-weight:400;text-align:right}
+
+/* SPA-style internal tabs/views */
+.app-view{display:none;min-height:100svh}
+.app-view.active{display:block;animation:viewIn .4s ease both}
+@keyframes viewIn{from{opacity:0}to{opacity:1}}
+
+/* HOME HERO */
+.hero{min-height:100svh;position:relative;overflow:hidden;background:#10171e;color:#fff}
+.hero-media{position:absolute;inset:0;overflow:hidden}.hero-frame{position:absolute;inset:-2%;background-size:cover;background-position:center;opacity:0;transform:scale(1.03);transition:opacity 1.45s ease,transform 8s ease}.hero-frame.active{opacity:1;transform:scale(1.11)}
+.hero-youtube{position:absolute;inset:0;z-index:1;opacity:0;pointer-events:none;transition:opacity 1s ease;background:#10171e;overflow:hidden}.hero-youtube.active{opacity:1}.hero-youtube iframe{position:absolute;top:50%;left:50%;width:177.77777778vh;height:56.25vw;min-width:100%;min-height:100%;transform:translate(-50%,-50%);border:0;pointer-events:none}
+.hero-local-video{position:absolute;inset:0;z-index:1;opacity:0;pointer-events:none;transition:opacity 1s ease;background:#10171e;overflow:hidden}.hero-local-video.active{opacity:1}.hero-local-video video{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.hero-shade{position:absolute;z-index:2;inset:0;background:linear-gradient(90deg,rgba(6,9,12,.78) 0%,rgba(6,9,12,.26) 57%,rgba(6,9,12,.35) 100%),linear-gradient(0deg,rgba(6,9,12,.64),transparent 55%)}
+.hero-edge{position:absolute;z-index:3;top:0;right:0;width:5px;height:100%;background:var(--yellow)}
+.hero-content{position:relative;z-index:4;max-width:var(--max);min-height:100svh;margin:auto;padding:calc(var(--nav-h) + var(--announcement-h) + 48px) var(--pad) 58px;display:flex;align-items:flex-end}
+.hero-title{margin:0;color:var(--yellow);font-size:clamp(76px,9.4vw,155px);line-height:.79;letter-spacing:-.062em;font-weight:950;text-transform:uppercase;max-width:980px}
+.hero-index{position:absolute;z-index:5;right:28px;bottom:30px;display:flex;gap:7px}.hero-index i{display:block;width:28px;height:3px;background:rgba(255,255,255,.35)}.hero-index i.active{background:var(--yellow)}
+.hero-media.video-active ~ .hero-index{opacity:0}
+
+/* CONTENT SYSTEM */
+.section{padding:clamp(84px,9vw,148px) var(--pad)}.inner{max-width:var(--max);margin:auto}.eyebrow{margin:0 0 24px;font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}.big-heading{margin:0;font-size:clamp(48px,6.3vw,100px);line-height:.93;letter-spacing:-.055em;font-weight:900;max-width:1180px}.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}.reveal.in{opacity:1;transform:none}
+
+/* NATIONAL / DEPARTMENTAL NEWS */
+.national{background:#fff}.national-head{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:end;margin-bottom:50px}.national-head p:last-child{margin:0;font-size:18px;line-height:1.52;max-width:620px;justify-self:end}.feature{position:relative;min-height:clamp(520px,59vw,850px);overflow:hidden;background:#19222a;border:0;padding:0;width:100%;text-align:left;color:#fff;cursor:pointer}.feature img{position:absolute;inset:0;height:100%;object-fit:cover;transition:transform 1s ease}.feature:hover img{transform:scale(1.025)}.feature:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,10,13,.78),rgba(7,10,13,.04) 64%)}.feature-copy{position:absolute;z-index:2;left:clamp(24px,4vw,60px);right:clamp(24px,4vw,60px);bottom:clamp(28px,4vw,60px);color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}.feature-copy h3{margin:0;font-size:clamp(46px,6vw,92px);line-height:.9;letter-spacing:-.055em;text-transform:uppercase}.feature-copy p{margin:0;justify-self:end;max-width:440px;font-size:17px;line-height:1.48}.feature-tag{position:absolute;z-index:3;top:28px;left:28px;background:var(--yellow);color:var(--ink);padding:11px 14px;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+
+/* MUNICIPAL CURRENT AFFAIRS */
+.municipal{background:var(--ink);color:#fff}.municipal-top{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:48px}.municipal-top p:last-child{max-width:520px;color:rgba(255,255,255,.7);font-size:17px;line-height:1.5}.news-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.story{position:relative;min-height:680px;overflow:hidden;background:#222c35;color:#fff;border:0;padding:0;text-align:left;cursor:pointer}.story.small{min-height:331px}.story-stack{display:grid;gap:18px}.story img{position:absolute;inset:0;height:100%;object-fit:cover;filter:saturate(.9);transition:transform .85s ease}.story:hover img{transform:scale(1.035)}.story:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,7,9,.76),transparent 62%)}.story-copy{position:absolute;z-index:2;left:28px;right:28px;bottom:28px}.story-label{color:var(--yellow);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}.story h3{margin:0;font-size:clamp(30px,3.2vw,54px);line-height:.94;letter-spacing:-.045em}.story.small h3{font-size:clamp(25px,2.2vw,36px)}
+
+/* SERVICES */
+.services{position:relative;min-height:80svh;color:#fff;background:#151d24;display:flex;align-items:flex-end;overflow:hidden}.services img{position:absolute;inset:0;height:100%;object-fit:cover;filter:brightness(.55) saturate(.86)}.services:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,10,13,.83),rgba(7,10,13,.16))}.services-copy{position:relative;z-index:2;max-width:var(--max);width:100%;margin:auto;padding:clamp(72px,8vw,130px) var(--pad)}.services-copy h2{margin:0;max-width:1080px;font-size:clamp(52px,7vw,112px);line-height:.89;letter-spacing:-.06em;text-transform:uppercase}.services-copy p{max-width:700px;font-size:20px;line-height:1.47;margin:34px 0 0}.outline-link{display:inline-flex;align-items:center;gap:28px;border:2px solid currentColor;background:transparent;color:inherit;padding:17px 21px;margin-top:34px;font-size:12px;font-weight:900;text-transform:uppercase;cursor:pointer;transition:.2s}.outline-link:hover{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+
+/* TERRITORIAL IDENTITY */
+.identity{background:#fff}.identity-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:18px;margin-top:54px}.identity-main{position:relative;min-height:700px;overflow:hidden;background:#202930}.identity-main img{position:absolute;inset:0;height:100%;object-fit:cover}.identity-main:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,7,9,.73),transparent 58%)}.identity-main h3{position:absolute;z-index:2;left:30px;right:30px;bottom:28px;margin:0;color:#fff;font-size:clamp(45px,5.2vw,80px);line-height:.91;letter-spacing:-.055em;text-transform:uppercase}.identity-links{border-top:1px solid var(--line)}.identity-links button{width:100%;border:0;background:transparent;color:var(--ink);display:grid;grid-template-columns:58px 1fr 35px;align-items:center;gap:14px;padding:22px 0;border-bottom:1px solid var(--line);font-size:clamp(19px,2vw,30px);font-weight:850;text-transform:uppercase;text-align:left;cursor:pointer;transition:background .2s,padding .2s}.identity-links button:hover{background:var(--yellow);padding-left:14px;padding-right:14px}.identity-links small{font-size:10px;letter-spacing:.13em;color:#737a81}.identity-links span:last-child{text-align:right;font-size:28px}
+
+/* INSTITUTIONAL */
+.institutional{background:var(--paper)}.institutional-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;margin-top:54px}.institutional-grid>p{margin:0;font-size:20px;line-height:1.55;max-width:620px}.quick-links{border-top:1px solid var(--line)}.quick-links button{width:100%;border:0;background:transparent;color:var(--ink);display:flex;justify-content:space-between;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:800;text-align:left;cursor:pointer;transition:background .2s,padding .2s}.quick-links button:hover{background:var(--yellow);padding-left:14px;padding-right:14px}
+
+/* INTERNAL VIEW SHELLS */
+.view-shell{padding-top:calc(var(--nav-h) + var(--announcement-h));background:var(--paper);min-height:100svh}
+.view-hero{min-height:72svh;background:var(--ink);color:#fff;display:flex;align-items:flex-end;position:relative;overflow:hidden}.view-hero:after{content:"";position:absolute;right:0;top:0;width:5px;height:100%;background:var(--yellow)}.view-hero .inner{width:100%;padding:clamp(90px,10vw,160px) var(--pad) clamp(60px,8vw,110px)}
+.view-kicker{color:var(--yellow);font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin-bottom:24px}.view-title{margin:0;font-size:clamp(62px,8vw,132px);line-height:.82;letter-spacing:-.06em;text-transform:uppercase;max-width:1250px}.view-lead{max-width:770px;margin:35px 0 0;font-size:clamp(18px,2vw,25px);line-height:1.45;color:rgba(255,255,255,.78)}
+.view-body{padding:clamp(78px,9vw,130px) var(--pad);background:#fff}.view-body .inner{max-width:var(--max)}.view-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:48px}.view-card{min-height:280px;background:var(--paper);padding:34px;display:flex;flex-direction:column;justify-content:space-between}.view-card small{font-weight:900;letter-spacing:.12em;text-transform:uppercase}.view-card h3{margin:35px 0 0;font-size:clamp(28px,3.2vw,50px);line-height:.95;letter-spacing:-.045em}.view-card.yellow{background:var(--yellow)}
+.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(17,24,32,.18);margin-top:48px}.metric{background:#fff;padding:30px}.metric strong{display:block;font-size:clamp(44px,6vw,84px);letter-spacing:-.05em}.metric span{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}
+
+/* LOGIN */
+.login-wrap{min-height:calc(100svh - var(--nav-h) - var(--announcement-h));background:var(--ink);color:#fff;display:grid;grid-template-columns:1.05fr .95fr}.login-copy{padding:clamp(80px,9vw,140px) var(--pad);display:flex;flex-direction:column;justify-content:flex-end}.login-copy h1{margin:0;color:var(--yellow);font-size:clamp(60px,7.8vw,126px);line-height:.82;letter-spacing:-.06em;text-transform:uppercase}.login-panel{background:#fff;color:var(--ink);padding:clamp(60px,7vw,110px) var(--pad);display:flex;align-items:center}.login-form{width:min(100%,540px);margin:auto}.login-form h2{font-size:44px;letter-spacing:-.045em;margin:0 0 40px}.field{margin-bottom:24px}.field label{display:block;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px}.field input{width:100%;border:0;border-bottom:2px solid var(--ink);background:transparent;padding:14px 0;font-size:18px;outline:0}.field input:focus{border-color:#b9aa00}.login-submit{width:100%;margin-top:20px;border:0;background:var(--ink);color:#fff;padding:18px;font-weight:900;text-transform:uppercase;cursor:pointer;transition:.2s}.login-submit:hover{background:var(--yellow);color:var(--ink)}
+
+footer{background:#0c1217;color:#fff;padding:68px var(--pad) 26px}.footer-grid{max-width:var(--max);margin:auto;display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:56px}.footer-logo{width:240px}.footer-copy{max-width:480px;color:rgba(255,255,255,.63);line-height:1.55;font-size:14px}.footer-grid h4{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--yellow);margin:0 0 19px}.footer-grid button{display:block;border:0;background:none;color:#fff;padding:8px 0;font-size:14px;cursor:pointer;text-align:left}.footer-grid button:hover{color:var(--yellow)}.credits{max-width:var(--max);margin:62px auto 0;padding-top:21px;border-top:1px solid rgba(255,255,255,.15);display:flex;justify-content:space-between;gap:30px;font-size:11px;color:rgba(255,255,255,.52)}
+
+@media(max-width:1180px){.nav-links{display:none}.menu-toggle{display:grid}.brand{width:190px}.national-head,.feature-copy,.institutional-grid{grid-template-columns:1fr}.national-head p:last-child,.feature-copy p{justify-self:start}.feature-copy{gap:20px}.municipal-top{align-items:flex-start;flex-direction:column}.news-grid{grid-template-columns:1fr}.story,.story.small{min-height:560px}.identity-grid{grid-template-columns:1fr}.identity-main{min-height:65vw}.view-grid{grid-template-columns:1fr}.login-wrap{grid-template-columns:1fr}.login-copy{min-height:52vh}.metric-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){:root{--nav-h:74px;--announcement-h:54px}.announcement{min-height:54px;font-size:12px}.hero-content{padding-top:calc(var(--nav-h) + var(--announcement-h) + 36px)}.hero-title{font-size:clamp(70px,21vw,108px)}.hero-index{display:none}.section{padding-left:22px;padding-right:22px}.feature{min-height:72vh}.feature-copy h3{font-size:clamp(42px,13vw,70px)}.story,.story.small{min-height:66vh}.services-copy{padding-left:22px;padding-right:22px}.services-copy p{font-size:17px}.identity-main{min-height:72vh}.footer-grid{grid-template-columns:1fr}.credits{flex-direction:column}.metric-row{grid-template-columns:1fr}.view-hero .inner,.view-body{padding-left:22px;padding-right:22px}.login-copy,.login-panel{padding-left:22px;padding-right:22px}}
+</style>
 </head>
 <body>
-
-  <!-- Barra gov.co (marca del Estado) -->
-  <div class="govco">
-    <div class="contenedor">
-      <span class="logo-govco"><b>GOV.CO</b></span>
-    </div>
-  </div>
-
-  <!-- Encabezado: escudo + nombre a la izquierda, login + buscador a la derecha -->
-  <header class="encabezado">
-    <div class="contenedor">
-      <a class="marca-superior" href="index.html">
-        <span class="escudo">S</span>
-        <span class="rotulo">
-          <small>Alcaldía Municipal de</small>
-          <strong>Subachoque</strong>
-          <span>Territorio Inteligente · Cundinamarca</span>
-        </span>
-      </a>
-      <div class="header-derecha">
-        <a href="login.html" class="link-login">Inicia sesión</a>
-        <form class="buscador" onsubmit="event.preventDefault();">
-          <input type="text" placeholder="Buscar en la entidad" aria-label="Buscar">
-          <button type="submit" aria-label="Buscar">🔍</button>
-        </form>
-      </div>
-    </div>
-  </header>
-
-  <!-- Menú de navegación (Inicio en bloque azul, como gov.co) -->
-  <div class="menu-barra">
-    <button class="hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
-    <nav class="menu">
-      <a href="index.html" class="activo">Inicio</a>
-      <a href="data-territorio.html">Data Territorio</a>
-      <a href="plan-desarrollo.html">Plan de Desarrollo</a>
-      <a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a>
-      <a href="politicas-publicas.html">Políticas Públicas</a>
-      <a href="login.html" class="btn-sesion">Ingresar</a>
+<header class="site-header" id="siteHeader">
+  <div class="nav">
+    <button class="brand route-link" data-route="home" aria-label="Territorio Inteligente — Home">
+      <img src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente">
+    </button>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <button class="nav-link route-link active" data-route="home">Home</button>
+      <button class="nav-link route-link" data-route="data">Data Territorio</button>
+      <button class="nav-link route-link" data-route="desarrollo">Plan de Desarrollo</button>
+      <button class="nav-link route-link" data-route="cumplimiento">Unidad de Cumplimiento</button>
+      <button class="nav-link route-link" data-route="politicas">Políticas Públicas</button>
+      <button class="nav-link route-link" data-route="insights">Insights</button>
+      <button class="nav-cta route-link" data-route="login">Iniciar sesión</button>
     </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú"><span></span></button>
   </div>
+</header>
 
-  <!-- Widget de accesibilidad (como gov.co) -->
-  <div class="accesibilidad">
-    <button title="Contraste" onclick="document.body.classList.toggle('alto-contraste')">◐</button>
-    <button title="Aumentar texto" onclick="cambiarTexto(1)">A+</button>
-    <button title="Reducir texto" onclick="cambiarTexto(-1)">A-</button>
+<div class="announcement">
+  Conoce la oferta institucional disponible para la ciudadanía.
+  <button class="route-link" data-route="servicios">Explorar nuestros servicios <span>→</span></button>
+</div>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-head">
+    <button class="brand route-link" data-route="home"><img src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente"></button>
+    <button class="mobile-close" id="mobileClose" aria-label="Cerrar menú">×</button>
   </div>
+  <nav class="mobile-nav">
+    <button class="route-link active" data-route="home"><small>01</small><span>Home</span><b>→</b></button>
+    <button class="route-link" data-route="data"><small>02</small><span>Data Territorio</span><b>→</b></button>
+    <button class="route-link" data-route="desarrollo"><small>03</small><span>Plan de Desarrollo</span><b>→</b></button>
+    <button class="route-link" data-route="cumplimiento"><small>04</small><span>Unidad de Cumplimiento</span><b>→</b></button>
+    <button class="route-link" data-route="politicas"><small>05</small><span>Políticas Públicas</span><b>→</b></button>
+    <button class="route-link" data-route="insights"><small>06</small><span>Insights</span><b>→</b></button>
+    <button class="route-link" data-route="login"><small>07</small><span>Iniciar sesión</span><b>→</b></button>
+  </nav>
+</div>
 
-  <!-- ============ 1. NOTICIAS (FRANJA + CARRUSEL) — como en el PDF ============ -->
-  <div class="franja-titulo">Noticias de entidades nacionales y departamentales</div>
-
-  <div class="contenedor">
-    <div class="carrusel">
-      <button class="flecha-carr izq" aria-label="Anterior">‹</button>
-      <button class="flecha-carr der" aria-label="Siguiente">›</button>
-      <div class="slide activo" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/033._Iglesia_Subocka_1.jpg/1280px-033._Iglesia_Subocka_1.jpg');">
-        <div class="slide-txt">
-          <span class="slide-etq">Alcaldía de Subachoque</span>
-          <h2>Subachoque, líder en desempeño fiscal</h2>
-          <p>El mejor municipio de Cundinamarca entre 116 poblaciones, con 74,3 puntos en el Índice del DNP 2024.</p>
-          <p class="slide-detalle">Fuente: El Espectador · octubre de 2025</p>
-        </div>
+<main>
+  <!-- HOME -->
+  <section class="app-view active" data-view="home">
+    <section class="hero" aria-label="Territorio Inteligente">
+      <div class="hero-media" id="heroMedia" aria-hidden="true">
+        <!-- Fallback fotográfico: se oculta visualmente si HERO_YOUTUBE_URL tiene un enlace válido -->
+        <div class="hero-frame active" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/6/6b/Subachoque_aerea1.jpg')"></div>
+        <div class="hero-frame" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/2/28/2018_Cundinamarca_-_carretera_en_el_valle_de_Subachoque.jpg')"></div>
+        <div class="hero-frame" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/4/4b/Cerro_El_Tablazo%2C_Subachoque.jpg')"></div>
+        <div class="hero-local-video" id="heroLocalVideoWrap"><video id="heroLocalVideo" autoplay muted loop playsinline preload="metadata"><source src="assets/video/asi-cumplimos.mp4" type="video/mp4"></video></div>
+        <div class="hero-youtube" id="heroYoutubeWrap"><iframe id="heroYoutube" title="Video principal de Territorio Inteligente" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+        <div class="hero-shade"></div><div class="hero-edge"></div>
       </div>
-      <div class="slide" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Casa_de_Cundinamarca.JPG/1280px-Casa_de_Cundinamarca.JPG');">
-        <div class="slide-txt">
-          <span class="slide-etq">Gobernación de Cundinamarca</span>
-          <h2>Vía Subachoque – Puente Piedra</h2>
-          <p>El corredor vial alcanza el 65 % de ejecución, con una inversión superior a $21.500 millones.</p>
-          <p class="slide-detalle">Instituto de Caminos de Cundinamarca (ICCU)</p>
-        </div>
-      </div>
-      <div class="slide" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Tibar.jpg/1280px-Tibar.jpg');">
-        <div class="slide-txt">
-          <span class="slide-etq">Gobernación de Cundinamarca</span>
-          <h2>Festival de Empleo</h2>
-          <p>+30 empresas aliadas y más de 3.000 vacantes disponibles para los habitantes de la región.</p>
-          <p class="slide-detalle">21 de agosto de 2026 · Plazoleta Principal · 8:00 a.m. – 4:00 p.m.</p>
-        </div>
-      </div>
-      <div class="puntos">
-        <span class="punto activo"></span>
-        <span class="punto"></span>
-        <span class="punto"></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ 2. ACTUALIDAD DE LA ENTIDAD — 5 tarjetas (como el PDF) ============ -->
-  <div class="contenedor">
-    <header class="encabezado-seccion"><h2>Actualidad de la entidad</h2></header>
-    <div class="grid-tarjetas">
-      <a class="t-noticia" href="https://www.elespectador.com/colombia/cundinamarca/subachoque-ordeno-la-casa-y-ahora-es-lider-en-desempeno-fiscal-en-cundinamarca/" target="_blank" rel="noopener">
-        <div class="t-cab" style="--c:#1b5e20;">
-          <svg viewBox="0 0 24 24" width="34" height="34" fill="#fff"><path d="M3 21h18v-2H3v2zM5 10h2v7H5v-7zm4 0h2v7H9v-7zm4 0h2v7h-2v-7zm4 0h2v7h-2v-7zM12 2L2 7v2h20V7L12 2z"/></svg>
-          <span class="t-cat">Gestión</span>
-        </div>
-        <div class="t-pie"><span class="t-fecha">Oct 2025 · El Espectador</span>Subachoque, líder en desempeño fiscal de Cundinamarca</div>
-      </a>
-      <a class="t-noticia" href="https://eldoradoradio.cundinamarca.gov.co/noticias/via-subachoque-la-cuesta-puente-piedra-alcanza-65-de-ejecucion/" target="_blank" rel="noopener">
-        <div class="t-cab" style="--c:#8a6d1a;">
-          <svg viewBox="0 0 24 24" width="34" height="34" fill="#fff"><path d="M18 4H6L2 12l4 8h12l4-8-4-8zm-6 12a4 4 0 110-8 4 4 0 010 8z"/></svg>
-          <span class="t-cat">Infraestructura</span>
-        </div>
-        <div class="t-pie"><span class="t-fecha">Gobernación de Cundinamarca</span>Vía Subachoque – Puente Piedra al 65 % de ejecución</div>
-      </a>
-      <a class="t-noticia" href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-renueva-alcantarillado-en-el-bosque-por-fallo-del-rio-bogota/" target="_blank" rel="noopener">
-        <div class="t-cab" style="--c:#1565a8;">
-          <svg viewBox="0 0 24 24" width="34" height="34" fill="#fff"><path d="M12 2s6 7.6 6 12a6 6 0 11-12 0c0-4.4 6-12 6-12z"/></svg>
-          <span class="t-cat">Servicios públicos</span>
-        </div>
-        <div class="t-pie"><span class="t-fecha">Alcaldía de Subachoque</span>Renovación del alcantarillado en El Bosque</div>
-      </a>
-      <a class="t-noticia" href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-invierte-50-millones-para-preparar-a-468-estudiantes-para-el-icfes/" target="_blank" rel="noopener">
-        <div class="t-cab" style="--c:#5c1127;">
-          <svg viewBox="0 0 24 24" width="34" height="34" fill="#fff"><path d="M12 3L1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.8z"/></svg>
-          <span class="t-cat">Educación</span>
-        </div>
-        <div class="t-pie"><span class="t-fecha">Alcaldía de Subachoque</span>$50 millones para preparar 468 estudiantes al ICFES</div>
-      </a>
-      <a class="t-noticia" href="https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-sistema-de-monitoreo-ante-riesgos-asociados-al-fenomeno-de-el-nino/" target="_blank" rel="noopener">
-        <div class="t-cab" style="--c:#2e7d32;">
-          <svg viewBox="0 0 24 24" width="34" height="34" fill="#fff"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zm1 13h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
-          <span class="t-cat">Gestión del riesgo</span>
-        </div>
-        <div class="t-pie"><span class="t-fecha">Alcaldía de Subachoque</span>Monitoreo ante el Fenómeno de El Niño</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- ============ 3. PORTAFOLIO DE SERVICIOS — bloque texto (como el PDF) ============ -->
-  <div class="contenedor">
-    <section class="portafolio">
-      <h2>Portafolio de servicios de Subachoque</h2>
-      <p>El portafolio de servicios de la Alcaldía de Subachoque es el conjunto de trámites, gestiones y
-      atenciones que la administración municipal ofrece a la ciudadanía, incluyendo impuestos como predial e
-      industria y comercio, actualización del SISBEN, autorizaciones urbanísticas, asignación de nomenclatura,
-      licencias y otros servicios orientados a facilitar la relación entre la comunidad y el gobierno local.</p>
-      <a href="#" class="boton boton-primario">Ver más información</a>
+      <div class="hero-content"><h1 class="hero-title">ASÍ<br>CUMPLIMOS</h1></div>
+      <div class="hero-index"><i class="active"></i><i></i><i></i></div>
     </section>
-  </div>
 
-  <!-- ============ 4. APRENDAMOS DE NUESTRO TERRITORIO — 5 tarjetas (como el PDF) ============ -->
-  <div class="contenedor">
-    <header class="encabezado-seccion"><h2>Aprendamos de nuestro territorio</h2></header>
-    <div class="grid-tarjetas">
-      <!-- Himno -->
-      <a class="t-ident" href="#">
-        <div class="t-foto ident-bg" style="background:linear-gradient(135deg,#0b3d73,#082d55);">
-          <svg viewBox="0 0 100 100" width="60" height="60" aria-hidden="true"><path fill="#f2c200" d="M40 20v45a13 13 0 1 1-6-11V32l30-8v33a13 13 0 1 1-6-11V16z"/></svg>
+    <section class="section national">
+      <div class="inner">
+        <div class="national-head">
+          <div class="reveal"><p class="eyebrow">Noticias de entidades nacionales y departamentales</p><h2 class="big-heading">Lo que pasa afuera también cambia el territorio.</h2></div>
+          <p class="reveal">Fuentes oficiales nacionales y departamentales, organizadas para que la ciudadanía pueda identificar el origen, la fecha y acceder a la publicación correspondiente.</p>
         </div>
-        <div class="t-pie">Nuestro himno</div>
-      </a>
-      <!-- Escudo -->
-      <a class="t-ident" href="#">
-        <div class="t-foto ident-bg" style="background:linear-gradient(135deg,#5c1127,#7a1834);">
-          <svg viewBox="0 0 100 100" width="58" height="58" aria-hidden="true"><path fill="#f2c200" d="M50 8l32 10v28c0 22-14 34-32 46C32 80 18 68 18 46V18z"/><path fill="#7a1834" d="M50 18l22 7v21c0 15-9 24-22 32-13-8-22-17-22-32V25z"/></svg>
-        </div>
-        <div class="t-pie">Nuestro escudo</div>
-      </a>
-      <!-- Bandera REAL de Subachoque: verde arriba, amarillo abajo -->
-      <a class="t-ident" href="#">
-        <div class="t-foto ident-bg" style="background:#eef1f4;">
-          <svg viewBox="0 0 120 80" width="96" height="64" aria-hidden="true" style="box-shadow:0 3px 8px rgba(0,0,0,.2);">
-            <rect width="120" height="40" fill="#2e7d32"/><rect y="40" width="120" height="40" fill="#f2c200"/>
-          </svg>
-        </div>
-        <div class="t-pie">Nuestra bandera</div>
-      </a>
-      <!-- Territorio -->
-      <a class="t-ident" href="#">
-        <div class="t-foto ident-bg" style="background:linear-gradient(135deg,#1b5e20,#2e7d32);">
-          <svg viewBox="0 0 100 100" width="60" height="60" aria-hidden="true"><path fill="#f2c200" d="M50 12C36 12 25 23 25 37c0 18 25 51 25 51s25-33 25-51c0-14-11-25-25-25zm0 34a9 9 0 1 1 0-18 9 9 0 0 1 0 18z"/></svg>
-        </div>
-        <div class="t-pie">Nuestro territorio</div>
-      </a>
-      <!-- Galería -->
-      <a class="t-ident" href="#">
-        <div class="t-foto ident-bg" style="background:linear-gradient(135deg,#1565a8,#0b3d73);">
-          <svg viewBox="0 0 100 100" width="58" height="58" aria-hidden="true"><rect x="16" y="24" width="68" height="52" rx="4" fill="none" stroke="#f2c200" stroke-width="5"/><circle cx="36" cy="42" r="6" fill="#f2c200"/><path fill="#f2c200" d="M22 70l18-20 12 12 14-16 16 24z"/></svg>
-        </div>
-        <div class="t-pie">Galería</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="pie-pagina">
-    <div class="contenedor">
-      <div class="pie-grid">
-        <div>
-          <div class="marca"><span class="escudo">S</span><div><strong style="font-family:var(--serif); font-size:18px; color:#fff;">Alcaldía de Subachoque</strong><br><span style="font-size:13px;">Territorio Inteligente</span></div></div>
-          <p>Trabajamos por un municipio transparente, sostenible y cercano a su gente.</p>
-          <div class="redes"><a href="#">f</a><a href="#">◎</a><a href="#">✕</a><a href="#">▶</a><a href="#">✆</a></div>
-        </div>
-        <div><h3>Contacto</h3><p>Palacio Municipal<br>Carrera 5 No. 3 – 40, Subachoque</p><p>Cundinamarca, Colombia</p><p>contactenos@subachoque.gov.co</p></div>
-        <div><h3>Enlaces</h3><ul><li><a href="data-territorio.html">Data Territorio</a></li><li><a href="plan-desarrollo.html">Plan de Desarrollo</a></li><li><a href="unidad-cumplimiento.html">Unidad de Cumplimiento</a></li><li><a href="politicas-publicas.html">Políticas Públicas</a></li></ul></div>
+        <button class="feature reveal route-link" data-route="insights">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/2018_Cundinamarca_-_carretera_en_el_valle_de_Subachoque.jpg" alt="Paisaje del valle de Subachoque">
+          <div class="feature-tag">Fuente oficial · contenido por integrar</div>
+          <div class="feature-copy"><h3>Noticias relevantes, con contexto territorial.</h3><p>Aquí irá la noticia nacional o departamental prioritaria, con fuente oficial, fecha y acceso a la publicación original.</p></div>
+        </button>
       </div>
-    </div>
-    <div class="pie-legal"><div class="contenedor"><span>© 2026 Alcaldía Municipal de Subachoque. Todos los derechos reservados.</span><span>Horario: Lunes a viernes, 8:00 a.m. – 5:00 p.m.</span></div></div>
-  </footer>
+    </section>
 
-  <script src="js/principal.js"></script>
+    <section class="section municipal">
+      <div class="inner">
+        <div class="municipal-top">
+          <div class="reveal"><p class="eyebrow">Actualidad de la entidad</p><h2 class="big-heading">La administración, visible.</h2></div>
+          <p class="reveal">Noticias municipales organizadas por dependencia y relevancia, con espacio para alertas destacadas cuando el contenido sea crítico.</p>
+        </div>
+        <div class="news-grid">
+          <button class="story reveal route-link" data-route="insights"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/2018_Subachoque%2C_plaza_principal.jpg" alt="Plaza principal de Subachoque"><div class="story-copy"><div class="story-label">Actualidad municipal</div><h3>Noticias del municipio con tratamiento editorial.</h3></div></button>
+          <div class="story-stack">
+            <button class="story small reveal route-link" data-route="insights"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cerro_El_Tablazo%2C_Subachoque.jpg" alt="Cerro El Tablazo"><div class="story-copy"><div class="story-label">Territorio</div><h3>Información priorizada por relevancia.</h3></div></button>
+            <button class="story small reveal route-link" data-route="insights"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Subachoque_aerea1.jpg" alt="Vista aérea de Subachoque"><div class="story-copy"><div class="story-label">Dependencias</div><h3>Contenido con fecha, fuente y trazabilidad.</h3></div></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Subachoque_aerea1.jpg" alt="Vista aérea del municipio">
+      <div class="services-copy reveal">
+        <p class="eyebrow">Portafolio de servicios de Subachoque</p>
+        <h2>Servicios públicos, sin perderse en el trámite.</h2>
+        <p>El portafolio de servicios reúne trámites, gestiones y atenciones de la administración municipal, con requisitos, tiempos, costos, canales de atención y acceso a los sistemas correspondientes.</p>
+        <button class="outline-link route-link" data-route="servicios">Explorar nuestros servicios <span>→</span></button>
+      </div>
+    </section>
+
+    <section class="section identity">
+      <div class="inner">
+        <p class="eyebrow reveal">Aprendamos de nuestro territorio</p>
+        <h2 class="big-heading reveal">Conocer el territorio también es conocer su identidad.</h2>
+        <div class="identity-grid">
+          <div class="identity-main reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/2018_Subachoque%2C_plaza_principal.jpg" alt="Subachoque"><h3>Subachoque<br>es territorio vivo.</h3></div>
+          <nav class="identity-links reveal" aria-label="Identidad territorial">
+            <button><small>01</small><span>Nuestro himno</span><span>→</span></button>
+            <button><small>02</small><span>Nuestro escudo</span><span>→</span></button>
+            <button><small>03</small><span>Nuestra bandera</span><span>→</span></button>
+            <button><small>04</small><span>Nuestro territorio</span><span>→</span></button>
+            <button><small>05</small><span>Galería</span><span>→</span></button>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="section institutional">
+      <div class="inner">
+        <p class="eyebrow reveal">Más información de la entidad territorial</p>
+        <h2 class="big-heading reveal">Acceso directo a la información institucional.</h2>
+        <div class="institutional-grid">
+          <p class="reveal">Redes sociales oficiales, portal municipal, dependencias, datos de contacto y mecanismos de participación informada.</p>
+          <div class="quick-links reveal">
+            <button><span>Portal institucional</span><span>↗</span></button>
+            <button><span>Redes sociales oficiales</span><span>↗</span></button>
+            <button><span>Dependencias</span><span>↗</span></button>
+            <button><span>Participación ciudadana</span><span>↗</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- DATA TERRITORIO -->
+  <section class="app-view view-shell" data-view="data">
+    <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 01</div><h1 class="view-title">Data<br>Territorio</h1><p class="view-lead">Sistema integral para reunir, organizar y armonizar información territorial proveniente de fuentes nacionales, departamentales, municipales y comunitarias.</p></div></div>
+    <div class="view-body"><div class="inner"><p class="eyebrow">Capacidades</p><h2 class="big-heading">Información dispersa convertida en conocimiento territorial.</h2><div class="view-grid"><div class="view-card yellow"><small>01</small><h3>Plan estadístico municipal</h3></div><div class="view-card"><small>02</small><h3>Fuentes nacionales, departamentales y municipales</h3></div><div class="view-card"><small>03</small><h3>Encuesta municipal</h3></div><div class="view-card"><small>04</small><h3>Georreferenciación y publicaciones</h3></div></div></div></div>
+  </section>
+
+  <!-- PLAN DE DESARROLLO -->
+  <section class="app-view view-shell" data-view="desarrollo">
+    <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 02</div><h1 class="view-title">Plan de<br>Desarrollo</h1><p class="view-lead">El instrumento que organiza las decisiones, inversiones y metas del gobierno municipal durante el cuatrienio.</p></div></div>
+    <div class="view-body"><div class="inner"><p class="eyebrow">Estructura</p><h2 class="big-heading">Del plan escrito al seguimiento visible.</h2><div class="metric-row"><div class="metric"><strong>6</strong><span>Ejes estratégicos</span></div><div class="metric"><strong>29</strong><span>Programas</span></div><div class="metric"><strong>18</strong><span>Sectores</span></div><div class="metric"><strong>109</strong><span>Metas</span></div></div></div></div>
+  </section>
+
+  <!-- UNIDAD DE CUMPLIMIENTO -->
+  <section class="app-view view-shell" data-view="cumplimiento">
+    <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 03</div><h1 class="view-title">Unidad de<br>Cumplimiento</h1><p class="view-lead">Seguimiento a proyectos estratégicos y de alto impacto para verificar avance, cronogramas, recursos, riesgos y resultados.</p></div></div>
+    <div class="view-body"><div class="inner"><p class="eyebrow">Proyectos</p><h2 class="big-heading">Seguimiento donde realmente se ejecuta.</h2><div class="view-grid"><div class="view-card yellow"><small>01</small><h3>Indicadores de avance</h3></div><div class="view-card"><small>02</small><h3>Beneficiarios y georreferenciación</h3></div><div class="view-card"><small>03</small><h3>Financiación, contratos y cronograma</h3></div><div class="view-card"><small>04</small><h3>Riesgos, evidencias y anexos</h3></div></div></div></div>
+  </section>
+
+  <!-- POLÍTICAS PÚBLICAS -->
+  <section class="app-view view-shell" data-view="politicas">
+    <div class="view-hero"><div class="inner"><div class="view-kicker">Módulo</div><h1 class="view-title">Políticas<br>Públicas</h1><p class="view-lead">Esta pestaña queda preparada dentro del mismo HTML. El contenido funcional se completará cuando esté definida la estructura de este producto.</p></div></div>
+    <div class="view-body"><div class="inner"><p class="eyebrow">En definición</p><h2 class="big-heading">No vamos a inventar capacidades que todavía no están cerradas.</h2></div></div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="app-view view-shell" data-view="insights">
+    <div class="view-hero"><div class="inner"><div class="view-kicker">Insights</div><h1 class="view-title">Ideas,<br>datos y territorio</h1><p class="view-lead">Publicaciones, noticias, análisis y hallazgos para leer el territorio con contexto.</p></div></div>
+    <div class="view-body"><div class="inner"><p class="eyebrow">Publicaciones</p><h2 class="big-heading">Un archivo editorial para entender lo que está cambiando.</h2><div class="view-grid"><div class="view-card yellow"><small>Destacado</small><h3>Hallazgos territoriales</h3></div><div class="view-card"><small>Análisis</small><h3>Datos y decisiones públicas</h3></div></div></div></div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="app-view view-shell" data-view="servicios">
+    <div class="view-hero"><div class="inner"><div class="view-kicker">Oferta institucional</div><h1 class="view-title">Nuestros<br>Servicios</h1><p class="view-lead">Trámites, gestiones y atenciones organizados para que la ciudadanía encuentre qué necesita, qué debe llevar, cuánto tarda y dónde hacerlo.</p></div></div>
+    <div class="view-body"><div class="inner"><p class="eyebrow">Portafolio</p><h2 class="big-heading">Explorar servicios sin perderse entre dependencias.</h2><div class="view-grid"><div class="view-card yellow"><small>Servicio</small><h3>Impuesto predial</h3></div><div class="view-card"><small>Servicio</small><h3>Actualización SISBÉN</h3></div><div class="view-card"><small>Servicio</small><h3>Autorizaciones urbanísticas</h3></div><div class="view-card"><small>Servicio</small><h3>Licencias y nomenclatura</h3></div></div></div></div>
+  </section>
+
+  <!-- LOGIN -->
+  <section class="app-view view-shell" data-view="login">
+    <div class="login-wrap"><div class="login-copy"><div class="view-kicker">Acceso institucional</div><h1>Iniciar<br>sesión</h1></div><div class="login-panel"><form class="login-form" onsubmit="event.preventDefault()"><h2>Acceso a Territorio Inteligente</h2><div class="field"><label for="email">Correo institucional</label><input id="email" type="email" autocomplete="email"></div><div class="field"><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password"></div><button class="login-submit" type="submit">Ingresar</button></form></div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div><img class="footer-logo" src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente"><p class="footer-copy">Territorio Inteligente articula datos, planeación, seguimiento y capacidades institucionales para fortalecer decisiones públicas basadas en evidencia.</p></div>
+    <div><h4>Plataforma</h4><button class="route-link" data-route="data">Data Territorio</button><button class="route-link" data-route="desarrollo">Plan de Desarrollo</button><button class="route-link" data-route="cumplimiento">Unidad de Cumplimiento</button><button class="route-link" data-route="politicas">Políticas Públicas</button></div>
+    <div><h4>Explorar</h4><button class="route-link" data-route="insights">Insights</button><button class="route-link" data-route="servicios">Servicios</button><button class="route-link" data-route="login">Iniciar sesión</button></div>
+  </div>
+  <div class="credits"><span>© 2026 Territorio Inteligente · Prototipo V5.</span><span>Una sola aplicación HTML con vistas internas.</span></div>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIGURACIÓN DEL VIDEO PRINCIPAL
+   Pega aquí el LINK COMPLETO de YouTube. Si queda vacío, se usan
+   las fotografías de respaldo del hero.
+   Ejemplo:
+   const HERO_YOUTUBE_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+   ============================================================ */
+const HERO_LOCAL_VIDEO = "assets/video/asi-cumplimos.mp4";
+const HERO_YOUTUBE_URL = "https://www.youtube.com/watch?v=qQ8tdFyuCtE";
+
+function getYouTubeId(value){
+  if(!value) return "";
+  try{
+    const u=new URL(value);
+    if(u.hostname.includes('youtu.be')) return u.pathname.split('/').filter(Boolean)[0]||'';
+    if(u.pathname.startsWith('/shorts/')) return u.pathname.split('/')[2]||'';
+    if(u.pathname.startsWith('/embed/')) return u.pathname.split('/')[2]||'';
+    return u.searchParams.get('v')||'';
+  }catch(e){
+    return /^[A-Za-z0-9_-]{11}$/.test(value.trim())?value.trim():'';
+  }
+}
+function configureHeroVideo(){
+  const id=getYouTubeId(HERO_YOUTUBE_URL);
+  if(!id) return;
+
+  const frame=document.getElementById('heroYoutube');
+  const wrap=document.getElementById('heroYoutubeWrap');
+  const media=document.getElementById('heroMedia');
+
+  // YouTube Error 153 appears when the page is opened directly as file://
+  // because that context normally has no HTTP Referer. Keep the photo fallback
+  // in that case; serve this file through http://localhost or deploy it to HTTPS.
+  if(location.protocol === 'file:'){
+    console.warn('YouTube hero disabled on file://. Serve the page through http://localhost to provide a valid Referer.');
+    return;
+  }
+
+  const origin=encodeURIComponent(location.origin);
+  const referrer=encodeURIComponent(location.href);
+  frame.src=`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&origin=${origin}&widget_referrer=${referrer}`;
+  wrap.classList.add('active');
+  media.classList.add('video-active');
+}
+configureHeroVideo();
+
+const header=document.getElementById('siteHeader');
+const menu=document.getElementById('mobileMenu'),openBtn=document.getElementById('menuToggle'),closeBtn=document.getElementById('mobileClose');
+function setMenu(state){menu.classList.toggle('open',state);menu.setAttribute('aria-hidden',String(!state));document.body.style.overflow=state?'hidden':''}
+openBtn.addEventListener('click',()=>setMenu(true));closeBtn.addEventListener('click',()=>setMenu(false));
+
+let currentRoute='home';
+function setRoute(route){
+  const target=document.querySelector(`.app-view[data-view="${route}"]`);
+  if(!target) return;
+  currentRoute=route;
+  document.querySelectorAll('.app-view').forEach(v=>v.classList.toggle('active',v===target));
+  document.querySelectorAll('.route-link[data-route]').forEach(btn=>btn.classList.toggle('active',btn.dataset.route===route));
+  header.classList.toggle('force-dark',route!=='home');
+  setMenu(false);
+  window.scrollTo({top:0,behavior:'instant'});
+  requestAnimationFrame(initReveals);
+}
+document.addEventListener('click',e=>{
+  const routeBtn=e.target.closest('.route-link[data-route]');
+  if(routeBtn){e.preventDefault();setRoute(routeBtn.dataset.route)}
+});
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>24||currentRoute!=='home'),{passive:true});
+
+let observer;
+function initReveals(){
+  observer?.disconnect();
+  const reveals=[...document.querySelectorAll('.app-view.active .reveal:not(.in)')];
+  observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');observer.unobserve(e.target)}}),{threshold:.12});
+  reveals.forEach(el=>observer.observe(el));
+}
+initReveals();
+
+const frames=[...document.querySelectorAll('.hero-frame')],dots=[...document.querySelectorAll('.hero-index i')];let current=0;
+setInterval(()=>{
+  if(document.querySelector('.hero-local-video.active,.hero-youtube.active')||currentRoute!=='home') return;
+  frames[current].classList.remove('active');dots[current]?.classList.remove('active');current=(current+1)%frames.length;frames[current].classList.add('active');dots[current]?.classList.add('active')
+},6200);
+</script>
 </body>
 </html>
