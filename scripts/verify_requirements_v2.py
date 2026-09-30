@@ -1,0 +1,32 @@
+from pathlib import Path
+import json,re,sys
+root=Path(__file__).resolve().parents[1]
+html=(root/'index.html').read_text(encoding='utf-8')
+css=(root/'css/app.css').read_text(encoding='utf-8')
+js=(root/'js/requirements.js').read_text(encoding='utf-8')
+req=json.loads((root/'data/requirements.json').read_text(encoding='utf-8'))
+geo=json.loads((root/'data/veredas-subachoque.geojson').read_text(encoding='utf-8'))
+checks=[]
+def ck(name,cond):
+    checks.append((name,bool(cond)))
+    print(('[OK] ' if cond else '[FAIL] ')+name)
+ck('HOME 10 capacidades',len(req['home'])==10)
+ck('DATA 10 capacidades',len(req['data'])==10)
+ck('PLAN 11 capacidades',len(req['plan'])==11)
+ck('CUMPLIMIENTO 13 capacidades',len(req['cumplimiento'])==13)
+rf_count=sum(len(c['requirements']) for k in ['home','data','plan','cumplimiento'] for c in req[k])
+ck('RF total 210',rf_count==210)
+ck('10 paneles Data',len(re.findall(r'data-panel-group="data"',html))==10)
+ck('Workspace Plan', 'id="planDashboard"' in html and 'function renderPlan' in js)
+ck('Workspace Cumplimiento','id="complianceDashboard"' in html and 'function renderCompliance' in js)
+ck('Mapa interactivo','id="territoryMapSvg"' in html and len(geo.get('features',[]))>=17)
+ck('Asistente TI','id="assistantPanel"' in html and 'function initAssistant' in js)
+ck('Importacion XLSX/CSV/JSON','parseDatasetFile' in js and '.xlsx' in html)
+ck('Glosario','id="glossaryList"' in html)
+ck('Publicaciones','id="publicationGrid"' in html)
+ck('Servicios','id="serviceGrid"' in html)
+ck('Sin banner superior retirado','Conoce la oferta institucional disponible' not in html and 'class="announcement"' not in html)
+ck('Hero editorial DA','CONOCER.' in html.upper() and 'DECIDIR.' in html.upper() and 'CUMPLIR.' in html.upper() and 'hero-lede' in html)
+ck('Hero no tapa subtitulos','align-items:center' in css and 'hero-copy-block' in css)
+if not all(v for _,v in checks): sys.exit(1)
+print(f'VERIFY REQUIREMENTS V2 OK. RF={rf_count} | veredas={len(geo.get("features",[]))}')

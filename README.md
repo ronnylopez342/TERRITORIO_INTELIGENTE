@@ -1,69 +1,33 @@
-# Territorio Inteligente — Web
+# Territorio Inteligente — V2.3 Realista Editorial
 
-Repositorio de trabajo para la identidad y experiencia web de **Territorio Inteligente**.
+Esta versión parte de V2.2 y conserva sus funciones, rutas, datasets, importación/exportación y video oficial.
 
-## Estado actual
+## Objetivo
 
-Esta base corresponde a la línea visual aprobada durante la exploración inspirada en Delivery Associates: hero audiovisual de gran formato, navegación oscura superpuesta, titulares de alto impacto, bloques editoriales y navegación interna sin abrir nuevas pestañas del navegador.
+Hacer que la plataforma se sienta como una experiencia editorial institucional, no como un dashboard genérico: más fotografía local, más jerarquía, más gráficos, testimonios ilustrativos, proyectos reconocibles y cifras compactas.
 
-La aplicación actual está contenida en `index.html` y maneja sus vistas internas con JavaScript.
+## Cambios V2.3
 
-## Ejecutar en Windows
+- HOME con áreas de impacto, ficha territorial y voces del territorio.
+- Fotografías extraídas del video oficial de Territorio Inteligente para mantener coherencia local.
+- DATA con ficha territorial, fotografía, referencias públicas y mejor jerarquía de gráficos.
+- PLAN con presupuesto compacto, avance radial, barras por eje, fotografía y programas destacados.
+- CUMPLIMIENTO con tres proyectos prioritarios en formato editorial, portafolio completo y voces de implementación.
+- POLÍTICAS, INSIGHTS y SERVICIOS con piezas destacadas y medios visuales.
+- Datos demográficos de referencia: población proyectada 2025 cercana a 18 mil habitantes (DANE).
+- Proyectos inspirados en prioridades públicas reportadas para Subachoque: saneamiento, aulas, centro de salud, plaza/centro de acopio, Casa de la Mujer, acueductos y vías rurales.
+- Valores de avance, presupuesto, contratos y desempeño que no estén vinculados a fuente oficial permanecen como estimaciones ilustrativas del prototipo.
 
-Desde PowerShell, dentro de la carpeta del proyecto:
+## Ejecutar
 
 ```powershell
 python -m http.server 8080
 ```
 
-Luego abrir:
+Abrir:
 
 ```text
-http://localhost:8080
+http://localhost:8080/#home
 ```
 
-Para detener el servidor: `Ctrl + C`.
-
-## Video de “ASÍ CUMPLIMOS”
-
-La opción preferida es un archivo local para evitar controles, subtítulos y elementos propios de YouTube.
-
-1. Descargar/exportar el video como MP4.
-2. Renombrarlo exactamente:
-   `asi-cumplimos.mp4`
-3. Guardarlo en:
-   `assets/video/asi-cumplimos.mp4`
-4. Recargar la web.
-
-No hay que editar el HTML. Si el MP4 no existe, el sitio intenta usar el video de YouTube configurado en el código y, como último respaldo, las fotografías del hero.
-
-## Estructura
-
-```text
-.
-├─ index.html
-├─ assets/
-│  ├─ img/
-│  │  └─ territorio-inteligente-logo.png
-│  └─ video/
-│     └─ asi-cumplimos.mp4   # se agrega cuando esté disponible
-├─ docs/
-│  └─ DECISIONES.md
-└─ README.md
-```
-
-## Flujo de trabajo
-
-- `main`: versión estable.
-- Para cambios grandes: crear una rama, probar y luego integrar.
-- Hacer commits pequeños con mensajes claros.
-- No borrar versiones funcionales antes de confirmar la nueva.
-
-Ejemplo:
-
-```powershell
-git checkout -b ajuste-home
-git add .
-git commit -m "Ajusta hero y navegacion del Home"
-git push -u origin ajuste-home
-```
+Antes de publicación institucional, sustituir las estimaciones por datos certificados y validar cada fuente.

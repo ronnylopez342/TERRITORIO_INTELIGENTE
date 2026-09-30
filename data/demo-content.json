@@ -1,0 +1,1960 @@
+{
+  "meta": {
+    "schemaVersion": "2.3",
+    "generated": "2026-09-21",
+    "notice": "Prototipo navegable. Las cifras no vinculadas a una fuente oficial se presentan como estimaciones ilustrativas y deben sustituirse por datos certificados antes de publicación institucional.",
+    "sources": [
+      {
+        "name": "DANE · Proyecciones de población",
+        "url": "https://www.dane.gov.co/index.php/estadisticas-por-tema/demografia-y-poblacion/proyecciones-de-poblacion"
+      },
+      {
+        "name": "Gobernación de Cundinamarca · Subachoque",
+        "url": "https://www.cundinamarca.gov.co/"
+      },
+      {
+        "name": "Territorio Inteligente · datos ilustrativos",
+        "url": "#"
+      }
+    ]
+  },
+  "home": {
+    "nationalNews": [
+      {
+        "id": "n1",
+        "title": "Subachoque avanza en la transformación de su alcantarillado",
+        "source": "Gobernación de Cundinamarca / EPC",
+        "date": "2025-04-14",
+        "summary": "La Fase I del Plan Maestro de Alcantarillado fue reportada en proceso de viabilización departamental. En esta demo se conecta la noticia con cobertura, inversión y seguimiento territorial.",
+        "category": "Agua y saneamiento",
+        "media": "assets/img/editorial/alcaldia.jpg"
+      },
+      {
+        "id": "n2",
+        "title": "Infraestructura educativa, salud y acueducto concentran compromisos territoriales",
+        "source": "Gobernación de Cundinamarca · referencia pública",
+        "date": "2024-01-24",
+        "summary": "Compromisos públicos han incluido nuevas aulas, fortalecimiento del centro de salud, plaza de mercado y actuaciones de acueducto y alcantarillado.",
+        "category": "Inversión territorial",
+        "media": "assets/img/editorial/territorio-aereo.jpg"
+      }
+    ],
+    "municipalNews": [
+      {
+        "id": "m1",
+        "title": "Plan Maestro de Alcantarillado: seguimiento a la Fase I",
+        "dependency": "Servicios Públicos · seguimiento ilustrativo",
+        "date": "2026-09-20",
+        "summary": "La ficha de cumplimiento reúne viabilización, hitos, presupuesto y riesgos para mostrar cómo se vería el seguimiento institucional.",
+        "media": "assets/img/editorial/alcaldia.jpg"
+      },
+      {
+        "id": "m2",
+        "title": "Participación territorial: 17 veredas en una sola lectura",
+        "dependency": "Planeación · prototipo",
+        "date": "2026-09-18",
+        "summary": "El georreferenciador conecta cobertura, proyectos y servicios con las veredas para comparar brechas y prioridades.",
+        "media": "assets/img/editorial/participacion.jpg"
+      },
+      {
+        "id": "m3",
+        "title": "18 mil habitantes como punto de partida para planear",
+        "dependency": "Data Territorio · referencia DANE 2025",
+        "date": "2026-09-17",
+        "summary": "La plataforma usa la proyección municipal cercana a 18 mil habitantes como contexto demográfico para la experiencia de demostración.",
+        "media": "assets/img/editorial/comunidad.jpg"
+      }
+    ],
+    "services": [
+      {
+        "id": "predial",
+        "title": "Impuesto predial",
+        "dependency": "DEMO · Hacienda",
+        "requirements": [
+          "Documento de identidad",
+          "Número predial o dirección del inmueble"
+        ],
+        "time": "Inmediato en línea",
+        "cost": "Según liquidación",
+        "channels": [
+          "Portal web demo",
+          "Ventanilla de Hacienda"
+        ]
+      },
+      {
+        "id": "sisben",
+        "title": "Actualización SISBÉN",
+        "dependency": "DEMO · Planeación",
+        "requirements": [
+          "Documento de identidad del hogar",
+          "Soporte de residencia",
+          "Datos de contacto"
+        ],
+        "time": "5 días hábiles demo",
+        "cost": "Sin costo",
+        "channels": [
+          "Ventanilla de Planeación",
+          "Solicitud digital demo"
+        ]
+      },
+      {
+        "id": "urbanisticas",
+        "title": "Concepto de norma urbanística",
+        "dependency": "DEMO · Planeación",
+        "requirements": [
+          "Cédula",
+          "Matrícula inmobiliaria",
+          "Plano o ubicación"
+        ],
+        "time": "10 días hábiles demo",
+        "cost": "Sin costo demo",
+        "channels": [
+          "Ventanilla única",
+          "Radicación digital demo"
+        ]
+      },
+      {
+        "id": "licencias",
+        "title": "Asignación de nomenclatura",
+        "dependency": "DEMO · Planeación",
+        "requirements": [
+          "Solicitud firmada",
+          "Certificado de tradición",
+          "Plano de localización"
+        ],
+        "time": "8 días hábiles demo",
+        "cost": "Tarifa demo $28.000",
+        "channels": [
+          "Ventanilla única"
+        ]
+      },
+      {
+        "id": "uso-suelo",
+        "title": "Certificado de uso del suelo",
+        "dependency": "DEMO · Planeación",
+        "requirements": [
+          "Identificación del solicitante",
+          "Dirección o referencia catastral"
+        ],
+        "time": "7 días hábiles demo",
+        "cost": "Sin costo demo",
+        "channels": [
+          "Portal TI",
+          "Ventanilla"
+        ]
+      },
+      {
+        "id": "pqrs",
+        "title": "PQRSD ciudadana",
+        "dependency": "DEMO · Atención al Ciudadano",
+        "requirements": [
+          "Descripción de la solicitud",
+          "Datos de notificación"
+        ],
+        "time": "Según tipo de petición",
+        "cost": "Sin costo",
+        "channels": [
+          "Portal web",
+          "Correo",
+          "Presencial"
+        ]
+      },
+      {
+        "id": "riesgo",
+        "title": "Reporte de riesgo o emergencia",
+        "dependency": "DEMO · Gestión del Riesgo",
+        "requirements": [
+          "Ubicación",
+          "Descripción",
+          "Foto opcional"
+        ],
+        "time": "Priorización inmediata",
+        "cost": "Sin costo",
+        "channels": [
+          "Línea demo 123",
+          "Formulario web"
+        ]
+      },
+      {
+        "id": "productor",
+        "title": "Asistencia técnica agropecuaria",
+        "dependency": "DEMO · UMATA",
+        "requirements": [
+          "Documento de identidad",
+          "Ubicación del predio",
+          "Actividad productiva"
+        ],
+        "time": "Programación en 3 días demo",
+        "cost": "Sin costo",
+        "channels": [
+          "UMATA",
+          "Formulario rural"
+        ]
+      }
+    ],
+    "identity": [
+      {
+        "id": "himno",
+        "title": "Nuestro himno",
+        "description": "Ficha demo del himno municipal: reseña, letra, autoría y espacio para audio oficial."
+      },
+      {
+        "id": "escudo",
+        "title": "Nuestro escudo",
+        "description": "Ficha demo que explica los elementos simbólicos del escudo y su uso institucional."
+      },
+      {
+        "id": "bandera",
+        "title": "Nuestra bandera",
+        "description": "Ficha demo de colores, proporciones y significado territorial de la bandera."
+      },
+      {
+        "id": "territorio",
+        "title": "Nuestro territorio",
+        "description": "Subachoque se organiza en casco urbano y 17 veredas. Esta ficha conecta identidad, geografía, paisaje y actividad productiva."
+      },
+      {
+        "id": "galeria",
+        "title": "Galería",
+        "description": "Galería demo con categorías: paisaje, patrimonio, proyectos, comunidad y memoria territorial."
+      }
+    ],
+    "institutional": [
+      {
+        "id": "portal",
+        "title": "Portal institucional",
+        "description": "Acceso demo a trámites, transparencia, noticias y directorio institucional."
+      },
+      {
+        "id": "redes",
+        "title": "Redes sociales oficiales",
+        "description": "Centro demo de enlaces a canales sociales y publicaciones verificadas."
+      },
+      {
+        "id": "dependencias",
+        "title": "Dependencias",
+        "description": "Directorio demo de Planeación, Hacienda, Gobierno, Desarrollo Social, Infraestructura, UMATA y Atención al Ciudadano."
+      },
+      {
+        "id": "participacion",
+        "title": "Participación ciudadana",
+        "description": "Módulo demo de cabildos, rendición de cuentas, encuestas y mecanismos de participación."
+      }
+    ],
+    "facts": [
+      {
+        "label": "Población proyectada 2025",
+        "value": "17.999",
+        "source": "DANE · proyección municipal"
+      },
+      {
+        "label": "Veredas representadas",
+        "value": "17",
+        "source": "Geometría territorial del prototipo"
+      },
+      {
+        "label": "Extensión de referencia",
+        "value": "207 km²",
+        "source": "Ficha territorial de referencia"
+      },
+      {
+        "label": "Altitud de referencia",
+        "value": "2.663 m",
+        "source": "Ficha territorial de referencia"
+      }
+    ],
+    "impactAreas": [
+      {
+        "route": "data",
+        "number": "01",
+        "title": "Leer el territorio",
+        "text": "Cruzar población, servicios, vivienda, educación, economía y ambiente para entender dónde están las brechas."
+      },
+      {
+        "route": "desarrollo",
+        "number": "02",
+        "title": "Convertir planes en metas",
+        "text": "Conectar programas, presupuesto, responsables y resultados para que el plan deje de ser un documento estático."
+      },
+      {
+        "route": "cumplimiento",
+        "number": "03",
+        "title": "Destrabar la ejecución",
+        "text": "Seguir proyectos, riesgos, contratos, cronogramas y beneficiarios para actuar antes de que una meta se atrase."
+      },
+      {
+        "route": "insights",
+        "number": "04",
+        "title": "Aprender y corregir",
+        "text": "Transformar datos y seguimiento en decisiones, alertas, evidencia y conversaciones públicas más útiles."
+      }
+    ],
+    "testimonials": [
+      {
+        "role": "Productora rural · voz ilustrativa",
+        "quote": "Lo útil no es ver cien indicadores; es entender qué está cambiando en mi vereda y qué decisión viene después.",
+        "media": "assets/img/editorial/comunidad.jpg"
+      },
+      {
+        "role": "Equipo municipal · voz ilustrativa",
+        "quote": "Cuando presupuesto, avance y riesgo están en el mismo lugar, la conversación cambia: dejamos de perseguir archivos y empezamos a resolver.",
+        "media": "assets/img/editorial/gestion.jpg"
+      },
+      {
+        "role": "Participación ciudadana · voz ilustrativa",
+        "quote": "La información sirve cuando se puede explicar, comparar y abrir sin pedirle a la gente que entienda cómo funciona la administración.",
+        "media": "assets/img/editorial/participacion.jpg"
+      }
+    ]
+  },
+  "data": {
+    "sectors": [
+      {
+        "id": "demografia",
+        "name": "Demografía y Población",
+        "headline": "17.999 hab.",
+        "subtitle": "Proyección municipal 2025 · referencia DANE",
+        "metrics": [
+          {
+            "label": "Población proyectada",
+            "value": 17999,
+            "unit": "hab."
+          },
+          {
+            "label": "Rural",
+            "value": 61,
+            "unit": "%"
+          },
+          {
+            "label": "Urbana",
+            "value": 39,
+            "unit": "%"
+          },
+          {
+            "label": "Envejecimiento",
+            "value": 8.7,
+            "unit": "%"
+          }
+        ],
+        "trend": [
+          [
+            "2022",
+            17130
+          ],
+          [
+            "2023",
+            17385
+          ],
+          [
+            "2024",
+            17691
+          ],
+          [
+            "2025",
+            17999
+          ],
+          [
+            "2026",
+            18240
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Población total",
+            "value": "17.840",
+            "period": "2026"
+          },
+          {
+            "indicator": "Hogares",
+            "value": "5.420",
+            "period": "2026"
+          },
+          {
+            "indicator": "Tamaño promedio hogar",
+            "value": "3,29",
+            "period": "2026"
+          },
+          {
+            "indicator": "Dependencia demográfica",
+            "value": "0,56",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "salud",
+        "name": "Salud",
+        "headline": "94%",
+        "subtitle": "Cobertura primaria demo",
+        "metrics": [
+          {
+            "label": "Cobertura",
+            "value": 94,
+            "unit": "%"
+          },
+          {
+            "label": "Consultas/mes",
+            "value": 4320,
+            "unit": ""
+          },
+          {
+            "label": "Espera promedio",
+            "value": 2.1,
+            "unit": "días"
+          },
+          {
+            "label": "Casos críticos",
+            "value": 41,
+            "unit": ""
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            87
+          ],
+          [
+            2023,
+            89
+          ],
+          [
+            2024,
+            91
+          ],
+          [
+            2025,
+            92
+          ],
+          [
+            2026,
+            94
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Cobertura APS",
+            "value": "94%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Consultas mensuales",
+            "value": "4.320",
+            "period": "2026"
+          },
+          {
+            "indicator": "Vacunación infantil",
+            "value": "91%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Tiempo medio de atención",
+            "value": "2,1 días",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "educacion",
+        "name": "Educación",
+        "headline": "92%",
+        "subtitle": "Cobertura escolar demo",
+        "metrics": [
+          {
+            "label": "Cobertura",
+            "value": 92,
+            "unit": "%"
+          },
+          {
+            "label": "Matrícula",
+            "value": 3420,
+            "unit": "est."
+          },
+          {
+            "label": "Deserción",
+            "value": 2.8,
+            "unit": "%"
+          },
+          {
+            "label": "Sedes",
+            "value": 28,
+            "unit": ""
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            86
+          ],
+          [
+            2023,
+            88
+          ],
+          [
+            2024,
+            89
+          ],
+          [
+            2025,
+            91
+          ],
+          [
+            2026,
+            92
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Cobertura neta",
+            "value": "92%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Matrícula total",
+            "value": "3.420",
+            "period": "2026"
+          },
+          {
+            "indicator": "Deserción",
+            "value": "2,8%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Sedes educativas",
+            "value": "28",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "economia",
+        "name": "Economía",
+        "headline": "89%",
+        "subtitle": "Ocupación estimada demo",
+        "metrics": [
+          {
+            "label": "Ocupación",
+            "value": 89,
+            "unit": "%"
+          },
+          {
+            "label": "Empresas",
+            "value": 620,
+            "unit": ""
+          },
+          {
+            "label": "Agropecuario",
+            "value": 37,
+            "unit": "%"
+          },
+          {
+            "label": "Informalidad",
+            "value": 32,
+            "unit": "%"
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            81
+          ],
+          [
+            2023,
+            83
+          ],
+          [
+            2024,
+            85
+          ],
+          [
+            2025,
+            87
+          ],
+          [
+            2026,
+            89
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Tasa de ocupación",
+            "value": "89%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Establecimientos activos",
+            "value": "620",
+            "period": "2026"
+          },
+          {
+            "indicator": "Participación agropecuaria",
+            "value": "37%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Informalidad",
+            "value": "32%",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "seguridad",
+        "name": "Convivencia y Seguridad",
+        "headline": "132",
+        "subtitle": "Casos priorizados demo",
+        "metrics": [
+          {
+            "label": "Casos/año",
+            "value": 132,
+            "unit": ""
+          },
+          {
+            "label": "Respuesta",
+            "value": 17,
+            "unit": "min"
+          },
+          {
+            "label": "Conciliaciones",
+            "value": 188,
+            "unit": ""
+          },
+          {
+            "label": "Percepción positiva",
+            "value": 74,
+            "unit": "%"
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            176
+          ],
+          [
+            2023,
+            164
+          ],
+          [
+            2024,
+            151
+          ],
+          [
+            2025,
+            141
+          ],
+          [
+            2026,
+            132
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Casos priorizados",
+            "value": "132",
+            "period": "2026"
+          },
+          {
+            "indicator": "Tiempo medio de respuesta",
+            "value": "17 min",
+            "period": "2026"
+          },
+          {
+            "indicator": "Conciliaciones",
+            "value": "188",
+            "period": "2026"
+          },
+          {
+            "indicator": "Percepción positiva",
+            "value": "74%",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "servicios",
+        "name": "Acceso a Servicios Públicos",
+        "headline": "86%",
+        "subtitle": "Acueducto demo",
+        "metrics": [
+          {
+            "label": "Acueducto",
+            "value": 86,
+            "unit": "%"
+          },
+          {
+            "label": "Alcantarillado",
+            "value": 71,
+            "unit": "%"
+          },
+          {
+            "label": "Internet",
+            "value": 68,
+            "unit": "%"
+          },
+          {
+            "label": "Energía",
+            "value": 98,
+            "unit": "%"
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            77
+          ],
+          [
+            2023,
+            80
+          ],
+          [
+            2024,
+            82
+          ],
+          [
+            2025,
+            84
+          ],
+          [
+            2026,
+            86
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Acueducto",
+            "value": "86%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Alcantarillado",
+            "value": "71%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Internet hogar",
+            "value": "68%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Energía",
+            "value": "98%",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "vivienda",
+        "name": "Vivienda",
+        "headline": "420",
+        "subtitle": "Hogares priorizados demo",
+        "metrics": [
+          {
+            "label": "Hogares priorizados",
+            "value": 420,
+            "unit": ""
+          },
+          {
+            "label": "Déficit cualitativo",
+            "value": 18,
+            "unit": "%"
+          },
+          {
+            "label": "Mejoramientos",
+            "value": 146,
+            "unit": ""
+          },
+          {
+            "label": "Rural",
+            "value": 64,
+            "unit": "%"
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            112
+          ],
+          [
+            2023,
+            119
+          ],
+          [
+            2024,
+            128
+          ],
+          [
+            2025,
+            137
+          ],
+          [
+            2026,
+            146
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Hogares priorizados",
+            "value": "420",
+            "period": "2026"
+          },
+          {
+            "indicator": "Déficit cualitativo",
+            "value": "18%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Mejoramientos ejecutados",
+            "value": "146",
+            "period": "2026"
+          },
+          {
+            "indicator": "Beneficiarios rurales",
+            "value": "64%",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "vias",
+        "name": "Vías",
+        "headline": "164 km",
+        "subtitle": "Red vial demo",
+        "metrics": [
+          {
+            "label": "Red total",
+            "value": 164,
+            "unit": "km"
+          },
+          {
+            "label": "Buen estado",
+            "value": 42,
+            "unit": "%"
+          },
+          {
+            "label": "Intervenidos",
+            "value": 38,
+            "unit": "km"
+          },
+          {
+            "label": "Puntos críticos",
+            "value": 13,
+            "unit": ""
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            19
+          ],
+          [
+            2023,
+            24
+          ],
+          [
+            2024,
+            29
+          ],
+          [
+            2025,
+            34
+          ],
+          [
+            2026,
+            38
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Red vial estimada",
+            "value": "164 km",
+            "period": "2026"
+          },
+          {
+            "indicator": "Buen estado",
+            "value": "42%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Km intervenidos",
+            "value": "38 km",
+            "period": "2026"
+          },
+          {
+            "indicator": "Puntos críticos",
+            "value": "13",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "ordenamiento",
+        "name": "Ordenamiento Territorial",
+        "headline": "17",
+        "subtitle": "Veredas en el visor",
+        "metrics": [
+          {
+            "label": "Veredas",
+            "value": 17,
+            "unit": ""
+          },
+          {
+            "label": "Áreas de protección",
+            "value": 31,
+            "unit": "%"
+          },
+          {
+            "label": "Predios demo",
+            "value": 6840,
+            "unit": ""
+          },
+          {
+            "label": "Alertas",
+            "value": 9,
+            "unit": ""
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            4
+          ],
+          [
+            2023,
+            5
+          ],
+          [
+            2024,
+            6
+          ],
+          [
+            2025,
+            8
+          ],
+          [
+            2026,
+            9
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Veredas",
+            "value": "17",
+            "period": "2026"
+          },
+          {
+            "indicator": "Área de protección",
+            "value": "31%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Predios referenciados",
+            "value": "6.840",
+            "period": "2026"
+          },
+          {
+            "indicator": "Alertas de uso",
+            "value": "9",
+            "period": "2026"
+          }
+        ]
+      },
+      {
+        "id": "institucional",
+        "name": "Medición Institucional",
+        "headline": "78/100",
+        "subtitle": "Índice demo de gestión",
+        "metrics": [
+          {
+            "label": "Índice gestión",
+            "value": 78,
+            "unit": "/100"
+          },
+          {
+            "label": "Ejecución",
+            "value": 64,
+            "unit": "%"
+          },
+          {
+            "label": "Proyectos",
+            "value": 36,
+            "unit": ""
+          },
+          {
+            "label": "Alertas",
+            "value": 7,
+            "unit": ""
+          }
+        ],
+        "trend": [
+          [
+            2022,
+            61
+          ],
+          [
+            2023,
+            66
+          ],
+          [
+            2024,
+            70
+          ],
+          [
+            2025,
+            74
+          ],
+          [
+            2026,
+            78
+          ]
+        ],
+        "indicators": [
+          {
+            "indicator": "Índice demo de gestión",
+            "value": "78/100",
+            "period": "2026"
+          },
+          {
+            "indicator": "Ejecución presupuestal",
+            "value": "64%",
+            "period": "2026"
+          },
+          {
+            "indicator": "Proyectos en seguimiento",
+            "value": "36",
+            "period": "2026"
+          },
+          {
+            "indicator": "Alertas institucionales",
+            "value": "7",
+            "period": "2026"
+          }
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "id": "d1",
+        "title": "Plan Estadístico Municipal 2026",
+        "type": "PDF",
+        "description": "Inventario demo de operaciones estadísticas, indicadores y responsables.",
+        "updated": "2026-09-12",
+        "size": "3,8 MB"
+      },
+      {
+        "id": "d2",
+        "title": "Fichas técnicas de indicadores sociales",
+        "type": "XLSX",
+        "description": "36 indicadores demo con fórmula, periodicidad, fuente y responsable.",
+        "updated": "2026-09-10",
+        "size": "820 KB"
+      },
+      {
+        "id": "d3",
+        "title": "Matriz de fuentes territoriales",
+        "type": "XLSX",
+        "description": "Catálogo demo de fuentes nacionales, departamentales y municipales.",
+        "updated": "2026-09-08",
+        "size": "540 KB"
+      },
+      {
+        "id": "d4",
+        "title": "Boletín demográfico 2026",
+        "type": "PDF",
+        "description": "Resumen sintético de población, hogares y estructura etaria.",
+        "updated": "2026-09-06",
+        "size": "2,1 MB"
+      },
+      {
+        "id": "d5",
+        "title": "Indicadores de servicios públicos",
+        "type": "CSV",
+        "description": "Serie demo 2022–2026 de coberturas de acueducto, alcantarillado, energía e internet.",
+        "updated": "2026-09-05",
+        "size": "120 KB"
+      },
+      {
+        "id": "d6",
+        "title": "Metodologías y metadatos",
+        "type": "PDF",
+        "description": "Documento demo de definiciones, fuentes y reglas de actualización.",
+        "updated": "2026-09-01",
+        "size": "1,5 MB"
+      }
+    ],
+    "publications": [
+      {
+        "id": "i1",
+        "type": "Hallazgo",
+        "date": "2026-09-18",
+        "title": "La conectividad rural concentra la mayor brecha territorial",
+        "summary": "Análisis demo que cruza cobertura de internet, dispersión poblacional y acceso a servicios en las 17 veredas.",
+        "tags": [
+          "Conectividad",
+          "Rural"
+        ]
+      },
+      {
+        "id": "i2",
+        "type": "Análisis",
+        "date": "2026-09-15",
+        "title": "Tres cuellos de botella en la ejecución de proyectos",
+        "summary": "Permisos prediales, contratación de suministros y coordinación interdependencias aparecen como riesgos recurrentes en el portafolio demo.",
+        "tags": [
+          "Cumplimiento",
+          "Riesgos"
+        ]
+      },
+      {
+        "id": "i3",
+        "type": "Dato",
+        "date": "2026-09-11",
+        "title": "La cobertura de acueducto mejora, pero persiste dispersión rural",
+        "summary": "Serie sintética 2022–2026 para mostrar cómo debería leerse una tendencia con contexto territorial.",
+        "tags": [
+          "Servicios públicos",
+          "Data"
+        ]
+      },
+      {
+        "id": "i4",
+        "type": "Nota técnica",
+        "date": "2026-09-08",
+        "title": "Cómo leer el avance físico y financiero al mismo tiempo",
+        "summary": "Guía demo para interpretar proyectos con diferencias entre ejecución presupuestal y avance de obra.",
+        "tags": [
+          "Planeación",
+          "Finanzas"
+        ]
+      }
+    ],
+    "glossary": [
+      {
+        "term": "Indicador",
+        "definition": "Medida cuantitativa o cualitativa usada para observar el estado o cambio de una variable.",
+        "source": "DEMO · Metodología TI"
+      },
+      {
+        "term": "Línea base",
+        "definition": "Valor inicial de referencia frente al cual se compara el avance de una meta.",
+        "source": "DEMO · Metodología TI"
+      },
+      {
+        "term": "Meta resultado",
+        "definition": "Resultado esperado al final de un periodo de gobierno, medido mediante uno o más indicadores.",
+        "source": "DEMO · Planeación"
+      },
+      {
+        "term": "Georreferenciación",
+        "definition": "Asociación de información a una ubicación espacial para analizar su distribución territorial.",
+        "source": "DEMO · Data Territorio"
+      },
+      {
+        "term": "Trazabilidad",
+        "definition": "Capacidad de seguir el vínculo entre dato, análisis, decisión, ejecución y resultado.",
+        "source": "DEMO · Gobernanza"
+      },
+      {
+        "term": "Alerta temprana",
+        "definition": "Señal generada antes de que un riesgo se convierta en incumplimiento crítico.",
+        "source": "DEMO · Cumplimiento"
+      },
+      {
+        "term": "MIPG",
+        "definition": "Marco de gestión institucional usado aquí solo como referencia conceptual para la demo.",
+        "source": "DEMO · Institucional"
+      }
+    ],
+    "veredaStats": [
+      {
+        "name": "Altania",
+        "population": 420,
+        "services": 2,
+        "beneficiaries": 95,
+        "projects": 1,
+        "coverage": 58,
+        "priority": "Alta"
+      },
+      {
+        "name": "Canica Alta",
+        "population": 493,
+        "services": 3,
+        "beneficiaries": 142,
+        "projects": 2,
+        "coverage": 65,
+        "priority": "Media"
+      },
+      {
+        "name": "Canica Baja",
+        "population": 566,
+        "services": 4,
+        "beneficiaries": 189,
+        "projects": 3,
+        "coverage": 72,
+        "priority": "Media"
+      },
+      {
+        "name": "Cascajal",
+        "population": 639,
+        "services": 5,
+        "beneficiaries": 236,
+        "projects": 4,
+        "coverage": 79,
+        "priority": "Baja"
+      },
+      {
+        "name": "El Centro (Llanitos)",
+        "population": 712,
+        "services": 6,
+        "beneficiaries": 283,
+        "projects": 5,
+        "coverage": 86,
+        "priority": "Alta"
+      },
+      {
+        "name": "El Guamal",
+        "population": 785,
+        "services": 7,
+        "beneficiaries": 330,
+        "projects": 1,
+        "coverage": 93,
+        "priority": "Media"
+      },
+      {
+        "name": "El Paramo",
+        "population": 858,
+        "services": 2,
+        "beneficiaries": 377,
+        "projects": 2,
+        "coverage": 61,
+        "priority": "Media"
+      },
+      {
+        "name": "El Tobal",
+        "population": 931,
+        "services": 3,
+        "beneficiaries": 424,
+        "projects": 3,
+        "coverage": 68,
+        "priority": "Baja"
+      },
+      {
+        "name": "El Valle",
+        "population": 1004,
+        "services": 4,
+        "beneficiaries": 471,
+        "projects": 4,
+        "coverage": 75,
+        "priority": "Alta"
+      },
+      {
+        "name": "Galdamez",
+        "population": 1077,
+        "services": 5,
+        "beneficiaries": 518,
+        "projects": 5,
+        "coverage": 82,
+        "priority": "Media"
+      },
+      {
+        "name": "La Union",
+        "population": 1150,
+        "services": 6,
+        "beneficiaries": 565,
+        "projects": 1,
+        "coverage": 89,
+        "priority": "Media"
+      },
+      {
+        "name": "La Yeguera",
+        "population": 1223,
+        "services": 7,
+        "beneficiaries": 612,
+        "projects": 2,
+        "coverage": 96,
+        "priority": "Baja"
+      },
+      {
+        "name": "Pantano De Arce",
+        "population": 1296,
+        "services": 2,
+        "beneficiaries": 659,
+        "projects": 3,
+        "coverage": 64,
+        "priority": "Alta"
+      },
+      {
+        "name": "Rincon Santo",
+        "population": 1369,
+        "services": 3,
+        "beneficiaries": 706,
+        "projects": 4,
+        "coverage": 71,
+        "priority": "Media"
+      },
+      {
+        "name": "Santa Rosa",
+        "population": 492,
+        "services": 4,
+        "beneficiaries": 133,
+        "projects": 5,
+        "coverage": 78,
+        "priority": "Media"
+      },
+      {
+        "name": "Santuario La Cuesta",
+        "population": 565,
+        "services": 5,
+        "beneficiaries": 180,
+        "projects": 1,
+        "coverage": 85,
+        "priority": "Baja"
+      },
+      {
+        "name": "Tibagota",
+        "population": 638,
+        "services": 6,
+        "beneficiaries": 227,
+        "projects": 2,
+        "coverage": 92,
+        "priority": "Alta"
+      }
+    ]
+  },
+  "plan": {
+    "name": "Plan de Desarrollo · tablero de implementación",
+    "ejes": [
+      {
+        "id": "social",
+        "name": "Subachoque cuida a su gente",
+        "budget": 18500,
+        "progress": 64,
+        "programs": [
+          {
+            "id": "salud-integral",
+            "name": "Salud cercana y Centro de Salud",
+            "budget": 7200,
+            "progress": 71,
+            "responsible": "Secretaría Social",
+            "goals": [
+              "Aumentar cobertura de atención primaria al 95%",
+              "Reducir tiempos de espera en 20%",
+              "Realizar 24 jornadas rurales de prevención"
+            ],
+            "media": "assets/img/editorial/territorio-aereo.jpg"
+          },
+          {
+            "id": "educacion-oportunidades",
+            "name": "Educación, permanencia y nuevas aulas",
+            "budget": 11300,
+            "progress": 59,
+            "responsible": "Secretaría de Educación",
+            "goals": [
+              "Alcanzar 94% de cobertura escolar",
+              "Entregar 1.200 apoyos de permanencia",
+              "Adecuar 12 sedes educativas"
+            ],
+            "media": "assets/img/editorial/gestion.jpg"
+          }
+        ],
+        "media": "assets/img/editorial/comunidad.jpg"
+      },
+      {
+        "id": "sostenible",
+        "name": "Territorio verde y resiliente",
+        "budget": 12800,
+        "progress": 57,
+        "programs": [
+          {
+            "id": "agua",
+            "name": "Plan Maestro de agua y saneamiento",
+            "budget": 6500,
+            "progress": 62,
+            "responsible": "Servicios Públicos",
+            "goals": [
+              "Llevar cobertura de acueducto al 90%",
+              "Intervenir 9 sistemas rurales",
+              "Reducir pérdidas técnicas al 22%"
+            ],
+            "media": "assets/img/editorial/gestion.jpg"
+          },
+          {
+            "id": "ambiente",
+            "name": "Paisaje y adaptación climática",
+            "budget": 6300,
+            "progress": 52,
+            "responsible": "Ambiente y Desarrollo Rural",
+            "goals": [
+              "Restaurar 180 hectáreas",
+              "Proteger 14 nacimientos de agua",
+              "Implementar 6 sistemas de alerta comunitaria"
+            ],
+            "media": "assets/img/editorial/alcaldia.jpg"
+          }
+        ],
+        "media": "assets/img/editorial/territorio-aereo.jpg"
+      },
+      {
+        "id": "productivo",
+        "name": "Economía que conecta campo y mercado",
+        "budget": 9600,
+        "progress": 68,
+        "programs": [
+          {
+            "id": "agro",
+            "name": "Campo productivo y centro de acopio",
+            "budget": 5200,
+            "progress": 73,
+            "responsible": "UMATA",
+            "goals": [
+              "Atender 650 productores",
+              "Implementar 40 parcelas demostrativas",
+              "Crear 4 circuitos cortos de comercialización"
+            ],
+            "media": "assets/img/editorial/alcaldia.jpg"
+          },
+          {
+            "id": "emprende",
+            "name": "Emprende Subachoque",
+            "budget": 4400,
+            "progress": 62,
+            "responsible": "Desarrollo Económico",
+            "goals": [
+              "Acompañar 180 emprendimientos",
+              "Formalizar 80 unidades productivas",
+              "Crear 2 ruedas anuales de negocio"
+            ],
+            "media": "assets/img/editorial/participacion.jpg"
+          }
+        ],
+        "media": "assets/img/editorial/gestion.jpg"
+      },
+      {
+        "id": "infraestructura",
+        "name": "Infraestructura que acerca",
+        "budget": 24100,
+        "progress": 49,
+        "programs": [
+          {
+            "id": "vias-rurales",
+            "name": "Corredores rurales y placa huella",
+            "budget": 15700,
+            "progress": 46,
+            "responsible": "Infraestructura",
+            "goals": [
+              "Intervenir 45 km de vías",
+              "Atender 18 puntos críticos",
+              "Construir 6 obras de drenaje"
+            ],
+            "media": "assets/img/editorial/participacion.jpg"
+          },
+          {
+            "id": "espacio-publico",
+            "name": "Espacio público y equipamientos comunitarios",
+            "budget": 8400,
+            "progress": 54,
+            "responsible": "Infraestructura",
+            "goals": [
+              "Recuperar 5 parques",
+              "Adecuar 3 polideportivos",
+              "Mejorar 4 equipamientos comunitarios"
+            ],
+            "media": "assets/img/editorial/servicio.jpg"
+          }
+        ],
+        "media": "assets/img/editorial/alcaldia.jpg"
+      },
+      {
+        "id": "gobierno",
+        "name": "Gobierno abierto y capaz",
+        "budget": 7400,
+        "progress": 76,
+        "programs": [
+          {
+            "id": "digital",
+            "name": "Gobierno digital y datos",
+            "budget": 3900,
+            "progress": 81,
+            "responsible": "Planeación y TIC",
+            "goals": [
+              "Digitalizar 20 trámites",
+              "Publicar 12 tableros de datos",
+              "Reducir 30% los tiempos de respuesta"
+            ],
+            "media": "assets/img/editorial/servicio.jpg"
+          },
+          {
+            "id": "participacion",
+            "name": "Participación, mujer y transparencia",
+            "budget": 3500,
+            "progress": 71,
+            "responsible": "Gobierno",
+            "goals": [
+              "Realizar 28 espacios participativos",
+              "Publicar 4 rendiciones de cuentas",
+              "Activar 17 tableros veredales"
+            ],
+            "media": "assets/img/editorial/comunidad.jpg"
+          }
+        ],
+        "media": "assets/img/editorial/participacion.jpg"
+      },
+      {
+        "id": "seguridad",
+        "name": "Convivencia y seguridad territorial",
+        "budget": 6900,
+        "progress": 61,
+        "programs": [
+          {
+            "id": "convivencia",
+            "name": "Convivencia y mediación",
+            "budget": 2800,
+            "progress": 67,
+            "responsible": "Gobierno",
+            "goals": [
+              "Formar 120 mediadores comunitarios",
+              "Realizar 300 conciliaciones",
+              "Implementar 8 campañas preventivas"
+            ],
+            "media": "assets/img/editorial/comunidad.jpg"
+          },
+          {
+            "id": "respuesta",
+            "name": "Respuesta y gestión del riesgo",
+            "budget": 4100,
+            "progress": 56,
+            "responsible": "Gestión del Riesgo",
+            "goals": [
+              "Reducir a 15 min el tiempo medio de respuesta",
+              "Actualizar 17 planes veredales",
+              "Instalar 10 puntos de comunicación de emergencia"
+            ],
+            "media": "assets/img/editorial/territorio-aereo.jpg"
+          }
+        ],
+        "media": "assets/img/editorial/servicio.jpg"
+      }
+    ],
+    "ods": [
+      1,
+      3,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13
+    ],
+    "updated": "2026-09-21",
+    "sourceNote": "Estructura y cifras de seguimiento ilustrativas para demostrar la experiencia. Los proyectos destacados toman como referencia compromisos públicos del territorio."
+  },
+  "compliance": {
+    "projects": [
+      {
+        "id": "p1",
+        "name": "Plan Maestro de Alcantarillado · Fase I",
+        "sector": "Servicios públicos",
+        "progress": 68,
+        "budget": 6200,
+        "executed": 4216,
+        "risk": "Medio",
+        "beneficiaries": 2840,
+        "vereda": "Cabecera municipal",
+        "status": "En ejecución",
+        "contract": "TI-DEMO-001-2026",
+        "schedule": "Feb 2026 – Dic 2026",
+        "milestones": [
+          "Estudios y diseños · 100%",
+          "Obras de drenaje · 80%",
+          "Placa huella · 64%",
+          "Señalización · 20%"
+        ],
+        "risks": [
+          "Lluvias intensas",
+          "Disponibilidad de agregados"
+        ],
+        "evidence": 12,
+        "media": "assets/img/editorial/alcaldia.jpg",
+        "reference": "Seguimiento ilustrativo sobre una iniciativa territorial de referencia"
+      },
+      {
+        "id": "p2",
+        "name": "Optimización de acueductos veredales",
+        "sector": "Servicios públicos",
+        "progress": 54,
+        "budget": 3800,
+        "executed": 2052,
+        "risk": "Alto",
+        "beneficiaries": 1260,
+        "vereda": "Varias veredas",
+        "status": "En ejecución",
+        "contract": "TI-DEMO-002-2026",
+        "schedule": "Mar 2026 – Ene 2027",
+        "milestones": [
+          "Diagnóstico · 100%",
+          "Compra de equipos · 70%",
+          "Redes secundarias · 46%",
+          "Puesta en marcha · 0%"
+        ],
+        "risks": [
+          "Permisos prediales",
+          "Entrega de equipos"
+        ],
+        "evidence": 8,
+        "media": "assets/img/editorial/territorio-aereo.jpg",
+        "reference": "Seguimiento ilustrativo sobre una iniciativa territorial de referencia"
+      },
+      {
+        "id": "p3",
+        "name": "IED Ricardo González · ampliación de aulas",
+        "sector": "Educación",
+        "progress": 82,
+        "budget": 4500,
+        "executed": 3690,
+        "risk": "Bajo",
+        "beneficiaries": 480,
+        "vereda": "Casco urbano",
+        "status": "Cierre próximo",
+        "contract": "TI-DEMO-003-2025",
+        "schedule": "Oct 2025 – Oct 2026",
+        "milestones": [
+          "Diseño · 100%",
+          "Estructura · 100%",
+          "Acabados · 76%",
+          "Dotación · 52%"
+        ],
+        "risks": [
+          "Ajustes de dotación"
+        ],
+        "evidence": 26,
+        "media": "assets/img/editorial/comunidad.jpg",
+        "reference": "Seguimiento ilustrativo sobre una iniciativa territorial de referencia"
+      },
+      {
+        "id": "p4",
+        "name": "Plaza de mercado y centro de acopio campesino",
+        "sector": "Desarrollo económico",
+        "progress": 47,
+        "budget": 2900,
+        "executed": 1363,
+        "risk": "Medio",
+        "beneficiaries": 1780,
+        "vereda": "Casco urbano",
+        "status": "En ejecución",
+        "contract": "TI-DEMO-004-2026",
+        "schedule": "Abr 2026 – Abr 2027",
+        "milestones": [
+          "Priorización · 100%",
+          "Acuerdos de conservación · 65%",
+          "Siembra · 39%",
+          "Monitoreo · 15%"
+        ],
+        "risks": [
+          "Supervivencia de material vegetal",
+          "Acceso a predios"
+        ],
+        "evidence": 15,
+        "media": "assets/img/editorial/participacion.jpg",
+        "reference": "Seguimiento ilustrativo sobre una iniciativa territorial de referencia"
+      },
+      {
+        "id": "p5",
+        "name": "Casa de la Mujer y emprendimiento",
+        "sector": "Social",
+        "progress": 73,
+        "budget": 5100,
+        "executed": 3723,
+        "risk": "Bajo",
+        "beneficiaries": 6540,
+        "vereda": "Municipal",
+        "status": "En ejecución",
+        "contract": "TI-DEMO-005-2026",
+        "schedule": "Ene 2026 – Nov 2026",
+        "milestones": [
+          "Diseño red · 100%",
+          "Infraestructura · 82%",
+          "Equipos · 70%",
+          "Activación · 55%"
+        ],
+        "risks": [
+          "Energización de nodos"
+        ],
+        "evidence": 31,
+        "media": "assets/img/editorial/gestion.jpg",
+        "reference": "Seguimiento ilustrativo sobre una iniciativa territorial de referencia"
+      },
+      {
+        "id": "p6",
+        "name": "Corredores rurales y placa huella",
+        "sector": "Vías",
+        "progress": 39,
+        "budget": 7600,
+        "executed": 2964,
+        "risk": "Alto",
+        "beneficiaries": 420,
+        "vereda": "Varias veredas",
+        "status": "En ejecución",
+        "contract": "TI-DEMO-006-2026",
+        "schedule": "May 2026 – Jun 2027",
+        "milestones": [
+          "Caracterización · 100%",
+          "Diseños · 78%",
+          "Obras grupo 1 · 36%",
+          "Obras grupo 2 · 12%"
+        ],
+        "risks": [
+          "Documentación predial",
+          "Incremento de costos"
+        ],
+        "evidence": 19,
+        "media": "assets/img/editorial/territorio-aereo.jpg",
+        "reference": "Seguimiento ilustrativo sobre una iniciativa territorial de referencia"
+      },
+      {
+        "id": "p7",
+        "name": "Ventanilla digital y datos territoriales",
+        "sector": "Gobierno",
+        "progress": 88,
+        "budget": 1700,
+        "executed": 1496,
+        "risk": "Bajo",
+        "beneficiaries": 17840,
+        "vereda": "Municipal",
+        "status": "Piloto",
+        "contract": "TI-DEMO-007-2026",
+        "schedule": "Ene 2026 – Sep 2026",
+        "milestones": [
+          "Inventario · 100%",
+          "Digitalización · 96%",
+          "Pruebas · 84%",
+          "Capacitación · 70%"
+        ],
+        "risks": [
+          "Adopción interna"
+        ],
+        "evidence": 22,
+        "media": "assets/img/editorial/servicio.jpg",
+        "reference": "Seguimiento ilustrativo sobre una iniciativa territorial de referencia"
+      },
+      {
+        "id": "p8",
+        "name": "Rutas seguras y movilidad escolar",
+        "sector": "Educación",
+        "progress": 63,
+        "budget": 1250,
+        "executed": 788,
+        "risk": "Medio",
+        "beneficiaries": 3420,
+        "vereda": "Varias veredas",
+        "status": "En ejecución",
+        "contract": "TI-DEMO-008-2026",
+        "schedule": "Feb 2026 – Dic 2026",
+        "milestones": [
+          "Diagnóstico · 100%",
+          "Señalización · 72%",
+          "Rutas seguras · 55%",
+          "Evaluación · 20%"
+        ],
+        "risks": [
+          "Coordinación interinstitucional"
+        ],
+        "evidence": 17,
+        "media": "assets/img/editorial/comunidad.jpg",
+        "reference": "Seguimiento ilustrativo sobre una iniciativa territorial de referencia"
+      }
+    ],
+    "updated": "2026-09-20",
+    "voices": [
+      {
+        "role": "Planeación municipal · voz ilustrativa",
+        "quote": "Un proyecto en amarillo hoy es una oportunidad de gestión; uno en rojo dentro de tres meses ya es una explicación tardía.",
+        "media": "assets/img/editorial/gestion.jpg"
+      },
+      {
+        "role": "Comunidad rural · voz ilustrativa",
+        "quote": "Cuando el avance se ve por vereda, es más fácil preguntar qué falta y quién tiene que resolverlo.",
+        "media": "assets/img/editorial/participacion.jpg"
+      }
+    ]
+  },
+  "policies": [
+    {
+      "id": "pp1",
+      "name": "Política de Primera Infancia, Infancia y Adolescencia",
+      "status": "Implementación",
+      "progress": 72,
+      "lead": "Secretaría Social",
+      "horizon": "2025–2035",
+      "actions": [
+        "Ruta integral de atención",
+        "Sistema local de alertas",
+        "Participación de niñas, niños y adolescentes"
+      ],
+      "media": "assets/img/editorial/gestion.jpg"
+    },
+    {
+      "id": "pp2",
+      "name": "Política Pública de Mujer y Equidad de Género",
+      "status": "Implementación",
+      "progress": 58,
+      "lead": "Gobierno y Desarrollo Social",
+      "horizon": "2024–2032",
+      "actions": [
+        "Prevención de violencias",
+        "Autonomía económica",
+        "Participación y liderazgo"
+      ],
+      "media": "assets/img/editorial/alcaldia.jpg"
+    },
+    {
+      "id": "pp3",
+      "name": "Política de Envejecimiento y Vejez",
+      "status": "Formulación",
+      "progress": 43,
+      "lead": "Secretaría Social",
+      "horizon": "2027–2037",
+      "actions": [
+        "Caracterización",
+        "Sistema de cuidado",
+        "Envejecimiento activo"
+      ],
+      "media": "assets/img/editorial/participacion.jpg"
+    },
+    {
+      "id": "pp4",
+      "name": "Política de Seguridad Alimentaria y Nutricional",
+      "status": "Evaluación",
+      "progress": 81,
+      "lead": "Salud y Desarrollo Rural",
+      "horizon": "2022–2030",
+      "actions": [
+        "Abastecimiento local",
+        "Nutrición escolar",
+        "Huertas familiares"
+      ],
+      "media": "assets/img/editorial/servicio.jpg"
+    },
+    {
+      "id": "pp5",
+      "name": "Política de Cambio Climático y Gestión del Riesgo",
+      "status": "Implementación",
+      "progress": 66,
+      "lead": "Planeación y Ambiente",
+      "horizon": "2025–2040",
+      "actions": [
+        "Adaptación veredal",
+        "Alertas tempranas",
+        "Infraestructura resiliente"
+      ],
+      "media": "assets/img/editorial/comunidad.jpg"
+    }
+  ],
+  "insights": [
+    {
+      "id": "i1",
+      "type": "Hallazgo",
+      "date": "2026-09-18",
+      "title": "La conectividad rural concentra la mayor brecha territorial",
+      "summary": "Análisis demo que cruza cobertura de internet, dispersión poblacional y acceso a servicios en las 17 veredas.",
+      "tags": [
+        "Conectividad",
+        "Rural"
+      ],
+      "media": "assets/img/editorial/territorio-aereo.jpg",
+      "author": "Equipo Territorio Inteligente · contenido ilustrativo",
+      "body": [
+        "Este contenido de demostración desarrolla el hallazgo: Análisis demo que cruza cobertura de internet, dispersión poblacional y acceso a servicios en las 17 veredas.",
+        "La lectura final debería conectar el hallazgo con la fuente, el corte, la metodología y la decisión pública que puede tomar el equipo responsable.",
+        "Antes de una publicación institucional, estas afirmaciones deben sustituirse o validarse con evidencia oficial y responsables identificados."
+      ]
+    },
+    {
+      "id": "i2",
+      "type": "Análisis",
+      "date": "2026-09-15",
+      "title": "Tres cuellos de botella en la ejecución de proyectos",
+      "summary": "Permisos prediales, contratación de suministros y coordinación interdependencias aparecen como riesgos recurrentes en el portafolio demo.",
+      "tags": [
+        "Cumplimiento",
+        "Riesgos"
+      ],
+      "media": "assets/img/editorial/gestion.jpg",
+      "author": "Equipo Territorio Inteligente · contenido ilustrativo",
+      "body": [
+        "Este contenido de demostración desarrolla el hallazgo: Permisos prediales, contratación de suministros y coordinación interdependencias aparecen como riesgos recurrentes en el portafolio demo.",
+        "La lectura final debería conectar el hallazgo con la fuente, el corte, la metodología y la decisión pública que puede tomar el equipo responsable.",
+        "Antes de una publicación institucional, estas afirmaciones deben sustituirse o validarse con evidencia oficial y responsables identificados."
+      ]
+    },
+    {
+      "id": "i3",
+      "type": "Dato",
+      "date": "2026-09-11",
+      "title": "La cobertura de acueducto mejora, pero persiste dispersión rural",
+      "summary": "Serie sintética 2022–2026 para mostrar cómo debería leerse una tendencia con contexto territorial.",
+      "tags": [
+        "Servicios públicos",
+        "Data"
+      ],
+      "media": "assets/img/editorial/alcaldia.jpg",
+      "author": "Equipo Territorio Inteligente · contenido ilustrativo",
+      "body": [
+        "Este contenido de demostración desarrolla el hallazgo: Serie sintética 2022–2026 para mostrar cómo debería leerse una tendencia con contexto territorial.",
+        "La lectura final debería conectar el hallazgo con la fuente, el corte, la metodología y la decisión pública que puede tomar el equipo responsable.",
+        "Antes de una publicación institucional, estas afirmaciones deben sustituirse o validarse con evidencia oficial y responsables identificados."
+      ]
+    },
+    {
+      "id": "i4",
+      "type": "Nota técnica",
+      "date": "2026-09-08",
+      "title": "Cómo leer el avance físico y financiero al mismo tiempo",
+      "summary": "Guía demo para interpretar proyectos con diferencias entre ejecución presupuestal y avance de obra.",
+      "tags": [
+        "Planeación",
+        "Finanzas"
+      ],
+      "media": "assets/img/editorial/participacion.jpg",
+      "author": "Equipo Territorio Inteligente · contenido ilustrativo",
+      "body": [
+        "Este contenido de demostración desarrolla el hallazgo: Guía demo para interpretar proyectos con diferencias entre ejecución presupuestal y avance de obra.",
+        "La lectura final debería conectar el hallazgo con la fuente, el corte, la metodología y la decisión pública que puede tomar el equipo responsable.",
+        "Antes de una publicación institucional, estas afirmaciones deben sustituirse o validarse con evidencia oficial y responsables identificados."
+      ]
+    },
+    {
+      "id": "i5",
+      "type": "Territorio",
+      "date": "2026-09-03",
+      "title": "17 veredas, 17 prioridades distintas",
+      "summary": "Ejemplo editorial sobre focalización territorial usando el georreferenciador de la plataforma.",
+      "tags": [
+        "Veredas",
+        "Georreferenciación"
+      ],
+      "media": "assets/img/editorial/servicio.jpg",
+      "author": "Equipo Territorio Inteligente · contenido ilustrativo",
+      "body": [
+        "Este contenido de demostración desarrolla el hallazgo: Ejemplo editorial sobre focalización territorial usando el georreferenciador de la plataforma.",
+        "La lectura final debería conectar el hallazgo con la fuente, el corte, la metodología y la decisión pública que puede tomar el equipo responsable.",
+        "Antes de una publicación institucional, estas afirmaciones deben sustituirse o validarse con evidencia oficial y responsables identificados."
+      ]
+    },
+    {
+      "id": "i6",
+      "type": "Transparencia",
+      "date": "2026-08-30",
+      "title": "Qué información debe acompañar cada indicador público",
+      "summary": "Fuente, periodo, metodología, responsable y fecha de actualización como metadatos mínimos.",
+      "tags": [
+        "Transparencia",
+        "Indicadores"
+      ],
+      "media": "assets/img/editorial/comunidad.jpg",
+      "author": "Equipo Territorio Inteligente · contenido ilustrativo",
+      "body": [
+        "Este contenido de demostración desarrolla el hallazgo: Fuente, periodo, metodología, responsable y fecha de actualización como metadatos mínimos.",
+        "La lectura final debería conectar el hallazgo con la fuente, el corte, la metodología y la decisión pública que puede tomar el equipo responsable.",
+        "Antes de una publicación institucional, estas afirmaciones deben sustituirse o validarse con evidencia oficial y responsables identificados."
+      ]
+    }
+  ]
+}

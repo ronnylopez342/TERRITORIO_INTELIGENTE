@@ -1,0 +1,1091 @@
+{
+  "definition": "Es el sistema integral que reúne, organiza y armoniza toda la información existente sobre un municipio proveniente de fuentes internacionales, nacionales, departamentales y municipales para ofrecer una visión completa, coherente y actualizada de su realidad en cada sector. Su propósito es totalizar y consolidar la data dispersa, garantizar su calidad y convertirla en insumo estratégico para la planificación, la toma de decisiones y la gestión pública basada en evidencia.",
+  "principles": [
+    {
+      "title": "Priorizar la información crítica para la toma de decisiones",
+      "text": "Concentrar el esfuerzo en variables esenciales cuando la información es limitada para construir una base mínima confiable."
+    },
+    {
+      "title": "Integrar fuentes diversas y de fácil acceso",
+      "text": "Articular fuentes internacionales, nacionales, departamentales, municipales y comunitarias aunque provengan de formatos distintos."
+    },
+    {
+      "title": "Validar la información con actores del territorio",
+      "text": "Usar verificación con líderes, veredas, sectores productivos e instituciones locales para asegurar pertinencia y precisión."
+    },
+    {
+      "title": "Documentar y estandarizar cada dato recolectado",
+      "text": "Registrar, clasificar y actualizar con protocolos simples que eviten pérdida de información y permitan crecer el sistema."
+    },
+    {
+      "title": "Construir capacidades locales para la gestión de información",
+      "text": "Formar equipos municipales y comunitarios en alfabetización de datos, herramientas e indicadores para sostener el sistema."
+    }
+  ],
+  "sectors": [
+    "Demografía y Población",
+    "Salud",
+    "Educación",
+    "Economía",
+    "Convivencia y Seguridad",
+    "Acceso a Servicios Públicos",
+    "Vivienda",
+    "Vías",
+    "Ordenamiento Territorial",
+    "Medición Institucional"
+  ],
+  "sources": [
+    {
+      "id": "dane",
+      "level": "nacional",
+      "name": "DANE",
+      "url": "https://www.dane.gov.co/",
+      "periodicity": "Según operación estadística"
+    },
+    {
+      "id": "igac",
+      "level": "nacional",
+      "name": "IGAC",
+      "url": "https://www.igac.gov.co/",
+      "periodicity": "Según conjunto de datos"
+    },
+    {
+      "id": "sui",
+      "level": "nacional",
+      "name": "SUI",
+      "url": "https://sui.superservicios.gov.co/",
+      "periodicity": "Según servicio"
+    },
+    {
+      "id": "sisben",
+      "level": "nacional",
+      "name": "SISBÉN",
+      "url": "https://www.sisben.gov.co/",
+      "periodicity": "Según publicación oficial"
+    },
+    {
+      "id": "dnp",
+      "level": "nacional",
+      "name": "DNP",
+      "url": "https://www.dnp.gov.co/",
+      "periodicity": "Según publicación oficial"
+    },
+    {
+      "id": "cundinamarca",
+      "level": "departamental",
+      "name": "Gobernación de Cundinamarca",
+      "url": "https://www.cundinamarca.gov.co/",
+      "periodicity": "Según publicación oficial"
+    }
+  ],
+  "documents": [
+    {
+      "id": "d1",
+      "title": "Plan Estadístico Municipal 2026",
+      "type": "PDF",
+      "description": "Inventario demo de operaciones estadísticas, indicadores y responsables.",
+      "updated": "2026-09-12",
+      "size": "3,8 MB"
+    },
+    {
+      "id": "d2",
+      "title": "Fichas técnicas de indicadores sociales",
+      "type": "XLSX",
+      "description": "36 indicadores demo con fórmula, periodicidad, fuente y responsable.",
+      "updated": "2026-09-10",
+      "size": "820 KB"
+    },
+    {
+      "id": "d3",
+      "title": "Matriz de fuentes territoriales",
+      "type": "XLSX",
+      "description": "Catálogo demo de fuentes nacionales, departamentales y municipales.",
+      "updated": "2026-09-08",
+      "size": "540 KB"
+    },
+    {
+      "id": "d4",
+      "title": "Boletín demográfico 2026",
+      "type": "PDF",
+      "description": "Resumen sintético de población, hogares y estructura etaria.",
+      "updated": "2026-09-06",
+      "size": "2,1 MB"
+    },
+    {
+      "id": "d5",
+      "title": "Indicadores de servicios públicos",
+      "type": "CSV",
+      "description": "Serie demo 2022–2026 de coberturas de acueducto, alcantarillado, energía e internet.",
+      "updated": "2026-09-05",
+      "size": "120 KB"
+    },
+    {
+      "id": "d6",
+      "title": "Metodologías y metadatos",
+      "type": "PDF",
+      "description": "Documento demo de definiciones, fuentes y reglas de actualización.",
+      "updated": "2026-09-01",
+      "size": "1,5 MB"
+    }
+  ],
+  "publications": [
+    {
+      "id": "i1",
+      "type": "Hallazgo",
+      "date": "2026-09-18",
+      "title": "La conectividad rural concentra la mayor brecha territorial",
+      "summary": "Análisis demo que cruza cobertura de internet, dispersión poblacional y acceso a servicios en las 17 veredas.",
+      "tags": [
+        "Conectividad",
+        "Rural"
+      ]
+    },
+    {
+      "id": "i2",
+      "type": "Análisis",
+      "date": "2026-09-15",
+      "title": "Tres cuellos de botella en la ejecución de proyectos",
+      "summary": "Permisos prediales, contratación de suministros y coordinación interdependencias aparecen como riesgos recurrentes en el portafolio demo.",
+      "tags": [
+        "Cumplimiento",
+        "Riesgos"
+      ]
+    },
+    {
+      "id": "i3",
+      "type": "Dato",
+      "date": "2026-09-11",
+      "title": "La cobertura de acueducto mejora, pero persiste dispersión rural",
+      "summary": "Serie sintética 2022–2026 para mostrar cómo debería leerse una tendencia con contexto territorial.",
+      "tags": [
+        "Servicios públicos",
+        "Data"
+      ]
+    },
+    {
+      "id": "i4",
+      "type": "Nota técnica",
+      "date": "2026-09-08",
+      "title": "Cómo leer el avance físico y financiero al mismo tiempo",
+      "summary": "Guía demo para interpretar proyectos con diferencias entre ejecución presupuestal y avance de obra.",
+      "tags": [
+        "Planeación",
+        "Finanzas"
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Indicador",
+      "definition": "Medida cuantitativa o cualitativa usada para observar el estado o cambio de una variable.",
+      "source": "DEMO · Metodología TI"
+    },
+    {
+      "term": "Línea base",
+      "definition": "Valor inicial de referencia frente al cual se compara el avance de una meta.",
+      "source": "DEMO · Metodología TI"
+    },
+    {
+      "term": "Meta resultado",
+      "definition": "Resultado esperado al final de un periodo de gobierno, medido mediante uno o más indicadores.",
+      "source": "DEMO · Planeación"
+    },
+    {
+      "term": "Georreferenciación",
+      "definition": "Asociación de información a una ubicación espacial para analizar su distribución territorial.",
+      "source": "DEMO · Data Territorio"
+    },
+    {
+      "term": "Trazabilidad",
+      "definition": "Capacidad de seguir el vínculo entre dato, análisis, decisión, ejecución y resultado.",
+      "source": "DEMO · Gobernanza"
+    },
+    {
+      "term": "Alerta temprana",
+      "definition": "Señal generada antes de que un riesgo se convierta en incumplimiento crítico.",
+      "source": "DEMO · Cumplimiento"
+    },
+    {
+      "term": "MIPG",
+      "definition": "Marco de gestión institucional usado aquí solo como referencia conceptual para la demo.",
+      "source": "DEMO · Institucional"
+    }
+  ],
+  "demoSectors": [
+    {
+      "id": "demografia",
+      "name": "Demografía y Población",
+      "headline": "17.840 hab.",
+      "subtitle": "Población total demo",
+      "metrics": [
+        {
+          "label": "Población",
+          "value": 17840,
+          "unit": "hab."
+        },
+        {
+          "label": "Rural",
+          "value": 61,
+          "unit": "%"
+        },
+        {
+          "label": "Urbana",
+          "value": 39,
+          "unit": "%"
+        },
+        {
+          "label": "Envejecimiento",
+          "value": 8.7,
+          "unit": "%"
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          16820
+        ],
+        [
+          2023,
+          17110
+        ],
+        [
+          2024,
+          17360
+        ],
+        [
+          2025,
+          17600
+        ],
+        [
+          2026,
+          17840
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Población total",
+          "value": "17.840",
+          "period": "2026"
+        },
+        {
+          "indicator": "Hogares",
+          "value": "5.420",
+          "period": "2026"
+        },
+        {
+          "indicator": "Tamaño promedio hogar",
+          "value": "3,29",
+          "period": "2026"
+        },
+        {
+          "indicator": "Dependencia demográfica",
+          "value": "0,56",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "salud",
+      "name": "Salud",
+      "headline": "94%",
+      "subtitle": "Cobertura primaria demo",
+      "metrics": [
+        {
+          "label": "Cobertura",
+          "value": 94,
+          "unit": "%"
+        },
+        {
+          "label": "Consultas/mes",
+          "value": 4320,
+          "unit": ""
+        },
+        {
+          "label": "Espera promedio",
+          "value": 2.1,
+          "unit": "días"
+        },
+        {
+          "label": "Casos críticos",
+          "value": 41,
+          "unit": ""
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          87
+        ],
+        [
+          2023,
+          89
+        ],
+        [
+          2024,
+          91
+        ],
+        [
+          2025,
+          92
+        ],
+        [
+          2026,
+          94
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Cobertura APS",
+          "value": "94%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Consultas mensuales",
+          "value": "4.320",
+          "period": "2026"
+        },
+        {
+          "indicator": "Vacunación infantil",
+          "value": "91%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Tiempo medio de atención",
+          "value": "2,1 días",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "educacion",
+      "name": "Educación",
+      "headline": "92%",
+      "subtitle": "Cobertura escolar demo",
+      "metrics": [
+        {
+          "label": "Cobertura",
+          "value": 92,
+          "unit": "%"
+        },
+        {
+          "label": "Matrícula",
+          "value": 3420,
+          "unit": "est."
+        },
+        {
+          "label": "Deserción",
+          "value": 2.8,
+          "unit": "%"
+        },
+        {
+          "label": "Sedes",
+          "value": 28,
+          "unit": ""
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          86
+        ],
+        [
+          2023,
+          88
+        ],
+        [
+          2024,
+          89
+        ],
+        [
+          2025,
+          91
+        ],
+        [
+          2026,
+          92
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Cobertura neta",
+          "value": "92%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Matrícula total",
+          "value": "3.420",
+          "period": "2026"
+        },
+        {
+          "indicator": "Deserción",
+          "value": "2,8%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Sedes educativas",
+          "value": "28",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "economia",
+      "name": "Economía",
+      "headline": "89%",
+      "subtitle": "Ocupación estimada demo",
+      "metrics": [
+        {
+          "label": "Ocupación",
+          "value": 89,
+          "unit": "%"
+        },
+        {
+          "label": "Empresas",
+          "value": 620,
+          "unit": ""
+        },
+        {
+          "label": "Agropecuario",
+          "value": 37,
+          "unit": "%"
+        },
+        {
+          "label": "Informalidad",
+          "value": 32,
+          "unit": "%"
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          81
+        ],
+        [
+          2023,
+          83
+        ],
+        [
+          2024,
+          85
+        ],
+        [
+          2025,
+          87
+        ],
+        [
+          2026,
+          89
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Tasa de ocupación",
+          "value": "89%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Establecimientos activos",
+          "value": "620",
+          "period": "2026"
+        },
+        {
+          "indicator": "Participación agropecuaria",
+          "value": "37%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Informalidad",
+          "value": "32%",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "seguridad",
+      "name": "Convivencia y Seguridad",
+      "headline": "132",
+      "subtitle": "Casos priorizados demo",
+      "metrics": [
+        {
+          "label": "Casos/año",
+          "value": 132,
+          "unit": ""
+        },
+        {
+          "label": "Respuesta",
+          "value": 17,
+          "unit": "min"
+        },
+        {
+          "label": "Conciliaciones",
+          "value": 188,
+          "unit": ""
+        },
+        {
+          "label": "Percepción positiva",
+          "value": 74,
+          "unit": "%"
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          176
+        ],
+        [
+          2023,
+          164
+        ],
+        [
+          2024,
+          151
+        ],
+        [
+          2025,
+          141
+        ],
+        [
+          2026,
+          132
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Casos priorizados",
+          "value": "132",
+          "period": "2026"
+        },
+        {
+          "indicator": "Tiempo medio de respuesta",
+          "value": "17 min",
+          "period": "2026"
+        },
+        {
+          "indicator": "Conciliaciones",
+          "value": "188",
+          "period": "2026"
+        },
+        {
+          "indicator": "Percepción positiva",
+          "value": "74%",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "servicios",
+      "name": "Acceso a Servicios Públicos",
+      "headline": "86%",
+      "subtitle": "Acueducto demo",
+      "metrics": [
+        {
+          "label": "Acueducto",
+          "value": 86,
+          "unit": "%"
+        },
+        {
+          "label": "Alcantarillado",
+          "value": 71,
+          "unit": "%"
+        },
+        {
+          "label": "Internet",
+          "value": 68,
+          "unit": "%"
+        },
+        {
+          "label": "Energía",
+          "value": 98,
+          "unit": "%"
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          77
+        ],
+        [
+          2023,
+          80
+        ],
+        [
+          2024,
+          82
+        ],
+        [
+          2025,
+          84
+        ],
+        [
+          2026,
+          86
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Acueducto",
+          "value": "86%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Alcantarillado",
+          "value": "71%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Internet hogar",
+          "value": "68%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Energía",
+          "value": "98%",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "vivienda",
+      "name": "Vivienda",
+      "headline": "420",
+      "subtitle": "Hogares priorizados demo",
+      "metrics": [
+        {
+          "label": "Hogares priorizados",
+          "value": 420,
+          "unit": ""
+        },
+        {
+          "label": "Déficit cualitativo",
+          "value": 18,
+          "unit": "%"
+        },
+        {
+          "label": "Mejoramientos",
+          "value": 146,
+          "unit": ""
+        },
+        {
+          "label": "Rural",
+          "value": 64,
+          "unit": "%"
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          112
+        ],
+        [
+          2023,
+          119
+        ],
+        [
+          2024,
+          128
+        ],
+        [
+          2025,
+          137
+        ],
+        [
+          2026,
+          146
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Hogares priorizados",
+          "value": "420",
+          "period": "2026"
+        },
+        {
+          "indicator": "Déficit cualitativo",
+          "value": "18%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Mejoramientos ejecutados",
+          "value": "146",
+          "period": "2026"
+        },
+        {
+          "indicator": "Beneficiarios rurales",
+          "value": "64%",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "vias",
+      "name": "Vías",
+      "headline": "164 km",
+      "subtitle": "Red vial demo",
+      "metrics": [
+        {
+          "label": "Red total",
+          "value": 164,
+          "unit": "km"
+        },
+        {
+          "label": "Buen estado",
+          "value": 42,
+          "unit": "%"
+        },
+        {
+          "label": "Intervenidos",
+          "value": 38,
+          "unit": "km"
+        },
+        {
+          "label": "Puntos críticos",
+          "value": 13,
+          "unit": ""
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          19
+        ],
+        [
+          2023,
+          24
+        ],
+        [
+          2024,
+          29
+        ],
+        [
+          2025,
+          34
+        ],
+        [
+          2026,
+          38
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Red vial estimada",
+          "value": "164 km",
+          "period": "2026"
+        },
+        {
+          "indicator": "Buen estado",
+          "value": "42%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Km intervenidos",
+          "value": "38 km",
+          "period": "2026"
+        },
+        {
+          "indicator": "Puntos críticos",
+          "value": "13",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "ordenamiento",
+      "name": "Ordenamiento Territorial",
+      "headline": "17",
+      "subtitle": "Veredas en el visor",
+      "metrics": [
+        {
+          "label": "Veredas",
+          "value": 17,
+          "unit": ""
+        },
+        {
+          "label": "Áreas de protección",
+          "value": 31,
+          "unit": "%"
+        },
+        {
+          "label": "Predios demo",
+          "value": 6840,
+          "unit": ""
+        },
+        {
+          "label": "Alertas",
+          "value": 9,
+          "unit": ""
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          4
+        ],
+        [
+          2023,
+          5
+        ],
+        [
+          2024,
+          6
+        ],
+        [
+          2025,
+          8
+        ],
+        [
+          2026,
+          9
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Veredas",
+          "value": "17",
+          "period": "2026"
+        },
+        {
+          "indicator": "Área de protección",
+          "value": "31%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Predios referenciados",
+          "value": "6.840",
+          "period": "2026"
+        },
+        {
+          "indicator": "Alertas de uso",
+          "value": "9",
+          "period": "2026"
+        }
+      ]
+    },
+    {
+      "id": "institucional",
+      "name": "Medición Institucional",
+      "headline": "78/100",
+      "subtitle": "Índice demo de gestión",
+      "metrics": [
+        {
+          "label": "Índice gestión",
+          "value": 78,
+          "unit": "/100"
+        },
+        {
+          "label": "Ejecución",
+          "value": 64,
+          "unit": "%"
+        },
+        {
+          "label": "Proyectos",
+          "value": 36,
+          "unit": ""
+        },
+        {
+          "label": "Alertas",
+          "value": 7,
+          "unit": ""
+        }
+      ],
+      "trend": [
+        [
+          2022,
+          61
+        ],
+        [
+          2023,
+          66
+        ],
+        [
+          2024,
+          70
+        ],
+        [
+          2025,
+          74
+        ],
+        [
+          2026,
+          78
+        ]
+      ],
+      "indicators": [
+        {
+          "indicator": "Índice demo de gestión",
+          "value": "78/100",
+          "period": "2026"
+        },
+        {
+          "indicator": "Ejecución presupuestal",
+          "value": "64%",
+          "period": "2026"
+        },
+        {
+          "indicator": "Proyectos en seguimiento",
+          "value": "36",
+          "period": "2026"
+        },
+        {
+          "indicator": "Alertas institucionales",
+          "value": "7",
+          "period": "2026"
+        }
+      ]
+    }
+  ],
+  "veredaStats": [
+    {
+      "name": "Altania",
+      "population": 420,
+      "services": 2,
+      "beneficiaries": 95,
+      "projects": 1,
+      "coverage": 58,
+      "priority": "Alta"
+    },
+    {
+      "name": "Canica Alta",
+      "population": 493,
+      "services": 3,
+      "beneficiaries": 142,
+      "projects": 2,
+      "coverage": 65,
+      "priority": "Media"
+    },
+    {
+      "name": "Canica Baja",
+      "population": 566,
+      "services": 4,
+      "beneficiaries": 189,
+      "projects": 3,
+      "coverage": 72,
+      "priority": "Media"
+    },
+    {
+      "name": "Cascajal",
+      "population": 639,
+      "services": 5,
+      "beneficiaries": 236,
+      "projects": 4,
+      "coverage": 79,
+      "priority": "Baja"
+    },
+    {
+      "name": "El Centro (Llanitos)",
+      "population": 712,
+      "services": 6,
+      "beneficiaries": 283,
+      "projects": 5,
+      "coverage": 86,
+      "priority": "Alta"
+    },
+    {
+      "name": "El Guamal",
+      "population": 785,
+      "services": 7,
+      "beneficiaries": 330,
+      "projects": 1,
+      "coverage": 93,
+      "priority": "Media"
+    },
+    {
+      "name": "El Paramo",
+      "population": 858,
+      "services": 2,
+      "beneficiaries": 377,
+      "projects": 2,
+      "coverage": 61,
+      "priority": "Media"
+    },
+    {
+      "name": "El Tobal",
+      "population": 931,
+      "services": 3,
+      "beneficiaries": 424,
+      "projects": 3,
+      "coverage": 68,
+      "priority": "Baja"
+    },
+    {
+      "name": "El Valle",
+      "population": 1004,
+      "services": 4,
+      "beneficiaries": 471,
+      "projects": 4,
+      "coverage": 75,
+      "priority": "Alta"
+    },
+    {
+      "name": "Galdamez",
+      "population": 1077,
+      "services": 5,
+      "beneficiaries": 518,
+      "projects": 5,
+      "coverage": 82,
+      "priority": "Media"
+    },
+    {
+      "name": "La Union",
+      "population": 1150,
+      "services": 6,
+      "beneficiaries": 565,
+      "projects": 1,
+      "coverage": 89,
+      "priority": "Media"
+    },
+    {
+      "name": "La Yeguera",
+      "population": 1223,
+      "services": 7,
+      "beneficiaries": 612,
+      "projects": 2,
+      "coverage": 96,
+      "priority": "Baja"
+    },
+    {
+      "name": "Pantano De Arce",
+      "population": 1296,
+      "services": 2,
+      "beneficiaries": 659,
+      "projects": 3,
+      "coverage": 64,
+      "priority": "Alta"
+    },
+    {
+      "name": "Rincon Santo",
+      "population": 1369,
+      "services": 3,
+      "beneficiaries": 706,
+      "projects": 4,
+      "coverage": 71,
+      "priority": "Media"
+    },
+    {
+      "name": "Santa Rosa",
+      "population": 492,
+      "services": 4,
+      "beneficiaries": 133,
+      "projects": 5,
+      "coverage": 78,
+      "priority": "Media"
+    },
+    {
+      "name": "Santuario La Cuesta",
+      "population": 565,
+      "services": 5,
+      "beneficiaries": 180,
+      "projects": 1,
+      "coverage": 85,
+      "priority": "Baja"
+    },
+    {
+      "name": "Tibagota",
+      "population": 638,
+      "services": 6,
+      "beneficiaries": 227,
+      "projects": 2,
+      "coverage": 92,
+      "priority": "Alta"
+    }
+  ]
+}

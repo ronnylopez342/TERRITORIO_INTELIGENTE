@@ -1,0 +1,219 @@
+{
+  "nationalNews": [
+    {
+      "id": "n1",
+      "title": "Cundinamarca prioriza conectividad y movilidad rural",
+      "source": "DEMO · Gobernación de Cundinamarca",
+      "date": "2026-09-19",
+      "summary": "Noticia sintética de demostración para mostrar una tarjeta editorial con fuente, fecha y contexto territorial.",
+      "category": "Infraestructura"
+    },
+    {
+      "id": "n2",
+      "title": "Nueva convocatoria nacional para proyectos de agua",
+      "source": "DEMO · Entidad nacional",
+      "date": "2026-09-16",
+      "summary": "Ejemplo de noticia externa que puede relacionarse con metas municipales de cobertura y saneamiento.",
+      "category": "Servicios públicos"
+    }
+  ],
+  "municipalNews": [
+    {
+      "id": "m1",
+      "title": "Avanza intervención de 12 km de vías rurales",
+      "dependency": "DEMO · Infraestructura",
+      "date": "2026-09-20",
+      "summary": "Obras concentradas en drenajes, placa huella y estabilización de puntos críticos."
+    },
+    {
+      "id": "m2",
+      "title": "Jornada rural de salud atendió 310 personas",
+      "dependency": "DEMO · Salud",
+      "date": "2026-09-18",
+      "summary": "Atención preventiva, vacunación y tamizajes en tres veredas."
+    },
+    {
+      "id": "m3",
+      "title": "Abre convocatoria para 60 unidades productivas",
+      "dependency": "DEMO · Desarrollo Económico",
+      "date": "2026-09-17",
+      "summary": "Acompañamiento técnico y comercial para productores y emprendimientos locales."
+    }
+  ],
+  "services": [
+    {
+      "id": "predial",
+      "title": "Impuesto predial",
+      "dependency": "DEMO · Hacienda",
+      "requirements": [
+        "Documento de identidad",
+        "Número predial o dirección del inmueble"
+      ],
+      "time": "Inmediato en línea",
+      "cost": "Según liquidación",
+      "channels": [
+        "Portal web demo",
+        "Ventanilla de Hacienda"
+      ]
+    },
+    {
+      "id": "sisben",
+      "title": "Actualización SISBÉN",
+      "dependency": "DEMO · Planeación",
+      "requirements": [
+        "Documento de identidad del hogar",
+        "Soporte de residencia",
+        "Datos de contacto"
+      ],
+      "time": "5 días hábiles demo",
+      "cost": "Sin costo",
+      "channels": [
+        "Ventanilla de Planeación",
+        "Solicitud digital demo"
+      ]
+    },
+    {
+      "id": "urbanisticas",
+      "title": "Concepto de norma urbanística",
+      "dependency": "DEMO · Planeación",
+      "requirements": [
+        "Cédula",
+        "Matrícula inmobiliaria",
+        "Plano o ubicación"
+      ],
+      "time": "10 días hábiles demo",
+      "cost": "Sin costo demo",
+      "channels": [
+        "Ventanilla única",
+        "Radicación digital demo"
+      ]
+    },
+    {
+      "id": "licencias",
+      "title": "Asignación de nomenclatura",
+      "dependency": "DEMO · Planeación",
+      "requirements": [
+        "Solicitud firmada",
+        "Certificado de tradición",
+        "Plano de localización"
+      ],
+      "time": "8 días hábiles demo",
+      "cost": "Tarifa demo $28.000",
+      "channels": [
+        "Ventanilla única"
+      ]
+    },
+    {
+      "id": "uso-suelo",
+      "title": "Certificado de uso del suelo",
+      "dependency": "DEMO · Planeación",
+      "requirements": [
+        "Identificación del solicitante",
+        "Dirección o referencia catastral"
+      ],
+      "time": "7 días hábiles demo",
+      "cost": "Sin costo demo",
+      "channels": [
+        "Portal TI",
+        "Ventanilla"
+      ]
+    },
+    {
+      "id": "pqrs",
+      "title": "PQRSD ciudadana",
+      "dependency": "DEMO · Atención al Ciudadano",
+      "requirements": [
+        "Descripción de la solicitud",
+        "Datos de notificación"
+      ],
+      "time": "Según tipo de petición",
+      "cost": "Sin costo",
+      "channels": [
+        "Portal web",
+        "Correo",
+        "Presencial"
+      ]
+    },
+    {
+      "id": "riesgo",
+      "title": "Reporte de riesgo o emergencia",
+      "dependency": "DEMO · Gestión del Riesgo",
+      "requirements": [
+        "Ubicación",
+        "Descripción",
+        "Foto opcional"
+      ],
+      "time": "Priorización inmediata",
+      "cost": "Sin costo",
+      "channels": [
+        "Línea demo 123",
+        "Formulario web"
+      ]
+    },
+    {
+      "id": "productor",
+      "title": "Asistencia técnica agropecuaria",
+      "dependency": "DEMO · UMATA",
+      "requirements": [
+        "Documento de identidad",
+        "Ubicación del predio",
+        "Actividad productiva"
+      ],
+      "time": "Programación en 3 días demo",
+      "cost": "Sin costo",
+      "channels": [
+        "UMATA",
+        "Formulario rural"
+      ]
+    }
+  ],
+  "identity": [
+    {
+      "id": "himno",
+      "title": "Nuestro himno",
+      "description": "Ficha demo del himno municipal: reseña, letra, autoría y espacio para audio oficial."
+    },
+    {
+      "id": "escudo",
+      "title": "Nuestro escudo",
+      "description": "Ficha demo que explica los elementos simbólicos del escudo y su uso institucional."
+    },
+    {
+      "id": "bandera",
+      "title": "Nuestra bandera",
+      "description": "Ficha demo de colores, proporciones y significado territorial de la bandera."
+    },
+    {
+      "id": "territorio",
+      "title": "Nuestro territorio",
+      "description": "Subachoque se organiza en casco urbano y 17 veredas. Esta ficha conecta identidad, geografía, paisaje y actividad productiva."
+    },
+    {
+      "id": "galeria",
+      "title": "Galería",
+      "description": "Galería demo con categorías: paisaje, patrimonio, proyectos, comunidad y memoria territorial."
+    }
+  ],
+  "institutional": [
+    {
+      "id": "portal",
+      "title": "Portal institucional",
+      "description": "Acceso demo a trámites, transparencia, noticias y directorio institucional."
+    },
+    {
+      "id": "redes",
+      "title": "Redes sociales oficiales",
+      "description": "Centro demo de enlaces a canales sociales y publicaciones verificadas."
+    },
+    {
+      "id": "dependencias",
+      "title": "Dependencias",
+      "description": "Directorio demo de Planeación, Hacienda, Gobierno, Desarrollo Social, Infraestructura, UMATA y Atención al Ciudadano."
+    },
+    {
+      "id": "participacion",
+      "title": "Participación ciudadana",
+      "description": "Módulo demo de cabildos, rendición de cuentas, encuestas y mecanismos de participación."
+    }
+  ]
+}

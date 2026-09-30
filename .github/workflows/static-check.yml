@@ -1,0 +1,18 @@
+name: Static check
+
+on:
+  push:
+    branches:
+      - web-v5.1-stabilization
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Verify static structure
+        run: python scripts/verify_static.py

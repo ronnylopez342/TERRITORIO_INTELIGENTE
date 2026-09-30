@@ -18,18 +18,24 @@
 
 Las vistas cambian dentro del mismo sitio; no deben abrir nuevas pestañas del navegador.
 
+Desde V5.1 cada vista utiliza una ruta por hash para permitir enlaces compartibles, recarga y navegación Atrás/Adelante sin requerir reglas especiales del servidor.
+
 ## Interacciones
 
 - Hover de navegación en amarillo.
 - `INICIAR SESIÓN` sustituye a `CONTACTO`.
 - Banner superior orientado a explorar servicios.
+- Las acciones sin destino o contenido formalmente definido deben mostrarse como "PRÓXIMAMENTE"; no se crean enlaces falsos ni capacidades inventadas.
 
 ## Hero Home
 
 - Titular: **ASÍ CUMPLIMOS**.
 - Video casi a pantalla completa.
-- Preferencia técnica: MP4/WebM local.
-- YouTube queda solo como respaldo temporal.
+- Fuente vigente: MP4 público en Supabase Storage (`asi-cumplimos-v1.mp4`).
+- Respaldo local idéntico dentro del proyecto.
+- No usar YouTube ni fotografías como fallback del hero.
+- Fotografías quedan como último fallback.
+- Con preferencia de movimiento reducido no se inicia video ni rotación automática.
 
 ## Contenido del Home
 
@@ -44,3 +50,10 @@ El Home debe conservar como base de contenido:
 ## Regla de contenido
 
 No inventar capacidades funcionales que aún no estén definidas. Políticas Públicas puede tener estructura visual provisional, pero su contenido funcional debe esperar definición formal.
+
+## Regla de estabilidad V5.1
+
+- `main` no se modifica durante la estabilización.
+- `web-v5-delivery-baseline` se conserva intacta como rollback.
+- Los cambios V5.1 se trabajan en `web-v5.1-stabilization`.
+- Autenticación y Supabase quedan fuera de V5.1 para no mezclar estabilización de frontend con backend.

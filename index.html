@@ -1,379 +1,285 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111820">
-<title>Territorio Inteligente</title>
-<!--
-  HERO AUDIOVISUAL
-  ===============
-  Opción preferida: guarda el MP4 como assets/video/asi-cumplimos.mp4.
-  Si ese archivo no existe o no carga, la página intenta usar el enlace de YouTube configurado al final.
-  Si YouTube no puede reproducirse, quedan las fotografías de respaldo.
--->
-<style>
-:root{
-  --ink:#111820;
-  --ink2:#1b242c;
-  --paper:#f4f1e8;
-  --white:#fff;
-  --yellow:#ffe500;
-  --line:rgba(17,24,32,.18);
-  --max:1480px;
-  --pad:clamp(22px,3.6vw,64px);
-  --nav-h:86px;
-  --announcement-h:46px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;background:var(--ink)}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-button,input{font:inherit}
-button{color:inherit}
-a{color:inherit;text-decoration:none}
-img{display:block;width:100%}
-::selection{background:var(--yellow);color:var(--ink)}
-
-/* HEADER — visual logic referenced from Delivery Associates */
-.site-header{position:fixed;z-index:1000;top:0;left:0;right:0;color:#fff;transition:.3s ease}
-.site-header.scrolled,.site-header.force-dark{background:rgba(15,22,28,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.12)}
-.nav{height:var(--nav-h);display:flex;align-items:center;gap:28px;max-width:var(--max);margin:auto;padding:0 var(--pad)}
-.brand{width:196px;min-width:172px;display:flex;align-items:center;border:0;background:transparent;padding:0;cursor:pointer;text-align:left}
-.brand img{height:auto;filter:drop-shadow(0 3px 14px rgba(0,0,0,.22))}
-.nav-links{margin-left:auto;display:flex;align-items:center;gap:clamp(18px,1.55vw,30px);font-size:12.5px;line-height:1;font-weight:750;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
-.nav-link{border:0;background:none;color:#fff;padding:14px 0;cursor:pointer;font-weight:750;text-transform:uppercase;transition:color .18s ease}
-.nav-link:hover,.nav-link:focus-visible,.nav-link.active{color:var(--yellow)}
-.nav-cta{border:0;padding:16px 21px;background:#fff;color:var(--ink);font-weight:850;text-transform:uppercase;cursor:pointer;transition:background .18s ease,color .18s ease}
-.nav-cta:hover,.nav-cta:focus-visible,.nav-cta.active{background:var(--yellow);color:var(--ink)}
-.menu-toggle{display:none;margin-left:auto;width:46px;height:46px;border:1px solid rgba(255,255,255,.45);background:rgba(0,0,0,.12);color:#fff;place-items:center;cursor:pointer}
-.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{content:"";width:20px;height:2px;background:currentColor;display:block;position:relative}.menu-toggle span:before{position:absolute;top:-6px}.menu-toggle span:after{position:absolute;top:6px}
-
-/* Global top banner */
-.announcement{position:fixed;z-index:990;top:var(--nav-h);left:0;right:0;min-height:var(--announcement-h);padding:10px var(--pad);display:flex;align-items:center;justify-content:center;text-align:center;background:rgba(16,23,30,.88);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.08);color:#fff;font-size:14px}
-.announcement button{border:0;background:none;color:var(--yellow);font-weight:850;margin-left:10px;padding:0;cursor:pointer}
-.announcement button span{display:inline-block;transition:transform .18s}.announcement button:hover span{transform:translateX(5px)}
-
-.mobile-menu{position:fixed;inset:0;z-index:1200;background:var(--ink);color:#fff;padding:26px var(--pad);transform:translateY(-105%);transition:transform .45s cubic-bezier(.7,0,.2,1)}
-.mobile-menu.open{transform:none}.mobile-menu-head{display:flex;align-items:center;justify-content:space-between}.mobile-menu .brand{width:190px}.mobile-close{width:48px;height:48px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:28px;cursor:pointer}.mobile-nav{margin-top:7vh;border-top:1px solid rgba(255,255,255,.18)}
-.mobile-nav button{width:100%;border:0;background:none;color:#fff;display:grid;grid-template-columns:48px 1fr 34px;align-items:center;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.18);font-size:clamp(26px,6.4vw,50px);font-weight:850;letter-spacing:-.04em;text-align:left;cursor:pointer;transition:color .18s}.mobile-nav button:hover,.mobile-nav button.active{color:var(--yellow)}.mobile-nav small{font-size:11px;letter-spacing:.12em;color:var(--yellow)}.mobile-nav b{font-weight:400;text-align:right}
-
-/* SPA-style internal tabs/views */
-.app-view{display:none;min-height:100svh}
-.app-view.active{display:block;animation:viewIn .4s ease both}
-@keyframes viewIn{from{opacity:0}to{opacity:1}}
-
-/* HOME HERO */
-.hero{min-height:100svh;position:relative;overflow:hidden;background:#10171e;color:#fff}
-.hero-media{position:absolute;inset:0;overflow:hidden}.hero-frame{position:absolute;inset:-2%;background-size:cover;background-position:center;opacity:0;transform:scale(1.03);transition:opacity 1.45s ease,transform 8s ease}.hero-frame.active{opacity:1;transform:scale(1.11)}
-.hero-youtube{position:absolute;inset:0;z-index:1;opacity:0;pointer-events:none;transition:opacity 1s ease;background:#10171e;overflow:hidden}.hero-youtube.active{opacity:1}.hero-youtube iframe{position:absolute;top:50%;left:50%;width:177.77777778vh;height:56.25vw;min-width:100%;min-height:100%;transform:translate(-50%,-50%);border:0;pointer-events:none}
-.hero-local-video{position:absolute;inset:0;z-index:1;opacity:0;pointer-events:none;transition:opacity 1s ease;background:#10171e;overflow:hidden}.hero-local-video.active{opacity:1}.hero-local-video video{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-.hero-shade{position:absolute;z-index:2;inset:0;background:linear-gradient(90deg,rgba(6,9,12,.78) 0%,rgba(6,9,12,.26) 57%,rgba(6,9,12,.35) 100%),linear-gradient(0deg,rgba(6,9,12,.64),transparent 55%)}
-.hero-edge{position:absolute;z-index:3;top:0;right:0;width:5px;height:100%;background:var(--yellow)}
-.hero-content{position:relative;z-index:4;max-width:var(--max);min-height:100svh;margin:auto;padding:calc(var(--nav-h) + var(--announcement-h) + 48px) var(--pad) 58px;display:flex;align-items:flex-end}
-.hero-title{margin:0;color:var(--yellow);font-size:clamp(76px,9.4vw,155px);line-height:.79;letter-spacing:-.062em;font-weight:950;text-transform:uppercase;max-width:980px}
-.hero-index{position:absolute;z-index:5;right:28px;bottom:30px;display:flex;gap:7px}.hero-index i{display:block;width:28px;height:3px;background:rgba(255,255,255,.35)}.hero-index i.active{background:var(--yellow)}
-.hero-media.video-active ~ .hero-index{opacity:0}
-
-/* CONTENT SYSTEM */
-.section{padding:clamp(84px,9vw,148px) var(--pad)}.inner{max-width:var(--max);margin:auto}.eyebrow{margin:0 0 24px;font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}.big-heading{margin:0;font-size:clamp(48px,6.3vw,100px);line-height:.93;letter-spacing:-.055em;font-weight:900;max-width:1180px}.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}.reveal.in{opacity:1;transform:none}
-
-/* NATIONAL / DEPARTMENTAL NEWS */
-.national{background:#fff}.national-head{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:end;margin-bottom:50px}.national-head p:last-child{margin:0;font-size:18px;line-height:1.52;max-width:620px;justify-self:end}.feature{position:relative;min-height:clamp(520px,59vw,850px);overflow:hidden;background:#19222a;border:0;padding:0;width:100%;text-align:left;color:#fff;cursor:pointer}.feature img{position:absolute;inset:0;height:100%;object-fit:cover;transition:transform 1s ease}.feature:hover img{transform:scale(1.025)}.feature:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,10,13,.78),rgba(7,10,13,.04) 64%)}.feature-copy{position:absolute;z-index:2;left:clamp(24px,4vw,60px);right:clamp(24px,4vw,60px);bottom:clamp(28px,4vw,60px);color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}.feature-copy h3{margin:0;font-size:clamp(46px,6vw,92px);line-height:.9;letter-spacing:-.055em;text-transform:uppercase}.feature-copy p{margin:0;justify-self:end;max-width:440px;font-size:17px;line-height:1.48}.feature-tag{position:absolute;z-index:3;top:28px;left:28px;background:var(--yellow);color:var(--ink);padding:11px 14px;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
-
-/* MUNICIPAL CURRENT AFFAIRS */
-.municipal{background:var(--ink);color:#fff}.municipal-top{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:48px}.municipal-top p:last-child{max-width:520px;color:rgba(255,255,255,.7);font-size:17px;line-height:1.5}.news-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.story{position:relative;min-height:680px;overflow:hidden;background:#222c35;color:#fff;border:0;padding:0;text-align:left;cursor:pointer}.story.small{min-height:331px}.story-stack{display:grid;gap:18px}.story img{position:absolute;inset:0;height:100%;object-fit:cover;filter:saturate(.9);transition:transform .85s ease}.story:hover img{transform:scale(1.035)}.story:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,7,9,.76),transparent 62%)}.story-copy{position:absolute;z-index:2;left:28px;right:28px;bottom:28px}.story-label{color:var(--yellow);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}.story h3{margin:0;font-size:clamp(30px,3.2vw,54px);line-height:.94;letter-spacing:-.045em}.story.small h3{font-size:clamp(25px,2.2vw,36px)}
-
-/* SERVICES */
-.services{position:relative;min-height:80svh;color:#fff;background:#151d24;display:flex;align-items:flex-end;overflow:hidden}.services img{position:absolute;inset:0;height:100%;object-fit:cover;filter:brightness(.55) saturate(.86)}.services:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,10,13,.83),rgba(7,10,13,.16))}.services-copy{position:relative;z-index:2;max-width:var(--max);width:100%;margin:auto;padding:clamp(72px,8vw,130px) var(--pad)}.services-copy h2{margin:0;max-width:1080px;font-size:clamp(52px,7vw,112px);line-height:.89;letter-spacing:-.06em;text-transform:uppercase}.services-copy p{max-width:700px;font-size:20px;line-height:1.47;margin:34px 0 0}.outline-link{display:inline-flex;align-items:center;gap:28px;border:2px solid currentColor;background:transparent;color:inherit;padding:17px 21px;margin-top:34px;font-size:12px;font-weight:900;text-transform:uppercase;cursor:pointer;transition:.2s}.outline-link:hover{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
-
-/* TERRITORIAL IDENTITY */
-.identity{background:#fff}.identity-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:18px;margin-top:54px}.identity-main{position:relative;min-height:700px;overflow:hidden;background:#202930}.identity-main img{position:absolute;inset:0;height:100%;object-fit:cover}.identity-main:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,7,9,.73),transparent 58%)}.identity-main h3{position:absolute;z-index:2;left:30px;right:30px;bottom:28px;margin:0;color:#fff;font-size:clamp(45px,5.2vw,80px);line-height:.91;letter-spacing:-.055em;text-transform:uppercase}.identity-links{border-top:1px solid var(--line)}.identity-links button{width:100%;border:0;background:transparent;color:var(--ink);display:grid;grid-template-columns:58px 1fr 35px;align-items:center;gap:14px;padding:22px 0;border-bottom:1px solid var(--line);font-size:clamp(19px,2vw,30px);font-weight:850;text-transform:uppercase;text-align:left;cursor:pointer;transition:background .2s,padding .2s}.identity-links button:hover{background:var(--yellow);padding-left:14px;padding-right:14px}.identity-links small{font-size:10px;letter-spacing:.13em;color:#737a81}.identity-links span:last-child{text-align:right;font-size:28px}
-
-/* INSTITUTIONAL */
-.institutional{background:var(--paper)}.institutional-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;margin-top:54px}.institutional-grid>p{margin:0;font-size:20px;line-height:1.55;max-width:620px}.quick-links{border-top:1px solid var(--line)}.quick-links button{width:100%;border:0;background:transparent;color:var(--ink);display:flex;justify-content:space-between;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:800;text-align:left;cursor:pointer;transition:background .2s,padding .2s}.quick-links button:hover{background:var(--yellow);padding-left:14px;padding-right:14px}
-
-/* INTERNAL VIEW SHELLS */
-.view-shell{padding-top:calc(var(--nav-h) + var(--announcement-h));background:var(--paper);min-height:100svh}
-.view-hero{min-height:72svh;background:var(--ink);color:#fff;display:flex;align-items:flex-end;position:relative;overflow:hidden}.view-hero:after{content:"";position:absolute;right:0;top:0;width:5px;height:100%;background:var(--yellow)}.view-hero .inner{width:100%;padding:clamp(90px,10vw,160px) var(--pad) clamp(60px,8vw,110px)}
-.view-kicker{color:var(--yellow);font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;margin-bottom:24px}.view-title{margin:0;font-size:clamp(62px,8vw,132px);line-height:.82;letter-spacing:-.06em;text-transform:uppercase;max-width:1250px}.view-lead{max-width:770px;margin:35px 0 0;font-size:clamp(18px,2vw,25px);line-height:1.45;color:rgba(255,255,255,.78)}
-.view-body{padding:clamp(78px,9vw,130px) var(--pad);background:#fff}.view-body .inner{max-width:var(--max)}.view-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:48px}.view-card{min-height:280px;background:var(--paper);padding:34px;display:flex;flex-direction:column;justify-content:space-between}.view-card small{font-weight:900;letter-spacing:.12em;text-transform:uppercase}.view-card h3{margin:35px 0 0;font-size:clamp(28px,3.2vw,50px);line-height:.95;letter-spacing:-.045em}.view-card.yellow{background:var(--yellow)}
-.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(17,24,32,.18);margin-top:48px}.metric{background:#fff;padding:30px}.metric strong{display:block;font-size:clamp(44px,6vw,84px);letter-spacing:-.05em}.metric span{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}
-
-/* LOGIN */
-.login-wrap{min-height:calc(100svh - var(--nav-h) - var(--announcement-h));background:var(--ink);color:#fff;display:grid;grid-template-columns:1.05fr .95fr}.login-copy{padding:clamp(80px,9vw,140px) var(--pad);display:flex;flex-direction:column;justify-content:flex-end}.login-copy h1{margin:0;color:var(--yellow);font-size:clamp(60px,7.8vw,126px);line-height:.82;letter-spacing:-.06em;text-transform:uppercase}.login-panel{background:#fff;color:var(--ink);padding:clamp(60px,7vw,110px) var(--pad);display:flex;align-items:center}.login-form{width:min(100%,540px);margin:auto}.login-form h2{font-size:44px;letter-spacing:-.045em;margin:0 0 40px}.field{margin-bottom:24px}.field label{display:block;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px}.field input{width:100%;border:0;border-bottom:2px solid var(--ink);background:transparent;padding:14px 0;font-size:18px;outline:0}.field input:focus{border-color:#b9aa00}.login-submit{width:100%;margin-top:20px;border:0;background:var(--ink);color:#fff;padding:18px;font-weight:900;text-transform:uppercase;cursor:pointer;transition:.2s}.login-submit:hover{background:var(--yellow);color:var(--ink)}
-
-footer{background:#0c1217;color:#fff;padding:68px var(--pad) 26px}.footer-grid{max-width:var(--max);margin:auto;display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:56px}.footer-logo{width:240px}.footer-copy{max-width:480px;color:rgba(255,255,255,.63);line-height:1.55;font-size:14px}.footer-grid h4{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--yellow);margin:0 0 19px}.footer-grid button{display:block;border:0;background:none;color:#fff;padding:8px 0;font-size:14px;cursor:pointer;text-align:left}.footer-grid button:hover{color:var(--yellow)}.credits{max-width:var(--max);margin:62px auto 0;padding-top:21px;border-top:1px solid rgba(255,255,255,.15);display:flex;justify-content:space-between;gap:30px;font-size:11px;color:rgba(255,255,255,.52)}
-
-@media(max-width:1180px){.nav-links{display:none}.menu-toggle{display:grid}.brand{width:190px}.national-head,.feature-copy,.institutional-grid{grid-template-columns:1fr}.national-head p:last-child,.feature-copy p{justify-self:start}.feature-copy{gap:20px}.municipal-top{align-items:flex-start;flex-direction:column}.news-grid{grid-template-columns:1fr}.story,.story.small{min-height:560px}.identity-grid{grid-template-columns:1fr}.identity-main{min-height:65vw}.view-grid{grid-template-columns:1fr}.login-wrap{grid-template-columns:1fr}.login-copy{min-height:52vh}.metric-row{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:720px){:root{--nav-h:74px;--announcement-h:54px}.announcement{min-height:54px;font-size:12px}.hero-content{padding-top:calc(var(--nav-h) + var(--announcement-h) + 36px)}.hero-title{font-size:clamp(70px,21vw,108px)}.hero-index{display:none}.section{padding-left:22px;padding-right:22px}.feature{min-height:72vh}.feature-copy h3{font-size:clamp(42px,13vw,70px)}.story,.story.small{min-height:66vh}.services-copy{padding-left:22px;padding-right:22px}.services-copy p{font-size:17px}.identity-main{min-height:72vh}.footer-grid{grid-template-columns:1fr}.credits{flex-direction:column}.metric-row{grid-template-columns:1fr}.view-hero .inner,.view-body{padding-left:22px;padding-right:22px}.login-copy,.login-panel{padding-left:22px;padding-right:22px}}
-</style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#111820" name="theme-color"/>
+<meta content="Territorio Inteligente articula datos, planeación, seguimiento y capacidades institucionales para fortalecer decisiones públicas basadas en evidencia." name="description"/>
+<title>Territorio Inteligente | Subachoque</title>
+<link href="https://territorio-inteligente.vercel.app/" rel="canonical"/>
+<meta content="Territorio Inteligente | Subachoque" property="og:title"/>
+<meta content="Datos, planeación, cumplimiento y evidencia territorial para apoyar decisiones públicas en Subachoque." property="og:description"/>
+<meta content="website" property="og:type"/>
+<link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=2501" rel="stylesheet"/>
 </head>
-<body>
-<header class="site-header" id="siteHeader">
-  <div class="nav">
-    <button class="brand route-link" data-route="home" aria-label="Territorio Inteligente — Home">
-      <img src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente">
-    </button>
-    <nav class="nav-links" aria-label="Navegación principal">
-      <button class="nav-link route-link active" data-route="home">Home</button>
-      <button class="nav-link route-link" data-route="data">Data Territorio</button>
-      <button class="nav-link route-link" data-route="desarrollo">Plan de Desarrollo</button>
-      <button class="nav-link route-link" data-route="cumplimiento">Unidad de Cumplimiento</button>
-      <button class="nav-link route-link" data-route="politicas">Políticas Públicas</button>
-      <button class="nav-link route-link" data-route="insights">Insights</button>
-      <button class="nav-cta route-link" data-route="login">Iniciar sesión</button>
-    </nav>
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú"><span></span></button>
-  </div>
+<body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
+<a class="skip-link" href="#mainContent">Saltar al contenido</a>
+<header class="site-header" id="siteHeader"><div class="ti-signal"><span>SUBACHOQUE / TERRITORIO INTELIGENTE</span><button class="ti-signal-link route-link" data-route="cumplimiento" type="button">VER CUMPLIMIENTO  →</button></div>
+<div class="nav">
+<button aria-label="Territorio Inteligente — Home" class="brand route-link" data-route="home" type="button">
+<img alt="Territorio Inteligente" src="assets/img/territorio-inteligente-logo.png"/>
+</button>
+<nav aria-label="Navegación principal" class="nav-links">
+<button aria-current="page" class="nav-link route-link active" data-route="home" type="button">Home</button>
+<button class="nav-link route-link" data-route="data" type="button">Data Territorio</button>
+<button class="nav-link route-link" data-route="desarrollo" type="button">Plan de Desarrollo</button>
+<button class="nav-link route-link" data-route="cumplimiento" type="button">Unidad de Cumplimiento</button>
+<button class="nav-link route-link" data-route="politicas" type="button">Políticas Públicas</button>
+<button class="nav-link route-link" data-route="insights" type="button">Insights</button>
+<button class="nav-cta route-link" data-route="login" type="button">Iniciar sesión</button>
+</nav>
+<button aria-controls="mobileMenu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" id="menuToggle" type="button"><span></span></button>
+</div>
 </header>
-
-<div class="announcement">
-  Conoce la oferta institucional disponible para la ciudadanía.
-  <button class="route-link" data-route="servicios">Explorar nuestros servicios <span>→</span></button>
+<div aria-hidden="true" class="mobile-menu" id="mobileMenu" inert="">
+<div class="mobile-menu-head">
+<button aria-label="Territorio Inteligente — Home" class="brand route-link" data-route="home" type="button"><img alt="Territorio Inteligente" src="assets/img/territorio-inteligente-logo.png"/></button>
+<button aria-label="Cerrar menú" class="mobile-close" id="mobileClose" type="button">×</button>
 </div>
-
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <div class="mobile-menu-head">
-    <button class="brand route-link" data-route="home"><img src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente"></button>
-    <button class="mobile-close" id="mobileClose" aria-label="Cerrar menú">×</button>
-  </div>
-  <nav class="mobile-nav">
-    <button class="route-link active" data-route="home"><small>01</small><span>Home</span><b>→</b></button>
-    <button class="route-link" data-route="data"><small>02</small><span>Data Territorio</span><b>→</b></button>
-    <button class="route-link" data-route="desarrollo"><small>03</small><span>Plan de Desarrollo</span><b>→</b></button>
-    <button class="route-link" data-route="cumplimiento"><small>04</small><span>Unidad de Cumplimiento</span><b>→</b></button>
-    <button class="route-link" data-route="politicas"><small>05</small><span>Políticas Públicas</span><b>→</b></button>
-    <button class="route-link" data-route="insights"><small>06</small><span>Insights</span><b>→</b></button>
-    <button class="route-link" data-route="login"><small>07</small><span>Iniciar sesión</span><b>→</b></button>
-  </nav>
+<nav aria-label="Navegación móvil" class="mobile-nav">
+<button aria-current="page" class="route-link active" data-route="home" type="button"><small>01</small><span>Home</span><b>→</b></button>
+<button class="route-link" data-route="data" type="button"><small>02</small><span>Data Territorio</span><b>→</b></button>
+<button class="route-link" data-route="desarrollo" type="button"><small>03</small><span>Plan de Desarrollo</span><b>→</b></button>
+<button class="route-link" data-route="cumplimiento" type="button"><small>04</small><span>Unidad de Cumplimiento</span><b>→</b></button>
+<button class="route-link" data-route="politicas" type="button"><small>05</small><span>Políticas Públicas</span><b>→</b></button>
+<button class="route-link" data-route="insights" type="button"><small>06</small><span>Insights</span><b>→</b></button>
+<button class="route-link" data-route="login" type="button"><small>07</small><span>Iniciar sesión</span><b>→</b></button>
+</nav>
 </div>
+<main id="mainContent">
+<section class="app-view active" data-view="home">
 
-<main>
-  <!-- HOME -->
-  <section class="app-view active" data-view="home">
-    <section class="hero" aria-label="Territorio Inteligente">
-      <div class="hero-media" id="heroMedia" aria-hidden="true">
-        <!-- Fallback fotográfico: se oculta visualmente si HERO_YOUTUBE_URL tiene un enlace válido -->
-        <div class="hero-frame active" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/6/6b/Subachoque_aerea1.jpg')"></div>
-        <div class="hero-frame" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/2/28/2018_Cundinamarca_-_carretera_en_el_valle_de_Subachoque.jpg')"></div>
-        <div class="hero-frame" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/4/4b/Cerro_El_Tablazo%2C_Subachoque.jpg')"></div>
-        <div class="hero-local-video" id="heroLocalVideoWrap"><video id="heroLocalVideo" autoplay muted loop playsinline preload="metadata"><source src="assets/video/asi-cumplimos.mp4" type="video/mp4"></video></div>
-        <div class="hero-youtube" id="heroYoutubeWrap"><iframe id="heroYoutube" title="Video principal de Territorio Inteligente" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-        <div class="hero-shade"></div><div class="hero-edge"></div>
-      </div>
-      <div class="hero-content"><h1 class="hero-title">ASÍ<br>CUMPLIMOS</h1></div>
-      <div class="hero-index"><i class="active"></i><i></i><i></i></div>
-    </section>
 
-    <section class="section national">
-      <div class="inner">
-        <div class="national-head">
-          <div class="reveal"><p class="eyebrow">Noticias de entidades nacionales y departamentales</p><h2 class="big-heading">Lo que pasa afuera también cambia el territorio.</h2></div>
-          <p class="reveal">Fuentes oficiales nacionales y departamentales, organizadas para que la ciudadanía pueda identificar el origen, la fecha y acceder a la publicación correspondiente.</p>
-        </div>
-        <button class="feature reveal route-link" data-route="insights">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/2018_Cundinamarca_-_carretera_en_el_valle_de_Subachoque.jpg" alt="Paisaje del valle de Subachoque">
-          <div class="feature-tag">Fuente oficial · contenido por integrar</div>
-          <div class="feature-copy"><h3>Noticias relevantes, con contexto territorial.</h3><p>Aquí irá la noticia nacional o departamental prioritaria, con fuente oficial, fecha y acceso a la publicación original.</p></div>
-        </button>
-      </div>
-    </section>
 
-    <section class="section municipal">
-      <div class="inner">
-        <div class="municipal-top">
-          <div class="reveal"><p class="eyebrow">Actualidad de la entidad</p><h2 class="big-heading">La administración, visible.</h2></div>
-          <p class="reveal">Noticias municipales organizadas por dependencia y relevancia, con espacio para alertas destacadas cuando el contenido sea crítico.</p>
-        </div>
-        <div class="news-grid">
-          <button class="story reveal route-link" data-route="insights"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/2018_Subachoque%2C_plaza_principal.jpg" alt="Plaza principal de Subachoque"><div class="story-copy"><div class="story-label">Actualidad municipal</div><h3>Noticias del municipio con tratamiento editorial.</h3></div></button>
-          <div class="story-stack">
-            <button class="story small reveal route-link" data-route="insights"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cerro_El_Tablazo%2C_Subachoque.jpg" alt="Cerro El Tablazo"><div class="story-copy"><div class="story-label">Territorio</div><h3>Información priorizada por relevancia.</h3></div></button>
-            <button class="story small reveal route-link" data-route="insights"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Subachoque_aerea1.jpg" alt="Vista aérea de Subachoque"><div class="story-copy"><div class="story-label">Dependencias</div><h3>Contenido con fecha, fuente y trazabilidad.</h3></div></button>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="services">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Subachoque_aerea1.jpg" alt="Vista aérea del municipio">
-      <div class="services-copy reveal">
-        <p class="eyebrow">Portafolio de servicios de Subachoque</p>
-        <h2>Servicios públicos, sin perderse en el trámite.</h2>
-        <p>El portafolio de servicios reúne trámites, gestiones y atenciones de la administración municipal, con requisitos, tiempos, costos, canales de atención y acceso a los sistemas correspondientes.</p>
-        <button class="outline-link route-link" data-route="servicios">Explorar nuestros servicios <span>→</span></button>
-      </div>
-    </section>
 
-    <section class="section identity">
-      <div class="inner">
-        <p class="eyebrow reveal">Aprendamos de nuestro territorio</p>
-        <h2 class="big-heading reveal">Conocer el territorio también es conocer su identidad.</h2>
-        <div class="identity-grid">
-          <div class="identity-main reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/2018_Subachoque%2C_plaza_principal.jpg" alt="Subachoque"><h3>Subachoque<br>es territorio vivo.</h3></div>
-          <nav class="identity-links reveal" aria-label="Identidad territorial">
-            <button><small>01</small><span>Nuestro himno</span><span>→</span></button>
-            <button><small>02</small><span>Nuestro escudo</span><span>→</span></button>
-            <button><small>03</small><span>Nuestra bandera</span><span>→</span></button>
-            <button><small>04</small><span>Nuestro territorio</span><span>→</span></button>
-            <button><small>05</small><span>Galería</span><span>→</span></button>
-          </nav>
-        </div>
-      </div>
-    </section>
 
-    <section class="section institutional">
-      <div class="inner">
-        <p class="eyebrow reveal">Más información de la entidad territorial</p>
-        <h2 class="big-heading reveal">Acceso directo a la información institucional.</h2>
-        <div class="institutional-grid">
-          <p class="reveal">Redes sociales oficiales, portal municipal, dependencias, datos de contacto y mecanismos de participación informada.</p>
-          <div class="quick-links reveal">
-            <button><span>Portal institucional</span><span>↗</span></button>
-            <button><span>Redes sociales oficiales</span><span>↗</span></button>
-            <button><span>Dependencias</span><span>↗</span></button>
-            <button><span>Participación ciudadana</span><span>↗</span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </section>
 
-  <!-- DATA TERRITORIO -->
-  <section class="app-view view-shell" data-view="data">
-    <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 01</div><h1 class="view-title">Data<br>Territorio</h1><p class="view-lead">Sistema integral para reunir, organizar y armonizar información territorial proveniente de fuentes nacionales, departamentales, municipales y comunitarias.</p></div></div>
-    <div class="view-body"><div class="inner"><p class="eyebrow">Capacidades</p><h2 class="big-heading">Información dispersa convertida en conocimiento territorial.</h2><div class="view-grid"><div class="view-card yellow"><small>01</small><h3>Plan estadístico municipal</h3></div><div class="view-card"><small>02</small><h3>Fuentes nacionales, departamentales y municipales</h3></div><div class="view-card"><small>03</small><h3>Encuesta municipal</h3></div><div class="view-card"><small>04</small><h3>Georreferenciación y publicaciones</h3></div></div></div></div>
-  </section>
 
-  <!-- PLAN DE DESARROLLO -->
-  <section class="app-view view-shell" data-view="desarrollo">
-    <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 02</div><h1 class="view-title">Plan de<br>Desarrollo</h1><p class="view-lead">El instrumento que organiza las decisiones, inversiones y metas del gobierno municipal durante el cuatrienio.</p></div></div>
-    <div class="view-body"><div class="inner"><p class="eyebrow">Estructura</p><h2 class="big-heading">Del plan escrito al seguimiento visible.</h2><div class="metric-row"><div class="metric"><strong>6</strong><span>Ejes estratégicos</span></div><div class="metric"><strong>29</strong><span>Programas</span></div><div class="metric"><strong>18</strong><span>Sectores</span></div><div class="metric"><strong>109</strong><span>Metas</span></div></div></div></div>
-  </section>
 
-  <!-- UNIDAD DE CUMPLIMIENTO -->
-  <section class="app-view view-shell" data-view="cumplimiento">
-    <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 03</div><h1 class="view-title">Unidad de<br>Cumplimiento</h1><p class="view-lead">Seguimiento a proyectos estratégicos y de alto impacto para verificar avance, cronogramas, recursos, riesgos y resultados.</p></div></div>
-    <div class="view-body"><div class="inner"><p class="eyebrow">Proyectos</p><h2 class="big-heading">Seguimiento donde realmente se ejecuta.</h2><div class="view-grid"><div class="view-card yellow"><small>01</small><h3>Indicadores de avance</h3></div><div class="view-card"><small>02</small><h3>Beneficiarios y georreferenciación</h3></div><div class="view-card"><small>03</small><h3>Financiación, contratos y cronograma</h3></div><div class="view-card"><small>04</small><h3>Riesgos, evidencias y anexos</h3></div></div></div></div>
-  </section>
 
-  <!-- POLÍTICAS PÚBLICAS -->
-  <section class="app-view view-shell" data-view="politicas">
-    <div class="view-hero"><div class="inner"><div class="view-kicker">Módulo</div><h1 class="view-title">Políticas<br>Públicas</h1><p class="view-lead">Esta pestaña queda preparada dentro del mismo HTML. El contenido funcional se completará cuando esté definida la estructura de este producto.</p></div></div>
-    <div class="view-body"><div class="inner"><p class="eyebrow">En definición</p><h2 class="big-heading">No vamos a inventar capacidades que todavía no están cerradas.</h2></div></div>
-  </section>
 
-  <!-- INSIGHTS -->
-  <section class="app-view view-shell" data-view="insights">
-    <div class="view-hero"><div class="inner"><div class="view-kicker">Insights</div><h1 class="view-title">Ideas,<br>datos y territorio</h1><p class="view-lead">Publicaciones, noticias, análisis y hallazgos para leer el territorio con contexto.</p></div></div>
-    <div class="view-body"><div class="inner"><p class="eyebrow">Publicaciones</p><h2 class="big-heading">Un archivo editorial para entender lo que está cambiando.</h2><div class="view-grid"><div class="view-card yellow"><small>Destacado</small><h3>Hallazgos territoriales</h3></div><div class="view-card"><small>Análisis</small><h3>Datos y decisiones públicas</h3></div></div></div></div>
-  </section>
-
-  <!-- SERVICIOS -->
-  <section class="app-view view-shell" data-view="servicios">
-    <div class="view-hero"><div class="inner"><div class="view-kicker">Oferta institucional</div><h1 class="view-title">Nuestros<br>Servicios</h1><p class="view-lead">Trámites, gestiones y atenciones organizados para que la ciudadanía encuentre qué necesita, qué debe llevar, cuánto tarda y dónde hacerlo.</p></div></div>
-    <div class="view-body"><div class="inner"><p class="eyebrow">Portafolio</p><h2 class="big-heading">Explorar servicios sin perderse entre dependencias.</h2><div class="view-grid"><div class="view-card yellow"><small>Servicio</small><h3>Impuesto predial</h3></div><div class="view-card"><small>Servicio</small><h3>Actualización SISBÉN</h3></div><div class="view-card"><small>Servicio</small><h3>Autorizaciones urbanísticas</h3></div><div class="view-card"><small>Servicio</small><h3>Licencias y nomenclatura</h3></div></div></div></div>
-  </section>
-
-  <!-- LOGIN -->
-  <section class="app-view view-shell" data-view="login">
-    <div class="login-wrap"><div class="login-copy"><div class="view-kicker">Acceso institucional</div><h1>Iniciar<br>sesión</h1></div><div class="login-panel"><form class="login-form" onsubmit="event.preventDefault()"><h2>Acceso a Territorio Inteligente</h2><div class="field"><label for="email">Correo institucional</label><input id="email" type="email" autocomplete="email"></div><div class="field"><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password"></div><button class="login-submit" type="submit">Ingresar</button></form></div></div>
-  </section>
+<section aria-label="Territorio Inteligente" class="hero">
+<div aria-hidden="true" class="hero-media" id="heroMedia">
+<div class="hero-local-video" id="heroLocalVideoWrap"><video id="heroLocalVideo" loop="" muted="" playsinline="" poster="assets/img/editorial/hero-poster.jpg" preload="metadata"></video></div>
+<div class="hero-shade"></div><div class="hero-edge"></div>
+</div>
+<div class="hero-content">
+<div class="hero-copy-block">
+<p class="hero-eyebrow">Territorio Inteligente / Subachoque</p>
+<p class="hero-chapter">Así cumplimos</p>
+<h1 class="hero-title" tabindex="-1"><span>Conocer.</span><span>Decidir.</span><span>Cumplir.</span></h1>
+<p class="hero-lede">Evidencia territorial para convertir prioridades públicas en resultados que las personas puedan ver, comparar y seguir.</p>
+<button class="hero-cta route-link ti-link-swap" data-route="data" type="button">
+<span class="ti-link-swap__track"><span>Explorar el territorio →</span><span aria-hidden="true">Explorar el territorio →</span></span>
+</button>
+</div>
+<div aria-hidden="true" class="hero-ledger"><strong>01</strong><span>EVIDENCIA / PLAN / ENTREGA</span></div><div aria-hidden="true" class="hero-scroll">DESCUBRIR EL TERRITORIO  ↓</div></div>
+</section><section aria-labelledby="homePurposeTitle" class="section home-purpose">
+<div class="inner home-purpose-grid">
+<div class="home-purpose-copy reveal">
+<p class="eyebrow">Por qué existe Territorio Inteligente</p>
+<h2 class="big-heading" id="homePurposeTitle">La información pública sirve cuando ayuda a decidir qué hacer después.</h2>
+<p class="home-purpose-lede">La plataforma conecta datos, plan de desarrollo, proyectos, políticas y servicios para que cada cifra tenga contexto, responsable, evidencia y una siguiente acción.</p>
+<button class="text-button route-link" data-route="data" type="button">Explorar Data Territorio</button>
+</div>
+<figure class="home-purpose-media reveal">
+<img alt="Equipo revisando información para la gestión territorial" decoding="async" loading="lazy" src="assets/img/editorial/gestion.jpg"/>
+<figcaption>Datos + territorio + decisiones. Contenido visual del prototipo.</figcaption>
+</figure>
+</div>
+</section><section aria-label="Áreas de impacto" class="section home-impact">
+<div class="inner">
+<div class="editorial-split-head reveal"><div><p class="eyebrow">Áreas de impacto</p><h2 class="big-heading">Del dato a una decisión que se pueda explicar.</h2></div><p>La plataforma organiza el trabajo territorial en cuatro movimientos: leer, priorizar, ejecutar y aprender. Cada bloque abre directamente el módulo correspondiente.</p></div>
+<div class="impact-area-grid" id="homeImpactAreas"></div>
+</div>
+</section><section aria-labelledby="homeSpotlightTitle" class="section home-spotlight">
+<div class="inner">
+<div class="editorial-split-head reveal"><div><p class="eyebrow">Proyecto destacado</p><h2 class="big-heading" id="homeSpotlightTitle">Un resultado importante necesita más contexto que un porcentaje.</h2></div><p>El Spotlight conecta avance, riesgo, territorio, responsable y evidencia antes de enviar al portafolio completo.</p></div>
+<div id="homeSpotlight"></div>
+</div>
+</section><section aria-label="Subachoque en cifras" class="home-facts">
+<div class="inner">
+<div class="facts-media reveal"><img alt="Vista aérea de Subachoque" src="assets/img/editorial/territorio-aereo.jpg"/></div>
+<div class="facts-copy reveal"><p class="eyebrow">Subachoque en contexto</p><h2>Una lectura rápida antes de entrar al detalle.</h2><div class="facts-grid" id="homeFacts"></div><p class="prototype-caption">Las cifras con fuente pública se identifican como referencia; el resto de valores operativos del prototipo son ilustrativos.</p></div>
+</div>
+</section><section aria-label="Escenarios ilustrativos de uso" class="section home-voices">
+<div class="inner">
+<div class="editorial-split-head reveal"><div><p class="eyebrow">Escenarios ilustrativos de uso</p><h2 class="big-heading">La información también tiene que servir en conversaciones reales.</h2></div><p>Estas voces son escenarios de demostración, no testimonios oficiales. Muestran cómo pueden convivir evidencia, experiencia ciudadana y seguimiento institucional.</p></div>
+<div class="voice-grid" id="homeVoices"></div>
+</div>
+</section><section class="section national" data-functional="home-news">
+<div class="inner">
+<div class="news-ticker" hidden="" id="homeNewsTicker"></div>
+<div class="national-head">
+<div class="reveal"><p class="eyebrow">Noticias de entidades nacionales y departamentales</p><h2 class="big-heading">Lo que pasa afuera también cambia el territorio.</h2></div>
+<p class="reveal">Fuentes oficiales nacionales y departamentales, organizadas para que la ciudadanía pueda identificar el origen, la fecha y acceder a la publicación correspondiente.</p>
+</div>
+<article class="feature reveal" id="homeNationalFeature">
+<img alt="Paisaje del valle de Subachoque" class="media-img" data-fallback="" decoding="async" loading="lazy" src="assets/img/editorial/territorio-aereo.jpg"/>
+<div class="feature-tag">Cargando contenido</div>
+<div class="feature-copy"><h3>Noticias relevantes, con contexto territorial.</h3><p>Cargando noticia con fecha, fuente y contexto territorial.</p></div>
+</article>
+</div>
+</section><section class="section municipal" data-functional="home-municipal">
+<div class="inner">
+<div class="municipal-top">
+<div class="reveal"><p class="eyebrow">Actualidad de la entidad</p><h2 class="big-heading">La administración, visible.</h2></div>
+<p class="reveal">Noticias municipales organizadas por dependencia y relevancia, con espacio para alertas destacadas cuando el contenido sea crítico.</p>
+</div>
+<div class="news-grid" id="homeMunicipalGrid">
+<button class="story reveal route-link" data-route="insights" type="button"><img alt="Plaza principal de Subachoque" class="media-img" data-fallback="" decoding="async" loading="lazy" src="assets/img/editorial/alcaldia.jpg"/><div class="story-copy"><div class="story-label">Actualidad municipal</div><h3>Noticias del municipio con tratamiento editorial.</h3></div></button>
+<div class="story-stack">
+<button class="story small reveal route-link" data-route="insights" type="button"><img alt="Cerro El Tablazo" class="media-img" data-fallback="" decoding="async" loading="lazy" src="assets/img/editorial/participacion.jpg"/><div class="story-copy"><div class="story-label">Territorio</div><h3>Información priorizada por relevancia.</h3></div></button>
+<button class="story small reveal route-link" data-route="insights" type="button"><img alt="Vista aérea de Subachoque" class="media-img" data-fallback="" decoding="async" loading="lazy" src="assets/img/editorial/territorio-aereo.jpg"/><div class="story-copy"><div class="story-label">Dependencias</div><h3>Contenido con fecha, fuente y trazabilidad.</h3></div></button>
+</div>
+</div>
+</div>
+</section><section class="services">
+<img alt="Vista aérea del municipio" class="media-img" data-fallback="" decoding="async" loading="lazy" src="assets/img/editorial/territorio-aereo.jpg"/>
+<div class="services-copy reveal">
+<p class="eyebrow">Portafolio de servicios de Subachoque</p>
+<h2>Servicios públicos, sin perderse en el trámite.</h2>
+<p>El portafolio de servicios reúne trámites, gestiones y atenciones de la administración municipal, con requisitos, tiempos, costos, canales de atención y acceso a los sistemas correspondientes.</p>
+<button class="outline-link route-link" data-route="servicios" type="button">Explorar nuestros servicios <span>→</span></button>
+</div>
+</section><section class="section identity">
+<div class="inner">
+<p class="eyebrow reveal">Aprendamos de nuestro territorio</p>
+<h2 class="big-heading reveal">Conocer el territorio también es conocer su identidad.</h2>
+<div class="identity-grid">
+<div class="identity-main reveal"><img alt="Subachoque" class="media-img" data-fallback="" decoding="async" loading="lazy" src="assets/img/editorial/alcaldia.jpg"/><h3>Subachoque<br/>es territorio vivo.</h3></div>
+<nav aria-label="Identidad territorial" class="identity-links reveal" id="homeIdentityLinks">
+<button class="identity-action" data-identity="himno" type="button"><small>01</small><span>Nuestro himno</span><span>→</span></button>
+<button class="identity-action" data-identity="escudo" type="button"><small>02</small><span>Nuestro escudo</span><span>→</span></button>
+<button class="identity-action" data-identity="bandera" type="button"><small>03</small><span>Nuestra bandera</span><span>→</span></button>
+<button class="identity-action" data-identity="territorio" type="button"><small>04</small><span>Nuestro territorio</span><span>→</span></button>
+<button class="identity-action" data-identity="galeria" type="button"><small>05</small><span>Galería</span><span>→</span></button>
+</nav>
+</div>
+</div>
+</section><section class="section institutional">
+<div class="inner">
+<p class="eyebrow reveal">Más información de la entidad territorial</p>
+<h2 class="big-heading reveal">Acceso directo a la información institucional.</h2>
+<div class="institutional-grid">
+<p class="reveal">Redes sociales oficiales, portal municipal, dependencias, datos de contacto y mecanismos de participación informada.</p>
+<div class="quick-links reveal" id="homeInstitutionalLinks">
+<button class="institutional-action" data-institutional="portal" type="button"><span>Portal institucional</span><span>↗</span></button>
+<button class="institutional-action" data-institutional="redes" type="button"><span>Redes sociales oficiales</span><span>↗</span></button>
+<button class="institutional-action" data-institutional="dependencias" type="button"><span>Dependencias</span><span>↗</span></button>
+<button class="institutional-action" data-institutional="participacion" type="button"><span>Participación ciudadana</span><span>↗</span></button>
+</div>
+</div>
+</div>
+</section></section>
+<section class="app-view view-shell" data-view="data">
+<div class="view-hero product-hero" data-product-number="01"><div class="inner"><div class="view-kicker">Producto 01</div><h1 class="view-title" tabindex="-1">Data<br/>Territorio</h1><p class="view-lead">Sistema integral para reunir, organizar, validar y convertir información territorial en insumo para decisiones públicas basadas en evidencia.</p></div></div>
+<div class="view-body functional-shell">
+<div class="inner">
+<div class="module-heading-row"><div><p class="eyebrow">Data Territorio</p><h2 class="big-heading">De la fuente al análisis territorial.</h2></div><div aria-live="polite" class="module-status" id="dataGlobalStatus"></div></div>
+<nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist">
+<button aria-controls="data-visor" aria-selected="true" class="module-tab active" data-module-panel="data-visor" id="tab-data-visor" role="tab" tabindex="0" type="button">Visor de datos</button>
+<button aria-controls="data-conoce" aria-selected="false" class="module-tab" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="-1" type="button">2.1 Conoce</button>
+<button aria-controls="data-plan-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-plan-estadistico" id="tab-data-plan-estadistico" role="tab" tabindex="-1" type="button">2.2 Plan estadístico</button>
+<button aria-controls="data-dane" aria-selected="false" class="module-tab" data-module-panel="data-dane" id="tab-data-dane" role="tab" tabindex="-1" type="button">2.3 DANE</button>
+<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.4–2.5 Fuentes externas</button>
+<button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.6 Municipales</button>
+<button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.7 Encuesta</button>
+<button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.8 Georreferenciador</button>
+<button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.9 Publicaciones</button>
+<button aria-controls="data-glosario" aria-selected="false" class="module-tab" data-module-panel="data-glosario" id="tab-data-glosario" role="tab" tabindex="-1" type="button">2.10 Glosario</button>
+</nav>
+<section aria-labelledby="tab-data-visor" class="module-panel active" data-panel-group="data" id="data-visor" role="tabpanel">
+<div id="dataVisorWorkspace"></div>
+</section>
+<section aria-labelledby="tab-data-conoce" class="module-panel" data-panel-group="data" hidden="" id="data-conoce" role="tabpanel">
+<div class="functional-grid two-col">
+<div><p class="eyebrow">¿Qué es Data Territorio?</p><div class="prose-block" id="dataDefinition"></div><div class="principles-list" id="dataPrinciples"></div></div>
+<div><p class="eyebrow">Importancia de la estadística</p><div aria-label="Gráfico interactivo sobre la importancia de la estadística" class="stat-wheel" id="statisticsWheel"></div><div class="info-note" id="statisticsNote" role="status"></div></div>
+</div>
+</section>
+<section aria-labelledby="tab-data-plan-estadistico" class="module-panel" data-panel-group="data" hidden="" id="data-plan-estadistico" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Repositorio técnico</p><h3>PDF, fichas técnicas y archivos de indicadores</h3></div><label class="action-button">Agregar archivos<input accept=".pdf,.xlsx,.xls,.csv" hidden="" id="statDocumentUpload" multiple="" type="file"/></label></div>
+<div class="filter-row"><input aria-label="Buscar documentos estadísticos" id="statDocumentSearch" placeholder="Buscar documento, indicador o fuente" type="search"/><button class="text-button" id="exportStatMetadata" type="button">Exportar inventario</button></div>
+<div class="document-grid" id="statDocumentGrid"></div>
+</section>
+<section aria-labelledby="tab-data-dane" class="module-panel" data-panel-group="data" hidden="" id="data-dane" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Datos del DANE</p><h3>Series históricas, comparación y trazabilidad</h3></div><a class="action-button external-action" href="https://www.dane.gov.co/" rel="noopener" target="_blank">Abrir DANE ↗</a></div>
+<div class="source-registry" id="daneSourceRegistry"></div>
+<div class="dataset-workspace" data-dataset-workspace="dane"></div>
+</section>
+<section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Fuentes nacionales y departamentales</p><h3>Información sectorial con fuente, vigencia y consistencia</h3></div><div aria-label="Nivel de fuente" class="segmented" role="group"><button class="source-level active" data-source-level="nacional" type="button">Nacional</button><button class="source-level" data-source-level="departamental" type="button">Departamental</button></div></div>
+<div class="source-registry" id="externalSourceRegistry"></div>
+<div class="dataset-workspace" data-dataset-workspace="externas"></div>
+</section>
+<section aria-labelledby="tab-data-municipales" class="module-panel" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Fuentes municipales</p><h3>Repositorio único de dependencias y entidades descentralizadas</h3></div><span class="status-pill demo">Base de prototipo cargada</span></div>
+<div class="dataset-workspace" data-dataset-workspace="municipales"></div>
+</section>
+<section aria-labelledby="tab-data-encuesta" class="module-panel" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Encuesta Municipal</p><h3>Caracterización territorial, estadística descriptiva y percepción</h3></div><span class="status-pill demo">Encuesta de prototipo cargada</span></div>
+<div class="dataset-workspace" data-dataset-workspace="encuesta"></div>
+<div class="info-note"><strong>Base de prototipo:</strong> esta vista viene poblada para probar filtros, gráficos y agregaciones; los valores no certificados deben sustituirse antes de publicación institucional.</div>
+</section>
+<section aria-labelledby="tab-data-geo" class="module-panel" data-panel-group="data" hidden="" id="data-geo" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Georreferenciador</p><h3>Veredas, casco urbano, servicios, beneficiarios e infraestructura</h3></div><label class="action-button">Importar puntos<input accept=".csv,.json,.xlsx,.xls" hidden="" id="geoPointUpload" type="file"/></label></div>
+<div class="geo-layout"><div class="territory-map"><svg aria-label="Mapa interactivo de veredas de Subachoque" id="territoryMapSvg" role="img" viewbox="0 0 960 600"></svg></div><aside class="map-detail" id="territoryMapDetail"><p class="eyebrow">Selecciona una vereda</p><p>Haz clic o usa el teclado sobre una vereda para consultar servicios, beneficiarios, grupos poblacionales e infraestructura cargada.</p></aside></div>
+</section>
+<section aria-labelledby="tab-data-publicaciones" class="module-panel" data-panel-group="data" hidden="" id="data-publicaciones" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Publicaciones</p><h3>Boletines, informes, papers y encuestas con trazabilidad</h3></div><label class="action-button">Agregar publicación<input accept=".pdf,.doc,.docx,.xlsx,.xls,.csv" hidden="" id="publicationUpload" multiple="" type="file"/></label></div>
+<div class="document-grid" id="publicationGrid"></div>
+</section>
+<section aria-labelledby="tab-data-glosario" class="module-panel" data-panel-group="data" hidden="" id="data-glosario" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Glosario territorial</p><h3>Término, definición y fuente oficial</h3></div><button class="action-button" id="exportGlossary" type="button">Exportar glosario</button></div>
+<div class="filter-row"><input aria-label="Buscar glosario" id="glossarySearch" placeholder="Buscar término, sigla, entidad o indicador" type="search"/></div>
+<div class="glossary-list" id="glossaryList"></div>
+</section>
+</div>
+</div>
+</section>
+<section class="app-view view-shell" data-view="desarrollo">
+<div class="view-hero product-hero" data-product-number="02"><div class="inner"><div class="view-kicker">Producto 02 · Implementación</div><h1 class="view-title" tabindex="-1">Plan de<br/>Desarrollo</h1><p class="view-lead">Ejes, programas, metas, presupuesto y avance en una lectura ejecutiva pensada para seguimiento y toma de decisiones.</p></div></div>
+<div class="view-body functional-shell"><div class="inner"><div id="planDashboard"></div></div></div>
+</section>
+<section class="app-view view-shell" data-view="cumplimiento">
+<div class="view-hero product-hero" data-product-number="03"><div class="inner"><div class="view-kicker">Producto 03 · Entrega y resultados</div><h1 class="view-title" tabindex="-1">Unidad de<br/>Cumplimiento</h1><p class="view-lead">Proyectos prioritarios, avance físico y financiero, beneficiarios, riesgos, cronograma y evidencia en un mismo lugar.</p></div></div>
+<div class="view-body functional-shell"><div class="inner"><div id="complianceDashboard"></div></div></div>
+</section>
+<section class="app-view view-shell" data-view="politicas">
+<div class="view-hero product-hero" data-product-number="04"><div class="inner"><div class="view-kicker">Políticas públicas</div><h1 class="view-title" tabindex="-1">Políticas<br/>Públicas</h1><p class="view-lead">Políticas con estado, horizonte, avance, liderazgo institucional y acciones prioritarias.</p></div></div>
+<div class="view-body functional-shell"><div class="inner"><div id="policyDashboard"></div></div></div>
+</section>
+<section class="app-view view-shell" data-view="insights">
+<div class="view-hero product-hero" data-product-number="05"><div class="inner"><div class="view-kicker">Insights · Evidencia</div><h1 class="view-title" tabindex="-1">Ideas,<br/>datos y territorio</h1><p class="view-lead">Hallazgos, análisis y lecturas territoriales para convertir seguimiento en aprendizaje institucional.</p></div></div>
+<div class="view-body functional-shell"><div class="inner"><div id="insightDashboard"></div></div></div>
+</section>
+<section class="app-view view-shell" data-view="servicios">
+<div class="view-hero product-hero" data-product-number="06"><div class="inner"><div class="view-kicker">Oferta institucional</div><h1 class="view-title" tabindex="-1">Nuestros<br/>Servicios</h1><p class="view-lead">Trámites y servicios con dependencia, requisitos, tiempos, costos, canales de atención y enlaces oficiales.</p></div></div>
+<div class="view-body functional-shell"><div class="inner"><div class="module-heading-row"><div><p class="eyebrow">Portafolio municipal</p><h2 class="big-heading">Encontrar qué hacer y dónde hacerlo.</h2></div><input aria-label="Buscar servicio" class="compact-search" id="serviceSearch" placeholder="Buscar servicio" type="search"/></div><div class="service-grid" id="serviceGrid"></div></div></div>
+</section>
+<section class="app-view view-shell" data-view="login">
+<div class="login-wrap"><div class="login-copy"><div class="view-kicker">Acceso institucional</div><h1 tabindex="-1">Iniciar<br/>sesión</h1></div><div class="login-panel"><form class="login-form" id="loginForm"><h2>Acceso a Territorio Inteligente</h2><p class="demo-login-note"><strong>Acceso de prototipo:</strong> escribe cualquier correo válido y una contraseña de 4 caracteres o más.</p><div class="field"><label for="email">Correo institucional</label><input autocomplete="email" id="email" name="email" required="" type="email"/></div><div class="field"><label for="password">Contraseña</label><input autocomplete="current-password" id="password" name="password" required="" type="password"/></div><button class="login-submit" type="submit">Ingresar</button><p class="form-status" hidden="" id="loginStatus" role="status"></p></form></div></div>
+</section>
 </main>
-
 <footer>
-  <div class="footer-grid">
-    <div><img class="footer-logo" src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente"><p class="footer-copy">Territorio Inteligente articula datos, planeación, seguimiento y capacidades institucionales para fortalecer decisiones públicas basadas en evidencia.</p></div>
-    <div><h4>Plataforma</h4><button class="route-link" data-route="data">Data Territorio</button><button class="route-link" data-route="desarrollo">Plan de Desarrollo</button><button class="route-link" data-route="cumplimiento">Unidad de Cumplimiento</button><button class="route-link" data-route="politicas">Políticas Públicas</button></div>
-    <div><h4>Explorar</h4><button class="route-link" data-route="insights">Insights</button><button class="route-link" data-route="servicios">Servicios</button><button class="route-link" data-route="login">Iniciar sesión</button></div>
-  </div>
-  <div class="credits"><span>© 2026 Territorio Inteligente · Prototipo V5.</span><span>Una sola aplicación HTML con vistas internas.</span></div>
+<div class="footer-grid">
+<div><img alt="Territorio Inteligente" class="footer-logo" src="assets/img/territorio-inteligente-logo.png"/><p class="footer-copy">Territorio Inteligente articula datos, planeación, seguimiento y capacidades institucionales para fortalecer decisiones públicas basadas en evidencia.</p></div>
+<div><h4>Plataforma</h4><button class="route-link" data-route="data" type="button">Data Territorio</button><button class="route-link" data-route="desarrollo" type="button">Plan de Desarrollo</button><button class="route-link" data-route="cumplimiento" type="button">Unidad de Cumplimiento</button><button class="route-link" data-route="politicas" type="button">Políticas Públicas</button></div>
+<div><h4>Explorar</h4><button class="route-link" data-route="insights" type="button">Insights</button><button class="route-link" data-route="servicios" type="button">Servicios</button><button class="route-link" data-route="login" type="button">Iniciar sesión</button></div>
+<div><h4>Institucional</h4><button data-institutional="portal" type="button">Portal institucional</button><button data-institutional="dependencias" type="button">Dependencias</button><button data-institutional="participacion" type="button">Participación ciudadana</button></div>
+</div>
+<div class="credits"><span>© 2026 Territorio Inteligente · V2.5 DA Editorial Rebuild.</span><span>Una sola experiencia web con rutas internas compartibles.</span></div>
 </footer>
-
-<script>
-/* ============================================================
-   CONFIGURACIÓN DEL VIDEO PRINCIPAL
-   Pega aquí el LINK COMPLETO de YouTube. Si queda vacío, se usan
-   las fotografías de respaldo del hero.
-   Ejemplo:
-   const HERO_YOUTUBE_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-   ============================================================ */
-const HERO_LOCAL_VIDEO = "assets/video/asi-cumplimos.mp4";
-const HERO_YOUTUBE_URL = "https://www.youtube.com/watch?v=qQ8tdFyuCtE";
-
-function getYouTubeId(value){
-  if(!value) return "";
-  try{
-    const u=new URL(value);
-    if(u.hostname.includes('youtu.be')) return u.pathname.split('/').filter(Boolean)[0]||'';
-    if(u.pathname.startsWith('/shorts/')) return u.pathname.split('/')[2]||'';
-    if(u.pathname.startsWith('/embed/')) return u.pathname.split('/')[2]||'';
-    return u.searchParams.get('v')||'';
-  }catch(e){
-    return /^[A-Za-z0-9_-]{11}$/.test(value.trim())?value.trim():'';
-  }
-}
-function configureHeroVideo(){
-  const id=getYouTubeId(HERO_YOUTUBE_URL);
-  if(!id) return;
-
-  const frame=document.getElementById('heroYoutube');
-  const wrap=document.getElementById('heroYoutubeWrap');
-  const media=document.getElementById('heroMedia');
-
-  // YouTube Error 153 appears when the page is opened directly as file://
-  // because that context normally has no HTTP Referer. Keep the photo fallback
-  // in that case; serve this file through http://localhost or deploy it to HTTPS.
-  if(location.protocol === 'file:'){
-    console.warn('YouTube hero disabled on file://. Serve the page through http://localhost to provide a valid Referer.');
-    return;
-  }
-
-  const origin=encodeURIComponent(location.origin);
-  const referrer=encodeURIComponent(location.href);
-  frame.src=`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&origin=${origin}&widget_referrer=${referrer}`;
-  wrap.classList.add('active');
-  media.classList.add('video-active');
-}
-configureHeroVideo();
-
-const header=document.getElementById('siteHeader');
-const menu=document.getElementById('mobileMenu'),openBtn=document.getElementById('menuToggle'),closeBtn=document.getElementById('mobileClose');
-function setMenu(state){menu.classList.toggle('open',state);menu.setAttribute('aria-hidden',String(!state));document.body.style.overflow=state?'hidden':''}
-openBtn.addEventListener('click',()=>setMenu(true));closeBtn.addEventListener('click',()=>setMenu(false));
-
-let currentRoute='home';
-function setRoute(route){
-  const target=document.querySelector(`.app-view[data-view="${route}"]`);
-  if(!target) return;
-  currentRoute=route;
-  document.querySelectorAll('.app-view').forEach(v=>v.classList.toggle('active',v===target));
-  document.querySelectorAll('.route-link[data-route]').forEach(btn=>btn.classList.toggle('active',btn.dataset.route===route));
-  header.classList.toggle('force-dark',route!=='home');
-  setMenu(false);
-  window.scrollTo({top:0,behavior:'instant'});
-  requestAnimationFrame(initReveals);
-}
-document.addEventListener('click',e=>{
-  const routeBtn=e.target.closest('.route-link[data-route]');
-  if(routeBtn){e.preventDefault();setRoute(routeBtn.dataset.route)}
-});
-addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>24||currentRoute!=='home'),{passive:true});
-
-let observer;
-function initReveals(){
-  observer?.disconnect();
-  const reveals=[...document.querySelectorAll('.app-view.active .reveal:not(.in)')];
-  observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');observer.unobserve(e.target)}}),{threshold:.12});
-  reveals.forEach(el=>observer.observe(el));
-}
-initReveals();
-
-const frames=[...document.querySelectorAll('.hero-frame')],dots=[...document.querySelectorAll('.hero-index i')];let current=0;
-setInterval(()=>{
-  if(document.querySelector('.hero-local-video.active,.hero-youtube.active')||currentRoute!=='home') return;
-  frames[current].classList.remove('active');dots[current]?.classList.remove('active');current=(current+1)%frames.length;frames[current].classList.add('active');dots[current]?.classList.add('active')
-},6200);
-</script>
+<dialog aria-labelledby="detailDialogTitle" class="detail-dialog" id="detailDialog"><form method="dialog"><button aria-label="Cerrar" class="dialog-close">×</button></form><div id="detailDialogBody"></div></dialog>
+<button aria-controls="assistantPanel" aria-expanded="false" class="assistant-launch" id="assistantLaunch" type="button">Asistente TI</button>
+<aside aria-hidden="true" class="assistant-panel" id="assistantPanel" inert=""><div class="assistant-head"><div><strong>Asistente TI</strong><small>Consulta información estructurada del portal</small></div><button aria-label="Cerrar asistente" id="assistantClose" type="button">×</button></div><form id="assistantForm"><label for="assistantQuery">¿Qué necesitas encontrar?</label><div class="assistant-input-row"><input autocomplete="off" id="assistantQuery" placeholder="Ej. predial, DANE, cronograma" type="search"/><button type="submit">Buscar</button></div></form><div aria-live="polite" class="assistant-results" id="assistantResults"></div></aside>
+<section aria-label="Modo editor local" class="editor-panel" hidden="" id="editorPanel"><div><strong>Modo editor local</strong><span>Importa/exporta contenido de prueba. La persistencia central requiere conexión de autenticación y base de datos.</span></div><div><label class="text-button">Importar JSON<input accept="application/json,.json" hidden="" id="editorImport" type="file"/></label><button class="text-button" id="editorExport" type="button">Exportar snapshot</button><button class="text-button" id="editorReset" type="button">Restablecer local</button></div></section>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script defer="" src="js/app.js?v=demo25"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script defer="" src="js/requirements.js?v=demo25"></script>
 </body>
 </html>
