@@ -1,0 +1,508 @@
+{
+  "home": [
+    {
+      "id": "C1",
+      "title": "Noticias Nacionales y Departamentales",
+      "requirements": [
+        "RF1.1 Integrar fuentes oficiales nacionales y departamentales.",
+        "RF1.2 Actualizar automáticamente el banner de noticias.",
+        "RF1.3 Presentar contenido en formato visual tipo tarjeta editorial.",
+        "RF1.4 Permitir navegación rápida a la fuente original."
+      ]
+    },
+    {
+      "id": "C2",
+      "title": "Noticias Municipales",
+      "requirements": [
+        "RF2.1 Registrar noticias generadas por dependencias municipales.",
+        "RF2.2 Clasificar noticias por dependencia.",
+        "RF2.3 Mostrar contenido en bloques visuales tipo impact cards.",
+        "RF2.4 Emitir alertas destacadas para noticias críticas."
+      ]
+    },
+    {
+      "id": "C3",
+      "title": "Portafolio de Servicios",
+      "requirements": [
+        "RF3.1 Registrar trámites y servicios por dependencia.",
+        "RF3.2 Mostrar requisitos, tiempos, costos y canales de atención.",
+        "RF3.3 Diseñar tarjetas de servicio con estética minimalista.",
+        "RF3.4 Integrar enlaces a sistemas externos municipales."
+      ]
+    },
+    {
+      "id": "C4",
+      "title": "Identidad Territorial",
+      "requirements": [
+        "RF4.1 Mostrar himno, escudo, bandera y galería del municipio.",
+        "RF4.2 Integrar fotografías de alta calidad con estilo editorial.",
+        "RF4.3 Registrar contenido histórico y cultural del municipio.",
+        "RF4.4 Generar sección Aprendamos del Territorio."
+      ]
+    },
+    {
+      "id": "C5",
+      "title": "Información Institucional y Redes",
+      "requirements": [
+        "RF5.1 Registrar redes sociales oficiales.",
+        "RF5.2 Integrar enlaces al portal municipal y dependencias.",
+        "RF5.3 Mostrar datos de contacto en formato accesible.",
+        "RF5.4 Garantizar accesibilidad visual AA."
+      ]
+    },
+    {
+      "id": "C6",
+      "title": "Experiencia Visual (UI/UX)",
+      "requirements": [
+        "RF6.1 Aplicar diseño minimalista y jerarquías visuales claras.",
+        "RF6.2 Usar tarjetas y bloques tipo magazine.",
+        "RF6.3 Integrar fotografías y gráficos con estilo institucional.",
+        "RF6.4 Garantizar navegación intuitiva en el HOME."
+      ]
+    },
+    {
+      "id": "C7",
+      "title": "Arquitectura de Información",
+      "requirements": [
+        "RF7.1 Dividir el HOME en bloques temáticos.",
+        "RF7.2 Mantener estructura modular para ampliaciones.",
+        "RF7.3 Priorizar contenido según relevancia.",
+        "RF7.4 Integrar rutas de navegación hacia módulos TI."
+      ]
+    },
+    {
+      "id": "C8",
+      "title": "Actualización Dinámica de Contenido",
+      "requirements": [
+        "RF8.1 Actualizar noticias automáticamente desde fuentes externas.",
+        "RF8.2 Permitir carga rápida de contenido por funcionarios.",
+        "RF8.3 Emitir alertas por contenido desactualizado.",
+        "RF8.4 Registrar fecha y fuente de cada actualización."
+      ]
+    },
+    {
+      "id": "C9",
+      "title": "Integración de Fuentes Externas",
+      "requirements": [
+        "RF9.1 Integrar noticias de gobernación y entidades nacionales.",
+        "RF9.2 Conectar con sistemas municipales.",
+        "RF9.3 Validar consistencia de fuentes externas.",
+        "RF9.4 Mostrar metadatos de origen de cada noticia o servicio."
+      ]
+    },
+    {
+      "id": "C10",
+      "title": "Transparencia y Accesibilidad",
+      "requirements": [
+        "RF10.1 Mostrar fuentes oficiales de cada noticia.",
+        "RF10.2 Garantizar accesibilidad visual (contraste, tipografía).",
+        "RF10.3 Permitir descarga de información institucional.",
+        "RF10.4 Integrar mecanismos de participación informada."
+      ]
+    }
+  ],
+  "data": [
+    {
+      "id": "C1",
+      "title": "Conocer Data Territorio",
+      "requirements": [
+        "RF1.1 Registrar catálogo de fuentes territoriales disponibles.",
+        "RF1.2 Mostrar descripción, periodicidad y confiabilidad de cada fuente.",
+        "RF1.3 Integrar metadatos de origen (DANE, IGAC, SUI, SISBÉN, SGR).",
+        "RF1.4 Validar estado de actualización de cada fuente.",
+        "RF1.5 Generar reportes de disponibilidad y brechas de información territorial."
+      ]
+    },
+    {
+      "id": "C2",
+      "title": "Plan Estadístico Municipal",
+      "requirements": [
+        "RF2.1 Registrar indicadores y variables del plan estadístico.",
+        "RF2.2 Asociar cada indicador con su fuente y periodicidad.",
+        "RF2.3 Calcular indicadores automáticamente según metodología definida.",
+        "RF2.4 Emitir alertas por indicadores sin actualización.",
+        "RF2.5 Generar reportes del plan estadístico para planeación y MIPG."
+      ]
+    },
+    {
+      "id": "C3",
+      "title": "Datos del DANE",
+      "requirements": [
+        "RF3.1 Consultar datos del DANE por municipio, vereda o centro poblado.",
+        "RF3.2 Consolidar series históricas de población, pobreza, educación y salud.",
+        "RF3.3 Validar consistencia entre datos del DANE y otras fuentes.",
+        "RF3.4 Generar visualizaciones territoriales basadas en DANE.",
+        "RF3.5 Exportar reportes estadísticos basados en DANE."
+      ]
+    },
+    {
+      "id": "C4",
+      "title": "Fuentes Nacionales",
+      "requirements": [
+        "RF4.1 Registrar fuentes nacionales (SUI, SISBÉN, MinEducación, MinSalud).",
+        "RF4.2 Consultar datos por municipio y periodo.",
+        "RF4.3 Validar calidad y completitud de datos nacionales.",
+        "RF4.4 Emitir alertas por inconsistencias entre fuentes.",
+        "RF4.5 Generar reportes consolidados de fuentes nacionales."
+      ]
+    },
+    {
+      "id": "C5",
+      "title": "Fuentes Departamentales",
+      "requirements": [
+        "RF5.1 Registrar bases departamentales (secretarías, observatorios).",
+        "RF5.2 Consultar datos departamentales por municipio.",
+        "RF5.3 Comparar municipio vs. promedio departamental.",
+        "RF5.4 Emitir alertas por brechas territoriales.",
+        "RF5.5 Generar reportes de desempeño territorial departamental."
+      ]
+    },
+    {
+      "id": "C6",
+      "title": "Fuentes Municipales",
+      "requirements": [
+        "RF6.1 Registrar bases locales (SISBÉN municipal, catastro, UMATA, salud local).",
+        "RF6.2 Validar consistencia entre datos municipales y nacionales.",
+        "RF6.3 Consolidar información municipal en un repositorio único.",
+        "RF6.4 Emitir alertas por datos desactualizados.",
+        "RF6.5 Generar reportes municipales para toma de decisiones."
+      ]
+    },
+    {
+      "id": "C7",
+      "title": "Encuesta Municipal",
+      "requirements": [
+        "RF7.1 Registrar cuestionarios y formularios de encuesta territorial.",
+        "RF7.2 Capturar respuestas de actores locales (veredas, sectores).",
+        "RF7.3 Analizar resultados mediante estadística descriptiva.",
+        "RF7.4 Generar mapas de percepción territorial.",
+        "RF7.5 Emitir reportes de hallazgos y brechas comunitarias."
+      ]
+    },
+    {
+      "id": "C8",
+      "title": "Georreferenciador Data Municipal",
+      "requirements": [
+        "RF8.1 Registrar capas geográficas del municipio (veredas, centros poblados).",
+        "RF8.2 Asociar datos estadísticos a coordenadas geográficas.",
+        "RF8.3 Visualizar mapas temáticos (pobreza, riesgo, servicios).",
+        "RF8.4 Emitir alertas territoriales basadas en georreferenciación.",
+        "RF8.5 Generar mapas exportables para planeación y POT."
+      ]
+    },
+    {
+      "id": "C9",
+      "title": "Publicaciones",
+      "requirements": [
+        "RF9.1 Registrar boletines, informes y documentos territoriales.",
+        "RF9.2 Asociar cada publicación con sus fuentes y datos.",
+        "RF9.3 Publicar informes en portal municipal.",
+        "RF9.4 Emitir alertas por publicaciones pendientes.",
+        "RF9.5 Generar repositorio histórico de publicaciones."
+      ]
+    },
+    {
+      "id": "C10",
+      "title": "Glosario Territorial",
+      "requirements": [
+        "RF10.1 Registrar términos técnicos de gestión territorial.",
+        "RF10.2 Asociar cada término con su fuente oficial (DNP, DANE, IGAC).",
+        "RF10.3 Mostrar definiciones en contexto de análisis.",
+        "RF10.4 Validar coherencia terminológica entre módulos.",
+        "RF10.5 Generar glosario exportable para capacitación municipal."
+      ]
+    }
+  ],
+  "plan": [
+    {
+      "id": "C1",
+      "title": "Conocer el Plan de Desarrollo",
+      "requirements": [
+        "RF1.1 Registrar estructura del PDM (ejes, líneas, programas).",
+        "RF1.2 Mostrar versión vigente y documentos oficiales del PDM.",
+        "RF1.3 Integrar metadatos del PDM (vigencia, fuentes, normatividad).",
+        "RF1.4 Validar coherencia entre PDM y Ley 152.",
+        "RF1.5 Generar reportes de estructura y alcance del PDM."
+      ]
+    },
+    {
+      "id": "C2",
+      "title": "Plan Indicativo",
+      "requirements": [
+        "RF2.1 Registrar metas del plan indicativo por programa.",
+        "RF2.2 Asociar metas con líneas estratégicas del PDM.",
+        "RF2.3 Calcular avance del plan indicativo automáticamente.",
+        "RF2.4 Emitir alertas por metas en riesgo.",
+        "RF2.5 Generar reportes del plan indicativo."
+      ]
+    },
+    {
+      "id": "C3",
+      "title": "Planes de Acción",
+      "requirements": [
+        "RF3.1 Registrar planes de acción por dependencia.",
+        "RF3.2 Asociar actividades con metas del PDM.",
+        "RF3.3 Validar consistencia entre actividades y presupuesto.",
+        "RF3.4 Analizar avance físico y financiero del plan de acción.",
+        "RF3.5 Generar reportes de planes de acción."
+      ]
+    },
+    {
+      "id": "C4",
+      "title": "Sistema General de Regalías",
+      "requirements": [
+        "RF4.1 Registrar proyectos financiados con regalías.",
+        "RF4.2 Validar requisitos técnicos y financieros del SGR.",
+        "RF4.3 Integrar información del SGR con banco de proyectos.",
+        "RF4.4 Emitir alertas por retrasos o incumplimientos del SGR.",
+        "RF4.5 Generar reportes del SGR por vigencia."
+      ]
+    },
+    {
+      "id": "C5",
+      "title": "Metas Resultado",
+      "requirements": [
+        "RF5.1 Registrar metas de resultado del PDM.",
+        "RF5.2 Integrar indicadores con DATA TERRITORIO.",
+        "RF5.3 Calcular avance de metas de resultado.",
+        "RF5.4 Emitir alertas por metas críticas.",
+        "RF5.5 Generar reportes de metas de resultado."
+      ]
+    },
+    {
+      "id": "C6",
+      "title": "Logros del Plan de Desarrollo",
+      "requirements": [
+        "RF6.1 Registrar logros por programa y dependencia.",
+        "RF6.2 Asociar logros con metas e indicadores.",
+        "RF6.3 Validar evidencia documental de logros.",
+        "RF6.4 Analizar impacto territorial de los logros.",
+        "RF6.5 Generar reportes de logros del PDM."
+      ]
+    },
+    {
+      "id": "C7",
+      "title": "Objetivos de Desarrollo Sostenible (ODS)",
+      "requirements": [
+        "RF7.1 Registrar metas ODS aplicables al municipio.",
+        "RF7.2 Asociar metas ODS con programas del PDM.",
+        "RF7.3 Calcular avance de indicadores ODS.",
+        "RF7.4 Emitir alertas por indicadores ODS en riesgo.",
+        "RF7.5 Generar reportes ODS para rendición de cuentas."
+      ]
+    },
+    {
+      "id": "C8",
+      "title": "Georreferenciador del PDM",
+      "requirements": [
+        "RF8.1 Registrar capas geográficas del PDM (proyectos, metas).",
+        "RF8.2 Asociar proyectos y metas a coordenadas geográficas.",
+        "RF8.3 Visualizar mapas temáticos del PDM.",
+        "RF8.4 Emitir alertas territoriales basadas en georreferenciación.",
+        "RF8.5 Generar mapas exportables del PDM."
+      ]
+    },
+    {
+      "id": "C9",
+      "title": "Publicaciones del PDM",
+      "requirements": [
+        "RF9.1 Registrar boletines, informes y documentos del PDM.",
+        "RF9.2 Asociar publicaciones con metas y proyectos.",
+        "RF9.3 Publicar informes en portal municipal.",
+        "RF9.4 Emitir alertas por publicaciones pendientes.",
+        "RF9.5 Generar repositorio histórico de publicaciones del PDM."
+      ]
+    },
+    {
+      "id": "C10",
+      "title": "Galería del PDM",
+      "requirements": [
+        "RF10.1 Registrar fotografías y material audiovisual del PDM.",
+        "RF10.2 Asociar imágenes con proyectos y logros.",
+        "RF10.3 Validar metadatos de cada recurso audiovisual.",
+        "RF10.4 Publicar galería en portal municipal.",
+        "RF10.5 Generar repositorio histórico de evidencias visuales."
+      ]
+    },
+    {
+      "id": "C11",
+      "title": "Glosario del PDM",
+      "requirements": [
+        "RF11.1 Registrar términos técnicos del PDM.",
+        "RF11.2 Asociar cada término con su fuente oficial (DNP, Ley 152).",
+        "RF11.3 Mostrar definiciones en contexto del análisis del PDM.",
+        "RF11.4 Validar coherencia terminológica entre módulos.",
+        "RF11.5 Generar glosario exportable para capacitación municipal."
+      ]
+    }
+  ],
+  "cumplimiento": [
+    {
+      "id": "C1",
+      "title": "Catálogo de Proyectos de Cumplimiento",
+      "requirements": [
+        "RF1.1 Registrar proyectos municipales con ficha técnica.",
+        "RF1.2 Clasificar proyectos por sector (infraestructura, social, vivienda).",
+        "RF1.3 Asociar cada proyecto con metas del PDM.",
+        "RF1.4 Validar estado de avance del proyecto.",
+        "RF1.5 Generar reportes del catálogo de proyectos."
+      ]
+    },
+    {
+      "id": "C2",
+      "title": "Descripción del Proyecto",
+      "requirements": [
+        "RF2.1 Registrar descripción técnica y social del proyecto.",
+        "RF2.2 Asociar descripción con diagnóstico territorial.",
+        "RF2.3 Validar coherencia entre descripción y ficha BPIN.",
+        "RF2.4 Integrar información con DATA TERRITORIO.",
+        "RF2.5 Generar ficha descriptiva del proyecto."
+      ]
+    },
+    {
+      "id": "C3",
+      "title": "Indicadores de Avance",
+      "requirements": [
+        "RF3.1 Registrar indicadores físicos y financieros del proyecto.",
+        "RF3.2 Integrar indicadores con metas del PDM.",
+        "RF3.3 Calcular avance automáticamente.",
+        "RF3.4 Emitir alertas por bajo desempeño.",
+        "RF3.5 Generar reportes de avance del proyecto."
+      ]
+    },
+    {
+      "id": "C4",
+      "title": "Beneficiarios",
+      "requirements": [
+        "RF4.1 Registrar población beneficiada por el proyecto.",
+        "RF4.2 Validar criterios de focalización.",
+        "RF4.3 Asociar beneficiarios con veredas y centros poblados.",
+        "RF4.4 Emitir alertas por inconsistencias en beneficiarios.",
+        "RF4.5 Generar reportes de beneficiarios."
+      ]
+    },
+    {
+      "id": "C5",
+      "title": "Georreferenciación",
+      "requirements": [
+        "RF5.1 Registrar ubicación geográfica del proyecto.",
+        "RF5.2 Asociar coordenadas con capas territoriales.",
+        "RF5.3 Visualizar mapas temáticos del proyecto.",
+        "RF5.4 Emitir alertas territoriales.",
+        "RF5.5 Generar mapas exportables del proyecto."
+      ]
+    },
+    {
+      "id": "C6",
+      "title": "Financiación",
+      "requirements": [
+        "RF6.1 Registrar fuentes de financiación del proyecto.",
+        "RF6.2 Validar consistencia financiera.",
+        "RF6.3 Analizar ejecución presupuestal.",
+        "RF6.4 Emitir alertas por desviaciones financieras.",
+        "RF6.5 Generar reportes financieros del proyecto."
+      ]
+    },
+    {
+      "id": "C7",
+      "title": "Contractual",
+      "requirements": [
+        "RF7.1 Registrar contratos asociados al proyecto.",
+        "RF7.2 Validar cumplimiento contractual.",
+        "RF7.3 Integrar información contractual con SECOP.",
+        "RF7.4 Emitir alertas por incumplimientos.",
+        "RF7.5 Generar reportes contractuales."
+      ]
+    },
+    {
+      "id": "C8",
+      "title": "Cronograma",
+      "requirements": [
+        "RF8.1 Registrar actividades y tiempos del proyecto.",
+        "RF8.2 Validar coherencia entre cronograma y contrato.",
+        "RF8.3 Analizar retrasos y desviaciones.",
+        "RF8.4 Emitir alertas por retrasos críticos.",
+        "RF8.5 Generar reportes del cronograma."
+      ]
+    },
+    {
+      "id": "C9",
+      "title": "Matriz de Riesgos y Alertas Tempranas",
+      "requirements": [
+        "RF9.1 Registrar riesgos del proyecto.",
+        "RF9.2 Clasificar riesgos según severidad.",
+        "RF9.3 Emitir alertas tempranas.",
+        "RF9.4 Asociar riesgos con cronograma y financiación.",
+        "RF9.5 Generar reportes de riesgos."
+      ]
+    },
+    {
+      "id": "C10",
+      "title": "Galería de Evolución del Proyecto",
+      "requirements": [
+        "RF10.1 Registrar fotografías y material audiovisual.",
+        "RF10.2 Asociar imágenes con fases del proyecto.",
+        "RF10.3 Validar metadatos de cada recurso.",
+        "RF10.4 Publicar galería en portal municipal.",
+        "RF10.5 Generar repositorio histórico de evidencias visuales."
+      ]
+    },
+    {
+      "id": "C11",
+      "title": "Testimonios",
+      "requirements": [
+        "RF11.1 Registrar testimonios de beneficiarios.",
+        "RF11.2 Validar autenticidad del testimonio.",
+        "RF11.3 Asociar testimonios con fases del proyecto.",
+        "RF11.4 Publicar testimonios en portal municipal.",
+        "RF11.5 Generar repositorio histórico de testimonios."
+      ]
+    },
+    {
+      "id": "C12",
+      "title": "Anexos",
+      "requirements": [
+        "RF12.1 Registrar documentos anexos del proyecto.",
+        "RF12.2 Validar tipo y formato de anexos.",
+        "RF12.3 Asociar anexos con cronograma, contrato y financiación.",
+        "RF12.4 Emitir alertas por anexos faltantes.",
+        "RF12.5 Generar repositorio histórico de anexos."
+      ]
+    },
+    {
+      "id": "C13",
+      "title": "Integración con PDM y Data Territorio",
+      "requirements": [
+        "RF13.1 Asociar cada proyecto con metas del PDM.",
+        "RF13.2 Integrar indicadores del proyecto con DATA TERRITORIO.",
+        "RF13.3 Validar coherencia entre proyecto y diagnóstico territorial.",
+        "RF13.4 Emitir alertas por incoherencias estratégicas.",
+        "RF13.5 Generar reportes integrados PDM–Proyectos–Datos."
+      ]
+    }
+  ],
+  "crossCutting": [
+    {
+      "id": "MAP-01",
+      "title": "Mapa de infraestructura pública",
+      "requirements": [
+        "Colegios y escuelas",
+        "Hospitales",
+        "Alcaldía y sedes administrativas",
+        "Iglesias y capillas",
+        "Parques y polideportivos"
+      ]
+    },
+    {
+      "id": "BOT-01",
+      "title": "Asistente virtual",
+      "requirements": [
+        "Consultar información estructurada",
+        "Orientar trámites",
+        "Brindar información de servicios",
+        "Facilitar acceso a la oferta institucional",
+        "Disponibilidad permanente en el portal"
+      ]
+    }
+  ]
+}
