@@ -1,69 +1,36 @@
-# Territorio Inteligente — Web
+﻿# Territorio Inteligente
 
-Repositorio de trabajo para la identidad y experiencia web de **Territorio Inteligente**.
+## Baseline productiva
 
-## Estado actual
+- Rama: `production/v2.3-canonical`
+- Commit: `cd898beab794815a69c6516e1dbeb672f0ccc20e`
+- Build: `territorio-demo-functional-v2.3-realista-editorial`
 
-Esta base corresponde a la línea visual aprobada durante la exploración inspirada en Delivery Associates: hero audiovisual de gran formato, navegación oscura superpuesta, titulares de alto impacto, bloques editoriales y navegación interna sin abrir nuevas pestañas del navegador.
+La rama `main` es historica y no debe asumirse como produccion.
 
-La aplicación actual está contenida en `index.html` y maneja sus vistas internas con JavaScript.
+## Estructura actual
 
-## Ejecutar en Windows
+- `index.html` - estructura principal
+- `css/app.css` - estilos
+- `js/app.js` - navegacion y comportamiento base
+- `js/requirements.js` - funcionalidades y render dinamico
+- `data/` - datos JSON y GeoJSON
+- `assets/` - imagenes y video
+- `scripts/` - validadores de desarrollo
 
-Desde PowerShell, dentro de la carpeta del proyecto:
+## Ejecutar localmente
 
-```powershell
-python -m http.server 8080
-```
+`python -m http.server 8080`
 
-Luego abrir:
+Luego abrir `http://localhost:8080`.
 
-```text
-http://localhost:8080
-```
+## Validacion
 
-Para detener el servidor: `Ctrl + C`.
+`npm run verify:m1`
 
-## Video de “ASÍ CUMPLIMOS”
+## Regla del Modo Diseno
 
-La opción preferida es un archivo local para evitar controles, subtítulos y elementos propios de YouTube.
-
-1. Descargar/exportar el video como MP4.
-2. Renombrarlo exactamente:
-   `asi-cumplimos.mp4`
-3. Guardarlo en:
-   `assets/video/asi-cumplimos.mp4`
-4. Recargar la web.
-
-No hay que editar el HTML. Si el MP4 no existe, el sitio intenta usar el video de YouTube configurado en el código y, como último respaldo, las fotografías del hero.
-
-## Estructura
-
-```text
-.
-├─ index.html
-├─ assets/
-│  ├─ img/
-│  │  └─ territorio-inteligente-logo.png
-│  └─ video/
-│     └─ asi-cumplimos.mp4   # se agrega cuando esté disponible
-├─ docs/
-│  └─ DECISIONES.md
-└─ README.md
-```
-
-## Flujo de trabajo
-
-- `main`: versión estable.
-- Para cambios grandes: crear una rama, probar y luego integrar.
-- Hacer commits pequeños con mensajes claros.
-- No borrar versiones funcionales antes de confirmar la nueva.
-
-Ejemplo:
-
-```powershell
-git checkout -b ajuste-home
-git add .
-git commit -m "Ajusta hero y navegacion del Home"
-git push -u origin ajuste-home
-```
+Git y los archivos fuente son la fuente de verdad.
+El futuro editor visual debe modificar HTML/CSS real mediante transformaciones estructuradas.
+Supabase no reemplaza el codigo fuente.
+Vercel produccion no se edita directamente.

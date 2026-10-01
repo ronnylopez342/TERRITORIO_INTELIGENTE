@@ -1,0 +1,11 @@
+﻿{
+  "name": "territorio-inteligente",
+  "version": "2.3.0-m1",
+  "private": true,
+  "scripts": {
+    "verify:m1": "node scripts/verify-m1.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
