@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "baseline": "9e9246a143cfd657f961ce61459a78e3c678e56a",
+  "entries": [
+    {
+      "tiId": "global.header",
+      "locator": { "id": "siteHeader" },
+      "mode": "protected"
+    },
+    {
+      "tiId": "global.nav.desktop",
+      "locator": { "tag": "nav", "class": "nav-links" },
+      "mode": "protected"
+    },
+    {
+      "tiId": "global.nav.mobile",
+      "locator": { "id": "mobileMenu" },
+      "mode": "protected"
+    },
+
+    {
+      "tiId": "home.page",
+      "locator": { "tag": "section", "attr": { "name": "data-view", "value": "home" } },
+      "mode": "protected"
+    },
+    {
+      "tiId": "home.hero",
+      "locator": { "scopeDataView": "home", "tag": "section", "class": "hero" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.hero.title",
+      "locator": { "scopeDataView": "home", "tag": "h1", "class": "hero-title" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.news",
+      "locator": { "scopeDataView": "home", "attr": { "name": "data-functional", "value": "home-news" } },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.news.feature",
+      "locator": { "id": "homeNationalFeature" },
+      "mode": "advanced"
+    },
+    {
+      "tiId": "home.municipal",
+      "locator": { "scopeDataView": "home", "attr": { "name": "data-functional", "value": "home-municipal" } },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.municipal.grid",
+      "locator": { "id": "homeMunicipalGrid" },
+      "mode": "advanced"
+    },
+    {
+      "tiId": "home.impact",
+      "locator": { "scopeDataView": "home", "tag": "section", "class": "home-impact" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.impact.grid",
+      "locator": { "id": "homeImpactAreas" },
+      "mode": "advanced"
+    },
+    {
+      "tiId": "home.facts",
+      "locator": { "scopeDataView": "home", "tag": "section", "class": "home-facts" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.voices",
+      "locator": { "scopeDataView": "home", "tag": "section", "class": "home-voices" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.voices.grid",
+      "locator": { "id": "homeVoices" },
+      "mode": "advanced"
+    },
+    {
+      "tiId": "home.services",
+      "locator": { "scopeDataView": "home", "tag": "section", "class": "services" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.identity",
+      "locator": { "scopeDataView": "home", "tag": "section", "class": "identity" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.identity.links",
+      "locator": { "id": "homeIdentityLinks" },
+      "mode": "protected"
+    },
+    {
+      "tiId": "home.institutional",
+      "locator": { "scopeDataView": "home", "tag": "section", "class": "institutional" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "home.institutional.links",
+      "locator": { "id": "homeInstitutionalLinks" },
+      "mode": "protected"
+    },
+
+    {
+      "tiId": "data.page",
+      "locator": { "tag": "section", "attr": { "name": "data-view", "value": "data" } },
+      "mode": "protected"
+    },
+    {
+      "tiId": "data.subnav",
+      "locator": { "id": "dataSubnav" },
+      "mode": "protected"
+    },
+    {
+      "tiId": "data.workspace",
+      "locator": { "id": "dataVisorWorkspace" },
+      "mode": "advanced"
+    },
+
+    {
+      "tiId": "development.page",
+      "locator": { "tag": "section", "attr": { "name": "data-view", "value": "desarrollo" } },
+      "mode": "protected"
+    },
+    {
+      "tiId": "development.dashboard",
+      "locator": { "id": "planDashboard" },
+      "mode": "advanced"
+    },
+
+    {
+      "tiId": "compliance.page",
+      "locator": { "tag": "section", "attr": { "name": "data-view", "value": "cumplimiento" } },
+      "mode": "protected"
+    },
+    {
+      "tiId": "compliance.dashboard",
+      "locator": { "id": "complianceDashboard" },
+      "mode": "advanced"
+    },
+
+    {
+      "tiId": "policies.page",
+      "locator": { "tag": "section", "attr": { "name": "data-view", "value": "politicas" } },
+      "mode": "protected"
+    },
+    {
+      "tiId": "policies.dashboard",
+      "locator": { "id": "policyDashboard" },
+      "mode": "advanced"
+    },
+
+    {
+      "tiId": "insights.page",
+      "locator": { "tag": "section", "attr": { "name": "data-view", "value": "insights" } },
+      "mode": "protected"
+    },
+    {
+      "tiId": "insights.dashboard",
+      "locator": { "id": "insightDashboard" },
+      "mode": "advanced"
+    },
+
+    {
+      "tiId": "services.page",
+      "locator": { "tag": "section", "attr": { "name": "data-view", "value": "servicios" } },
+      "mode": "protected"
+    },
+    {
+      "tiId": "services.grid",
+      "locator": { "id": "serviceGrid" },
+      "mode": "advanced"
+    },
+
+    {
+      "tiId": "login.page",
+      "locator": { "tag": "section", "attr": { "name": "data-view", "value": "login" } },
+      "mode": "protected"
+    },
+    {
+      "tiId": "login.form",
+      "locator": { "id": "loginForm" },
+      "mode": "protected"
+    },
+
+    {
+      "tiId": "global.footer",
+      "locator": { "tag": "footer" },
+      "mode": "editable"
+    },
+    {
+      "tiId": "global.dialog",
+      "locator": { "id": "detailDialog" },
+      "mode": "protected"
+    },
+    {
+      "tiId": "global.assistant",
+      "locator": { "id": "assistantPanel" },
+      "mode": "protected"
+    },
+    {
+      "tiId": "global.editor-panel",
+      "locator": { "id": "editorPanel" },
+      "mode": "protected"
+    },
+    {
+      "tiId": "global.toast",
+      "locator": { "id": "toast" },
+      "mode": "protected"
+    }
+  ]
+}

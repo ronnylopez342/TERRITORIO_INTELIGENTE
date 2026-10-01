@@ -10,12 +10,12 @@
 </head>
 <body data-build="territorio-demo-functional-v2.3-realista-editorial">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
-<header class="site-header" id="siteHeader">
+<header class="site-header" id="siteHeader" data-ti-id="global.header">
   <div class="nav">
     <button type="button" class="brand route-link" data-route="home" aria-label="Territorio Inteligente — Home">
       <img src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente">
     </button>
-    <nav class="nav-links" aria-label="Navegación principal">
+    <nav class="nav-links" aria-label="Navegación principal" data-ti-id="global.nav.desktop">
       <button type="button" class="nav-link route-link active" data-route="home" aria-current="page">Home</button>
       <button type="button" class="nav-link route-link" data-route="data">Data Territorio</button>
       <button type="button" class="nav-link route-link" data-route="desarrollo">Plan de Desarrollo</button>
@@ -28,7 +28,7 @@
   </div>
 </header>
 
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true" inert>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" inert data-ti-id="global.nav.mobile">
   <div class="mobile-menu-head">
     <button type="button" class="brand route-link" data-route="home" aria-label="Territorio Inteligente — Home"><img src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente"></button>
     <button type="button" class="mobile-close" id="mobileClose" aria-label="Cerrar menú">×</button>
@@ -45,23 +45,23 @@
 </div>
 
 <main id="mainContent">
-  <section class="app-view active" data-view="home">
-    <section class="hero" aria-label="Territorio Inteligente">
+  <section class="app-view active" data-view="home" data-ti-id="home.page">
+    <section class="hero" aria-label="Territorio Inteligente" data-ti-id="home.hero">
       <div class="hero-media" id="heroMedia" aria-hidden="true">
         <div class="hero-local-video" id="heroLocalVideoWrap"><video id="heroLocalVideo" muted loop playsinline preload="metadata"></video></div>
         <div class="hero-shade"></div><div class="hero-edge"></div>
       </div>
-      <div class="hero-content"><h1 class="hero-title" tabindex="-1">ASÍ CUMPLIMOS</h1></div>
+      <div class="hero-content"><h1 class="hero-title" tabindex="-1" data-ti-id="home.hero.title">ASÍ CUMPLIMOS</h1></div>
     </section>
 
-    <section class="section national" data-functional="home-news">
+    <section class="section national" data-functional="home-news" data-ti-id="home.news">
       <div class="inner">
         <div class="news-ticker" id="homeNewsTicker" hidden></div>
         <div class="national-head">
           <div class="reveal"><p class="eyebrow">Noticias de entidades nacionales y departamentales</p><h2 class="big-heading">Lo que pasa afuera también cambia el territorio.</h2></div>
           <p class="reveal">Fuentes oficiales nacionales y departamentales, organizadas para que la ciudadanía pueda identificar el origen, la fecha y acceder a la publicación correspondiente.</p>
         </div>
-        <article class="feature reveal" id="homeNationalFeature">
+        <article class="feature reveal" id="homeNationalFeature" data-ti-id="home.news.feature">
           <img class="media-img" data-fallback loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/2/28/2018_Cundinamarca_-_carretera_en_el_valle_de_Subachoque.jpg" alt="Paisaje del valle de Subachoque">
           <div class="feature-tag">Cargando contenido</div>
           <div class="feature-copy"><h3>Noticias relevantes, con contexto territorial.</h3><p>Cargando noticia con fecha, fuente y contexto territorial.</p></div>
@@ -69,13 +69,13 @@
       </div>
     </section>
 
-    <section class="section municipal" data-functional="home-municipal">
+    <section class="section municipal" data-functional="home-municipal" data-ti-id="home.municipal">
       <div class="inner">
         <div class="municipal-top">
           <div class="reveal"><p class="eyebrow">Actualidad de la entidad</p><h2 class="big-heading">La administración, visible.</h2></div>
           <p class="reveal">Noticias municipales organizadas por dependencia y relevancia, con espacio para alertas destacadas cuando el contenido sea crítico.</p>
         </div>
-        <div class="news-grid" id="homeMunicipalGrid">
+        <div class="news-grid" id="homeMunicipalGrid" data-ti-id="home.municipal.grid">
           <button type="button" class="story reveal route-link" data-route="insights"><img class="media-img" data-fallback loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/9/93/2018_Subachoque%2C_plaza_principal.jpg" alt="Plaza principal de Subachoque"><div class="story-copy"><div class="story-label">Actualidad municipal</div><h3>Noticias del municipio con tratamiento editorial.</h3></div></button>
           <div class="story-stack">
             <button type="button" class="story small reveal route-link" data-route="insights"><img class="media-img" data-fallback loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cerro_El_Tablazo%2C_Subachoque.jpg" alt="Cerro El Tablazo"><div class="story-copy"><div class="story-label">Territorio</div><h3>Información priorizada por relevancia.</h3></div></button>
@@ -85,28 +85,28 @@
       </div>
     </section>
 
-    <section class="section home-impact" aria-label="Áreas de impacto">
+    <section class="section home-impact" aria-label="Áreas de impacto" data-ti-id="home.impact">
       <div class="inner">
         <div class="editorial-split-head reveal"><div><p class="eyebrow">Áreas de impacto</p><h2 class="big-heading">Del dato a una decisión que se pueda explicar.</h2></div><p>La plataforma organiza el trabajo territorial en cuatro movimientos: leer, priorizar, ejecutar y aprender. Cada bloque abre directamente el módulo correspondiente.</p></div>
-        <div class="impact-area-grid" id="homeImpactAreas"></div>
+        <div class="impact-area-grid" id="homeImpactAreas" data-ti-id="home.impact.grid"></div>
       </div>
     </section>
 
-    <section class="home-facts" aria-label="Subachoque en cifras">
+    <section class="home-facts" aria-label="Subachoque en cifras" data-ti-id="home.facts">
       <div class="inner">
         <div class="facts-media reveal"><img src="assets/img/editorial/territorio-aereo.jpg" alt="Vista aérea de Subachoque"></div>
         <div class="facts-copy reveal"><p class="eyebrow">Subachoque en contexto</p><h2>Una lectura rápida antes de entrar al detalle.</h2><div class="facts-grid" id="homeFacts"></div><p class="prototype-caption">Las cifras con fuente pública se identifican como referencia; el resto de valores operativos del prototipo son ilustrativos.</p></div>
       </div>
     </section>
 
-    <section class="section home-voices" aria-label="Voces del territorio">
+    <section class="section home-voices" aria-label="Voces del territorio" data-ti-id="home.voices">
       <div class="inner">
         <div class="editorial-split-head reveal"><div><p class="eyebrow">Voces del territorio</p><h2 class="big-heading">La información también tiene que sonar a personas.</h2></div><p>Testimonios ilustrativos para demostrar cómo pueden convivir evidencia cuantitativa, experiencia ciudadana y seguimiento institucional.</p></div>
-        <div class="voice-grid" id="homeVoices"></div>
+        <div class="voice-grid" id="homeVoices" data-ti-id="home.voices.grid"></div>
       </div>
     </section>
 
-    <section class="services">
+    <section class="services" data-ti-id="home.services">
       <img class="media-img" data-fallback loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Subachoque_aerea1.jpg" alt="Vista aérea del municipio">
       <div class="services-copy reveal">
         <p class="eyebrow">Portafolio de servicios de Subachoque</p>
@@ -116,13 +116,13 @@
       </div>
     </section>
 
-    <section class="section identity">
+    <section class="section identity" data-ti-id="home.identity">
       <div class="inner">
         <p class="eyebrow reveal">Aprendamos de nuestro territorio</p>
         <h2 class="big-heading reveal">Conocer el territorio también es conocer su identidad.</h2>
         <div class="identity-grid">
           <div class="identity-main reveal"><img class="media-img" data-fallback loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/9/93/2018_Subachoque%2C_plaza_principal.jpg" alt="Subachoque"><h3>Subachoque<br>es territorio vivo.</h3></div>
-          <nav class="identity-links reveal" id="homeIdentityLinks" aria-label="Identidad territorial">
+          <nav class="identity-links reveal" id="homeIdentityLinks" aria-label="Identidad territorial" data-ti-id="home.identity.links">
             <button type="button" class="identity-action" data-identity="himno"><small>01</small><span>Nuestro himno</span><span>→</span></button>
             <button type="button" class="identity-action" data-identity="escudo"><small>02</small><span>Nuestro escudo</span><span>→</span></button>
             <button type="button" class="identity-action" data-identity="bandera"><small>03</small><span>Nuestra bandera</span><span>→</span></button>
@@ -133,13 +133,13 @@
       </div>
     </section>
 
-    <section class="section institutional">
+    <section class="section institutional" data-ti-id="home.institutional">
       <div class="inner">
         <p class="eyebrow reveal">Más información de la entidad territorial</p>
         <h2 class="big-heading reveal">Acceso directo a la información institucional.</h2>
         <div class="institutional-grid">
           <p class="reveal">Redes sociales oficiales, portal municipal, dependencias, datos de contacto y mecanismos de participación informada.</p>
-          <div class="quick-links reveal" id="homeInstitutionalLinks">
+          <div class="quick-links reveal" id="homeInstitutionalLinks" data-ti-id="home.institutional.links">
             <button type="button" class="institutional-action" data-institutional="portal"><span>Portal institucional</span><span>↗</span></button>
             <button type="button" class="institutional-action" data-institutional="redes"><span>Redes sociales oficiales</span><span>↗</span></button>
             <button type="button" class="institutional-action" data-institutional="dependencias"><span>Dependencias</span><span>↗</span></button>
@@ -150,12 +150,12 @@
     </section>
   </section>
 
-  <section class="app-view view-shell" data-view="data">
+  <section class="app-view view-shell" data-view="data" data-ti-id="data.page">
     <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 01</div><h1 class="view-title" tabindex="-1">Data<br>Territorio</h1><p class="view-lead">Sistema integral para reunir, organizar, validar y convertir información territorial en insumo para decisiones públicas basadas en evidencia.</p></div></div>
     <div class="view-body functional-shell">
       <div class="inner">
         <div class="module-heading-row"><div><p class="eyebrow">Data Territorio</p><h2 class="big-heading">De la fuente al análisis territorial.</h2></div><div class="module-status" id="dataGlobalStatus" aria-live="polite"></div></div>
-        <nav class="module-subnav" id="dataSubnav" aria-label="Secciones de Data Territorio">
+        <nav class="module-subnav" id="dataSubnav" aria-label="Secciones de Data Territorio" data-ti-id="data.subnav">
           <button type="button" class="module-tab active" data-module-panel="data-visor">Visor de datos</button>
           <button type="button" class="module-tab" data-module-panel="data-conoce">2.1 Conoce</button>
           <button type="button" class="module-tab" data-module-panel="data-plan-estadistico">2.2 Plan estadístico</button>
@@ -169,7 +169,7 @@
         </nav>
 
         <section class="module-panel active" id="data-visor" data-panel-group="data">
-          <div id="dataVisorWorkspace"></div>
+          <div id="dataVisorWorkspace" data-ti-id="data.workspace"></div>
         </section>
 
         <section class="module-panel" id="data-conoce" data-panel-group="data">
@@ -227,37 +227,37 @@
     </div>
   </section>
 
-  <section class="app-view view-shell" data-view="desarrollo">
+  <section class="app-view view-shell" data-view="desarrollo" data-ti-id="development.page">
     <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 02 · Implementación</div><h1 class="view-title" tabindex="-1">Plan de<br>Desarrollo</h1><p class="view-lead">Ejes, programas, metas, presupuesto y avance en una lectura ejecutiva pensada para seguimiento y toma de decisiones.</p></div></div>
-    <div class="view-body functional-shell"><div class="inner"><div id="planDashboard"></div></div></div>
+    <div class="view-body functional-shell"><div class="inner"><div id="planDashboard" data-ti-id="development.dashboard"></div></div></div>
   </section>
 
-  <section class="app-view view-shell" data-view="cumplimiento">
+  <section class="app-view view-shell" data-view="cumplimiento" data-ti-id="compliance.page">
     <div class="view-hero"><div class="inner"><div class="view-kicker">Producto 03 · Entrega y resultados</div><h1 class="view-title" tabindex="-1">Unidad de<br>Cumplimiento</h1><p class="view-lead">Proyectos prioritarios, avance físico y financiero, beneficiarios, riesgos, cronograma y evidencia en un mismo lugar.</p></div></div>
-    <div class="view-body functional-shell"><div class="inner"><div id="complianceDashboard"></div></div></div>
+    <div class="view-body functional-shell"><div class="inner"><div id="complianceDashboard" data-ti-id="compliance.dashboard"></div></div></div>
   </section>
 
-  <section class="app-view view-shell" data-view="politicas">
+  <section class="app-view view-shell" data-view="politicas" data-ti-id="policies.page">
     <div class="view-hero"><div class="inner"><div class="view-kicker">Políticas públicas</div><h1 class="view-title" tabindex="-1">Políticas<br>Públicas</h1><p class="view-lead">Políticas con estado, horizonte, avance, liderazgo institucional y acciones prioritarias.</p></div></div>
-    <div class="view-body functional-shell"><div class="inner"><div id="policyDashboard"></div></div></div>
+    <div class="view-body functional-shell"><div class="inner"><div id="policyDashboard" data-ti-id="policies.dashboard"></div></div></div>
   </section>
 
-  <section class="app-view view-shell" data-view="insights">
+  <section class="app-view view-shell" data-view="insights" data-ti-id="insights.page">
     <div class="view-hero"><div class="inner"><div class="view-kicker">Insights · Evidencia</div><h1 class="view-title" tabindex="-1">Ideas,<br>datos y territorio</h1><p class="view-lead">Hallazgos, análisis y lecturas territoriales para convertir seguimiento en aprendizaje institucional.</p></div></div>
-    <div class="view-body functional-shell"><div class="inner"><div id="insightDashboard"></div></div></div>
+    <div class="view-body functional-shell"><div class="inner"><div id="insightDashboard" data-ti-id="insights.dashboard"></div></div></div>
   </section>
 
-  <section class="app-view view-shell" data-view="servicios">
+  <section class="app-view view-shell" data-view="servicios" data-ti-id="services.page">
     <div class="view-hero"><div class="inner"><div class="view-kicker">Oferta institucional</div><h1 class="view-title" tabindex="-1">Nuestros<br>Servicios</h1><p class="view-lead">Trámites y servicios con dependencia, requisitos, tiempos, costos, canales de atención y enlaces oficiales.</p></div></div>
-    <div class="view-body functional-shell"><div class="inner"><div class="module-heading-row"><div><p class="eyebrow">Portafolio municipal</p><h2 class="big-heading">Encontrar qué hacer y dónde hacerlo.</h2></div><input id="serviceSearch" class="compact-search" type="search" placeholder="Buscar servicio" aria-label="Buscar servicio"></div><div class="service-grid" id="serviceGrid"></div></div></div>
+    <div class="view-body functional-shell"><div class="inner"><div class="module-heading-row"><div><p class="eyebrow">Portafolio municipal</p><h2 class="big-heading">Encontrar qué hacer y dónde hacerlo.</h2></div><input id="serviceSearch" class="compact-search" type="search" placeholder="Buscar servicio" aria-label="Buscar servicio"></div><div class="service-grid" id="serviceGrid" data-ti-id="services.grid"></div></div></div>
   </section>
 
-  <section class="app-view view-shell" data-view="login">
-    <div class="login-wrap"><div class="login-copy"><div class="view-kicker">Acceso institucional</div><h1 tabindex="-1">Iniciar<br>sesión</h1></div><div class="login-panel"><form class="login-form" id="loginForm"><h2>Acceso a Territorio Inteligente</h2><p class="demo-login-note"><strong>Acceso de prototipo:</strong> escribe cualquier correo válido y una contraseña de 4 caracteres o más.</p><div class="field"><label for="email">Correo institucional</label><input id="email" name="email" type="email" autocomplete="email" required></div><div class="field"><label for="password">Contraseña</label><input id="password" name="password" type="password" autocomplete="current-password" required></div><button class="login-submit" type="submit">Ingresar</button><p class="form-status" id="loginStatus" role="status" hidden></p></form></div></div>
+  <section class="app-view view-shell" data-view="login" data-ti-id="login.page">
+    <div class="login-wrap"><div class="login-copy"><div class="view-kicker">Acceso institucional</div><h1 tabindex="-1">Iniciar<br>sesión</h1></div><div class="login-panel"><form class="login-form" id="loginForm" data-ti-id="login.form"><h2>Acceso a Territorio Inteligente</h2><p class="demo-login-note"><strong>Acceso de prototipo:</strong> escribe cualquier correo válido y una contraseña de 4 caracteres o más.</p><div class="field"><label for="email">Correo institucional</label><input id="email" name="email" type="email" autocomplete="email" required></div><div class="field"><label for="password">Contraseña</label><input id="password" name="password" type="password" autocomplete="current-password" required></div><button class="login-submit" type="submit">Ingresar</button><p class="form-status" id="loginStatus" role="status" hidden></p></form></div></div>
   </section>
 </main>
 
-<footer>
+<footer data-ti-id="global.footer">
   <div class="footer-grid">
     <div><img class="footer-logo" src="assets/img/territorio-inteligente-logo.png" alt="Territorio Inteligente"><p class="footer-copy">Territorio Inteligente articula datos, planeación, seguimiento y capacidades institucionales para fortalecer decisiones públicas basadas en evidencia.</p></div>
     <div><h4>Plataforma</h4><button type="button" class="route-link" data-route="data">Data Territorio</button><button type="button" class="route-link" data-route="desarrollo">Plan de Desarrollo</button><button type="button" class="route-link" data-route="cumplimiento">Unidad de Cumplimiento</button><button type="button" class="route-link" data-route="politicas">Políticas Públicas</button></div>
@@ -267,14 +267,14 @@
 </footer>
 
 
-<dialog class="detail-dialog" id="detailDialog" aria-labelledby="detailDialogTitle"><form method="dialog"><button class="dialog-close" aria-label="Cerrar">×</button></form><div id="detailDialogBody"></div></dialog>
+<dialog class="detail-dialog" id="detailDialog" aria-labelledby="detailDialogTitle" data-ti-id="global.dialog"><form method="dialog"><button class="dialog-close" aria-label="Cerrar">×</button></form><div id="detailDialogBody"></div></dialog>
 
 <button type="button" class="assistant-launch" id="assistantLaunch" aria-controls="assistantPanel" aria-expanded="false">Asistente TI</button>
-<aside class="assistant-panel" id="assistantPanel" aria-hidden="true" inert><div class="assistant-head"><div><strong>Asistente TI</strong><small>Consulta información estructurada del portal</small></div><button type="button" id="assistantClose" aria-label="Cerrar asistente">×</button></div><form id="assistantForm"><label for="assistantQuery">¿Qué necesitas encontrar?</label><div class="assistant-input-row"><input id="assistantQuery" type="search" autocomplete="off" placeholder="Ej. predial, DANE, cronograma"><button type="submit">Buscar</button></div></form><div class="assistant-results" id="assistantResults" aria-live="polite"></div></aside>
+<aside class="assistant-panel" id="assistantPanel" aria-hidden="true" inert data-ti-id="global.assistant"><div class="assistant-head"><div><strong>Asistente TI</strong><small>Consulta información estructurada del portal</small></div><button type="button" id="assistantClose" aria-label="Cerrar asistente">×</button></div><form id="assistantForm"><label for="assistantQuery">¿Qué necesitas encontrar?</label><div class="assistant-input-row"><input id="assistantQuery" type="search" autocomplete="off" placeholder="Ej. predial, DANE, cronograma"><button type="submit">Buscar</button></div></form><div class="assistant-results" id="assistantResults" aria-live="polite"></div></aside>
 
-<section class="editor-panel" id="editorPanel" hidden aria-label="Modo editor local"><div><strong>Modo editor local</strong><span>Importa/exporta contenido de prueba. La persistencia central requiere conexión de autenticación y base de datos.</span></div><div><label class="text-button">Importar JSON<input id="editorImport" type="file" accept="application/json,.json" hidden></label><button type="button" class="text-button" id="editorExport">Exportar snapshot</button><button type="button" class="text-button" id="editorReset">Restablecer local</button></div></section>
+<section class="editor-panel" id="editorPanel" hidden aria-label="Modo editor local" data-ti-id="global.editor-panel"><div><strong>Modo editor local</strong><span>Importa/exporta contenido de prueba. La persistencia central requiere conexión de autenticación y base de datos.</span></div><div><label class="text-button">Importar JSON<input id="editorImport" type="file" accept="application/json,.json" hidden></label><button type="button" class="text-button" id="editorExport">Exportar snapshot</button><button type="button" class="text-button" id="editorReset">Restablecer local</button></div></section>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" data-ti-id="global.toast"></div>
 <script src="js/app.js?v=demo23" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 <script src="js/requirements.js?v=demo23" defer></script>

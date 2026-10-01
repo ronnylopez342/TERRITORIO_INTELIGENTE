@@ -1,11 +1,17 @@
-﻿{
+{
   "name": "territorio-inteligente",
   "version": "2.3.0-m1",
   "private": true,
   "scripts": {
-    "verify:m1": "node scripts/verify-m1.mjs"
+    "verify:m1": "node scripts/verify-m1.mjs",
+    "m2:plan": "node scripts/plan-m2-editorial-ids.mjs",
+    "m2:apply": "node scripts/apply-m2-editorial-ids.mjs",
+    "verify:m2": "node scripts/verify-m2-editorial-ids.mjs"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "parse5": "^8.0.1"
   }
 }
