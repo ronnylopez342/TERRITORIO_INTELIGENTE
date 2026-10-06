@@ -13,7 +13,7 @@ const TI_STATE = {
   requirements: null,
   geo: null,
   selectedSector: 'demografia',
-  sourceLevel: 'nacional',
+  sourceLevel: 'dane',
   imported: {},
   planProgress: safeJsonParse(localStorage.getItem('ti-demo-plan-progress')) || {},
   projectProgress: safeJsonParse(localStorage.getItem('ti-demo-project-progress')) || {}
@@ -334,5 +334,22 @@ function initEditorMode(){ const params=new URLSearchParams(location.search),pan
 function renderAll(){ renderHome(); renderServices(); renderDataTerritorio(); renderPlan(); renderCompliance(); renderPolicies(); renderInsights(); }
 
 async function tiBoot(){ try{ const [demo,baseData,requirements,geo]=await Promise.all([tiFetchJson(TI_PATHS.demo),tiFetchJson(TI_PATHS.baseData),tiFetchJson(TI_PATHS.requirements),tiFetchJson(TI_PATHS.geo)]); TI_STATE.demo=demo;TI_STATE.baseData=baseData;TI_STATE.requirements=requirements;TI_STATE.geo=geo; initModuleTabs(); initDialog(); renderAll(); initGlobalActions(); initAssistant(); initEditorMode(); }catch(err){ console.error(err); const status=document.getElementById('dataGlobalStatus'); if(status)status.textContent=`Error cargando demo: ${err.message}`; } }
+
+
+/* TI_UNIFIED_EXTERNAL_SOURCES_V2 */
+function tiSyncUnifiedExternalSources(level) {
+  const daneView = document.getElementById('dataSourceDaneView');
+  const externalView = document.getElementById('dataSourceExternalView');
+  const isDane = level === 'dane';
+  if (daneView) daneView.hidden = !isDane;
+  if (externalView) externalView.hidden = isDane;
+}
+
+document.addEventListener('click', function (event) {
+  const button = event.target.closest('[data-source-level]');
+  if (!button) return;
+  tiSyncUnifiedExternalSources(button.dataset.sourceLevel);
+});
+/* /TI_UNIFIED_EXTERNAL_SOURCES_V2 */
 
 document.addEventListener('DOMContentLoaded',tiBoot);
