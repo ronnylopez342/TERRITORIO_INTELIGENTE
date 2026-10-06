@@ -183,8 +183,7 @@
 <button aria-controls="data-visor" aria-selected="true" class="module-tab active" data-module-panel="data-visor" id="tab-data-visor" role="tab" tabindex="0" type="button">Visor de datos</button>
 <button aria-controls="data-conoce" aria-selected="false" class="module-tab" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="-1" type="button">2.1 Conoce</button>
 <button aria-controls="data-plan-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-plan-estadistico" id="tab-data-plan-estadistico" role="tab" tabindex="-1" type="button">2.2 Plan estadístico</button>
-<button aria-controls="data-dane" aria-selected="false" class="module-tab" data-module-panel="data-dane" id="tab-data-dane" role="tab" tabindex="-1" type="button">2.3 DANE</button>
-<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.4–2.5 Fuentes externas</button>
+<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.3–2.5 Fuentes externas</button>
 <button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.6 Municipales</button>
 <button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.7 Encuesta</button>
 <button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.8 Georreferenciador</button>
@@ -205,15 +204,24 @@
 <div class="filter-row"><input aria-label="Buscar documentos estadísticos" id="statDocumentSearch" placeholder="Buscar documento, indicador o fuente" type="search"/><button class="text-button" id="exportStatMetadata" type="button">Exportar inventario</button></div>
 <div class="document-grid" id="statDocumentGrid"></div>
 </section>
-<section aria-labelledby="tab-data-dane" class="module-panel" data-panel-group="data" hidden="" id="data-dane" role="tabpanel">
+<section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
+<div class="module-toolbar">
+<div><p class="eyebrow">Fuentes externas</p><h3>DANE, fuentes nacionales y departamentales</h3></div>
+<div aria-label="Tipo de fuente" class="segmented" role="group">
+<button class="source-level active" data-source-level="dane" type="button">DANE</button>
+<button class="source-level" data-source-level="nacional" type="button">Nacional</button>
+<button class="source-level" data-source-level="departamental" type="button">Departamental</button>
+</div>
+</div>
+<div id="dataSourceDaneView">
 <div class="module-toolbar"><div><p class="eyebrow">Datos del DANE</p><h3>Series históricas, comparación y trazabilidad</h3></div><a class="action-button external-action" href="https://www.dane.gov.co/" rel="noopener" target="_blank">Abrir DANE ↗</a></div>
 <div class="source-registry" id="daneSourceRegistry"></div>
 <div class="dataset-workspace" data-dataset-workspace="dane"></div>
-</section>
-<section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">Fuentes nacionales y departamentales</p><h3>Información sectorial con fuente, vigencia y consistencia</h3></div><div aria-label="Nivel de fuente" class="segmented" role="group"><button class="source-level active" data-source-level="nacional" type="button">Nacional</button><button class="source-level" data-source-level="departamental" type="button">Departamental</button></div></div>
+</div>
+<div hidden="" id="dataSourceExternalView">
 <div class="source-registry" id="externalSourceRegistry"></div>
 <div class="dataset-workspace" data-dataset-workspace="externas"></div>
+</div>
 </section>
 <section aria-labelledby="tab-data-municipales" class="module-panel" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">Fuentes municipales</p><h3>Repositorio único de dependencias y entidades descentralizadas</h3></div><span class="status-pill demo">Base de prototipo cargada</span></div>
