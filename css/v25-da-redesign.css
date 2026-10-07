@@ -565,3 +565,74 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
+
+
+/* TI SOURCES REFERENCE VIEWER */
+#data-fuentes .sources-reference-intro{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:end!important;
+  gap:28px!important;
+  margin:34px 0 18px!important;
+  padding:30px 0 0!important;
+  border-top:1px solid rgba(17,24,32,.14)!important;
+}
+#data-fuentes .sources-reference-intro h3,
+#data-fuentes .sources-data-divider h3{
+  margin:4px 0 0!important;
+  font-size:clamp(28px,3vw,46px)!important;
+  line-height:.96!important;
+  letter-spacing:-.035em!important;
+}
+#data-fuentes .sources-reference-intro p:not(.eyebrow){
+  max-width:840px!important;
+  margin:14px 0 0!important;
+  color:#58615e!important;
+  font-size:14px!important;
+  line-height:1.55!important;
+}
+#data-fuentes .sources-reference-shell{
+  overflow:hidden!important;
+  width:100%!important;
+  margin:0 0 44px!important;
+  border:1px solid rgba(17,24,32,.14)!important;
+  border-radius:22px!important;
+  background:#f7f5ee!important;
+  box-shadow:0 24px 70px rgba(17,24,32,.10)!important;
+}
+#data-fuentes .sources-reference-frame{
+  display:block!important;
+  width:100%!important;
+  height:clamp(720px,72vw,980px)!important;
+  border:0!important;
+  background:#f7f5ee!important;
+}
+#data-fuentes .sources-data-divider{
+  margin:0 0 28px!important;
+  padding:34px 0 0!important;
+  border-top:1px solid rgba(17,24,32,.14)!important;
+}
+#data-fuentes #dataSourceDaneView,
+#data-fuentes #dataSourceExternalView{
+  margin-top:0!important;
+}
+@media(max-width:900px){
+  #data-fuentes .sources-reference-intro{
+    grid-template-columns:1fr!important;
+    align-items:start!important;
+    gap:14px!important;
+    margin-top:24px!important;
+  }
+  #data-fuentes .sources-reference-shell{
+    margin-left:-22px!important;
+    margin-right:-22px!important;
+    width:calc(100% + 44px)!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-radius:0!important;
+  }
+  #data-fuentes .sources-reference-frame{
+    height:760px!important;
+  }
+}
+/* /TI SOURCES REFERENCE VIEWER */
