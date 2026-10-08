@@ -702,3 +702,36 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
 @media(max-width:720px){
   .site-header .ti-signal{font-size:8px}
 }
+
+/* Menu titles roll upward, with a second visual copy entering from below. */
+.site-header .nav-roll{
+  position:relative;
+  display:block;
+  overflow:hidden;
+  line-height:1.35;
+}
+.site-header .nav-roll__first,
+.site-header .nav-roll__next{
+  display:block;
+  transition:transform 400ms cubic-bezier(.22,1,.36,1);
+}
+.site-header .nav-roll__next{
+  position:absolute;
+  inset:0;
+  transform:translateY(110%);
+}
+.site-header :is(.nav-link,.nav-cta):is(:hover,:focus-visible,:active) .nav-roll__first{
+  transform:translateY(-110%);
+}
+.site-header :is(.nav-link,.nav-cta):is(:hover,:focus-visible,:active) .nav-roll__next{
+  transform:translateY(0);
+}
+.site-header .nav-link:not(.active)::after{
+  right:100%;
+}
+@media(prefers-reduced-motion:reduce){
+  .site-header .nav-roll__first,
+  .site-header .nav-roll__next{transition:none!important}
+  .site-header :is(.nav-link,.nav-cta):is(:hover,:focus-visible,:active) .nav-roll__first{transform:none}
+  .site-header :is(.nav-link,.nav-cta):is(:hover,:focus-visible,:active) .nav-roll__next{transform:translateY(110%)}
+}
