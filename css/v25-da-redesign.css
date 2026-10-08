@@ -735,3 +735,40 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
   .site-header :is(.nav-link,.nav-cta):is(:hover,:focus-visible,:active) .nav-roll__first{transform:none}
   .site-header :is(.nav-link,.nav-cta):is(:hover,:focus-visible,:active) .nav-roll__next{transform:translateY(110%)}
 }
+
+/* Home cover: reference typography and proportions, with Subachoque content. */
+.hero-content{
+  padding:calc(var(--v25-header-h) + 48px) 40px 56px!important;
+}
+.hero-copy-block{
+  width:min(640px,50vw)!important;
+}
+.hero-title{
+  width:max-content;
+  max-width:100%!important;
+  color:var(--v25-yellow)!important;
+  font-size:clamp(48px,5.9vw,112px)!important;
+  line-height:1!important;
+  letter-spacing:0!important;
+  font-weight:900!important;
+}
+.hero-title span{color:var(--v25-yellow)!important}
+.hero-lede{
+  max-width:448px!important;
+  margin:20px 0 0!important;
+  font-size:clamp(16px,1.18vw,22px)!important;
+  line-height:1.5!important;
+  color:#fff!important;
+}
+.hero-hashtags{
+  margin:8px 0 0;
+  font-size:clamp(16px,1.18vw,22px);
+  line-height:1.5;
+  color:#fff;
+}
+.hero-ledger,.hero-scroll{display:none!important}
+@media(max-width:720px){
+  .hero-content{padding:calc(var(--v25-header-h) + 32px) 24px 40px!important}
+  .hero-copy-block{width:100%!important}
+  .hero-title{font-size:clamp(38px,9.5vw,64px)!important}
+}
