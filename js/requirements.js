@@ -33,7 +33,7 @@ function mediaOrFallback(src,alt='Territorio Inteligente'){ return `<img loading
 function budgetBars(items){ const max=Math.max(...items.map(x=>Number(x.budget)||0),1); return `<div class="budget-bars">${items.map(x=>`<div class="budget-bar-row"><div><span>${escapeHtml(x.name)}</span><strong>${moneyCompact(x.budget)}</strong></div><i><b style="width:${Math.max(4,Math.round((x.budget/max)*100))}%"></b></i></div>`).join('')}</div>`; }
 function radialProgress(value,label){ const v=pct(value); return `<div class="radial-progress" style="--p:${v}"><div><strong>${v}%</strong><span>${escapeHtml(label)}</span></div></div>`; }
 function num(value) { return new Intl.NumberFormat('es-CO').format(Number(value)||0); }
-function dateLabel(value) { const d=new Date(value); return Number.isNaN(d.getTime())?String(value||''):new Intl.DateTimeFormat('es-CO',{dateStyle:'medium'}).format(d); }
+function dateLabel(value) { const d=new Date(value); return Number.isNaN(d.getTime())?String(value||''):new Intl.DateTimeFormat('es-CO',{dateStyle:'medium',...(/^\d{4}-\d{2}-\d{2}$/.test(value)?{timeZone:'UTC'}:{})}).format(d); }
 function csvCell(v){ const s=String(v??''); return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s; }
 function rowsToCsv(rows){ if(!rows.length)return''; const keys=[...new Set(rows.flatMap(r=>Object.keys(r)))]; return [keys.join(','),...rows.map(r=>keys.map(k=>csvCell(r[k])).join(','))].join('\n'); }
 function downloadBlob(name, content, type='application/json;charset=utf-8'){ const blob=new Blob([content],{type}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),0); a.remove(); }
