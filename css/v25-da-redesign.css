@@ -800,3 +800,13 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
   .hero-cta .ti-link-swap__track>span{transition:none}
   .hero-cta:is(:hover,:focus-visible) .ti-link-swap__track>span{transform:none}
 }
+
+/* Preserve the reference's 80px desktop title; arrange copy without shrinking it. */
+.hero-copy-block{width:fit-content!important;max-width:100%!important}
+.hero-title{font-size:80px!important;width:auto}
+.hero-title span{display:block;white-space:nowrap}
+@media(max-width:720px){
+  .hero-copy-block{width:100%!important}
+  .hero-title{font-size:clamp(38px,9.5vw,64px)!important}
+  .hero-title span{white-space:normal}
+}
