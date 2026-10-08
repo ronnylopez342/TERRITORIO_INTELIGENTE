@@ -772,3 +772,12 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
   .hero-copy-block{width:100%!important}
   .hero-title{font-size:clamp(38px,9.5vw,64px)!important}
 }
+
+@font-face{
+  font-family:"TI Poppins";
+  src:url("https://cdn.prod.website-files.com/65b974ac4b4c61dbc8433e20/66a517b596d503733040d027_Poppins-Black.ttf") format("truetype");
+  font-style:normal;
+  font-weight:900;
+  font-display:swap;
+}
+.hero-title{font-family:"TI Poppins",Arial,sans-serif!important}
