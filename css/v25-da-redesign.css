@@ -639,9 +639,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* Header matched to the supplied reference; retain Territorio labels and logo. */
 :root{
-  --v25-nav-h:95px;
-  --v25-signal-h:50px;
-  --v25-header-h:145px;
+  --v25-nav-h:80px;
+  --v25-signal-h:40px;
+  --v25-header-h:120px;
 }
 .site-header{
   display:flex;
@@ -654,17 +654,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .site-header .ti-signal{
   order:1;
   justify-content:center;
-  background:rgba(13,17,20,.2);
+  background:rgba(28,37,46,.75);
   color:#fff;
-  font-size:12px;
-  letter-spacing:.04em;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:0;
 }
 .site-header .ti-signal-link{
   color:var(--v25-yellow);
   text-decoration:none;
 }
 body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled){
-  background:rgba(23,31,37,.72)!important;
+  background:transparent!important;
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none;
   border-bottom:0!important;
@@ -679,4 +680,25 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav-li
 @media(max-width:720px){
   :root{--v25-nav-h:66px;--v25-signal-h:38px;--v25-header-h:104px}
   .site-header .ti-signal{font-size:7.5px;gap:12px}
+}
+
+/* Reference uses separate 60% navigation and 75% announcement surfaces. */
+body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
+  background:rgba(28,37,46,.6);
+}
+.site-header .nav-links{
+  font-size:clamp(12px,.875vw,16px)!important;
+  gap:clamp(12px,1.1vw,24px)!important;
+  letter-spacing:0!important;
+}
+.site-header .nav-link{
+  font-weight:500;
+  padding:24px 0!important;
+}
+.site-header .nav-cta{
+  border-radius:3px;
+  font-size:clamp(12px,.875vw,16px);
+}
+@media(max-width:720px){
+  .site-header .ti-signal{font-size:8px}
 }
