@@ -858,3 +858,10 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
  #homeUpdatesNext{right:18px}
  #homeUpdatesPrev{right:70px}
 }
+
+/* Source attribution for real news photographs. */
+.home-update-credit{margin:12px 0 0;font-size:10px;line-height:1.4;color:rgba(255,255,255,.8)}
+.home-update-action,.home-updates-all{text-decoration:none}
+.home-update-copy{bottom:84px}
+.home-update-media img{object-position:center 38%}
+@media(max-width:720px){.home-update-copy{bottom:104px}.home-update-credit{font-size:9px}}
