@@ -637,10 +637,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 /* /TI SOURCES REFERENCE VIEWER */
 
-/* Transparent home header: let the hero show through at the top.
+/* Translucent home header: a visible navigation bar over the hero.
    Keep the existing solid navigation surface after scrolling and on modules. */
 body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled){
-  background:transparent!important;
+  background:rgba(13,17,20,.46)!important;
+  backdrop-filter:blur(8px)!important;
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.16)!important;
 }
 body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .ti-signal{
   background:transparent;
