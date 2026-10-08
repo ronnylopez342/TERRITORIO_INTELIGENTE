@@ -637,20 +637,46 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 /* /TI SOURCES REFERENCE VIEWER */
 
-/* Translucent home header: a visible navigation bar over the hero.
-   Keep the existing solid navigation surface after scrolling and on modules. */
-body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled){
-  background:rgba(13,17,20,.46)!important;
-  backdrop-filter:blur(8px)!important;
-  -webkit-backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(255,255,255,.16)!important;
+/* Header matched to the supplied reference; retain Territorio labels and logo. */
+:root{
+  --v25-nav-h:95px;
+  --v25-signal-h:50px;
+  --v25-header-h:145px;
 }
-body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .ti-signal{
-  background:transparent;
+.site-header{
+  display:flex;
+  flex-direction:column;
+}
+.site-header .nav{
+  order:0;
+  width:100%;
+}
+.site-header .ti-signal{
+  order:1;
+  justify-content:center;
+  background:rgba(13,17,20,.2);
   color:#fff;
-  text-shadow:0 1px 4px rgba(0,0,0,.65);
+  font-size:12px;
+  letter-spacing:.04em;
+}
+.site-header .ti-signal-link{
+  color:var(--v25-yellow);
+  text-decoration:none;
+}
+body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled){
+  background:rgba(23,31,37,.72)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none;
+  border-bottom:0!important;
 }
 body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav-link{
   color:#fff!important;
-  text-shadow:0 1px 4px rgba(0,0,0,.65);
+  text-shadow:none;
+}
+@media(max-width:1180px){
+  :root{--v25-nav-h:72px;--v25-signal-h:40px;--v25-header-h:112px}
+}
+@media(max-width:720px){
+  :root{--v25-nav-h:66px;--v25-signal-h:38px;--v25-header-h:104px}
+  .site-header .ti-signal{font-size:7.5px;gap:12px}
 }
