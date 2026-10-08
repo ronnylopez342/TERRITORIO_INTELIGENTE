@@ -781,3 +781,22 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
   font-display:swap;
 }
 .hero-title{font-family:"TI Poppins",Arial,sans-serif!important}
+
+.hero-copy-block{width:min(760px,calc(100vw - 80px))!important}
+.hero-cta .ti-link-swap__track{
+  display:block;
+  height:1.4em;
+  overflow:hidden;
+  transform:none!important;
+}
+.hero-cta .ti-link-swap__track>span{
+  display:block;
+  line-height:1.4;
+  transition:transform 400ms cubic-bezier(.22,1,.36,1);
+}
+.hero-cta:is(:hover,:focus-visible) .ti-link-swap__track>span{transform:translateY(-100%)}
+@media(max-width:720px){.hero-copy-block{width:100%!important}}
+@media(prefers-reduced-motion:reduce){
+  .hero-cta .ti-link-swap__track>span{transition:none}
+  .hero-cta:is(:hover,:focus-visible) .ti-link-swap__track>span{transform:none}
+}
