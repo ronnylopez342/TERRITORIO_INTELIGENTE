@@ -636,3 +636,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   }
 }
 /* /TI SOURCES REFERENCE VIEWER */
+
+/* Transparent home header: let the hero show through at the top.
+   Keep the existing solid navigation surface after scrolling and on modules. */
+body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled){
+  background:transparent!important;
+}
+body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .ti-signal{
+  background:transparent;
+  color:#fff;
+  text-shadow:0 1px 4px rgba(0,0,0,.65);
+}
+body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav-link{
+  color:#fff!important;
+  text-shadow:0 1px 4px rgba(0,0,0,.65);
+}
