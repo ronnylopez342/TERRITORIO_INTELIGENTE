@@ -122,6 +122,7 @@ function initModuleTabs() {
 
 function renderHome() {
   const home=TI_STATE.demo.home;
+  renderHomeUpdates(home);
   const ticker=document.getElementById('homeNewsTicker');
   if(ticker){ const n=home.nationalNews[0]; ticker.hidden=false; ticker.innerHTML=`<span class="ticker-source">${escapeHtml(n.source)}</span><strong>${escapeHtml(n.title)}</strong><span>${escapeHtml(dateLabel(n.date))}</span><button type="button" class="ticker-action" data-news-detail="${n.id}">Abrir →</button>`; }
   const feature=document.getElementById('homeNationalFeature');
@@ -147,6 +148,61 @@ function renderHome() {
     const x=home.institutional.find(i=>i.id===btn.dataset.institutional); if(!x)return;
     openDetail(x.title,`${demoBadge('PROTOTIPO')}<p class="dialog-lead">${escapeHtml(x.description)}</p><div class="fake-contact-grid"><div><small>Canal</small><strong>Portal TI</strong></div><div><small>Atención de referencia</small><strong>L–V · 8:00–17:00</strong></div></div>`);
   }));
+}
+
+
+function renderHomeUpdates(home) {
+  const root=document.querySelector('.home-updates');
+  const track=document.getElementById('homeUpdatesTrack');
+  if(!root||!track)return;
+  root._updatesCleanup?.();
+  const serviceMedia=['servicio','comunidad','alcaldia','participacion'];
+  const items=[
+    ...(home.nationalNews||[]).map(n=>({...n,kind:'Noticia nacional / departamental',action:'data-news-detail',label:'Ver noticia',source:n.source})),
+    ...(home.municipalNews||[]).map(n=>({...n,kind:'Actualidad municipal',action:'data-municipal-detail',label:'Ver noticia',source:n.dependency})),
+    ...(home.services||[]).map((s,i)=>({...s,kind:'Oferta institucional',action:'data-service-detail',label:'Consultar servicio',source:s.dependency,summary:s.requirements.join(' · '),media:'assets/img/editorial/'+serviceMedia[i%serviceMedia.length]+'.jpg'}))
+  ];
+  if(!items.length){root.hidden=true;return;}
+  root.hidden=false;
+  const calendarDate=value=>new Intl.DateTimeFormat('es-CO',{dateStyle:'medium',timeZone:'UTC'}).format(new Date(value));
+  track.innerHTML=items.map((x,i)=>`<article class="home-update-slide" role="group" aria-roledescription="diapositiva" aria-label="${i+1} de ${items.length}" ${i?'inert':''}>
+    <div class="home-update-copy"><p class="home-update-kicker">${escapeHtml(x.kind)}${x.date?' / '+escapeHtml(calendarDate(x.date)):''}</p><h3>${escapeHtml(x.title)}</h3><p class="home-update-summary">${escapeHtml(x.summary)}</p>${x.time?`<p class="home-update-meta">${escapeHtml(x.time)} / ${escapeHtml(x.cost)}</p>`:''}<p class="home-update-source">${escapeHtml(x.source)}</p><button type="button" class="home-update-action" ${x.action}="${escapeHtml(x.id)}">${escapeHtml(x.label)} <span aria-hidden="true">↗</span></button></div>
+    <div class="home-update-media">${mediaOrFallback(x.media,x.title)}</div></article>`).join('');
+  const dots=document.getElementById('homeUpdatesDots'),count=document.getElementById('homeUpdatesCount'),pause=document.getElementById('homeUpdatesPause');
+  dots.innerHTML=items.map((x,i)=>`<button type="button" data-update-index="${i}" aria-label="Mostrar ${escapeHtml(x.title)}" aria-pressed="${i===0}"></button>`).join('');
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  let index=0,paused=reduced.matches,hovered=false,focused=false,visible=false;
+  const paint=()=>{
+    track.querySelectorAll('.home-update-slide').forEach((s,i)=>{s.inert=i!==index;});
+    dots.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
+    count.textContent=`${index+1} / ${items.length}`;
+    pause.textContent=paused?'Reproducir':'Pausar';
+    pause.setAttribute('aria-label',paused?'Reproducir carrusel':'Pausar carrusel');
+  };
+  const go=(next,manual=false)=>{
+    if(manual)paused=true;
+    index=(next+items.length)%items.length;
+    track.scrollTo({left:index*track.clientWidth,behavior:reduced.matches?'instant':'smooth'});
+    paint();
+  };
+  document.getElementById('homeUpdatesPrev').onclick=()=>go(index-1,true);
+  document.getElementById('homeUpdatesNext').onclick=()=>go(index+1,true);
+  pause.onclick=()=>{paused=!paused;paint();};
+  dots.onclick=e=>{const b=e.target.closest('[data-update-index]');if(b)go(Number(b.dataset.updateIndex),true);};
+  track.onscroll=()=>{const next=Math.round(track.scrollLeft/track.clientWidth);if(next!==index){index=next;paint();}};
+  track.onkeydown=e=>{if(e.target!==track)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(index+(e.key==='ArrowRight'?1:-1),true);}};
+  track.onpointerdown=()=>{paused=true;paint();};
+  root.onmouseenter=()=>{hovered=true;};
+  root.onmouseleave=()=>{hovered=false;};
+  root.onfocusin=()=>{focused=true;};
+  root.onfocusout=e=>{focused=root.contains(e.relatedTarget);};
+  const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;},{threshold:.35});
+  observer.observe(root);
+  const timer=setInterval(()=>{if(!paused&&!hovered&&!focused&&visible&&!document.hidden&&!document.querySelector('dialog[open]')&&root.closest('.app-view')?.classList.contains('active'))go(index+1);},8000);
+  const resize=()=>track.scrollTo({left:index*track.clientWidth,behavior:'instant'});
+  window.addEventListener('resize',resize);
+  root._updatesCleanup=()=>{clearInterval(timer);observer.disconnect();window.removeEventListener('resize',resize);};
+  paint();
 }
 
 function findHomeNews(id){ return [...TI_STATE.demo.home.nationalNews,...TI_STATE.demo.home.municipalNews].find(x=>x.id===id); }
