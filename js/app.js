@@ -30,6 +30,11 @@ const menu = document.getElementById('mobileMenu');
 const openBtn = document.getElementById('menuToggle');
 const closeBtn = document.getElementById('mobileClose');
 const toast = document.getElementById('toast');
+const dataDropdown = document.getElementById('tiDataDropdown');
+const dataDropdownTrigger = document.getElementById('tiDataDropdownTrigger');
+const dataDropdownMenu = document.getElementById('tiDataDropdownMenu');
+const mobileDataToggle = document.getElementById('tiMobileDataToggle');
+const mobileDataMenu = document.getElementById('tiMobileDataMenu');
 let currentRoute = 'home';
 let observer;
 let toastTimer;
@@ -54,6 +59,7 @@ function setMenu(state, { restoreFocus = true } = {}) {
   menu.classList.toggle('open', state);
   menu.setAttribute('aria-hidden', String(!state));
   menu.inert = !state;
+  if (!state) setMobileDataDropdownOpen(false);
   openBtn.setAttribute('aria-expanded', String(state));
   document.body.style.overflow = state ? 'hidden' : '';
   if (state) {
@@ -62,6 +68,105 @@ function setMenu(state, { restoreFocus = true } = {}) {
     openBtn.focus();
   }
 }
+
+
+/* DATA TERRITORIO — menú de navegación editorial y acceso directo a pestañas. */
+function setDataDropdownOpen(open, { focusFirst = false, restoreFocus = false } = {}) {
+  if (!dataDropdownMenu || !dataDropdownTrigger) return;
+  dataDropdownMenu.hidden = !open;
+  dataDropdownTrigger.setAttribute('aria-expanded', String(open));
+  dataDropdown?.classList.toggle('open', open);
+  if (open && focusFirst) dataDropdownMenu.querySelector('[role="menuitem"]')?.focus();
+  if (!open && restoreFocus) dataDropdownTrigger.focus();
+}
+function setMobileDataDropdownOpen(open) {
+  if (!mobileDataMenu || !mobileDataToggle) return;
+  mobileDataMenu.hidden = !open;
+  mobileDataToggle.setAttribute('aria-expanded', String(open));
+}
+function selectDataPanel(panelId) {
+  const tab = [...document.querySelectorAll('#dataSubnav [data-module-panel]')].find(el => el.dataset.modulePanel === panelId);
+  const panel = document.getElementById(panelId);
+  if (!tab || !panel || panel.dataset.panelGroup !== 'data') return false;
+  document.querySelectorAll('[data-panel-group="data"]').forEach(el => {
+    const selected = el === panel;
+    el.classList.toggle('active', selected);
+    el.hidden = !selected;
+  });
+  document.querySelectorAll('#dataSubnav [data-module-panel]').forEach(el => {
+    const selected = el === tab;
+    el.classList.toggle('active', selected);
+    el.setAttribute('aria-selected', String(selected));
+    el.tabIndex = selected ? 0 : -1;
+  });
+  document.querySelectorAll('[data-data-destination]').forEach(el => {
+    el.classList.toggle('is-selected', el.dataset.dataDestination === panelId);
+  });
+  const nav = document.getElementById('dataSubnav');
+  requestAnimationFrame(() => {
+    if (nav) {
+      const stickyHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--v25-header-h')) || 98;
+      const y = window.scrollY + nav.getBoundingClientRect().top - stickyHeight - 6;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
+      nav.scrollLeft = Math.max(0, tab.offsetLeft - nav.offsetLeft - (nav.clientWidth - tab.clientWidth) / 2);
+    }
+    tab.focus({ preventScroll: true });
+  });
+  return true;
+}
+dataDropdownTrigger?.addEventListener('click', e => {
+  e.preventDefault();
+  e.stopPropagation();
+  setDataDropdownOpen(true);
+});
+dataDropdownTrigger?.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    setDataDropdownOpen(true);
+    const items = [...dataDropdownMenu.querySelectorAll('[role="menuitem"]')];
+    (e.key === 'ArrowDown' ? items[0] : items.at(-1))?.focus();
+  }
+});
+dataDropdown?.addEventListener('pointerenter', e => {
+  if (e.pointerType === 'mouse') setDataDropdownOpen(true);
+});
+dataDropdown?.addEventListener('pointerleave', e => {
+  if (e.pointerType === 'mouse') setDataDropdownOpen(false);
+});
+dataDropdownMenu?.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    setDataDropdownOpen(false, { restoreFocus: true });
+    return;
+  }
+  if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) return;
+  e.preventDefault();
+  const items = [...dataDropdownMenu.querySelectorAll('[role="menuitem"]')];
+  const index = items.indexOf(document.activeElement);
+  let nextIndex = index;
+  if (e.key === 'ArrowDown') nextIndex = (index + 1) % items.length;
+  if (e.key === 'ArrowUp') nextIndex = (index - 1 + items.length) % items.length;
+  if (e.key === 'Home') nextIndex = 0;
+  if (e.key === 'End') nextIndex = items.length - 1;
+  items[nextIndex]?.focus();
+});
+mobileDataToggle?.addEventListener('click', e => {
+  e.preventDefault();
+  e.stopPropagation();
+  setMobileDataDropdownOpen(mobileDataMenu.hidden);
+});
+document.addEventListener('pointerdown', e => {
+  if (dataDropdown && !dataDropdown.contains(e.target)) setDataDropdownOpen(false);
+});
+document.addEventListener('focusin', e => {
+  if (dataDropdown && !dataDropdown.contains(e.target)) setDataDropdownOpen(false);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && dataDropdownMenu && !dataDropdownMenu.hidden) {
+    e.preventDefault();
+    setDataDropdownOpen(false, { restoreFocus: true });
+  }
+});
 
 openBtn?.addEventListener('click', () => setMenu(true));
 closeBtn?.addEventListener('click', () => setMenu(false));
@@ -125,6 +230,7 @@ function setRoute(route, { historyMode = 'push', focus = true, scroll = true } =
     else btn.removeAttribute('aria-current');
   });
 
+  setDataDropdownOpen(false);
   header?.classList.add('force-dark');
   document.title = ROUTES[route].title;
   setMenu(false, { restoreFocus: false });
@@ -139,6 +245,22 @@ function setRoute(route, { historyMode = 'push', focus = true, scroll = true } =
 }
 
 document.addEventListener('click', event => {
+  const destination = event.target.closest('[data-data-destination]');
+  if (destination) {
+    event.preventDefault();
+    const panelId = destination.dataset.dataDestination;
+    const tab = [...document.querySelectorAll('#dataSubnav [data-module-panel]')].find(el => el.dataset.modulePanel === panelId);
+    if (!tab) return;
+    setRoute('data', { historyMode: 'push', focus: false, scroll: true });
+    setDataDropdownOpen(false);
+    setMobileDataDropdownOpen(false);
+    selectDataPanel(panelId);
+    return;
+  }
+  if (event.target.closest('#dataSubnav [data-module-panel]')) {
+    const tab = event.target.closest('#dataSubnav [data-module-panel]');
+    document.querySelectorAll('[data-data-destination]').forEach(el => el.classList.toggle('is-selected', el.dataset.dataDestination === tab.dataset.modulePanel));
+  }
   const routeBtn = event.target.closest('.route-link[data-route]');
   if (routeBtn) {
     event.preventDefault();
