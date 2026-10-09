@@ -152,8 +152,11 @@ function renderHome() {
 
 
 function renderHomeUpdates(home) {
-  const root=document.querySelector('.home-updates');
-  const track=document.getElementById('homeUpdatesTrack');
+  document.querySelectorAll('.home-updates').forEach(root=>renderHomeUpdatesCarousel(home,root));
+}
+
+function renderHomeUpdatesCarousel(home,root) {
+  const track=root.querySelector('.home-updates-track');
   if(!root||!track)return;
   root._updatesCleanup?.();
   const serviceMedia=['servicio','comunidad','alcaldia','participacion'];
@@ -169,7 +172,7 @@ function renderHomeUpdates(home) {
     <div class="home-update-copy"><p class="home-update-kicker">${escapeHtml(x.kind)}${x.date?' / '+escapeHtml(calendarDate(x.date)):''}</p><h3>${escapeHtml(x.title)}</h3>${x.imageCredit?`<p class="home-update-credit">${escapeHtml(x.imageCredit)}</p>`:''}</div>
     <div class="home-update-media">${mediaOrFallback(x.media,x.title)}</div>
     ${x.sourceUrl?`<a class="home-update-link" href="${escapeHtml(x.sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Leer noticia: ${escapeHtml(x.title)}"></a>`:`<button class="home-update-link" type="button" ${x.action}="${escapeHtml(x.id)}" aria-label="Ver ${escapeHtml(x.title)}"></button>`}</article>`).join('');
-  const dots=document.getElementById('homeUpdatesDots');
+  const dots=root.querySelector('.home-updates-dots');
   dots.innerHTML=items.map((x,i)=>`<button type="button" data-update-index="${i}" aria-label="Mostrar ${escapeHtml(x.title)}" aria-pressed="${i===0}"></button>`).join('');
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
   let index=0,paused=reduced.matches,hovered=false,focused=false,visible=false;
@@ -183,8 +186,8 @@ function renderHomeUpdates(home) {
     track.scrollTo({left:index*track.clientWidth,behavior:reduced.matches?'instant':'smooth'});
     paint();
   };
-  document.getElementById('homeUpdatesPrev').onclick=()=>go(index-1,true);
-  document.getElementById('homeUpdatesNext').onclick=()=>go(index+1,true);
+  root.querySelector('.home-updates-prev').onclick=()=>go(index-1,true);
+  root.querySelector('.home-updates-next').onclick=()=>go(index+1,true);
   dots.onclick=e=>{const b=e.target.closest('[data-update-index]');if(b)go(Number(b.dataset.updateIndex),true);};
   track.onscroll=()=>{const next=Math.round(track.scrollLeft/track.clientWidth);if(next!==index){index=next;paint();}};
   track.onkeydown=e=>{if(e.target!==track)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(index+(e.key==='ArrowRight'?1:-1),true);}};
