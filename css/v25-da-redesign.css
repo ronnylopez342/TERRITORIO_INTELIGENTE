@@ -1055,3 +1055,9 @@ body:has(.ti-team-da.active) #siteHeader{background:rgba(23,31,38,.65)!important
 
 .identity-visual .identity-links .identity-card.identity-galeria{grid-column:1/-1;min-height:112px!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;background:#17252a!important;border-color:#17252a!important;color:#fff!important}
 .identity-visual .identity-links .identity-card.identity-galeria:hover,.identity-visual .identity-links .identity-card.identity-galeria:focus-visible{background:#ffe600!important;border-color:#ffe600!important;color:#0d1114!important}
+
+/* Encabezado de una sola fila: sin franja de anuncio. Sin espacio reservado. */
+:root {
+  --v25-signal-h: 0px;
+  --v25-header-h: var(--v25-nav-h);
+}
