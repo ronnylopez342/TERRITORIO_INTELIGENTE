@@ -11,7 +11,7 @@
 <meta content="Territorio Inteligente | Subachoque" property="og:title"/>
 <meta content="Datos, planeación, cumplimiento y evidencia territorial para apoyar decisiones públicas en Subachoque." property="og:description"/>
 <meta content="website" property="og:type"/>
-<link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=ti-data-no-inner-tabs-01" rel="stylesheet"/>
+<link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=data-menu-six-01" rel="stylesheet"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap"/>
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
@@ -26,15 +26,12 @@
 <div class="ti-nav-dropdown" id="tiDataDropdown">
 <button class="nav-link route-link ti-nav-dropdown-trigger" data-route="data" id="tiDataDropdownTrigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="tiDataDropdownMenu"><span class="nav-roll"><span class="nav-roll__first">Data Territorio</span><span class="nav-roll__next" aria-hidden="true">Data Territorio</span></span><svg class="ti-nav-chevron" aria-hidden="true" viewBox="0 0 16 16" width="15" height="15" fill="none"><path d="m3 6 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div class="ti-nav-dropdown-menu" id="tiDataDropdownMenu" role="menu" aria-label="Secciones de Data Territorio" hidden>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-visor">Visor de datos</button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-conoce">2.1 Conoce</button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-plan-estadistico">2.2 Plan estadístico</button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes">2.3–2.5 Fuentes externas</button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-municipales">2.6 Municipales</button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta">2.7 Encuesta</button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-geo">2.8 Georreferenciador</button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-publicaciones">2.9 Publicaciones</button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-glosario">2.10 Glosario</button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-conoce"><span>2.1 Conoce</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.2 ¿Qué se sabe de Subachoque?</span><small>DANE y otras fuentes externas</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-municipales"><span>2.3 Memoria de la Alcaldía</span><small>Archivos, históricos y dependencias</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta"><span>2.4 Encuesta</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-geo"><span>2.5 Georreferenciador</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-publicaciones"><span>2.6 Publicaciones</span></button>
 </div>
 </div>
 <button class="nav-link route-link" data-route="desarrollo" type="button"><span class="nav-roll"><span class="nav-roll__first">Plan de Desarrollo</span><span class="nav-roll__next" aria-hidden="true">Plan de Desarrollo</span></span></button>
@@ -56,15 +53,12 @@
 <div class="ti-mobile-data-group">
 <button class="route-link ti-mobile-data-toggle" data-route="data" id="tiMobileDataToggle" type="button" aria-controls="tiMobileDataMenu" aria-expanded="false"><small>02</small><span>Data Territorio</span><b aria-hidden="true">⌄</b></button>
 <div id="tiMobileDataMenu" class="ti-mobile-data-submenu" aria-label="Secciones de Data Territorio" hidden>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-visor">Visor de datos <span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-conoce">2.1 Conoce <span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-plan-estadistico">2.2 Plan estadístico <span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes">2.3–2.5 Fuentes externas <span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-municipales">2.6 Municipales <span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta">2.7 Encuesta <span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-geo">2.8 Georreferenciador <span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-publicaciones">2.9 Publicaciones <span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-glosario">2.10 Glosario <span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-conoce"><span class="ti-mobile-data-label">2.1 Conoce</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.2 ¿Qué se sabe de Subachoque?<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-municipales"><span class="ti-mobile-data-label">2.3 Memoria de la Alcaldía<small>Archivos, históricos y dependencias</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta"><span class="ti-mobile-data-label">2.4 Encuesta</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-geo"><span class="ti-mobile-data-label">2.5 Georreferenciador</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-publicaciones"><span class="ti-mobile-data-label">2.6 Publicaciones</span><span aria-hidden="true">↗</span></button>
 </div>
 </div>
 <button class="route-link" data-route="desarrollo" type="button"><small>03</small><span>Plan de Desarrollo</span><b>→</b></button>
@@ -134,33 +128,22 @@
 <div class="inner">
 <div class="module-heading-row"><div><p class="eyebrow">Data Territorio</p><h2 class="big-heading">De la fuente al análisis territorial.</h2></div><div aria-live="polite" class="module-status" id="dataGlobalStatus"></div></div>
 <nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist" hidden>
-<button aria-controls="data-visor" aria-selected="true" class="module-tab active" data-module-panel="data-visor" id="tab-data-visor" role="tab" tabindex="0" type="button">Visor de datos</button>
-<button aria-controls="data-conoce" aria-selected="false" class="module-tab" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="-1" type="button">2.1 Conoce</button>
-<button aria-controls="data-plan-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-plan-estadistico" id="tab-data-plan-estadistico" role="tab" tabindex="-1" type="button">2.2 Plan estadístico</button>
-<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.3–2.5 Fuentes externas</button>
-<button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.6 Municipales</button>
-<button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.7 Encuesta</button>
-<button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.8 Georreferenciador</button>
-<button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.9 Publicaciones</button>
-<button aria-controls="data-glosario" aria-selected="false" class="module-tab" data-module-panel="data-glosario" id="tab-data-glosario" role="tab" tabindex="-1" type="button">2.10 Glosario</button>
+<button aria-controls="data-conoce" aria-selected="true" class="module-tab active" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce</button>
+<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.2 ¿Qué se sabe de Subachoque?</button>
+<button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.3 Memoria de la Alcaldía</button>
+<button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.4 Encuesta</button>
+<button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.5 Georreferenciador</button>
+<button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.6 Publicaciones</button>
 </nav>
-<section aria-labelledby="tab-data-visor" class="module-panel active" data-panel-group="data" id="data-visor" role="tabpanel">
-<div id="dataVisorWorkspace"></div>
-</section>
-<section aria-labelledby="tab-data-conoce" class="module-panel" data-panel-group="data" hidden="" id="data-conoce" role="tabpanel">
+<section aria-labelledby="tab-data-conoce" class="module-panel active" data-panel-group="data" id="data-conoce" role="tabpanel">
 <div class="functional-grid two-col">
 <div><p class="eyebrow">¿Qué es Data Territorio?</p><div class="prose-block" id="dataDefinition"></div><div class="principles-list" id="dataPrinciples"></div></div>
 <div><p class="eyebrow">Importancia de la estadística</p><div aria-label="Gráfico interactivo sobre la importancia de la estadística" class="stat-wheel" id="statisticsWheel"></div><div class="info-note" id="statisticsNote" role="status"></div></div>
 </div>
 </section>
-<section aria-labelledby="tab-data-plan-estadistico" class="module-panel" data-panel-group="data" hidden="" id="data-plan-estadistico" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">Repositorio técnico</p><h3>PDF, fichas técnicas y archivos de indicadores</h3></div><label class="action-button">Agregar archivos<input accept=".pdf,.xlsx,.xls,.csv" hidden="" id="statDocumentUpload" multiple="" type="file"/></label></div>
-<div class="filter-row"><input aria-label="Buscar documentos estadísticos" id="statDocumentSearch" placeholder="Buscar documento, indicador o fuente" type="search"/><button class="text-button" id="exportStatMetadata" type="button">Exportar inventario</button></div>
-<div class="document-grid" id="statDocumentGrid"></div>
-</section>
 <section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
 <div class="module-toolbar">
-<div><p class="eyebrow">Fuentes externas</p><h3>DANE, fuentes nacionales y departamentales</h3></div>
+<div><p class="eyebrow">2.2 · ¿Qué se sabe de Subachoque?</p><h3>Datos del DANE y otras fuentes externas sobre nuestro territorio</h3></div>
 <div aria-label="Tipo de fuente" class="segmented" role="group">
 <button class="source-level active" data-source-level="dane" type="button">DANE</button>
 <button class="source-level" data-source-level="nacional" type="button">Nacional</button>
@@ -200,27 +183,24 @@
 </div>
 </section>
 <section aria-labelledby="tab-data-municipales" class="module-panel" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">Fuentes municipales</p><h3>Repositorio único de dependencias y entidades descentralizadas</h3></div><span class="status-pill demo">Base de prototipo cargada</span></div>
+<div class="module-toolbar"><div><p class="eyebrow">2.3 · Memoria de la Alcaldía</p><h3>Archivos históricos y registros de nuestras dependencias</h3></div><span class="status-pill demo">Base de prototipo cargada</span></div>
+<p class="ti-data-scope-note">Aquí se organiza la información producida y conservada por la Alcaldía: documentos físicos por digitalizar, registros históricos y datos de las dependencias. La tabla actual es demostrativa; todavía no es un inventario completo del archivo municipal.</p>
 <div class="dataset-workspace" data-dataset-workspace="municipales"></div>
 </section>
 <section aria-labelledby="tab-data-encuesta" class="module-panel" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">Encuesta Municipal</p><h3>Caracterización territorial, estadística descriptiva y percepción</h3></div><span class="status-pill demo">Encuesta de prototipo cargada</span></div>
+<div class="module-toolbar"><div><p class="eyebrow">2.4 · Encuesta Municipal</p><h3>Caracterización territorial, estadística descriptiva y percepción</h3></div><span class="status-pill demo">Encuesta de prototipo cargada</span></div>
 <div class="dataset-workspace" data-dataset-workspace="encuesta"></div>
 <div class="info-note"><strong>Base de prototipo:</strong> esta vista viene poblada para probar filtros, gráficos y agregaciones; los valores no certificados deben sustituirse antes de publicación institucional.</div>
 </section>
 <section aria-labelledby="tab-data-geo" class="module-panel" data-panel-group="data" hidden="" id="data-geo" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">Georreferenciador</p><h3>Veredas, casco urbano, servicios, beneficiarios e infraestructura</h3></div><label class="action-button">Importar puntos<input accept=".csv,.json,.xlsx,.xls" hidden="" id="geoPointUpload" type="file"/></label></div>
+<div class="module-toolbar"><div><p class="eyebrow">2.5 · Georreferenciador</p><h3>Veredas, casco urbano, servicios, beneficiarios e infraestructura</h3></div><label class="action-button">Importar puntos<input accept=".csv,.json,.xlsx,.xls" hidden="" id="geoPointUpload" type="file"/></label></div>
 <div class="geo-layout"><div class="territory-map"><svg aria-label="Mapa interactivo de veredas de Subachoque" id="territoryMapSvg" role="img" viewbox="0 0 960 600"></svg></div><aside class="map-detail" id="territoryMapDetail"><p class="eyebrow">Selecciona una vereda</p><p>Haz clic o usa el teclado sobre una vereda para consultar servicios, beneficiarios, grupos poblacionales e infraestructura cargada.</p></aside></div>
 </section>
 <section aria-labelledby="tab-data-publicaciones" class="module-panel" data-panel-group="data" hidden="" id="data-publicaciones" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">Publicaciones</p><h3>Boletines, informes, papers y encuestas con trazabilidad</h3></div><label class="action-button">Agregar publicación<input accept=".pdf,.doc,.docx,.xlsx,.xls,.csv" hidden="" id="publicationUpload" multiple="" type="file"/></label></div>
+<div class="module-toolbar"><div><p class="eyebrow">2.6 · Publicaciones</p><h3>Boletines, informes, papers y encuestas con trazabilidad</h3></div><label class="action-button">Agregar publicación<input accept=".pdf,.doc,.docx,.xlsx,.xls,.csv" hidden="" id="publicationUpload" multiple="" type="file"/></label></div>
 <div class="document-grid" id="publicationGrid"></div>
 </section>
-<section aria-labelledby="tab-data-glosario" class="module-panel" data-panel-group="data" hidden="" id="data-glosario" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">Glosario territorial</p><h3>Término, definición y fuente oficial</h3></div><button class="action-button" id="exportGlossary" type="button">Exportar glosario</button></div>
-<div class="filter-row"><input aria-label="Buscar glosario" id="glossarySearch" placeholder="Buscar término, sigla, entidad o indicador" type="search"/></div>
-<div class="glossary-list" id="glossaryList"></div>
-</section>
+
 </div>
 </div>
 </section>
@@ -293,6 +273,6 @@
 <div aria-live="polite" class="toast" id="toast" role="status"></div>
 <script defer="" src="js/app.js?v=ti-data-no-inner-tabs-01"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script defer="" src="js/requirements.js?v=header-da-search-01"></script>
+<script defer="" src="js/requirements.js?v=data-menu-six-01"></script>
 </body>
 </html>
