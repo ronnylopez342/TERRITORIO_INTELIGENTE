@@ -385,7 +385,7 @@ function initGlobalActions(){ document.addEventListener('keydown',e=>{ if((e.key
 
 function initEditorMode(){ const params=new URLSearchParams(location.search),panel=document.getElementById('editorPanel'); if(!panel)return; if(params.get('editor')==='1')panel.hidden=false; document.getElementById('editorExport')?.addEventListener('click',()=>downloadBlob('territorio-inteligente-v2.4-prototipo.json',JSON.stringify(TI_STATE.demo,null,2))); document.getElementById('editorImport')?.addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{TI_STATE.demo=JSON.parse(await f.text());renderAll();openDetail('Snapshot importado','<p>La demo fue reemplazada durante esta sesión.</p>');}catch(err){openDetail('JSON inválido',`<p>${escapeHtml(err.message)}</p>`);}e.target.value='';}); document.getElementById('editorReset')?.addEventListener('click',()=>{localStorage.removeItem('ti-demo-plan-progress');localStorage.removeItem('ti-demo-project-progress');location.reload();}); }
 
-function renderAll(){ renderHome(); }
+function renderAll(){ renderHome(); renderDataTerritorio(); }
 
 async function tiBoot(){ try{ const [demo,baseData,requirements,geo]=await Promise.all([tiFetchJson(TI_PATHS.demo),tiFetchJson(TI_PATHS.baseData),tiFetchJson(TI_PATHS.requirements),tiFetchJson(TI_PATHS.geo)]); TI_STATE.demo=demo;TI_STATE.baseData=baseData;TI_STATE.requirements=requirements;TI_STATE.geo=geo; await TIWorkspace.restore(); initModuleTabs(); initDialog(); renderAll(); initGlobalActions(); initAssistant(); }catch(err){ console.error(err); const status=document.getElementById('dataGlobalStatus'); if(status)status.textContent=`Error cargando demo: ${err.message}`; } }
 

@@ -4,7 +4,7 @@
 function restoreModuleSection() {
   const fragment=location.hash.slice(1);
   const route=fragment.split('?')[0];
-  const view=document.querySelector(`.ti-stage-one[data-view="${validRoute(route)?route:'data'}"]`);
+  const view=document.querySelector(`.app-view[data-view="${validRoute(route)?route:'data'}"]`);
   if(!view)return;
   const requested=new URLSearchParams(fragment.split('?')[1]||'').get('seccion');
   const tabs=[...view.querySelectorAll('[data-module-panel]')];
