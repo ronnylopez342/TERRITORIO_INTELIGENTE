@@ -1113,7 +1113,7 @@ body:has(.app-view[data-view="home"].active) #siteHeader:not(.scrolled){
 #siteHeader .brand img{width:100%;height:auto;max-height:62px;object-fit:contain}
 #siteHeader .nav-links{
   display:grid!important;
-  grid-template-columns:minmax(0,242fr) minmax(0,196fr) minmax(0,201fr) minmax(0,227fr) minmax(0,345fr) minmax(0,155fr);
+  grid-template-columns:minmax(0,155fr) minmax(0,210fr) minmax(0,255fr) minmax(0,280fr) minmax(0,311fr) minmax(0,155fr);
   flex:1 1 auto!important;
   min-width:0!important;
   margin:0 0 0 200px!important;
@@ -1122,7 +1122,7 @@ body:has(.app-view[data-view="home"].active) #siteHeader:not(.scrolled){
   align-items:center!important;
   justify-content:initial!important;
   font-family:Arial,"Helvetica Neue",sans-serif!important;
-  font-size:17px!important;
+  font-size:18px!important;
   font-weight:500!important;
   line-height:1.2!important;
   letter-spacing:-.015em!important;
@@ -1132,7 +1132,7 @@ body:has(.app-view[data-view="home"].active) #siteHeader:not(.scrolled){
   width:auto!important;
   color:#f6f6f7!important;
   font-family:inherit!important;
-  font-size:17px!important;
+  font-size:18px!important;
   font-weight:500!important;
   line-height:1.2!important;
   letter-spacing:-.015em!important;
