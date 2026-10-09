@@ -1336,3 +1336,16 @@ body:has(.app-view[data-view="home"].active) #siteHeader:not(.scrolled){
 @media(prefers-reduced-motion:reduce){
   #siteHeader .ti-nav-chevron,#siteHeader .ti-nav-dropdown-item,.mobile-nav .ti-mobile-data-toggle b{transition:none!important}
 }
+
+/* DATA TERRITORIO: las clasificaciones se eligen SOLO desde el encabezado. 
+   La barra interna conserva sus botones para el controlador existente, sin renderizarse. */
+#dataSubnav,
+#dataSubnav[hidden]{
+  display:none!important;
+  visibility:hidden!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  width:0!important;
+  height:0!important;
+}
