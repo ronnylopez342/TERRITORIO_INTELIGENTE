@@ -11,7 +11,7 @@
 <meta content="Territorio Inteligente | Subachoque" property="og:title"/>
 <meta content="Datos, planeación, cumplimiento y evidencia territorial para apoyar decisiones públicas en Subachoque." property="og:description"/>
 <meta content="website" property="og:type"/>
-<link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=ti-data-dropdown-01" rel="stylesheet"/>
+<link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=ti-data-no-inner-tabs-01" rel="stylesheet"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap"/>
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
@@ -133,7 +133,7 @@
 <div class="view-body functional-shell">
 <div class="inner">
 <div class="module-heading-row"><div><p class="eyebrow">Data Territorio</p><h2 class="big-heading">De la fuente al análisis territorial.</h2></div><div aria-live="polite" class="module-status" id="dataGlobalStatus"></div></div>
-<nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist">
+<nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist" hidden>
 <button aria-controls="data-visor" aria-selected="true" class="module-tab active" data-module-panel="data-visor" id="tab-data-visor" role="tab" tabindex="0" type="button">Visor de datos</button>
 <button aria-controls="data-conoce" aria-selected="false" class="module-tab" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="-1" type="button">2.1 Conoce</button>
 <button aria-controls="data-plan-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-plan-estadistico" id="tab-data-plan-estadistico" role="tab" tabindex="-1" type="button">2.2 Plan estadístico</button>
@@ -291,7 +291,7 @@
 <aside aria-hidden="true" class="assistant-panel" id="assistantPanel" inert=""><div class="assistant-head"><div><strong>Asistente TI</strong><small>Consulta información estructurada del portal</small></div><button aria-label="Cerrar asistente" id="assistantClose" type="button">×</button></div><form id="assistantForm"><label for="assistantQuery">¿Qué necesitas encontrar?</label><div class="assistant-input-row"><input autocomplete="off" id="assistantQuery" placeholder="Ej. predial, DANE, cronograma" type="search"/><button type="submit">Buscar</button></div></form><div aria-live="polite" class="assistant-results" id="assistantResults"></div></aside>
 <section aria-label="Modo editor local" class="editor-panel" hidden="" id="editorPanel"><div><strong>Modo editor local</strong><span>Importa/exporta contenido de prueba. La persistencia central requiere conexión de autenticación y base de datos.</span></div><div><label class="text-button">Importar JSON<input accept="application/json,.json" hidden="" id="editorImport" type="file"/></label><button class="text-button" id="editorExport" type="button">Exportar snapshot</button><button class="text-button" id="editorReset" type="button">Restablecer local</button></div></section>
 <div aria-live="polite" class="toast" id="toast" role="status"></div>
-<script defer="" src="js/app.js?v=ti-data-dropdown-01"></script>
+<script defer="" src="js/app.js?v=ti-data-no-inner-tabs-01"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script defer="" src="js/requirements.js?v=header-da-search-01"></script>
 </body>
