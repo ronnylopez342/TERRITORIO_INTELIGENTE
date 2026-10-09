@@ -874,3 +874,30 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
 .home-updates-dots{right:40px}
 .home-update-slide:has(.home-update-link:hover) h3{color:var(--v25-yellow)}
 @media(max-width:720px){.home-updates-dots{right:24px;bottom:24px}.home-update-copy{bottom:80px}}
+
+/* Municipal leadership — editorial proportions from the supplied reference. */
+.home-team{background:#171f26;color:#fff;padding:64px 0 54px;overflow:hidden}
+.home-team-head{display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin:0 40px 40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.25)}
+.home-team-head h2{font-size:clamp(32px,3.1vw,48px);line-height:1.18;letter-spacing:-.035em;font-weight:400;margin:0 0 24px;color:#fff}
+.home-team-head p{font-size:14px;line-height:1.7;max-width:700px;margin:0;color:#e0e4e7}
+.home-team-all{flex-shrink:0;display:inline-flex;align-items:center;gap:24px;border:1px solid #fff;border-radius:4px;padding:18px 22px;font-size:11px;font-weight:600;text-transform:uppercase;text-decoration:none;color:#fff;margin-top:6px}
+.home-team-all:hover{background:#fff;color:#171f26}
+.home-team-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:40px;overscroll-behavior-x:contain;scrollbar-width:none;padding:0 40px 8px}
+.home-team-track::-webkit-scrollbar{display:none}
+.home-team-card{position:relative;isolation:isolate;display:block;flex:0 0 clamp(280px,27vw,380px);height:380px;overflow:hidden;border-radius:4px;scroll-snap-align:start;text-decoration:none;color:#fff;background:#727873}
+.home-team-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);z-index:0;transition:transform .45s}
+.home-team-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 32%,rgba(12,19,24,.35) 58%,rgba(12,19,24,.96) 100%);z-index:1;pointer-events:none}
+.home-team-card--initials{background:linear-gradient(145deg,#9a9d96,#586361 62%,#303e43)}
+.home-team-card--initials:nth-child(3n){background:linear-gradient(145deg,#b2aaa0,#77746d 62%,#414848)}
+.home-team-initials{position:absolute;top:32px;left:24px;font-size:118px;font-weight:400;line-height:1;letter-spacing:-.08em;color:rgba(255,255,255,.24)}
+.home-team-caption{position:absolute;left:24px;right:24px;bottom:25px;z-index:2}
+.home-team-caption h3{font-size:27px;line-height:1.12;font-weight:400;letter-spacing:-.025em;color:#fff;margin:0 0 12px}
+.home-team-caption p{font-size:12px;line-height:1.4;color:#fff;margin:0;max-width:255px}
+.home-team-card-arrow{position:absolute;right:20px;top:20px;z-index:2;font-size:24px}
+.home-team-card:hover img{transform:scale(1.04)}
+.home-team-card:hover h3{color:var(--v25-yellow)}
+.home-team-controls{display:flex;justify-content:flex-end;gap:10px;margin:24px 40px 0}
+.home-team-controls button{width:46px;height:46px;background:transparent;color:#fff;border:1px solid #fff;border-radius:4px;font-size:26px;cursor:pointer}
+.home-team-controls button:hover{color:var(--v25-yellow);border-color:var(--v25-yellow)}
+@media(max-width:720px){.home-team{padding:40px 0}.home-team-head{margin:0 24px 28px;flex-direction:column;gap:24px;padding-bottom:28px}.home-team-head h2{font-size:32px}.home-team-head p{font-size:13px}.home-team-all{padding:15px 18px;font-size:10px}.home-team-track{padding-left:24px;padding-right:24px;scroll-padding-left:24px}.home-team-card{flex-basis:82vw;height:360px}.home-team-controls{margin-right:24px}.home-team-caption h3{font-size:26px}}
+@media(prefers-reduced-motion:reduce){.home-team-card img{transition:none}}
