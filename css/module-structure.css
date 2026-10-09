@@ -1,0 +1,35 @@
+/* Delivery base, scoped to the reconstructed modules. */
+.ti-stage-one{--module-bg:#19232e;--module-surface:#243342;--module-text:#f5f4ef;--module-muted:#bdc8d1;--module-line:#445462;background:var(--module-bg)!important;color:var(--module-text)!important;padding-bottom:80px}
+.ti-stage-one .inner{max-width:1440px;margin:auto}
+.ti-stage-one .ti-module-hero{padding:64px clamp(24px,5vw,80px) 56px;border-bottom:1px solid var(--module-line)}
+.ti-stage-one .ti-module-kicker,.ti-stage-one .ti-section-index,.ti-stage-one .ti-nav-heading{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#f4e600;margin:0 0 24px}
+.ti-stage-one .ti-module-hero h1{font-size:clamp(42px,6vw,86px);font-weight:600;letter-spacing:-.055em;line-height:1.05;max-width:1050px;margin:0 0 26px}
+.ti-stage-one .ti-module-hero p:not(.ti-module-kicker){font-size:20px;line-height:1.6;color:var(--module-muted);max-width:700px;margin-bottom:28px}
+.ti-stage-one .ti-home-link{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--module-text);text-decoration:none;border-bottom:1px solid #f4e600;padding-bottom:8px}
+.ti-stage-one .ti-module-layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:52px;padding:52px clamp(24px,5vw,80px)}
+.ti-stage-one .module-subnav,.ti-stage-one #dataSubnav{display:flex!important;flex-direction:column;position:static!important;overflow:visible!important;background:transparent!important;border:0!important;gap:0}
+.ti-stage-one .module-subnav button{display:flex!important;align-items:flex-start;text-align:left;gap:14px;width:100%;padding:17px 14px!important;border:0!important;border-top:1px solid var(--module-line)!important;white-space:normal!important;background:transparent!important;color:var(--module-text)!important;font-size:14px!important;line-height:1.5;font-weight:500!important;letter-spacing:0!important;text-transform:none!important}
+.ti-stage-one .module-subnav button small{color:var(--module-muted);font-size:11px;flex-shrink:0;padding-top:3px}
+.ti-stage-one .module-subnav button.active,.ti-stage-one .module-subnav button[aria-selected=true]{background:#f4e600!important;color:#17212c!important}
+.ti-stage-one .module-subnav button.active small{color:#17212c}
+.ti-stage-one .module-panel{background:transparent!important;padding:0!important;border:0!important;min-width:0}
+.ti-stage-one .module-panel[hidden]{display:none!important}
+.ti-stage-one .module-panel h2{color:var(--module-text)!important;font-size:clamp(30px,3.2vw,52px);line-height:1.15;letter-spacing:-.035em;margin:0 0 24px}
+.ti-stage-one .ti-section-lead{font-size:18px;line-height:1.8;color:var(--module-muted);max-width:800px;margin:0 0 40px}
+.ti-stage-one .ti-content-state{background:var(--module-surface);padding:30px 34px;border-left:3px solid #f4e600;margin-top:32px}
+.ti-stage-one .ti-content-state>span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#f4e600}
+.ti-stage-one .ti-content-state h3{font-size:22px;font-weight:500;margin:14px 0;color:var(--module-text)!important}
+.ti-stage-one .ti-content-state p{line-height:1.7;font-size:15px;color:var(--module-muted);margin:0}
+.ti-stage-one .ti-project-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-block:1px solid var(--module-line);padding:28px 0;margin:30px 0}
+.ti-stage-one .ti-project-fields dt{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--module-muted)}
+.ti-stage-one .ti-project-fields dd{font-size:15px;margin:10px 0 0}
+.ti-stage-one details{border-bottom:1px solid var(--module-line);padding:20px 0}
+.ti-stage-one summary{cursor:pointer;font-size:17px;line-height:1.5;color:var(--module-text)}
+.ti-stage-one summary span{display:inline-block;color:#f4e600;font-size:12px;margin:0 16px 0 8px}
+.ti-stage-one details p{font-size:15px;color:var(--module-muted);line-height:1.8;margin-top:18px}
+.ti-stage-one :focus-visible{outline:2px solid #f4e600;outline-offset:4px}
+.ti-stage-one .login-wrap,.ti-stage-one .login-panel,.ti-stage-one .login-form{background:var(--module-bg)!important;color:var(--module-text)!important}
+.ti-stage-one .login-form h2,.ti-stage-one .login-copy h1{color:var(--module-text)!important}
+.ti-stage-one .login-form p{color:var(--module-muted)!important}
+@media(max-width:900px){.ti-stage-one .ti-module-layout{grid-template-columns:1fr;gap:40px}.ti-stage-one .module-subnav,.ti-stage-one #dataSubnav{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))}.ti-stage-one .module-subnav button{height:100%}.ti-stage-one .ti-project-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.ti-stage-one .ti-module-hero{padding-top:42px}}
+@media(max-width:480px){.ti-stage-one .module-subnav,.ti-stage-one #dataSubnav{grid-template-columns:1fr}.ti-stage-one .ti-module-layout{padding-top:30px}.ti-stage-one .ti-content-state{padding:24px}.ti-stage-one .ti-module-hero p:not(.ti-module-kicker){font-size:17px}}

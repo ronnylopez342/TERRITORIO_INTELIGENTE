@@ -45,7 +45,8 @@ function validRoute(route) {
 }
 
 function routeFromLocation() {
-  const hash = decodeURIComponent(location.hash.replace(/^#/, '')).trim();
+  let hash;
+  try { hash = decodeURIComponent(location.hash.replace(/^#/, '').split('?')[0]).trim(); } catch { return 'home'; }
   return validRoute(hash) ? hash : 'home';
 }
 

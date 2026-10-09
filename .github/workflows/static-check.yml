@@ -5,6 +5,7 @@ on:
     branches:
       - production/v2.6-canonical
       - fix/data-imports-20261009
+      - delivery/01-structure
   pull_request:
 
 jobs:
@@ -16,7 +17,9 @@ jobs:
         with:
           python-version: '3.x'
       - name: Verify static structure
-        run: python scripts/verify_static.py
+        run: |
+          python scripts/verify_static.py
+          python scripts/verify_structure.py
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
