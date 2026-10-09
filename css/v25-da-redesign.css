@@ -865,3 +865,12 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
 .home-update-copy{bottom:84px}
 .home-update-media img{object-position:center 38%}
 @media(max-width:720px){.home-update-copy{bottom:104px}.home-update-credit{font-size:9px}}
+
+/* The entire news image/title is the link; only arrows and progress bars remain. */
+.home-update-link{position:absolute;inset:0;z-index:1;background:transparent;border:0;cursor:pointer}
+.home-update-link:focus-visible{outline-offset:-6px!important}
+.home-update-copy{z-index:2;pointer-events:none}
+.home-updates-controls{z-index:3}
+.home-updates-dots{right:40px}
+.home-update-slide:has(.home-update-link:hover) h3{color:var(--v25-yellow)}
+@media(max-width:720px){.home-updates-dots{right:24px;bottom:24px}.home-update-copy{bottom:80px}}
