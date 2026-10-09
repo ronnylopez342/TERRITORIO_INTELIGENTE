@@ -11,7 +11,7 @@
 <meta content="Territorio Inteligente | Subachoque" property="og:title"/>
 <meta content="Datos, planeación, cumplimiento y evidencia territorial para apoyar decisiones públicas en Subachoque." property="og:description"/>
 <meta content="website" property="og:type"/>
-<link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=team-da-03" rel="stylesheet"/>
+<link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=identity-visual-01" rel="stylesheet"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap"/>
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
@@ -92,22 +92,17 @@
 <a class="home-team-card route-link home-team-card--initials" href="#perfil-maria-del-pilar-hurtado-uriarte" data-route="perfil-maria-del-pilar-hurtado-uriarte" data-name="maría del pilar hurtado uriarte" data-area="Urbanismo" aria-label="Ver perfil de María del Pilar Hurtado Uriarte"><span class="home-team-initials" aria-hidden="true">MH</span><div class="home-team-caption"><h3>María del Pilar Hurtado Uriarte</h3><p>Directora de Urbanismo</p><small>Fotografía por confirmar</small></div><span class="home-team-card-arrow" aria-hidden="true">↗</span></a>
 <a class="home-team-card route-link home-team-card--initials" href="#perfil-ana-lizeth-martinez-villalba" data-route="perfil-ana-lizeth-martinez-villalba" data-name="ana lizeth martínez villalba" data-area="Control Interno" aria-label="Ver perfil de Ana Lizeth Martínez Villalba"><span class="home-team-initials" aria-hidden="true">AM</span><div class="home-team-caption"><h3>Ana Lizeth Martínez Villalba</h3><p>Jefa de Control Interno</p><small>Fotografía por confirmar</small></div><span class="home-team-card-arrow" aria-hidden="true">↗</span></a>
 </div><div class="home-team-controls"><button type="button" aria-label="Ver integrantes anteriores" onclick="document.getElementById('homeTeamTrack').scrollBy({left:-360,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})">←</button><button type="button" aria-label="Ver siguientes integrantes" onclick="document.getElementById('homeTeamTrack').scrollBy({left:360,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})">→</button></div>
-</section><section class="section identity">
+</section><section class="section identity identity-visual" id="identidad">
 <div class="inner">
-<p class="eyebrow reveal">Aprendamos de nuestro territorio</p>
-<h2 class="big-heading reveal">Conocer el territorio también es conocer su identidad.</h2>
+<div class="identity-heading"><div><p class="eyebrow reveal">Aprendamos de nuestro territorio</p><h2 class="big-heading reveal">Nuestra identidad.<br/><span>Nuestro territorio.</span></h2></div><p class="identity-lead reveal">Conocer Subachoque es descubrir sus símbolos, su historia y las personas que le dan vida.</p></div>
 <div class="identity-grid">
-<div class="identity-main reveal"><img alt="Subachoque" class="media-img" data-fallback="" decoding="async" loading="lazy" src="assets/img/editorial/alcaldia.jpg"/><h3>Subachoque<br/>es territorio vivo.</h3></div>
-<nav aria-label="Identidad territorial" class="identity-links reveal" id="homeIdentityLinks">
-<button class="identity-action" data-identity="himno" type="button"><small>01</small><span>Nuestro himno</span><span>→</span></button>
-<button class="identity-action" data-identity="escudo" type="button"><small>02</small><span>Nuestro escudo</span><span>→</span></button>
-<button class="identity-action" data-identity="bandera" type="button"><small>03</small><span>Nuestra bandera</span><span>→</span></button>
-<button class="identity-action" data-identity="territorio" type="button"><small>04</small><span>Nuestro territorio</span><span>→</span></button>
-<button class="identity-action" data-identity="galeria" type="button"><small>05</small><span>Galería</span><span>→</span></button>
-</nav>
-</div>
-</div>
-</section></section>
+<div class="identity-main reveal"><img alt="Vista aérea de Subachoque" class="media-img" decoding="async" loading="lazy" src="assets/img/editorial/territorio-aereo.jpg"/><span class="identity-photo-tag">SUBACHOQUE · CUNDINAMARCA</span><div class="identity-photo-copy"><p>Un lugar que nos une.</p><h3>Territorio<br/>vivo.</h3></div></div>
+<nav aria-label="Identidad territorial" class="identity-links reveal" id="homeIdentityLinks"><button class="identity-action identity-card identity-himno" data-identity="himno" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l12-3v12"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="15" r="3"/></svg><small>01</small></span><span class="identity-card-copy"><strong>Nuestro himno</strong><em>Las palabras que nos unen.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button>
+<button class="identity-action identity-card identity-escudo" data-identity="escudo" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7v6c0 5 9 9 9 9s9-4 9-9V7Z"/><path d="m8 12 3 3 5-6"/></svg><small>02</small></span><span class="identity-card-copy"><strong>Nuestro escudo</strong><em>Los símbolos de nuestra historia.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button>
+<button class="identity-action identity-card identity-bandera" data-identity="bandera" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22V3m0 1c5-4 9 4 15 0v11c-6 4-10-4-15 0"/></svg><small>03</small></span><span class="identity-card-copy"><strong>Nuestra bandera</strong><em>Los colores de nuestra identidad.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button>
+<button class="identity-action identity-card identity-territorio" data-identity="territorio" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 19 6-10 4 6 3-5 6 9Z"/><circle cx="18" cy="5" r="2"/></svg><small>04</small></span><span class="identity-card-copy"><strong>Nuestro territorio</strong><em>Paisajes, memoria y comunidad.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button>
+<button class="identity-action identity-card identity-galeria" data-identity="galeria" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="2"/><path d="m3 17 6-5 4 3 4-5 4 7"/></svg><small>05</small></span><span class="identity-card-copy"><strong>Galería</strong><em>Una mirada a Subachoque.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button></nav>
+</div></div></section></section>
 <section class="app-view view-shell" data-view="data">
 <div class="view-hero product-hero" data-product-number="01"><div class="inner"><div class="view-kicker">Producto 01</div><h1 class="view-title" tabindex="-1">Data<br/>Territorio</h1><p class="view-lead">Sistema integral para reunir, organizar, validar y convertir información territorial en insumo para decisiones públicas basadas en evidencia.</p></div></div>
 <div class="view-body functional-shell">
