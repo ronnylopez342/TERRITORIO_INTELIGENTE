@@ -166,18 +166,16 @@ function renderHomeUpdates(home) {
   root.hidden=false;
   const calendarDate=value=>new Intl.DateTimeFormat('es-CO',{dateStyle:'medium',timeZone:'UTC'}).format(new Date(value));
   track.innerHTML=items.map((x,i)=>`<article class="home-update-slide" role="group" aria-roledescription="diapositiva" aria-label="${i+1} de ${items.length}" ${i?'inert':''}>
-    <div class="home-update-copy"><p class="home-update-kicker">${escapeHtml(x.kind)}${x.date?' / '+escapeHtml(calendarDate(x.date)):''}</p><h3>${escapeHtml(x.title)}</h3><p class="home-update-summary">${escapeHtml(x.summary)}</p>${x.time?`<p class="home-update-meta">${escapeHtml(x.time)} / ${escapeHtml(x.cost)}</p>`:''}<p class="home-update-source">${escapeHtml(x.source)}</p>${x.sourceUrl?`<a class="home-update-action" href="${escapeHtml(x.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(x.label)} <span aria-hidden="true">↗</span></a>`:`<button type="button" class="home-update-action" ${x.action}="${escapeHtml(x.id)}">${escapeHtml(x.label)} <span aria-hidden="true">↗</span></button>`}${x.imageCredit?`<p class="home-update-credit">${escapeHtml(x.imageCredit)}</p>`:''}</div>
-    <div class="home-update-media">${mediaOrFallback(x.media,x.title)}</div></article>`).join('');
-  const dots=document.getElementById('homeUpdatesDots'),count=document.getElementById('homeUpdatesCount'),pause=document.getElementById('homeUpdatesPause');
+    <div class="home-update-copy"><p class="home-update-kicker">${escapeHtml(x.kind)}${x.date?' / '+escapeHtml(calendarDate(x.date)):''}</p><h3>${escapeHtml(x.title)}</h3>${x.imageCredit?`<p class="home-update-credit">${escapeHtml(x.imageCredit)}</p>`:''}</div>
+    <div class="home-update-media">${mediaOrFallback(x.media,x.title)}</div>
+    ${x.sourceUrl?`<a class="home-update-link" href="${escapeHtml(x.sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Leer noticia: ${escapeHtml(x.title)}"></a>`:`<button class="home-update-link" type="button" ${x.action}="${escapeHtml(x.id)}" aria-label="Ver ${escapeHtml(x.title)}"></button>`}</article>`).join('');
+  const dots=document.getElementById('homeUpdatesDots');
   dots.innerHTML=items.map((x,i)=>`<button type="button" data-update-index="${i}" aria-label="Mostrar ${escapeHtml(x.title)}" aria-pressed="${i===0}"></button>`).join('');
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
   let index=0,paused=reduced.matches,hovered=false,focused=false,visible=false;
   const paint=()=>{
     track.querySelectorAll('.home-update-slide').forEach((s,i)=>{s.inert=i!==index;});
     dots.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
-    count.textContent=`${index+1} / ${items.length}`;
-    pause.textContent=paused?'Reproducir':'Pausar';
-    pause.setAttribute('aria-label',paused?'Reproducir carrusel':'Pausar carrusel');
   };
   const go=(next,manual=false)=>{
     if(manual)paused=true;
@@ -187,7 +185,6 @@ function renderHomeUpdates(home) {
   };
   document.getElementById('homeUpdatesPrev').onclick=()=>go(index-1,true);
   document.getElementById('homeUpdatesNext').onclick=()=>go(index+1,true);
-  pause.onclick=()=>{paused=!paused;paint();};
   dots.onclick=e=>{const b=e.target.closest('[data-update-index]');if(b)go(Number(b.dataset.updateIndex),true);};
   track.onscroll=()=>{const next=Math.round(track.scrollLeft/track.clientWidth);if(next!==index){index=next;paint();}};
   track.onkeydown=e=>{if(e.target!==track)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(index+(e.key==='ArrowRight'?1:-1),true);}};
