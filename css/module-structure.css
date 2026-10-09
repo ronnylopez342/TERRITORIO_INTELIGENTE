@@ -8,6 +8,7 @@
 .ti-stage-one .ti-home-link{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--module-text);text-decoration:none;border-bottom:1px solid #f4e600;padding-bottom:8px}
 .ti-stage-one .ti-module-layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:52px;padding:52px clamp(24px,5vw,80px)}
 .ti-stage-one .module-subnav,.ti-stage-one #dataSubnav{display:flex!important;flex-direction:column;position:static!important;overflow:visible!important;background:transparent!important;border:0!important;gap:0}
+.ti-stage-one #dataSubnav{visibility:visible!important;width:auto!important;height:auto!important}
 .ti-stage-one .module-subnav button{display:flex!important;align-items:flex-start;text-align:left;gap:14px;width:100%;padding:17px 14px!important;border:0!important;border-top:1px solid var(--module-line)!important;white-space:normal!important;background:transparent!important;color:var(--module-text)!important;font-size:14px!important;line-height:1.5;font-weight:500!important;letter-spacing:0!important;text-transform:none!important}
 .ti-stage-one .module-subnav button small{color:var(--module-muted);font-size:11px;flex-shrink:0;padding-top:3px}
 .ti-stage-one .module-subnav button.active,.ti-stage-one .module-subnav button[aria-selected=true]{background:#f4e600!important;color:#17212c!important}
