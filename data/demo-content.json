@@ -430,6 +430,62 @@
         "imageCredit": "Fotografía publicada por El Dorado Radio · Gobernación de Cundinamarca",
         "verifiedOn": "2026-10-08"
       }
+    ],
+    "externalUpdates": [
+      {
+        "source": "El Dorado Radio · Gobernación de Cundinamarca",
+        "imageCredit": "Fotografía publicada por El Dorado Radio · Gobernación de Cundinamarca",
+        "verifiedOn": "2026-10-09",
+        "id": "ext-tabio",
+        "title": "Gobernación e ICCU rehabilitan la vía entre Tabio y Subachoque",
+        "date": "2026-05-21",
+        "category": "Gobernación de Cundinamarca · ICCU",
+        "summary": "El departamento reportó la recuperación de cerca de cinco kilómetros del corredor, con una inversión superior a $5.200 millones para mejorar la conectividad rural, productiva y turística.",
+        "sourceUrl": "https://eldoradoradio.cundinamarca.gov.co/noticias/gobernacion-de-cundinamarca-rehabilita-via-entre-tabio-y-subachoque/",
+        "media": "https://eldoradoradio.cundinamarca.gov.co/wp-content/uploads/2026/05/via-tabio-1024x683.webp"
+      },
+      {
+        "source": "El Dorado Radio · Gobernación de Cundinamarca",
+        "imageCredit": "Fotografía publicada por El Dorado Radio · Gobernación de Cundinamarca",
+        "verifiedOn": "2026-10-09",
+        "id": "ext-seguridad",
+        "title": "Gobernación lleva a Subachoque una jornada de seguridad vial",
+        "date": "2026-08-21",
+        "category": "Gobernación de Cundinamarca · Seguridad vial",
+        "summary": "Una jornada liderada por la Gobernación, en articulación con autoridades locales, combinó pedagogía, controles y la entrega de más de 500 chalecos reflectivos mediante la estrategia Si Te Ven, Te Cuidas.",
+        "sourceUrl": "https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-acciones-de-seguridad-vial-tras-dos-muertes-en-las-vias/",
+        "media": "https://eldoradoradio.cundinamarca.gov.co/wp-content/uploads/2026/08/SUBACHOQUE-10-1.webp"
+      },
+      {
+        "id": "ext-corredor",
+        "title": "ICCU acompaña el avance del corredor Subachoque–La Cuesta–Puente de Piedra",
+        "date": "2026-07-15",
+        "category": "ICCU · Infraestructura vial",
+        "slug": "corredor-subachoque-la-cuesta-puente-de-piedra-alcanza-80-de-ejecucion",
+        "photo": "2026/07/SUBACHOQUE-1-1.webp",
+        "summary": "La visita de seguimiento contó con el ICCU, la Alcaldía, la interventoría y la comunidad. El balance publicado el 15 de julio reportó un 80 % de ejecución de la primera fase.",
+        "source": "El Dorado Radio · Gobernación de Cundinamarca",
+        "dependency": "Movilidad",
+        "sourceUrl": "https://eldoradoradio.cundinamarca.gov.co/noticias/corredor-subachoque-la-cuesta-puente-de-piedra-alcanza-80-de-ejecucion/",
+        "media": "https://eldoradoradio.cundinamarca.gov.co/wp-content/uploads/2026/07/SUBACHOQUE-1-1.webp",
+        "imageCredit": "Fotografía publicada por El Dorado Radio · Gobernación de Cundinamarca",
+        "verifiedOn": "2026-10-09"
+      },
+      {
+        "id": "ext-salud",
+        "title": "Gobernación y Salud departamental respaldan la Central de Urgencias de Subachoque",
+        "date": "2026-05-27",
+        "category": "Gobernación · Secretaría de Salud · Hospital San Rafael",
+        "slug": "central-de-urgencias-de-subachoque-entra-en-etapa-final-de-obra",
+        "photo": "2026/05/SUBACHOQUE-5.webp",
+        "summary": "La nueva Central de Urgencias cuenta con respaldo de la Gobernación, la Secretaría de Salud departamental y el Hospital San Rafael de Facatativá. La publicación del 27 de mayo reportó un 98 % de ejecución.",
+        "source": "El Dorado Radio · Gobernación de Cundinamarca",
+        "dependency": "Salud",
+        "sourceUrl": "https://eldoradoradio.cundinamarca.gov.co/noticias/central-de-urgencias-de-subachoque-entra-en-etapa-final-de-obra/",
+        "media": "https://eldoradoradio.cundinamarca.gov.co/wp-content/uploads/2026/05/SUBACHOQUE-5.webp",
+        "imageCredit": "Fotografía publicada por El Dorado Radio · Gobernación de Cundinamarca",
+        "verifiedOn": "2026-10-09"
+      }
     ]
   },
   "data": {
