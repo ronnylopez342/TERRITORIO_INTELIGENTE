@@ -27,7 +27,7 @@ parsed.feed(html)
 assert all(n == 1 for n in Counter(parsed.ids).values()), 'Duplicate functional IDs'
 assert sorted(parsed.tabs) == sorted(parsed.panels), 'Tabs and panels differ'
 assert set(parsed.destinations) <= set(parsed.panels), 'Menu destination without panel'
-for prefix, count in [('data-', 6), ('desarrollo-', 11), ('cumplimiento-', 10)]:
+for prefix, count in [('data-', 9), ('desarrollo-', 11), ('cumplimiento-', 10)]:
     assert sum(x.startswith(prefix) for x in parsed.panels) == count
 assert html.count('<details>') == 77, 'Seven projects must each have eleven components'
 home = re.search(r'<section class="app-view active" data-view="home">.*?(?=<section class="app-view view-shell" data-view="data">)', html, re.S).group()
