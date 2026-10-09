@@ -59,7 +59,8 @@ function initDialog() {
   if(!dialog)return;
   dialog.addEventListener('click', e=>{ if(e.target===dialog) dialog.close(); });
   dialog.addEventListener('close',()=>{
-    if(lastDialogTrigger?.isConnected) requestAnimationFrame(()=>lastDialogTrigger.focus());
+    const trigger=lastDialogTrigger;
+    if(trigger?.isConnected) requestAnimationFrame(()=>{ if(!dialog.open && trigger.isConnected) trigger.focus(); });
     lastDialogTrigger=null;
   });
 }
