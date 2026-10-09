@@ -1349,3 +1349,27 @@ body:has(.app-view[data-view="home"].active) #siteHeader:not(.scrolled){
   width:0!important;
   height:0!important;
 }
+
+/* DATA TERRITORIO / SOLO SEIS CATEGORIAS — 2026-10-09 */
+#siteHeader .ti-nav-dropdown-item{flex-direction:column;gap:4px;line-height:1.32}
+#siteHeader .ti-nav-dropdown-item span{display:block;font-size:inherit;line-height:inherit}
+#siteHeader .ti-nav-dropdown-item small{
+  display:block;font-size:11px;font-weight:500;
+  letter-spacing:.015em;line-height:1.35;text-transform:none;
+  color:rgba(255,255,255,.66);
+}
+#siteHeader .ti-nav-dropdown-item:hover small,
+#siteHeader .ti-nav-dropdown-item:focus-visible small{color:#fff}
+#data-municipales .ti-data-scope-note{
+  max-width:940px;margin:0 0 30px;
+  color:#59636a;font-size:17px;line-height:1.65;
+}
+@media(max-width:1399px){
+  .mobile-nav .ti-mobile-data-submenu .ti-mobile-data-label{
+    flex:1;opacity:1;font-size:clamp(14px,1.8vw,18px);line-height:1.3;
+  }
+  .mobile-nav .ti-mobile-data-submenu .ti-mobile-data-label small{
+    display:block;font-size:12px;line-height:1.45;
+    color:rgba(255,255,255,.67);margin-top:5px;
+  }
+}
