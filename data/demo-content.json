@@ -341,6 +341,21 @@
     ],
     "featuredUpdates": [
       {
+        "id": "m3",
+        "title": "El barrio El Bosque moderniza su alcantarillado sanitario",
+        "date": "2026-05-22",
+        "category": "Servicios públicos",
+        "slug": "subachoque-moderniza-alcantarillado-sanitario-en-barrio-el-bosque",
+        "photo": "2026/05/Subachoque-3-1024x576.webp",
+        "summary": "La intervención reportada contempla 195 metros de tubería y mejora la conducción de aguas residuales hacia la planta de tratamiento del municipio.",
+        "source": "El Dorado Radio · Gobernación de Cundinamarca",
+        "dependency": "Servicios públicos",
+        "sourceUrl": "https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-moderniza-alcantarillado-sanitario-en-barrio-el-bosque/",
+        "media": "https://eldoradoradio.cundinamarca.gov.co/wp-content/uploads/2026/05/Subachoque-3-1024x576.webp",
+        "imageCredit": "Fotografía publicada por El Dorado Radio · Gobernación de Cundinamarca",
+        "verifiedOn": "2026-10-08"
+      },
+      {
         "id": "n1",
         "title": "La Central de Urgencias de Subachoque entra en su etapa final",
         "date": "2026-05-27",
@@ -412,21 +427,6 @@
         "dependency": "Ambiente y gestión del riesgo",
         "sourceUrl": "https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-activa-sistema-de-monitoreo-ante-riesgos-asociados-al-fenomeno-de-el-nino/",
         "media": "https://eldoradoradio.cundinamarca.gov.co/wp-content/uploads/2026/09/SUBACHOQUE-11.webp",
-        "imageCredit": "Fotografía publicada por El Dorado Radio · Gobernación de Cundinamarca",
-        "verifiedOn": "2026-10-08"
-      },
-      {
-        "id": "m3",
-        "title": "El barrio El Bosque moderniza su alcantarillado sanitario",
-        "date": "2026-05-22",
-        "category": "Servicios públicos",
-        "slug": "subachoque-moderniza-alcantarillado-sanitario-en-barrio-el-bosque",
-        "photo": "2026/05/Subachoque-3-1024x576.webp",
-        "summary": "La intervención reportada contempla 195 metros de tubería y mejora la conducción de aguas residuales hacia la planta de tratamiento del municipio.",
-        "source": "El Dorado Radio · Gobernación de Cundinamarca",
-        "dependency": "Servicios públicos",
-        "sourceUrl": "https://eldoradoradio.cundinamarca.gov.co/noticias/subachoque-moderniza-alcantarillado-sanitario-en-barrio-el-bosque/",
-        "media": "https://eldoradoradio.cundinamarca.gov.co/wp-content/uploads/2026/05/Subachoque-3-1024x576.webp",
         "imageCredit": "Fotografía publicada por El Dorado Radio · Gobernación de Cundinamarca",
         "verifiedOn": "2026-10-08"
       }
