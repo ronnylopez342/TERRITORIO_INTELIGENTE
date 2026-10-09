@@ -130,14 +130,24 @@
 <button class="identity-action identity-card identity-territorio" data-identity="territorio" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 19 6-10 4 6 3-5 6 9Z"/><circle cx="18" cy="5" r="2"/></svg><small>04</small></span><span class="identity-card-copy"><strong>Nuestro territorio</strong><em>Paisajes, memoria y comunidad.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button>
 <button class="identity-action identity-card identity-galeria" data-identity="galeria" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="2"/><path d="m3 17 6-5 4 3 4-5 4 7"/></svg><small>05</small></span><span class="identity-card-copy"><strong>Galería</strong><em>Una mirada a Subachoque.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button></nav>
 </div></div></section></section>
-<section class="app-view view-shell" data-view="data">
-<div class="view-hero product-hero" data-product-number="01"><div class="inner"><div class="view-kicker">Producto 01</div><h1 class="view-title" tabindex="-1">Data<br/>Territorio</h1><p class="view-lead">Sistema integral para reunir, organizar, validar y convertir información territorial en insumo para decisiones públicas basadas en evidencia.</p></div></div>
-<div class="view-body functional-shell">
+<section class="app-view view-shell ti-data-landing" data-view="data">
+<div class="view-body functional-shell ti-data-functional">
 <div class="inner">
-<div class="module-heading-row"><div><p class="eyebrow">Data Territorio</p><h2 class="big-heading">De la fuente al análisis territorial.</h2></div><div aria-live="polite" class="module-status" id="dataGlobalStatus"></div></div>
-<nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist" hidden>
-<button aria-controls="data-conoce" aria-selected="true" class="module-tab active" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce</button>
-<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.2 ¿Qué se sabe de Subachoque?</button>
+<header class="ti-data-chrome" aria-label="Explorar Data Territorio">
+<button type="button" class="ti-data-menu-button" id="dataChapterToggle" aria-controls="dataSubnav" aria-expanded="false" aria-label="Abrir secciones de Data Territorio">
+<svg aria-hidden="true" viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+<span>EXPLORAR</span>
+</button>
+<div class="ti-data-chrome-title">
+<p>01 / DATA TERRITORIO</p>
+<h1 tabindex="-1">SUBACHOQUE <span>EN DATOS.</span></h1>
+</div>
+<div class="ti-data-chrome-current" aria-live="polite"><span>SECCIÓN ACTUAL</span><strong id="tiDataActiveLabel">2.2 ¿Qué se sabe de Subachoque?</strong></div>
+</header>
+<div aria-live="polite" class="ti-data-status-sr" id="dataGlobalStatus"></div>
+<nav aria-label="Secciones de Data Territorio" class="module-subnav ti-data-chapter-menu" id="dataSubnav" role="tablist" hidden>
+<button aria-controls="data-conoce" aria-selected="false" class="module-tab" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce</button>
+<button aria-controls="data-fuentes" aria-selected="true" class="module-tab active" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.2 ¿Qué se sabe de Subachoque?</button>
 <button aria-controls="data-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-estadistico" id="tab-data-estadistico" role="tab" tabindex="-1" type="button">Plan Estadístico</button>
 <button aria-controls="data-consulta" aria-selected="false" class="module-tab" data-module-panel="data-consulta" id="tab-data-consulta" role="tab" tabindex="-1" type="button">Fuentes y datos</button>
 <button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.3 Memoria de la Alcaldía</button>
@@ -146,14 +156,14 @@
 <button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.6 Publicaciones</button>
 <button aria-controls="data-glosario" aria-selected="false" class="module-tab" data-module-panel="data-glosario" id="tab-data-glosario" role="tab" tabindex="-1" type="button">Glosario</button>
 </nav>
-<section aria-labelledby="tab-data-conoce" class="module-panel active" data-panel-group="data" id="data-conoce" role="tabpanel">
+<section aria-labelledby="tab-data-conoce" class="module-panel" data-panel-group="data" hidden id="data-conoce" role="tabpanel">
 <div class="functional-grid two-col">
 <div><p class="eyebrow">¿Qué es Data Territorio?</p><div class="prose-block" id="dataDefinition"></div><div class="principles-list" id="dataPrinciples"></div></div>
 <div><p class="eyebrow">Importancia de la estadística</p><div aria-label="Gráfico interactivo sobre la importancia de la estadística" class="stat-wheel" id="statisticsWheel"></div><div class="info-note" id="statisticsNote" role="status"></div></div>
 </div>
 <section class="ti-data-source-intro" aria-labelledby="sourceIntroTitle"><p class="eyebrow">Origen de la información</p><h3 id="sourceIntroTitle">Catálogo de fuentes declaradas</h3><p>Enlaces institucionales de consulta, con periodicidad por comprobar. La presencia de una entidad no significa que ya se haya integrado su información.</p><div id="sourceIntroCatalog" class="ti-data-source-grid"></div></section>
 </section>
-<section aria-labelledby="tab-data-fuentes" class="module-panel ti-data-visual-only" data-panel-group="data" hidden id="data-fuentes" role="tabpanel">
+<section aria-labelledby="tab-data-fuentes" class="module-panel ti-data-visual-only active" data-panel-group="data" id="data-fuentes" role="tabpanel">
 <div class="sources-reference-shell ti-immersive-viewer"><iframe
     class="sources-reference-frame"
     src="assets/interactive/data-fuentes-visual.html"
