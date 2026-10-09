@@ -25,3 +25,9 @@ jobs:
           node-version: '24'
       - name: Verify data parsing
         run: node scripts/test_data_core.cjs
+      - name: Validate interactive Data scripts
+        run: |
+          node --check js/app.js
+          node --check js/module-structure.js
+          node --check js/data-viewer-chrome.js
+          node --check js/plan-estadistico.js
