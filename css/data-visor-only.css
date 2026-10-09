@@ -5,4 +5,6 @@
 .app-view[data-view="data"]:has(#data-fuentes:not([hidden]))>.view-body>.inner{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
 #data-fuentes{padding:0!important;margin:0!important;border:0!important}
 #data-fuentes .sources-reference-shell{margin:0!important;width:100%!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden!important}
-#data-fuentes .sources-reference-frame{height:calc(100dvh - var(--v25-header-h,120px))!important;min-height:420px!important;width:100%!important;display:block!important;border:0!important}
+#data-fuentes .sources-reference-frame{height:calc(100dvh - var(--v25-header-h,120px))!important;min-height:0!important;width:100%!important;display:block!important;border:0!important}
+body:has(.app-view.active[data-view="data"] #data-fuentes:not([hidden])){overflow:hidden}
+body:has(.app-view.active[data-view="data"] #data-fuentes:not([hidden]))>footer{display:none!important}
