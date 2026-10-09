@@ -64,7 +64,7 @@ const TIStat = (() => {
       const raw=Object.fromEntries(new FormData(form).entries());
       if(raw.denominador!==''&&Number(raw.denominador)===0){status('El denominador no puede ser cero.');return;}
       if(raw.actualizado&&day(raw.actualizado)>new Date()){status('La fecha de actualización no puede estar en el futuro.');return;}
-      if(raw.numerador===''!== (raw.denominador==='')){status('Para calcular se requieren numerador y denominador.');return;}
+      if((raw.numerador==='') !== (raw.denominador==='')){status('Para calcular se requieren numerador y denominador.');return;}
       const row={...raw,id:raw.id||crypto.randomUUID(),modified:new Date().toISOString()};
       const next=raw.id?indicators.map(x=>x.id===raw.id?row:x):[...indicators,row];
       try {await TIData.write('stat:indicators',next);indicators=next;form.reset();form.elements.namedItem('id').value='';draw();status('Indicador registrado localmente. No se ha publicado ni certificado.');}
@@ -78,4 +78,4 @@ const TIStat = (() => {
   }
   return {init};
 })();
-window.addEventListener('load',()=>{if(window.TI_STATE?.baseData){TIStat.init();}else{let attempts=0;const loop=()=>{if(window.TI_STATE?.baseData)TIStat.init();else if(++attempts<15)setTimeout(loop,100)};loop();}});
+window.addEventListener('load',()=>{let attempts=0;const loop=()=>{if(typeof TI_STATE !== 'undefined' && TI_STATE.baseData)TIStat.init();else if(++attempts<80)setTimeout(loop,150)};loop();});
