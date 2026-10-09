@@ -4,6 +4,16 @@ const HERO_REMOTE_VIDEO = 'https://qnkjlfqulijqpjecfdpr.supabase.co/storage/v1/o
 const HERO_LOCAL_VIDEO = 'assets/video/asi-cumplimos-v1.mp4';
 
 const ROUTES = {
+  equipo: { title: 'Nuestro equipo — Territorio Inteligente' },
+  'perfil-jorge-alberto-camacho-lizarazo': { title: 'Jorge Alberto Camacho Lizarazo — Territorio Inteligente' },
+  'perfil-luis-fernando-rey-tovar': { title: 'Luis Fernando Rey Tovar — Territorio Inteligente' },
+  'perfil-marcos-giovanni-garzon-delgado': { title: 'Marcos Giovanni Garzón Delgado — Territorio Inteligente' },
+  'perfil-liliana-carolina-garnica-lozano': { title: 'Liliana Carolina Garnica Lozano — Territorio Inteligente' },
+  'perfil-fernando-nunez-cocunubo': { title: 'Fernando Núñez Cocunubo — Territorio Inteligente' },
+  'perfil-nicolas-cortes-vasquez': { title: 'Nicolás Cortés Vásquez — Territorio Inteligente' },
+  'perfil-maria-del-pilar-hurtado-uriarte': { title: 'María del Pilar Hurtado Uriarte — Territorio Inteligente' },
+  'perfil-ana-lizeth-martinez-villalba': { title: 'Ana Lizeth Martínez Villalba — Territorio Inteligente' },
+
   home: { title: 'Territorio Inteligente' },
   data: { title: 'Data Territorio — Territorio Inteligente' },
   desarrollo: { title: 'Plan de Desarrollo — Territorio Inteligente' },
@@ -256,3 +266,24 @@ initImageFallbacks();
 initLoginPrototype();
 configureHeroMedia();
 initReveals();
+
+// Team directory filters stay inside the shared application router.
+function filterTeamDirectory() {
+ const query = (document.getElementById('teamSearch')?.value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+ const area = document.getElementById('teamArea')?.value || '';
+ let count = 0;
+ document.querySelectorAll('.ti-team-grid .home-team-card').forEach(card => {
+  const text = card.textContent.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const matches = (!query || text.includes(query)) && (!area || card.dataset.area === area);
+  card.hidden = !matches;
+  if (matches) count++;
+ });
+ document.getElementById('teamEmpty').hidden = count > 0;
+}
+document.getElementById('teamSearch')?.addEventListener('input', filterTeamDirectory);
+document.getElementById('teamArea')?.addEventListener('change', filterTeamDirectory);
+document.getElementById('teamReset')?.addEventListener('click', () => {
+ document.getElementById('teamSearch').value = '';
+ document.getElementById('teamArea').value = '';
+ filterTeamDirectory();
+});
