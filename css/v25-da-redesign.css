@@ -901,3 +901,40 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
 .home-team-controls button:hover{color:var(--v25-yellow);border-color:var(--v25-yellow)}
 @media(max-width:720px){.home-team{padding:40px 0}.home-team-head{margin:0 24px 28px;flex-direction:column;gap:24px;padding-bottom:28px}.home-team-head h2{font-size:32px}.home-team-head p{font-size:13px}.home-team-all{padding:15px 18px;font-size:10px}.home-team-track{padding-left:24px;padding-right:24px;scroll-padding-left:24px}.home-team-card{flex-basis:82vw;height:360px}.home-team-controls{margin-right:24px}.home-team-caption h3{font-size:26px}}
 @media(prefers-reduced-motion:reduce){.home-team-card img{transition:none}}
+
+/* Internal team directory and profile pages, using the shared editorial identity. */
+.ti-team-hero{background:#f2f0e8;color:#171f26;padding:180px 40px 80px}
+.ti-team-back{display:inline-block;color:inherit;text-decoration:none;font-size:13px;margin-bottom:48px}
+.ti-team-back:hover{text-decoration:underline}
+.ti-team-hero .eyebrow{color:#171f26}
+.ti-team-hero h1{font-size:clamp(48px,6.7vw,96px);font-weight:400;letter-spacing:-.05em;line-height:1.03;max-width:1100px;margin:18px 0 36px}
+.ti-team-lead{font-size:20px;line-height:1.6;max-width:720px}
+.ti-team-directory{background:#171f26;color:#fff;padding:64px 40px 88px}
+.ti-team-directory-head{border-bottom:1px solid #ffffff40;padding-bottom:32px;margin-bottom:32px}
+.ti-team-directory-head h2{font-size:40px;font-weight:400;letter-spacing:-.03em;margin:0 0 16px}
+.ti-team-filters{display:flex;gap:24px;align-items:flex-end;margin-bottom:40px}
+.ti-team-filters label{display:grid;gap:10px;flex:1;font-size:12px}
+.ti-team-filters input,.ti-team-filters select{width:100%;min-width:0;border:1px solid #ffffff70;border-radius:0;background:#171f26;color:#fff;padding:16px;font:inherit;font-size:15px}
+.ti-team-filters button{background:transparent;color:#fff;border:1px solid #ffffff70;padding:16px 24px;font:inherit;font-size:13px;cursor:pointer}
+.ti-team-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 16px}
+.ti-team-grid .home-team-card{width:100%;height:400px;min-width:0}
+.ti-team-grid .home-team-card[hidden]{display:none}
+.ti-team-grid .home-team-caption h3{font-size:25px}
+.home-team-caption small{display:block;font-size:11px;color:#c5c9cc;margin-top:6px}
+.ti-team-profile{background:#171f26;color:#fff}
+.ti-profile-inner{padding:180px 40px 88px}
+.ti-profile-layout{display:grid;grid-template-columns:minmax(280px, .85fr) minmax(0,1.25fr);gap:72px;align-items:start}
+.ti-profile-portrait{position:relative;min-height:580px;background:#727873;border-radius:4px;overflow:hidden}
+.ti-profile-portrait img{width:100%;height:580px;object-fit:cover;filter:grayscale(1)}
+.ti-profile-portrait>p{position:absolute;bottom:24px;left:24px;font-size:13px}
+.ti-profile-copy h1{font-size:clamp(40px,4.3vw,64px);line-height:1.06;font-weight:400;letter-spacing:-.04em;margin:16px 0 24px}
+.ti-profile-role{color:var(--v25-yellow);font-size:19px;margin-bottom:48px}
+.ti-profile-copy h2{font-size:24px;font-weight:400;margin:0 0 24px}
+.ti-profile-copy>p:not(.eyebrow):not(.ti-profile-role){font-size:16px;line-height:1.8}
+.ti-profile-copy .ti-profile-source{font-size:12px!important;color:#bfc6cd;margin-top:32px}
+.ti-profile-copy .home-team-all{margin-top:24px}
+footer a.route-link{display:block;color:inherit;text-decoration:none;font-size:13px;margin-bottom:12px}
+footer a.route-link:hover{color:var(--v25-yellow)}
+@media(max-width:1050px){.ti-team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ti-profile-layout{gap:40px}}
+@media(max-width:720px){.ti-team-hero{padding:150px 24px 48px}.ti-team-hero h1{font-size:48px}.ti-team-lead{font-size:17px}.ti-team-directory{padding:40px 24px 56px}.ti-team-directory-head h2{font-size:32px}.ti-team-filters{flex-direction:column;align-items:stretch;gap:16px}.ti-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ti-team-grid .home-team-card{height:320px}.ti-team-grid .home-team-caption{left:16px;right:16px;bottom:20px}.ti-team-grid .home-team-caption h3{font-size:20px}.ti-team-grid .home-team-initials{font-size:88px;left:16px}.ti-profile-inner{padding:150px 24px 56px}.ti-profile-layout{grid-template-columns:1fr;gap:36px}.ti-profile-portrait{min-height:380px}.ti-profile-portrait img{height:420px}.ti-profile-copy h1{font-size:42px}}
+@media(max-width:420px){.ti-team-grid{grid-template-columns:1fr}.ti-team-grid .home-team-card{height:380px}}
