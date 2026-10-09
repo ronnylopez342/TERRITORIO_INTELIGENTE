@@ -832,10 +832,10 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
 .home-update-action:hover{color:var(--v25-yellow);border-color:var(--v25-yellow)}
 .home-updates-controls{position:absolute;inset:0;pointer-events:none}
 .home-updates-controls button{pointer-events:auto;cursor:pointer}
-#homeUpdatesPrev,#homeUpdatesNext{position:absolute;top:24px;width:46px;height:46px;border:1px solid #fff;border-radius:4px;background:#1c252e;color:#fff;font-size:28px;line-height:1}
-#homeUpdatesPrev{right:82px}
-#homeUpdatesNext{right:24px}
-#homeUpdatesPrev:hover,#homeUpdatesNext:hover{color:var(--v25-yellow);border-color:var(--v25-yellow)}
+.home-updates-prev,.home-updates-next{position:absolute;top:24px;width:46px;height:46px;border:1px solid #fff;border-radius:4px;background:#1c252e;color:#fff;font-size:28px;line-height:1}
+.home-updates-prev{right:82px}
+.home-updates-next{right:24px}
+.home-updates-prev:hover,.home-updates-next:hover{color:var(--v25-yellow);border-color:var(--v25-yellow)}
 .home-updates-dots{position:absolute;bottom:25px;left:40px;right:180px;display:flex;gap:10px}
 .home-updates-dots button{flex:1;min-width:0;height:26px;border:0;background:transparent;padding:0;display:flex;align-items:center}
 .home-updates-dots button::after{content:"";display:block;width:100%;height:3px;background:rgba(255,255,255,.7)}
@@ -854,9 +854,9 @@ body:has(.app-view[data-view="home"].active) .site-header:not(.scrolled) .nav{
  .home-updates-dots{left:24px;right:24px;bottom:54px;gap:6px}
  #homeUpdatesPause{bottom:18px;right:74px}
  #homeUpdatesCount{bottom:23px;right:24px}
- #homeUpdatesPrev,#homeUpdatesNext{top:18px;width:42px;height:42px}
- #homeUpdatesNext{right:18px}
- #homeUpdatesPrev{right:70px}
+ .home-updates-prev,.home-updates-next{top:18px;width:42px;height:42px}
+ .home-updates-next{right:18px}
+ .home-updates-prev{right:70px}
 }
 
 /* Source attribution for real news photographs. */
