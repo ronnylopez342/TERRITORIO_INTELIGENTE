@@ -106,8 +106,10 @@ function selectDataPanel(panelId) {
   /* La barra secundaria ya no es visible: dirigir la vista al contenido real. */
   requestAnimationFrame(() => {
     const headerHeight = header?.getBoundingClientRect().height || 98;
-    const panelTop = window.scrollY + panel.getBoundingClientRect().top;
-    window.scrollTo({ top: Math.max(0, panelTop - headerHeight - 18), behavior: 'instant' });
+    const view = document.querySelector('.app-view[data-view="data"]');
+    const viewTop = window.scrollY + (view?.getBoundingClientRect().top ?? 0);
+    // Keep the compact Data header and section menu accessible after switching panels.
+    window.scrollTo({ top: Math.max(0, viewTop - headerHeight), behavior: 'instant' });
     panel.setAttribute('tabindex', '-1');
     panel.focus({ preventScroll: true });
   });
