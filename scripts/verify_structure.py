@@ -44,4 +44,15 @@ for key in ['dane', 'externas', 'municipales', 'encuesta']:
     assert f'data-dataset-workspace="{key}"' in data
 for id in ['statDocumentUpload', 'publicationUpload', 'geoPointUpload', 'dataDefinition', 'statisticsWheel']:
     assert f'id="{id}"' in data
+
+# Data delivery 02: the first fold must show the actual 2.2 viewer, not a giant cover.
+assert 'ti-data-landing' in data and 'ti-data-chrome' in data, 'Compact Data chrome absent'
+assert 'view-hero product-hero' not in data, 'Legacy oversized Data hero still present'
+assert 'id="dataChapterToggle"' in data, 'Data sections hamburger absent'
+assert 'id="data-fuentes"' in data and 'ti-data-visual-only active' in data, 'Interactive viewer not the default panel'
+assert 'data-delivery-02.css' in html and 'data-viewer-chrome.js' in html, '2.2 responsive chapter enhancement missing'
+assert 'id="data-estadistico"' in data and 'id="data-glosario"' in data and 'id="data-consulta"' in data
+assert data.count('sources-reference-frame') == 1, 'Duplicated embedded territorial viewer'
+print('Data E2: compact first fold, direct interactive viewer, chapter menu and separate tools.')
+
 print('Original Data visual viewer, cascade and existing tools restored.')
