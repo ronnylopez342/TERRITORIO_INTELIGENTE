@@ -160,7 +160,8 @@ function renderHomeUpdatesCarousel(home,root) {
   if(!root||!track)return;
   root._updatesCleanup?.();
   const serviceMedia=['servicio','comunidad','alcaldia','participacion'];
-  const items=home.featuredUpdates?.length ? home.featuredUpdates.map(n=>({...n,kind:n.category,label:'Leer publicación oficial'})) : [
+  const featuredUpdates=root.dataset.updatesFeed==='external' ? home.externalUpdates : home.featuredUpdates;
+  const items=featuredUpdates?.length ? featuredUpdates.map(n=>({...n,kind:n.category,label:'Leer publicación oficial'})) : [
     ...(home.nationalNews||[]).map(n=>({...n,kind:'Noticia nacional / departamental',action:'data-news-detail',label:'Ver noticia',source:n.source})),
     ...(home.municipalNews||[]).map(n=>({...n,kind:'Actualidad municipal',action:'data-municipal-detail',label:'Ver noticia',source:n.dependency})),
     ...(home.services||[]).map((s,i)=>({...s,kind:'Oferta institucional',action:'data-service-detail',label:'Consultar servicio',source:s.dependency,summary:s.requirements.join(' · '),media:'assets/img/editorial/'+serviceMedia[i%serviceMedia.length]+'.jpg'}))
