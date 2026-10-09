@@ -102,15 +102,13 @@ function selectDataPanel(panelId) {
   document.querySelectorAll('[data-data-destination]').forEach(el => {
     el.classList.toggle('is-selected', el.dataset.dataDestination === panelId);
   });
-  const nav = document.getElementById('dataSubnav');
+  /* La barra secundaria ya no es visible: dirigir la vista al contenido real. */
   requestAnimationFrame(() => {
-    if (nav) {
-      const stickyHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--v25-header-h')) || 98;
-      const y = window.scrollY + nav.getBoundingClientRect().top - stickyHeight - 6;
-      window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
-      nav.scrollLeft = Math.max(0, tab.offsetLeft - nav.offsetLeft - (nav.clientWidth - tab.clientWidth) / 2);
-    }
-    tab.focus({ preventScroll: true });
+    const headerHeight = header?.getBoundingClientRect().height || 98;
+    const panelTop = window.scrollY + panel.getBoundingClientRect().top;
+    window.scrollTo({ top: Math.max(0, panelTop - headerHeight - 18), behavior: 'instant' });
+    panel.setAttribute('tabindex', '-1');
+    panel.focus({ preventScroll: true });
   });
   return true;
 }
