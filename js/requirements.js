@@ -228,16 +228,13 @@ function renderDataTerritorio() {
   document.getElementById('dataDefinition').textContent=base.definition;
   document.getElementById('dataPrinciples').innerHTML=base.principles.map((p,i)=>`<article class="principle"><strong>${i+1}. ${escapeHtml(p.title)}</strong><span>${escapeHtml(p.text)}</span></article>`).join('');
   renderStatisticsWheel(base.principles);
-  renderDataVisor();
   renderSources();
-  renderDocuments();
   buildDatasetWorkspace('dane');
   buildDatasetWorkspace('externas');
   buildDatasetWorkspace('municipales');
   buildDatasetWorkspace('encuesta');
   renderMap();
   renderPublications();
-  renderGlossary();
   const status=document.getElementById('dataGlobalStatus');
   if(status)status.innerHTML=`<span class="source-status">10 sectores · 17 veredas · población de referencia 2025: 17.999</span>`;
 }
