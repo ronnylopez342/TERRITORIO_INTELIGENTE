@@ -14,6 +14,7 @@
 <link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=data-fix-01" rel="stylesheet"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap"/>
 <link rel="stylesheet" href="css/module-structure.css?v=delivery-one-01"/>
+<link rel="stylesheet" href="css/data-delivery-02.css?v=1"/>
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -29,10 +30,13 @@
 <div class="ti-nav-dropdown-menu" id="tiDataDropdownMenu" role="menu" aria-label="Secciones de Data Territorio" hidden>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-conoce"><span>2.1 Conoce</span></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.2 ¿Qué se sabe de Subachoque?</span><small>DANE y otras fuentes externas</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-estadistico"><span>Plan Estadístico Municipal</span><small>Indicadores, documentos y fichas</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-consulta"><span>Consulta de fuentes oficiales</span><small>DANE · nacionales · departamentales</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-municipales"><span>2.3 Memoria de la Alcaldía</span><small>Archivos, históricos y dependencias</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta"><span>2.4 Encuesta</span></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-geo"><span>2.5 Georreferenciador</span></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-publicaciones"><span>2.6 Publicaciones</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-glosario"><span>Glosario territorial</span><small>Términos y fuentes oficiales</small></button>
 </div>
 </div>
 <button class="nav-link route-link" data-route="desarrollo" type="button"><span class="nav-roll"><span class="nav-roll__first">Plan de Desarrollo</span><span class="nav-roll__next" aria-hidden="true">Plan de Desarrollo</span></span></button>
@@ -56,10 +60,13 @@
 <div id="tiMobileDataMenu" class="ti-mobile-data-submenu" aria-label="Secciones de Data Territorio" hidden>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-conoce"><span class="ti-mobile-data-label">2.1 Conoce</span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.2 ¿Qué se sabe de Subachoque?<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-estadistico"><span class="ti-mobile-data-label">Plan Estadístico Municipal<small>Documentos e indicadores</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-consulta"><span class="ti-mobile-data-label">Consulta de fuentes oficiales<small>DANE, nacionales y departamentales</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-municipales"><span class="ti-mobile-data-label">2.3 Memoria de la Alcaldía<small>Archivos, históricos y dependencias</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta"><span class="ti-mobile-data-label">2.4 Encuesta</span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-geo"><span class="ti-mobile-data-label">2.5 Georreferenciador</span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-publicaciones"><span class="ti-mobile-data-label">2.6 Publicaciones</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-glosario"><span class="ti-mobile-data-label">Glosario territorial</span><span aria-hidden="true">↗</span></button>
 </div>
 </div>
 <button class="route-link" data-route="desarrollo" type="button"><small>03</small><span>Plan de Desarrollo</span><b>→</b></button>
@@ -123,56 +130,87 @@
 <button class="identity-action identity-card identity-territorio" data-identity="territorio" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 19 6-10 4 6 3-5 6 9Z"/><circle cx="18" cy="5" r="2"/></svg><small>04</small></span><span class="identity-card-copy"><strong>Nuestro territorio</strong><em>Paisajes, memoria y comunidad.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button>
 <button class="identity-action identity-card identity-galeria" data-identity="galeria" type="button"><span class="identity-card-top"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="2"/><path d="m3 17 6-5 4 3 4-5 4 7"/></svg><small>05</small></span><span class="identity-card-copy"><strong>Galería</strong><em>Una mirada a Subachoque.</em></span><span class="identity-card-arrow" aria-hidden="true">↗</span></button></nav>
 </div></div></section></section>
-<section class="app-view view-shell" data-view="data">
-<div class="view-hero product-hero" data-product-number="01"><div class="inner"><div class="view-kicker">Producto 01</div><h1 class="view-title" tabindex="-1">Data<br/>Territorio</h1><p class="view-lead">Sistema integral para reunir, organizar, validar y convertir información territorial en insumo para decisiones públicas basadas en evidencia.</p></div></div>
-<div class="view-body functional-shell">
+<section class="app-view view-shell ti-data-landing" data-view="data">
+<div class="view-body functional-shell ti-data-functional">
 <div class="inner">
-<div class="module-heading-row"><div><p class="eyebrow">Data Territorio</p><h2 class="big-heading">De la fuente al análisis territorial.</h2></div><div aria-live="polite" class="module-status" id="dataGlobalStatus"></div></div>
-<nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist" hidden>
-<button aria-controls="data-conoce" aria-selected="true" class="module-tab active" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce</button>
-<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.2 ¿Qué se sabe de Subachoque?</button>
+<header class="ti-data-chrome" aria-label="Explorar Data Territorio">
+<button type="button" class="ti-data-menu-button" id="dataChapterToggle" aria-controls="dataSubnav" aria-expanded="false" aria-label="Abrir secciones de Data Territorio">
+<svg aria-hidden="true" viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+<span>EXPLORAR</span>
+</button>
+<div class="ti-data-chrome-title">
+<p>01 / DATA TERRITORIO</p>
+<h1 tabindex="-1">SUBACHOQUE <span>EN DATOS.</span></h1>
+</div>
+<div class="ti-data-chrome-current" aria-live="polite"><span>SECCIÓN ACTUAL</span><strong id="tiDataActiveLabel">2.2 ¿Qué se sabe de Subachoque?</strong></div>
+</header>
+<div aria-live="polite" class="ti-data-status-sr" id="dataGlobalStatus"></div>
+<nav aria-label="Secciones de Data Territorio" class="module-subnav ti-data-chapter-menu" id="dataSubnav" role="tablist" hidden>
+<button aria-controls="data-conoce" aria-selected="false" class="module-tab" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce</button>
+<button aria-controls="data-fuentes" aria-selected="true" class="module-tab active" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.2 ¿Qué se sabe de Subachoque?</button>
+<button aria-controls="data-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-estadistico" id="tab-data-estadistico" role="tab" tabindex="-1" type="button">Plan Estadístico</button>
+<button aria-controls="data-consulta" aria-selected="false" class="module-tab" data-module-panel="data-consulta" id="tab-data-consulta" role="tab" tabindex="-1" type="button">Fuentes y datos</button>
 <button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.3 Memoria de la Alcaldía</button>
 <button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.4 Encuesta</button>
 <button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.5 Georreferenciador</button>
 <button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.6 Publicaciones</button>
+<button aria-controls="data-glosario" aria-selected="false" class="module-tab" data-module-panel="data-glosario" id="tab-data-glosario" role="tab" tabindex="-1" type="button">Glosario</button>
 </nav>
-<section aria-labelledby="tab-data-conoce" class="module-panel active" data-panel-group="data" id="data-conoce" role="tabpanel">
+<section aria-labelledby="tab-data-conoce" class="module-panel" data-panel-group="data" hidden id="data-conoce" role="tabpanel">
 <div class="functional-grid two-col">
 <div><p class="eyebrow">¿Qué es Data Territorio?</p><div class="prose-block" id="dataDefinition"></div><div class="principles-list" id="dataPrinciples"></div></div>
 <div><p class="eyebrow">Importancia de la estadística</p><div aria-label="Gráfico interactivo sobre la importancia de la estadística" class="stat-wheel" id="statisticsWheel"></div><div class="info-note" id="statisticsNote" role="status"></div></div>
 </div>
+<section class="ti-data-source-intro" aria-labelledby="sourceIntroTitle"><p class="eyebrow">Origen de la información</p><h3 id="sourceIntroTitle">Catálogo de fuentes declaradas</h3><p>Enlaces institucionales de consulta, con periodicidad por comprobar. La presencia de una entidad no significa que ya se haya integrado su información.</p><div id="sourceIntroCatalog" class="ti-data-source-grid"></div></section>
 </section>
-<section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
-<div class="module-toolbar">
-<div><p class="eyebrow">2.2 · ¿Qué se sabe de Subachoque?</p><h3>Datos del DANE y otras fuentes externas sobre nuestro territorio</h3></div>
-<div aria-label="Tipo de fuente" class="segmented" role="group">
-<button class="source-level active" data-source-level="dane" type="button">DANE</button>
-<button class="source-level" data-source-level="nacional" type="button">Nacional</button>
-<button class="source-level" data-source-level="departamental" type="button">Departamental</button>
-</div>
-</div>
-<div class="sources-reference-intro">
-  <div>
-    <p class="eyebrow">Visor territorial interactivo</p>
-    <h3>Fuentes externas por sector</h3>
-    <p>Explora los capítulos del territorio y abre los bloques interactivos de cada visual. Las seis visuales son referencias de diseño con zonas clicables; no se recalculan al importar una base. Las gráficas de los datos cargados se consultan debajo, separadas por indicador y fuente.</p>
-  </div>
-  <span class="status-pill demo">6 visuales de referencia · 6 por completar</span>
-</div>
-<div class="sources-reference-shell">
-  <iframe
+<section aria-labelledby="tab-data-fuentes" class="module-panel ti-data-visual-only active" data-panel-group="data" id="data-fuentes" role="tabpanel">
+<div class="sources-reference-shell ti-immersive-viewer"><iframe
     class="sources-reference-frame"
     src="assets/interactive/data-fuentes-visual.html"
     title="Visor territorial interactivo de Fuentes externas"
     loading="lazy">
-  </iframe>
+  </iframe></div>
+</section>
+<section aria-labelledby="tab-data-estadistico" class="module-panel ti-data-plan" data-panel-group="data" hidden id="data-estadistico" role="tabpanel">
+<header class="ti-stat-intro"><p class="eyebrow">Plan Estadístico Municipal</p><h3>Información que puede comprobarse.</h3><p>Reúne fichas técnicas, series e indicadores con metodología explícita. Los registros se guardan solo en este navegador: no constituyen información oficial publicada ni se comparten con otras personas.</p></header>
+<section class="ti-stat-workspace" aria-labelledby="statIndicatorHeading">
+<div class="ti-stat-section-heading"><div><p class="eyebrow">01 / Indicadores</p><h4 id="statIndicatorHeading">Registro y seguimiento</h4></div><p>Fórmula disponible: numerador ÷ denominador × factor. No se calculan automáticamente indicadores que exijan otras metodologías.</p></div>
+<form id="statIndicatorForm" class="ti-stat-form">
+<input id="statIndicatorId" name="id" type="hidden">
+<label>Nombre del indicador<input required maxlength="150" name="nombre" id="statIndicatorName" placeholder="Ej. Cobertura de acueducto"></label>
+<label>Sector<input required maxlength="90" name="sector" placeholder="Ej. Servicios públicos"></label>
+<label>Fuente declarada<input required maxlength="180" name="fuente" placeholder="Entidad y conjunto de datos"></label>
+<label>Periodicidad<select required name="periodicidad"><option value="">Seleccionar</option><option value="mensual">Mensual</option><option value="trimestral">Trimestral</option><option value="semestral">Semestral</option><option value="anual">Anual</option><option value="eventual">Sin periodicidad fija</option></select></label>
+<label>Fecha de actualización<input type="date" name="actualizado"></label>
+<label>Periodo de referencia<input maxlength="60" name="periodo" placeholder="Ej. 2025 / T1 de 2026"></label>
+<label>Numerador<input type="number" step="any" name="numerador" placeholder="Dato verificado"></label>
+<label>Denominador<input type="number" step="any" name="denominador" placeholder="Debe ser distinto de cero"></label>
+<label>Factor<input type="number" step="any" required name="factor" value="100"></label>
+<label>Unidad<input maxlength="32" required name="unidad" value="%" placeholder="% / hogares / casos"></label>
+<label class="ti-stat-form-wide">Metodología y advertencias<textarea maxlength="1200" rows="3" required name="metodologia" placeholder="Especifica definición, universo, tratamiento de faltantes y método de cálculo"></textarea></label>
+<div class="ti-stat-form-actions"><button class="action-button" type="submit" id="statSubmit">Guardar indicador</button><button class="text-button" type="reset" id="statCancel">Limpiar ficha</button></div>
+</form>
+<p id="statSaveStatus" class="ti-stat-feedback" role="status" aria-live="polite">Los registros de indicadores permanecerán únicamente en este dispositivo.</p>
+<div class="ti-stat-tools"><label>Buscar indicadores<input type="search" id="statIndicatorSearch" placeholder="Nombre, sector o fuente"></label><button type="button" class="text-button" id="statExportIndicators">Exportar reporte CSV</button></div>
+<div class="ti-stat-indicator-list" id="statIndicatorList"></div>
+</section>
+<section class="ti-local-repository ti-stat-library" aria-labelledby="statDocumentsTitle">
+<div class="ti-stat-section-heading"><div><p class="eyebrow">02 / Documentos</p><h4 id="statDocumentsTitle">Repositorio técnico</h4></div><p>PDF, Excel, fichas y archivos originales. No se incluyen documentos supuestamente oficiales sin archivo verificable.</p></div>
+<div class="ti-stat-document-meta">
+<label>Resumen del archivo<input id="statDocumentSummary" type="text" maxlength="240" placeholder="Breve descripción de su contenido"></label>
+<label>Fuente o dependencia<input id="statDocumentSource" type="text" maxlength="180" placeholder="Entidad de procedencia"></label>
+<label>Clasificación<select id="statDocumentKind"><option value="Documento estadístico">Documento estadístico</option><option value="Ficha técnica">Ficha técnica</option><option value="Base de indicadores">Base de indicadores</option><option value="Metodología">Metodología</option></select></label>
+<label>Periodicidad<select id="statDocumentFrequency"><option value="">No documentada</option><option value="mensual">Mensual</option><option value="trimestral">Trimestral</option><option value="semestral">Semestral</option><option value="anual">Anual</option><option value="eventual">Eventual</option></select></label>
+<label>Fecha de actualización<input id="statDocumentUpdated" type="date"></label>
+<label class="ti-stat-document-upload">Archivo original<span class="action-button">Agregar documentos<input type="file" id="statDocumentUpload" accept=".pdf,.xlsx,.xls,.csv,.json,.docx,.txt,.png,.jpg,.jpeg,.webp" multiple hidden></span></label>
 </div>
-<div class="sources-data-divider">
-  <div>
-    <p class="eyebrow">Fuentes y datasets</p>
-    <h3>Consulta la fuente base detrás de la lectura territorial</h3>
-  </div>
-</div>
+<p class="ti-stat-privacy">Los metadatos se aplican a los archivos de la carga. Para asignarles resúmenes diferentes, incorpóralos uno a uno. Los archivos no salen de este navegador.</p>
+<label class="ti-stat-search">Buscar documento<input id="statDocumentSearch" type="search" placeholder="Nombre del documento"></label>
+<div class="document-grid" id="statDocumentGrid"></div>
+</section>
+</section>
+<section aria-labelledby="tab-data-consulta" class="module-panel ti-data-consulta" data-panel-group="data" hidden id="data-consulta" role="tabpanel">
+<div class="module-toolbar"><div><p class="eyebrow">Fuentes estadísticas</p><h3>Consulta, descarga y trazabilidad</h3><p>El catálogo enlaza a las entidades de origen. Las bases importadas aquí son registros locales sin sincronización con servidores oficiales.</p></div><div aria-label="Tipo de fuente" class="segmented" role="group"><button class="source-level active" data-source-level="dane" type="button">DANE</button><button class="source-level" data-source-level="nacional" type="button">Nacional</button><button class="source-level" data-source-level="departamental" type="button">Departamental</button></div></div>
 <div id="dataSourceDaneView">
 <div class="module-toolbar"><div><p class="eyebrow">Datos del DANE</p><h3>Series históricas, comparación y trazabilidad</h3></div><a class="action-button external-action" href="https://www.dane.gov.co/" rel="noopener" target="_blank">Abrir DANE ↗</a></div>
 <div class="source-registry" id="daneSourceRegistry"></div>
@@ -185,9 +223,9 @@
 </section>
 <section aria-labelledby="tab-data-municipales" class="module-panel" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">2.3 · Memoria de la Alcaldía</p><h3>Archivos históricos y registros de nuestras dependencias</h3></div><span class="status-pill demo">Archivos y bases municipales</span></div>
-<p class="ti-data-scope-note">Aquí se organiza la información producida y conservada por la Alcaldía: documentos físicos por digitalizar, registros históricos y datos de las dependencias. Carga las bases de las dependencias y los documentos que integran el archivo municipal. Cada fuente mantiene sus propios registros.</p>
+<p class="ti-data-scope-note">Aquí se organiza la información estadística producida por las dependencias municipales. Importa bases verificadas y conserva sus fuentes y períodos; el repositorio de documentos estadísticos cuenta ahora con una pestaña propia.</p>
 <div class="dataset-workspace" data-dataset-workspace="municipales"></div>
-<section class="ti-local-repository" aria-labelledby="statDocumentsTitle"><div class="module-toolbar"><div><p class="eyebrow">Plan Estadístico Municipal</p><h3 id="statDocumentsTitle">Documentos y fichas técnicas</h3></div><label class="action-button">Agregar documentos<input type="file" id="statDocumentUpload" accept=".pdf,.xlsx,.xls,.csv,.json,.docx,.txt,.png,.jpg,.jpeg,.webp" multiple hidden></label></div><p>Repositorio de documentos existentes. Guardado en este navegador; no se publica ni se comparte entre usuarios.</p><label>Buscar documento<input id="statDocumentSearch" type="search" placeholder="Nombre del documento"></label><div class="document-grid" id="statDocumentGrid"></div></section>
+
 </section>
 <section aria-labelledby="tab-data-encuesta" class="module-panel" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">2.4 · Encuesta Municipal</p><h3>Caracterización territorial, estadística descriptiva y percepción</h3></div><span class="status-pill demo">Resultados de encuesta</span></div>
@@ -201,6 +239,10 @@
 <section aria-labelledby="tab-data-publicaciones" class="module-panel" data-panel-group="data" hidden="" id="data-publicaciones" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">2.6 · Publicaciones</p><h3>Boletines, informes, papers y encuestas con trazabilidad</h3></div><label class="action-button">Agregar publicación<input accept=".pdf,.docx,.xlsx,.xls,.csv,.json,.txt,.png,.jpg,.jpeg,.webp" hidden="" id="publicationUpload" multiple="" type="file"/></label></div>
 <p>Conserva y consulta los archivos originales en este navegador. No se publican ni se comparten entre usuarios.</p><div class="document-grid" id="publicationGrid"></div>
+
+</section>
+<section aria-labelledby="tab-data-glosario" class="module-panel ti-data-glossary" data-panel-group="data" hidden id="data-glosario" role="tabpanel">
+<div class="ti-stat-intro"><p class="eyebrow">Glosario territorial</p><h3>Términos que ordenan la información.</h3><p>Definiciones y procedencia declarada. Las entradas de ejemplo no se presentan como certificadas por una entidad pública.</p></div>
 <section class="ti-local-repository" aria-labelledby="glossaryTitle"><p class="eyebrow">Glosario territorial</p><h3 id="glossaryTitle">Términos y fuentes</h3><label>Buscar término<input type="search" id="glossarySearch" placeholder="Término, definición o fuente"></label><div id="glossaryList"></div></section>
 </section>
 
@@ -265,5 +307,7 @@
 <script defer src="js/data-workspace.js?v=data-fix-01"></script>
 <script defer="" src="js/requirements.js?v=restore-existing-data-01"></script>
 <script defer src="js/module-structure.js?v=restore-existing-data-01"></script>
+<script defer src="js/plan-estadistico.js?v=1"></script>
+<script defer src="js/data-viewer-chrome.js?v=1"></script>
 </body>
 </html>

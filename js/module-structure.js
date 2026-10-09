@@ -8,7 +8,9 @@ function restoreModuleSection() {
   if(!view)return;
   const requested=new URLSearchParams(fragment.split('?')[1]||'').get('seccion');
   const tabs=[...view.querySelectorAll('[data-module-panel]')];
-  const selected=tabs.find(tab=>tab.dataset.modulePanel===requested)||tabs[0];
+  const selected=tabs.find(tab=>tab.dataset.modulePanel===requested)
+    || (route==='data' ? tabs.find(tab=>tab.dataset.modulePanel==='data-fuentes') : null)
+    || tabs[0];
   if(!selected)return;
   for(const tab of tabs){
     const active=tab===selected;
@@ -19,6 +21,11 @@ function restoreModuleSection() {
     panel.hidden=!active;
     panel.classList.toggle('active',active);
   }
+  if(route==='data'){
+    const active=document.getElementById('tiDataActiveLabel');
+    if(active)active.textContent=selected.textContent.trim();
+    document.querySelectorAll('[data-data-destination]').forEach(button=>button.classList.toggle('is-selected',button.dataset.dataDestination===selected.dataset.modulePanel));
+  }
 }
 
 function saveModuleSection(panelId, route) {
@@ -27,7 +34,26 @@ function saveModuleSection(panelId, route) {
   restoreModuleSection();
 }
 
+const dataChapterToggle=document.getElementById('dataChapterToggle');
+const dataChapterMenu=document.getElementById('dataSubnav');
+function closeDataChapters({restoreFocus=false}={}){
+  if(!dataChapterMenu||!dataChapterToggle)return;
+  dataChapterMenu.hidden=true;
+  dataChapterToggle.setAttribute('aria-expanded','false');
+  dataChapterToggle.setAttribute('aria-label','Abrir secciones de Data Territorio');
+  if(restoreFocus)dataChapterToggle.focus();
+}
+dataChapterToggle?.addEventListener('click',()=>{
+  const show=dataChapterMenu.hidden;
+  dataChapterMenu.hidden=!show;
+  dataChapterToggle.setAttribute('aria-expanded',String(show));
+  dataChapterToggle.setAttribute('aria-label',show?'Cerrar secciones de Data Territorio':'Abrir secciones de Data Territorio');
+});
 document.addEventListener('click',event=>{
+  if(dataChapterMenu&&!dataChapterMenu.hidden
+    && !event.target.closest('#dataSubnav,#dataChapterToggle'))closeDataChapters();
+  const dataTab=event.target.closest('#dataSubnav [data-module-panel]');
+  if(dataTab){saveModuleSection(dataTab.dataset.modulePanel,'data');closeDataChapters();}
   const tab=event.target.closest('.ti-stage-one [data-module-panel]');
   if(tab)saveModuleSection(tab.dataset.modulePanel,tab.closest('[data-view]').dataset.view);
   const destination=event.target.closest('[data-data-destination]');
@@ -44,6 +70,12 @@ document.addEventListener('keydown',event=>{
   tabs[index].focus();
   saveModuleSection(tabs[index].dataset.modulePanel,tab.closest('[data-view]').dataset.view);
 });
-addEventListener('popstate',restoreModuleSection);
-addEventListener('hashchange',restoreModuleSection);
-document.addEventListener('DOMContentLoaded',restoreModuleSection);
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape' && dataChapterMenu && !dataChapterMenu.hidden){
+    event.preventDefault();
+    closeDataChapters({restoreFocus:true});
+  }
+});
+addEventListener('popstate',()=>{restoreModuleSection();closeDataChapters();});
+addEventListener('hashchange',()=>{restoreModuleSection();closeDataChapters();});
+document.addEventListener('DOMContentLoaded',()=>{restoreModuleSection();closeDataChapters();});

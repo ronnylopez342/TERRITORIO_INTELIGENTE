@@ -133,7 +133,7 @@ const TIWorkspace = (() => {
     const draw = () => {
       const query = kind === 'documents' ? (document.getElementById('statDocumentSearch')?.value || '').toLowerCase() : '';
       const list = get().filter(file => file.name.toLowerCase().includes(query));
-      root.innerHTML = list.map(file => `<article class="document-card"><small>${html(file.name.split('.').pop().toUpperCase())} · ${format(file.blob.size / 1024)} KB</small><h4>${html(file.name)}</h4><p>Cargado ${html(dateLabel(file.created))}</p><div class="card-actions"><button type="button" class="text-button" data-local-view="${html(file.id)}">${/\.(pdf|png|jpe?g|webp)$/i.test(file.name) ? 'Ver archivo' : 'Abrir archivo'}</button><button type="button" class="text-button" data-local-download="${html(file.id)}">Descargar original</button></div></article>`).join('') || '<p class="empty-state">No hay archivos cargados que coincidan con esta selección.</p>';
+      root.innerHTML = list.map(file => `<article class="document-card"><small>${html(file.name.split('.').pop().toUpperCase())} · ${format(file.blob.size / 1024)} KB</small><h4>${html(file.name)}</h4><p>Cargado ${html(dateLabel(file.created))}</p>${kind === 'documents' ? `<p><strong>${html(file.kind || 'Sin clasificar')}</strong> · ${html(file.source || 'Fuente no registrada')}</p><p>${html(file.summary || 'Sin resumen registrado')}</p><p>Periodicidad: ${html(file.frequency || 'No documentada')} · Actualizado: ${html(file.updated || 'Sin fecha declarada')}</p>` : ''}<div class="card-actions"><button type="button" class="text-button" data-local-view="${html(file.id)}">${/\.(pdf|png|jpe?g|webp)$/i.test(file.name) ? 'Ver archivo' : 'Abrir archivo'}</button><button type="button" class="text-button" data-local-download="${html(file.id)}">Descargar original</button></div></article>`).join('') || '<p class="empty-state">No hay archivos cargados que coincidan con esta selección.</p>';
       root.querySelectorAll('[data-local-view]').forEach(button => { button.onclick = () => viewFile(get().find(file => file.id === button.dataset.localView)); });
       root.querySelectorAll('[data-local-download]').forEach(button => { button.onclick = () => downloadFile(get().find(file => file.id === button.dataset.localDownload)); });
     };
@@ -148,7 +148,14 @@ const TIWorkspace = (() => {
           if (file.size > 25 * 1024 * 1024) throw new Error(`${file.name}: el máximo por archivo es 25 MB.`);
           if (!/\.(pdf|xlsx?|csv|json|docx|txt|png|jpe?g|webp)$/i.test(file.name)) throw new Error(`${file.name}: formato no admitido.`);
         }
-        const list = [...get(), ...files.map(file => ({id: crypto.randomUUID(), name: file.name, blob: file, created: new Date().toISOString()}))];
+        const docMeta = kind === 'documents' ? {
+          summary: document.getElementById('statDocumentSummary')?.value.trim() || '',
+          source: document.getElementById('statDocumentSource')?.value.trim() || '',
+          kind: document.getElementById('statDocumentKind')?.value || 'Documento estadístico',
+          frequency: document.getElementById('statDocumentFrequency')?.value || '',
+          updated: document.getElementById('statDocumentUpdated')?.value || ''
+        } : {};
+        const list = [...get(), ...files.map(file => ({id: crypto.randomUUID(), name: file.name, blob: file, created: new Date().toISOString(), ...docMeta}))];
         await TIData.write(kind, list);
         if (kind === 'documents') documents = list; else publications = list;
         draw();
