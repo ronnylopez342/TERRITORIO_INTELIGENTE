@@ -14,6 +14,7 @@
 <link href="css/app.css?v=demo25" rel="stylesheet"/><link href="css/v25-da-redesign.css?v=data-fix-01" rel="stylesheet"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap"/>
 <link rel="stylesheet" href="css/module-structure.css?v=delivery-one-01"/>
+<link rel="stylesheet" href="css/data-visor-only.css?v=visor-22-01"/>
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -143,45 +144,7 @@
 </div>
 </section>
 <section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
-<div class="module-toolbar">
-<div><p class="eyebrow">2.2 · ¿Qué se sabe de Subachoque?</p><h3>Datos del DANE y otras fuentes externas sobre nuestro territorio</h3></div>
-<div aria-label="Tipo de fuente" class="segmented" role="group">
-<button class="source-level active" data-source-level="dane" type="button">DANE</button>
-<button class="source-level" data-source-level="nacional" type="button">Nacional</button>
-<button class="source-level" data-source-level="departamental" type="button">Departamental</button>
-</div>
-</div>
-<div class="sources-reference-intro">
-  <div>
-    <p class="eyebrow">Visor territorial interactivo</p>
-    <h3>Fuentes externas por sector</h3>
-    <p>Explora los capítulos del territorio y abre los bloques interactivos de cada visual. Las seis visuales son referencias de diseño con zonas clicables; no se recalculan al importar una base. Las gráficas de los datos cargados se consultan debajo, separadas por indicador y fuente.</p>
-  </div>
-  <span class="status-pill demo">6 visuales de referencia · 6 por completar</span>
-</div>
-<div class="sources-reference-shell">
-  <iframe
-    class="sources-reference-frame"
-    src="assets/interactive/data-fuentes-visual.html"
-    title="Visor territorial interactivo de Fuentes externas"
-    loading="lazy">
-  </iframe>
-</div>
-<div class="sources-data-divider">
-  <div>
-    <p class="eyebrow">Fuentes y datasets</p>
-    <h3>Consulta la fuente base detrás de la lectura territorial</h3>
-  </div>
-</div>
-<div id="dataSourceDaneView">
-<div class="module-toolbar"><div><p class="eyebrow">Datos del DANE</p><h3>Series históricas, comparación y trazabilidad</h3></div><a class="action-button external-action" href="https://www.dane.gov.co/" rel="noopener" target="_blank">Abrir DANE ↗</a></div>
-<div class="source-registry" id="daneSourceRegistry"></div>
-<div class="dataset-workspace" data-dataset-workspace="dane"></div>
-</div>
-<div hidden="" id="dataSourceExternalView">
-<div class="source-registry" id="externalSourceRegistry"></div>
-<div class="dataset-workspace" data-dataset-workspace="externas"></div>
-</div>
+<div class="sources-reference-shell"><iframe class="sources-reference-frame" src="assets/interactive/data-fuentes-visor.html" title="Capítulos del territorio de Subachoque" loading="lazy"></iframe></div>
 </section>
 <section aria-labelledby="tab-data-municipales" class="module-panel" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">2.3 · Memoria de la Alcaldía</p><h3>Archivos históricos y registros de nuestras dependencias</h3></div><span class="status-pill demo">Archivos y bases municipales</span></div>

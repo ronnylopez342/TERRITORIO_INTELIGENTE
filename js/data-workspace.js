@@ -106,7 +106,9 @@ const TIWorkspace = (() => {
   function sources() {
     const sources = TI_STATE.baseData.sources || [];
     const registry = list => list.map(source => `<span class="source-chip"><a href="${html(source.url)}" target="_blank" rel="noopener">${html(source.name)} ↗</a> · ${html(source.periodicity)}</span>`).join('') + '<p>Catálogo de fuentes. Los enlaces no implican que sus bases estén integradas automáticamente.</p>';
-    document.getElementById('daneSourceRegistry').innerHTML = registry(sources.filter(source => source.id === 'dane'));
+    const daneRegistry = document.getElementById('daneSourceRegistry');
+    if (!daneRegistry) return;
+    daneRegistry.innerHTML = registry(sources.filter(source => source.id === 'dane'));
     const refresh = () => {
       document.getElementById('externalSourceRegistry').innerHTML = registry(sources.filter(source => source.level === TI_STATE.sourceLevel));
       document.querySelector('[data-dataset-workspace="externas"]')?.tiRefresh?.();

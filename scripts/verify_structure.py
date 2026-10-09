@@ -39,9 +39,15 @@ print('Structure checks passed: Home preserved, all sections linked, seven proje
 # Recovery: retain the original visual source viewer and loading tools.
 data = html[html.index('<section class="app-view view-shell" data-view="data">'):html.index('<section class="app-view view-shell ti-stage-one" data-view="desarrollo">')]
 assert 'Explorar el módulo' not in data and 'ti-module-layout' not in data
-assert 'assets/interactive/data-fuentes-visual.html' in data
-for key in ['dane', 'externas', 'municipales', 'encuesta']:
+assert 'assets/interactive/data-fuentes-visor.html' in data
+for key in ['municipales', 'encuesta']:
     assert f'data-dataset-workspace="{key}"' in data
 for id in ['statDocumentUpload', 'publicationUpload', 'geoPointUpload', 'dataDefinition', 'statisticsWheel']:
     assert f'id="{id}"' in data
 print('Original Data visual viewer, cascade and existing tools restored.')
+
+source_panel = re.search(r'<section[^>]+id="data-fuentes"[^>]*>(.*?)</section>', html, re.S).group(1)
+assert source_panel.count('<iframe') == 1
+assert '<h3' not in source_panel and 'data-dataset-workspace' not in source_panel
+assert 'source-level' not in source_panel and 'sources-data-divider' not in source_panel
+print('2.2 contains only the interactive viewer; existing other Data sections remain.')

@@ -1,0 +1,909 @@
+{
+  "01": {
+    "name": "Demografía y población",
+    "source": [
+      "DANE · demografía y población",
+      "https://www.dane.gov.co/index.php/estadisticas-por-tema/demografia-y-poblacion"
+    ],
+    "hotspots": [
+      {
+        "label": "Banner territorial",
+        "rect": [
+          0,
+          0,
+          100,
+          29
+        ],
+        "description": "El capítulo reúne la estructura, el tamaño y la distribución de la población. Estas dimensiones ayudan a identificar necesidades de servicios y a comparar el casco urbano con las zonas rurales.",
+        "unit": "Personas, habitantes por km² y porcentajes."
+      },
+      {
+        "label": "Indicadores demográficos",
+        "rect": [
+          2,
+          30,
+          68,
+          22
+        ],
+        "description": "La población total cuenta habitantes; la densidad relaciona habitantes con superficie; la distribución urbana y rural indica cómo se reparte la población. Antes de comparar, deben coincidir el periodo y la delimitación territorial.",
+        "unit": "Personas; habitantes/km²; porcentaje del total."
+      },
+      {
+        "label": "Lectura territorial",
+        "rect": [
+          72,
+          30,
+          26,
+          38
+        ],
+        "description": "Relaciona el tamaño y la distribución de la población con las necesidades del territorio. Una conclusión debe indicar el periodo y los indicadores que la sustentan; una imagen por sí sola no valida la interpretación.",
+        "unit": "Interpretación de indicadores del mismo periodo."
+      },
+      {
+        "label": "Evolución de la población",
+        "rect": [
+          2,
+          54,
+          47,
+          36
+        ],
+        "description": "La serie permite observar el cambio de población entre periodos. La variación porcentual compara el cambio con el valor inicial; un censo y una proyección deben identificarse por separado.",
+        "unit": "Habitantes por año y variación porcentual."
+      },
+      {
+        "label": "Distribución por zona",
+        "rect": [
+          50,
+          54,
+          22,
+          36
+        ],
+        "description": "Distingue la población de cabecera municipal de centros poblados y rural disperso. Las categorías deben conservar la clasificación de la fuente y sumar el total utilizado.",
+        "unit": "Personas y porcentaje por zona."
+      },
+      {
+        "label": "Fotografía territorial",
+        "rect": [
+          73,
+          68,
+          24,
+          30
+        ],
+        "description": "La fotografía acompaña la lectura del territorio. Su valor es contextual: no constituye un registro estadístico ni demuestra por sí sola los valores de las gráficas.",
+        "unit": "Recurso visual de referencia."
+      }
+    ],
+    "reference": true
+  },
+  "02": {
+    "name": "Salud",
+    "source": [
+      "DANE · estadísticas vitales",
+      "https://www.dane.gov.co/index.php/estadisticas-por-tema/demografia-y-poblacion/nacimientos-y-defunciones"
+    ],
+    "hotspots": [
+      {
+        "label": "Banner de Salud",
+        "rect": [
+          0,
+          0,
+          100,
+          20
+        ],
+        "description": "Reúne indicadores de mortalidad y atención en salud. Cada tasa debe interpretarse con su denominador, periodo y población de referencia.",
+        "unit": "Tasas, razones y porcentajes."
+      },
+      {
+        "label": "Mortalidad infantil",
+        "rect": [
+          2,
+          24,
+          30,
+          20
+        ],
+        "description": "Relaciona las defunciones de menores de un año con los nacidos vivos del periodo. La comparación municipal y departamental requiere el mismo año y la misma metodología.",
+        "unit": "Defunciones de menores de un año por cada 1.000 nacidos vivos."
+      },
+      {
+        "label": "Mortalidad materna",
+        "rect": [
+          33,
+          24,
+          30,
+          20
+        ],
+        "description": "Relaciona las defunciones maternas con los nacidos vivos. La visual distingue la razón de mortalidad materna de otras tasas de mortalidad; el periodo de observación debe verificarse en la ficha técnica.",
+        "unit": "Defunciones maternas por cada 100.000 nacidos vivos."
+      },
+      {
+        "label": "Mortalidad general",
+        "rect": [
+          64,
+          24,
+          33,
+          20
+        ],
+        "description": "Relaciona las defunciones con la población del territorio durante el periodo. La tasa general no permite atribuir causas ni comparar estructuras de edad sin información adicional.",
+        "unit": "Defunciones por cada 1.000 habitantes, según ficha técnica."
+      },
+      {
+        "label": "Otros indicadores relevantes",
+        "rect": [
+          2,
+          45,
+          49,
+          23
+        ],
+        "description": "Agrupa indicadores complementarios del sector. Cada indicador conserva su propia definición y unidad; no se deben sumar ni comparar directamente tasas, porcentajes y cantidades.",
+        "unit": "Unidad y periodo propios de cada indicador."
+      },
+      {
+        "label": "Comparativo municipal–departamental",
+        "rect": [
+          52,
+          45,
+          46,
+          23
+        ],
+        "description": "Contrasta el mismo indicador entre Subachoque y Cundinamarca. Para que la comparación sea válida deben coincidir el periodo, la unidad y la metodología.",
+        "unit": "Misma tasa o porcentaje para ambos territorios."
+      },
+      {
+        "label": "Evolución de mortalidad",
+        "rect": [
+          2,
+          69,
+          34,
+          28
+        ],
+        "description": "Presenta el comportamiento de la tasa de mortalidad entre años. Los cambios se leen con sus denominadores y con la condición provisional o definitiva del registro.",
+        "unit": "Tasa de mortalidad por año."
+      },
+      {
+        "label": "Lectura sectorial",
+        "rect": [
+          67,
+          69,
+          31,
+          28
+        ],
+        "description": "Resume los indicadores del capítulo y sus límites. Las conclusiones necesitan la base original, su metodología y sus fechas de corte; las cifras de una referencia visual requieren validación.",
+        "unit": "Análisis sustentado en indicadores comparables."
+      }
+    ],
+    "reference": true
+  },
+  "03": {
+    "name": "Educación",
+    "source": [
+      "DNP · TerriData",
+      "https://terridata.dnp.gov.co/"
+    ],
+    "hotspots": [
+      {
+        "label": "Banner de Educación",
+        "rect": [
+          0,
+          0,
+          100,
+          20
+        ],
+        "description": "Reúne información de cobertura educativa por nivel. El tipo de cobertura, la población de referencia y el año deben identificarse antes de comparar resultados.",
+        "unit": "Porcentaje de cobertura por nivel."
+      },
+      {
+        "label": "Cobertura básica",
+        "rect": [
+          2,
+          24,
+          31,
+          18
+        ],
+        "description": "Consulta la cobertura del nivel educativo identificado como básica en la fuente. La ficha técnica debe precisar si incluye primaria, secundaria o ambos niveles y si la cobertura es neta o bruta.",
+        "unit": "Porcentaje según nivel y tipo de cobertura."
+      },
+      {
+        "label": "Cobertura secundaria",
+        "rect": [
+          34,
+          24,
+          31,
+          18
+        ],
+        "description": "Consulta la matrícula y población de referencia de educación secundaria. La cobertura neta y la bruta usan poblaciones distintas y no son intercambiables.",
+        "unit": "Porcentaje de cobertura secundaria."
+      },
+      {
+        "label": "Cobertura media",
+        "rect": [
+          66,
+          24,
+          32,
+          18
+        ],
+        "description": "Permite examinar la cobertura en educación media. La comparación con otros niveles requiere conservar el rango de edad y la definición del indicador.",
+        "unit": "Porcentaje de cobertura media."
+      },
+      {
+        "label": "Cobertura por nivel educativo",
+        "rect": [
+          2,
+          44,
+          58,
+          31
+        ],
+        "description": "Presenta los niveles educativos por separado para identificar diferencias de cobertura. Deben mantenerse el mismo año y tipo de cobertura para comparar las barras.",
+        "unit": "Porcentaje por nivel educativo."
+      },
+      {
+        "label": "Panorama del sector educativo",
+        "rect": [
+          61,
+          44,
+          37,
+          31
+        ],
+        "description": "Relaciona cobertura y niveles educativos. Para convertirlo en diagnóstico se requieren las cifras oficiales del municipio, su periodo y el tipo de cobertura utilizado.",
+        "unit": "Lectura por nivel y periodo."
+      },
+      {
+        "label": "Otros indicadores relevantes",
+        "rect": [
+          2,
+          77,
+          96,
+          20
+        ],
+        "description": "Agrupa indicadores complementarios del sector. Cada indicador conserva su propia definición y unidad; no se deben sumar ni comparar directamente tasas, porcentajes y cantidades.",
+        "unit": "Unidad y periodo propios de cada indicador."
+      }
+    ],
+    "reference": true
+  },
+  "04": {
+    "name": "Vivienda y servicios públicos",
+    "source": [
+      "DNP · TerriData",
+      "https://terridata.dnp.gov.co/"
+    ],
+    "hotspots": [
+      {
+        "label": "Banner de Vivienda",
+        "rect": [
+          0,
+          0,
+          100,
+          20
+        ],
+        "description": "Reúne vivienda y acceso a servicios públicos. Cobertura del servicio y déficit habitacional describen dimensiones distintas y se consultan por separado.",
+        "unit": "Porcentajes y hogares o viviendas."
+      },
+      {
+        "label": "Cobertura de acueducto",
+        "rect": [
+          2,
+          30,
+          24,
+          19
+        ],
+        "description": "Muestra la proporción cubierta por acueducto según la unidad de observación de la fuente. Debe precisarse si se refiere a hogares, viviendas o población.",
+        "unit": "Porcentaje de cobertura; denominador según ficha."
+      },
+      {
+        "label": "Cobertura de alcantarillado",
+        "rect": [
+          27,
+          30,
+          24,
+          19
+        ],
+        "description": "Muestra la proporción con acceso a alcantarillado. La cobertura no equivale por sí sola a continuidad ni calidad del servicio.",
+        "unit": "Porcentaje de cobertura; denominador según ficha."
+      },
+      {
+        "label": "Acueducto urbano",
+        "rect": [
+          52,
+          30,
+          24,
+          19
+        ],
+        "description": "Examina el acceso a acueducto en el área urbana. Su denominador se restringe a esa zona y debe distinguirse del indicador municipal total.",
+        "unit": "Porcentaje del área urbana."
+      },
+      {
+        "label": "Lectura cobertura de servicios",
+        "rect": [
+          77,
+          30,
+          21,
+          30
+        ],
+        "description": "Contrasta los servicios y las zonas de cobertura. Deben conservarse el mismo periodo y la misma unidad de observación antes de interpretar diferencias.",
+        "unit": "Comparación por servicio y zona."
+      },
+      {
+        "label": "Indicadores complementarios",
+        "rect": [
+          2,
+          51,
+          74,
+          20
+        ],
+        "description": "Consulta otros indicadores de vivienda y servicios con su definición y unidad individual. Un dato ausente no se sustituye por cero.",
+        "unit": "Unidad propia de cada indicador."
+      },
+      {
+        "label": "Cobertura de servicios públicos",
+        "rect": [
+          2,
+          73,
+          43,
+          24
+        ],
+        "description": "Presenta cada servicio público por separado. No se suman los porcentajes de acueducto, alcantarillado y otros servicios para obtener una cobertura total.",
+        "unit": "Porcentaje por servicio."
+      },
+      {
+        "label": "Lectura sectorial",
+        "rect": [
+          46,
+          73,
+          24,
+          24
+        ],
+        "description": "Resume los indicadores del capítulo y sus límites. Las conclusiones necesitan la base original, su metodología y sus fechas de corte; las cifras de una referencia visual requieren validación.",
+        "unit": "Análisis sustentado en indicadores comparables."
+      },
+      {
+        "label": "Déficit habitacional",
+        "rect": [
+          71,
+          73,
+          27,
+          24
+        ],
+        "description": "Distingue necesidades de vivienda nueva y de mejoramiento según la clasificación oficial. Las categorías cuantitativa y cualitativa deben mantenerse separadas.",
+        "unit": "Hogares y porcentaje de hogares."
+      }
+    ],
+    "reference": true
+  },
+  "05": {
+    "name": "Convivencia y seguridad",
+    "source": [
+      "DNP · TerriData",
+      "https://terridata.dnp.gov.co/"
+    ],
+    "hotspots": [
+      {
+        "label": "Banner de Seguridad",
+        "rect": [
+          0,
+          0,
+          100,
+          22
+        ],
+        "description": "Reúne registros de convivencia y seguridad. Una tasa permite comparar respecto a una población; el número de casos describe un volumen.",
+        "unit": "Casos y tasas según indicador."
+      },
+      {
+        "label": "Homicidios intencionales",
+        "rect": [
+          2,
+          29,
+          69,
+          26
+        ],
+        "description": "Presenta los homicidios registrados y su tasa respecto a la población. La serie debe conservar la misma definición y fecha de corte.",
+        "unit": "Casos o tasa por 100.000 habitantes, según fuente."
+      },
+      {
+        "label": "Lectura sectorial",
+        "rect": [
+          72,
+          29,
+          26,
+          26
+        ],
+        "description": "Resume los indicadores del capítulo y sus límites. Las conclusiones necesitan la base original, su metodología y sus fechas de corte; las cifras de una referencia visual requieren validación.",
+        "unit": "Análisis sustentado en indicadores comparables."
+      },
+      {
+        "label": "Violencia intrafamiliar",
+        "rect": [
+          2,
+          57,
+          21,
+          19
+        ],
+        "description": "Presenta registros de violencia intrafamiliar. Los casos conocidos por una entidad no equivalen automáticamente a todos los hechos ocurridos en el territorio.",
+        "unit": "Casos registrados o tasa según ficha."
+      },
+      {
+        "label": "Extorsión",
+        "rect": [
+          24,
+          57,
+          21,
+          19
+        ],
+        "description": "Consulta registros de extorsión para el periodo y territorio seleccionados. La fuente debe especificar si se trata de denuncias, hechos registrados o tasa.",
+        "unit": "Casos registrados o tasa según ficha."
+      },
+      {
+        "label": "Comparativo de homicidios",
+        "rect": [
+          47,
+          57,
+          51,
+          19
+        ],
+        "description": "Contrasta el indicador de homicidios entre municipio y departamento. La comparación requiere tasas con igual denominador o cantidades claramente diferenciadas.",
+        "unit": "Misma unidad, periodo y definición."
+      },
+      {
+        "label": "Mensajes clave",
+        "rect": [
+          41,
+          78,
+          57,
+          20
+        ],
+        "description": "Sintetiza los hallazgos del capítulo. Cada mensaje debe respaldarse con su indicador y periodo, sin atribuir causalidad únicamente a una variación de registros.",
+        "unit": "Interpretación respaldada por registros."
+      }
+    ],
+    "reference": true
+  },
+  "06": {
+    "name": "Economía",
+    "source": [
+      "DNP · TerriData",
+      "https://terridata.dnp.gov.co/"
+    ],
+    "hotspots": [
+      {
+        "label": "Banner de Economía",
+        "rect": [
+          0,
+          0,
+          100,
+          22
+        ],
+        "description": "Reúne estructura económica y actividades productivas. El valor agregado debe interpretarse con el periodo, la unidad monetaria y la metodología de la fuente.",
+        "unit": "Valor monetario y participación porcentual."
+      },
+      {
+        "label": "Actividades primarias",
+        "rect": [
+          2,
+          23,
+          31,
+          17
+        ],
+        "description": "Agrupa actividades del sector primario según la clasificación económica de la fuente. Su participación se relaciona con el total del valor agregado del mismo periodo.",
+        "unit": "Valor agregado y porcentaje del total."
+      },
+      {
+        "label": "Actividades secundarias",
+        "rect": [
+          34,
+          23,
+          31,
+          17
+        ],
+        "description": "Agrupa las actividades del sector secundario de acuerdo con la clasificación oficial. La comparación temporal requiere saber si los valores son corrientes o constantes.",
+        "unit": "Valor agregado y porcentaje del total."
+      },
+      {
+        "label": "Actividades terciarias",
+        "rect": [
+          66,
+          23,
+          32,
+          17
+        ],
+        "description": "Agrupa actividades de servicios según la clasificación de la fuente. No representa por sí solo el número de empleos ni de establecimientos.",
+        "unit": "Valor agregado y porcentaje del total."
+      },
+      {
+        "label": "Evolución del valor agregado",
+        "rect": [
+          2,
+          41,
+          42,
+          27
+        ],
+        "description": "Presenta el valor agregado por año. Antes de interpretar crecimiento real, debe verificarse si la serie utiliza precios corrientes o constantes.",
+        "unit": "Unidad monetaria y base de precios de la fuente."
+      },
+      {
+        "label": "Distribución del valor agregado",
+        "rect": [
+          45,
+          41,
+          32,
+          27
+        ],
+        "description": "Muestra la participación de las actividades en el valor agregado total. Las categorías deben corresponder al mismo año y total de referencia.",
+        "unit": "Porcentaje del valor agregado total."
+      },
+      {
+        "label": "Participación departamental",
+        "rect": [
+          78,
+          41,
+          20,
+          27
+        ],
+        "description": "Relaciona el valor agregado municipal con el total departamental del mismo periodo. No debe confundirse con la participación interna de un sector en el municipio.",
+        "unit": "Porcentaje del total departamental."
+      },
+      {
+        "label": "Principales cultivos",
+        "rect": [
+          2,
+          70,
+          57,
+          27
+        ],
+        "description": "Describe actividades agrícolas según la variable publicada: área sembrada, área cosechada o producción. Hectáreas y toneladas se mantienen como medidas independientes.",
+        "unit": "Hectáreas o toneladas, según variable."
+      },
+      {
+        "label": "Fotografía productiva",
+        "rect": [
+          60,
+          70,
+          20,
+          27
+        ],
+        "description": "Acompaña la lectura de las actividades productivas. Una imagen no permite inferir producción, empleo ni participación económica.",
+        "unit": "Recurso visual de referencia."
+      },
+      {
+        "label": "Otras variables económicas",
+        "rect": [
+          81,
+          70,
+          17,
+          27
+        ],
+        "description": "Consulta variables económicas complementarias con su unidad y periodo. Debe evitarse mezclar valor agregado, empleo y producción en una misma comparación.",
+        "unit": "Unidad específica de cada variable."
+      }
+    ],
+    "reference": true
+  },
+  "07": {
+    "name": "Medio ambiente",
+    "source": [
+      "CAR · temas ambientales",
+      "https://www.car.gov.co/temas-ambientales"
+    ],
+    "hotspots": [
+      {
+        "label": "Agua y cuencas",
+        "rect": [
+          3.155522163786627,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta información del recurso hídrico y las cuencas en la autoridad ambiental. Ubicación, periodo y tipo de medición deben acompañar cada registro.",
+        "unit": "Medida y periodo definidos por la fuente."
+      },
+      {
+        "label": "Ecosistemas",
+        "rect": [
+          51.014274981217135,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Permite consultar coberturas y áreas de importancia ambiental. Una superficie debe indicar su delimitación geográfica y fecha.",
+        "unit": "Hectáreas o km², según capa."
+      },
+      {
+        "label": "Riesgos ambientales",
+        "rect": [
+          3.155522163786627,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Reúne información para interpretar amenazas y condiciones ambientales. La cartografía debe conservar su escala y fecha de actualización.",
+        "unit": "Categoría de amenaza o medida de la fuente."
+      },
+      {
+        "label": "Gestión de residuos",
+        "rect": [
+          51.014274981217135,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Distingue generación, aprovechamiento y disposición de residuos. Cada registro requiere unidad, cobertura y periodo.",
+        "unit": "Toneladas por periodo o porcentaje."
+      }
+    ],
+    "uri": "capitulo-07.svg",
+    "reference": false
+  },
+  "08": {
+    "name": "Infraestructura y movilidad",
+    "source": [
+      "DNP · TerriData",
+      "https://terridata.dnp.gov.co/"
+    ],
+    "hotspots": [
+      {
+        "label": "Red vial",
+        "rect": [
+          3.155522163786627,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta la extensión, clasificación y estado de las vías. Deben distinguirse los tramos urbanos y rurales y la entidad responsable.",
+        "unit": "Kilómetros por tipo y estado."
+      },
+      {
+        "label": "Movilidad",
+        "rect": [
+          51.014274981217135,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Reúne registros de desplazamientos y accesibilidad. Para comparar recorridos se necesita igual origen, destino y método de medición.",
+        "unit": "Tiempo de viaje o registros según fuente."
+      },
+      {
+        "label": "Infraestructura pública",
+        "rect": [
+          3.155522163786627,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta la ubicación y características de equipamientos. Un inventario identifica el tipo, la ubicación y el estado del activo.",
+        "unit": "Equipamientos y ubicación geográfica."
+      },
+      {
+        "label": "Accesibilidad territorial",
+        "rect": [
+          51.014274981217135,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Relaciona vías y servicios con las zonas del territorio. Un mapa de accesibilidad requiere red vial y ubicación de los servicios.",
+        "unit": "Distancia o tiempo, según metodología."
+      }
+    ],
+    "uri": "capitulo-08.svg",
+    "reference": false
+  },
+  "09": {
+    "name": "Desarrollo social",
+    "source": [
+      "DNP · TerriData",
+      "https://terridata.dnp.gov.co/"
+    ],
+    "hotspots": [
+      {
+        "label": "Condiciones de vida",
+        "rect": [
+          3.155522163786627,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta dimensiones de bienestar y pobreza publicadas para el territorio. Indicadores monetarios y multidimensionales conservan sus definiciones.",
+        "unit": "Porcentaje o medida oficial del indicador."
+      },
+      {
+        "label": "Grupos poblacionales",
+        "rect": [
+          51.014274981217135,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Organiza información por grupos de edad y otras categorías publicadas. Una persona puede pertenecer a varias categorías; no se suman sin verificar exclusiones.",
+        "unit": "Personas y distribución porcentual."
+      },
+      {
+        "label": "Beneficiarios",
+        "rect": [
+          3.155522163786627,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta cobertura de servicios y programas. Deben distinguirse personas únicas, hogares y número de atenciones.",
+        "unit": "Personas, hogares o atenciones."
+      },
+      {
+        "label": "Brechas territoriales",
+        "rect": [
+          51.014274981217135,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Contrasta condiciones entre zonas cuando existen datos comparables. La ausencia de un registro no representa ausencia de necesidad.",
+        "unit": "Misma unidad y periodo entre zonas."
+      }
+    ],
+    "uri": "capitulo-09.svg",
+    "reference": false
+  },
+  "10": {
+    "name": "Gobierno territorial",
+    "source": [
+      "Función Pública · resultados MIPG",
+      "https://www1.funcionpublica.gov.co/web/mipg/resultados-medicion"
+    ],
+    "hotspots": [
+      {
+        "label": "Desempeño institucional",
+        "rect": [
+          3.155522163786627,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta resultados de la Medición del Desempeño Institucional. Su interpretación debe seguir la metodología de la vigencia evaluada.",
+        "unit": "Puntaje y vigencia evaluada."
+      },
+      {
+        "label": "Finanzas públicas",
+        "rect": [
+          51.014274981217135,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Distingue ingresos, gastos y ejecución presupuestal. Presupuesto inicial, definitivo y ejecutado representan momentos diferentes.",
+        "unit": "Pesos y porcentaje de ejecución."
+      },
+      {
+        "label": "Planeación territorial",
+        "rect": [
+          3.155522163786627,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Relaciona los indicadores con instrumentos de planeación. Deben identificarse la meta, el periodo y el documento oficial que la establece.",
+        "unit": "Metas y periodos documentados."
+      },
+      {
+        "label": "Transparencia",
+        "rect": [
+          51.014274981217135,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta evidencia y documentos públicos de la gestión. La existencia de un enlace no valida por sí sola cumplimiento ni desempeño.",
+        "unit": "Documentos y fecha de publicación."
+      }
+    ],
+    "uri": "capitulo-10.svg",
+    "reference": false
+  },
+  "11": {
+    "name": "Cultura, recreación y deporte",
+    "source": [
+      "Ministerio de las Culturas · sistemas de información",
+      "https://mincultura.gov.co/Paginas/portales-y-sistemas-de-informacion.aspx"
+    ],
+    "hotspots": [
+      {
+        "label": "Oferta cultural",
+        "rect": [
+          3.155522163786627,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta actividades, programas y agentes culturales documentados. Las participaciones y las personas únicas se registran por separado.",
+        "unit": "Actividades, agentes o participantes."
+      },
+      {
+        "label": "Patrimonio y memoria",
+        "rect": [
+          51.014274981217135,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Reúne información sobre bienes y expresiones culturales. Cada registro necesita identificación, localización y soporte documental.",
+        "unit": "Bienes y registros documentales."
+      },
+      {
+        "label": "Recreación y deporte",
+        "rect": [
+          3.155522163786627,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta programas y espacios destinados a actividades recreativas y deportivas. La infraestructura y su uso son medidas distintas.",
+        "unit": "Espacios, programas y participantes."
+      },
+      {
+        "label": "Acceso a espacios",
+        "rect": [
+          51.014274981217135,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Relaciona la oferta cultural, recreativa y deportiva con el territorio. Para analizar cobertura se requiere ubicación y población de referencia.",
+        "unit": "Ubicación y cobertura según fuente."
+      }
+    ],
+    "uri": "capitulo-11.svg",
+    "reference": false
+  },
+  "12": {
+    "name": "Ciencia, tecnología e innovación",
+    "source": [
+      "MinTIC · conectividad e inclusión digital",
+      "https://ontic.mintic.gov.co/portal/Secciones/Indicadores/Conectividad-e-inclusion-digital/"
+    ],
+    "hotspots": [
+      {
+        "label": "Conectividad",
+        "rect": [
+          3.155522163786627,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta indicadores de acceso a Internet. Accesos contratados, hogares conectados y personas usuarias son conceptos diferentes.",
+        "unit": "Accesos o porcentaje según indicador."
+      },
+      {
+        "label": "Inclusión digital",
+        "rect": [
+          51.014274981217135,
+          37.09508881922675,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Examina diferencias de acceso y uso por zona o grupo poblacional. Cada comparación necesita una población y un periodo definidos.",
+        "unit": "Porcentaje por grupo o zona."
+      },
+      {
+        "label": "Capacidades digitales",
+        "rect": [
+          3.155522163786627,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Consulta información sobre formación y uso de herramientas digitales. Participantes en una actividad no equivalen a competencias acreditadas.",
+        "unit": "Personas, actividades o medida de la fuente."
+      },
+      {
+        "label": "Innovación",
+        "rect": [
+          51.014274981217135,
+          63.740856844305114,
+          45.604808414725774,
+          24.033437826541274
+        ],
+        "description": "Reúne información sobre iniciativas de innovación y transformación digital. Debe identificarse la entidad, el alcance y la evidencia de cada iniciativa.",
+        "unit": "Iniciativas y registros documentados."
+      }
+    ],
+    "uri": "capitulo-12.svg",
+    "reference": false
+  }
+}
