@@ -267,23 +267,35 @@ initLoginPrototype();
 configureHeroMedia();
 initReveals();
 
-// Team directory filters stay inside the shared application router.
+// Directory controls mirror the reference while keeping profiles inside this site.
+let teamVisibleLimit = 4;
 function filterTeamDirectory() {
  const query = (document.getElementById('teamSearch')?.value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
- const area = document.getElementById('teamArea')?.value || '';
+ const areas = [...document.querySelectorAll('[name="team-area-chip"]:checked')].map(el=>el.value);
+ const roles = [...document.querySelectorAll('[name="team-role-chip"]:checked')].map(el=>el.value);
  let count = 0;
- document.querySelectorAll('.ti-team-grid .home-team-card').forEach(card => {
+ const filtering = query || areas.length || roles.length;
+ document.querySelectorAll('.ti-person-item').forEach(card=>{
   const text = card.textContent.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const matches = (!query || text.includes(query)) && (!area || card.dataset.area === area);
-  card.hidden = !matches;
+  const matches = (!query || text.includes(query)) && (!areas.length || areas.includes(card.dataset.area)) && (!roles.length || roles.includes(card.dataset.group));
   if (matches) count++;
+  card.hidden = !matches || (!filtering && count > teamVisibleLimit);
  });
  document.getElementById('teamEmpty').hidden = count > 0;
+ document.getElementById('teamLoadMore').hidden = Boolean(filtering) || count <= teamVisibleLimit;
 }
-document.getElementById('teamSearch')?.addEventListener('input', filterTeamDirectory);
-document.getElementById('teamArea')?.addEventListener('change', filterTeamDirectory);
-document.getElementById('teamReset')?.addEventListener('click', () => {
- document.getElementById('teamSearch').value = '';
- document.getElementById('teamArea').value = '';
+document.getElementById('teamSearch')?.addEventListener('input',filterTeamDirectory);
+document.querySelectorAll('.ti-filter-chips input').forEach(el=>el.addEventListener('change',filterTeamDirectory));
+document.querySelectorAll('[data-team-reset]').forEach(el=>el.addEventListener('click',()=>{
+ const group = el.dataset.teamReset === 'area' ? 'team-area-chip' : 'team-role-chip';
+ document.querySelectorAll('[name="'+group+'"]').forEach(input=>input.checked=false);
  filterTeamDirectory();
+}));
+document.getElementById('teamReset')?.addEventListener('click',()=>{
+ document.getElementById('teamSearch').value='';
+ document.querySelectorAll('.ti-filter-chips input').forEach(el=>el.checked=false);
+ teamVisibleLimit=4;filterTeamDirectory();
 });
+document.getElementById('teamLoadMore')?.addEventListener('click',()=>{teamVisibleLimit+=4;filterTeamDirectory();});
+document.querySelectorAll('[data-team-scroll]').forEach(el=>el.addEventListener('click',()=>document.getElementById(el.dataset.teamScroll)?.scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'start'})));
+filterTeamDirectory();
