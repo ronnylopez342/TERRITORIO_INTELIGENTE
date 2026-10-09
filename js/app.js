@@ -363,22 +363,8 @@ function initImageFallbacks() {
 }
 
 function initLoginPrototype() {
-  const form = document.getElementById('loginForm');
-  const status = document.getElementById('loginStatus');
-  if (!form || !status) return;
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    const email = document.getElementById('email')?.value.trim() || '';
-    const password = document.getElementById('password')?.value || '';
-    status.hidden = false;
-    if (!email || !email.includes('@') || password.length < 4) {
-      status.textContent = 'Modo demo: usa un correo válido y una contraseña de al menos 4 caracteres.';
-      return;
-    }
-    sessionStorage.setItem('ti-demo-session', JSON.stringify({ email, startedAt: new Date().toISOString() }));
-    status.textContent = `Sesión DEMO iniciada como ${email}. Ya puedes recorrer todos los módulos.`;
-    form.querySelector('.login-submit').textContent = 'Sesión demo activa';
-  });
+  // The public portal cannot establish an institutional session without an auth service.
+  sessionStorage.removeItem('ti-demo-session');
 }
 
 setRoute(routeFromLocation(), { historyMode: location.hash ? 'none' : 'replace', focus: false, scroll: false });

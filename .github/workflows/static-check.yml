@@ -3,7 +3,8 @@ name: Static check
 on:
   push:
     branches:
-      - web-v5.1-stabilization
+      - production/v2.6-canonical
+      - fix/data-imports-20261009
   pull_request:
 
 jobs:
@@ -16,3 +17,8 @@ jobs:
           python-version: '3.x'
       - name: Verify static structure
         run: python scripts/verify_static.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify data parsing
+        run: node scripts/test_data_core.cjs

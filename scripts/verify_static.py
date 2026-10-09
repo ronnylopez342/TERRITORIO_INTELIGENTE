@@ -29,8 +29,13 @@ require("event.key === 'Escape'" in js and 'menu.inert' in js, 'Accesibilidad de
 require('@media(prefers-reduced-motion:reduce)' in css, 'Reduced motion ausente')
 views=set(re.findall(r'data-view="([^"]+)"',index))
 routes=set(re.findall(r'data-route="([^"]+)"',index))
-require(views == {'home','data','desarrollo','cumplimiento','politicas','insights','servicios','login'}, f'Vistas inesperadas: {sorted(views)}')
+core_views = {'home','data','desarrollo','cumplimiento','politicas','insights','servicios','login','equipo'}
+require(core_views <= views, f'Vistas principales faltantes: {sorted(core_views-views)}')
+require(all(view in core_views or view.startswith('perfil-') for view in views), f'Vistas inesperadas: {sorted(views-core_views)}')
 require(routes <= views, f'Rutas sin vista: {sorted(routes-views)}')
+for resource in re.findall(r'(?:src|href)="((?:js|css|data)/[^"?]+)', index):
+    require((ROOT / resource).is_file(), f'Recurso local ausente: {resource}')
+require('data-core.js' in index and 'data-workspace.js' in index, 'Modulos de importacion ausentes')
 if errors:
     print('RECOVERY CHECK: FAIL')
     for e in errors: print(' - '+e)
