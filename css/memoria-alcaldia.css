@@ -1,0 +1,165 @@
+/* 2.3 Memoria de la Alcaldía — edición editorial; aislada del resto de Territorio Inteligente. */
+.app-view[data-view="data"]:has(#data-municipales:not([hidden]))>.view-hero,
+.app-view[data-view="data"]:has(#data-municipales:not([hidden])) .module-heading-row{display:none!important}
+.app-view[data-view="data"]:has(#data-municipales:not([hidden]))>.view-body{background:#122838!important;padding:0!important}
+.app-view[data-view="data"]:has(#data-municipales:not([hidden]))>.view-body>.inner{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
+body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])){overflow-x:hidden!important;overflow-y:auto!important}
+body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden]))>footer{display:none!important}
+#data-municipales[hidden],#data-municipales [hidden]{display:none!important}
+#data-municipales{--ma-bg:#102636;--ma-panel:#162e40;--ma-card:#1e3648;--ma-dark:#091c2c;--ma-line:#3d5b70;--ma-yellow:#ffe500;--ma-white:#f7f9fd;--ma-muted:#bfd0dd;background:var(--ma-bg)!important;color:var(--ma-white)!important;margin:0!important;padding:0!important;border:0!important;font-family:Arial,Helvetica,sans-serif!important;font-size:15px;line-height:1.42}
+#data-municipales *,#data-municipales *:before,#data-municipales *:after{box-sizing:border-box}
+#data-municipales h1,#data-municipales h2,#data-municipales h3,#data-municipales h4,#data-municipales p,#data-municipales blockquote{margin:0;color:inherit;letter-spacing:normal;text-transform:none;font-family:inherit}
+#data-municipales button,#data-municipales input,#data-municipales select,#data-municipales textarea,#data-municipales a{font:inherit}
+#data-municipales button{cursor:pointer}
+#data-municipales :focus-visible{outline:3px solid var(--ma-yellow)!important;outline-offset:3px!important}
+#data-municipales a{color:inherit}
+#data-municipales .ma-page{width:100%;overflow:hidden}
+#data-municipales .ma-shell{padding-left:clamp(18px,3.2vw,62px);padding-right:clamp(18px,3.2vw,62px)}
+#data-municipales .ma-hero{position:relative;isolation:isolate;min-height:338px;overflow:hidden;background:#132939}
+#data-municipales .ma-hero-photo{position:absolute;inset:0 0 0 29%;z-index:-2;background:#203848 url("../assets/img/editorial/alcaldia.jpg") center 49%/cover no-repeat}
+#data-municipales .ma-hero-overlay{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#102636 0%,#102636 28%,rgba(16,38,54,.98) 36%,rgba(16,38,54,.75) 45%,rgba(16,38,54,.20) 73%,rgba(16,38,54,.12) 100%),linear-gradient(0deg,rgba(5,20,31,.38),transparent 58%)}
+#data-municipales .ma-hero-content{min-height:338px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:min(62%,910px);padding-top:24px;padding-bottom:21px}
+#data-municipales .ma-kicker{font-size:clamp(12px,1.04vw,17px);color:#d7e2eb!important;margin-bottom:17px!important}
+#data-municipales .ma-hero h1{font-size:clamp(52px,5.35vw,90px)!important;line-height:.93!important;font-weight:900;letter-spacing:-.047em!important;color:var(--ma-yellow)!important;margin-bottom:9px}
+#data-municipales .ma-hero h2{font-size:clamp(19px,1.87vw,31px)!important;line-height:1.16;font-weight:700;margin:0 0 15px!important}
+#data-municipales .ma-hero-lead{font-size:clamp(13px,1.18vw,19px);line-height:1.4;color:#d6e0e8!important;max-width:610px}
+#data-municipales .ma-hero-quote{position:absolute;left:56%;top:28%;font-family:Georgia,serif;font-style:italic;font-size:clamp(20px,2vw,33px);line-height:1.11;transform:rotate(-8deg);text-shadow:0 3px 8px #09131e;color:#fff;pointer-events:none}
+#data-municipales .ma-hero-quote em{color:var(--ma-yellow);font-style:inherit}
+#data-municipales .ma-quote-line{display:block;background:var(--ma-yellow);width:115px;height:3px;margin-top:17px;transform:rotate(-5deg)}
+#data-municipales .ma-hero-location{position:absolute;right:3.2vw;bottom:18px;font-size:12px;text-shadow:0 2px 8px #071624;color:#fff}
+#data-municipales .ma-content{background:linear-gradient(120deg,#11293b,#0a1d2d);padding-top:18px;padding-bottom:53px}
+#data-municipales .ma-local-alert{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:9px 15px;margin:0 0 17px;border:1px solid #42657c;border-left:3px solid var(--ma-yellow);border-radius:4px;background:#1a354a;color:#d5e3ed;font-size:12px;line-height:1.5}
+#data-municipales .ma-local-alert strong{color:#ffe500}
+#data-municipales .ma-local-alert button{border:0;background:none;color:var(--ma-yellow);font-weight:700;flex-shrink:0}
+#data-municipales .ma-search{display:grid;grid-template-columns:minmax(220px,1fr) minmax(150px,190px) minmax(145px,182px) minmax(135px,155px) 137px;align-items:stretch;gap:12px;margin-bottom:14px}
+#data-municipales .ma-field{height:49px;display:flex;align-items:center;gap:10px;padding:7px 13px;background:#1b3246;border:1px solid #426076;border-radius:6px;min-width:0}
+#data-municipales .ma-field .ma-filter-icon{font-size:19px;line-height:1;flex-shrink:0;color:#d6e0ea}
+#data-municipales .ma-field input,#data-municipales .ma-field select{display:block;min-width:0;width:100%;background:transparent!important;color:#fff!important;border:none!important;outline:none!important;padding:0;box-shadow:none!important;font-size:13px}
+#data-municipales .ma-field input::placeholder{color:#b6c7d6}
+#data-municipales .ma-field select option{background:#162e40;color:#fff}
+#data-municipales .ma-field small{display:block;white-space:nowrap;font-size:10px;color:#c7d5e0}
+#data-municipales .ma-field.ma-split{gap:9px}
+#data-municipales .ma-field.ma-split label{flex:1;min-width:0}
+#data-municipales .ma-search-btn{height:49px;background:var(--ma-yellow);border:1px solid var(--ma-yellow);border-radius:5px;color:#142636;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;gap:11px}
+#data-municipales .ma-search-btn:hover,#data-municipales .ma-primary:hover{background:#fff29d}
+#data-municipales .ma-quick-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 13px}
+#data-municipales .ma-quick-actions>span{font-size:12px;color:var(--ma-muted)}
+#data-municipales .ma-action-set{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#data-municipales .ma-btn{border:1px solid #64829b;border-radius:5px;padding:9px 13px;background:#274257;color:#f8fbfe;font-size:12px;font-weight:750;text-decoration:none;white-space:nowrap;line-height:1.2;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+#data-municipales .ma-btn:hover{border-color:var(--ma-yellow);color:#ffe500}
+#data-municipales .ma-primary{background:var(--ma-yellow);color:#142838;border-color:var(--ma-yellow)}
+#data-municipales .ma-primary:hover{color:#142838}
+#data-municipales .ma-features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:15px}
+#data-municipales .ma-feature{position:relative;min-height:119px;display:flex;gap:11px;align-items:flex-start;text-align:left;padding:17px;background:linear-gradient(106deg,#162f42 45%,#1b3447);border:1px solid #3e5b70;border-radius:8px;overflow:hidden;color:var(--ma-white)}
+#data-municipales .ma-feature:after{content:"";position:absolute;right:-13%;top:10%;height:130%;width:55%;background-size:cover;background-position:center;opacity:.13;filter:grayscale(.6);transition:opacity .2s}
+#data-municipales .ma-feature[data-ma-mode="documents"]:after{background-image:url("../assets/img/editorial/gestion.jpg")}
+#data-municipales .ma-feature[data-ma-mode="dependencies"]:after{background-image:url("../assets/img/editorial/alcaldia.jpg")}
+#data-municipales .ma-feature[data-ma-mode="history"]:after{background-image:url("../assets/img/editorial/hero-poster.jpg")}
+#data-municipales .ma-feature[data-ma-mode="indicators"]:after{background-image:url("../assets/img/editorial/territorio-aereo.jpg")}
+#data-municipales .ma-feature:hover,#data-municipales .ma-feature[aria-pressed="true"]{border-color:var(--ma-yellow)}
+#data-municipales .ma-feature-icon{flex-shrink:0;position:relative;z-index:1;display:grid;place-items:center;color:var(--ma-yellow);width:38px;height:43px}
+#data-municipales .ma-feature-icon svg{width:35px;height:35px;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round;fill:none}
+#data-municipales .ma-feature-body{position:relative;z-index:1;display:flex;flex-direction:column;gap:4px;min-width:0;padding-bottom:20px}
+#data-municipales .ma-feature-body strong{font-size:clamp(14px,1.13vw,19px);font-weight:800;line-height:1.18}
+#data-municipales .ma-feature-body b{font-size:clamp(20px,1.8vw,30px);font-weight:800;line-height:1.12}
+#data-municipales .ma-feature-body small{font-size:clamp(10px,.89vw,13px);color:#d0dce5;line-height:1.32}
+#data-municipales .ma-feature-arrow{position:absolute;left:14px;bottom:12px;border:1px solid var(--ma-yellow);color:var(--ma-yellow);border-radius:50%;display:grid;place-items:center;width:21px;height:21px;font-size:15px;line-height:1}
+#data-municipales .ma-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:13px;margin-bottom:14px}
+#data-municipales .ma-panel{min-width:0;background:rgba(13,32,47,.65);border:1px solid #38546b;border-radius:8px;padding:15px 16px;overflow:hidden}
+#data-municipales .ma-span-8{grid-column:span 8}#data-municipales .ma-span-4{grid-column:span 4}
+#data-municipales .ma-span-3{grid-column:span 3}#data-municipales .ma-span-6{grid-column:span 6}
+#data-municipales .ma-span-12{grid-column:span 12}
+#data-municipales .ma-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}
+#data-municipales .ma-panel-head h3{font-size:clamp(15px,1.18vw,19px);line-height:1.2;font-weight:800}
+#data-municipales .ma-panel-head p{font-size:11px;color:#d0dce8;margin-top:2px}
+#data-municipales .ma-text-link{color:var(--ma-yellow)!important;text-decoration:none;background:transparent;border:0;padding:0;font-size:12px;white-space:nowrap}
+#data-municipales .ma-text-link:hover{text-decoration:underline}
+#data-municipales .ma-table-scroller{overflow-x:auto}
+#data-municipales .ma-doc-table{width:100%;border-collapse:collapse;min-width:670px;font-size:12px;color:#e0eaf2}
+#data-municipales .ma-doc-table th{font-weight:600;background:#20394d;color:#d3dfea;text-align:left;padding:9px 11px;border-bottom:1px solid #42627c}
+#data-municipales .ma-doc-table td{padding:8px 11px;border-bottom:1px solid #28475b;white-space:nowrap}
+#data-municipales .ma-doc-table tr:last-child td{border-bottom:0}
+#data-municipales .ma-doc-table tbody tr:hover{background:#1a354b}
+#data-municipales .ma-doc-title{max-width:270px;text-align:left;background:none;border:0;padding:0;color:#f7fafd;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+#data-municipales .ma-doc-title:hover{color:#ffe500;text-decoration:underline}
+#data-municipales .ma-type-dot{display:inline-block;border-radius:2px;width:9px;height:13px;vertical-align:-2px;margin-right:7px}
+#data-municipales .ma-table-action{border:0;background:none;color:var(--ma-yellow);font-size:13px;padding:2px 6px}
+#data-municipales .ma-table-action:disabled{opacity:.35;cursor:not-allowed}
+#data-municipales .ma-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#data-municipales .ma-stat{padding:12px 13px;min-height:88px;border:1px solid #36556a;border-radius:7px;background:linear-gradient(140deg,#142c40,#0e2433)}
+#data-municipales .ma-stat small{font-size:11px;display:block;color:#c1d0dd}
+#data-municipales .ma-stat strong{display:block;font-size:clamp(19px,1.6vw,26px);line-height:1.3;margin:2px 0}
+#data-municipales .ma-stat span{display:block;color:#9fc6dc;font-size:10px}
+#data-municipales .ma-panel-subtle{font-size:11px;color:#a8bece;margin-top:10px;line-height:1.45}
+#data-municipales .ma-empty{display:grid;place-items:center;min-height:125px;padding:14px 10px;text-align:center;color:#c4d5e2;gap:8px;line-height:1.45;font-size:12px}
+#data-municipales .ma-empty strong{font-size:15px;color:#fff}
+#data-municipales .ma-empty button{margin-top:5px}
+#data-municipales .ma-chart{width:100%;display:block;height:auto;max-height:220px;overflow:visible}
+#data-municipales .ma-chart text{font-family:Arial,Helvetica,sans-serif}
+#data-municipales .ma-legend{display:flex;flex-wrap:wrap;gap:9px 13px;font-size:10px;color:#d8e2eb;margin-top:8px}
+#data-municipales .ma-legend span{display:flex;align-items:center;gap:5px}
+#data-municipales .ma-color{width:9px;height:9px;border-radius:3px;display:inline-block}
+#data-municipales .ma-hbars{display:grid;gap:9px;padding-top:6px}
+#data-municipales .ma-hbar{display:grid;grid-template-columns:minmax(80px,1fr) minmax(100px,2.2fr) 32px;align-items:center;gap:9px;font-size:11px;color:#d5e2eb}
+#data-municipales .ma-hbar-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#data-municipales .ma-hbar-track{height:12px;border-radius:3px;background:#1d3a52;overflow:hidden}
+#data-municipales .ma-hbar-fill{height:100%;background:#ffe500;border-radius:3px}
+#data-municipales .ma-hbar b{text-align:right}
+#data-municipales .ma-donut-row{display:flex;align-items:center;gap:18px;min-height:164px}
+#data-municipales .ma-donut{height:142px;width:142px;flex:0 0 142px;border-radius:50%;display:grid;place-items:center;position:relative}
+#data-municipales .ma-donut:after{content:"";width:91px;height:91px;border-radius:50%;background:#102737;position:absolute}
+#data-municipales .ma-donut-value{z-index:1;text-align:center;line-height:1.15}
+#data-municipales .ma-donut-value strong{display:block;font-size:19px}
+#data-municipales .ma-donut-value small{font-size:10px;color:#d8e4ed}
+#data-municipales .ma-donut-legend{display:grid;gap:7px;min-width:0;flex:1}
+#data-municipales .ma-donut-legend span{font-size:11px;display:flex;align-items:center;gap:7px;min-width:0}
+#data-municipales .ma-donut-legend span b{margin-left:auto}
+#data-municipales .ma-donut-legend span em{min-width:0;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:normal}
+#data-municipales .ma-line-list{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+#data-municipales .ma-line-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:11px;border-bottom:1px solid #29495b;padding:7px 0}
+#data-municipales .ma-line-list li:last-child{border:0}
+#data-municipales .ma-line-list strong{font-size:12px;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#data-municipales .ma-line-list small{display:block;color:#b9cbd9;font-size:10px}
+#data-municipales .ma-view-header{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin:19px 0 12px}
+#data-municipales .ma-view-header h2{font-size:clamp(26px,2.4vw,39px);font-weight:850;line-height:1.05}
+#data-municipales .ma-view-header p{font-size:13px;color:#c1d0df;margin-top:6px;max-width:720px}
+#data-municipales .ma-pager{display:flex;align-items:center;justify-content:center;gap:16px;font-size:12px;margin-top:16px;color:#d0dce5}
+#data-municipales .ma-pager button{border:1px solid #4d7186;color:#fff;background:#244259;padding:6px 12px;border-radius:4px;font-size:12px}
+#data-municipales .ma-pager button:disabled{opacity:.3;cursor:not-allowed}
+#data-municipales .ma-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#data-municipales .ma-dep-card{background:#183448;border:1px solid #47677a;text-align:left;color:#fff;padding:21px;border-radius:8px;display:flex;flex-direction:column;gap:10px;min-height:150px}
+#data-municipales .ma-dep-card:hover{border-color:var(--ma-yellow)}
+#data-municipales .ma-dep-card strong{font-size:17px}
+#data-municipales .ma-dep-card b{font-size:28px;color:var(--ma-yellow)}
+#data-municipales .ma-dep-card small{font-size:12px;color:#cbdce6}
+#data-municipales .ma-timeline{padding:15px 10px;display:grid;gap:12px}
+#data-municipales .ma-milestone{display:grid;grid-template-columns:70px 1fr;gap:15px;align-items:center;font-size:13px}
+#data-municipales .ma-milestone strong{font-size:18px;color:var(--ma-yellow)}
+#data-municipales .ma-milestone span{border-left:3px solid var(--ma-yellow);padding:13px;background:#1b384b;border-radius:0 5px 5px 0}
+#data-municipales .ma-legacy{margin-top:22px;padding:16px;background:#162d40;border:1px solid #4b6980;border-radius:6px}
+#data-municipales .ma-legacy summary{cursor:pointer;color:var(--ma-yellow);font-weight:800;font-size:14px}
+#data-municipales .ma-legacy>p{font-size:12px;margin:10px 0!important;color:#c4d5df}
+#data-municipales .ma-legacy .dataset-workspace{margin-top:12px}
+#data-municipales .ma-status{font-size:12px;color:#fbe270;margin:10px 0;min-height:18px}
+#data-municipales .ma-modal{max-width:640px;width:calc(100% - 30px);max-height:90dvh;overflow-y:auto;background:#172f40;border:1px solid #708b9f;border-radius:10px;color:#fff;padding:23px 26px;box-shadow:0 25px 85px #000a}
+#data-municipales .ma-modal::backdrop{background:rgba(1,11,20,.81)}
+#data-municipales .ma-modal h2{font-size:27px;line-height:1.1;margin-bottom:8px!important}
+#data-municipales .ma-modal>p{font-size:12px;color:#c2d3df;margin-bottom:15px!important}
+#data-municipales .ma-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+#data-municipales .ma-form label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#d0dfea;font-weight:700;min-width:0}
+#data-municipales .ma-form label.ma-wide{grid-column:1/-1}
+#data-municipales .ma-form input,#data-municipales .ma-form select,#data-municipales .ma-form textarea{width:100%;background:#0f2535;color:#fff;border:1px solid #688399;border-radius:5px;padding:11px 12px;font-size:13px;box-shadow:none}
+#data-municipales .ma-form input::placeholder,#data-municipales .ma-form textarea::placeholder{color:#9fb5c4}
+#data-municipales .ma-form select option{background:#102636;color:#fff}
+#data-municipales .ma-form textarea{min-height:84px;resize:vertical}
+#data-municipales .ma-form .ma-form-actions{grid-column:1/-1;display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:4px}
+#data-municipales .ma-fiche{display:grid;grid-template-columns:160px 1fr;gap:7px 16px;font-size:13px;margin:15px 0}
+#data-municipales .ma-fiche dt{color:#a5bdcd}#data-municipales .ma-fiche dd{margin:0;overflow-wrap:anywhere}
+#data-municipales .ma-dialog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+#data-municipales .ma-error{color:#ffe27c;font-size:12px;min-height:18px}
+#data-municipales .ma-privacy{font-size:11px;color:#a8c1d3;margin:12px 0}
+@media(min-width:1700px){#data-municipales .ma-hero{min-height:385px}#data-municipales .ma-hero-content{min-height:385px}#data-municipales .ma-feature{min-height:128px}}
+@media(max-width:1150px){#data-municipales .ma-search{grid-template-columns:repeat(3,minmax(0,1fr))}#data-municipales .ma-search .ma-field:first-child{grid-column:span 2}#data-municipales .ma-search-btn{grid-column:auto}#data-municipales .ma-features{grid-template-columns:repeat(2,1fr)}#data-municipales .ma-hero-content{width:65%}#data-municipales .ma-hero-quote{left:68%}#data-municipales .ma-grid .ma-span-3{grid-column:span 6}}
+@media(max-width:900px){#data-municipales .ma-hero-content{width:72%}#data-municipales .ma-hero-photo{left:17%}#data-municipales .ma-hero-quote{display:none}#data-municipales .ma-span-8,#data-municipales .ma-span-4{grid-column:span 12}#data-municipales .ma-span-3,#data-municipales .ma-span-6{grid-column:span 6}#data-municipales .ma-donut-row{justify-content:center}}
+@media(max-width:650px){#data-municipales .ma-hero{min-height:384px}#data-municipales .ma-hero-content{width:100%;min-height:384px;padding-top:26px;padding-bottom:26px}#data-municipales .ma-hero h1{font-size:clamp(51px,12vw,68px)!important}#data-municipales .ma-hero h2{font-size:19px!important}#data-municipales .ma-hero-photo{left:0;background-position:65% center}#data-municipales .ma-hero-overlay{background:linear-gradient(90deg,rgba(16,38,54,.98),rgba(16,38,54,.9) 61%,rgba(16,38,54,.65)),linear-gradient(0deg,#102636,transparent)}#data-municipales .ma-hero-location{display:none}#data-municipales .ma-search{grid-template-columns:1fr 1fr;gap:9px}#data-municipales .ma-search .ma-field:first-child{grid-column:span 2}#data-municipales .ma-search-btn{grid-column:span 2}#data-municipales .ma-field{height:46px;padding:6px 9px}#data-municipales .ma-features{grid-template-columns:1fr}#data-municipales .ma-feature{min-height:90px}#data-municipales .ma-feature-body{padding-bottom:6px}#data-municipales .ma-feature-arrow{left:auto;right:14px;bottom:calc(50% - 11px)}#data-municipales .ma-grid{grid-template-columns:1fr}#data-municipales .ma-grid .ma-panel{grid-column:1/-1}#data-municipales .ma-stats{grid-template-columns:repeat(2,minmax(0,1fr))}#data-municipales .ma-tiles{grid-template-columns:1fr}#data-municipales .ma-form{grid-template-columns:1fr}#data-municipales .ma-form label{grid-column:1/-1}#data-municipales .ma-fiche{grid-template-columns:110px 1fr}#data-municipales .ma-donut{width:126px;height:126px;flex-basis:126px}#data-municipales .ma-donut:after{width:82px;height:82px}#data-municipales .ma-donut-row{gap:11px}}
+@media(prefers-reduced-motion:reduce){#data-municipales *{scroll-behavior:auto!important}}
