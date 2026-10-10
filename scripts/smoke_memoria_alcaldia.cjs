@@ -78,7 +78,7 @@ async function run(){
  assert.equal(await page.locator('.ma-doc-table tbody tr').count(),2);
  await page.locator('[data-ma-mode="overview"]').click();
  assert.equal(await page.locator('.ma-doc-table tbody tr').count(),2);
- assert.equal(await page.locator('svg.ma-chart').count(),1);
+ assert.equal(await page.locator('.ma-grid-analytics > .ma-panel').count(),3);
  assert.ok(await page.locator('.ma-donut').count()>=1);
  assert.match(await page.locator('.ma-key-metrics').innerText(),/2/);
  await page.screenshot({path:path.join(shots,'memoria23-con-registros-locales.png'),fullPage:true});
