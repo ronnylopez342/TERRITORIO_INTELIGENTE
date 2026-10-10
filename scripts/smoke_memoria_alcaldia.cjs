@@ -64,7 +64,6 @@ async function run(){
  await page.locator('#maApp[data-ready=true]').waitFor({state:'visible'});
  await page.locator('#maFormDialog').waitFor({state:'hidden'});
  assert.equal(await page.locator('.ma-doc-table tbody tr').count(),1);
- assert.equal(await page.locator('.ma-doc-table tbody tr').count(),1);
  await page.locator('[data-ma-action="new"]').first().click();
  await page.locator('#maUploadForm [name=title]').fill('Referencia física de prueba');
  await page.locator('#maUploadForm [name=type]').selectOption('Informe');
@@ -75,7 +74,7 @@ async function run(){
  await page.locator('#maUploadForm [name=status]').selectOption('physical');
  await page.locator('#maUploadForm button[type=submit]').click();
  await page.locator('#maFormDialog').waitFor({state:'hidden'});
- await page.locator('.ma-feature[data-ma-mode="documents"]').waitFor({state:'visible'});
+ await page.locator('.ma-doc-table tbody tr').first().waitFor({state:'visible'});
  assert.equal(await page.locator('.ma-doc-table tbody tr').count(),2);
  await page.locator('[data-ma-mode="overview"]').click();
  assert.equal(await page.locator('.ma-doc-table tbody tr').count(),2);
