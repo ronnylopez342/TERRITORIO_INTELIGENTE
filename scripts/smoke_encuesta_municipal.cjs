@@ -94,7 +94,7 @@ async function main(){
   await page.waitForFunction(()=>location.hash==='#data?seccion=data-encuesta',{timeout:15000});
   await page.goto(baseUrl+'/#data?seccion=data-publicaciones',{waitUntil:'domcontentloaded'});
   await page.locator('#data-publicaciones:not([hidden])').waitFor({timeout:15000});
-  assert.match(await page.locator('#data-publicaciones .module-toolbar .eyebrow').textContent(),/2\.5\s*·\s*Publicaciones/i,'Publications numbering follows Encuesta');
+  assert.match(await page.locator('#data-publicaciones .pub-breadcrumb').textContent(),/2\.5\s+PUBLICACIONES/i,'Publications numbering follows Encuesta in the new editorial hero');
   assert.equal(await page.locator('#data-publicaciones #publicationUpload').count(),1,'Existing publication upload preserved');
 
   const mobile=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});
