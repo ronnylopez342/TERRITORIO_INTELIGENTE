@@ -654,3 +654,6 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) .ap
  #data-municipales .ma-demo-timeline{overflow:auto;padding:21px 4px 8px}
  #data-municipales .ma-demo-timeline .ma-time-point{min-width:85px}
 }
+
+/* Demo bar fills are actual blocks, never inline spans without a painted width. */
+#data-municipales .ma-demo-bars .ma-hbar-fill{display:block!important;height:100%!important;background:linear-gradient(90deg,#83c1ff,#4488f2)!important}
