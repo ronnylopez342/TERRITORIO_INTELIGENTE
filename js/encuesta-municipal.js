@@ -53,7 +53,7 @@ const getSvg=(tag,attrs)=>{
  for(const key of Object.keys(attrs||{}))el.setAttribute(key,String(attrs[key]));
  return el;
 };
-const proj={minX:0,minY:0,maxX:0,maxY:0,cx:0,cy:0,scale:1};
+const proj={minX:0,minY:0,maxX:0,maxY:0,cx:0,cy:0,scaleX:1,scaleY:1};
 function collectRingCoords(geometry){
  if(!geometry||!["Polygon","MultiPolygon"].includes(geometry.type))return[];
  const polys=geometry.type==="Polygon"?[geometry.coordinates]:geometry.coordinates;
@@ -69,11 +69,12 @@ function makeProjection(){
  const width=proj.maxX-proj.minX,height=proj.maxY-proj.minY;
  if(!width||!height)throw Error("Geometría territorial degenerada");
  proj.cx=(proj.minX+proj.maxX)/2;proj.cy=(proj.minY+proj.maxY)/2;
- proj.scale=Math.min(755/width,425/height);
+ proj.scaleX=775/width;
+ proj.scaleY=415/height;
 }
 function project(p){
- return [480+(Number(p[0])-proj.cx)*proj.scale,
-  264-(Number(p[1])-proj.cy)*proj.scale];
+ return [480+(Number(p[0])-proj.cx)*proj.scaleX,
+  264-(Number(p[1])-proj.cy)*proj.scaleY];
 }
 function featurePath(geo){
  const polys=geo.type==="Polygon"?[geo.coordinates]:geo.coordinates;
@@ -216,9 +217,9 @@ function redraw(){
  changeDonut(values);
  const approved=values[0]+values[1];
  const zoneMsg=state.zone?" en "+state.zone:"";
- const statement=approved+"% de las respuestas"+zoneMsg+
-  " evalúa positivamente los servicios públicos en esta DEMOSTRACIÓN. "+ 
-  "La visualización sirve para explorar necesidades; las conclusiones reales requieren datos verificados de Práctica País.";
+ const statement=!state.zone&&!state.sector&&!state.question?
+  "El 60% de las respuestas valora los servicios públicos como buenos o excelentes. El ejemplo destaca brechas en zonas rurales, especialmente en acueducto y vías.":
+  approved+"% de valoraciones positivas"+zoneMsg+". Cifras de demostración, no resultados oficiales; deben contrastarse con Práctica País.";
  setText("svInsight",statement);
  const mapText=state.sector?"Nivel de satisfacción ilustrativo · "+topics[state.sector]:
   state.question==="necesidades"?"Necesidades reportadas por zona · demostración":
