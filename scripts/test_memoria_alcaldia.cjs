@@ -63,5 +63,6 @@ assert.ok(js.includes('state.demoMode=false;rememberViewMode();state.error='),'S
 assert.ok(js.includes('if(state.demoMode)return demo.dashboard(panel,state.filters)'),'Demo board must be isolated');
 assert.ok(js.includes('data-ma-action="toggle-demo"'),'Visible toggle required');
 assert.ok(css.includes('ma-demo-key-metrics')&&css.includes('ma-demo-timeline'),'Demo styles required');
+for(const banned of ["editorial/gestion.jpg","editorial/alcaldia.jpg","editorial/hero-poster.jpg"])assert.ok(!css.includes(banned),"The 2.3 must not display alcalde video frames: "+banned);
 
 console.log('MEMORIA 2.3 STATIC: PASS — chart components, CRUD, uploads, source labels, isolated legacy workspace.');
