@@ -18,11 +18,11 @@ const dateText=iso=>{
  return Number.isNaN(d.getTime())?"Por definir":new Intl.DateTimeFormat("es-CO",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(d);
 };
 const pictures={
- featured:"assets/img/editorial/pub-featured.webp",
- coffee:"assets/img/editorial/pub-coffee.webp",
+ featured:"assets/img/editorial/encuesta-subachoque-referencia.webp",
+ coffee:"assets/img/editorial/servicio.jpg",
  school:"assets/img/editorial/pub-education.webp",
- environment:"assets/img/editorial/pub-environment.webp",
- survey:"assets/img/editorial/pub-survey.webp"
+ environment:"assets/img/editorial/territorio-aereo.jpg",
+ survey:"assets/img/editorial/participacion.jpg"
 };
 const items=Object.freeze([
  {id:"demo-diagnostico24",type:"informe",date:"2024-04-15",cover:"featured",author:"Ejemplo editorial · Subachoque",tag:"Territorio",title:"Diagnóstico territorial de Subachoque 2024",
