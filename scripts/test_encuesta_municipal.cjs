@@ -1,0 +1,40 @@
+/* Encuesta Municipal: fidelity, demo isolation and real GeoJSON regression tests. */
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const vm=require('node:vm');
+const dir=path.resolve(__dirname,'..');
+const read=name=>fs.readFileSync(path.join(dir,name),'utf8');
+const html=read('index.html'),css=read('css/encuesta-municipal.css'),js=read('js/encuesta-municipal.js');
+const geo=JSON.parse(read('data/veredas-subachoque.geojson'));
+new Function(js);
+assert.equal((html.match(/id="data-encuesta"/g)||[]).length,1,'One survey panel');
+assert.equal((html.match(/id="svApp"/g)||[]).length,1,'One full-screen survey');
+assert.equal((html.match(/data-dataset-workspace="encuesta"/g)||[]).length,1,'Preserve existing real data workspace');
+for(const id of ['svMainTitle','svMapSvg','svMapTip','svDonut','svBreaches','svZone','svSector','svQuestion','svYear','svOpenReal','svRealWorkspace']) {
+ assert.ok(html.includes('id="'+id+'"'),id+' missing');
+}
+assert.ok(html.includes('css/encuesta-municipal.css?v=encuesta24-01'),'Survey stylesheet not loaded');
+assert.ok(html.includes('js/encuesta-municipal.js?v=encuesta24-01'),'Survey behavior not loaded');
+assert.ok(html.includes('DEMO ILUSTRATIVA'),'Never claim sample statistics are real');
+assert.ok(html.includes('1.248')&&html.includes('17')&&html.includes('2026'),'Approved hero KPIs missing');
+assert.ok(html.includes('78%')&&html.includes('142'),'Approved selected vereda example missing');
+for(const s of ['18%','42%','24%','11%','5%','68%','52%','45%','38%','34%','28%'])assert.ok(html.includes(s),'Missing approved screenshot percentage '+s);
+assert.ok(css.includes('100dvh')&&css.includes('.sv-dash'),'Full viewport layout missing');
+assert.ok(css.includes(':has(#data-encuesta:not([hidden]))'),'Must isolate all layout overrides to survey');
+assert.ok(css.includes('grid-template-columns:minmax(0,1.59fr) minmax(0,1fr)'),'Approved left-map / right-analytics layout missing');
+assert.ok(css.includes('@media(max-width:530px)'),'Mobile layout missing');
+for(const s of ['window.TIEncuesta24','data/veredas-subachoque.geojson','setZoom(', 'openReal(', 'changeDonut(', 'drawBreaches(', 'dataset.ready'])assert.ok(js.includes(s),'Missing functional implementation '+s);
+assert.ok(!/(jorge-alberto-camacho|heroLocalVideo|<video)/.test(js),'Former mayor video must never be loaded in survey');
+assert.equal(geo.features.length,17,'GeoJSON must map the 17 supplied municipality veredas');
+assert.ok(geo.features.every(f=>typeof f.properties.nombre==='string'));
+assert.ok(geo.features.some(f=>f.properties.nombre==='Rincon Santo'));
+const matches=js.match(/const sample=(\[[\s\S]*?\]);\s*const cityResponses=/);
+assert.ok(matches,'Sample data constant missing');
+const sample=vm.runInNewContext(matches[1],{});
+assert.equal(sample.length,17);
+assert.equal(sample.reduce((s,row)=>s+row[1],0),1248);
+const ring=geo.features[0].geometry.coordinates[0];
+assert.ok(ring.length>3&&ring.every(p=>p.length>=2&&Number.isFinite(p[0])&&Number.isFinite(p[1])));
+console.log('ENCUESTA 2.4 STATIC: PASS — exact demo values, 17 geographical zones, isolated importer, fullscreen layout and interactive components.');
