@@ -59,7 +59,7 @@ assert.ok(html.includes('memoria-alcaldia-demo.js?v=memoria23-demo-01'));
 assert.ok(html.indexOf('js/memoria-alcaldia-demo.js')<html.indexOf('js/memoria-alcaldia.js'),'Load demo before the application');
 assert.ok(js.includes('state.demoMode=savedViewMode()!=="real";'),'Demo is default unless user explicitly chose real mode');
 assert.ok(js.includes('rememberViewMode()'),'Selected demo or real view mode persists');
-assert.ok(js.includes('state.demoMode=false;state.error='),'Saved real documents switch to live');
+assert.ok(js.includes('state.demoMode=false;rememberViewMode();state.error='),'Saved real documents switch to live and retain the selected view');
 assert.ok(js.includes('if(state.demoMode)return demo.dashboard(panel,state.filters)'),'Demo board must be isolated');
 assert.ok(js.includes('data-ma-action="toggle-demo"'),'Visible toggle required');
 assert.ok(css.includes('ma-demo-key-metrics')&&css.includes('ma-demo-timeline'),'Demo styles required');
