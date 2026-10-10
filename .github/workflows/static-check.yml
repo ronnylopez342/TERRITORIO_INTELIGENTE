@@ -25,3 +25,5 @@ jobs:
           node-version: '24'
       - name: Verify data parsing
         run: node scripts/test_data_core.cjs
+      - name: Verify Plan Estadistico 2.2
+        run: node scripts/test_plan_estadistico.cjs
