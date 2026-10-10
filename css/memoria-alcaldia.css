@@ -657,3 +657,17 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) .ap
 
 /* Demo bar fills are actual blocks, never inline spans without a painted width. */
 #data-municipales .ma-demo-bars .ma-hbar-fill{display:block!important;height:100%!important;background:linear-gradient(90deg,#83c1ff,#4488f2)!important}
+
+/* All nine departments must fit inside the approved 214px chart panel. */
+#data-municipales .ma-demo-bars{gap:2px!important;padding-top:1px!important}
+#data-municipales .ma-demo-bars .ma-hbar{height:14px!important;min-height:14px;line-height:1!important}
+#data-municipales .ma-demo-bars .ma-hbar-track{height:10px!important}
+#data-municipales .ma-feature[data-ma-mode="history"]:after{
+ background-image:url("../assets/img/editorial/gestion.jpg")!important;background-position:center!important;
+}
+#data-municipales .ma-feature[data-ma-mode="dependencies"]:after{
+ background-image:url("../assets/img/editorial/alcaldia.jpg")!important;background-position:center!important;
+}
+#data-municipales .ma-feature[data-ma-mode="indicators"]:after{
+ background-image:url("../assets/img/editorial/hero-poster.jpg")!important;background-position:center!important;
+}
