@@ -18,7 +18,7 @@ async function run(){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const host='http://127.0.0.1:'+server.address().port;
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
- const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1,acceptDownloads:true});
+ const page=await browser.newPage({viewport:{width:1648,height:928},deviceScaleFactor:1,acceptDownloads:true});
  const errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  const shots=path.join(base,'screenshots');fs.mkdirSync(shots,{recursive:true});
@@ -41,6 +41,7 @@ async function run(){
  assert.match(await page.locator('.ma-demo-key-metrics').innerText(),/\+12%/);
  assert.match(await page.locator('.ma-demo-key-metrics').innerText(),/\+18%/);
  assert.ok(!(await page.locator('#maApp').innerText()).includes('Sin registros todavía'),'Default empty archive must show demo');
+ await page.screenshot({path:path.join(shots,'memoria23-demo-1648x928.png'),fullPage:false});
  await page.locator('.ma-demo-document [data-ma-demo-doc]').first().click();
  assert.match(await page.locator('#maDetailDialog').innerText(),/No corresponde a un documento oficial verificado/);
  await page.locator('#maDetailDialog [data-ma-action="close"]').click();
