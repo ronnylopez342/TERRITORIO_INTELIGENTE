@@ -95,7 +95,7 @@ async function run(){
   await page.locator('#pubEditSources').fill('Archivo de ejemplo incorporado por navegador; no publicable');
   await page.locator('#pubEditStatus').selectOption('revisada');
   await page.locator('#pubMetadataForm button[type=submit]').click();
-  await page.locator('#pubEditDialog:not([open])').waitFor();
+  await page.locator('#pubEditDialog').waitFor({state:'hidden'});
   assert.match(await page.locator('#pubMetaList').innerText(),/Boletín local de prueba/);
   assert.match(await page.locator('#pubMetaList').innerText(),/Revisada \(local\)/);
   await page.locator('#pubManageDialog [data-pub-close]').first().click();
