@@ -3,14 +3,15 @@
 "use strict";
 const root=document.getElementById("maApp");
 const legacy=document.getElementById("maLegacyWorkspace");
-if(!root||!legacy)return;
+const demo=window.TI_MA_DEMO;
+if(!root||!legacy||!demo)return;
 const KEY="municipal-archive:v1";
 const TYPE_OPTIONS=["Decreto","Resolución","Acuerdo","Informe","Plan","Acta","Contrato","Manual","Correspondencia","Otro"];
 const DEP_HINTS=["Despacho del Alcalde","Secretaría de Planeación","Secretaría de Gobierno","Secretaría de Hacienda","Secretaría de Infraestructura","Secretaría de Desarrollo Social","Secretaría de Ambiente","Oficina de Control Interno","Otra dependencia"];
 const COLORS=["#ffe500","#5caff7","#35bdab","#a584e3","#eea76c","#adc1d3","#6e91bf","#eb80aa"];
 const allowed=/\.(pdf|docx?|xlsx?|csv|json|txt|png|jpe?g|webp)$/i;
 const maxBytes=25*1024*1024;
-const state={records:[],mode:"overview",filters:{q:"",type:"",dependency:"",year:""},page:0,error:"",ready:false,alertDismissed:false,filtersVisible:false};
+const state={records:[],mode:"overview",filters:{q:"",type:"",dependency:"",year:""},page:0,error:"",ready:false,alertDismissed:false,filtersVisible:false,demoMode:true};
 const escape=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const format=n=>new Intl.NumberFormat("es-CO").format(Number(n)||0);
 const shortDate=v=>{if(!v)return"Sin fecha";const date=new Date(v.length===10?v+"T12:00:00":v);return isNaN(date.valueOf())?"Sin fecha":new Intl.DateTimeFormat("es-CO",{day:"2-digit",month:"short",year:"numeric"}).format(date);};
@@ -36,8 +37,8 @@ function filtered(data=sorted()){
   return [item.title,item.type,item.dependency,item.summary,item.source,item.fileName,String(item.dated||""),item.id].some(s=>String(s||"").toLocaleLowerCase("es").includes(needle));
  });
 }
-function availableYears(){return unique(state.records.map(r=>String(r.dated||"").slice(0,4))).filter(x=>/^\d{4}$/.test(x)).sort((a,b)=>b.localeCompare(a));}
-function availableDeps(){return unique(state.records.map(r=>r.dependency)).sort((a,b)=>a.localeCompare(b,"es"));}
+function availableYears(){return unique((state.demoMode?demo.data.docs.map(r=>({dated:r.date})):state.records).map(r=>String(r.dated||"").slice(0,4))).filter(x=>/^\d{4}$/.test(x)).sort((a,b)=>b.localeCompare(a));}
+function availableDeps(){return unique((state.demoMode?demo.data.departments:state.records).map(r=>r.dependency||r.name)).sort((a,b)=>a.localeCompare(b,"es"));}
 function metricEmpty(){return `<div class="ma-empty"><strong>Sin registros todavía</strong><span>Carga documentos reales para generar esta visualización.</span><button class="ma-btn ma-primary" type="button" data-ma-action="new">+ Agregar archivo</button></div>`;}
 function panel(title,body,span=4,subtitle="",action=""){
  return `<section class="ma-panel ma-span-${span}"><div class="ma-panel-head"><div><h3>${escape(title)}</h3>${subtitle?`<p>${escape(subtitle)}</p>`:""}</div>${action||""}</div>${body}</section>`;
@@ -51,7 +52,8 @@ function recordsStats(rows=filtered()){
  return {count:rows.length,departments:unique(rows.map(x=>x.dependency)).length,historic:rows.filter(x=>x.historic).length,digital:rows.filter(x=>x.status==="digital").length,undigitized:rows.filter(x=>x.status==="physical").length,first:years.length?Math.min(...years):null,last:years.length?Math.max(...years):null,size:rows.reduce((s,r)=>s+(Number(r.fileBlob?.size)||0),0)};
 }
 function filtersMarkup(){
- const types=unique([...TYPE_OPTIONS.filter(t=>state.records.some(r=>r.type===t)),...state.records.map(r=>r.type)]).sort((a,b)=>a.localeCompare(b,"es"));
+ const sampleRecords=state.demoMode?demo.data.docs:state.records;
+ const types=unique([...TYPE_OPTIONS.filter(t=>sampleRecords.some(r=>r.type===t)),...sampleRecords.map(r=>r.type)]).sort((a,b)=>a.localeCompare(b,"es"));
  return `<form class="ma-search" id="maSearchForm" role="search" aria-label="Buscar en Memoria de la Alcaldía">
   <label class="ma-field"><span class="ma-filter-icon" aria-hidden="true">⌕</span><input name="q" type="search" value="${escape(state.filters.q)}" placeholder="Buscar documentos, dependencias, temas o palabras clave" aria-label="Texto a buscar"/></label>
   <div class="ma-field ma-split"><span class="ma-filter-icon" aria-hidden="true">▤</span><label><small>Tipo de documento</small><select name="type" aria-label="Tipo de documento"><option value="">Todos</option>${types.map(t=>`<option value="${escape(t)}"${state.filters.type===t?" selected":""}>${escape(t)}</option>`).join("")}</select></label></div>
@@ -151,6 +153,7 @@ function archiveTimeline(rows){
  return `<div class="ma-timeline-horizontal" role="list" aria-label="Línea de tiempo de documentos históricos"><div class="ma-timeline-axis" aria-hidden="true"></div>${items.map(([year,files])=>`<button type="button" role="listitem" class="ma-time-point" data-ma-year="${escape(year)}" title="Consultar ${format(files.length)} documento(s) de ${year}"><span class="ma-time-dot" aria-hidden="true"></span><b>${escape(year)}</b><small>${format(files.length)} documento(s) en el archivo</small></button>`).join("")}</div>`;
 }
 function board(){
+ if(state.demoMode)return demo.dashboard(panel,state.filters);
  const rows=filtered();
  const link=(mode,label)=>`<button type="button" class="ma-text-link" data-ma-mode="${mode}">${label} →</button>`;
  const dept=rows.length?chartDeps(rows):metricEmpty();
@@ -164,7 +167,46 @@ function board(){
  ${panel("Línea de tiempo de la memoria institucional",archiveTimeline(rows),6,"",link("history","Ver serie completa"))}
  </div>`;
 }
+
+function demoDetail(){
+ const mode=state.mode;
+ const title={documents:"Archivo documental",dependencies:"Documentos por dependencia",history:"Inventario histórico",indicators:"Bases municipales",series:"Series históricas"}[mode]||"Memoria de la Alcaldía";
+ const description={
+  documents:"Cinco documentos de ejemplo tomados de la maqueta; no hay archivos reales asociados.",
+  dependencies:"Distribución de demostración según la imagen aprobada. Los conteos no son estadísticas oficiales.",
+  history:"Cronología ilustrativa de hitos institucionales. Fechas todavía no verificadas documentalmente.",
+  indicators:"Indicadores visuales del diseño aprobado; para bases reales utiliza el importador original.",
+  series:"Evolución visual de hitos documentales de la referencia aprobada."
+ }[mode]||"Contenido ilustrativo";
+ const back='<button type="button" class="ma-btn" data-ma-mode="overview">← Volver al resumen</button>';
+ const info='<p class="ma-demo-detail-warning">MODO DEMOSTRACIÓN · Cifras y documentos ilustrativos de la maqueta. No son información oficial de la Alcaldía.</p>';
+ const header='<div class="ma-view-header"><div><h2 tabindex="-1" id="maSectionTitle">'+escape(title)+'</h2><p>'+escape(description)+'</p></div>'+back+'</div>'+info;
+ if(mode==="documents"){
+  return header+panel("Documentos ilustrativos de la maqueta",demo.documentsList(demo.filteredDocs(state.filters)),12,"5 ejemplos visuales · 5.253 corresponde al total ficticio del diseño.");
+ }
+ if(mode==="dependencies"){
+  const cards='<div class="ma-tiles ma-demo-departments">'+demo.data.departments.map(d=>
+   '<button type="button" class="ma-dep-card" data-ma-demo-department="'+escape(d.name)+'"><strong>'+escape(d.name)+'</strong><b>'+format(d.value)+'</b><small>Documentos en el ejemplo ilustrativo</small><small>Explorar →</small></button>').join('')+'</div>';
+  return header+cards+'<div class="ma-grid" style="margin-top:14px">'+panel("Distribución de ejemplo",demo.departmentsChart(),12)+'</div>';
+ }
+ if(mode==="history"){
+  return header+panel("Línea de tiempo 1984–2024",demo.timeline(),12,"Selecciona un hito para ver su descripción ilustrativa.")+
+   '<div class="ma-grid" style="margin-top:14px">'+panel("Documentos de muestra",demo.documentsList(),12)+'</div>';
+ }
+ if(mode==="series"){
+  return header+panel("Recorrido temporal ilustrativo",demo.timeline(),12,"Los hitos no representan una serie estadística verificada.")+
+   '<div class="ma-grid" style="margin-top:14px">'+panel("Distribución documental de muestra",demo.departmentsChart(),12)+'</div>';
+ }
+ if(mode==="indicators"){
+  return header+'<div class="ma-grid">'+panel("Indicadores ilustrativos",demo.keyMetrics(),12)+
+   panel("Estado de digitalización — ejemplo",demo.archiveStatus(),12,"68% / 32% según la maqueta aprobada.")+
+   '</div><div class="ma-actions"><button type="button" class="ma-btn ma-primary" data-ma-action="legacy">Abrir importador real de datos ↓</button></div>';
+ }
+ return header+demo.dashboard(panel,state.filters);
+}
+
 function detailedView(){
+ if(state.demoMode)return demoDetail();
  const rows=filtered(),mode=state.mode;
  const header=(title,summary,button="")=>`<div class="ma-view-header"><div><h2 tabindex="-1" id="maSectionTitle">${escape(title)}</h2><p>${escape(summary)}</p></div><div class="ma-action-set">${button}<button class="ma-btn" type="button" data-ma-mode="overview">← Volver al resumen</button></div></div>`;
  if(mode==="documents")return header("Archivo documental",`${format(rows.length)} documento(s) disponibles con los filtros seleccionados.`,`<button class="ma-btn ma-primary" type="button" data-ma-action="new">+ Agregar documento</button>`)+panel("Documentos oficiales",docTable(rows),12,"Consulta sus fichas y descarga los archivos originales");
@@ -198,7 +240,7 @@ function shell(){
  <section class="ma-hero" aria-labelledby="maTitle">
  <div class="ma-hero-photo" aria-hidden="true"></div><div class="ma-hero-overlay" aria-hidden="true"></div>
  <div class="ma-shell ma-hero-content">
-  <p class="ma-kicker">Data Territorio&nbsp; / &nbsp;2.3 Memoria de la Alcaldía</p>
+  <p class="ma-kicker">Data Territorio&nbsp; / &nbsp;2.3 Memoria de la Alcaldía ${state.demoMode?'<span class="ma-demo-chip" title="Las estadísticas de esta pantalla son ejemplos de la maqueta, no datos oficiales">DEMO VISUAL</span>':""}</p>
   <h1 id="maTitle" tabindex="-1">MEMORIA DE<br>LA ALCALDÍA</h1>
   <h2>Archivos, históricos y dependencias</h2>
   <p class="ma-hero-lead">Explora la memoria institucional de Subachoque. Accede a archivos históricos, documentos por dependencias, bases municipales y series de información que cuentan la historia de nuestro territorio.</p>
@@ -210,16 +252,17 @@ function shell(){
   ${featureMarkup()}
   ${state.mode==="overview"?board():detailedView()}
   <div class="ma-extra-tools">
-    <div class="ma-extra-copy"><strong>Archivo y gestión documental</strong><span>Consulta, incorpora y administra información real del municipio.</span></div>
+    <div class="ma-extra-copy"><strong>${state.demoMode?"Vista de demostración":"Archivo y gestión documental"}</strong><span>${state.demoMode?"Los valores reproducen la maqueta, pero no son cifras oficiales. Puedes cambiar a tus registros reales.":"Consulta, incorpora y administra información real del municipio."}</span></div>
     <div class="ma-action-set">
+     <button type="button" class="ma-btn ma-demo-toggle" data-ma-action="toggle-demo">${state.demoMode?"◉ Ver datos reales":"◉ Ver demostración"}</button>
      <button type="button" class="ma-btn" data-ma-action="search" aria-expanded="${Boolean(state.filtersVisible)}">⌕ Buscar y filtrar ${filterActive?"(filtros activos)":""}</button>
-     <button type="button" class="ma-btn" data-ma-action="export">↓ Exportar catálogo</button>
+     <button type="button" class="ma-btn" data-ma-action="export">${state.demoMode?"↓ Exportar muestra":"↓ Exportar catálogo"}</button>
      <button type="button" class="ma-btn ma-primary" data-ma-action="new">+ Agregar documento</button>
     </div>
   </div>
-  ${state.filtersVisible?`<div class="ma-search-drawer" id="maSearchDrawer">${filtersMarkup()}<div class="ma-search-meta">${format(rows.length)} resultado(s) de ${format(state.records.length)} · <button class="ma-text-link" type="button" data-ma-action="clear">Limpiar filtros</button></div></div>`:""}
+  ${state.filtersVisible?`<div class="ma-search-drawer" id="maSearchDrawer">${filtersMarkup()}<div class="ma-search-meta">${format(state.demoMode?demo.filteredDocs(state.filters).length:rows.length)} resultado(s) de ${format(state.demoMode?demo.data.docs.length:state.records.length)} · <button class="ma-text-link" type="button" data-ma-action="clear">Limpiar filtros</button></div></div>`:""}
   <p role="status" aria-live="polite" class="ma-status" id="maStatus">${escape(state.error)}</p>
-  <p class="ma-local-footnote">Repositorio de trabajo · Los documentos que cargues se conservan en este navegador, no se publican automáticamente y no sustituyen el archivo institucional. Las estadísticas se calculan únicamente con registros incorporados; no se muestran cifras ilustrativas como oficiales.</p>
+  <p class="ma-local-footnote">${state.demoMode?"DEMOSTRACIÓN VISUAL · Las cifras, porcentajes, nombres de documentos y fechas históricas de esta pantalla reproducen una propuesta de diseño; no están validados como datos oficiales de Subachoque. No existen archivos descargables detrás de los ejemplos.":"REPOSITORIO LOCAL · Los archivos guardados solo existen en este navegador; las estadísticas mostradas proceden de esos registros y no se publican automáticamente."}</p>
  </div>
  <dialog id="maFormDialog" class="ma-modal" aria-labelledby="maFormHeading"></dialog>
  <dialog id="maDetailDialog" class="ma-modal" aria-labelledby="maDetailHeading"></dialog>
@@ -227,7 +270,7 @@ function shell(){
 }
 function render({focus=false}={}){
  root.innerHTML=shell();
- if(state.mode==="indicators"){legacy.hidden=false;legacy.open=true;}
+ if(!state.demoMode&&state.mode==="indicators"){legacy.hidden=false;legacy.open=true;}
  else{legacy.hidden=true;legacy.open=false;}
  root.dataset.ready=state.ready?"true":"loading";
  if(focus)requestAnimationFrame(()=>root.querySelector("#maSectionTitle,#maTitle")?.focus({preventScroll:true}));
@@ -301,7 +344,7 @@ async function saveForm(form){
    else created.push(item);
   }
   await TIData.write(KEY,{version:1,records:created});
-  state.records=created;state.error=`${list.length} registro(s) guardado(s) en este navegador.`;
+  state.records=created;state.demoMode=false;state.error=`${list.length} registro(s) guardado(s) en este navegador.`;
   dlg.close();state.mode=state.mode==="history"?"history":"documents";state.page=0;render();
  }catch(err){message.textContent=err.message||"No se pudo guardar. Revisa el espacio disponible en este navegador.";}
  finally{if(button.isConnected){button.disabled=false;button.textContent=original?"Guardar cambios":"Guardar documentos";}}
@@ -352,15 +395,21 @@ function exportCsv(){
  root.querySelector("#maStatus").textContent=state.error;
 }
 function handleAction(action){
- if(action==="new"){newForm();return;}
+ if(action==="new"){root.querySelector("#maDetailDialog[open]")?.close();newForm();return;}
+ if(action==="toggle-demo"){state.demoMode=!state.demoMode;state.mode="overview";state.filters={q:"",type:"",dependency:"",year:""};state.filtersVisible=false;state.page=0;state.error="";render({focus:true});return;}
  if(action==="search"){state.filtersVisible=!state.filtersVisible;render();if(state.filtersVisible)root.querySelector("#maSearchDrawer input")?.focus();return;}
  if(action==="close"){const d=root.querySelector("#maFormDialog[open],#maDetailDialog[open]");d?.close();return;}
  if(action==="clear"){state.filters={q:"",type:"",dependency:"",year:""};state.page=0;render();return;}
  if(action==="dismiss"){state.alertDismissed=true;root.querySelector(".ma-local-alert")?.remove();return;}
- if(action==="export"){exportCsv();return;}
+ if(action==="export"){
+  if(state.demoMode){
+   state.error="Esta es una demostración, no un catálogo institucional. Cambia a «Ver datos reales» para exportar documentos auténticos.";root.querySelector("#maStatus").textContent=state.error;return;
+  }
+  exportCsv();return;
+ }
  if(action==="prev"){state.page=Math.max(0,state.page-1);render();scrollToResults();return;}
  if(action==="next"){state.page++;render();scrollToResults();return;}
- if(action==="legacy"){legacy.hidden=false;legacy.open=true;legacy.scrollIntoView({behavior:"smooth",block:"start"});return;}
+ if(action==="legacy"){state.demoMode=false;state.mode="indicators";render();legacy.hidden=false;legacy.open=true;legacy.scrollIntoView({behavior:"smooth",block:"start"});return;}
  if(action==="edit"){
   const d=root.querySelector("#maDetailDialog");
   const rec=state.records.find(r=>r.id===d?.dataset.id);
@@ -378,6 +427,15 @@ function handleAction(action){
  }
 }
 root.addEventListener("click",event=>{
+ const sampleDocument=event.target.closest("[data-ma-demo-doc]");
+ if(sampleDocument){
+  const dlg=root.querySelector("#maDetailDialog"),markup=demo.modalContent(sampleDocument.dataset.maDemoDoc);
+  if(dlg&&markup){dlg.innerHTML=markup;dlg.dataset.id="";dlg.showModal();}return;
+ }
+ const sampleEvent=event.target.closest("[data-ma-demo-event]");
+ if(sampleEvent){const dlg=root.querySelector("#maDetailDialog"),markup=demo.modalEvent(Number(sampleEvent.dataset.maDemoEvent));if(dlg&&markup){dlg.innerHTML=markup;dlg.dataset.id="";dlg.showModal();}return;}
+ const sampleDep=event.target.closest("[data-ma-demo-department]");
+ if(sampleDep){state.mode="documents";state.filters.dependency=sampleDep.dataset.maDemoDepartment;state.filtersVisible=true;render({focus:true});scrollToResults();return;}
  const download=event.target.closest("[data-ma-download]");
  if(download){fileDownload(download.dataset.maDownload);return;}
  const detail=event.target.closest("[data-ma-view]");
@@ -410,6 +468,7 @@ async function init(){
   const stored=await TIData.read(KEY);
   const items=Array.isArray(stored?.records)?stored.records:[];
   state.records=items.filter(r=>r&&typeof r.id==="string"&&typeof r.title==="string"&&typeof r.dependency==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(r.dated||""));
+  state.demoMode=state.records.length===0;
   if(state.records.length!==items.length)state.error="Algunos registros incompletos se omitieron de esta vista.";
  }catch(error){state.error="No fue posible leer el archivo de este navegador: "+error.message;}
  finally{state.ready=true;render();}
