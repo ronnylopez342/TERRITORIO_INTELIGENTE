@@ -10,7 +10,7 @@ const DEP_HINTS=["Despacho del Alcalde","Secretaría de Planeación","Secretarí
 const COLORS=["#ffe500","#5caff7","#35bdab","#a584e3","#eea76c","#adc1d3","#6e91bf","#eb80aa"];
 const allowed=/\.(pdf|docx?|xlsx?|csv|json|txt|png|jpe?g|webp)$/i;
 const maxBytes=25*1024*1024;
-const state={records:[],mode:"overview",filters:{q:"",type:"",dependency:"",year:""},page:0,error:"",ready:false,alertDismissed:false};
+const state={records:[],mode:"overview",filters:{q:"",type:"",dependency:"",year:""},page:0,error:"",ready:false,alertDismissed:false,filtersVisible:false};
 const escape=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const format=n=>new Intl.NumberFormat("es-CO").format(Number(n)||0);
 const shortDate=v=>{if(!v)return"Sin fecha";const date=new Date(v.length===10?v+"T12:00:00":v);return isNaN(date.valueOf())?"Sin fecha":new Intl.DateTimeFormat("es-CO",{day:"2-digit",month:"short",year:"numeric"}).format(date);};
@@ -61,14 +61,13 @@ function filtersMarkup(){
  </form>`;
 }
 function featureMarkup(){
- const count=recordsStats(state.records);
  const cards=[
-  ["documents","Documentos oficiales",format(count.count),"Decretos, resoluciones, acuerdos y más"],
-  ["dependencies","Dependencias",format(count.departments),"Áreas presentes en los registros cargados"],
-  ["history","Inventario histórico",format(count.historic),"Documentos marcados como históricos"],
-  ["indicators","Indicadores municipales",format(indicatorCount()),"Indicadores importados de bases municipales"]
+  ["history","Archivos históricos","Documentos, acuerdos, decretos y registros institucionales."],
+  ["dependencies","Dependencias","Explora la documentación por áreas de la Alcaldía."],
+  ["indicators","Bases municipales","Conjuntos de datos institucionales en formato abierto."],
+  ["series","Series históricas","Evolución de indicadores y registros en el tiempo."]
  ];
- return `<div class="ma-features">${cards.map(([key,name,value,sub])=>`<button type="button" class="ma-feature" data-ma-mode="${key}" aria-pressed="${state.mode===key}"><span class="ma-feature-icon">${icon[key]}</span><span class="ma-feature-body"><strong>${name}</strong><b>${value}</b><small>${sub}</small></span><span class="ma-feature-arrow" aria-hidden="true">→</span></button>`).join("")}</div>`;
+ return `<div class="ma-features" aria-label="Explora la memoria municipal">${cards.map(([key,name,sub])=>`<button type="button" class="ma-feature" data-ma-mode="${key}" aria-pressed="${state.mode===key}"><span class="ma-feature-icon">${icon[key==="series"?"indicators":key==="history"?"documents":key==="indicators"?"history":key]}</span><span class="ma-feature-body"><strong>${escape(name)}</strong><small>${escape(sub)}</small></span><span class="ma-feature-arrow" aria-hidden="true">→</span></button>`).join("")}</div>`;
 }
 function statsMarkup(rows=filtered()){
  const v=recordsStats(rows);
@@ -121,21 +120,48 @@ function recentUploads(rows){
  if(!recent.length)return metricEmpty();
  return `<ul class="ma-line-list">${recent.map(r=>`<li><div><strong title="${escape(r.title)}">${escape(r.title)}</strong><small>${shortDate(r.createdAt)} · ${escape(r.dependency)}</small></div><button type="button" class="ma-table-action" data-ma-view="${escape(r.id)}" aria-label="Ver ficha">↗</button></li>`).join("")}</ul>`;
 }
+function chartArchiveStatus(rows){
+ const total=rows.length,docs=rows.filter(r=>r.status==="digital").length,physical=rows.filter(r=>r.status==="physical").length;
+ const pct=total?Math.round(docs/total*100):0;
+ const background=total?`conic-gradient(#ffe500 0 ${pct}%,#7ca6ed ${pct}% 100%)`:"conic-gradient(#29475b 0 100%)";
+ return `<div class="ma-archive-state">
+ <div class="ma-donut" role="img" aria-label="${total?`${docs} digitalizados y ${physical} pendientes de digitalización`:"Sin registros documentales"}" style="background:${background}"><div class="ma-donut-value"><strong>${total?format(total):"—"}</strong><small>${total?"documentos":"sin registros"}</small></div></div>
+ <div class="ma-archive-state-legend"><div><i class="ma-color" style="background:#ffe500"></i><span><strong>${total?pct+" %":"—"}</strong><small>Digitalizados<br>${format(docs)} documento(s)</small></span></div><div><i class="ma-color" style="background:#7ca6ed"></i><span><strong>${total?(100-pct)+" %":"—"}</strong><small>Pendientes de digitalización<br>${format(physical)} registro(s)</small></span></div></div>
+ </div>`;
+}
+function keyStats(rows){
+ const stats=recordsStats(rows);const oldest=stats.first&&stats.last?stats.first+" – "+stats.last:"—";
+ const cells=[
+  ["▤",format(stats.count),"Documentos registrados"],
+  ["▥",format(stats.digital),"Documentos digitalizados"],
+  ["♧",format(stats.departments),"Dependencias con registros"],
+  ["◷",oldest,"Rango del archivo"]
+ ];
+ return `<div class="ma-key-metrics">${cells.map(([sym,val,label])=>`<div class="ma-key-metric"><span class="ma-key-symbol" aria-hidden="true">${sym}</span><div><strong>${escape(val)}</strong><small>${escape(label)}</small></div></div>`).join("")}</div>`;
+}
+function archiveTimeline(rows){
+ const years=new Map();
+ rows.filter(r=>r.historic&&/^\d{4}-/.test(r.dated||"")).forEach(r=>{
+ const year=String(r.dated).slice(0,4);
+ if(!years.has(year))years.set(year,[]);
+ years.get(year).push(r);
+ });
+ const items=[...years].sort((a,b)=>a[0].localeCompare(b[0])).slice(-6);
+ if(!items.length)return `<div class="ma-timeline-blank"><div class="ma-timeline-axis" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div><p>La cronología aparecerá al incorporar documentos históricos con fechas verificables.</p><button type="button" class="ma-text-link" data-ma-action="new">Agregar archivo histórico →</button></div>`;
+ return `<div class="ma-timeline-horizontal" role="list" aria-label="Línea de tiempo de documentos históricos"><div class="ma-timeline-axis" aria-hidden="true"></div>${items.map(([year,files])=>`<button type="button" role="listitem" class="ma-time-point" data-ma-year="${escape(year)}" title="Consultar ${format(files.length)} documento(s) de ${year}"><span class="ma-time-dot" aria-hidden="true"></span><b>${escape(year)}</b><small>${format(files.length)} documento(s) en el archivo</small></button>`).join("")}</div>`;
+}
 function board(){
- const rows=filtered();return `<div class="ma-grid" id="maBoard">
-  ${panel("Documentos recientes",docTable(rows,true),8,`${format(rows.length)} registros en la consulta`,`<button type="button" class="ma-text-link" data-ma-mode="documents">Ver todos →</button>`)}
-  ${panel("En cifras",statsMarkup(rows),4,"Datos realmente cargados")}
- </div><div class="ma-grid">
-  ${panel("Crecimiento documental",chartTrend(rows),4,"Documentos según año del registro")}
-  ${panel("Documentos por dependencia",chartDeps(rows),4,"Distribución de registros cargados")}
-  ${panel("Documentos por tipo",chartTypes(rows),4,"Participación por categoría")}
- </div><div class="ma-grid">
-  ${panel("Últimas cargas",recentUploads(rows),6,"Orden de incorporación al repositorio local")}
-  ${panel("Estado de digitalización",(()=>{
-   const total=rows.length,d=rows.filter(r=>r.status==="digital").length,p=rows.filter(r=>r.status==="physical").length;
-   if(!total)return metricEmpty();
-   return `<div class="ma-donut-row"><div role="img" aria-label="${d} documentos digitalizados y ${p} referencias físicas" class="ma-donut" style="background:conic-gradient(#ffe500 0 ${d/total*100}%,#488ad2 ${d/total*100}% 100%)"><div class="ma-donut-value"><strong>${Math.round(d/total*100)} %</strong><small>digitalizados</small></div></div><div class="ma-donut-legend"><span><i class="ma-color" style="background:#ffe500"></i> Digitalizados <b>${format(d)}</b></span><span><i class="ma-color" style="background:#488ad2"></i> Registros físicos <b>${format(p)}</b></span></div></div>`;
-  })(),6,"Estado declarado al registrar el documento")}
+ const rows=filtered();
+ const link=(mode,label)=>`<button type="button" class="ma-text-link" data-ma-mode="${mode}">${label} →</button>`;
+ const dept=rows.length?chartDeps(rows):metricEmpty();
+ return `<div class="ma-grid ma-grid-analytics" id="maBoard">
+ ${panel("Documentos por dependencia",dept,5,"",link("dependencies","Ver todas"))}
+ ${panel("Estado del archivo municipal",chartArchiveStatus(rows),3)}
+ ${panel("Indicadores clave",keyStats(rows),4)}
+ </div>
+ <div class="ma-grid ma-grid-doc-history">
+ ${panel("Documentos recientes",docTable(rows,true),6,"",link("documents","Ver todos"))}
+ ${panel("Línea de tiempo de la memoria institucional",archiveTimeline(rows),6,"",link("history","Ver serie completa"))}
  </div>`;
 }
 function detailedView(){
@@ -152,6 +178,12 @@ function detailedView(){
   historic.forEach(r=>{const y=String(r.dated).slice(0,4);if(!byYear.has(y))byYear.set(y,[]);byYear.get(y).push(r);});
   return header("Inventario histórico","Solo se muestran los registros marcados como históricos al incorporarlos.")+(historic.length?panel("Línea de tiempo documental",`<div class="ma-timeline">${[...byYear].sort((a,b)=>b[0].localeCompare(a[0])).map(([year,docs])=>`<div class="ma-milestone"><strong>${escape(year)}</strong><span>${format(docs.length)} documento(s): ${escape(docs.slice(0,3).map(x=>x.title).join(" · "))}${docs.length>3?"…":""}</span></div>`).join("")}</div>`,12)+`<div class="ma-grid" style="margin-top:14px">${panel("Archivos históricos",docTable(historic),12)}</div>`:panel("Inventario histórico",metricEmpty(),12));
  }
+ if(mode==="series"){
+  const all=indicatorRows(),byYear=new Map();
+  all.forEach(row=>{const year=String(row.periodo||"").slice(0,4),n=TIData.number(row.valor);if(/^\d{4}$/.test(year)&&n!==null){byYear.set(year,(byYear.get(year)||0)+1);}});
+  return header("Series históricas","Registros e indicadores por periodo; solo los años efectivamente cargados.",`<button class="ma-btn ma-primary" type="button" data-ma-action="legacy">Explorar base municipal ↓</button>`)+
+    `<div class="ma-grid">`+panel("Evolución del archivo",chartTrend(filtered()),6,"Registros por año del documento")+panel("Información estadística importada",byYear.size?`<div class="ma-timeline-horizontal">${[...byYear].sort((a,b)=>a[0].localeCompare(b[0])).slice(-6).map(([year,num])=>`<div class="ma-time-point"><span class="ma-time-dot"></span><b>${year}</b><small>${num} valores</small></div>`).join("")}</div>`:metricEmpty(),6,"Según periodo de las bases municipales")+`</div>`;
+ }
  if(mode==="indicators"){
   const rows=indicatorRows(),counts=unique(rows.map(x=>x.indicador));
   return header("Indicadores municipales","Conservamos el importador y las gráficas de las bases municipales existentes.")+
@@ -160,22 +192,37 @@ function detailedView(){
  return board();
 }
 function shell(){
- const filteredRows=filtered();
+ const rows=filtered();
+ const filterActive=Object.values(state.filters).some(Boolean);
  return `<div class="ma-page">
-  <section class="ma-hero" aria-labelledby="maTitle"><div class="ma-hero-photo" aria-hidden="true"></div><div class="ma-hero-overlay" aria-hidden="true"></div><div class="ma-shell ma-hero-content">
-   <p class="ma-kicker">Data Territorio&nbsp; / &nbsp;2.3 Memoria de la Alcaldía</p>
-   <h1 id="maTitle" tabindex="-1">MEMORIA<br>DE LA ALCALDÍA</h1>
-   <h2>Archivos, históricos y dependencias</h2>
-   <p class="ma-hero-lead">Accede, explora y consulta la memoria institucional de Subachoque. Documentos oficiales, archivos históricos, dependencias y registros que cuentan nuestra historia y respaldan la gestión pública.</p>
-  </div><blockquote class="ma-hero-quote">Nuestra historia también<br><em>construye futuro.</em><span class="ma-quote-line"></span></blockquote><span class="ma-hero-location">⌖ &nbsp;Subachoque, Cundinamarca · Imagen editorial</span></section>
-  <div class="ma-content ma-shell">
-   ${!state.alertDismissed?`<div class="ma-local-alert"><span><strong>Repositorio local de trabajo.</strong> Los archivos que agregues se guardan en este navegador; no quedan publicados ni compartidos con la Alcaldía. Las cifras corresponden exclusivamente a registros cargados aquí.</span><button type="button" data-ma-action="dismiss" aria-label="Cerrar aviso">×</button></div>`:""}
-   ${filtersMarkup()}
-   <div class="ma-quick-actions"><span>${format(filteredRows.length)} registro(s) encontrados de ${format(state.records.length)} · <button class="ma-text-link" type="button" data-ma-action="clear">Limpiar filtros</button></span><div class="ma-action-set"><button type="button" class="ma-btn" data-ma-action="export">↓ Exportar catálogo CSV</button><button class="ma-btn ma-primary" data-ma-action="new" type="button">+ Agregar documento</button></div></div>
-   ${featureMarkup()}
-   ${state.mode==="overview"?board():detailedView()}
-   <p role="status" aria-live="polite" class="ma-status" id="maStatus">${escape(state.error)}</p>
-  </div><dialog id="maFormDialog" class="ma-modal" aria-labelledby="maFormHeading"></dialog><dialog id="maDetailDialog" class="ma-modal" aria-labelledby="maDetailHeading"></dialog>
+ <section class="ma-hero" aria-labelledby="maTitle">
+ <div class="ma-hero-photo" aria-hidden="true"></div><div class="ma-hero-overlay" aria-hidden="true"></div>
+ <div class="ma-shell ma-hero-content">
+  <p class="ma-kicker">Data Territorio&nbsp; / &nbsp;2.3 Memoria de la Alcaldía</p>
+  <h1 id="maTitle" tabindex="-1">MEMORIA DE<br>LA ALCALDÍA</h1>
+  <h2>Archivos, históricos y dependencias</h2>
+  <p class="ma-hero-lead">Explora la memoria institucional de Subachoque. Accede a archivos históricos, documentos por dependencias, bases municipales y series de información que cuentan la historia de nuestro territorio.</p>
+ </div>
+ <button class="ma-story-trigger" type="button" data-ma-mode="history" aria-label="Conocer la memoria municipal mediante su línea de tiempo"><span class="ma-play-circle" aria-hidden="true">▶</span><span>Conoce nuestra<br>memoria municipal<small>EXPLORAR HISTORIA&nbsp; ↗</small></span></button>
+ <span class="ma-hero-caption"><strong>SUBACHOQUE</strong><small>Nuestra historia<br>también construye<br>el futuro</small></span>
+ </section>
+ <div class="ma-content ma-shell">
+  ${featureMarkup()}
+  ${state.mode==="overview"?board():detailedView()}
+  <div class="ma-extra-tools">
+    <div class="ma-extra-copy"><strong>Archivo y gestión documental</strong><span>Consulta, incorpora y administra información real del municipio.</span></div>
+    <div class="ma-action-set">
+     <button type="button" class="ma-btn" data-ma-action="search" aria-expanded="${Boolean(state.filtersVisible)}">⌕ Buscar y filtrar ${filterActive?"(filtros activos)":""}</button>
+     <button type="button" class="ma-btn" data-ma-action="export">↓ Exportar catálogo</button>
+     <button type="button" class="ma-btn ma-primary" data-ma-action="new">+ Agregar documento</button>
+    </div>
+  </div>
+  ${state.filtersVisible?`<div class="ma-search-drawer" id="maSearchDrawer">${filtersMarkup()}<div class="ma-search-meta">${format(rows.length)} resultado(s) de ${format(state.records.length)} · <button class="ma-text-link" type="button" data-ma-action="clear">Limpiar filtros</button></div></div>`:""}
+  <p role="status" aria-live="polite" class="ma-status" id="maStatus">${escape(state.error)}</p>
+  <p class="ma-local-footnote">Repositorio de trabajo · Los documentos que cargues se conservan en este navegador, no se publican automáticamente y no sustituyen el archivo institucional. Las estadísticas se calculan únicamente con registros incorporados; no se muestran cifras ilustrativas como oficiales.</p>
+ </div>
+ <dialog id="maFormDialog" class="ma-modal" aria-labelledby="maFormHeading"></dialog>
+ <dialog id="maDetailDialog" class="ma-modal" aria-labelledby="maDetailHeading"></dialog>
  </div>`;
 }
 function render({focus=false}={}){
@@ -306,6 +353,7 @@ function exportCsv(){
 }
 function handleAction(action){
  if(action==="new"){newForm();return;}
+ if(action==="search"){state.filtersVisible=!state.filtersVisible;render();if(state.filtersVisible)root.querySelector("#maSearchDrawer input")?.focus();return;}
  if(action==="close"){const d=root.querySelector("#maFormDialog[open],#maDetailDialog[open]");d?.close();return;}
  if(action==="clear"){state.filters={q:"",type:"",dependency:"",year:""};state.page=0;render();return;}
  if(action==="dismiss"){state.alertDismissed=true;root.querySelector(".ma-local-alert")?.remove();return;}
@@ -334,6 +382,8 @@ root.addEventListener("click",event=>{
  if(download){fileDownload(download.dataset.maDownload);return;}
  const detail=event.target.closest("[data-ma-view]");
  if(detail){fiche(state.records.find(r=>r.id===detail.dataset.maView));return;}
+ const yearItem=event.target.closest("[data-ma-year]");
+ if(yearItem){state.filters.year=yearItem.dataset.maYear;state.mode="documents";state.filtersVisible=true;state.page=0;render({focus:true});scrollToResults();return;}
  const dep=event.target.closest("[data-ma-department]");
  if(dep){state.filters.dependency=dep.dataset.maDepartment;state.mode="documents";state.page=0;render();scrollToResults();return;}
  const mode=event.target.closest("[data-ma-mode]");
