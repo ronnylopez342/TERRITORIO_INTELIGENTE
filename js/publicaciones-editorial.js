@@ -142,7 +142,7 @@ function openManage(){
  loadReal().catch(e=>{const status=$("pubReviewAlert");if(status)status.textContent="No fue posible consultar el repositorio local: "+e.message;});
 }
 async function loadReal(){
- if(!window.TIData)return;
+ if(typeof TIData==="undefined")return;
  const [files,meta]=await Promise.all([TIData.read("publications"),TIData.read(META_KEY)]);
  state.local=Array.isArray(files)?files:[];
  state.metadata=meta&&typeof meta==="object"&&!Array.isArray(meta)?meta:{};
@@ -274,7 +274,7 @@ function setup(){
 function start(){
  setup();render();
  // TIWorkspace.restore runs asynchronously, so wait for its grid renderer.
- if(window.TIData)loadReal().catch(()=>{});
+ if(typeof TIData!=="undefined")loadReal().catch(()=>{});
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
 else start();
