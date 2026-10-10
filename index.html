@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/module-structure.css?v=delivery-one-01"/>
 <link rel="stylesheet" href="css/data-visor-only.css?v=visor-22-01"/>
 <link rel="stylesheet" href="css/data-conoce.css?v=conoce-03">
+<link rel="stylesheet" href="css/plan-estadistico.css?v=pe22-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -30,7 +31,8 @@
 <button class="nav-link route-link ti-nav-dropdown-trigger" data-route="data" id="tiDataDropdownTrigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="tiDataDropdownMenu"><span class="nav-roll"><span class="nav-roll__first">Data Territorio</span><span class="nav-roll__next" aria-hidden="true">Data Territorio</span></span><svg class="ti-nav-chevron" aria-hidden="true" viewBox="0 0 16 16" width="15" height="15" fill="none"><path d="m3 6 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div class="ti-nav-dropdown-menu" id="tiDataDropdownMenu" role="menu" aria-label="Secciones de Data Territorio" hidden>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-conoce"><span>2.1 Conoce</span></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.2 ¿Qué se sabe de Subachoque?</span><small>DANE y otras fuentes externas</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-plan-estadistico"><span>2.2 Plan Estadístico Municipal</span><small>Documentos, indicadores y fichas técnicas</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.3 ¿Qué se sabe de Subachoque?</span><small>DANE y otras fuentes externas</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-municipales"><span>2.3 Memoria de la Alcaldía</span><small>Archivos, históricos y dependencias</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta"><span>2.4 Encuesta</span></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-geo"><span>2.5 Georreferenciador</span></button>
@@ -57,7 +59,8 @@
 <button class="route-link ti-mobile-data-toggle" data-route="data" id="tiMobileDataToggle" type="button" aria-controls="tiMobileDataMenu" aria-expanded="false"><small>02</small><span>Data Territorio</span><b aria-hidden="true">⌄</b></button>
 <div id="tiMobileDataMenu" class="ti-mobile-data-submenu" aria-label="Secciones de Data Territorio" hidden>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-conoce"><span class="ti-mobile-data-label">2.1 Conoce</span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.2 ¿Qué se sabe de Subachoque?<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-plan-estadistico"><span class="ti-mobile-data-label">2.2 Plan Estadístico Municipal<small>Documentos e indicadores</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.3 ¿Qué se sabe de Subachoque?<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-municipales"><span class="ti-mobile-data-label">2.3 Memoria de la Alcaldía<small>Archivos, históricos y dependencias</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta"><span class="ti-mobile-data-label">2.4 Encuesta</span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-geo"><span class="ti-mobile-data-label">2.5 Georreferenciador</span><span aria-hidden="true">↗</span></button>
@@ -132,7 +135,8 @@
 <div class="module-heading-row"><div><p class="eyebrow">Data Territorio</p><h2 class="big-heading">De la fuente al análisis territorial.</h2></div><div aria-live="polite" class="module-status" id="dataGlobalStatus"></div></div>
 <nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist" hidden>
 <button aria-controls="data-conoce" aria-selected="true" class="module-tab active" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce</button>
-<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.2 ¿Qué se sabe de Subachoque?</button>
+<button aria-controls="data-plan-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-plan-estadistico" id="tab-data-plan-estadistico" role="tab" tabindex="-1" type="button">2.2 Plan Estadístico Municipal</button>
+<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.3 ¿Qué se sabe de Subachoque?</button>
 <button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.3 Memoria de la Alcaldía</button>
 <button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.4 Encuesta</button>
 <button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.5 Georreferenciador</button>
@@ -149,6 +153,50 @@
 <section class="cn-sources" aria-labelledby="cn-source-title"><div class="cn-source-heading"><div><h2 id="cn-source-title">Fuentes de información</h2><p>Consulta el origen, la cobertura y la periodicidad de cada fuente.</p></div><div class="cn-filters"><label class="cn-search"><span aria-hidden="true">⌕</span><input id="cn-source-search" type="search" placeholder="Buscar fuente o entidad" aria-label="Buscar fuente o entidad"></label><select id="cn-source-level" aria-label="Nivel territorial"><option value="">Nivel territorial</option><option value="nacional">Nacional</option><option value="departamental">Departamental</option><option value="municipal">Municipal</option></select><select id="cn-source-sector" aria-label="Sector"><option value="">Sector</option><option value="estadistica">Estadísticas</option><option value="geografia">Geografía</option><option value="servicios">Servicios públicos</option></select><button id="cn-show-catalog" type="button" class="cn-text-link">Ver catálogo completo →</button></div></div><p class="cn-example">Vista de ejemplo · metadatos por verificar</p><div id="cn-source-cards" class="cn-source-cards"></div><p class="cn-empty" id="cn-source-empty" role="status" hidden>No hay fuentes registradas para estos filtros.</p></section>
 <section class="cn-availability" aria-labelledby="cn-availability-title"><div><h2 id="cn-availability-title">Disponibilidad<br>y brechas</h2></div><div><p>Identifica qué información existe, qué falta y qué necesita actualización.</p><div class="cn-statuses"><span><i class="cn-dot green"></i>Disponible</span><span><i class="cn-dot yellow"></i>Pendiente de validar</span><span><i class="cn-dot red"></i>Sin información</span></div><p class="cn-status-note">Los estados se asignarán al validar las fuentes.</p><div class="cn-bottom-actions"><button id="cn-download" class="cn-report" type="button"><span aria-hidden="true">↓</span> Descargar reporte</button><a class="cn-text-link" href="#data?seccion=data-fuentes&amp;capitulo=01">Explorar datos de Subachoque →</a></div></div></section>
 </section>
+<section aria-labelledby="tab-data-plan-estadistico" class="module-panel ti-plan-estadistico" data-panel-group="data" id="data-plan-estadistico" role="tabpanel" hidden>
+ <div class="pe-page">
+ <div id="peHome">
+ <div class="pe-hero">
+  <div class="pe-hero-copy"><span class="pe-breadcrumb">DATA TERRITORIO &nbsp; / &nbsp; 2.2</span>
+  <h1 id="pe-title" tabindex="-1">PLAN ESTADÍSTICO<br>MUNICIPAL</h1>
+  <p>Consulta los documentos, indicadores y fichas técnicas que forman parte del Plan Estadístico Municipal.</p></div>
+  <button type="button" class="pe-video" data-pe-video aria-label="Conocer el Plan Estadístico Municipal en video"><span class="pe-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m7 3 15 9-15 9z"/></svg></span><strong>Conoce el plan</strong><small>Video explicativo · pendiente de incorporar</small></button>
+ </div>
+ <div class="pe-card-grid" aria-label="Explorar el Plan Estadístico Municipal"><button type="button" class="pe-card" data-pe-view="documentos" style="--pe-card-art:url('assets/img/editorial/gestion.jpg')"><span class="pe-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v6h5M9 13h7M9 17h7"/></svg></span><span class="pe-card-copy"><strong>Documentos oficiales</strong><span>Consulta y descarga los PDFs estadísticos del municipio.</span></span><span class="pe-arrow" aria-hidden="true">→</span></button>
+<button type="button" class="pe-card" data-pe-view="indicadores" style="--pe-card-art:url('assets/img/editorial/alcaldia.jpg')"><span class="pe-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V11h4v9zM10 20V5h4v15zM17 20V9h4v11z"/></svg></span><span class="pe-card-copy"><strong>Indicadores del plan</strong><span>Explora los indicadores del plan, sus fuentes y actualizaciones.</span></span><span class="pe-arrow" aria-hidden="true">→</span></button>
+<button type="button" class="pe-card" data-pe-view="fichas" style="--pe-card-art:url('assets/img/editorial/comunidad.jpg')"><span class="pe-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h10l5 5v14H5zM15 2v5h5M9 11h7M9 15h4"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="m19.5 19.5 2.3 2.3"/></svg></span><span class="pe-card-copy"><strong>Fichas técnicas</strong><span>Revisa variables, periodicidad y metodología de cada indicador.</span></span><span class="pe-arrow" aria-hidden="true">→</span></button>
+<button type="button" class="pe-card" data-pe-view="seguimiento" style="--pe-card-art:url('assets/img/editorial/servicio.jpg')"><span class="pe-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM9 17v-4M12 17V9M15 17v-6"/></svg></span><span class="pe-card-copy"><strong>Seguimiento y reportes</strong><span>Accede a cálculos, alertas e informes para planeación y MIPG.</span></span><span class="pe-arrow" aria-hidden="true">→</span></button></div>
+ <p class="pe-note">Repositorio institucional en preparación · Los archivos que agregues se guardan únicamente en este navegador.</p>
+ </div>
+ <div id="peDetail" class="pe-detail" hidden>
+  <button type="button" class="pe-back" data-pe-back>← Volver al Plan Estadístico</button>
+  <header class="pe-detail-header"><p class="pe-detail-kicker">DATA TERRITORIO / 2.2</p><h2 id="peDetailTitle" tabindex="-1"></h2><p id="peDetailDescription"></p></header>
+  <div class="pe-detail-body">
+   <section class="pe-section" data-pe-section="documentos" hidden>
+    <div class="pe-subheading"><div><h3>Repositorio oficial</h3><p>Los enlaces a documentos oficiales aparecerán aquí cuando sus archivos y procedencia hayan sido verificados.</p></div></div>
+    <div class="pe-row-grid" id="peOfficialGrid"></div><p class="pe-empty" id="peOfficialEmpty">No se han incorporado documentos oficiales verificados. Esta vista no muestra documentos de demostración como si fueran reales.</p>
+    <section class="ti-local-repository" aria-labelledby="statDocumentsTitle"><div class="module-toolbar"><div><p class="eyebrow">Registro de trabajo</p><h3 id="statDocumentsTitle">Mis archivos de trabajo</h3></div><label class="action-button">Agregar documentos<input type="file" id="statDocumentUpload" accept=".pdf,.xlsx,.xls,.csv,.json,.docx,.txt,.png,.jpg,.jpeg,.webp" multiple hidden></label></div><p>Los documentos agregados se almacenan solo en este navegador. No se publican ni se comparten con otros usuarios.</p><label>Buscar documento<input id="statDocumentSearch" type="search" placeholder="Nombre del documento"></label><div class="document-grid" id="statDocumentGrid"></div></section>
+   </section>
+   <section class="pe-section" data-pe-section="indicadores" hidden>
+    <div class="pe-subheading"><div><h3>Registro de indicadores</h3><p id="peIndicatorCount">Sin registros locales</p></div><div class="pe-controls"><button type="button" class="pe-btn pe-btn-primary" data-pe-add>+ Nuevo indicador</button><label class="pe-btn">Importar CSV / Excel<input type="file" id="peIndicatorUpload" accept=".csv,.xlsx,.xls" hidden></label><button type="button" class="pe-btn" data-pe-template>Plantilla CSV ↓</button><button type="button" class="pe-btn" data-pe-export="indicators">Exportar CSV ↓</button></div></div>
+    <div id="peFormSlot"></div>
+    <label style="display:block;margin:20px 0;color:#bacad7;font-size:13px">Buscar indicadores <input class="pe-input" id="peIndicatorSearch" type="search" placeholder="Indicador, fuente, variable o sector" style="max-width:520px;display:block;margin-top:9px"></label>
+    <div class="pe-table-wrap"><table class="pe-table"><thead><tr><th>Indicador</th><th>Sector</th><th>Fuente</th><th>Periodicidad</th><th>Valor</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="peIndicatorsBody"></tbody></table></div><p class="pe-empty" id="peIndicatorsEmpty">Todavía no hay indicadores que coincidan. Importa un Excel/CSV o registra un indicador de trabajo.</p>
+   </section>
+   <section class="pe-section" data-pe-section="fichas" hidden>
+    <div class="pe-subheading"><div><h3>Metodología y variables</h3><p>Las fichas se generan a partir del registro de indicadores. Sus metadatos requieren validación institucional.</p></div><button class="pe-btn" type="button" data-pe-view="indicadores">Gestionar indicadores →</button></div>
+    <div class="pe-row-grid" id="peSheetsGrid"></div><p class="pe-empty" id="peSheetsEmpty">No existen fichas registradas. Crea o importa indicadores para comenzar.</p>
+   </section>
+   <section class="pe-section" data-pe-section="seguimiento" hidden>
+    <div class="pe-subheading"><div><h3>Control de actualización</h3><p>Alertas estimadas a partir de la periodicidad y de la fecha consignada en cada registro local; no equivalen a alertas institucionales verificadas.</p></div><div class="pe-controls"><button class="pe-btn pe-btn-primary" type="button" data-pe-export="mipg">Exportar para MIPG ↓</button><button class="pe-btn" type="button" data-pe-print>Imprimir / PDF</button></div></div>
+    <div class="pe-summary" id="peSummary"></div><h4>Alertas y revisión pendientes</h4><div id="peWarnings"></div><p class="pe-empty" id="peNoWarnings">No se detectaron alertas con los registros locales.</p><p class="pe-hint" id="peNoReports">Aún no hay indicadores cargados para elaborar reportes.</p><p class="pe-hint" style="margin-top:24px">Para presentar informes oficiales es necesario verificar metodología, fuente, cobertura, fecha y responsable de cada dato.</p>
+   </section>
+  </div>
+ </div>
+ <p id="peMessage" class="pe-message" role="status" aria-live="polite"></p>
+ </div>
+ <dialog class="pe-modal" id="peVideoDialog" aria-labelledby="peVideoDialogTitle"><h2 id="peVideoDialogTitle">Plan Estadístico Municipal</h2><div id="peVideoContent"></div><button class="pe-btn pe-btn-primary" type="button" data-pe-close-video>Cerrar</button></dialog>
+</section>
 <section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
 <div class="sources-reference-shell"><iframe class="sources-reference-frame" src="assets/interactive/data-fuentes-visor.html" title="Capítulos del territorio de Subachoque" loading="lazy"></iframe></div>
 </section>
@@ -156,7 +204,7 @@
 <div class="module-toolbar"><div><p class="eyebrow">2.3 · Memoria de la Alcaldía</p><h3>Archivos históricos y registros de nuestras dependencias</h3></div><span class="status-pill demo">Archivos y bases municipales</span></div>
 <p class="ti-data-scope-note">Aquí se organiza la información producida y conservada por la Alcaldía: documentos físicos por digitalizar, registros históricos y datos de las dependencias. Carga las bases de las dependencias y los documentos que integran el archivo municipal. Cada fuente mantiene sus propios registros.</p>
 <div class="dataset-workspace" data-dataset-workspace="municipales"></div>
-<section class="ti-local-repository" aria-labelledby="statDocumentsTitle"><div class="module-toolbar"><div><p class="eyebrow">Plan Estadístico Municipal</p><h3 id="statDocumentsTitle">Documentos y fichas técnicas</h3></div><label class="action-button">Agregar documentos<input type="file" id="statDocumentUpload" accept=".pdf,.xlsx,.xls,.csv,.json,.docx,.txt,.png,.jpg,.jpeg,.webp" multiple hidden></label></div><p>Repositorio de documentos existentes. Guardado en este navegador; no se publica ni se comparte entre usuarios.</p><label>Buscar documento<input id="statDocumentSearch" type="search" placeholder="Nombre del documento"></label><div class="document-grid" id="statDocumentGrid"></div></section>
+
 </section>
 <section aria-labelledby="tab-data-encuesta" class="module-panel" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">2.4 · Encuesta Municipal</p><h3>Caracterización territorial, estadística descriptiva y percepción</h3></div><span class="status-pill demo">Resultados de encuesta</span></div>
@@ -235,5 +283,6 @@
 <script defer="" src="js/requirements.js?v=restore-existing-data-01"></script>
 <script defer src="js/module-structure.js?v=restore-existing-data-01"></script>
 <script defer src="js/data-conoce.js?v=conoce-03"></script>
+<script defer src="js/plan-estadistico.js?v=pe22-01"></script>
 </body>
 </html>
