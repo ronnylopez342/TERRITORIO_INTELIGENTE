@@ -1,0 +1,539 @@
+/* PUBLICACIONES 2.5 — composición editorial del diseño aprobado.
+ * Alcance estrictamente limitado a esta pestaña: no altera Home, Encuesta,
+ * DANE, Memoria, el resto de Data ni el Plan de Desarrollo.
+ */
+.pub-header-search{display:none!important}
+.app-view.active[data-view="data"]:has(#data-publicaciones:not([hidden]))>.view-hero,
+.app-view.active[data-view="data"]:has(#data-publicaciones:not([hidden])) .module-heading-row{display:none!important}
+.app-view.active[data-view="data"]:has(#data-publicaciones:not([hidden]))>.view-body{
+ padding:0!important;margin:0!important;background:#061622!important
+}
+.app-view.active[data-view="data"]:has(#data-publicaciones:not([hidden]))>.view-body>.inner{
+ max-width:none!important;width:100%!important;padding:0!important;margin:0!important
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])){
+ background:#061622!important;overflow-x:hidden!important
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden]))>footer{display:none!important}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #siteHeader{
+ height:58px!important;min-height:58px!important;max-height:58px!important;
+ background:#051522!important;border-bottom:1px solid #354959!important
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #siteHeader .nav{
+ height:58px!important;min-height:58px!important;max-height:58px!important;
+ max-width:none!important;width:100%;padding:0 clamp(24px,2.9vw,52px)!important;
+ gap:clamp(15px,2vw,30px)!important
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #siteHeader .nav-links{
+ flex:1 1 auto;min-width:0;justify-content:center;
+ gap:clamp(10px,1.3vw,25px)!important;
+ font-size:clamp(9px,.69vw,12px)!important
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #siteHeader .nav-link{
+ padding:18px 0!important;white-space:nowrap
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #siteHeader .nav-cta{display:none!important}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #siteHeader .brand{
+ width:clamp(145px,14vw,222px)!important;min-width:135px!important
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) .app-view[data-view="data"].view-shell{
+ padding-top:58px!important
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #tiHeaderSearch{display:none!important}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #pubHeaderSearch{
+ display:block!important;flex:0 1 320px;min-width:145px;width:clamp(145px,21vw,345px);
+ height:40px;border-radius:12px;background:#0d2133!important;
+ border:1px solid #3c556d!important;padding:0 15px 0 37px!important;
+ color:#fff;font-size:11px;letter-spacing:normal;outline-offset:3px;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23c2d1db' stroke-width='2'%3E%3Ccircle cx='10' cy='10' r='7'/%3E%3Cpath d='m15 15 6 6'/%3E%3C/svg%3E")!important;
+ background-repeat:no-repeat!important;background-position:12px center!important
+}
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #pubHeaderSearch::placeholder{color:#9fb5c8}
+#data-publicaciones[hidden],#data-publicaciones [hidden]{display:none!important}
+#data-publicaciones{
+ --pub-ink:#07151e;--pub-deep:#071925;--pub-panel:#071b28;
+ --pub-yellow:#ffe006;--pub-paper:#f1eee7;--pub-stroke:#335466;
+ --pub-gutter:clamp(20px,2.88vw,50px);
+ display:block;min-width:0;max-width:none!important;margin:0!important;
+ padding:0!important;border:0!important;background:#071823!important;
+ color:#fff!important;font:14px/1.36 Arial,"Helvetica Neue",sans-serif!important;
+ letter-spacing:normal!important
+}
+#data-publicaciones *{box-sizing:border-box}
+#data-publicaciones :is(h1,h2,h3,h4,h5,p,small,span){
+ font-family:inherit;color:inherit;letter-spacing:normal;line-height:inherit
+}
+#data-publicaciones :is(h1,h2,h3,h4,p){margin:0!important}
+#data-publicaciones :is(button,input,select,textarea){font:inherit;letter-spacing:normal}
+#data-publicaciones button{cursor:pointer}
+#data-publicaciones :is(button,a,input,select,textarea,summary):focus-visible{
+ outline:2px solid var(--pub-yellow)!important;outline-offset:3px!important
+}
+#data-publicaciones .pub-visually-hidden{position:absolute!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%);height:1px;width:1px;white-space:nowrap;overflow:hidden}
+#data-publicaciones .pub-app{
+ position:relative;display:grid;width:100%;min-width:0;
+ grid-template-rows:minmax(290px,37.6%) minmax(394px,49.3%) minmax(106px,13.1%);
+ min-height:786px;height:calc(100dvh - 58px);background:#061722
+}
+/* PORTADA: montaña e identidad editorial */
+#data-publicaciones .pub-hero{
+ position:relative;min-width:0;isolation:isolate;overflow:hidden;
+ background:#071722;display:flex;align-items:center
+}
+#data-publicaciones .pub-hero-photo{
+ position:absolute;z-index:-2;inset:0 0 0 33%;
+ background-image:url("../assets/img/editorial/territorio-aereo.jpg");
+ background-size:cover;background-position:50% 51%;filter:contrast(1.09) saturate(.96)
+}
+#data-publicaciones .pub-hero-shadow{
+ position:absolute;z-index:-1;inset:0;pointer-events:none;
+ background:linear-gradient(90deg,#061722 0%,#061722 20%,rgba(6,23,34,.98) 28%,rgba(6,23,34,.82) 37%,rgba(6,23,34,.18) 62%,rgba(6,23,34,.20) 100%),
+ linear-gradient(0deg,rgba(2,12,17,.20),transparent 60%)
+}
+#data-publicaciones .pub-hero-content{
+ width:min(850px,60%);padding:26px 0 24px var(--pub-gutter);
+ position:relative;z-index:1
+}
+#data-publicaciones .pub-breadcrumb{
+ font-size:11px!important;letter-spacing:.12em!important;line-height:1.3!important;
+ font-weight:650!important;color:#d6e2ed!important;margin-bottom:24px!important;
+ display:flex;align-items:center;gap:19px;white-space:nowrap
+}
+#data-publicaciones .pub-breadcrumb>b{
+ color:var(--pub-yellow);font-weight:800;letter-spacing:.13em
+}
+#data-publicaciones .pub-demo-flag{
+ margin-left:12px;border:1px solid rgba(255,224,6,.75);border-radius:3px;
+ padding:4px 5px;color:var(--pub-yellow);font-size:8px;letter-spacing:.06em;
+ font-weight:800;opacity:.85
+}
+#data-publicaciones .pub-hero h1{
+ color:#fff!important;font-size:clamp(45px,5.16vw,88px)!important;
+ line-height:.97!important;letter-spacing:-.06em!important;font-weight:950!important;
+ text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 9px #09151d50
+}
+#data-publicaciones .pub-hero-subtitle{
+ font-size:clamp(18px,2.05vw,35px)!important;line-height:1.15!important;
+ font-weight:400!important;color:#cbd4dc!important;
+ margin:3px 0 13px!important;white-space:nowrap
+}
+#data-publicaciones .pub-accent-line{display:block;background:var(--pub-yellow);width:49px;height:3px;margin:13px 0 17px}
+#data-publicaciones .pub-hero-description{
+ font-size:clamp(12px,1.05vw,17px)!important;line-height:1.54!important;
+ color:#d8e1e8!important;max-width:590px
+}
+#data-publicaciones .pub-hero-quote{
+ position:absolute;z-index:2;top:35%;right:clamp(25px,4vw,80px);
+ padding-left:18px;border-left:2px solid #e9f0f3a8;
+ color:#eaf2fa!important;font-size:12px!important;line-height:1.54!important;
+ letter-spacing:.15em!important;font-weight:700!important
+}
+#data-publicaciones .pub-hero-quote span{display:block;width:28px;height:5px;background:var(--pub-yellow);margin-top:14px}
+/* CATÁLOGO: filtros y tarjetas */
+#data-publicaciones .pub-catalog{
+ background:linear-gradient(180deg,#07151e,#071a26 95%);
+ min-height:0;display:flex;flex-direction:column;overflow:hidden;
+ padding:0 var(--pub-gutter) 14px
+}
+#data-publicaciones .pub-filter-bar{
+ height:58px;min-height:58px;display:flex;align-items:center;justify-content:space-between;
+ gap:15px
+}
+#data-publicaciones .pub-filter-tabs{
+ display:flex;align-items:center;gap:clamp(6px,.8vw,16px);
+ min-width:0;overflow-x:auto;scrollbar-width:none;white-space:nowrap;
+}
+#data-publicaciones .pub-filter-tabs::-webkit-scrollbar{display:none}
+#data-publicaciones .pub-filter-tabs button{
+ flex:0 0 auto;border:0;background:transparent;color:#e4e8ee;
+ min-width:clamp(80px,8vw,143px);text-align:center;
+ border-radius:28px;padding:8px 14px;line-height:1.15;font-size:13px;
+ transition:background-color .12s,color .12s
+}
+#data-publicaciones .pub-filter-tabs button:first-child{min-width:clamp(95px,8.1vw,137px)}
+#data-publicaciones .pub-filter-tabs button:hover,
+#data-publicaciones .pub-filter-tabs button.is-active{
+ background:var(--pub-yellow);color:#0e1822;font-weight:800
+}
+#data-publicaciones .pub-filter-year{
+ border-left:1px solid #9ba9ae;display:flex;align-items:center;gap:15px;
+ padding-left:clamp(10px,2vw,34px);height:36px;min-width:215px
+}
+#data-publicaciones .pub-filter-year label{font-size:12px;color:#f4f7fb}
+#data-publicaciones .pub-filter-year select{
+ border:1px solid #607589;border-radius:24px;padding:6px 27px 6px 11px;
+ background:#0b1c29;color:#fff;font-size:12px;max-width:152px;height:36px
+}
+#data-publicaciones .pub-result-meta{
+ position:absolute;z-index:4;right:var(--pub-gutter);bottom:14.2%;
+ font-size:10px;color:#b8c6d0;opacity:0;pointer-events:none
+}
+#data-publicaciones .pub-result-meta:not(:empty){opacity:0}
+#data-publicaciones .pub-visual-grid{
+ min-height:0;flex:1;display:grid;grid-template-columns:minmax(0,1.276fr) minmax(0,1fr);
+ gap:15px
+}
+#data-publicaciones .pub-feature-card{
+ min-width:0;min-height:0;display:grid;grid-template-columns:53% 47%;
+ border:1px solid #456174;border-radius:7px;overflow:hidden;background:#071620
+}
+#data-publicaciones .pub-feature-cover{
+ min-width:0;position:relative;overflow:hidden;background:#193e51;
+ background-image:url("../assets/img/editorial/encuesta-subachoque-referencia.webp");
+ background-position:center;background-size:cover
+}
+#data-publicaciones .pub-feature-cover:before{
+ content:"";position:absolute;inset:0;
+ background:linear-gradient(0deg,rgba(4,18,25,.12),transparent 45%);
+ pointer-events:none
+}
+#data-publicaciones .pub-feature-caption{
+ position:absolute;top:22px;left:24px;background:var(--pub-yellow);
+ color:#14222a;padding:11px 15px;font-weight:850;font-size:10px;letter-spacing:.1em
+}
+#data-publicaciones .pub-feature-content{
+ min-width:0;padding:clamp(16px,1.65vw,26px);
+ display:flex;flex-direction:column;align-items:flex-start;gap:0
+}
+#data-publicaciones .pub-feature-meta{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ width:100%;margin-bottom:17px
+}
+#data-publicaciones .pub-type-chip{
+ display:inline-block;background:#40669a;border-radius:3px;color:#fff!important;
+ padding:6px 9px;font-size:10px;font-weight:850;letter-spacing:.045em;
+ white-space:nowrap;line-height:1
+}
+#data-publicaciones .pub-type-chip[data-type="boletin"]{background:#157261}
+#data-publicaciones .pub-type-chip[data-type="paper"]{background:#219ac4}
+#data-publicaciones .pub-type-chip[data-type="encuesta"]{background:#006b68}
+#data-publicaciones .pub-type-chip[data-type="serie"]{background:#a18a08}
+#data-publicaciones .pub-feature-meta time{font-size:11px;color:#a7b8c3;white-space:nowrap}
+#data-publicaciones .pub-feature-content h3{
+ color:#f7f9fb!important;font-size:clamp(21px,1.65vw,30px)!important;
+ font-weight:900!important;letter-spacing:-.05em!important;
+ line-height:1.05!important;max-width:355px;margin-bottom:13px!important
+}
+#data-publicaciones .pub-feature-content p{
+ color:#dce5eb!important;font-size:clamp(12px,1vw,15px)!important;
+ line-height:1.5!important;max-width:360px
+}
+#data-publicaciones .pub-feature-read{
+ margin-top:15px;background:var(--pub-yellow);color:#111d24!important;
+ border:0;border-radius:4px;min-height:43px;padding:0 20px;
+ font-weight:900;letter-spacing:.09em;font-size:10px;
+ display:flex;align-items:center;gap:15px
+}
+#data-publicaciones .pub-feature-read:hover{background:#fff}
+#data-publicaciones .pub-feature-read .pub-cta-arrow{font-size:21px;line-height:1}
+#data-publicaciones .pub-feature-resources{
+ display:flex;flex-wrap:wrap;gap:0;margin-top:auto;align-items:center;
+ width:100%;border-top:1px solid #456274;padding-top:12px;
+}
+#data-publicaciones .pub-feature-resources button{
+ display:flex;align-items:center;gap:8px;border:0;border-right:1px solid #446073;
+ padding:0 clamp(6px,.7vw,12px);background:none;color:#cad9e3;min-height:24px;font-size:9px;text-align:left
+}
+#data-publicaciones .pub-feature-resources button:first-child{padding-left:0}
+#data-publicaciones .pub-feature-resources button:last-child{border-right:0}
+#data-publicaciones .pub-feature-resources button:hover{color:var(--pub-yellow)}
+#data-publicaciones .pub-feature-resources button span{font-size:18px;color:#eef1f4}
+#data-publicaciones .pub-right-grid{
+ min-width:0;min-height:0;display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ grid-template-rows:repeat(2,minmax(0,1fr));
+ gap:13px
+}
+#data-publicaciones .pub-small-card{
+ min-width:0;min-height:0;background:#f5f2ec;color:#111923;
+ display:flex;flex-direction:column;border:1px solid #3e5263;
+ border-radius:6px;overflow:hidden
+}
+#data-publicaciones .pub-small-cover{
+ position:relative;flex:0 0 45%;background-color:#36535b;
+ background-position:center;background-size:cover
+}
+#data-publicaciones .pub-small-cover .pub-type-chip{
+ position:absolute;left:20px;bottom:-1px;border-radius:3px 3px 0 0;
+ font-size:9px;padding:5px 9px
+}
+#data-publicaciones .pub-small-body{
+ min-height:0;flex:1;position:relative;
+ padding:clamp(10px,.85vw,13px) 47px 8px clamp(13px,1.35vw,23px);
+}
+#data-publicaciones .pub-small-body h3{
+ font-size:clamp(13px,.99vw,17px)!important;font-weight:850!important;
+ color:#0c1722!important;letter-spacing:-.035em!important;
+ line-height:1.08!important;
+ display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+#data-publicaciones .pub-small-body p{
+ font-size:clamp(10px,.82vw,12.5px)!important;line-height:1.21!important;
+ color:#334451!important;margin-top:7px!important;
+ display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden
+}
+#data-publicaciones .pub-small-open{
+ position:absolute;right:12px;bottom:17px;border:1px solid #254659;
+ border-radius:50%;background:transparent;color:#192c3c;
+ width:33px;height:33px;display:grid;place-items:center;
+ font-size:23px;line-height:1
+}
+#data-publicaciones .pub-small-open:hover{background:#ffdf00;border-color:#ffdf00}
+#data-publicaciones .pub-empty-card{
+ grid-column:1/-1;border:1px dashed #638196;display:flex;flex-direction:column;
+ justify-content:center;gap:16px;padding:45px;color:#e7eff5
+}
+#data-publicaciones .pub-empty-card h3{font-size:26px!important;font-weight:850!important}
+#data-publicaciones .pub-empty-card p{font-size:15px!important;color:#c7d4df!important}
+#data-publicaciones .pub-empty-card button{align-self:flex-start;padding:11px 18px;background:var(--pub-yellow);border:0;color:#131f27;font-weight:850}
+#data-publicaciones .pub-loading{padding:40px 0;color:#cad9e6}
+/* ARCHIVO CREMA Y TARJETAS INTERACTIVAS */
+#data-publicaciones .pub-archive{
+ min-width:0;position:relative;background:#f1eee6;color:#0b151c;
+ padding:clamp(13px,1.1vw,21px) var(--pub-gutter);
+ display:grid;grid-template-columns:minmax(310px,.32fr) minmax(0,.72fr);
+ gap:clamp(22px,2.5vw,42px);
+ align-items:center
+}
+#data-publicaciones .pub-archive-intro{
+ min-width:0;max-width:480px;border-right:1px solid #bdb7ad;padding-right:16px;align-self:stretch;
+ display:flex;flex-direction:column;justify-content:center
+}
+#data-publicaciones .pub-tiny-label{
+ font-size:9px!important;font-weight:900!important;letter-spacing:.105em!important;
+ text-transform:uppercase;color:#435562!important
+}
+#data-publicaciones .pub-archive h2{
+ font-size:clamp(20px,1.8vw,31px)!important;font-weight:950!important;
+ color:#07121b!important;letter-spacing:-.055em!important;line-height:1.04!important;
+ margin:4px 0 3px!important
+}
+#data-publicaciones .pub-archive-intro>p:not(.pub-tiny-label){
+ font-size:clamp(10px,.83vw,13px)!important;color:#213343!important;line-height:1.21!important;
+}
+#data-publicaciones .pub-manage-link{
+ align-self:flex-start;margin-top:7px;border:0;background:none;padding:0;
+ font-size:10px;color:#38546a;text-decoration:underline;text-underline-offset:3px;
+ font-weight:750
+}
+#data-publicaciones .pub-manage-link:hover{color:#000}
+#data-publicaciones .pub-archive-years{
+ width:100%;min-width:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+ gap:10px;align-items:stretch
+}
+#data-publicaciones .pub-year{
+ position:relative;display:grid;align-content:center;gap:6px;min-width:0;
+ padding:12px 13px;height:65px;border:1px solid #ded8cc;
+ border-radius:6px;background:transparent;color:#131a24;text-align:left
+}
+#data-publicaciones .pub-year:hover,#data-publicaciones .pub-year.is-active{border-color:#f6c800;background:#faf8ef}
+#data-publicaciones .pub-year strong{font-size:13px;font-weight:850}
+#data-publicaciones .pub-year small{font-size:10px;color:#405464}
+#data-publicaciones .pub-year i{
+ position:absolute;right:9px;top:10px;width:32px;height:32px;border:1px solid #889aa7;
+ border-radius:50%;display:grid;place-items:center;
+ font-style:normal;font-size:21px;line-height:1
+}
+#data-publicaciones .pub-ethics-note{
+ position:absolute;bottom:1px;left:var(--pub-gutter);right:var(--pub-gutter);
+ background:transparent;color:#425464!important;font-size:8.2px!important;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none
+}
+/* READER / ADMINISTRACIÓN: no modifica contenido del resto del sitio. */
+#data-publicaciones .pub-dialog{
+ max-height:92dvh;width:min(800px,calc(100vw - 36px));max-width:800px;
+ overflow:auto;border:1px solid #79909b;border-radius:10px;
+ background:#0a1d2b;color:#f8fcff;box-shadow:0 32px 120px #0009;
+ padding:0
+}
+#data-publicaciones .pub-dialog::backdrop{background:#020b14d9;backdrop-filter:blur(4px)}
+#data-publicaciones .pub-dialog-bar{
+ position:sticky;top:0;z-index:4;display:flex;align-items:center;justify-content:space-between;
+ gap:10px;background:#0a1d2b;border-bottom:1px solid #3b5a6d;padding:14px 22px;
+ color:#ffe000;font-size:10px;letter-spacing:.15em;font-weight:900
+}
+#data-publicaciones .pub-dialog-bar button{
+ border:1px solid #8ca8bb;border-radius:50%;background:transparent;color:#fff;
+ width:35px;height:35px;font-size:24px;display:grid;place-items:center
+}
+#data-publicaciones .pub-dialog-bar button:hover{background:#ffdf13;color:#111b25}
+#data-publicaciones .pub-reader-body,
+#data-publicaciones .pub-management-body{padding:clamp(20px,3vw,36px)}
+#data-publicaciones .pub-reader-body h2,
+#data-publicaciones .pub-management-body h2,
+#data-publicaciones .pub-edit-form h2{
+ font-size:clamp(30px,3.25vw,48px)!important;line-height:.98!important;
+ font-weight:900!important;letter-spacing:-.055em!important;margin:12px 0!important;
+}
+#data-publicaciones .pub-reader-body p,
+#data-publicaciones .pub-management-body>p,
+#data-publicaciones .pub-edit-form>p{
+ font-size:14px!important;color:#cbd9e2!important;line-height:1.55!important;margin:8px 0 16px!important
+}
+#data-publicaciones .pub-reader-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+#data-publicaciones .pub-reader-meta span{
+ border:1px solid #547185;padding:5px 9px;font-size:11px
+}
+#data-publicaciones .pub-reader-disclaimer{
+ border-left:3px solid #ffe000;padding:11px 14px;background:#193344;
+ color:#f9e28b!important
+}
+#data-publicaciones .pub-reader-actions{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+#data-publicaciones .pub-yellow-button{
+ display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;
+ min-height:43px;padding:11px 18px;border:1px solid #ffe000;border-radius:4px;
+ background:#ffdf0b;color:#15202a!important;font-weight:850;font-size:11px;letter-spacing:.04em
+}
+#data-publicaciones .pub-yellow-button:hover{background:#fff;border-color:#fff}
+#data-publicaciones .pub-outline-button{
+ min-height:42px;padding:10px 17px;border:1px solid #7a98ac;border-radius:4px;
+ color:#e0eef5;background:none;font-size:11px;font-weight:750
+}
+#data-publicaciones .pub-outline-button:hover{border-color:#ffe000;color:#ffe000}
+#data-publicaciones .pub-metadata{
+ display:grid;grid-template-columns:150px minmax(0,1fr);gap:9px 18px;
+ border-top:1px solid #3e5c6e;padding-top:20px;font-size:12px
+}
+#data-publicaciones .pub-metadata dt{color:#a1b8c6;font-weight:750}
+#data-publicaciones .pub-metadata dd{margin:0;color:#f4f7fa;overflow-wrap:anywhere}
+#data-publicaciones .pub-management-dialog{max-width:1050px;width:min(1050px,calc(100vw - 36px))}
+#data-publicaciones .pub-manager-actions{
+ display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin:22px 0
+}
+#data-publicaciones .pub-local-counter{font-size:12px;color:#b8cfde}
+#data-publicaciones .pub-review-alert{font-size:12px;color:#ffe57e;margin:10px 0}
+#data-publicaciones .pub-meta-list{display:grid;gap:10px;margin:17px 0}
+#data-publicaciones .pub-meta-item{
+ display:grid;grid-template-columns:minmax(0,1fr) 180px auto;gap:13px;align-items:center;
+ padding:15px;border:1px solid #35566d;border-radius:6px;background:#112b3e
+}
+#data-publicaciones .pub-meta-item strong{display:block;color:#fff;font-size:15px;overflow-wrap:anywhere}
+#data-publicaciones .pub-meta-item small{display:block;margin-top:6px;color:#afc6d4;font-size:10.5px}
+#data-publicaciones .pub-meta-item>span{font-size:11px;font-weight:750;color:#ffe684}
+#data-publicaciones .pub-meta-item button{border:1px solid #738e9d;border-radius:4px;padding:8px 11px;background:transparent;color:#f4fbff;font-size:11px}
+#data-publicaciones .pub-meta-item button:hover{border-color:#ffe000;color:#ffe000}
+#data-publicaciones .pub-legacy-catalog,#data-publicaciones .pub-glossary{
+ margin-top:22px;border-top:1px solid #446272;padding:16px 0
+}
+#data-publicaciones .pub-legacy-catalog summary,
+#data-publicaciones .pub-glossary summary{cursor:pointer;font-size:13px;color:#ffe000;font-weight:800}
+#data-publicaciones #publicationGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+#data-publicaciones #publicationGrid .document-card{background:#f5f1ea;color:#0f202f!important;padding:15px;border-radius:6px}
+#data-publicaciones #publicationGrid .document-card h4{color:#10212d!important;font-size:18px!important}
+#data-publicaciones #publicationGrid .document-card :is(small,p){color:#425765!important}
+#data-publicaciones #publicationGrid .text-button{color:#173f55!important;border:0;padding:6px}
+#data-publicaciones #publicationGrid .card-actions{display:flex;gap:10px}
+#data-publicaciones .pub-glossary .ti-local-repository{
+ padding:15px;background:#e7e9e9;color:#122836!important
+}
+#data-publicaciones .pub-glossary .ti-local-repository h3{color:#0f2635!important}
+#data-publicaciones .pub-edit-form{padding:25px 32px 35px;display:grid;gap:12px}
+#data-publicaciones .pub-edit-form label{display:grid;gap:6px;font-size:12px;font-weight:750}
+#data-publicaciones .pub-edit-form :is(input,textarea,select){
+ display:block;width:100%;padding:10px 12px;border:1px solid #7490a3;
+ background:#102d42;color:#fff;border-radius:4px;font-size:13px;font-weight:400
+}
+#data-publicaciones .pub-edit-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+#data-publicaciones .pub-edit-form .pub-edit-disclaimer{
+ font-size:11px!important;border-left:3px solid #ffe000;padding:11px 14px;
+ background:#183443;color:#e8e3b7!important
+}
+#data-publicaciones .pub-edit-form .pub-yellow-button{justify-self:start}
+@media(min-width:1100px) and (min-height:810px){
+ #data-publicaciones .pub-app{height:calc(100dvh - 58px)}
+}
+@media(max-width:1450px){
+ #data-publicaciones .pub-filter-tabs button{min-width:auto;padding:9px 15px;font-size:12px}
+ #data-publicaciones .pub-filter-year{min-width:165px;gap:8px;padding-left:12px}
+ #data-publicaciones .pub-feature-content{padding:18px}
+ #data-publicaciones .pub-feature-content h3{font-size:clamp(19px,1.8vw,26px)!important}
+ #data-publicaciones .pub-feature-resources button{font-size:9px;gap:5px;padding:0 7px}
+ #data-publicaciones .pub-feature-read{margin-top:12px}
+ #data-publicaciones .pub-small-body{padding-right:39px}
+ #data-publicaciones .pub-year{padding:9px 7px}
+ #data-publicaciones .pub-year i{width:26px;height:26px;font-size:18px;right:5px;top:11px}
+ #data-publicaciones .pub-archive{grid-template-columns:minmax(260px,.31fr) minmax(0,.69fr);gap:20px}
+}
+@media(max-width:1180px){
+ body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #pubHeaderSearch{display:none!important}
+ body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #tiHeaderSearch{display:grid!important}
+ #data-publicaciones .pub-app{height:auto;min-height:calc(100dvh - 58px);display:block}
+ #data-publicaciones .pub-hero{min-height:310px}
+ #data-publicaciones .pub-hero-content{width:70%}
+ #data-publicaciones .pub-hero h1{font-size:clamp(46px,6vw,77px)!important}
+ #data-publicaciones .pub-hero-subtitle{font-size:clamp(17px,2.6vw,29px)!important}
+ #data-publicaciones .pub-catalog{padding-bottom:18px;overflow:visible}
+ #data-publicaciones .pub-filter-tabs{flex:1}
+ #data-publicaciones .pub-visual-grid{min-height:380px}
+ #data-publicaciones .pub-feature-content h3{font-size:23px!important}
+ #data-publicaciones .pub-archive{min-height:140px}
+ #data-publicaciones .pub-ethics-note{position:static;background:#f1eee7;padding:3px var(--pub-gutter) 8px;color:#344653!important}
+}
+@media(max-width:920px){
+ #data-publicaciones .pub-hero-content{width:100%}
+ #data-publicaciones .pub-hero-quote{display:none}
+ #data-publicaciones .pub-hero-photo{inset:0 0 0 18%}
+ #data-publicaciones .pub-hero-shadow{background:linear-gradient(90deg,#061722 0%,rgba(6,23,34,.9) 48%,rgba(6,23,34,.28))}
+ #data-publicaciones .pub-visual-grid{grid-template-columns:1fr}
+ #data-publicaciones .pub-feature-card{min-height:360px}
+ #data-publicaciones .pub-right-grid{min-height:380px}
+ #data-publicaciones .pub-small-body h3{font-size:17px!important}
+ #data-publicaciones .pub-archive{display:block}
+ #data-publicaciones .pub-archive-intro{border-right:0;padding:0 0 15px;margin-bottom:15px;border-bottom:1px solid #c8c1b6}
+ #data-publicaciones .pub-archive-years{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:620px){
+ body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #siteHeader .nav{padding:0 12px!important}
+ #data-publicaciones .pub-hero{min-height:300px}
+ #data-publicaciones .pub-hero-content{padding:20px 16px}
+ #data-publicaciones .pub-breadcrumb{font-size:9px!important;gap:6px;margin-bottom:21px!important}
+ #data-publicaciones .pub-demo-flag{font-size:7px;padding:3px;margin-left:3px}
+ #data-publicaciones .pub-hero h1{font-size:clamp(37px,10.3vw,59px)!important;white-space:normal;overflow-wrap:anywhere}
+ #data-publicaciones .pub-hero-subtitle{font-size:19px!important;white-space:normal}
+ #data-publicaciones .pub-hero-description{font-size:12px!important;line-height:1.4!important}
+ #data-publicaciones .pub-desktop-break{display:none}
+ #data-publicaciones .pub-catalog{padding:0 12px 13px}
+ #data-publicaciones .pub-filter-bar{height:auto;min-height:103px;flex-wrap:wrap;align-content:center;padding:7px 0;gap:5px}
+ #data-publicaciones .pub-filter-tabs{flex:0 0 100%;gap:4px;padding:3px 0}
+ #data-publicaciones .pub-filter-tabs button{font-size:11px;padding:9px 12px}
+ #data-publicaciones .pub-filter-year{border:0;padding:0;min-width:0;height:30px;margin-left:auto}
+ #data-publicaciones .pub-filter-year select{height:30px}
+ #data-publicaciones .pub-feature-card{grid-template-columns:1fr;min-height:0}
+ #data-publicaciones .pub-feature-cover{min-height:240px}
+ #data-publicaciones .pub-feature-content{padding:22px;min-height:280px}
+ #data-publicaciones .pub-feature-content h3{font-size:26px!important}
+ #data-publicaciones .pub-feature-content p{font-size:14px!important}
+ #data-publicaciones .pub-feature-resources{margin-top:25px}
+ #data-publicaciones .pub-right-grid{grid-template-columns:1fr;min-height:0}
+ #data-publicaciones .pub-small-card{min-height:260px}
+ #data-publicaciones .pub-small-cover{flex-basis:140px}
+ #data-publicaciones .pub-small-body{padding:14px 56px 18px 15px}
+ #data-publicaciones .pub-small-body h3{font-size:20px!important}
+ #data-publicaciones .pub-small-body p{font-size:13px!important}
+ #data-publicaciones .pub-archive{padding:22px 13px}
+ #data-publicaciones .pub-archive-years{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #data-publicaciones .pub-year{height:74px}
+ #data-publicaciones .pub-ethics-note{white-space:normal;padding:10px 13px}
+ #data-publicaciones .pub-metadata{grid-template-columns:1fr;gap:2px}
+ #data-publicaciones .pub-metadata dd{margin-bottom:8px}
+ #data-publicaciones .pub-meta-item{grid-template-columns:1fr;gap:10px}
+ #data-publicaciones .pub-meta-item button{justify-self:start}
+ #data-publicaciones #publicationGrid{grid-template-columns:1fr}
+ #data-publicaciones .pub-edit-pair{grid-template-columns:1fr}
+ #data-publicaciones .pub-management-body,
+ #data-publicaciones .pub-reader-body{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){
+ #data-publicaciones *,#data-publicaciones *:before,#data-publicaciones *:after{transition:none!important}
+}
+/* Capture review: hide floating assistant while the full-screen archive is visible. */
+body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #assistantLaunch{
+ display:none!important
+}
+#data-publicaciones .pub-archive-years{position:relative;z-index:1}
+#data-publicaciones .pub-feature-cover{
+ background-position:center center!important;
+ filter:none!important
+}
+#data-publicaciones .pub-year small{font-size:11px}
+#data-publicaciones .pub-ethics-note{font-size:9px!important}

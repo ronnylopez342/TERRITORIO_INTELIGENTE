@@ -154,7 +154,13 @@ const TIWorkspace = (() => {
         await TIData.write(kind, list);
         if (kind === 'documents') documents = list; else publications = list;
         draw();
-        openDetail('Archivos guardados', `<p>${files.length} archivo(s) incorporado(s) al repositorio.</p><p>${savedNote}</p>`);
+        // Dentro de la nueva administración editorial, no abrimos un segundo modal
+        // encima del gestor: el estado de carga se comunica en su propio panel.
+        if(kind==='publications') document.dispatchEvent(new CustomEvent('ti:publication-store-changed'));
+        if(kind==='publications' && document.getElementById('pubManageDialog')?.open){
+          const note=document.getElementById('pubReviewAlert');
+          if(note)note.textContent=`${files.length} archivo(s) incorporado(s). ${savedNote}`;
+        } else openDetail('Archivos guardados', `<p>${files.length} archivo(s) incorporado(s) al repositorio.</p><p>${savedNote}</p>`);
       } catch (error) { report(error); }
       finally { input.disabled = false; input.value = ''; }
     };
