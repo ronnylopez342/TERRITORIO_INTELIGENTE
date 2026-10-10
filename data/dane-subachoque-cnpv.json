@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "municipality": "Subachoque",
+  "department": "Cundinamarca",
+  "daneCode": "25769",
+  "operation": "Censo Nacional de Población y Vivienda 2018 (CNPV) y Censo General 2005 (CG)",
+  "notice": "Los datos corresponden a cortes censales, no a proyecciones de 2024/2026. La geografía por veredas del proyecto no constituye una desagregación estadística certificada por DANE.",
+  "source": {
+    "organization": "DANE",
+    "title": "Ficha municipal CNPV 2018: Subachoque (25769)",
+    "url": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+    "year": 2018
+  },
+  "census": [
+    {
+      "year": 2005,
+      "total": 12972,
+      "urban": 5292,
+      "rural": 7680,
+      "households": 3522,
+      "averageHousehold": 3.7
+    },
+    {
+      "year": 2018,
+      "total": 14874,
+      "urban": 7217,
+      "rural": 7657,
+      "households": 4839,
+      "averageHousehold": 3.1
+    }
+  ],
+  "sexPercent2018": {
+    "men": 50,
+    "women": 50
+  },
+  "agePercent2018": [
+    {
+      "group": "0–14 años",
+      "value": 21.4
+    },
+    {
+      "group": "15–59 años",
+      "value": 65.8
+    },
+    {
+      "group": "60 años o más",
+      "value": 12.8
+    }
+  ],
+  "pyramid2018": [
+    {
+      "age": "0–4",
+      "men": 3,
+      "women": 2.9
+    },
+    {
+      "age": "5–9",
+      "men": 4,
+      "women": 3.5
+    },
+    {
+      "age": "10–14",
+      "men": 3.8,
+      "women": 4.1
+    },
+    {
+      "age": "15–19",
+      "men": 4.2,
+      "women": 4.3
+    },
+    {
+      "age": "20–24",
+      "men": 4.4,
+      "women": 4.4
+    },
+    {
+      "age": "25–29",
+      "men": 4.2,
+      "women": 4
+    },
+    {
+      "age": "30–34",
+      "men": 3.5,
+      "women": 3.6
+    },
+    {
+      "age": "35–39",
+      "men": 3.7,
+      "women": 3.5
+    },
+    {
+      "age": "40–44",
+      "men": 3.3,
+      "women": 3.4
+    },
+    {
+      "age": "45–49",
+      "men": 3.7,
+      "women": 3.6
+    },
+    {
+      "age": "50–54",
+      "men": 3.1,
+      "women": 3.4
+    },
+    {
+      "age": "55–59",
+      "men": 2.9,
+      "women": 2.6
+    },
+    {
+      "age": "60–64",
+      "men": 2.2,
+      "women": 2.1
+    },
+    {
+      "age": "65–69",
+      "men": 1.4,
+      "women": 1.7
+    },
+    {
+      "age": "70–74",
+      "men": 1,
+      "women": 1.1
+    },
+    {
+      "age": "75–79",
+      "men": 0.8,
+      "women": 0.9
+    },
+    {
+      "age": "80–84",
+      "men": 0.4,
+      "women": 0.4
+    },
+    {
+      "age": "85–89",
+      "men": 0.3,
+      "women": 0.3
+    },
+    {
+      "age": "90–94",
+      "men": 0,
+      "women": 0.1
+    },
+    {
+      "age": "95–99",
+      "men": 0,
+      "women": 0
+    },
+    {
+      "age": "100+",
+      "men": 0,
+      "women": 0
+    }
+  ],
+  "housing": {
+    "occupiedWithPeople": 4814,
+    "occupiedAbsent": 13,
+    "temporary": 1006,
+    "unoccupied": 369
+  },
+  "services2018": [
+    {
+      "name": "Energía eléctrica",
+      "percent": 99.4
+    },
+    {
+      "name": "Acueducto",
+      "percent": 94.9
+    },
+    {
+      "name": "Alcantarillado",
+      "percent": 62.4
+    },
+    {
+      "name": "Gas",
+      "percent": 48.2
+    },
+    {
+      "name": "Recolección de basuras",
+      "percent": 89.4
+    },
+    {
+      "name": "Internet",
+      "percent": 37.3
+    }
+  ],
+  "householdSizePercent2018": [
+    {
+      "name": "1 persona",
+      "value": 16.9
+    },
+    {
+      "name": "2 personas",
+      "value": 20.5
+    },
+    {
+      "name": "3 personas",
+      "value": 24.3
+    },
+    {
+      "name": "4 personas",
+      "value": 23
+    },
+    {
+      "name": "5 personas",
+      "value": 10.5
+    },
+    {
+      "name": "6 o más",
+      "value": 4.8
+    }
+  ],
+  "sourceLinks": [
+    {
+      "title": "Ficha oficial de Subachoque",
+      "type": "PDF municipal",
+      "url": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "detail": "Personas censadas, hogares, características de vivienda y servicios; incluye CG 2005 y CNPV 2018."
+    },
+    {
+      "title": "Geovisor del CNPV 2018",
+      "type": "Mapa oficial",
+      "url": "https://geoportal.dane.gov.co/geovisores/sociedad/cnpv-2018/",
+      "detail": "Consulta cartográfica oficial por municipio y otras unidades habilitadas por DANE."
+    },
+    {
+      "title": "CNPV 2018: operación estadística",
+      "type": "Metodología y cuadros",
+      "url": "https://www.dane.gov.co/index.php/estadisticas-por-tema/demografia-y-poblacion/censo-nacional-de-poblacion-y-vivienda-2018",
+      "detail": "Metodología, resultados y cuadros de personas, viviendas y hogares."
+    },
+    {
+      "title": "Estadísticas territoriales SEN",
+      "type": "Geovisor sectorial",
+      "url": "https://geoportal.dane.gov.co/geovisores/territorio/estadisticas-territoriales-sen/",
+      "detail": "Acceso complementario a indicadores territoriales oficiales disponibles."
+    }
+  ],
+  "explanatoryVideoUrl": ""
+}
