@@ -72,9 +72,9 @@ async function main(){
   assert.equal(await page.locator('#svZone').inputValue(),'Canica Alta');
   assert.equal(await page.locator('#svResponses').innerText(),'48');
   await page.locator('#svZoomIn').click();
-  assert.match(await page.locator('#svMapGroup').getAttribute('style'),/scale\(1\.20\)/);
+  assert.match(await page.locator('#svMapGroup').getAttribute('style'),/scale\(1\.2\)/);
   await page.locator('#svZoomReset').click();
-  assert.match(await page.locator('#svMapGroup').getAttribute('style'),/scale\(1\.00\)/);
+  assert.match(await page.locator('#svMapGroup').getAttribute('style'),/scale\(1\)/);
   await page.locator('#svMapLayers').click();
   assert.equal(await page.locator('#svMapLayers').getAttribute('aria-pressed'),'true');
   await page.locator('#svViewBreaches').click();
