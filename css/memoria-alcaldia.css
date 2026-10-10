@@ -457,3 +457,6 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #si
  body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #siteHeader{height:63px!important;min-height:63px!important}
  #data-municipales .ma-hero-photo{background-image:url("../assets/img/editorial/memoria-aprobada.webp");background-size:cover}
 }
+
+/* Align Data subpage directly below its 63px header, eliminating inherited blank product shell offset. */
+body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) .app-view[data-view="data"].view-shell{padding-top:63px!important}
