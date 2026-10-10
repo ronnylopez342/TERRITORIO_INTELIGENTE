@@ -1,0 +1,433 @@
+/* Encuesta Municipal 2.4 — página navegable basada en la referencia aprobada.
+   Aislada de los módulos DANE, Memoria, Plan Estadístico, Home y demás rutas. */
+.app-view.active[data-view="data"]:has(#data-encuesta:not([hidden]))>.view-hero,
+.app-view.active[data-view="data"]:has(#data-encuesta:not([hidden])) .module-heading-row{display:none!important}
+.app-view.active[data-view="data"]:has(#data-encuesta:not([hidden]))>.view-body{
+ background:#071a2a!important;padding:0!important;margin:0!important
+}
+.app-view.active[data-view="data"]:has(#data-encuesta:not([hidden]))>.view-body>.inner{
+ max-width:none!important;width:100%!important;margin:0!important;padding:0!important
+}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])){
+ overflow-x:hidden!important;background:#061a2a!important
+}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden]))>footer{
+ display:none!important
+}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) #siteHeader{
+ height:63px!important;min-height:63px!important;max-height:63px!important;
+ background:#051523!important;border-bottom:1px solid #274259!important
+}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) #siteHeader .nav{
+ height:63px!important;min-height:63px!important;max-height:63px!important;
+ margin:0 auto!important
+}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) .app-view[data-view="data"].view-shell{
+ padding-top:63px!important
+}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) #tiHeaderSearch{
+ position:relative;width:clamp(180px,24vw,400px)!important;height:40px!important;
+ min-width:0;background:rgba(14,35,51,.7)!important;border:1px solid #3c5870!important;
+ border-radius:7px!important;text-align:left;padding:0 15px!important;
+ color:#d7e4ed!important;display:flex!important;align-items:center!important
+}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) #tiHeaderSearch svg{width:18px!important;height:18px!important;flex-shrink:0}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) #tiHeaderSearch:after{
+ content:"Buscar en encuestas, veredas, temas...";font-size:11px;margin-left:12px;
+ text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#acbfd0
+}
+body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) .assistant-launch{display:none!important}
+#data-encuesta[hidden],#data-encuesta [hidden]{display:none!important}
+#data-encuesta{
+ --sv-deep:#061a29;--sv-panel:#081e30;--sv-paper:#f8fbfe;
+ --sv-yellow:#ffdd19;--sv-text:#f7f9fd;--sv-muted:#d4e0ea;--sv-line:#28506d;
+ width:100%;margin:0!important;border:0!important;padding:0!important;
+ color:var(--sv-text)!important;background:var(--sv-deep)!important;
+ font:14px/1.35 Arial,Helvetica,sans-serif!important;
+ letter-spacing:normal!important
+}
+#data-encuesta *,#data-encuesta *:before,#data-encuesta *:after{box-sizing:border-box}
+#data-encuesta :is(h1,h2,h3,h4,p,small){margin:0!important;color:inherit!important;
+ font-family:inherit!important;line-height:inherit;text-transform:none;letter-spacing:normal}
+#data-encuesta button,#data-encuesta input,#data-encuesta select{font:inherit;cursor:pointer}
+#data-encuesta :focus-visible{outline:2px solid var(--sv-yellow)!important;outline-offset:2px!important}
+#data-encuesta .sv-app{width:100%;min-width:0;min-height:calc(100dvh - 63px);background:#061a29}
+#data-encuesta .sv-hero{
+ position:relative;isolation:isolate;display:flex;align-items:stretch;overflow:hidden;
+ height:254px;min-height:254px;background:#071c2b
+}
+#data-encuesta .sv-hero-photo{
+ position:absolute;z-index:-2;inset:0 0 0 30%;
+ background:#0c273a url("../assets/img/editorial/encuesta-subachoque-referencia.webp") center 45%/100% 100% no-repeat;
+ filter:brightness(.9) contrast(1.12) saturate(.92)
+}
+#data-encuesta .sv-hero-photo:after{
+ content:"";position:absolute;inset:0;background:linear-gradient(0deg,#041421aa,transparent 65%)
+}
+#data-encuesta .sv-hero-shade{
+ position:absolute;z-index:-1;inset:0;
+ background:linear-gradient(90deg,#061a29 0%,#061a29 24%,rgba(6,26,41,.94) 32%,rgba(6,26,41,.52) 44%,rgba(6,26,41,.06) 70%,rgba(6,26,41,.43) 100%),
+ linear-gradient(0deg,rgba(3,16,27,.55),transparent 63%)
+}
+#data-encuesta .sv-hero-copy{
+ display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+ min-width:0;width:43%;padding:18px 0 18px clamp(24px,3.45vw,65px);
+ position:relative;z-index:1
+}
+#data-encuesta .sv-breadcrumb{
+ color:#d8e5ec!important;font-size:13px;line-height:1.2;margin-bottom:15px!important
+}
+#data-encuesta .sv-hero h1{
+ color:var(--sv-yellow)!important;font-size:clamp(45px,4.6vw,78px)!important;
+ font-weight:950!important;letter-spacing:-.045em!important;line-height:.88!important;
+ text-transform:uppercase!important;white-space:nowrap;
+ text-shadow:0 2px 12px rgba(3,17,26,.6)
+}
+#data-encuesta .sv-hero h2{
+ margin-top:8px!important;color:#fff!important;font-weight:600!important;
+ font-size:clamp(17px,1.75vw,29px)!important;line-height:1.14!important;white-space:nowrap;
+ letter-spacing:-.022em!important
+}
+#data-encuesta .sv-hero-description{
+ margin-top:7px!important;color:#d9e3eb!important;font-size:clamp(11px,.98vw,16px);
+ white-space:nowrap
+}
+#data-encuesta .sv-handwriting{
+ position:absolute;z-index:1;top:24%;left:42.6%;transform:rotate(-8deg);
+ color:#f7fcff;font:italic clamp(16px,1.78vw,27px)/1.02 Georgia,serif;
+ text-shadow:0 2px 7px #071928;text-align:center;pointer-events:none
+}
+#data-encuesta .sv-handwriting em{font:inherit;color:var(--sv-yellow)}
+#data-encuesta .sv-handwriting:after{
+ content:"";display:block;width:120px;height:3px;margin:12px auto 0;background:var(--sv-yellow);
+ transform:rotate(-10deg)
+}
+#data-encuesta .sv-demo-label{
+ position:absolute;z-index:2;left:42.9%;bottom:20px;padding:5px 10px;
+ border:1px solid var(--sv-yellow);border-radius:5px;color:var(--sv-yellow);
+ font-size:12px;font-weight:800;background:#07192bd6;cursor:pointer
+}
+#data-encuesta .sv-demo-label:hover{background:var(--sv-yellow);color:#0b2333}
+#data-encuesta .sv-hero-location{
+ position:absolute;right:clamp(20px,3.4vw,62px);top:36%;z-index:2;
+ border-left:2px solid var(--sv-yellow);padding:6px 0 7px 14px;
+ color:#fff;text-shadow:0 1px 8px #031321
+}
+#data-encuesta .sv-hero-location strong{display:block;font-size:13px;margin-bottom:6px}
+#data-encuesta .sv-hero-location span{font-size:14px;line-height:1.26;display:block}
+#data-encuesta .sv-hero-location:after{
+ content:"";display:block;width:23px;height:3px;background:var(--sv-yellow);margin-top:13px
+}
+#data-encuesta .sv-controls{
+ padding:0 clamp(16px,1.8vw,35px);
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(580px,2.64fr);
+ align-items:stretch;gap:13px;height:91px;background:#061a29
+}
+#data-encuesta .sv-stat{
+ min-width:0;display:flex;align-items:center;gap:16px;
+ margin:10px 0 6px;border:1px solid var(--sv-line);border-radius:7px;
+ padding:12px 18px;background:linear-gradient(120deg,#0a2437,#071a2b);
+ color:#fff
+}
+#data-encuesta .sv-stat-icon{
+ width:36px;flex:0 0 36px;display:grid;place-items:center;color:var(--sv-yellow);
+ font-size:30px;line-height:1
+}
+#data-encuesta .sv-stat-icon svg{width:31px;height:31px;fill:none;stroke:currentColor;
+ stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#data-encuesta .sv-stat-number{display:block;font-weight:800;font-size:clamp(22px,2vw,30px);line-height:1.05}
+#data-encuesta .sv-stat-caption{display:block;margin-top:4px;font-size:clamp(10px,.91vw,14px);white-space:nowrap}
+#data-encuesta .sv-filter-form{
+ min-width:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+ align-items:center;border:1px solid var(--sv-line);border-left:2px solid var(--sv-yellow);
+ border-radius:7px;background:#0c2538;margin:10px 0 6px;padding:8px 12px 8px 20px
+}
+#data-encuesta .sv-filter-form label{display:flex;flex-direction:column;gap:5px;min-width:0;color:#f7fbff;font-size:11px}
+#data-encuesta .sv-filter-form select{
+ width:100%;min-width:0;height:36px;background:#0c2031;border:1px solid #456781;
+ color:#eef5fc;border-radius:4px;padding:0 9px;font-size:12px
+}
+#data-encuesta .sv-filter-form select option{background:#0d293c}
+#data-encuesta .sv-apply{display:none}
+#data-encuesta .sv-dash{
+ padding:0 clamp(16px,1.8vw,35px) 14px;
+ display:grid;grid-template-columns:minmax(0,1.59fr) minmax(0,1fr);gap:14px;
+ min-width:0;min-height:460px;height:calc(100dvh - 63px - 254px - 91px - 14px);
+}
+#data-encuesta .sv-panel{
+ min-width:0;position:relative;background:#071e30;border:1px solid var(--sv-line);
+ border-radius:8px;overflow:hidden
+}
+#data-encuesta .sv-panel-head{
+ position:relative;z-index:3;padding:13px 16px 10px;background:#061d2fe0
+}
+#data-encuesta .sv-panel-head h3{
+ display:flex;align-items:center;gap:12px;font-weight:800!important;
+ font-size:clamp(15px,1.16vw,19px)!important;line-height:1.14!important
+}
+#data-encuesta .sv-panel-head h3 svg{width:23px;height:23px;fill:none;stroke:#ffdc19;
+ stroke-width:1.6;flex:none}
+#data-encuesta .sv-panel-head p{font-size:12px;color:#dce7f1!important;margin:4px 0 0 36px!important}
+#data-encuesta .sv-map-panel{display:flex;flex-direction:column}
+#data-encuesta .sv-map-stage{
+ min-height:0;position:relative;flex:1;isolation:isolate;overflow:hidden;
+ background:#0c2531;
+}
+#data-encuesta .sv-map-stage:before{
+ content:"";position:absolute;inset:-5%;z-index:-2;
+ background:url("../assets/img/editorial/territorio-aereo.jpg") center 53%/cover no-repeat;
+ filter:brightness(.29) saturate(.47) contrast(1.35);transform:scale(1.09)
+}
+#data-encuesta .sv-map-stage:after{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+ background:linear-gradient(0deg,#071a2499,transparent 20%,transparent 75%,#071b2880),
+ radial-gradient(circle at center,transparent 26%,#071b2d90 90%)
+}
+#data-encuesta .sv-map{
+ position:absolute;inset:7px 5px 6px;display:block;width:calc(100% - 10px);
+ height:calc(100% - 13px);overflow:visible;touch-action:pan-y
+}
+#data-encuesta .sv-map-geometry{transition:transform .25s ease;transform-origin:center;
+ transform-box:fill-box}
+#data-encuesta .sv-vereda{
+ fill:#2673b6;fill-opacity:.92;stroke:#87c0fa;stroke-width:1.25;
+ vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .15s,stroke .15s
+}
+#data-encuesta .sv-vereda[data-band="low"]{fill:#0b3568}
+#data-encuesta .sv-vereda[data-band="medium"]{fill:#247cd0}
+#data-encuesta .sv-vereda[data-band="high"]{fill:#69a8f5}
+#data-encuesta .sv-vereda:hover,#data-encuesta .sv-vereda:focus{fill:#ffe134;stroke:#fff;stroke-width:2}
+#data-encuesta .sv-vereda.is-selected{fill:var(--sv-yellow)!important;stroke:#fff;stroke-width:2.1}
+#data-encuesta .sv-map-label{pointer-events:none;fill:#f7fbfe;
+ paint-order:stroke;stroke:#071e30;stroke-width:2.8px;stroke-linejoin:round;
+ font:bold 12px Arial,sans-serif;text-anchor:middle;text-shadow:0 1px 4px #04172b
+}
+#data-encuesta .sv-map-label.is-selected{fill:#061b29;stroke:#ffe019;stroke-width:3px}
+#data-encuesta .sv-map-locals{
+ position:absolute;inset:0;pointer-events:none;font-size:11px;color:#a8c2d4;
+ text-shadow:0 2px 5px #04121e;opacity:.82
+}
+#data-encuesta .sv-map-locals span{position:absolute}
+#data-encuesta .sv-map-locals span:nth-child(1){left:25%;top:9%}
+#data-encuesta .sv-map-locals span:nth-child(2){right:5%;top:18%}
+#data-encuesta .sv-map-locals span:nth-child(3){left:13%;bottom:18%}
+#data-encuesta .sv-map-locals span:nth-child(4){right:5%;bottom:12%}
+#data-encuesta .sv-map-tools{
+ position:absolute;top:12px;left:12px;z-index:4;display:grid;gap:7px
+}
+#data-encuesta .sv-map-tools button{
+ width:37px;height:37px;display:grid;place-items:center;background:#071b2cd9;
+ color:#fff;border:1px solid #4b718b;border-radius:5px;font-size:21px;
+}
+#data-encuesta .sv-map-tools button:hover{background:#16476a;color:var(--sv-yellow)}
+#data-encuesta .sv-north{
+ position:absolute;top:8px;right:22px;z-index:4;color:#fff;text-align:center;
+ font-weight:bold;font-size:13px;line-height:1.05;text-shadow:0 2px 5px #000
+}
+#data-encuesta .sv-north:before{content:"▲";display:block;font-size:20px}
+#data-encuesta .sv-map-tip{
+ position:absolute;z-index:5;top:20%;left:64%;width:min(212px,34%);
+ pointer-events:none;
+ padding:11px 12px;background:#061522ef;color:#f7fafc;
+ border:1px solid #7893a8;border-radius:7px;box-shadow:0 6px 24px #0008
+}
+#data-encuesta .sv-map-tip:before{
+ content:"";width:10px;height:10px;background:var(--sv-yellow);
+ display:inline-block;border-radius:50%;margin-right:8px
+}
+#data-encuesta .sv-map-tip strong{display:inline;font-size:12px}
+#data-encuesta .sv-tip-result{
+ display:flex;align-items:baseline;gap:12px;margin:7px 0 7px 13px
+}
+#data-encuesta .sv-tip-result b{font-size:21px}
+#data-encuesta .sv-tip-result small{font-size:11px}
+#data-encuesta .sv-tip-list{padding:7px 0 0 13px;border-top:1px solid #30495a}
+#data-encuesta .sv-tip-list span{display:flex;justify-content:space-between;gap:8px;font-size:11px;line-height:1.5}
+#data-encuesta .sv-map-scale{
+ position:absolute;z-index:5;bottom:14px;left:14px;min-width:288px;
+ padding:9px 12px 12px;background:#071b2bd9;border:1px solid #35526b;border-radius:5px
+}
+#data-encuesta .sv-map-scale>strong{display:block;font-size:11px;font-weight:600;margin-bottom:6px}
+#data-encuesta .sv-spectrum{height:15px;border-radius:4px;
+ background:linear-gradient(90deg,#d4e9ff,#90bffd,#4389fa,#075fcb,#073071)
+}
+#data-encuesta .sv-spectrum-labels{display:flex;justify-content:space-between;font-size:10px;margin-top:6px}
+#data-encuesta .sv-map-foot{
+ position:absolute;z-index:4;right:18px;bottom:10px;font-size:10.5px;
+ color:#d9e4ee;text-shadow:0 2px 5px #000
+}
+#data-encuesta .sv-side{min-width:0;display:grid;grid-template-rows:.98fr 1.12fr;gap:11px;min-height:0}
+#data-encuesta .sv-perception{
+ padding:0;display:flex;flex-direction:column
+}
+#data-encuesta .sv-perception-body{
+ display:grid;grid-template-columns:minmax(110px,1fr) minmax(120px,1.1fr) minmax(150px,1.13fr);
+ align-items:center;gap:13px;min-height:0;flex:1;
+ padding:0 14px 13px 19px
+}
+#data-encuesta .sv-donut{
+ position:relative;width:min(100%,174px);aspect-ratio:1;
+ border-radius:50%;display:grid;place-items:center;margin:auto;
+ background:conic-gradient(#1355df 0 18%,#77b2ff 18% 60%,#ffda19 60% 84%,#ff824c 84% 95%,#f02c42 95% 100%)
+}
+#data-encuesta .sv-donut:before{
+ content:"";position:absolute;inset:27%;background:#071d2e;border-radius:50%
+}
+#data-encuesta .sv-donut-inner{position:relative;text-align:center;z-index:1}
+#data-encuesta .sv-donut-inner strong{font-size:clamp(17px,1.7vw,24px);display:block}
+#data-encuesta .sv-donut-inner span{font-size:11px}
+#data-encuesta .sv-legend{display:grid;gap:8px;min-width:0;font-size:11px}
+#data-encuesta .sv-legend-line{
+ display:grid;grid-template-columns:12px minmax(0,1fr) 32px;gap:7px;align-items:center
+}
+#data-encuesta .sv-legend-dot{width:12px;height:12px;border-radius:50%}
+#data-encuesta .sv-legend-line span{white-space:nowrap}
+#data-encuesta .sv-legend-line strong{text-align:right}
+#data-encuesta .sv-insight{
+ align-self:stretch;border-left:1px solid #5d7690;padding:12px 0 6px 16px;
+ display:flex;flex-direction:column;justify-content:flex-start;min-width:0
+}
+#data-encuesta .sv-insight h4{
+ font-size:13px!important;font-weight:800!important;color:var(--sv-yellow)!important;
+ display:flex;align-items:center;gap:9px;margin-bottom:9px!important
+}
+#data-encuesta .sv-insight h4:before{content:"✦";font-size:21px}
+#data-encuesta .sv-insight p{
+ font-size:clamp(11px,.9vw,13px)!important;line-height:1.46!important;color:#e0e8ee!important
+}
+#data-encuesta .sv-breaches{display:flex;flex-direction:column;min-height:0}
+#data-encuesta .sv-breaches .sv-panel-head{display:flex;justify-content:space-between;align-items:center}
+#data-encuesta .sv-all-breaches{
+ color:var(--sv-yellow);border:0;background:transparent;font-weight:700;
+ font-size:12px;padding:2px 0
+}
+#data-encuesta .sv-breach-list{
+ display:grid;grid-template-rows:repeat(8,minmax(0,1fr));gap:3px;
+ flex:1;min-height:0;padding:2px 18px 16px
+}
+#data-encuesta .sv-breach-row{
+ display:grid;grid-template-columns:minmax(140px,1.18fr) minmax(55px,2.45fr) 37px;
+ align-items:center;gap:10px;color:#f4f8fb;background:none;border:0;
+ padding:0;min-height:0;text-align:left
+}
+#data-encuesta .sv-breach-row:hover .sv-breach-track{border-color:var(--sv-yellow)}
+#data-encuesta .sv-breach-name{min-width:0;display:flex;align-items:center;gap:10px;
+ font-size:11px;white-space:nowrap}
+#data-encuesta .sv-breach-ico{width:15px;flex:none;font-size:15px;text-align:center}
+#data-encuesta .sv-breach-track{
+ width:100%;height:17px;background:#123550;border:1px solid transparent;border-radius:3px;overflow:hidden
+}
+#data-encuesta .sv-breach-fill{
+ display:block;height:100%;background:linear-gradient(90deg,#ffe342,#ffd117);
+ min-width:0;transition:width .2s ease
+}
+#data-encuesta .sv-breach-percent{text-align:right;font-size:11px}
+#data-encuesta .sv-bottom-note{
+ display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+ padding:9px 30px 14px;background:#061a29;color:#b7c8d5;font-size:11px
+}
+#data-encuesta .sv-bottom-note button{
+ color:#ffdd19;background:transparent;border:1px solid #46657d;border-radius:4px;
+ padding:5px 11px;font-size:11px;font-weight:700
+}
+#data-encuesta .sv-real-space{
+ margin:8px clamp(15px,2vw,40px) 35px;padding:15px 20px;
+ border:1px solid #45627a;background:#142e41;border-radius:8px;color:#fff
+}
+#data-encuesta .sv-real-space summary{
+ cursor:pointer;color:var(--sv-yellow);font-weight:800;font-size:14px
+}
+#data-encuesta .sv-real-space p{
+ color:#cbdbe5!important;font-size:12px!important;line-height:1.45!important;margin:12px 0!important
+}
+#data-encuesta .sv-real-space .dataset-controls{
+ margin-top:13px!important
+}
+@media(min-width:1200px) and (min-height:820px){
+ #data-encuesta .sv-app{height:calc(100dvh - 63px);display:flex;flex-direction:column;min-height:0}
+ #data-encuesta .sv-hero{flex:0 0 29%;height:29%;min-height:0}
+ #data-encuesta .sv-controls{flex:0 0 10.4%;height:10.4%}
+ #data-encuesta .sv-dash{flex:1;min-height:0;height:auto;padding-bottom:10px}
+ #data-encuesta .sv-bottom-note{flex:0 0 17px;height:17px;padding:0 30px;font-size:9px}
+ #data-encuesta .sv-bottom-note button{padding:1px 8px}
+ #data-encuesta .sv-panel-head{padding-top:11px;padding-bottom:8px}
+}
+@media(max-width:1500px){
+ #data-encuesta .sv-controls{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(470px,2.5fr);gap:9px}
+ #data-encuesta .sv-stat{padding:9px;gap:7px}
+ #data-encuesta .sv-filter-form{gap:6px;padding-left:8px}
+ #data-encuesta .sv-perception-body{gap:7px;padding-left:11px;padding-right:10px}
+ #data-encuesta .sv-insight{padding-left:9px}
+ #data-encuesta .sv-breach-row{grid-template-columns:minmax(100px,1.18fr) minmax(55px,2.45fr) 32px;gap:5px}
+}
+@media(max-width:1199px){
+ #data-encuesta .sv-hero{height:auto;min-height:262px}
+ #data-encuesta .sv-controls{height:auto;grid-template-columns:repeat(3,minmax(0,1fr));padding:8px 17px;gap:10px}
+ #data-encuesta .sv-stat{margin:0;min-height:68px}
+ #data-encuesta .sv-filter-form{grid-column:1/-1;min-height:70px;margin:0}
+ #data-encuesta .sv-dash{min-height:500px;height:auto;grid-template-columns:1.25fr 1fr;padding:0 17px 14px}
+ #data-encuesta .sv-map-panel{min-height:540px}
+ #data-encuesta .sv-perception-body{grid-template-columns:1fr 1.1fr}
+ #data-encuesta .sv-insight{grid-column:1/-1;min-height:80px;border-left:0;border-top:1px solid #41637b;padding-top:9px}
+ #data-encuesta .sv-side{grid-template-rows:auto auto}
+ #data-encuesta .sv-breaches{min-height:290px}
+}
+@media(max-width:790px){
+ body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) #tiHeaderSearch:after{display:none}
+ body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) #tiHeaderSearch{width:42px!important;justify-content:center;padding:0!important}
+ #data-encuesta .sv-hero{height:auto;min-height:290px}
+ #data-encuesta .sv-hero-photo{inset:0 0 0 6%}
+ #data-encuesta .sv-hero-shade{background:linear-gradient(90deg,#061a29 0%,rgba(6,26,41,.9) 50%,rgba(6,26,41,.2)),linear-gradient(0deg,#061a2999,transparent)}
+ #data-encuesta .sv-hero-copy{width:100%;padding-left:24px;padding-right:16px}
+ #data-encuesta .sv-hero h1{font-size:clamp(44px,7vw,66px)!important}
+ #data-encuesta .sv-hero h2{white-space:normal;max-width:88%;font-size:clamp(18px,3vw,25px)!important}
+ #data-encuesta .sv-hero-description{white-space:normal;max-width:80%;font-size:12px}
+ #data-encuesta .sv-handwriting,#data-encuesta .sv-hero-location{display:none}
+ #data-encuesta .sv-demo-label{left:auto;right:18px;bottom:14px;font-size:10px}
+ #data-encuesta .sv-controls{grid-template-columns:repeat(3,minmax(0,1fr));padding:12px 15px}
+ #data-encuesta .sv-filter-form{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ #data-encuesta .sv-dash{grid-template-columns:1fr;gap:12px;padding:0 15px 12px}
+ #data-encuesta .sv-map-panel{height:520px;min-height:0}
+ #data-encuesta .sv-side{grid-template-rows:300px 330px}
+ #data-encuesta .sv-perception-body{grid-template-columns:1fr 1fr 1fr}
+ #data-encuesta .sv-insight{grid-column:auto;min-height:0;border-top:0;border-left:1px solid #41637b}
+ #data-encuesta .sv-breach-list{padding-bottom:14px}
+}
+@media(max-width:530px){
+ #data-encuesta .sv-hero{min-height:275px}
+ #data-encuesta .sv-hero-copy{padding-left:18px}
+ #data-encuesta .sv-hero h1{font-size:clamp(38px,11vw,56px)!important}
+ #data-encuesta .sv-hero h2{font-size:19px!important}
+ #data-encuesta .sv-controls{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px 10px}
+ #data-encuesta .sv-stat{padding:8px 6px;gap:3px;justify-content:center}
+ #data-encuesta .sv-stat-icon{display:none}
+ #data-encuesta .sv-stat-number{font-size:22px}
+ #data-encuesta .sv-stat-caption{font-size:10px;white-space:normal}
+ #data-encuesta .sv-filter-form{gap:9px;padding:10px}
+ #data-encuesta .sv-dash{padding:0 10px 9px}
+ #data-encuesta .sv-map-panel{height:420px}
+ #data-encuesta .sv-map-tip{top:15%;left:auto;right:8px;width:160px;font-size:11px;padding:9px}
+ #data-encuesta .sv-tip-result{gap:5px}
+ #data-encuesta .sv-map-scale{min-width:0;width:178px;left:9px;bottom:8px}
+ #data-encuesta .sv-map-foot{display:none}
+ #data-encuesta .sv-side{grid-template-rows:auto auto}
+ #data-encuesta .sv-perception-body{grid-template-columns:minmax(100px,1fr) minmax(150px,1.25fr);gap:11px;padding:0 12px 16px}
+ #data-encuesta .sv-donut{max-width:142px}
+ #data-encuesta .sv-legend-line{font-size:10px;grid-template-columns:9px minmax(0,1fr) 26px;gap:5px}
+ #data-encuesta .sv-legend-dot{width:9px;height:9px}
+ #data-encuesta .sv-insight{grid-column:1/-1;border-left:0;border-top:1px solid #43617a;padding:9px 0 0}
+ #data-encuesta .sv-breaches{min-height:340px}
+ #data-encuesta .sv-breach-row{grid-template-columns:110px minmax(70px,1fr) 30px}
+ #data-encuesta .sv-bottom-note{padding:8px 12px}
+}
+@media(prefers-reduced-motion:reduce){
+ #data-encuesta *,#data-encuesta *:before,#data-encuesta *:after{animation:none!important;transition:none!important}
+}
+/* Revisión de captura 1672 x 941: mapa ancho y círculo completo como la referencia. */
+#data-encuesta .sv-donut{width:min(100%,154px)!important}
+#data-encuesta .sv-donut-inner strong{font-size:21px!important}
+#data-encuesta .sv-insight p{font-size:12px!important;line-height:1.33!important}
+#data-encuesta .sv-perception-body{padding-top:0!important;padding-bottom:8px!important}
+#data-encuesta .sv-map-stage:before{background-size:170% auto!important;background-position:left center!important}
+#data-encuesta .sv-vereda{stroke-width:1.35!important}
+@media(max-width:530px){#data-encuesta .sv-donut{width:min(100%,135px)!important}}
