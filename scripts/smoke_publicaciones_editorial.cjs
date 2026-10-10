@@ -85,6 +85,13 @@ async function run(){
   });
   await page.locator('#pubLegacyView summary').click();
   await page.locator('#publicationGrid .document-card').first().waitFor({timeout:18000});
+  const pubUploadDebug=await page.evaluate(async()=>{
+   let error=null;
+   const raw=await TIData.read('publications');
+   try{await window.TIPublicaciones25.loadReal();}catch(e){error=e.message;}
+   return {count:raw?.length,local:window.TIPublicaciones25.state.local.length,metaElements:document.querySelectorAll('#pubMetaList .pub-meta-item').length,error};
+  });
+  console.log('PUBLICATIONS UPLOAD DEBUG:',pubUploadDebug);
   await page.locator('#pubMetaList .pub-meta-item').first().waitFor({timeout:18000});
   assert.match(await page.locator('#pubReviewAlert').innerText(),/pendiente/);
   await page.locator('#pubMetaList [data-pub-edit]').first().click();
