@@ -6,6 +6,7 @@ const legacy=document.getElementById("maLegacyWorkspace");
 const demo=window.TI_MA_DEMO;
 if(!root||!legacy||!demo)return;
 const KEY="municipal-archive:v1";
+const VIEW_KEY="municipal-archive:mode:v1";
 const TYPE_OPTIONS=["Decreto","Resolución","Acuerdo","Informe","Plan","Acta","Contrato","Manual","Correspondencia","Otro"];
 const DEP_HINTS=["Despacho del Alcalde","Secretaría de Planeación","Secretaría de Gobierno","Secretaría de Hacienda","Secretaría de Infraestructura","Secretaría de Desarrollo Social","Secretaría de Ambiente","Oficina de Control Interno","Otra dependencia"];
 const COLORS=["#ffe500","#5caff7","#35bdab","#a584e3","#eea76c","#adc1d3","#6e91bf","#eb80aa"];
@@ -23,6 +24,8 @@ const icon={
   history:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="15" rx="1"/><path d="M3 11h18M8 7V3h8v4M8 15h8"/></svg>',
   indicators:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V14h4v8M10 22V8h4v14M17 22V3h4v19M2 22h21"/></svg>'
 };
+function rememberViewMode(){try{localStorage.setItem(VIEW_KEY,state.demoMode?"demo":"real");}catch(error){console.info("Modo de vista no persistido:",error.message);}}
+function savedViewMode(){try{return localStorage.getItem(VIEW_KEY);}catch{return null;}}
 function indicatorRows(){return (typeof TI_STATE!=="undefined"?TI_STATE?.imported?.municipales?.rows:null)||[];}
 function indicatorCount(){return unique(indicatorRows().map(r=>[r.indicador,r.sector,r.fuente].join("|"))).length;}
 function sorted(){return [...state.records].sort((a,b)=>String(b.dated||b.createdAt).localeCompare(String(a.dated||a.createdAt))||String(b.createdAt).localeCompare(String(a.createdAt)));}
@@ -344,7 +347,7 @@ async function saveForm(form){
    else created.push(item);
   }
   await TIData.write(KEY,{version:1,records:created});
-  state.records=created;state.demoMode=false;state.error=`${list.length} registro(s) guardado(s) en este navegador.`;
+  state.records=created;state.demoMode=false;rememberViewMode();state.error=`${list.length} registro(s) guardado(s) en este navegador.`;
   dlg.close();state.mode=state.mode==="history"?"history":"documents";state.page=0;render();
  }catch(err){message.textContent=err.message||"No se pudo guardar. Revisa el espacio disponible en este navegador.";}
  finally{if(button.isConnected){button.disabled=false;button.textContent=original?"Guardar cambios":"Guardar documentos";}}
@@ -396,7 +399,7 @@ function exportCsv(){
 }
 function handleAction(action){
  if(action==="new"){root.querySelector("#maDetailDialog[open]")?.close();newForm();return;}
- if(action==="toggle-demo"){state.demoMode=!state.demoMode;state.mode="overview";state.filters={q:"",type:"",dependency:"",year:""};state.filtersVisible=false;state.page=0;state.error="";render({focus:true});return;}
+ if(action==="toggle-demo"){state.demoMode=!state.demoMode;rememberViewMode();state.mode="overview";state.filters={q:"",type:"",dependency:"",year:""};state.filtersVisible=false;state.page=0;state.error="";render({focus:true});return;}
  if(action==="search"){state.filtersVisible=!state.filtersVisible;render();if(state.filtersVisible)root.querySelector("#maSearchDrawer input")?.focus();return;}
  if(action==="close"){const d=root.querySelector("#maFormDialog[open],#maDetailDialog[open]");d?.close();return;}
  if(action==="clear"){state.filters={q:"",type:"",dependency:"",year:""};state.page=0;render();return;}
@@ -409,7 +412,7 @@ function handleAction(action){
  }
  if(action==="prev"){state.page=Math.max(0,state.page-1);render();scrollToResults();return;}
  if(action==="next"){state.page++;render();scrollToResults();return;}
- if(action==="legacy"){state.demoMode=false;state.mode="indicators";render();legacy.hidden=false;legacy.open=true;legacy.scrollIntoView({behavior:"smooth",block:"start"});return;}
+ if(action==="legacy"){state.demoMode=false;rememberViewMode();state.mode="indicators";render();legacy.hidden=false;legacy.open=true;legacy.scrollIntoView({behavior:"smooth",block:"start"});return;}
  if(action==="edit"){
   const d=root.querySelector("#maDetailDialog");
   const rec=state.records.find(r=>r.id===d?.dataset.id);
@@ -468,7 +471,7 @@ async function init(){
   const stored=await TIData.read(KEY);
   const items=Array.isArray(stored?.records)?stored.records:[];
   state.records=items.filter(r=>r&&typeof r.id==="string"&&typeof r.title==="string"&&typeof r.dependency==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(r.dated||""));
-  state.demoMode=state.records.length===0;
+  state.demoMode=savedViewMode()!=="real";
   if(state.records.length!==items.length)state.error="Algunos registros incompletos se omitieron de esta vista.";
  }catch(error){state.error="No fue posible leer el archivo de este navegador: "+error.message;}
  finally{state.ready=true;render();}
