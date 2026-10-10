@@ -38,8 +38,7 @@
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.3 Datos del DANE</span><small>DANE y otras fuentes externas</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-municipales"><span>2.3 Memoria de la Alcaldía</span><small>Archivos, históricos y dependencias</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta"><span>2.4 Encuesta</span></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-geo"><span>2.5 Georreferenciador</span></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-publicaciones"><span>2.6 Publicaciones</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-publicaciones"><span>2.5 Publicaciones</span></button>
 </div>
 </div>
 <button class="nav-link route-link" data-route="desarrollo" type="button"><span class="nav-roll"><span class="nav-roll__first">Plan de Desarrollo</span><span class="nav-roll__next" aria-hidden="true">Plan de Desarrollo</span></span></button>
@@ -66,8 +65,7 @@
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.3 Datos del DANE<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-municipales"><span class="ti-mobile-data-label">2.3 Memoria de la Alcaldía<small>Archivos, históricos y dependencias</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta"><span class="ti-mobile-data-label">2.4 Encuesta</span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-geo"><span class="ti-mobile-data-label">2.5 Georreferenciador</span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-publicaciones"><span class="ti-mobile-data-label">2.6 Publicaciones</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-publicaciones"><span class="ti-mobile-data-label">2.5 Publicaciones</span><span aria-hidden="true">↗</span></button>
 </div>
 </div>
 <button class="route-link" data-route="desarrollo" type="button"><small>03</small><span>Plan de Desarrollo</span><b>→</b></button>
@@ -142,8 +140,7 @@
 <button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.3 Datos del DANE</button>
 <button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.3 Memoria de la Alcaldía</button>
 <button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.4 Encuesta</button>
-<button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.5 Georreferenciador</button>
-<button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.6 Publicaciones</button>
+<button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.5 Publicaciones</button>
 </nav>
 <section aria-labelledby="tab-data-conoce" class="module-panel active ti-conoce" data-panel-group="data" id="data-conoce" role="tabpanel">
 <section class="cn-hero" aria-labelledby="cn-title">
@@ -329,18 +326,20 @@
  <summary>Datos reales de encuesta — importación local y análisis</summary>
  <p>Este espacio conserva el visor de indicadores existente. Importa Excel, CSV o JSON con sector, indicador, valor, periodo y fuente. Los datos se guardan en este navegador; no están conectados automáticamente a Práctica País o KoBo ni se publican en el portal.</p>
  <div class="dataset-workspace" data-dataset-workspace="encuesta"></div>
+<details id="svGeoWorkspace" class="sv-geo-integrado">
+<summary>Puntos y capas municipales · herramienta de trabajo</summary>
+<p>Herramienta complementaria dentro de Encuesta. Conserva las capas y puntos importados anteriormente; sus archivos se guardan solamente en este navegador y no se publican. El mapa principal de Encuesta se mantiene arriba.</p>
+<div class="module-toolbar"><div><p class="eyebrow">Herramienta territorial · uso local</p><h3>Veredas, casco urbano, servicios, beneficiarios e infraestructura</h3></div><label class="action-button">Importar puntos<input accept=".csv,.json,.geojson,.xlsx,.xls" hidden="" id="geoPointUpload" type="file"/></label></div>
+<p id="geoUploadStatus" role="status"></p><p>Para puntos usa latitud y longitud; nombre, tipo, vereda y descripción son opcionales. También se admiten GeoJSON de tipo Point.</p><div class="geo-layout"><div class="territory-map"><svg aria-label="Mapa interactivo de veredas de Subachoque" id="territoryMapSvg" role="img" viewBox="0 0 960 600"></svg></div><aside class="map-detail" id="territoryMapDetail"><p class="eyebrow">Selecciona una vereda</p><p>Haz clic o usa el teclado sobre una vereda para consultar servicios, beneficiarios, grupos poblacionales e infraestructura cargada.</p></aside></div>
+</details>
 </details>
 <dialog id="svDetailDialog" class="sv-detail-dialog" aria-labelledby="svDialogHeading">
  <h2 id="svDialogHeading">Brechas ciudadanas</h2><p id="svDialogContent"></p>
  <button type="button" id="svDialogClose">Cerrar</button>
 </dialog>
 </section>
-<section aria-labelledby="tab-data-geo" class="module-panel" data-panel-group="data" hidden="" id="data-geo" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">2.5 · Georreferenciador</p><h3>Veredas, casco urbano, servicios, beneficiarios e infraestructura</h3></div><label class="action-button">Importar puntos<input accept=".csv,.json,.geojson,.xlsx,.xls" hidden="" id="geoPointUpload" type="file"/></label></div>
-<p id="geoUploadStatus" role="status"></p><p>Para puntos usa latitud y longitud; nombre, tipo, vereda y descripción son opcionales. También se admiten GeoJSON de tipo Point.</p><div class="geo-layout"><div class="territory-map"><svg aria-label="Mapa interactivo de veredas de Subachoque" id="territoryMapSvg" role="img" viewBox="0 0 960 600"></svg></div><aside class="map-detail" id="territoryMapDetail"><p class="eyebrow">Selecciona una vereda</p><p>Haz clic o usa el teclado sobre una vereda para consultar servicios, beneficiarios, grupos poblacionales e infraestructura cargada.</p></aside></div>
-</section>
 <section aria-labelledby="tab-data-publicaciones" class="module-panel" data-panel-group="data" hidden="" id="data-publicaciones" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">2.6 · Publicaciones</p><h3>Boletines, informes, papers y encuestas con trazabilidad</h3></div><label class="action-button">Agregar publicación<input accept=".pdf,.docx,.xlsx,.xls,.csv,.json,.txt,.png,.jpg,.jpeg,.webp" hidden="" id="publicationUpload" multiple="" type="file"/></label></div>
+<div class="module-toolbar"><div><p class="eyebrow">2.5 · Publicaciones</p><h3>Boletines, informes, papers y encuestas con trazabilidad</h3></div><label class="action-button">Agregar publicación<input accept=".pdf,.docx,.xlsx,.xls,.csv,.json,.txt,.png,.jpg,.jpeg,.webp" hidden="" id="publicationUpload" multiple="" type="file"/></label></div>
 <p>Conserva y consulta los archivos originales en este navegador. No se publican ni se comparten entre usuarios.</p><div class="document-grid" id="publicationGrid"></div>
 <section class="ti-local-repository" aria-labelledby="glossaryTitle"><p class="eyebrow">Glosario territorial</p><h3 id="glossaryTitle">Términos y fuentes</h3><label>Buscar término<input type="search" id="glossarySearch" placeholder="Término, definición o fuente"></label><div id="glossaryList"></div></section>
 </section>

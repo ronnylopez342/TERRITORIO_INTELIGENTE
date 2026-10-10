@@ -27,7 +27,7 @@ parsed.feed(html)
 assert all(n == 1 for n in Counter(parsed.ids).values()), 'Duplicate functional IDs'
 assert sorted(parsed.tabs) == sorted(parsed.panels), 'Tabs and panels differ'
 assert set(parsed.destinations) <= set(parsed.panels), 'Menu destination without panel'
-for prefix, count in [('data-', 7), ('desarrollo-', 11), ('cumplimiento-', 10)]:
+for prefix, count in [('data-', 6), ('desarrollo-', 11), ('cumplimiento-', 10)]:
     assert sum(x.startswith(prefix) for x in parsed.panels) == count
 assert html.count('<details>') == 77, 'Seven projects must each have eleven components'
 home = re.search(r'<section class="app-view active" data-view="home">.*?(?=<section class="app-view view-shell" data-view="data">)', html, re.S).group()
@@ -44,7 +44,7 @@ for key in ['municipales', 'encuesta']:
     assert f'data-dataset-workspace="{key}"' in data
 for id in ['statDocumentUpload', 'publicationUpload', 'geoPointUpload', 'dataDefinition', 'statisticsWheel']:
     assert f'id="{id}"' in data
-print('Original Data visual viewer, cascade and existing tools restored.')
+print('Original Data viewer, municipal point-import tools integrated into Encuesta, and existing uploads preserved.')
 
 source_panel = re.search(r'<section[^>]+id="data-fuentes"[^>]*>(.*?)</section>', html, re.S).group(1)
 assert source_panel.count('<iframe') == 1

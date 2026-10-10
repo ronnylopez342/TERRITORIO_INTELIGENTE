@@ -12,6 +12,19 @@ new Function(js);
 assert.equal((html.match(/id="data-encuesta"/g)||[]).length,1,'One survey panel');
 assert.equal((html.match(/id="svApp"/g)||[]).length,1,'One full-screen survey');
 assert.equal((html.match(/data-dataset-workspace="encuesta"/g)||[]).length,1,'Preserve existing real data workspace');
+assert.equal((html.match(/data-module-panel="data-geo"/g)||[]).length,0,'No geo standalone tab');
+assert.equal((html.match(/data-data-destination="data-geo"/g)||[]).length,0,'No geo dropdown/mobile link');
+assert.equal((html.match(/id="data-geo"/g)||[]).length,0,'No geo standalone section');
+assert.equal((html.match(/id="svGeoWorkspace"/g)||[]).length,1,'Legacy point tool moved into Encuesta');
+assert.equal((html.match(/id="geoPointUpload"/g)||[]).length,1,'Legacy point uploads preserved');
+assert.equal((html.match(/id="territoryMapSvg"/g)||[]).length,1,'Legacy map preserved');
+const surveyMarkup=html.slice(html.indexOf('id="data-encuesta"'),html.indexOf('id="data-publicaciones"'));
+assert.ok(surveyMarkup.indexOf('id="svGeoWorkspace"')>surveyMarkup.indexOf('id="svRealWorkspace"'),'Geo tool must live INSIDE the real-data survey module');
+assert.ok(html.includes('data-data-destination="data-publicaciones"><span>2.5 Publicaciones</span>'),'Publicaciones is the next visible Data section');
+assert.ok(!html.includes('2.6 Publicaciones'),'Old navigation numbering must be removed');
+const sections=html.match(/data-module-panel="data-[^"]+"/g)||[];
+assert.equal(sections.length,6,'Exactly six Data Territorio sections after removing Georreferenciador');
+
 for(const id of ['svMainTitle','svMapSvg','svMapTip','svDonut','svBreaches','svZone','svSector','svQuestion','svYear','svOpenReal','svRealWorkspace']) {
  assert.ok(html.includes('id="'+id+'"'),id+' missing');
 }

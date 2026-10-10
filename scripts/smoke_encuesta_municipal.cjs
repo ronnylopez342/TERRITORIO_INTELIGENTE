@@ -84,6 +84,19 @@ async function main(){
   await page.locator('#svOpenReal').click();
   await page.locator('#svRealWorkspace[open]').waitFor();
   assert.equal(await page.locator('#svRealWorkspace [data-dataset-workspace="encuesta"]').count(),1);
+  assert.equal(await page.locator('[data-data-destination="data-geo"]').count(),0,'Georreferenciador no longer shown in navigation');
+  assert.equal(await page.locator('[data-module-panel="data-geo"]').count(),0,'Standalone geo tab removed');
+  assert.equal(await page.locator('#data-geo').count(),0,'Standalone geo section removed');
+  await page.locator('#svGeoWorkspace summary').click();
+  assert.equal(await page.locator('#svGeoWorkspace #geoPointUpload').count(),1,'Geo point importer retained inside Encuesta');
+  assert.equal(await page.locator('#svGeoWorkspace .map-vereda').count(),17,'Existing local geographic tool still works');
+  await page.goto(baseUrl+'/#data?seccion=data-geo',{waitUntil:'domcontentloaded'});
+  await page.waitForFunction(()=>location.hash==='#data?seccion=data-encuesta',{timeout:15000});
+  await page.goto(baseUrl+'/#data?seccion=data-publicaciones',{waitUntil:'domcontentloaded'});
+  await page.locator('#data-publicaciones:not([hidden])').waitFor({timeout:15000});
+  assert.match(await page.locator('#data-publicaciones .module-toolbar .eyebrow').textContent(),/2\.5\s*·\s*Publicaciones/i,'Publications numbering follows Encuesta');
+  assert.equal(await page.locator('#data-publicaciones #publicationUpload').count(),1,'Existing publication upload preserved');
+
   const mobile=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});
   mobile.on('pageerror',e=>errors.push('mobile: '+e.message));
   await mobile.goto(baseUrl+'/#data?seccion=data-encuesta',{waitUntil:'domcontentloaded'});
