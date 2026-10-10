@@ -432,3 +432,28 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #as
  }
  #data-municipales .ma-story-trigger:focus-visible{opacity:1;background:#081d2e;border-radius:50px}
 }
+
+/* La sección 2.3 no debe mostrar fotografías ni fotogramas del alcalde. */
+body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #siteHeader{
+ height:63px!important;min-height:63px!important;max-height:63px!important;padding:0!important;
+}
+body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #siteHeader .nav{
+ min-height:63px!important;max-height:63px!important;height:63px!important;margin:0 auto!important;
+}
+#data-municipales .ma-feature[data-ma-mode="history"]:after,
+#data-municipales .ma-feature[data-ma-mode="dependencies"]:after,
+#data-municipales .ma-feature[data-ma-mode="indicators"]:after{
+ background-image:url("../assets/img/editorial/memoria-aprobada.webp")!important;
+ background-size:cover;filter:grayscale(.2)!important;
+}
+#data-municipales .ma-feature[data-ma-mode="history"]:after{background-position:30% 48%}
+#data-municipales .ma-feature[data-ma-mode="dependencies"]:after{background-position:100% 40%}
+#data-municipales .ma-feature[data-ma-mode="indicators"]:after{background-position:53% 60%}
+#data-municipales .ma-feature[data-ma-mode="series"]:after{
+ background-image:url("../assets/img/editorial/territorio-aereo.jpg")!important;
+ background-size:cover;background-position:center;filter:grayscale(.15)!important
+}
+@media(max-width:650px){
+ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #siteHeader{height:63px!important;min-height:63px!important}
+ #data-municipales .ma-hero-photo{background-image:url("../assets/img/editorial/memoria-aprobada.webp");background-size:cover}
+}
