@@ -58,7 +58,7 @@ body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) .assis
 }
 #data-encuesta .sv-hero-photo{
  position:absolute;z-index:-2;inset:0 0 0 30%;
- background:#0c273a url("../assets/img/editorial/territorio-aereo.jpg") center 45%/cover no-repeat;
+ background:#0c273a url("../assets/img/editorial/encuesta-subachoque-referencia.webp") center 45%/100% 100% no-repeat;
  filter:brightness(.9) contrast(1.12) saturate(.92)
 }
 #data-encuesta .sv-hero-photo:after{
