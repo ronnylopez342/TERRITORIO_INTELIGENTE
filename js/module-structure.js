@@ -6,7 +6,10 @@ function restoreModuleSection() {
   const route=fragment.split('?')[0];
   const view=document.querySelector(`.app-view[data-view="${validRoute(route)?route:'data'}"]`);
   if(!view)return;
-  const requested=new URLSearchParams(fragment.split('?')[1]||'').get('seccion');
+  const original=new URLSearchParams(fragment.split('?')[1]||'').get('seccion');
+  // Los enlaces antiguos al Georreferenciador de Data ahora llegan al mapa de Encuesta.
+  const requested=route==='data'&&original==='data-geo'?'data-encuesta':original;
+  if(route==='data'&&original==='data-geo')history.replaceState({route:'data'},'', '#data?seccion=data-encuesta');
   const tabs=[...view.querySelectorAll('[data-module-panel]')];
   const selected=tabs.find(tab=>tab.dataset.modulePanel===requested)||tabs[0];
   if(!selected)return;
