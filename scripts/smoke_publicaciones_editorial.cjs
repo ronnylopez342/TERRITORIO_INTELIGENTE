@@ -83,6 +83,7 @@ async function run(){
    name:'boletin_ejemplo_prueba.txt',mimeType:'text/plain',
    buffer:Buffer.from('Publicacion local de prueba: datos de Subachoque.','utf8')
   });
+  await page.locator('#pubLegacyView summary').click();
   await page.locator('#publicationGrid .document-card').first().waitFor({timeout:18000});
   await page.locator('#pubMetaList .pub-meta-item').first().waitFor({timeout:18000});
   assert.match(await page.locator('#pubReviewAlert').innerText(),/pendiente/);
