@@ -112,3 +112,19 @@ body:has(.app-view.active #data-conoce:not([hidden]))>footer,body:has(.app-view.
 #data-conoce .cn-availability{background-position:left -88.3vw top -8.92vw;background-size:188.3vw auto}
 #data-conoce .cn-availability::before{background:rgba(20,38,52,.64)}
 @media(max-width:700px){#data-conoce .cn-hero-copy{background:linear-gradient(90deg,#182b39ee,#182b39b0)}#data-conoce .cn-availability{background-position:right top -50px;background-size:auto 1700px}#data-conoce .cn-availability::before{background:rgba(20,38,52,.85)}}
+/* Match the approved desktop spacing and prevent legacy styles from leaking in. */
+#data-conoce #cn-title{line-height:.86}
+#data-conoce .cn-hero-copy{background:linear-gradient(90deg,#182b39 0%,#182b39 95%,transparent)}
+#data-conoce .cn-scope{font-size:clamp(12px,1.3vw,20px)}
+#data-conoce .cn-hero-copy .cn-rule{margin:1.8vw 0 1.3vw}
+#data-conoce .cn-photo-caption{visibility:hidden}
+#data-conoce .cn-process{background:#182b39}
+#data-conoce .cn-source-heading h2,#data-conoce .cn-source-heading p{white-space:nowrap}
+body:has(.app-view.active #data-conoce:not([hidden])) .site-header{background:#182a37!important}
+body:has(.app-view.active #data-conoce:not([hidden])) .site-header .brand img{display:none}
+body:has(.app-view.active #data-conoce:not([hidden])) .site-header .brand::after{content:'TERRITORIO INTELIGENTE';color:#fff;font:700 clamp(12px,1.35vw,21px) Arial,sans-serif;white-space:nowrap;letter-spacing:-.03em}
+@media(min-width:1000px){body:has(.app-view.active #data-conoce:not([hidden])) .site-header .nav{height:64px!important;min-height:64px!important;gap:2vw!important;padding:0 4.4vw!important}body:has(.app-view.active #data-conoce:not([hidden])) .site-header{height:64px!important}body:has(.app-view.active #data-conoce:not([hidden])) .site-header .brand{width:auto!important;min-width:0!important;flex:0 0 auto}body:has(.app-view.active #data-conoce:not([hidden])) .site-header .nav-links{display:flex!important;flex:1;justify-content:space-between;gap:1.2vw!important;margin-left:3vw}body:has(.app-view.active #data-conoce:not([hidden])) .site-header .nav-link{font-size:clamp(10px,1.1vw,17px)!important;font-weight:400!important;text-transform:none!important;white-space:nowrap;padding:12px 0!important}body:has(.app-view.active #data-conoce:not([hidden])) .site-header .nav-cta{font-size:clamp(10px,1.05vw,16px)!important;min-width:0!important;padding:12px 18px!important;text-transform:none!important;border-radius:4px;font-weight:400!important}body:has(.app-view.active #data-conoce:not([hidden])) .site-header .menu-toggle,body:has(.app-view.active #data-conoce:not([hidden])) .site-header .ti-header-search{display:none!important}body:has(.app-view.active #data-conoce:not([hidden])) .app-view[data-view="data"]{padding-top:64px!important}body:has(.app-view.active #data-conoce:not([hidden])) .ti-nav-dropdown-menu{top:100%!important}}
+@media(max-width:700px){#data-conoce #cn-title{line-height:.93}#data-conoce .cn-source-heading h2,#data-conoce .cn-source-heading p{white-space:normal}#data-conoce .cn-hero-copy{background:linear-gradient(90deg,#182b39ee,#182b39b0)}}
+#data-conoce .cn-availability{background-position:left -88.3vw top -42.46vw}
+body:has(.app-view.active #data-conoce:not([hidden])) .site-header .nav-link.active{color:#ffe500!important}
+@media(max-width:700px){#data-conoce .cn-availability{background-position:right top -240px}}
