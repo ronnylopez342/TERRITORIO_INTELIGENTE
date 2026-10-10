@@ -31,6 +31,8 @@ jobs:
         run: node scripts/test_dane_subachoque.cjs
       - name: Verify Memoria de la Alcaldia
         run: node scripts/test_memoria_alcaldia.cjs
+      - name: Verify Encuesta Municipal 2.4
+        run: node scripts/test_encuesta_municipal.cjs
       - name: Prepare browser smoke
         run: |
           npm install --no-save --no-package-lock playwright
@@ -39,6 +41,8 @@ jobs:
         run: node scripts/smoke_dane_subachoque.cjs
       - name: Smoke test Memoria de la Alcaldia
         run: node scripts/smoke_memoria_alcaldia.cjs
+      - name: Smoke test Encuesta Municipal 2.4
+        run: node scripts/smoke_encuesta_municipal.cjs
       - name: Upload DANE UI screenshots
         if: always()
         uses: actions/upload-artifact@v4
