@@ -19,9 +19,9 @@ const dateText=iso=>{
 };
 const pictures={
  featured:"assets/img/editorial/encuesta-subachoque-referencia.webp",
- coffee:"assets/img/editorial/servicio.jpg",
+ coffee:"assets/img/editorial/pub-coffee.webp",
  school:"assets/img/editorial/pub-education.webp",
- environment:"assets/img/editorial/territorio-aereo.jpg",
+ environment:"assets/img/editorial/pub-environment.webp",
  survey:"assets/img/editorial/participacion.jpg"
 };
 const items=Object.freeze([
