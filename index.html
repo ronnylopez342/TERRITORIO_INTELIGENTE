@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="css/plan-estadistico.css?v=pe22-01">
 <link rel="stylesheet" href="css/dane-subachoque.css?v=dane23-01">
 <link rel="stylesheet" href="css/memoria-alcaldia.css?v=memoria23-demo-01">
+<link rel="stylesheet" href="css/encuesta-municipal.css?v=encuesta24-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -215,10 +216,124 @@
 <div class="dataset-workspace" data-dataset-workspace="municipales"></div>
 </details>
 </section>
-<section aria-labelledby="tab-data-encuesta" class="module-panel" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">2.4 · Encuesta Municipal</p><h3>Caracterización territorial, estadística descriptiva y percepción</h3></div><span class="status-pill demo">Resultados de encuesta</span></div>
-<div class="dataset-workspace" data-dataset-workspace="encuesta"></div>
-<p>Importa indicadores consolidados de la encuesta municipal. Esta sección no descarga automáticamente respuestas de Práctica País o KoBo.</p>
+<section aria-labelledby="tab-data-encuesta" class="module-panel ti-encuesta" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
+<div class="sv-app" id="svApp" data-ready="false">
+ <section class="sv-hero" aria-labelledby="svMainTitle">
+  <div class="sv-hero-photo" aria-hidden="true"></div><div class="sv-hero-shade" aria-hidden="true"></div>
+  <div class="sv-hero-copy">
+   <p class="sv-breadcrumb">Data Territorio&nbsp; / &nbsp;2.4 Encuesta Municipal</p>
+   <h1 id="svMainTitle" tabindex="-1">ENCUESTA<br>MUNICIPAL</h1>
+   <h2>La voz del territorio, vereda por vereda</h2>
+   <p class="sv-hero-description">Caracterización territorial&nbsp; · &nbsp;Práctica País / Universidad de los Andes</p>
+  </div>
+  <div class="sv-handwriting" aria-hidden="true">Territorios<br>que opinan,<br><em>decisiones<br>que mejoran</em></div>
+  <button type="button" id="svDemoBadge" class="sv-demo-label" title="Estas cifras son ilustrativas, no resultados oficiales; ver los datos reales">DEMO ILUSTRATIVA</button>
+  <div class="sv-hero-location"><strong>SUBACHOQUE</strong><span>Escuchamos<br>para construir<br>un mejor futuro</span></div>
+ </section>
+ <section class="sv-controls" aria-label="Resumen y filtros de la encuesta">
+  <article class="sv-stat">
+   <span class="sv-stat-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 5h19v18H14l-7 5v-5H5V7a2 2 0 0 1 2-2zM10 11h12M10 16h9"/></svg></span>
+   <div><strong class="sv-stat-number" id="svResponses">1.248</strong><span class="sv-stat-caption">Respuestas ciudadanas <span aria-hidden="true" title="Resultados de demostración">ⓘ</span></span></div>
+  </article>
+  <article class="sv-stat">
+   <span class="sv-stat-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="10" cy="11" r="4"/><circle cx="23" cy="12" r="4"/><path d="M2 27v-3c0-4 4-7 8-7s8 3 8 7v3M16 27v-4c0-3 3-5 7-5 5 0 7 3 7 6v3"/></svg></span>
+   <div><strong class="sv-stat-number" id="svZoneCount">17</strong><span class="sv-stat-caption" id="svZoneCaption">Veredas del municipio</span></div>
+  </article>
+  <article class="sv-stat">
+   <span class="sv-stat-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="22" rx="2"/><path d="M10 2v8M22 2v8M4 13h24M9 19h6M9 24h10"/></svg></span>
+   <div><strong class="sv-stat-number" id="svYearStat">2026</strong><span class="sv-stat-caption">Año de corte de la encuesta</span></div>
+  </article>
+  <form class="sv-filter-form" id="svFilters" aria-label="Filtrar resultados de demostración">
+   <label>Zona<select name="zone" id="svZone" aria-label="Zona"><option value="">Todas las zonas</option></select></label>
+   <label>Sector<select name="sector" id="svSector" aria-label="Sector">
+     <option value="">Todos los sectores</option><option value="servicios">Servicios públicos</option><option value="vias">Vías y movilidad</option><option value="seguridad">Seguridad</option><option value="salud">Salud</option><option value="educacion">Educación</option><option value="ambiente">Ambiente</option>
+   </select></label>
+   <label>Pregunta<select name="question" id="svQuestion" aria-label="Pregunta">
+     <option value="">Todas las preguntas</option><option value="satisfaccion">Satisfacción general</option><option value="necesidades">Principales necesidades</option><option value="percepcion">Percepción de servicios</option>
+   </select></label>
+   <label>Año<select name="year" id="svYear" aria-label="Año"><option value="2026">2026</option></select></label>
+   <button class="sv-apply" type="submit">Aplicar filtros</button>
+  </form>
+ </section>
+ <div class="sv-dash">
+  <section class="sv-panel sv-map-panel" aria-labelledby="svMapHeading">
+   <header class="sv-panel-head">
+    <h3 id="svMapHeading"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h13v20H5zM8 6h7M8 11h7M8 15h5"/></svg>Resultados por vereda</h3>
+    <p id="svMapIntro">Nivel de satisfacción general con los servicios del municipio</p>
+   </header>
+   <div class="sv-map-stage" id="svMapStage" aria-label="Mapa interactivo de 17 veredas del municipio">
+    <div class="sv-map-locals" aria-hidden="true"><span>ZIPAQUIRÁ</span><span>PACHO</span><span>TENJO</span><span>MADRID</span></div>
+    <svg id="svMapSvg" class="sv-map" viewBox="0 0 960 520" role="group" aria-label="Mapa esquemático de veredas de Subachoque; selecciona una para ver su ficha">
+      <g id="svMapGroup" class="sv-map-geometry"><text x="480" y="270" text-anchor="middle" fill="#c8d7e3" font-size="17">Cargando veredas...</text></g>
+    </svg>
+    <div class="sv-map-tools" role="group" aria-label="Controles del mapa">
+     <button type="button" id="svZoomIn" aria-label="Acercar mapa">+</button>
+     <button type="button" id="svZoomOut" aria-label="Alejar mapa">−</button>
+     <button type="button" id="svZoomReset" aria-label="Centrar mapa">⌖</button>
+     <button type="button" id="svMapLayers" aria-label="Cambiar colores del mapa" aria-pressed="false">▤</button>
+    </div>
+    <span class="sv-north" aria-hidden="true">N</span>
+    <article class="sv-map-tip" id="svMapTip" aria-live="polite">
+     <strong id="svTipName">Vereda Rincón Santo</strong>
+     <div class="sv-tip-result"><b id="svTipPercent">78%</b><small>Satisfacción general</small></div>
+     <div class="sv-tip-result"><b id="svTipResponses">142</b><small>Respuestas</small></div>
+     <div class="sv-tip-list"><span>Servicios públicos <b id="svTipServices">72%</b></span><span>Vías <b id="svTipRoads">65%</b></span><span>Seguridad <b id="svTipSecurity">81%</b></span></div>
+    </article>
+    <div class="sv-map-scale" aria-label="Escala ilustrativa de satisfacción"><strong>Nivel de satisfacción</strong><div class="sv-spectrum"></div><div class="sv-spectrum-labels"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div></div>
+    <span class="sv-map-foot">Mapa esquemático · cifras de ejemplo</span>
+   </div>
+  </section>
+  <div class="sv-side">
+   <section class="sv-panel sv-perception" aria-labelledby="svPerceptionHeading">
+    <header class="sv-panel-head">
+     <h3 id="svPerceptionHeading"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5 21 21M5 11l4-5"/></svg>Percepción de servicios públicos <span title="Resultados demostrativos">ⓘ</span></h3>
+    </header>
+    <div class="sv-perception-body">
+     <div class="sv-donut" id="svDonut" role="img" aria-label="Ejemplo de distribución de satisfacción">
+      <div class="sv-donut-inner"><strong id="svDonutTotal">1.248</strong><span>respuestas</span></div>
+     </div>
+     <div class="sv-legend" aria-label="Categorías de percepción">
+      <div class="sv-legend-line"><i class="sv-legend-dot" style="background:#1555de"></i><span>Excelente</span><strong id="svExcellent">18%</strong></div>
+      <div class="sv-legend-line"><i class="sv-legend-dot" style="background:#77b2ff"></i><span>Buena</span><strong id="svGood">42%</strong></div>
+      <div class="sv-legend-line"><i class="sv-legend-dot" style="background:#ffda19"></i><span>Regular</span><strong id="svRegular">24%</strong></div>
+      <div class="sv-legend-line"><i class="sv-legend-dot" style="background:#ff824c"></i><span>Mala</span><strong id="svBad">11%</strong></div>
+      <div class="sv-legend-line"><i class="sv-legend-dot" style="background:#ef2f48"></i><span>Muy mala</span><strong id="svVeryBad">5%</strong></div>
+     </div>
+     <aside class="sv-insight" aria-live="polite">
+      <h4>Hallazgo principal</h4>
+      <p id="svInsight">El 60% de los habitantes encuestados considera que los servicios públicos son buenos o excelentes; sin embargo, se identifican dificultades en las zonas rurales dispersas, especialmente en acueducto y vías.</p>
+     </aside>
+    </div>
+   </section>
+   <section class="sv-panel sv-breaches" aria-labelledby="svBreachHeading">
+    <header class="sv-panel-head">
+     <h3 id="svBreachHeading"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10M7 12h10M7 16h6"/></svg>Brechas reportadas por la ciudadanía <span title="Cifras ilustrativas">ⓘ</span></h3>
+     <button type="button" class="sv-all-breaches" id="svViewBreaches">Ver más detalles →</button>
+    </header>
+    <div class="sv-breach-list" id="svBreaches">
+     <button type="button" class="sv-breach-row" data-breach="Vías"><span class="sv-breach-name"><span class="sv-breach-ico">♧</span>Vías</span><span class="sv-breach-track"><span class="sv-breach-fill" style="width:68%"></span></span><span class="sv-breach-percent">68%</span></button>
+     <button type="button" class="sv-breach-row" data-breach="Acueducto"><span class="sv-breach-name"><span class="sv-breach-ico">♢</span>Acueducto</span><span class="sv-breach-track"><span class="sv-breach-fill" style="width:52%"></span></span><span class="sv-breach-percent">52%</span></button>
+     <button type="button" class="sv-breach-row" data-breach="Alcantarillado"><span class="sv-breach-name"><span class="sv-breach-ico">⊕</span>Alcantarillado</span><span class="sv-breach-track"><span class="sv-breach-fill" style="width:45%"></span></span><span class="sv-breach-percent">45%</span></button>
+     <button type="button" class="sv-breach-row" data-breach="Seguridad"><span class="sv-breach-name"><span class="sv-breach-ico">♙</span>Seguridad</span><span class="sv-breach-track"><span class="sv-breach-fill" style="width:38%"></span></span><span class="sv-breach-percent">38%</span></button>
+     <button type="button" class="sv-breach-row" data-breach="Transporte público"><span class="sv-breach-name"><span class="sv-breach-ico">▣</span>Transporte público</span><span class="sv-breach-track"><span class="sv-breach-fill" style="width:34%"></span></span><span class="sv-breach-percent">34%</span></button>
+     <button type="button" class="sv-breach-row" data-breach="Salud"><span class="sv-breach-name"><span class="sv-breach-ico">✚</span>Salud</span><span class="sv-breach-track"><span class="sv-breach-fill" style="width:28%"></span></span><span class="sv-breach-percent">28%</span></button>
+     <button type="button" class="sv-breach-row" data-breach="Educación"><span class="sv-breach-name"><span class="sv-breach-ico">◇</span>Educación</span><span class="sv-breach-track"><span class="sv-breach-fill" style="width:24%"></span></span><span class="sv-breach-percent">24%</span></button>
+     <button type="button" class="sv-breach-row" data-breach="Medio ambiente"><span class="sv-breach-name"><span class="sv-breach-ico">♧</span>Medio ambiente</span><span class="sv-breach-track"><span class="sv-breach-fill" style="width:18%"></span></span><span class="sv-breach-percent">18%</span></button>
+    </div>
+   </section>
+  </div>
+ </div>
+ <div class="sv-bottom-note"><span>Vista demostrativa · Las cifras y porcentajes replican el diseño de referencia; no son resultados oficiales ni respuestas individuales reales.</span><button type="button" id="svOpenReal">Consultar o importar datos reales ↗</button></div>
+</div>
+<details id="svRealWorkspace" class="sv-real-space" hidden>
+ <summary>Datos reales de encuesta — importación local y análisis</summary>
+ <p>Este espacio conserva el visor de indicadores existente. Importa Excel, CSV o JSON con sector, indicador, valor, periodo y fuente. Los datos se guardan en este navegador; no están conectados automáticamente a Práctica País o KoBo ni se publican en el portal.</p>
+ <div class="dataset-workspace" data-dataset-workspace="encuesta"></div>
+</details>
+<dialog id="svDetailDialog" class="sv-detail-dialog" aria-labelledby="svDialogHeading">
+ <h2 id="svDialogHeading">Brechas ciudadanas</h2><p id="svDialogContent"></p>
+ <button type="button" id="svDialogClose">Cerrar</button>
+</dialog>
 </section>
 <section aria-labelledby="tab-data-geo" class="module-panel" data-panel-group="data" hidden="" id="data-geo" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">2.5 · Georreferenciador</p><h3>Veredas, casco urbano, servicios, beneficiarios e infraestructura</h3></div><label class="action-button">Importar puntos<input accept=".csv,.json,.geojson,.xlsx,.xls" hidden="" id="geoPointUpload" type="file"/></label></div>
@@ -297,5 +412,6 @@
 <script defer src="js/dane-subachoque.js?v=dane23-01"></script>
 <script defer src="js/memoria-alcaldia-demo.js?v=memoria23-demo-01"></script>
 <script defer src="js/memoria-alcaldia.js?v=memoria23-demo-01"></script>
+<script defer src="js/encuesta-municipal.js?v=encuesta24-01"></script>
 </body>
 </html>
