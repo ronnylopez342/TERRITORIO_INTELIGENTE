@@ -82,11 +82,6 @@
     const totalGrowth=(b.total-a.total)/a.total*100;
     const popBars=C.verticalBars([{name:"2005",value:a.total,color:"#5f96d3"},{name:"2018",value:b.total,color:"#ffe500"}]);
     const homeBars=C.verticalBars([{name:"2005",value:a.households,color:"#5f96d3"},{name:"2018",value:b.households,color:"#ffe500"}]);
-    const urbanChange=100*(b.urban-a.urban)/a.urban,ruralChange=100*(b.rural-a.rural)/a.rural;
-    const comparison=C.serviceBars([
-      {name:"Cabecera: cambio 2005–2018",percent:Math.max(0,Math.min(100,urbanChange))},
-      {name:"Resto rural: cambio 2005–2018",percent:Math.max(0,Math.min(100,Math.abs(ruralChange)))}
-    ]);
     return `<div class="d23-kpis">
       ${kpi("Censo General 2005",format(a.total),"Personas censadas")}
       ${kpi("CNPV 2018",format(b.total),"Personas censadas")}
@@ -263,9 +258,10 @@
       fetch("data/veredas-subachoque.geojson",{cache:"force-cache"}).then(x=>{if(!x.ok)throw Error("No se pudo recuperar el mapa");return x.json();}).catch(()=>null)
     ]).then(([manifest,map])=>{
       if(manifest.municipality!=="Subachoque"||manifest.daneCode!=="25769"||!Array.isArray(manifest.census)||manifest.census.length!==2||manifest.census.at(-1).total!==manifest.census.at(-1).urban+manifest.census.at(-1).rural)throw Error("Datos DANE inconsistentes");
-      source=manifest;geo=map;syncHash();
+      source=manifest;geo=map;root.dataset.ready="true";syncHash();
       if(!active)showView("",{history:false,focus:false});
     }).catch(error=>{
+      root.dataset.ready="error";
       root.innerHTML='<div class="d23-detail"><h2 style="font-size:32px">Datos temporariamente no disponibles</h2><p>El repositorio censal no pudo leerse. Actualiza la página o abre la ficha oficial del DANE.</p><p><a href="https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf" target="_blank" rel="noopener noreferrer">Ficha oficial de Subachoque ↗</a></p></div>';
       console.error("DANE 2.3:",error);
     });
