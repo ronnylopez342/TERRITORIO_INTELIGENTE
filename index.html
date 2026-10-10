@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="css/data-conoce.css?v=conoce-03">
 <link rel="stylesheet" href="css/plan-estadistico.css?v=pe22-01">
 <link rel="stylesheet" href="css/dane-subachoque.css?v=dane23-01">
+<link rel="stylesheet" href="css/memoria-alcaldia.css?v=memoria23-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -206,11 +207,13 @@
 <div class="sources-reference-shell"><iframe class="sources-reference-frame" src="assets/interactive/data-fuentes-visor.html" title="Visor territorial anterior de Subachoque" loading="lazy"></iframe></div>
 </details>
 </section>
-<section aria-labelledby="tab-data-municipales" class="module-panel" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
-<div class="module-toolbar"><div><p class="eyebrow">2.3 · Memoria de la Alcaldía</p><h3>Archivos históricos y registros de nuestras dependencias</h3></div><span class="status-pill demo">Archivos y bases municipales</span></div>
-<p class="ti-data-scope-note">Aquí se organiza la información producida y conservada por la Alcaldía: documentos físicos por digitalizar, registros históricos y datos de las dependencias. Carga las bases de las dependencias y los documentos que integran el archivo municipal. Cada fuente mantiene sus propios registros.</p>
+<section aria-labelledby="tab-data-municipales" class="module-panel ti-memoria-alcaldia" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
+<div id="maApp" aria-label="Memoria de la Alcaldía de Subachoque"></div>
+<details id="maLegacyWorkspace" class="ma-legacy" hidden>
+<summary>Bases de indicadores municipales — herramienta ya existente</summary>
+<p>Conservamos la carga de Excel, CSV y JSON, la tabla y las gráficas que ya funcionaban. Esta herramienta guarda una base por categoría en tu navegador y todavía no constituye un repositorio institucional compartido.</p>
 <div class="dataset-workspace" data-dataset-workspace="municipales"></div>
-
+</details>
 </section>
 <section aria-labelledby="tab-data-encuesta" class="module-panel" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">2.4 · Encuesta Municipal</p><h3>Caracterización territorial, estadística descriptiva y percepción</h3></div><span class="status-pill demo">Resultados de encuesta</span></div>
@@ -292,5 +295,6 @@
 <script defer src="js/plan-estadistico.js?v=pe22-01"></script>
 <script defer src="js/dane-subachoque-charts.js?v=dane23-01"></script>
 <script defer src="js/dane-subachoque.js?v=dane23-01"></script>
+<script defer src="js/memoria-alcaldia.js?v=memoria23-01"></script>
 </body>
 </html>
