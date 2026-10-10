@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="css/data-visor-only.css?v=visor-22-01"/>
 <link rel="stylesheet" href="css/data-conoce.css?v=conoce-03">
 <link rel="stylesheet" href="css/plan-estadistico.css?v=pe22-01">
+<link rel="stylesheet" href="css/dane-subachoque.css?v=dane23-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -32,7 +33,7 @@
 <div class="ti-nav-dropdown-menu" id="tiDataDropdownMenu" role="menu" aria-label="Secciones de Data Territorio" hidden>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-conoce"><span>2.1 Conoce</span></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-plan-estadistico"><span>2.2 Plan Estadístico Municipal</span><small>Documentos, indicadores y fichas técnicas</small></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.3 ¿Qué se sabe de Subachoque?</span><small>DANE y otras fuentes externas</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.3 Datos del DANE</span><small>DANE y otras fuentes externas</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-municipales"><span>2.3 Memoria de la Alcaldía</span><small>Archivos, históricos y dependencias</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta"><span>2.4 Encuesta</span></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-geo"><span>2.5 Georreferenciador</span></button>
@@ -60,7 +61,7 @@
 <div id="tiMobileDataMenu" class="ti-mobile-data-submenu" aria-label="Secciones de Data Territorio" hidden>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-conoce"><span class="ti-mobile-data-label">2.1 Conoce</span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-plan-estadistico"><span class="ti-mobile-data-label">2.2 Plan Estadístico Municipal<small>Documentos e indicadores</small></span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.3 ¿Qué se sabe de Subachoque?<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.3 Datos del DANE<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-municipales"><span class="ti-mobile-data-label">2.3 Memoria de la Alcaldía<small>Archivos, históricos y dependencias</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta"><span class="ti-mobile-data-label">2.4 Encuesta</span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-geo"><span class="ti-mobile-data-label">2.5 Georreferenciador</span><span aria-hidden="true">↗</span></button>
@@ -136,7 +137,7 @@
 <nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist" hidden>
 <button aria-controls="data-conoce" aria-selected="true" class="module-tab active" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce</button>
 <button aria-controls="data-plan-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-plan-estadistico" id="tab-data-plan-estadistico" role="tab" tabindex="-1" type="button">2.2 Plan Estadístico Municipal</button>
-<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.3 ¿Qué se sabe de Subachoque?</button>
+<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.3 Datos del DANE</button>
 <button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.3 Memoria de la Alcaldía</button>
 <button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.4 Encuesta</button>
 <button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.5 Georreferenciador</button>
@@ -197,8 +198,13 @@
  </div>
  <dialog class="pe-modal" id="peVideoDialog" aria-labelledby="peVideoDialogTitle"><h2 id="peVideoDialogTitle">Plan Estadístico Municipal</h2><div id="peVideoContent"></div><button class="pe-btn pe-btn-primary" type="button" data-pe-close-video>Cerrar</button></dialog>
 </section>
-<section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
-<div class="sources-reference-shell"><iframe class="sources-reference-frame" src="assets/interactive/data-fuentes-visor.html" title="Capítulos del territorio de Subachoque" loading="lazy"></iframe></div>
+<section aria-labelledby="tab-data-fuentes" class="module-panel ti-dane-subachoque" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
+<div id="d23App" aria-label="Datos del DANE para Subachoque"></div>
+<details id="d23LegacyViewer" class="d23-legacy" hidden>
+<summary>Visor territorial y capítulos anteriores</summary>
+<p>Se conserva el visor territorial construido anteriormente. Este contenido no sustituye la ficha oficial DANE.</p>
+<div class="sources-reference-shell"><iframe class="sources-reference-frame" src="assets/interactive/data-fuentes-visor.html" title="Visor territorial anterior de Subachoque" loading="lazy"></iframe></div>
+</details>
 </section>
 <section aria-labelledby="tab-data-municipales" class="module-panel" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
 <div class="module-toolbar"><div><p class="eyebrow">2.3 · Memoria de la Alcaldía</p><h3>Archivos históricos y registros de nuestras dependencias</h3></div><span class="status-pill demo">Archivos y bases municipales</span></div>
@@ -284,5 +290,7 @@
 <script defer src="js/module-structure.js?v=restore-existing-data-01"></script>
 <script defer src="js/data-conoce.js?v=conoce-03"></script>
 <script defer src="js/plan-estadistico.js?v=pe22-01"></script>
+<script defer src="js/dane-subachoque-charts.js?v=dane23-01"></script>
+<script defer src="js/dane-subachoque.js?v=dane23-01"></script>
 </body>
 </html>
