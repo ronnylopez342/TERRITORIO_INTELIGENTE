@@ -475,7 +475,7 @@
       const response = await fetch('data/plan-estadistico.json', { cache: 'no-store' });
       if (!response.ok) return;
       const data = await response.json();
-      officialDocuments = Array.isArray(data.documents) ? data.documents : [];
+      officialDocuments = Array.isArray(data.documents) ? data.documents.filter(file => file && file.verified === true && /^https:\/\//i.test(file.url || '') && ['title', 'description', 'source', 'updated'].every(key => typeof file[key] === 'string' && file[key].trim())) : [];
       videoURL = typeof data.videoUrl === 'string' ? data.videoUrl : '';
       renderOfficialDocuments();
     } catch (error) {
@@ -566,6 +566,11 @@
     const file = event.target.files?.[0];
     await importIndicators(file);
     event.target.value = '';
+  });
+  document.addEventListener('click', event => {
+    if (event.target.closest('[data-data-destination="data-plan-estadistico"]')) {
+      showView('', { history: false, focus: false });
+    }
   });
   window.addEventListener('popstate', syncFromHash);
   window.addEventListener('hashchange', syncFromHash);
