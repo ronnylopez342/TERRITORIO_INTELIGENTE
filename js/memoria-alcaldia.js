@@ -445,7 +445,7 @@ root.addEventListener("click",event=>{
  const dep=event.target.closest("[data-ma-department]");
  if(dep){state.filters.dependency=dep.dataset.maDepartment;state.mode="documents";state.page=0;render();scrollToResults();return;}
  const mode=event.target.closest("[data-ma-mode]");
- if(mode){state.mode=mode.dataset.maMode;state.page=0;render({focus:true});scrollToResults();return;}
+ if(mode){if(state.demoMode&&mode.dataset.maMode==="overview")state.filters={q:"",type:"",dependency:"",year:""};state.mode=mode.dataset.maMode;state.page=0;render({focus:true});scrollToResults();return;}
  const action=event.target.closest("[data-ma-action]");
  if(action)handleAction(action.dataset.maAction);
 });
