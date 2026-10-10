@@ -128,3 +128,7 @@ body:has(.app-view.active #data-conoce:not([hidden])) .site-header .brand::after
 #data-conoce .cn-availability{background-position:left -88.3vw top -42.46vw}
 body:has(.app-view.active #data-conoce:not([hidden])) .site-header .nav-link.active{color:#ffe500!important}
 @media(max-width:700px){#data-conoce .cn-availability{background-position:right top -240px}}
+#data-conoce .cn-wheel{width:80%;margin:0 auto}
+#data-conoce .cn-principles-copy{align-self:start;margin-top:2.2vw}
+#data-conoce .cn-principles-copy h2{font-size:clamp(26px,3.3vw,51px)}
+@media(max-width:700px){#data-conoce .cn-wheel{width:100%}#data-conoce .cn-principles-copy{margin-top:0}}
