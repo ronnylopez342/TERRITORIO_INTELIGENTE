@@ -22,7 +22,7 @@ const icon={
   history:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="15" rx="1"/><path d="M3 11h18M8 7V3h8v4M8 15h8"/></svg>',
   indicators:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V14h4v8M10 22V8h4v14M17 22V3h4v19M2 22h21"/></svg>'
 };
-function indicatorRows(){return window.TI_STATE?.imported?.municipales?.rows||[];}
+function indicatorRows(){return (typeof TI_STATE!=="undefined"?TI_STATE?.imported?.municipales?.rows:null)||[];}
 function indicatorCount(){return unique(indicatorRows().map(r=>[r.indicador,r.sector,r.fuente].join("|"))).length;}
 function sorted(){return [...state.records].sort((a,b)=>String(b.dated||b.createdAt).localeCompare(String(a.dated||a.createdAt))||String(b.createdAt).localeCompare(String(a.createdAt)));}
 function filtered(data=sorted()){
@@ -248,8 +248,8 @@ async function saveForm(form){
    const name=payload.title||filename.replace(/\.[^.]+$/,"")||"Documento sin título";
    const item={id:original?.id||crypto.randomUUID(),title:list.length>1?filename.replace(/\.[^.]+$/,""):name,
      type:payload.type,dependency:payload.dependency,dated:payload.dated,source:payload.source,summary:payload.summary,
-     url:payload.url,status:payload.status,historic:payload.historic,fileName:filename,
-     fileBlob:file||original?.fileBlob||null,createdAt:original?.createdAt||now,updatedAt:now};
+     url:payload.url,status:payload.status,historic:payload.historic,fileName:payload.status==="digital"?filename:"",
+     fileBlob:payload.status==="digital"?(file||original?.fileBlob||null):null,createdAt:original?.createdAt||now,updatedAt:now};
    if(original){const index=created.findIndex(x=>x.id===original.id);if(index<0)throw Error("El registro ya no existe.");created[index]=item;}
    else created.push(item);
   }
