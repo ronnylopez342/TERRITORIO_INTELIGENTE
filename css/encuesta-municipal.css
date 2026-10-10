@@ -227,6 +227,7 @@ body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) .assis
 #data-encuesta .sv-north:before{content:"▲";display:block;font-size:20px}
 #data-encuesta .sv-map-tip{
  position:absolute;z-index:5;top:20%;left:64%;width:min(212px,34%);
+ pointer-events:none;
  padding:11px 12px;background:#061522ef;color:#f7fafc;
  border:1px solid #7893a8;border-radius:7px;box-shadow:0 6px 24px #0008
 }
