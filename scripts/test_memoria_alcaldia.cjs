@@ -1,0 +1,25 @@
+/* Memoria de la Alcaldía: sin documentos ficticios y sin pérdida del módulo anterior. */
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const base=path.resolve(__dirname,'..');
+const read=x=>fs.readFileSync(path.join(base,x),'utf8');
+const html=read('index.html'),js=read('js/memoria-alcaldia.js'),css=read('css/memoria-alcaldia.css');
+new Function(js);
+assert.equal((html.match(/id="data-municipales"/g)||[]).length,1);
+assert.equal((html.match(/id="maApp"/g)||[]).length,1);
+assert.equal((html.match(/id="maLegacyWorkspace"/g)||[]).length,1);
+assert.equal((html.match(/data-dataset-workspace="municipales"/g)||[]).length,1);
+for(const name of ['data-conoce','data-plan-estadistico','data-fuentes','data-municipales','data-encuesta'])assert.ok(html.includes('id="'+name+'"'),name+' missing');
+assert.ok(html.includes('2.3 Memoria de la Alcaldía'),'Approved display numbering missing');
+for(const file of ['css/memoria-alcaldia.css','js/memoria-alcaldia.js'])assert.ok(html.includes(file),file+' missing');
+for(const x of ['.ma-hero','.ma-search','.ma-features','.ma-panel','.ma-donut','.ma-doc-table','.ma-form','.ma-feature'])assert.ok(css.includes(x),'missing style '+x);
+for(const name of ['documents','dependencies','history','indicators'])assert.ok(js.includes('"'+name+'"'),'missing feature '+name);
+for(const flag of ['TIData.read(KEY)','TIData.write(KEY','new FormData(form)','new Blob([content]','crypto.randomUUID()','confirm(','fileBlob'])assert.ok(js.includes(flag),'missing real capability '+flag);
+assert.ok(js.includes('maxBytes=25*1024*1024'),'no upload bound');
+assert.ok(js.includes('location')===false||js.includes("ma-hero-location"));
+assert.ok(!/\b(12\.842|5\.360|42\.860|836\s*GB|28\.940|1\.842)\b/.test(js),'mockup figures must not appear as real data');
+assert.match(js,/No fue posible leer el archivo/);
+assert.ok(js.includes('Repositorio local de trabajo.'),'Must disclose browser-only persistence');
+console.log('MEMORIA 2.3 STATIC: PASS — chart components, CRUD, uploads, source labels, isolated legacy workspace.');
