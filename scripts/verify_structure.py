@@ -27,7 +27,7 @@ parsed.feed(html)
 assert all(n == 1 for n in Counter(parsed.ids).values()), 'Duplicate functional IDs'
 assert sorted(parsed.tabs) == sorted(parsed.panels), 'Tabs and panels differ'
 assert set(parsed.destinations) <= set(parsed.panels), 'Menu destination without panel'
-for prefix, count in [('data-', 6), ('desarrollo-', 11), ('cumplimiento-', 10)]:
+for prefix, count in [('data-', 7), ('desarrollo-', 11), ('cumplimiento-', 10)]:
     assert sum(x.startswith(prefix) for x in parsed.panels) == count
 assert html.count('<details>') == 77, 'Seven projects must each have eleven components'
 home = re.search(r'<section class="app-view active" data-view="home">.*?(?=<section class="app-view view-shell" data-view="data">)', html, re.S).group()
@@ -48,6 +48,8 @@ print('Original Data visual viewer, cascade and existing tools restored.')
 
 source_panel = re.search(r'<section[^>]+id="data-fuentes"[^>]*>(.*?)</section>', html, re.S).group(1)
 assert source_panel.count('<iframe') == 1
+assert 'id="data-plan-estadistico"' in data and 'id="peHome"' in data
+assert 'Documentos oficiales' in data and 'Fichas técnicas' in data
 assert '<h3' not in source_panel and 'data-dataset-workspace' not in source_panel
 assert 'source-level' not in source_panel and 'sources-data-divider' not in source_panel
-print('2.2 contains only the interactive viewer; existing other Data sections remain.')
+print('The interactive data-source viewer remains isolated in its own panel; other Data tools remain available.')
