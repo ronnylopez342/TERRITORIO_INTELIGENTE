@@ -247,6 +247,12 @@ function setup(){
   if(btn)editReal(btn.dataset.pubEdit);
  });
  $("pubMetadataForm").addEventListener("submit",saveReal);
+ document.addEventListener("ti:publication-store-changed",()=>{
+  loadReal().catch(error=>{
+   const el=$("pubReviewAlert");
+   if(el)el.textContent="No se pudo actualizar el repositorio local: "+error.message;
+  });
+ });
  // TIWorkspace owns #publicationUpload and the primary IndexedDB files;
  // observe its existing grid instead of overriding that uploader.
  const grid=$("publicationGrid");
