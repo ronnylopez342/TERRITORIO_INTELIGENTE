@@ -179,7 +179,7 @@ body:has(.app-view.active[data-view="data"] #data-publicaciones:not([hidden])) #
 }
 #data-publicaciones .pub-feature-cover{
  min-width:0;position:relative;overflow:hidden;background:#193e51;
- background-image:url("../assets/img/editorial/alcaldia.jpg");
+ background-image:url("../assets/img/editorial/encuesta-subachoque-referencia.webp");
  background-position:center;background-size:cover
 }
 #data-publicaciones .pub-feature-cover:before{
