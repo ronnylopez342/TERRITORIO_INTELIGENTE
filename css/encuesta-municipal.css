@@ -422,3 +422,11 @@ body:has(.app-view.active[data-view="data"] #data-encuesta:not([hidden])) .assis
 @media(prefers-reduced-motion:reduce){
  #data-encuesta *,#data-encuesta *:before,#data-encuesta *:after{animation:none!important;transition:none!important}
 }
+/* Revisión de captura 1672 x 941: mapa ancho y círculo completo como la referencia. */
+#data-encuesta .sv-donut{width:min(100%,154px)!important}
+#data-encuesta .sv-donut-inner strong{font-size:21px!important}
+#data-encuesta .sv-insight p{font-size:12px!important;line-height:1.33!important}
+#data-encuesta .sv-perception-body{padding-top:0!important;padding-bottom:8px!important}
+#data-encuesta .sv-map-stage:before{background-size:170% auto!important;background-position:left center!important}
+#data-encuesta .sv-vereda{stroke-width:1.35!important}
+@media(max-width:530px){#data-encuesta .sv-donut{width:min(100%,135px)!important}}
