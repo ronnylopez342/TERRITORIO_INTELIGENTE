@@ -29,3 +29,16 @@ jobs:
         run: node scripts/test_plan_estadistico.cjs
       - name: Verify DANE Subachoque 2.3
         run: node scripts/test_dane_subachoque.cjs
+      - name: Prepare browser smoke
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install chromium --with-deps
+      - name: Smoke test DANE UI
+        run: node scripts/smoke_dane_subachoque.cjs
+      - name: Upload DANE UI screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dane23-browser-screenshots
+          path: screenshots/*.png
+          if-no-files-found: ignore
