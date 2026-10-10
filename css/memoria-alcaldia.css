@@ -412,3 +412,23 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #as
  #data-municipales .ma-key-metric strong{font-size:18px}
  #data-municipales .ma-key-symbol{font-size:20px;min-width:19px}
 }
+
+/* Imagen de la referencia entregada por el usuario: se conserva la composición
+   de carpetas de archivo y Subachoque; no se carga ningún video del alcalde. */
+@media(min-width:651px){
+ #data-municipales .ma-hero-photo{
+   inset:0 0 0 32.3%;
+   background-image:url("../assets/img/editorial/memoria-aprobada.webp");
+   background-size:100% 100%;background-repeat:no-repeat;
+   background-position:center center;filter:none;
+ }
+ #data-municipales .ma-hero-overlay{
+   background:linear-gradient(90deg,#061827 0%,#061827 22%,rgba(6,24,39,.99) 27%,rgba(6,24,39,.83) 33%,rgba(6,24,39,.1) 44%,transparent 56%);
+ }
+ #data-municipales .ma-hero-caption{display:none!important}
+ #data-municipales .ma-story-trigger{
+   left:61%;top:73%;width:260px;height:91px;transform:none;opacity:0;
+   /* La zona clicable se coloca exactamente sobre el icono de la imagen. */
+ }
+ #data-municipales .ma-story-trigger:focus-visible{opacity:1;background:#081d2e;border-radius:50px}
+}
