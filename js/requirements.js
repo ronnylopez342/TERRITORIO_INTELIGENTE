@@ -222,9 +222,11 @@ function dataSourceRows(){ return []; }
 
 function renderDataTerritorio() {
   const base=TI_STATE.baseData;
+  if (!document.getElementById('data-conoce').classList.contains('ti-conoce')) {
   document.getElementById('dataDefinition').textContent=base.definition;
   document.getElementById('dataPrinciples').innerHTML=base.principles.map((p,i)=>`<article class="principle"><strong>${i+1}. ${escapeHtml(p.title)}</strong><span>${escapeHtml(p.text)}</span></article>`).join('');
   renderStatisticsWheel(base.principles);
+  }
   renderSources();
   buildDatasetWorkspace('dane');
   buildDatasetWorkspace('externas');

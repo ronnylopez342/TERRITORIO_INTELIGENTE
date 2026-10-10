@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap"/>
 <link rel="stylesheet" href="css/module-structure.css?v=delivery-one-01"/>
 <link rel="stylesheet" href="css/data-visor-only.css?v=visor-22-01"/>
+<link rel="stylesheet" href="css/data-conoce.css?v=conoce-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -137,11 +138,16 @@
 <button aria-controls="data-geo" aria-selected="false" class="module-tab" data-module-panel="data-geo" id="tab-data-geo" role="tab" tabindex="-1" type="button">2.5 Georreferenciador</button>
 <button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.6 Publicaciones</button>
 </nav>
-<section aria-labelledby="tab-data-conoce" class="module-panel active" data-panel-group="data" id="data-conoce" role="tabpanel">
-<div class="functional-grid two-col">
-<div><p class="eyebrow">¿Qué es Data Territorio?</p><div class="prose-block" id="dataDefinition"></div><div class="principles-list" id="dataPrinciples"></div></div>
-<div><p class="eyebrow">Importancia de la estadística</p><div aria-label="Gráfico interactivo sobre la importancia de la estadística" class="stat-wheel" id="statisticsWheel"></div><div class="info-note" id="statisticsNote" role="status"></div></div>
-</div>
+<section aria-labelledby="tab-data-conoce" class="module-panel active ti-conoce" data-panel-group="data" id="data-conoce" role="tabpanel">
+<section class="cn-hero" aria-labelledby="cn-title">
+<div class="cn-photo" aria-hidden="true"></div>
+<div class="cn-hero-copy"><p class="cn-breadcrumb">Data Territorio&nbsp; / &nbsp;2.1 Conoce</p><h1 id="cn-title" tabindex="-1">CONOCE<br>DATA<br>TERRITORIO</h1><p id="dataDefinition">Reunimos y organizamos información nacional, departamental y municipal para comprender el territorio y tomar decisiones con evidencia.</p><p class="cn-scope">Población · Economía · Ambiente · Gestión pública</p><span class="cn-rule"></span><p class="cn-importance"><strong>Las estadísticas importan porque permiten</strong><br>identificar necesidades, comparar situaciones<br class="cn-desktop"> y orientar inversiones.</p></div>
+<span class="cn-photo-caption">Imagen conceptual del territorio</span></section>
+<section class="cn-video-section" aria-labelledby="cn-video-title"><h2 id="cn-video-title">Conoce Data Territorio en video</h2><p>Qué es, cómo funciona y cómo ayuda a tomar decisiones con evidencia.</p><div class="cn-video-placeholder" role="img" aria-label="Espacio reservado para el video explicativo. Video por incorporar."><span class="cn-play" aria-hidden="true">▶</span><strong>Espacio para video explicativo</strong><span>Video por incorporar</span></div></section>
+<section class="cn-principles" aria-labelledby="cn-principles-title"><div class="cn-principles-copy"><h2 id="cn-principles-title">Principios de<br>Data Territorio</h2><p>Cinco principios para trabajar<br class="cn-desktop"> con información útil y confiable.</p><span class="cn-rule"></span><p>Selecciona un principio para conocer su definición.</p></div><div class="cn-wheel-area"><svg id="statisticsWheel" class="cn-wheel" viewBox="0 0 340 340" role="group" aria-label="Cinco principios de Data Territorio"></svg></div><div id="statisticsNote" class="cn-principle-note" role="status" aria-live="polite"><button class="cn-note-close" type="button" aria-label="Cerrar definición">×</button><strong id="cn-note-title">Validar con el territorio</strong><p id="cn-note-copy">Contrastar la información con la comunidad y los actores locales antes de usarla.</p></div></section>
+<section class="cn-process" aria-labelledby="cn-process-title"><div><h2 id="cn-process-title">Del dato a la decisión</h2><p>La información pasa por varias etapas<br class="cn-desktop"> para convertirse en evidencia útil para el territorio.</p></div><div class="cn-process-right"><ol id="cn-process-steps"></ol><p class="cn-levels">Nacional · Departamental · Municipal</p></div></section>
+<section class="cn-sources" aria-labelledby="cn-source-title"><div class="cn-source-heading"><div><h2 id="cn-source-title">Fuentes de información</h2><p>Consulta el origen, la cobertura y la periodicidad de cada fuente.</p></div><div class="cn-filters"><label class="cn-search"><span aria-hidden="true">⌕</span><input id="cn-source-search" type="search" placeholder="Buscar fuente o entidad" aria-label="Buscar fuente o entidad"></label><select id="cn-source-level" aria-label="Nivel territorial"><option value="">Nivel territorial</option><option value="nacional">Nacional</option><option value="departamental">Departamental</option><option value="municipal">Municipal</option></select><select id="cn-source-sector" aria-label="Sector"><option value="">Sector</option><option value="estadistica">Estadísticas</option><option value="geografia">Geografía</option><option value="servicios">Servicios públicos</option></select><button id="cn-show-catalog" type="button" class="cn-text-link">Ver catálogo completo →</button></div></div><p class="cn-example">Vista de ejemplo · metadatos por verificar</p><div id="cn-source-cards" class="cn-source-cards"></div><p class="cn-empty" id="cn-source-empty" role="status" hidden>No hay fuentes registradas para estos filtros.</p></section>
+<section class="cn-availability" aria-labelledby="cn-availability-title"><div><h2 id="cn-availability-title">Disponibilidad<br>y brechas</h2></div><div><p>Identifica qué información existe, qué falta y qué necesita actualización.</p><div class="cn-statuses"><span><i class="cn-dot green"></i>Disponible</span><span><i class="cn-dot yellow"></i>Pendiente de validar</span><span><i class="cn-dot red"></i>Sin información</span></div><p class="cn-status-note">Los estados se asignarán al validar las fuentes.</p><div class="cn-bottom-actions"><button id="cn-download" class="cn-report" type="button"><span aria-hidden="true">↓</span> Descargar reporte</button><a class="cn-text-link" href="#data?seccion=data-fuentes&amp;capitulo=01">Explorar datos de Subachoque →</a></div></div></section>
 </section>
 <section aria-labelledby="tab-data-fuentes" class="module-panel" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
 <div class="sources-reference-shell"><iframe class="sources-reference-frame" src="assets/interactive/data-fuentes-visor.html" title="Capítulos del territorio de Subachoque" loading="lazy"></iframe></div>
@@ -228,5 +234,6 @@
 <script defer src="js/data-workspace.js?v=data-fix-01"></script>
 <script defer="" src="js/requirements.js?v=restore-existing-data-01"></script>
 <script defer src="js/module-structure.js?v=restore-existing-data-01"></script>
+<script defer src="js/data-conoce.js?v=conoce-01"></script>
 </body>
 </html>
