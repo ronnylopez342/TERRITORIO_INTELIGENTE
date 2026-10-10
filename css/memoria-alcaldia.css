@@ -16,7 +16,7 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden]))>foo
 #data-municipales .ma-page{width:100%;overflow:hidden}
 #data-municipales .ma-shell{padding-left:clamp(18px,3.2vw,62px);padding-right:clamp(18px,3.2vw,62px)}
 #data-municipales .ma-hero{position:relative;isolation:isolate;min-height:338px;overflow:hidden;background:#132939}
-#data-municipales .ma-hero-photo{position:absolute;inset:0 0 0 29%;z-index:-2;background:#203848 url("../assets/img/editorial/alcaldia.jpg") center 49%/cover no-repeat}
+#data-municipales .ma-hero-photo{position:absolute;inset:0 0 0 29%;z-index:-2;background:#203848 url("../assets/img/editorial/memoria-aprobada.webp") center 49%/cover no-repeat}
 #data-municipales .ma-hero-overlay{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#102636 0%,#102636 28%,rgba(16,38,54,.98) 36%,rgba(16,38,54,.75) 45%,rgba(16,38,54,.20) 73%,rgba(16,38,54,.12) 100%),linear-gradient(0deg,rgba(5,20,31,.38),transparent 58%)}
 #data-municipales .ma-hero-content{min-height:338px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:min(62%,910px);padding-top:24px;padding-bottom:21px}
 #data-municipales .ma-kicker{font-size:clamp(12px,1.04vw,17px);color:#d7e2eb!important;margin-bottom:17px!important}
@@ -52,9 +52,9 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden]))>foo
 #data-municipales .ma-features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:15px}
 #data-municipales .ma-feature{position:relative;min-height:119px;display:flex;gap:11px;align-items:flex-start;text-align:left;padding:17px;background:linear-gradient(106deg,#162f42 45%,#1b3447);border:1px solid #3e5b70;border-radius:8px;overflow:hidden;color:var(--ma-white)}
 #data-municipales .ma-feature:after{content:"";position:absolute;right:-13%;top:10%;height:130%;width:55%;background-size:cover;background-position:center;opacity:.13;filter:grayscale(.6);transition:opacity .2s}
-#data-municipales .ma-feature[data-ma-mode="documents"]:after{background-image:url("../assets/img/editorial/gestion.jpg")}
-#data-municipales .ma-feature[data-ma-mode="dependencies"]:after{background-image:url("../assets/img/editorial/alcaldia.jpg")}
-#data-municipales .ma-feature[data-ma-mode="history"]:after{background-image:url("../assets/img/editorial/hero-poster.jpg")}
+#data-municipales .ma-feature[data-ma-mode="documents"]:after{background-image:url("../assets/img/editorial/memoria-aprobada.webp")}
+#data-municipales .ma-feature[data-ma-mode="dependencies"]:after{background-image:url("../assets/img/editorial/memoria-aprobada.webp")}
+#data-municipales .ma-feature[data-ma-mode="history"]:after{background-image:none}
 #data-municipales .ma-feature[data-ma-mode="indicators"]:after{background-image:url("../assets/img/editorial/territorio-aereo.jpg")}
 #data-municipales .ma-feature:hover,#data-municipales .ma-feature[aria-pressed="true"]{border-color:var(--ma-yellow)}
 #data-municipales .ma-feature-icon{flex-shrink:0;position:relative;z-index:1;display:grid;place-items:center;color:var(--ma-yellow);width:38px;height:43px}
@@ -213,7 +213,7 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #as
 #data-municipales .ma-shell{padding-left:clamp(20px,2.45vw,42px);padding-right:clamp(20px,2.45vw,42px)}
 #data-municipales .ma-hero{height:328px;min-height:328px;max-height:328px;background:#061928}
 #data-municipales .ma-hero-photo{
-  inset:0 0 0 33%;background-image:url("../assets/img/editorial/gestion.jpg");
+  inset:0 0 0 33%;background-image:url("../assets/img/editorial/memoria-aprobada.webp");
   background-position:center 45%;background-size:cover;filter:saturate(.7) contrast(1.13) brightness(.78)
 }
 #data-municipales .ma-hero-overlay{
@@ -460,3 +460,234 @@ body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) #si
 
 /* Align Data subpage directly below its 63px header, eliminating inherited blank product shell offset. */
 body:has(.app-view.active[data-view="data"] #data-municipales:not([hidden])) .app-view[data-view="data"].view-shell{padding-top:63px!important}
+
+
+/* --------------------------------------------------------------
+  DEMO VISUAL aprobada: 5.253 documentos, 68/32, 11 dependencias,
+  9 barras, 5 documentos de muestra y 6 hitos de la cronología.
+  Separado del almacenamiento real; no oculta la condición de demo.
+--------------------------------------------------------------- */
+#data-municipales .ma-page{min-height:calc(100dvh - 63px)}
+#data-municipales .ma-demo-chip{
+  display:inline-block;vertical-align:middle;margin-left:12px;
+  padding:3px 6px;border:1px solid #ffdc26;border-radius:2px;
+  color:#ffdc26!important;font-size:10px;font-weight:800;line-height:1;
+  letter-spacing:.09em;text-shadow:none;
+}
+#data-municipales .ma-demo-dashboard .ma-panel-head h3{
+  font-size:clamp(13px,1.05vw,18px)!important
+}
+#data-municipales .ma-demo-dashboard .ma-text-link{
+  font-size:11px;color:#ffdc26!important;font-weight:700
+}
+#data-municipales .ma-demo-bars{
+  display:grid;gap:4px;padding-top:3px
+}
+#data-municipales .ma-demo-bars .ma-hbar{
+  height:15px;line-height:1;
+  grid-template-columns:minmax(130px,1.2fr) minmax(125px,2.4fr) 39px;
+  gap:8px;font-size:11px
+}
+#data-municipales .ma-demo-bars .ma-hbar-name{
+  font-size:10.4px;color:#d8e4ed
+}
+#data-municipales .ma-demo-bars .ma-hbar-track{height:11px}
+#data-municipales .ma-demo-bars .ma-hbar-fill{
+  background:linear-gradient(90deg,#8ac5ff,#4086e8)
+}
+#data-municipales .ma-demo-bars .ma-hbar b{font-size:11px;font-weight:600}
+#data-municipales .ma-demo-archive-status{
+  height:164px;min-height:164px;justify-content:space-between;
+  padding:0 4px;gap:15px
+}
+#data-municipales .ma-demo-archive-status .ma-donut{
+  height:154px;width:154px;flex-basis:154px;box-shadow:none
+}
+#data-municipales .ma-demo-archive-status .ma-donut:after{
+  width:101px;height:101px;background:#081e2c
+}
+#data-municipales .ma-demo-archive-status .ma-donut-value{
+  display:grid;gap:3px
+}
+#data-municipales .ma-demo-archive-status .ma-donut-value strong{
+  font-size:21px
+}
+#data-municipales .ma-demo-archive-status .ma-donut-value small{
+  font-size:12px;line-height:1.2
+}
+#data-municipales .ma-demo-archive-status .ma-archive-state-legend{
+  gap:15px;min-width:140px
+}
+#data-municipales .ma-demo-archive-status .ma-archive-state-legend strong{
+  font-size:21px;line-height:1.05
+}
+#data-municipales .ma-demo-archive-status .ma-archive-state-legend small{
+  font-size:11px;line-height:1.25
+}
+#data-municipales .ma-demo-key-metrics{
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:9px
+}
+#data-municipales .ma-demo-kpi{
+  display:grid;grid-template-columns:27px minmax(0,1fr) auto;
+  align-items:center;gap:7px;padding:9px 10px;height:74px;
+  min-height:0;background:#092235;border:1px solid #335269
+}
+#data-municipales .ma-demo-kpi .ma-key-symbol{
+  color:#f3f8fc;width:27px;min-width:0
+}
+#data-municipales .ma-demo-kpi .ma-key-symbol svg{
+  width:26px;height:26px;display:block
+}
+#data-municipales .ma-demo-kpi-value{min-width:0}
+#data-municipales .ma-demo-kpi-value strong{
+  display:block;color:#f7fafc;font-size:clamp(16px,1.23vw,22px);
+  letter-spacing:-.035em;line-height:1.1;white-space:nowrap
+}
+#data-municipales .ma-demo-kpi-value small{
+  display:block;white-space:nowrap;font-size:9.4px;color:#cad5df;
+  overflow:hidden;text-overflow:ellipsis;line-height:1.4;margin-top:6px
+}
+#data-municipales .ma-demo-kpi-change{
+  display:grid;gap:6px;text-align:right;justify-items:end;
+  align-self:center;font-size:10px;white-space:nowrap
+}
+#data-municipales .ma-demo-kpi-change b{
+  color:#30e2af;font-size:11px;font-weight:750
+}
+#data-municipales .ma-demo-kpi-change small{
+  color:#b4c3d4;font-size:9px
+}
+#data-municipales .ma-demo-kpi-change.ma-neutral b{color:#d5e0e8}
+#data-municipales .ma-demo-documents{
+  display:grid;grid-template-rows:repeat(5,minmax(0,1fr));
+  min-height:116px;
+}
+#data-municipales .ma-demo-document{
+  min-height:21px;display:grid;align-items:center;
+  grid-template-columns:minmax(0,1.8fr) minmax(0,1fr) 86px 26px;
+  column-gap:10px;border-bottom:1px solid #29465a;color:#dce6ef;
+  font-size:11px
+}
+#data-municipales .ma-demo-document:last-child{border-bottom:0}
+#data-municipales .ma-demo-doc-title{
+  min-width:0;display:flex;align-items:center;gap:10px;
+  color:#e5edf6;background:transparent;border:0;padding:2px 0;
+  text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-size:10.5px
+}
+#data-municipales .ma-demo-file-icon svg{
+  display:block;width:17px;height:17px;flex-shrink:0
+}
+#data-municipales .ma-demo-file-icon{
+  display:flex;align-items:center;width:19px;flex-shrink:0
+}
+#data-municipales .ma-demo-doc-title:hover{color:#ffe500}
+#data-municipales .ma-demo-doc-dep{
+  min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-size:10px;color:#d0dbe4
+}
+#data-municipales .ma-demo-doc-date{
+  color:#aabcc9;font-size:10px;white-space:nowrap
+}
+#data-municipales .ma-demo-doc-open{
+  display:grid;place-items:center;background:none;border:0;
+  font-size:18px;color:#f0f6fa;padding:0 4px
+}
+#data-municipales .ma-demo-doc-open:hover{color:#ffe500}
+#data-municipales .ma-demo-timeline{
+  padding-top:21px;min-height:122px
+}
+#data-municipales .ma-demo-timeline .ma-time-point{
+  gap:6px;font-size:11px
+}
+#data-municipales .ma-demo-timeline .ma-time-point small{
+  font-size:11px;max-width:135px;line-height:1.26
+}
+#data-municipales .ma-demo-timeline .ma-time-point b{
+  font-size:12px
+}
+#data-municipales .ma-demo-timeline .ma-time-dot{
+  margin:10px 0 5px 13px
+}
+#data-municipales .ma-demo-departments{grid-template-columns:repeat(3,minmax(0,1fr))}
+#data-municipales .ma-demo-detail-warning,#data-municipales .ma-demo-modal-warning{
+  background:#22394b;border-left:3px solid #ffdc26;
+  padding:12px 16px;color:#f2df8c!important;font-size:12px;
+  line-height:1.5;margin:12px 0!important
+}
+#data-municipales .ma-demo-notice{
+  margin-top:18px!important;color:#d3e0eb!important;font-size:12px
+}
+#data-municipales .ma-demo-toggle{
+  border-color:#8aa8ba;background:#1f3e52;font-weight:700
+}
+#data-municipales .ma-demo-toggle:hover{
+  background:#ffdc26;color:#142739;border-color:#ffdc26
+}
+@media(min-width:1450px){
+ #data-municipales .ma-demo-bars .ma-hbar{grid-template-columns:158px minmax(130px,2.4fr) 46px}
+}
+@media(max-width:1350px) and (min-width:1001px){
+ #data-municipales .ma-demo-bars .ma-hbar{grid-template-columns:minmax(110px,1.2fr) minmax(90px,2fr) 36px}
+ #data-municipales .ma-demo-archive-status .ma-donut{height:126px;width:126px;flex-basis:126px}
+ #data-municipales .ma-demo-archive-status .ma-donut:after{width:81px;height:81px}
+ #data-municipales .ma-demo-archive-status .ma-archive-state-legend{min-width:95px}
+ #data-municipales .ma-demo-kpi{grid-template-columns:24px minmax(0,1fr);gap:5px;height:auto;min-height:74px}
+ #data-municipales .ma-demo-kpi-change{grid-column:2;display:flex;align-items:center;gap:6px}
+}
+@media(max-width:900px){
+ #data-municipales .ma-demo-departments{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #data-municipales .ma-demo-dashboard .ma-panel{min-height:210px}
+ #data-municipales .ma-demo-bars .ma-hbar{grid-template-columns:minmax(110px,1.2fr) minmax(90px,2fr) 36px}
+}
+@media(max-width:650px){
+ #data-municipales .ma-demo-departments{grid-template-columns:1fr}
+ #data-municipales .ma-demo-chip{font-size:9px;margin-left:4px}
+ #data-municipales .ma-demo-dashboard .ma-panel{height:auto!important;min-height:187px!important}
+ #data-municipales .ma-demo-archive-status{justify-content:center}
+ #data-municipales .ma-demo-kpi{grid-template-columns:27px minmax(0,1fr) auto}
+ #data-municipales .ma-demo-kpi-change{grid-column:auto;display:grid}
+ #data-municipales .ma-demo-document{grid-template-columns:minmax(0,1fr) 70px 23px;gap:5px;min-height:30px}
+ #data-municipales .ma-demo-doc-dep{display:none}
+ #data-municipales .ma-demo-doc-title{font-size:11px}
+ #data-municipales .ma-demo-doc-date{font-size:9px}
+ #data-municipales .ma-demo-timeline{overflow:auto;padding:21px 4px 8px}
+ #data-municipales .ma-demo-timeline .ma-time-point{min-width:85px}
+}
+
+/* Demo bar fills are actual blocks, never inline spans without a painted width. */
+#data-municipales .ma-demo-bars .ma-hbar-fill{display:block!important;height:100%!important;background:linear-gradient(90deg,#83c1ff,#4488f2)!important}
+
+/* All nine departments must fit inside the approved 214px chart panel. */
+#data-municipales .ma-demo-bars{gap:2px!important;padding-top:1px!important}
+#data-municipales .ma-demo-bars .ma-hbar{height:14px!important;min-height:14px;line-height:1!important}
+#data-municipales .ma-demo-bars .ma-hbar-track{height:10px!important}
+#data-municipales .ma-feature[data-ma-mode="history"]:after{
+ background-image:url("../assets/img/editorial/memoria-aprobada.webp")!important;background-position:center!important;
+}
+#data-municipales .ma-feature[data-ma-mode="dependencies"]:after{
+ background-image:url("../assets/img/editorial/memoria-aprobada.webp")!important;background-position:center!important;
+}
+#data-municipales .ma-feature[data-ma-mode="indicators"]:after{
+ background-image:none!important;background-position:center!important;
+}
+
+/* Never embed or display frames/stills of the former alcalde video in 2.3. */
+#data-municipales .ma-feature[data-ma-mode="history"]:after{
+ background-image:url("../assets/img/editorial/memoria-aprobada.webp")!important;
+ background-position:25% 45%!important;
+}
+#data-municipales .ma-feature[data-ma-mode="dependencies"]:after{
+ background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20270%20130%22%3E%3Crect%20width%3D%22270%22%20height%3D%22130%22%20fill%3D%22%230d263b%22%2F%3E%3Cpath%20d%3D%22M35%2045%20L133%2011%20L233%2045%22%20fill%3D%22none%22%20stroke%3D%22%236f8eac%22%20stroke-width%3D%227%22%2F%3E%3Cpath%20d%3D%22M46%20108h180v7H46zM55%2050h18v56H55zM92%2050h18v56H92zM130%2050h18v56h-18zM168%2050h18v56h-18zM205%2050h18v56h-18z%22%20fill%3D%22%233b6383%22%2F%3E%3Cpath%20d%3D%22M30%20119h210%22%20stroke%3D%22%239fbdd2%22%20stroke-width%3D%226%22%2F%3E%3C%2Fsvg%3E")!important;
+ background-position:center!important;background-size:cover!important;
+ filter:none!important;
+}
+#data-municipales .ma-feature[data-ma-mode="indicators"]:after{
+ background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20270%20130%22%3E%3Crect%20width%3D%22270%22%20height%3D%22130%22%20fill%3D%22%2310283c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2214%22%20width%3D%22250%22%20height%3D%22106%22%20rx%3D%226%22%20fill%3D%22%232b4259%22%20stroke%3D%22%237793aa%22%2F%3E%3Cpath%20d%3D%22M24%2097h222M24%2064h222M24%2032h222%22%20stroke%3D%22%23536b80%22%20stroke-width%3D%221%22%2F%3E%3Crect%20x%3D%2239%22%20y%3D%2274%22%20width%3D%2224%22%20height%3D%2223%22%20fill%3D%22%2351a9ef%22%2F%3E%3Crect%20x%3D%2278%22%20y%3D%2261%22%20width%3D%2224%22%20height%3D%2236%22%20fill%3D%22%2380bded%22%2F%3E%3Crect%20x%3D%22118%22%20y%3D%2244%22%20width%3D%2224%22%20height%3D%2253%22%20fill%3D%22%234d9cdf%22%2F%3E%3Crect%20x%3D%22159%22%20y%3D%2231%22%20width%3D%2224%22%20height%3D%2266%22%20fill%3D%22%23f8cc29%22%2F%3E%3Crect%20x%3D%22199%22%20y%3D%2220%22%20width%3D%2224%22%20height%3D%2277%22%20fill%3D%22%23f4d44b%22%2F%3E%3C%2Fsvg%3E")!important;
+ background-position:center!important;background-size:cover!important;
+ filter:none!important;
+}
+#data-municipales .ma-feature[data-ma-mode="series"]:after{
+ background-image:url("../assets/img/editorial/territorio-aereo.jpg")!important;
+ background-position:center!important;
+}
