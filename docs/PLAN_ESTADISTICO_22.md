@@ -4,7 +4,7 @@ Referencia: propuesta visual elegida del 9 de octubre de 2026 (Delivery Associat
 
 ## Incluido
 - Portada 2.2 con cuatro accesos (documentos, indicadores, fichas, seguimiento), responsive y con teclado.
-- Documento oficial: catálogo `data/plan-estadistico.json` con URL HTTPS verificada, autoría, actualización y descripción. Solo mostrar enlaces cuando exista evidencia oficial.
+- Documento oficial: catálogo `data/plan-estadistico.json` con URL HTTPS verificada, autoría, actualización y descripción. Solo mostrar enlaces cuando exista evidencia oficial y el registro tenga `verified: true`, URL HTTPS, fuente, fecha y resumen.
 - Documentos de trabajo: biblioteca local existente (IndexedDB) preservada y relocalizada desde 2.3 a 2.2. Los archivos del navegador no son públicos ni se sincronizan.
 - Indicadores: captura manual, 10 sectores, fuente, variable, periodicidad, responsable, metodología, cálculo automático por fórmula, validación simple, alertas temporales, fichas y exportación CSV / vista de impresión PDF.
 - Importación CSV, XLSX y XLS (XLSX usa la librería de lectura ya referenciada por el portal).
