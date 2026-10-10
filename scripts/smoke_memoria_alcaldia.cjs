@@ -92,7 +92,7 @@ async function run(){
  assert.match((await download).suggestedFilename(),/catalogo-local\.csv$/);
  await page.locator('[data-ma-mode="series"]').click();
  assert.match(await page.locator('#maSectionTitle').innerText(),/Series históricas/);
- await page.locator('[data-ma-mode="history"]').click();
+ await page.locator('.ma-feature[data-ma-mode="history"]').click();
  assert.match(await page.locator('#maSectionTitle').innerText(),/Inventario histórico/);
  assert.match(await page.locator('.ma-timeline').innerText(),/2021|1999/);
  await page.locator('[data-ma-mode="dependencies"]').click();
