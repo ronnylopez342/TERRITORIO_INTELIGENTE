@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="css/data-visor-only.css?v=visor-22-01"/>
 <link rel="stylesheet" href="css/data-conoce.css?v=conoce-03">
 <link rel="stylesheet" href="css/conoce-plan.css?v=20261017">
+<link rel="stylesheet" href="css/conoce-plan-visor.css?v=20261017-original-01">
 <link rel="stylesheet" href="css/plan-estadistico.css?v=pe22-01">
 <link rel="stylesheet" href="css/dane-subachoque.css?v=dane23-01">
 <link rel="stylesheet" href="css/memoria-alcaldia.css?v=memoria23-demo-01">
@@ -172,13 +173,13 @@
       <div class="cn-pet-document-info">
         <h3>Plan Estadístico Territorial 2025 – 2029</h3>
         <p>Documento que establece la hoja de ruta para el fortalecimiento de la información estadística del municipio, con el fin de mejorar la disponibilidad, calidad y uso de los datos en la gestión pública.</p>
-        <a class="cn-pet-document-button cn-pet-document-open" href="assets/docs/plan-estadistico-territorial-2025-2029-consulta.pdf" target="_blank" rel="noopener" aria-label="Ver el Plan Estadístico Territorial en PDF, abre una nueva pestaña">
+        <button type="button" class="cn-pet-document-button cn-pet-document-open" data-cn-open-document aria-haspopup="dialog" aria-controls="cn-pet-viewer" aria-label="Ver el PDF original del Plan Estadístico Territorial dentro de la aplicación">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h9l5 5v15H5zM14 2v6h5M8 13h8M8 17h8"/></svg><span>VER DOCUMENTO</span><b aria-hidden="true">→</b>
-        </a>
-        <a class="cn-pet-document-button cn-pet-document-download" href="assets/docs/plan-estadistico-territorial-2025-2029-consulta.pdf" download="plan-estadistico-territorial-2025-2029-consulta.pdf" aria-label="Descargar versión de consulta del Plan Estadístico Territorial en PDF">
+        </button>
+        <a class="cn-pet-document-button cn-pet-document-download is-unavailable" id="cn-pet-download" href="assets/docs/plan-estadistico-territorial-original.pdf" download="plan-estadistico-territorial-original.pdf" aria-disabled="true" aria-label="Descargar el PDF original del Plan Estadístico Territorial">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v13m-5-5 5 5 5-5M4 18v3h16v-3"/></svg><span>DESCARGAR PDF</span><b aria-hidden="true">→</b>
         </a>
-        <small>PDF · Versión digital de consulta · Documento base de 45 páginas</small>
+        <small id="cn-pet-document-status" role="status" aria-live="polite">Comprobando el PDF original...</small>
       </div>
     </aside>
   </div>
@@ -237,7 +238,29 @@
     <div class="cn-pet-dialog-head"><span class="cn-pet-dialog-kicker">PLAN ESTADÍSTICO TERRITORIAL · 2025–2029</span><button type="button" class="cn-pet-dialog-close" aria-label="Cerrar información" data-cn-plan-close>×</button></div>
     <h2 id="cn-pet-dialog-title"></h2>
     <div id="cn-pet-dialog-description" class="cn-pet-dialog-description"></div>
-    <div class="cn-pet-dialog-actions"><span id="cn-pet-dialog-reference"></span><a id="cn-pet-dialog-document" href="assets/docs/plan-estadistico-territorial-2025-2029-consulta.pdf" target="_blank" rel="noopener">Consultar en el documento ↗</a></div>
+    <div class="cn-pet-dialog-actions"><span id="cn-pet-dialog-reference"></span><button type="button" id="cn-pet-dialog-document" class="cn-pet-dialog-doc-action" data-cn-page="1" aria-haspopup="dialog" aria-controls="cn-pet-viewer">Consultar en el documento →</button></div>
+  </dialog>
+  <dialog class="cn-pet-viewer" id="cn-pet-viewer" aria-labelledby="cn-pet-viewer-title">
+    <div class="cn-pet-viewer-head">
+      <div class="cn-pet-viewer-heading"><span>DOCUMENTO ORIGINAL · SUBACHOQUE</span><h2 id="cn-pet-viewer-title">PLAN ESTADÍSTICO TERRITORIAL 2025–2029</h2></div>
+      <button type="button" class="cn-pet-viewer-close" data-cn-viewer-close aria-label="Cerrar visor y regresar a Conoce">×</button>
+    </div>
+    <div class="cn-pet-viewer-body">
+      <div class="cn-pet-viewer-loading" id="cn-pet-viewer-loading" role="status">Comprobando el documento original...</div>
+      <div class="cn-pet-viewer-empty" id="cn-pet-viewer-empty" hidden>
+        <span class="cn-pet-viewer-empty-icon" aria-hidden="true">▤</span>
+        <h3>Espacio reservado para el PDF original</h3>
+        <p>El documento original todavía no se ha incorporado a la aplicación. Cuando se adjunte el PDF una sola vez a la ruta permanente del proyecto, este visor mostrará automáticamente el archivo original con sus páginas, imágenes y formato.</p>
+        <p class="cn-pet-viewer-file">Ruta permanente: <code>assets/docs/plan-estadistico-territorial-original.pdf</code></p>
+      </div>
+      <div class="cn-pet-viewer-document" id="cn-pet-viewer-document" hidden>
+        <iframe id="cn-pet-viewer-frame" title="Documento PDF original del Plan Estadístico Territorial de Subachoque" loading="eager"></iframe>
+      </div>
+    </div>
+    <div class="cn-pet-viewer-foot">
+      <span>Lectura integrada · Se conserva el documento original sin modificaciones</span>
+      <a id="cn-pet-viewer-download" class="cn-pet-viewer-save is-unavailable" aria-disabled="true" href="assets/docs/plan-estadistico-territorial-original.pdf" download="plan-estadistico-territorial-original.pdf">↓ Descargar PDF original</a>
+    </div>
   </dialog>
 </section>
 </section>
@@ -594,7 +617,7 @@
 <script defer="" src="js/requirements.js?v=restore-existing-data-01"></script>
 <script defer src="js/module-structure.js?v=restore-existing-data-01"></script>
 <script defer src="js/data-conoce.js?v=conoce-04"></script>
-<script defer src="js/conoce-plan.js?v=20261017"></script>
+<script defer src="js/conoce-plan.js?v=20261017-original-01"></script>
 <script defer src="js/plan-estadistico.js?v=pe22-01"></script>
 <script defer src="js/dane-subachoque-charts.js?v=dane23-01"></script>
 <script defer src="js/dane-subachoque.js?v=dane23-01"></script>
