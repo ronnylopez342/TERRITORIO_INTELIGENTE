@@ -57,20 +57,131 @@
       container.append(list);
     }
     dialog.querySelector('#cn-pet-dialog-reference').textContent = topic.ref;
-    dialog.querySelector('#cn-pet-dialog-document').href = 'assets/docs/plan-estadistico-territorial-2025-2029-consulta.pdf#page=' + topic.page;
+    dialog.querySelector('#cn-pet-dialog-document').dataset.cnPage = String(topic.page);
+  }
+// Ruta versionada por Git: la primera carga del original queda persistente
+  // para todos los visitantes y para los futuros despliegues.
+  const pdfPath = 'assets/docs/plan-estadistico-territorial-original.pdf';
+  const pdfUrl = new URL(pdfPath, document.baseURI).href;
+  const viewer = root.querySelector('#cn-pet-viewer');
+  const frame = root.querySelector('#cn-pet-viewer-frame');
+  const loading = root.querySelector('#cn-pet-viewer-loading');
+  const empty = root.querySelector('#cn-pet-viewer-empty');
+  const documentPane = root.querySelector('#cn-pet-viewer-document');
+  const status = root.querySelector('#cn-pet-document-status');
+  const downloadLinks = [
+    root.querySelector('#cn-pet-download'),
+    root.querySelector('#cn-pet-viewer-download')
+  ];
+  let pdfAvailable = false;
+  let checkPromise = null;
+
+  const showModal = element => {
+    if (typeof element.showModal === 'function') {
+      if (!element.open) element.showModal();
+    } else {
+      element.setAttribute('open', '');
+    }
+  };
+  const closeModal = element => {
+    if (typeof element.close === 'function' && element.open) element.close();
+    else element.removeAttribute('open');
+  };
+  function updateAvailability(available) {
+    pdfAvailable = available;
+    status.textContent = available
+      ? 'PDF original disponible · 45 páginas · Sin transcripción'
+      : 'PDF original pendiente de incorporar';
+    for (const link of downloadLinks) {
+      if (!link) continue;
+      link.classList.toggle('is-unavailable', !available);
+      link.setAttribute('aria-disabled', String(!available));
+      link.href = pdfUrl;
+    }
+  }
+  // Comprobamos tanto el estado como el tipo de archivo: evita mostrar la
+  // portada HTML de una SPA como si fuera un documento PDF.
+  function checkOriginalPdf() {
+    if (checkPromise) return checkPromise;
+    checkPromise = fetch(pdfUrl, {
+      method: 'HEAD',
+      cache: 'no-store',
+      credentials: 'same-origin'
+    }).then(response => {
+      const contentType = response.headers.get('content-type') || '';
+      const isPDF = response.ok && /application\/pdf/i.test(contentType);
+      updateAvailability(isPDF);
+      return isPDF;
+    }).catch(() => {
+      updateAvailability(false);
+      return false;
+    }).finally(() => { checkPromise = null; });
+    return checkPromise;
+  }
+  async function openViewer(page = 1) {
+    const safePage = Math.max(1, Math.min(45, Number(page) || 1));
+    closeModal(dialog);
+    showModal(viewer);
+    loading.hidden = false;
+    empty.hidden = true;
+    documentPane.hidden = true;
+    const isReady = await checkOriginalPdf();
+    if (!viewer.open) return;
+    loading.hidden = true;
+    if (!isReady) {
+      frame.removeAttribute('src');
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+    documentPane.hidden = false;
+    frame.src = pdfUrl + '#page=' + safePage + '&view=FitH';
   }
   root.addEventListener('click', event => {
-    const trigger = event.target.closest('[data-cn-plan-topic]');
-    if (trigger && root.contains(trigger)) {
-      const topic = topics[trigger.dataset.cnPlanTopic];
+    const more = event.target.closest('[data-cn-plan-topic]');
+    if (more && root.contains(more)) {
+      const topic = topics[more.dataset.cnPlanTopic];
       if (!topic) return;
       fill(topic);
-      if (typeof dialog.showModal === 'function') dialog.showModal();
-      else dialog.setAttribute('open', '');
+      showModal(dialog);
+      return;
     }
-    if (event.target.closest('[data-cn-plan-close]')) dialog.close();
+    if (event.target.closest('[data-cn-plan-close]')) {
+      closeModal(dialog);
+      return;
+    }
+    if (event.target.closest('[data-cn-open-document]')) {
+      event.preventDefault();
+      void openViewer(1);
+      return;
+    }
+    const reference = event.target.closest('#cn-pet-dialog-document');
+    if (reference) {
+      event.preventDefault();
+      void openViewer(Number(reference.dataset.cnPage) || 1);
+      return;
+    }
+    if (event.target.closest('[data-cn-viewer-close]')) {
+      closeModal(viewer);
+      return;
+    }
+    const download = event.target.closest('#cn-pet-download, #cn-pet-viewer-download');
+    if (download && !pdfAvailable) {
+      event.preventDefault();
+      void openViewer(1);
+    }
   });
   dialog.addEventListener('click', event => {
-    if (event.target === dialog) dialog.close();
+    if (event.target === dialog) closeModal(dialog);
   });
+  viewer.addEventListener('click', event => {
+    if (event.target === viewer) closeModal(viewer);
+  });
+  viewer.addEventListener('close', () => {
+    // Detener el lector integrado al cerrar sin reiniciar toda la app.
+    frame.removeAttribute('src');
+    documentPane.hidden = true;
+  });
+  updateAvailability(false);
+  void checkOriginalPdf();
 })();
