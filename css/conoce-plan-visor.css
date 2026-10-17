@@ -1,0 +1,44 @@
+/* Visor interno exclusivo del Plan Estadistico Territorial de 2.1 Conoce. */
+/* Conserva el estilo azul marino y amarillo ya aprobado para Data Territorio. */
+#data-conoce .cn-pet-document-open{font-family:inherit;cursor:pointer;text-align:left}
+#data-conoce .cn-pet-document-button.is-unavailable,#data-conoce .cn-pet-viewer-save.is-unavailable{opacity:.58}
+#data-conoce .cn-pet-dialog-doc-action{border:0;background:none;color:#ffe500;text-decoration:underline;cursor:pointer;font-size:inherit;font-weight:700;line-height:1.3;padding:0}
+#data-conoce .cn-pet-dialog-doc-action:hover{text-decoration:none}
+#data-conoce .cn-pet-viewer{box-sizing:border-box;position:fixed;inset:0;margin:auto;width:min(96vw,1460px);max-width:none;height:94vh;height:94dvh;max-height:94vh;max-height:94dvh;border:1px solid #567b94;border-radius:10px;background:#132a39;color:#f7fafc;padding:0;box-shadow:0 18px 75px #000a;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+#data-conoce .cn-pet-viewer:not([open]){display:none}
+#data-conoce .cn-pet-viewer[open]{display:flex;flex-direction:column}
+#data-conoce .cn-pet-viewer::backdrop{background:rgba(3,12,21,.84)}
+#data-conoce .cn-pet-viewer-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;padding:19px 26px;background:#182f40;border-bottom:1px solid #496b83}
+#data-conoce .cn-pet-viewer-heading{min-width:0}
+#data-conoce .cn-pet-viewer-heading span{display:block;margin-bottom:5px;color:#ffe500;font-size:12px;font-weight:700;letter-spacing:.06em}
+#data-conoce #cn-pet-viewer-title{margin:0;color:#fff;font-size:clamp(19px,2.2vw,30px);font-weight:800;line-height:1.12;letter-spacing:-.018em}
+#data-conoce .cn-pet-viewer-close{flex-shrink:0;display:grid;place-items:center;border:1px solid #6d91aa;border-radius:50%;background:#28465d;color:#fff;cursor:pointer;width:45px;height:45px;font-family:inherit;font-size:30px;line-height:1}
+#data-conoce .cn-pet-viewer-close:hover{background:#ffe500;color:#142a39;border-color:#ffe500}
+#data-conoce .cn-pet-viewer-body{flex:1;min-height:0;min-width:0;background:#1b3345;display:flex;align-items:stretch;justify-content:stretch;overflow:hidden}
+#data-conoce .cn-pet-viewer-document{width:100%;height:100%;min-height:0}
+#data-conoce .cn-pet-viewer-document iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+#data-conoce .cn-pet-viewer-body>[hidden]{display:none!important}
+#data-conoce .cn-pet-viewer-loading{align-self:center;margin:auto;padding:36px;text-align:center;color:#d5e3ec;font-size:18px}
+#data-conoce .cn-pet-viewer-empty{align-self:center;margin:auto;width:min(100%,750px);max-height:100%;overflow:auto;padding:44px 36px;text-align:center}
+#data-conoce .cn-pet-viewer-empty-icon{display:block;color:#ffe500;font-size:54px;margin-bottom:16px}
+#data-conoce .cn-pet-viewer-empty h3{margin:0 0 18px;color:#fff;font-size:clamp(22px,2.4vw,32px);line-height:1.15}
+#data-conoce .cn-pet-viewer-empty p{margin:0 auto 14px;color:#d9e7ef;max-width:620px;font-size:clamp(14px,1.25vw,19px);line-height:1.45}
+#data-conoce .cn-pet-viewer-file{background:#122a3b;border:1px dashed #60849b;border-radius:6px;padding:15px;overflow-wrap:anywhere}
+#data-conoce .cn-pet-viewer-file code{color:#ffeb65;font-size:.9em}
+#data-conoce .cn-pet-viewer-foot{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:13px 26px;background:#172f41;border-top:1px solid #496b83;font-size:14px;color:#c6d9e5}
+#data-conoce .cn-pet-viewer-save{border:1px solid #5f809a;border-radius:5px;color:#fff;text-decoration:none;padding:10px 15px;font-weight:700;white-space:nowrap;background:#264359}
+#data-conoce .cn-pet-viewer-save:not(.is-unavailable):hover{background:#ffe500;border-color:#ffe500;color:#162937}
+@media(max-width:800px){
+  #data-conoce .cn-pet-viewer{width:100vw;height:100vh;height:100dvh;max-height:100vh;max-height:100dvh;border-radius:0;border:0}
+  #data-conoce .cn-pet-viewer-head{padding:14px 17px;gap:12px}
+  #data-conoce #cn-pet-viewer-title{font-size:clamp(15px,4.5vw,23px)}
+  #data-conoce .cn-pet-viewer-heading span{font-size:10px}
+  #data-conoce .cn-pet-viewer-close{width:39px;height:39px;font-size:26px}
+  #data-conoce .cn-pet-viewer-foot{padding:10px 15px;gap:10px;font-size:11px}
+  #data-conoce .cn-pet-viewer-save{font-size:12px;padding:9px 10px}
+  #data-conoce .cn-pet-viewer-empty{padding:25px 17px}
+  #data-conoce .cn-pet-viewer-empty p{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  #data-conoce .cn-pet-viewer *,#data-conoce .cn-pet-document-open{transition:none!important}
+}
