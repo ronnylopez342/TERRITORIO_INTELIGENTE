@@ -1,0 +1,99 @@
+/* Extension aprobada: seccion de Plan Estadistico Territorial bajo 2.1 Conoce. */
+#data-conoce .cn-pet{--cn-pet-line:#37586e;--cn-pet-yellow:#ffe500;position:relative;isolation:isolate;color:#f6f9fc;background:linear-gradient(120deg,#182c3b 0%,#102839 65%,#172f41 100%);border-top:1px solid var(--cn-line);padding:3vw 4.4vw 4.4vw;font-family:Arial,Helvetica,sans-serif}
+#data-conoce .cn-pet-top{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:3.2vw;align-items:start}
+#data-conoce .cn-pet-yellow-rule{display:block;width:58px;height:3px;background:var(--cn-pet-yellow);margin:.2vw 0 1.6vw}
+#data-conoce .cn-pet-intro{padding-top:.2vw}
+#data-conoce #cn-pet-title{font-size:clamp(34px,4.15vw,66px);line-height:.98;letter-spacing:-.035em;font-weight:800;color:var(--cn-pet-yellow);margin:0 0 1.6vw}
+#data-conoce .cn-pet-lead{max-width:680px;font-size:clamp(16px,1.58vw,23px);line-height:1.23;margin:0 0 1.8vw}
+#data-conoce .cn-pet-description{max-width:680px;color:#d3dfea;font-size:clamp(14px,1.3vw,19px);line-height:1.38}
+#data-conoce .cn-pet-document{border:1px solid #496c87;border-radius:7px;background:linear-gradient(135deg,#203b50,#1b364b);padding:2.05vw;display:grid;grid-template-columns:minmax(0,43%) minmax(0,57%);gap:1.6vw;align-items:stretch;min-height:25.9vw;box-shadow:0 6px 24px rgba(7,20,30,.12)}
+#data-conoce .cn-pet-cover{position:relative;min-height:21.3vw;border:1px solid #476780;border-radius:5px;overflow:hidden;padding:1.5vw 1.2vw;background:linear-gradient(175deg,#0b2030,#163249 62%,#234a64);display:flex;align-items:flex-start;flex-direction:column;gap:.9vw;box-shadow:0 5px 12px #09192488}
+#data-conoce .cn-pet-cover-head{position:relative;z-index:2;color:#fff;font-size:clamp(10px,.83vw,13px);font-weight:800;line-height:1.05}
+#data-conoce .cn-pet-cover-rule{position:relative;z-index:2;width:32px;height:3px;background:var(--cn-pet-yellow)}
+#data-conoce .cn-pet-cover strong{z-index:2;font-size:clamp(13px,1.22vw,19px);line-height:1.1;font-weight:800;color:#fff}
+#data-conoce .cn-pet-cover em{font-style:normal;color:var(--cn-pet-yellow)}
+#data-conoce .cn-pet-cover-note{z-index:2;color:#e5ebf0;font-size:clamp(8px,.76vw,12px);line-height:1.3}
+#data-conoce .cn-pet-cover-landscape{position:absolute;inset:46% 0 0;background:linear-gradient(180deg,rgba(16,43,62,.05),rgba(7,28,45,.26)),url('../assets/img/editorial/territorio-aereo.jpg') center center / cover no-repeat}
+#data-conoce .cn-pet-cover-landscape::before{content:'';position:absolute;inset:0 0 auto;height:32%;background:linear-gradient(180deg,#173448,transparent)}
+#data-conoce .cn-pet-document-info{display:flex;flex-direction:column;min-width:0}
+#data-conoce .cn-pet-document-info h3{font-size:clamp(17px,1.6vw,24px);line-height:1.14;font-weight:700;margin:0 0 1.1vw}
+#data-conoce .cn-pet-document-info p{font-size:clamp(12px,1.18vw,18px);line-height:1.36;color:#e0e9f1;margin:0 0 auto}
+#data-conoce .cn-pet-document-button{width:100%;text-decoration:none;min-height:3.1vw;border-radius:5px;display:flex;align-items:center;gap:.9vw;padding:.7vw .95vw;font-size:clamp(11px,1.05vw,17px);font-weight:800;transition:background .14s,transform .14s}
+#data-conoce .cn-pet-document-button:hover{transform:translateY(-2px)}
+#data-conoce .cn-pet-document-button svg{width:1.45vw;min-width:18px;height:1.45vw;min-height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+#data-conoce .cn-pet-document-button b{margin-left:auto;font-size:1.7em;font-weight:400;line-height:1}
+#data-conoce .cn-pet-document-open{background:var(--cn-pet-yellow);color:#102535;margin-top:1.25vw;border:1px solid var(--cn-pet-yellow)}
+#data-conoce .cn-pet-document-open:hover{background:#ffed45}
+#data-conoce .cn-pet-document-download{border:1px solid #779ab4;color:#f1f7fc;margin-top:.7vw}
+#data-conoce .cn-pet-document-download:hover{background:#2e4c60}
+#data-conoce .cn-pet-document-info small{display:block;font-size:clamp(10px,.94vw,15px);color:#a4c0d6;margin-top:.85vw}
+#data-conoce .cn-pet-stats,#data-conoce .cn-pet-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.85vw}
+#data-conoce .cn-pet-stats{margin-top:1.35vw}
+#data-conoce .cn-pet-cards{margin-top:1.35vw}
+#data-conoce .cn-pet-stat,#data-conoce .cn-pet-card{border:1px solid #436782;border-radius:6px;background:linear-gradient(130deg,rgba(32,59,79,.78),rgba(18,44,61,.8));min-width:0}
+#data-conoce .cn-pet-stat{padding:1.45vw 1.75vw;display:grid;grid-template-columns:5.8vw minmax(0,1fr);grid-template-rows:auto 1fr;gap:.3vw 1.1vw;min-height:12.6vw;align-items:center}
+#data-conoce .cn-pet-icon{width:5.15vw;height:5.15vw;max-width:82px;max-height:82px;border-radius:50%;display:grid;place-items:center;border:1px solid #597b95;background:#345670;flex-shrink:0;color:#f7faff}
+#data-conoce .cn-pet-icon svg{width:52%;height:52%;stroke:currentColor;stroke-width:1.55;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#data-conoce .cn-pet-stat-title{display:flex;flex-direction:column;line-height:1.05}
+#data-conoce .cn-pet-stat-title strong{font-weight:800;color:var(--cn-pet-yellow);font-size:clamp(33px,3.4vw,56px);line-height:1}
+#data-conoce .cn-pet-stat-title b{font-size:clamp(14px,1.4vw,22px);font-weight:700;line-height:1.12;white-space:normal}
+#data-conoce .cn-pet-stat>p{grid-column:1/-1;align-self:start;font-size:clamp(12px,1.12vw,18px);line-height:1.3;color:#dfe8ef;margin-top:.7vw}
+#data-conoce .cn-pet-card{padding:1.5vw 1.75vw;min-height:22vw;display:flex;flex-direction:column;align-items:flex-start}
+#data-conoce .cn-pet-card h3{font-size:clamp(18px,1.63vw,26px);line-height:1.15;margin:1.1vw 0 .8vw;font-weight:700}
+#data-conoce .cn-pet-card p{font-size:clamp(14px,1.34vw,21px);line-height:1.32;color:#e4edf3}
+#data-conoce .cn-pet-more{margin-top:auto;display:inline-flex;align-items:center;gap:1.1vw;color:#f5f9fc;background:transparent;border:0;cursor:pointer;font-size:clamp(14px,1.25vw,20px);padding:1.3vw 0 .15vw}
+#data-conoce .cn-pet-more-arrow{display:grid;place-items:center;width:3.25vw;height:3.25vw;min-width:36px;min-height:36px;border:2px solid #b3d3e6;border-radius:50%;font-size:clamp(22px,2vw,32px);line-height:1}
+#data-conoce .cn-pet-more:hover .cn-pet-more-arrow{background:var(--cn-pet-yellow);border-color:var(--cn-pet-yellow);color:#102535}
+#data-conoce .cn-pet-dialog{max-width:680px;width:min(94vw,680px);max-height:min(88vh,780px);overflow:auto;margin:auto;border:1px solid #7493a8;border-radius:10px;background:#192f40;color:#f7fafc;padding:28px 32px;box-shadow:0 20px 65px #030e17b8;font-family:Arial,Helvetica,sans-serif}
+#data-conoce .cn-pet-dialog::backdrop{background:rgba(3,12,21,.8)}
+#data-conoce .cn-pet-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:14px}
+#data-conoce .cn-pet-dialog-kicker{color:var(--cn-pet-yellow);font-size:12px;line-height:1.3;letter-spacing:.035em;font-weight:700}
+#data-conoce .cn-pet-dialog-close{border:1px solid #7794a9;background:#28465d;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:28px}
+#data-conoce .cn-pet-dialog h2{font-size:clamp(25px,2.6vw,38px);color:#fff;margin:18px 0}
+#data-conoce .cn-pet-dialog-description{font-size:17px;line-height:1.5;color:#e5eef4}
+#data-conoce .cn-pet-dialog-description p{margin:0 0 14px}
+#data-conoce .cn-pet-dialog-description ul{margin:10px 0 18px 22px;padding:0}
+#data-conoce .cn-pet-dialog-description li{margin-bottom:9px}
+#data-conoce .cn-pet-dialog-actions{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid #48667a;padding-top:18px;margin-top:24px;font-size:13px;color:#bdcdd9}
+#data-conoce .cn-pet-dialog-actions a{color:#ffe500;text-decoration:underline;font-weight:700}
+@media(max-width:1040px){
+#data-conoce .cn-pet{padding:36px 4.4vw 46px}
+#data-conoce .cn-pet-top{grid-template-columns:1fr;gap:30px}
+#data-conoce #cn-pet-title{font-size:clamp(38px,5vw,64px)}
+#data-conoce .cn-pet-lead,#data-conoce .cn-pet-description{max-width:760px}
+#data-conoce .cn-pet-document{grid-template-columns:210px 1fr;min-height:310px;padding:22px;gap:24px}
+#data-conoce .cn-pet-cover{min-height:260px;padding:18px;gap:14px}
+#data-conoce .cn-pet-document-button{min-height:44px;padding:10px}
+#data-conoce .cn-pet-stats,#data-conoce .cn-pet-cards{gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:14px}
+#data-conoce .cn-pet-stat{grid-template-columns:65px 1fr;min-height:150px;padding:20px;gap:12px}
+#data-conoce .cn-pet-icon{width:62px;height:62px}
+#data-conoce .cn-pet-card{min-height:300px;padding:22px}
+#data-conoce .cn-pet-more{padding-top:25px}
+#data-conoce .cn-pet-more-arrow{width:42px;height:42px}
+}
+@media(max-width:600px){
+#data-conoce .cn-pet{padding:30px 20px 40px}
+#data-conoce .cn-pet-yellow-rule{margin-bottom:18px}
+#data-conoce #cn-pet-title{font-size:clamp(31px,8vw,46px);overflow-wrap:break-word;margin-bottom:20px}
+#data-conoce .cn-pet-lead{font-size:17px;margin-bottom:16px}
+#data-conoce .cn-pet-description{font-size:14px}
+#data-conoce .cn-pet-document{grid-template-columns:1fr;padding:18px;gap:20px}
+#data-conoce .cn-pet-cover{max-width:260px;width:100%;min-height:300px;margin:0 auto}
+#data-conoce .cn-pet-cover strong{font-size:18px}
+#data-conoce .cn-pet-cover-note{font-size:12px}
+#data-conoce .cn-pet-document-info h3{font-size:20px;margin-bottom:14px}
+#data-conoce .cn-pet-document-info p{font-size:15px;margin-bottom:18px}
+#data-conoce .cn-pet-document-button{min-height:48px;font-size:14px;margin-top:10px}
+#data-conoce .cn-pet-document-info small{margin-top:12px;font-size:12px}
+#data-conoce .cn-pet-stats,#data-conoce .cn-pet-cards{grid-template-columns:1fr;gap:12px}
+#data-conoce .cn-pet-stat{grid-template-columns:64px 1fr;min-height:0;padding:20px}
+#data-conoce .cn-pet-stat-title strong{font-size:40px}
+#data-conoce .cn-pet-stat-title b{font-size:19px}
+#data-conoce .cn-pet-stat>p{font-size:14px;margin-top:0}
+#data-conoce .cn-pet-card{min-height:240px;padding:22px}
+#data-conoce .cn-pet-card h3{font-size:22px;margin:15px 0 10px}
+#data-conoce .cn-pet-card p{font-size:16px}
+#data-conoce .cn-pet-more{font-size:16px;gap:14px}
+#data-conoce .cn-pet-dialog{width:calc(100% - 20px);padding:20px;max-height:90vh}
+#data-conoce .cn-pet-dialog-description{font-size:15px}
+}
