@@ -22,12 +22,12 @@
   });
   const META_KEY = 'publication-catalog-meta-v1';
   const images = Object.freeze({
-    revista:'assets/img/editorial/territorio-aereo.jpg',
-    boletin:'assets/img/editorial/alcaldia.jpg',
-    paper:'assets/img/editorial/servicio.jpg',
-    informe:'assets/img/editorial/comunidad.jpg',
-    grafico:'assets/img/editorial/gestion.jpg',
-    ficha:'assets/img/editorial/participacion.jpg',
+    revista:'assets/img/editorial/encuesta-subachoque-referencia.webp',
+    boletin:'assets/img/editorial/cn-pubs-boletin.svg',
+    paper:'assets/img/editorial/cn-pubs-paper.svg',
+    informe:'assets/img/editorial/cn-pubs-informe.svg',
+    grafico:'assets/img/editorial/cn-pubs-atlas.svg',
+    ficha:'assets/img/editorial/cn-pubs-ficha.svg',
     serie:'assets/img/editorial/territorio-aereo.jpg',
     estudio:'assets/img/editorial/gestion.jpg',
     visualizacion:'assets/img/editorial/alcaldia.jpg',
@@ -137,7 +137,7 @@
     const pieces=(item.coverTitle || item.title).split('|').map(escape);
     if(pieces.length>1 && /\b20\d{2}$/.test(pieces[pieces.length-1]))pieces[pieces.length-1]='<strong>'+pieces[pieces.length-1]+'</strong>';
     const img=encodeURI(item.cover || images.informe).replace(/['"()\\]/g,'');
-    return '<div class="cn-pubs-cover'+(large?' cn-pubs-cover-large':'')+'" role="img" aria-label="Portada '+(item.kind==='demo'?'ilustrativa':'de catálogo')+': '+escape(item.title)+'" style="--pub-cover-img:url('+img+')">'+
+    return '<div class="cn-pubs-cover'+(large?' cn-pubs-cover-large':'')+'" data-cover-kind="'+escape(item.kind)+'" data-cover-type="'+escape(item.type)+'" role="img" aria-label="Portada '+(item.kind==='demo'?'ilustrativa':'de catálogo')+': '+escape(item.title)+'" style="--pub-cover-img:url('+img+')">'+
       '<span class="cn-pubs-cover-mark">TERRITORIO<br>INTELIGENTE</span>'+
       '<span class="cn-pubs-cover-title">'+pieces.join('<br>')+'</span>'+
       '<span class="cn-pubs-cover-caption">'+escape(item.kind==='demo'?'VISTA DE EJEMPLO':item.caption||'PUBLICACIÓN')+'</span>'+
@@ -147,7 +147,7 @@
     if(!item)return '<div class="cn-pubs-empty"><h4>No hay resultados</h4><p>Prueba otro término o categoría.</p></div>';
     const total=entries();
     const dots=total.slice(0,4).map((_,index)=>'<button type="button" data-cn-pubs-slide="'+index+'" aria-label="Destacada '+(index+1)+'" aria-current="'+String(index===state.slide)+'"></button>').join('');
-    return '<div class="cn-pubs-feature-cover"><span class="cn-pubs-feature-sticker">'+(item.kind==='demo'?'MAQUETA EDITORIAL':'PUBLICACIÓN DESTACADA')+'</span>'+cover(item,true)+'</div>'+
+    return '<div class="cn-pubs-feature-cover"><span class="cn-pubs-feature-sticker">'+'PUBLICACIÓN DESTACADA'+'</span>'+cover(item,true)+'</div>'+
       '<div class="cn-pubs-feature-copy"><span class="cn-pubs-type">'+escape(labels[item.type])+(item.kind==='demo'?' · EJEMPLO':item.kind==='local'?' · LOCAL':'')+'</span>'+
       '<h3>'+escape(item.title)+'</h3><span class="cn-pubs-date">'+escape(item.kind==='demo'?'Propuesta visual · Sin documento original':dateLabel(item.date))+'</span>'+
       '<p class="cn-pubs-feature-desc">'+escape(item.summary)+'</p>'+
