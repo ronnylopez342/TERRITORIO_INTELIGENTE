@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="css/dane-subachoque.css?v=dane23-01">
 <link rel="stylesheet" href="css/memoria-alcaldia.css?v=memoria23-demo-01">
 <link rel="stylesheet" href="css/encuesta-municipal.css?v=encuesta24-01">
-<link rel="stylesheet" href="css/publicaciones-editorial.css?v=pub25-01">
+<link rel="stylesheet" href="css/conoce-publicaciones.css?v=pub21-editorial-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -41,7 +41,6 @@
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.3 Datos del DANE</span><small>DANE y otras fuentes externas</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-municipales"><span>2.3 Memoria de la Alcaldía</span><small>Archivos, históricos y dependencias</small></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta"><span>2.4 Encuesta</span></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-publicaciones"><span>2.5 Publicaciones</span></button>
 </div>
 </div>
 <button class="nav-link route-link" data-route="desarrollo" type="button"><span class="nav-roll"><span class="nav-roll__first">Plan de Desarrollo</span><span class="nav-roll__next" aria-hidden="true">Plan de Desarrollo</span></span></button>
@@ -49,7 +48,6 @@
 <button class="nav-link route-link" data-route="politicas" type="button"><span class="nav-roll"><span class="nav-roll__first">Políticas Públicas</span><span class="nav-roll__next" aria-hidden="true">Políticas Públicas</span></span></button>
 <button class="nav-cta route-link" data-route="login" type="button"><span class="nav-roll"><span class="nav-roll__first">Iniciar sesión</span><span class="nav-roll__next" aria-hidden="true">Iniciar sesión</span></span></button>
 </nav>
-<input type="search" id="pubHeaderSearch" class="pub-header-search" placeholder="Buscar publicaciones..." aria-label="Buscar publicaciones" autocomplete="off"/>
 <button type="button" class="ti-header-search" id="tiHeaderSearch" aria-label="Buscar en Territorio Inteligente" aria-controls="assistantPanel" aria-expanded="false"><svg aria-hidden="true" viewBox="0 0 32 32" width="30" height="30" fill="none"><circle cx="13.5" cy="13.5" r="8.4" stroke="currentColor" stroke-width="3"/><path d="M19.6 19.6L27 27" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>
 <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" id="menuToggle" type="button"><span></span></button>
 </div>
@@ -69,7 +67,6 @@
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.3 Datos del DANE<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-municipales"><span class="ti-mobile-data-label">2.3 Memoria de la Alcaldía<small>Archivos, históricos y dependencias</small></span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta"><span class="ti-mobile-data-label">2.4 Encuesta</span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-publicaciones"><span class="ti-mobile-data-label">2.5 Publicaciones</span><span aria-hidden="true">↗</span></button>
 </div>
 </div>
 <button class="route-link" data-route="desarrollo" type="button"><small>03</small><span>Plan de Desarrollo</span><b>→</b></button>
@@ -144,7 +141,6 @@
 <button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.3 Datos del DANE</button>
 <button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.3 Memoria de la Alcaldía</button>
 <button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.4 Encuesta</button>
-<button aria-controls="data-publicaciones" aria-selected="false" class="module-tab" data-module-panel="data-publicaciones" id="tab-data-publicaciones" role="tab" tabindex="-1" type="button">2.5 Publicaciones</button>
 </nav>
 <section aria-labelledby="tab-data-conoce" class="module-panel active ti-conoce" data-panel-group="data" id="data-conoce" role="tabpanel">
 <section class="cn-hero" aria-labelledby="cn-title">
@@ -263,6 +259,118 @@
     </div>
   </dialog>
 </section>
+
+<section class="cn-pubs" id="cn-publicaciones" aria-labelledby="cn-pubs-title" data-ready="false">
+  <header class="cn-pubs-intro">
+    <div class="cn-pubs-intro-copy">
+      <p class="cn-pubs-eyebrow">DATA TERRITORIO <span aria-hidden="true">/</span> 2.1 CONOCE <span aria-hidden="true">/</span> PUBLICACIONES</p>
+      <span class="cn-pubs-rule" aria-hidden="true"></span>
+      <h2 id="cn-pubs-title">PUBLICACIONES</h2>
+      <p class="cn-pubs-lead">Consulta revistas, boletines, papers, informes y otros productos gráficos del municipio para conocer resultados, análisis y hallazgos del territorio.</p>
+    </div>
+  </header>
+  <div class="cn-pubs-toolbar" aria-label="Buscar y filtrar publicaciones">
+    <div class="cn-pubs-filters" role="group" aria-label="Categoría de publicación">
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="todos" aria-pressed="true">Todas</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="revista" aria-pressed="false">Revistas</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="boletin" aria-pressed="false">Boletines</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="paper" aria-pressed="false">Papers</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="informe" aria-pressed="false">Informes</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="grafico" aria-pressed="false">Productos gráficos</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="ficha" aria-pressed="false">Fichas técnicas</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="serie" aria-pressed="false">Series históricas</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="visualizacion" aria-pressed="false">Visualizaciones</button>
+      <button type="button" class="cn-pubs-filter" data-cn-pubs-filter="galeria" aria-pressed="false">Galerías</button>
+    </div>
+    <label class="cn-pubs-search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/></svg>
+      <input id="cn-pubs-search" type="search" placeholder="Buscar publicaciones..." aria-label="Buscar publicaciones por nombre, tipo o tema" autocomplete="off">
+    </label>
+  </div>
+  <div class="cn-pubs-main">
+    <div class="cn-pubs-feature" aria-label="Publicación destacada">
+      <button type="button" class="cn-pubs-feature-nav cn-pubs-feature-prev" data-cn-pubs-nav="-1" aria-label="Ver publicación destacada anterior">‹</button>
+      <div id="cn-pubs-feature" class="cn-pubs-feature-content" aria-live="polite"></div>
+      <button type="button" class="cn-pubs-feature-nav cn-pubs-feature-next" data-cn-pubs-nav="1" aria-label="Ver publicación destacada siguiente">›</button>
+    </div>
+    <div class="cn-pubs-stats" aria-label="Estado del catálogo editorial">
+      <article class="cn-pubs-stat"><span class="cn-pubs-stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h10l4 4v16H5zM15 2v5h4M8 12h8M8 16h8"/></svg></span><div><strong id="cn-pubs-stat-count">0</strong><span class="cn-pubs-stat-label">archivos reales</span><p><span id="cn-pubs-stat-real">0</span> disponibles públicamente y archivos locales.</p></div></article>
+      <article class="cn-pubs-stat"><span class="cn-pubs-stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7zm-10 10 10 5 10-5M2 17l10 5 10-5"/></svg></span><div><strong id="cn-pubs-stat-types">10</strong><span class="cn-pubs-stat-label">categorías</span><p>Revistas, papers, boletines, informes y recursos gráficos.</p></div></article>
+      <article class="cn-pubs-stat"><span class="cn-pubs-stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M7 2v6M17 2v6"/></svg></span><div><strong id="cn-pubs-stat-years">—</strong><span class="cn-pubs-stat-label">años registrados</span><p>Fechas tomadas únicamente de los archivos incorporados.</p></div></article>
+      <article class="cn-pubs-stat"><span class="cn-pubs-stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V13h4v7M10 20V8h4v12M16 20V3h4v17M2 21h20"/></svg></span><div><strong id="cn-pubs-stat-demo">6</strong><span class="cn-pubs-stat-label">portadas ilustrativas</span><p>Diseños de muestra, aún sin documento institucional.</p></div></article>
+    </div>
+  </div>
+  <div class="cn-pubs-section-heading">
+    <h3>Últimas publicaciones</h3>
+    <button id="cn-pubs-see-all" type="button" aria-label="Ver todas las publicaciones">Ver todas las publicaciones →</button>
+  </div>
+  <div id="cn-pubs-catalog" class="cn-pubs-catalog" aria-live="polite" aria-label="Revistas, boletines, papers y productos gráficos"></div>
+  <div class="cn-pubs-bottom">
+    <div>
+      <p id="cn-pubs-availability">Las portadas de muestra son ilustrativas. Los archivos auténticos aparecerán cuando se incorporen y verifiquen.</p>
+      <p id="cn-pubs-results" aria-live="polite">Preparando catálogo…</p>
+    </div>
+    <button type="button" class="cn-pubs-manage" data-cn-pubs-manage>+ Gestionar publicaciones originales</button>
+  </div>
+  <dialog class="cn-pubs-viewer" id="cn-pubs-viewer" aria-labelledby="cn-pubs-viewer-title">
+    <div class="cn-pubs-viewer-head">
+      <div><p id="cn-pubs-viewer-status">DOCUMENTO MUNICIPAL</p><h3 id="cn-pubs-viewer-title">Ver publicación</h3></div>
+      <button type="button" class="cn-pubs-viewer-close" data-cn-pubs-close aria-label="Cerrar el documento y volver a publicaciones">×</button>
+    </div>
+    <div class="cn-pubs-viewer-content" id="cn-pubs-viewer-content"></div>
+    <div class="cn-pubs-viewer-footer">
+      <span>Visor integrado · Regresar a Conoce al cerrar</span>
+      <a id="cn-pubs-viewer-download" class="cn-pubs-viewer-download" hidden>↓ Descargar archivo original</a>
+    </div>
+  </dialog>
+  <dialog id="pubManageDialog" class="cn-pubs-dialog pub-management-dialog" aria-labelledby="pubManageTitle">
+  <div class="pub-dialog-bar"><span>REPOSITORIO LOCAL</span><button type="button" data-pub-close aria-label="Cerrar administración">×</button></div>
+  <div class="pub-management-body">
+    <p class="pub-tiny-label">ARCHIVOS Y FICHAS</p><h2 id="pubManageTitle">Gestionar publicaciones</h2>
+    <p>Agrega documentos originales, completa sus fuentes y marca su estado de revisión. Se guardan solamente en este navegador; este panel no publica documentos para otros visitantes.</p>
+    <div class="pub-manager-actions">
+      <label class="pub-yellow-button">+ Agregar publicación<input accept=".pdf,.docx,.xlsx,.xls,.csv,.json,.txt,.png,.jpg,.jpeg,.webp" hidden id="publicationUpload" multiple type="file"></label>
+      <span class="pub-local-counter" id="pubLocalCount" aria-live="polite">Consultando archivos locales…</span>
+    </div>
+    <div class="pub-review-alert" id="pubReviewAlert" role="status"></div>
+    <div id="pubMetaList" class="pub-meta-list"></div>
+    <details class="pub-legacy-catalog" id="pubLegacyView">
+      <summary>Ver los archivos originales y sus descargas</summary>
+      <div class="document-grid" id="publicationGrid"></div>
+    </details>
+    <details class="pub-glossary" aria-labelledby="glossaryTitle">
+      <summary>Glosario territorial</summary>
+      <div class="ti-local-repository"><p class="eyebrow">Glosario territorial</p><h3 id="glossaryTitle">Términos y fuentes</h3>
+      <label>Buscar término<input type="search" id="glossarySearch" placeholder="Término, definición o fuente"></label><div id="glossaryList"></div></div>
+    </details>
+  </div>
+</dialog>
+<dialog id="pubEditDialog" class="cn-pubs-dialog pub-edit-dialog" aria-labelledby="pubEditTitle">
+  <div class="pub-dialog-bar"><span>METADATOS Y TRAZABILIDAD</span><button type="button" data-pub-close aria-label="Cerrar editor">×</button></div>
+  <form id="pubMetadataForm" class="pub-edit-form">
+    <p class="pub-tiny-label">FICHA DOCUMENTAL</p><h2 id="pubEditTitle">Editar publicación</h2>
+    <input id="pubEditId" name="id" type="hidden">
+    <label>Título<input id="pubEditName" name="title" required maxlength="150"></label>
+    <label>Tipo<select id="pubEditType" name="type" required>
+      <option value="revista">Revista</option><option value="grafico">Producto gráfico</option><option value="ficha">Ficha técnica</option><option value="estudio">Estudio</option><option value="visualizacion">Visualización</option><option value="galeria">Galería</option><option value="informe">Informe</option><option value="boletin">Boletín</option>
+      <option value="paper">Paper</option><option value="encuesta">Encuesta</option><option value="serie">Serie histórica</option>
+    </select></label>
+    <label>Resumen<textarea id="pubEditSummary" name="summary" rows="3" maxlength="1000" placeholder="Qué encontrará el lector"></textarea></label>
+    <div class="pub-edit-pair">
+      <label>Autor o dependencia<input id="pubEditAuthor" name="author" maxlength="120" placeholder="Dependencia responsable"></label>
+      <label>Fecha de publicación<input id="pubEditDate" name="date" type="date"></label>
+    </div>
+    <label>Fuentes y datos utilizados<textarea id="pubEditSources" name="sources" rows="2" maxlength="1200" placeholder="Fuentes, fechas de corte, enlaces o identificadores"></textarea></label>
+    <label>Estado de revisión<select id="pubEditStatus" name="status">
+      <option value="borrador">Borrador</option><option value="pendiente">Pendiente de revisión</option>
+      <option value="revisada">Revisada (solo local)</option><option value="aprobada">Aprobada (solo local)</option>
+    </select></label>
+    <p class="pub-edit-disclaimer">Los estados no publican archivos en Internet. Para compartir una publicación se requiere un repositorio institucional y autorización explícita.</p>
+    <button type="submit" class="pub-yellow-button">Guardar ficha</button>
+  </form>
+</dialog>
+</section>
+
 </section>
 <section aria-labelledby="tab-data-plan-estadistico" class="module-panel ti-plan-estadistico" data-panel-group="data" id="data-plan-estadistico" role="tabpanel" hidden>
  <div class="pe-page">
@@ -449,112 +557,7 @@
  <button type="button" id="svDialogClose">Cerrar</button>
 </dialog>
 </section>
-<section aria-labelledby="tab-data-publicaciones" class="module-panel ti-publicaciones" data-panel-group="data" hidden="" id="data-publicaciones" role="tabpanel">
-<div class="pub-app" id="pubApp" data-ready="false">
-  <header class="pub-hero" aria-labelledby="pubTitle">
-    <div class="pub-hero-photo" aria-hidden="true"></div><div class="pub-hero-shadow" aria-hidden="true"></div>
-    <div class="pub-hero-content">
-      <p class="pub-breadcrumb">DATA TERRITORIO <span aria-hidden="true">/</span> <b>2.5 PUBLICACIONES</b> <span class="pub-demo-flag" title="Vista ilustrativa; publicaciones pendientes de verificación">DEMO EDITORIAL</span></p>
-      <h1 id="pubTitle" tabindex="-1">PUBLICACIONES</h1>
-      <p class="pub-hero-subtitle">Boletines, papers, informes y encuestas</p>
-      <span class="pub-accent-line" aria-hidden="true"></span>
-      <p class="pub-hero-description">Repositorio editorial del conocimiento territorial de Subachoque.<br>Aquí encontrarás análisis, estudios, boletines e insumos técnicos<br class="pub-desktop-break"> para entender los avances, retos y oportunidades del territorio.</p>
-    </div>
-    <p class="pub-hero-quote">EVIDENCIA<br>PARA UN<br>MEJOR<br>TERRITORIO<span aria-hidden="true"></span></p>
-  </header>
 
-  <section class="pub-catalog" aria-labelledby="pubCatalogTitle">
-    <h2 class="pub-visually-hidden" id="pubCatalogTitle">Explorar las publicaciones</h2>
-    <div class="pub-filter-bar">
-      <div class="pub-filter-tabs" role="group" aria-label="Filtrar publicaciones por tipo">
-        <button type="button" data-pub-filter="todos" class="is-active" aria-pressed="true">Todos</button>
-        <button type="button" data-pub-filter="boletin" aria-pressed="false">Boletines</button>
-        <button type="button" data-pub-filter="paper" aria-pressed="false">Papers</button>
-        <button type="button" data-pub-filter="informe" aria-pressed="false">Informes</button>
-        <button type="button" data-pub-filter="encuesta" aria-pressed="false">Encuestas</button>
-        <button type="button" data-pub-filter="serie" aria-pressed="false">Series históricas</button>
-      </div>
-      <div class="pub-filter-year">
-        <label for="pubYear">Año</label>
-        <select id="pubYear" aria-label="Filtrar por año">
-          <option value="">Todos los años</option>
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-          <option value="2020">2020</option>
-          <option value="2019">2019</option>
-        </select>
-      </div>
-    </div>
-    <div class="pub-result-meta" id="pubResultMeta" role="status" aria-live="polite"></div>
-    <div class="pub-visual-grid" id="pubVisualGrid" aria-live="polite">
-      <p class="pub-loading">Preparando el catálogo editorial…</p>
-    </div>
-  </section>
-
-  <section class="pub-archive" aria-labelledby="pubArchiveTitle">
-    <div class="pub-archive-intro">
-      <p class="pub-tiny-label">ARCHIVO</p><h2 id="pubArchiveTitle">Repositorio histórico</h2>
-      <p>Consulta nuestras publicaciones por año. Un registro continuo<br class="pub-desktop-break"> del conocimiento territorial de Subachoque.</p>
-      <button type="button" id="pubManageOpen" class="pub-manage-link">Gestionar documentos originales ↗</button>
-    </div>
-    <div class="pub-archive-years" id="pubArchiveYears" aria-label="Explorar el repositorio por año"></div>
-  </section>
-  <p class="pub-ethics-note">VISTA DEMOSTRATIVA · Las portadas, fechas y cantidades de ejemplo reproducen la maqueta. Las publicaciones auténticas se gestionan por separado y necesitan autorización antes de difundirse.</p>
-</div>
-
-<dialog id="pubReaderDialog" class="pub-dialog pub-reader-dialog" aria-labelledby="pubReaderTitle">
-  <div class="pub-dialog-bar"><span>PUBLICACIONES · SUBACHOQUE</span><button type="button" data-pub-close aria-label="Cerrar ficha de publicación">×</button></div>
-  <div class="pub-reader-body" id="pubReaderBody"></div>
-</dialog>
-<dialog id="pubManageDialog" class="pub-dialog pub-management-dialog" aria-labelledby="pubManageTitle">
-  <div class="pub-dialog-bar"><span>REPOSITORIO LOCAL</span><button type="button" data-pub-close aria-label="Cerrar administración">×</button></div>
-  <div class="pub-management-body">
-    <p class="pub-tiny-label">ARCHIVOS Y FICHAS</p><h2 id="pubManageTitle">Gestionar publicaciones</h2>
-    <p>Agrega documentos originales, completa sus fuentes y marca su estado de revisión. Se guardan solamente en este navegador; este panel no publica documentos para otros visitantes.</p>
-    <div class="pub-manager-actions">
-      <label class="pub-yellow-button">+ Agregar publicación<input accept=".pdf,.docx,.xlsx,.xls,.csv,.json,.txt,.png,.jpg,.jpeg,.webp" hidden id="publicationUpload" multiple type="file"></label>
-      <span class="pub-local-counter" id="pubLocalCount" aria-live="polite">Consultando archivos locales…</span>
-    </div>
-    <div class="pub-review-alert" id="pubReviewAlert" role="status"></div>
-    <div id="pubMetaList" class="pub-meta-list"></div>
-    <details class="pub-legacy-catalog" id="pubLegacyView">
-      <summary>Ver los archivos originales y sus descargas</summary>
-      <div class="document-grid" id="publicationGrid"></div>
-    </details>
-    <details class="pub-glossary" aria-labelledby="glossaryTitle">
-      <summary>Glosario territorial</summary>
-      <div class="ti-local-repository"><p class="eyebrow">Glosario territorial</p><h3 id="glossaryTitle">Términos y fuentes</h3>
-      <label>Buscar término<input type="search" id="glossarySearch" placeholder="Término, definición o fuente"></label><div id="glossaryList"></div></div>
-    </details>
-  </div>
-</dialog>
-<dialog id="pubEditDialog" class="pub-dialog pub-edit-dialog" aria-labelledby="pubEditTitle">
-  <div class="pub-dialog-bar"><span>METADATOS Y TRAZABILIDAD</span><button type="button" data-pub-close aria-label="Cerrar editor">×</button></div>
-  <form id="pubMetadataForm" class="pub-edit-form">
-    <p class="pub-tiny-label">FICHA DOCUMENTAL</p><h2 id="pubEditTitle">Editar publicación</h2>
-    <input id="pubEditId" name="id" type="hidden">
-    <label>Título<input id="pubEditName" name="title" required maxlength="150"></label>
-    <label>Tipo<select id="pubEditType" name="type" required>
-      <option value="informe">Informe</option><option value="boletin">Boletín</option>
-      <option value="paper">Paper</option><option value="encuesta">Encuesta</option><option value="serie">Serie histórica</option>
-    </select></label>
-    <label>Resumen<textarea id="pubEditSummary" name="summary" rows="3" maxlength="1000" placeholder="Qué encontrará el lector"></textarea></label>
-    <div class="pub-edit-pair">
-      <label>Autor o dependencia<input id="pubEditAuthor" name="author" maxlength="120" placeholder="Dependencia responsable"></label>
-      <label>Fecha de publicación<input id="pubEditDate" name="date" type="date"></label>
-    </div>
-    <label>Fuentes y datos utilizados<textarea id="pubEditSources" name="sources" rows="2" maxlength="1200" placeholder="Fuentes, fechas de corte, enlaces o identificadores"></textarea></label>
-    <label>Estado de revisión<select id="pubEditStatus" name="status">
-      <option value="borrador">Borrador</option><option value="pendiente">Pendiente de revisión</option>
-      <option value="revisada">Revisada (solo local)</option><option value="aprobada">Aprobada (solo local)</option>
-    </select></label>
-    <p class="pub-edit-disclaimer">Los estados no publican archivos en Internet. Para compartir una publicación se requiere un repositorio institucional y autorización explícita.</p>
-    <button type="submit" class="pub-yellow-button">Guardar ficha</button>
-  </form>
-</dialog>
-</section>
 </div>
 </div>
 </section>
@@ -624,6 +627,6 @@
 <script defer src="js/memoria-alcaldia-demo.js?v=memoria23-demo-01"></script>
 <script defer src="js/memoria-alcaldia.js?v=memoria23-demo-01"></script>
 <script defer src="js/encuesta-municipal.js?v=encuesta24-01"></script>
-<script defer src="js/publicaciones-editorial.js?v=pub25-01"></script>
+<script defer src="js/conoce-publicaciones.js?v=pub21-editorial-01"></script>
 </body>
 </html>
