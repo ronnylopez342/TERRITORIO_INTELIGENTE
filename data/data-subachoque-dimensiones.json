@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "municipio": "Subachoque",
+  "departamento": "Cundinamarca",
+  "pais": "Colombia",
+  "referenciaTematica": "DIMENSIONES.docx, suministrado para Territorio Inteligente",
+  "niveles": [
+    {
+      "id": "nacional",
+      "label": "Nacional",
+      "territorio": "Colombia",
+      "descripcion": "Información producida por entidades del orden nacional, con cobertura y desagregación por verificar."
+    },
+    {
+      "id": "departamental",
+      "label": "Departamental",
+      "territorio": "Cundinamarca",
+      "descripcion": "Fuentes y observatorios departamentales; identificar si el dato permite desagregación municipal."
+    },
+    {
+      "id": "municipal",
+      "label": "Municipal",
+      "territorio": "Subachoque",
+      "descripcion": "Información municipal disponible, oficial o administrativa validada por fuente y periodo."
+    }
+  ],
+  "dimensiones": [
+    {
+      "id": "social",
+      "titulo": "Dimensión Social",
+      "estado": "activa"
+    },
+    {
+      "id": "economica",
+      "titulo": "Dimensión Económica",
+      "estado": "por_desarrollar"
+    },
+    {
+      "id": "ambiental",
+      "titulo": "Dimensión Ambiental y Territorial",
+      "estado": "por_desarrollar"
+    },
+    {
+      "id": "institucional",
+      "titulo": "Dimensión Institucional",
+      "estado": "por_desarrollar"
+    }
+  ],
+  "seccionAdicional": {
+    "titulo": "Percepción ciudadana sobre la gestión municipal",
+    "estado": "pendiente_de_definicion",
+    "nota": "El Word la enumera otra vez como dimensión 4. No está integrada ni eliminada hasta definir con el equipo su ubicación."
+  },
+  "social": {
+    "titulo": "Dimensión Social",
+    "areas": [
+      {
+        "id": "salud",
+        "code": "1.1",
+        "title": "Salud y Protección Social",
+        "topics": [
+          {
+            "id": "salud-1",
+            "documentCode": "1.1.1",
+            "title": "Aseguramiento"
+          },
+          {
+            "id": "salud-2",
+            "documentCode": "1.1.2",
+            "title": "Salud pública"
+          },
+          {
+            "id": "salud-3",
+            "documentCode": "1.1.3",
+            "title": "Prestación de servicios de salud"
+          },
+          {
+            "id": "salud-4",
+            "documentCode": "1.1.4",
+            "title": "Discapacidad"
+          },
+          {
+            "id": "salud-5",
+            "documentCode": "1.1.5",
+            "title": "Adulto mayor"
+          },
+          {
+            "id": "salud-6",
+            "documentCode": "1.1.6",
+            "title": "Primera infancia"
+          },
+          {
+            "id": "salud-7",
+            "documentCode": "1.1.7",
+            "title": "Nutrición"
+          }
+        ],
+        "portales": {
+          "nacional": {
+            "nombre": "SISPRO — Ministerio de Salud",
+            "url": "https://www.sispro.gov.co/central-gestion-del-conocimiento/Pages/construya-su-consulta-aseguramiento.aspx"
+          },
+          "departamental": {
+            "nombre": "Observatorio de Salud de Cundinamarca",
+            "url": "https://www.cundinamarca.gov.co/observatorios/observatorio-salud/datos-en-salud/"
+          },
+          "municipal": {
+            "nombre": "Portal institucional de Subachoque",
+            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+          }
+        }
+      },
+      {
+        "id": "educacion",
+        "code": "1.2",
+        "title": "Educación",
+        "topics": [
+          {
+            "id": "educacion-1",
+            "documentCode": "1.2.1",
+            "title": "Cobertura educativa"
+          },
+          {
+            "id": "educacion-2",
+            "documentCode": "1.2.2",
+            "title": "Calidad educativa"
+          },
+          {
+            "id": "educacion-3",
+            "documentCode": "1.2.3",
+            "title": "Permanencia escolar"
+          },
+          {
+            "id": "educacion-4",
+            "documentCode": "1.2.4",
+            "title": "Infraestructura educativa"
+          },
+          {
+            "id": "educacion-5",
+            "documentCode": "1.2.5",
+            "title": "Educación superior"
+          }
+        ],
+        "portales": {
+          "nacional": {
+            "nombre": "Ministerio de Educación Nacional",
+            "url": "https://www.mineducacion.gov.co/"
+          },
+          "departamental": {
+            "nombre": "Gobernación de Cundinamarca",
+            "url": "https://www.cundinamarca.gov.co/home/"
+          },
+          "municipal": {
+            "nombre": "Portal institucional de Subachoque",
+            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+          }
+        }
+      },
+      {
+        "id": "inclusion",
+        "code": "1.3",
+        "title": "Inclusión Social y Equidad",
+        "topics": [
+          {
+            "id": "inclusion-1",
+            "documentCode": "1.3.1",
+            "title": "Pobreza"
+          },
+          {
+            "id": "inclusion-2",
+            "documentCode": "1.3.2",
+            "title": "Vulnerabilidad"
+          },
+          {
+            "id": "inclusion-3",
+            "documentCode": "1.3.3",
+            "title": "Víctimas del conflicto"
+          },
+          {
+            "id": "inclusion-4",
+            "documentCode": "1.3.4",
+            "title": "Mujeres"
+          },
+          {
+            "id": "inclusion-5",
+            "documentCode": "1.3.5",
+            "title": "Juventud"
+          },
+          {
+            "id": "inclusion-6",
+            "documentCode": "1.3.6",
+            "title": "Grupos étnicos"
+          },
+          {
+            "id": "inclusion-7",
+            "documentCode": "1.3.7",
+            "title": "Diversidad poblacional"
+          }
+        ],
+        "portales": {
+          "nacional": {
+            "nombre": "DANE — Estadísticas nacionales",
+            "url": "https://www.dane.gov.co/"
+          },
+          "departamental": {
+            "nombre": "Gobernación de Cundinamarca",
+            "url": "https://www.cundinamarca.gov.co/home/"
+          },
+          "municipal": {
+            "nombre": "Portal institucional de Subachoque",
+            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+          }
+        }
+      },
+      {
+        "id": "cultura",
+        "code": "1.4",
+        "title": "Cultura",
+        "topics": [
+          {
+            "id": "cultura-1",
+            "documentCode": "1.4.1",
+            "title": "Escuelas de formación cultural"
+          },
+          {
+            "id": "cultura-2",
+            "documentCode": "1.4.2",
+            "title": "Biblioteca pública"
+          },
+          {
+            "id": "cultura-3",
+            "documentCode": "1.4.3",
+            "title": "Actividades culturales"
+          },
+          {
+            "id": "cultura-4",
+            "documentCode": "1.4.4",
+            "title": "Infraestructura cultural"
+          },
+          {
+            "id": "cultura-5",
+            "documentCode": "1.4.5",
+            "title": "Patrimonio cultural"
+          }
+        ],
+        "portales": {
+          "nacional": {
+            "nombre": "Ministerio de las Culturas",
+            "url": "https://www.minculturas.gov.co/"
+          },
+          "departamental": {
+            "nombre": "Gobernación de Cundinamarca",
+            "url": "https://www.cundinamarca.gov.co/home/"
+          },
+          "municipal": {
+            "nombre": "Portal institucional de Subachoque",
+            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+          }
+        }
+      },
+      {
+        "id": "deporte",
+        "code": "1.5",
+        "title": "Deporte y Recreación",
+        "topics": [
+          {
+            "id": "deporte-1",
+            "documentCode": "1.5.1",
+            "title": "Escuelas de deporte y recreación"
+          },
+          {
+            "id": "deporte-2",
+            "documentCode": "1.5.1",
+            "title": "Actividad física"
+          },
+          {
+            "id": "deporte-3",
+            "documentCode": "1.5.1",
+            "title": "Escenarios deportivos"
+          },
+          {
+            "id": "deporte-4",
+            "documentCode": "1.5.1",
+            "title": "Participación deportiva"
+          }
+        ],
+        "portales": {
+          "nacional": {
+            "nombre": "Ministerio del Deporte",
+            "url": "https://www.mindeporte.gov.co/"
+          },
+          "departamental": {
+            "nombre": "Gobernación de Cundinamarca",
+            "url": "https://www.cundinamarca.gov.co/home/"
+          },
+          "municipal": {
+            "nombre": "Portal institucional de Subachoque",
+            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+          }
+        }
+      },
+      {
+        "id": "justicia",
+        "code": "1.6",
+        "title": "Justicia y Seguridad Ciudadana",
+        "topics": [
+          {
+            "id": "justicia-1",
+            "documentCode": "1.6.1",
+            "title": "Convivencia ciudadana"
+          },
+          {
+            "id": "justicia-2",
+            "documentCode": "1.6.2",
+            "title": "Violencia intrafamiliar"
+          },
+          {
+            "id": "justicia-3",
+            "documentCode": "1.6.3",
+            "title": "Delitos"
+          },
+          {
+            "id": "justicia-4",
+            "documentCode": "1.6.4",
+            "title": "Acceso a la justicia"
+          },
+          {
+            "id": "justicia-5",
+            "documentCode": "1.6.5",
+            "title": "Inspección, vigilancia y control"
+          }
+        ],
+        "portales": {
+          "nacional": {
+            "nombre": "Ministerio de Justicia y del Derecho",
+            "url": "https://www.minjusticia.gov.co/"
+          },
+          "departamental": {
+            "nombre": "Gobernación de Cundinamarca",
+            "url": "https://www.cundinamarca.gov.co/home/"
+          },
+          "municipal": {
+            "nombre": "Portal institucional de Subachoque",
+            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+          }
+        }
+      }
+    ]
+  },
+  "indicadores": [
+    {
+      "id": "mayores59-nacional",
+      "topicId": "salud-5",
+      "indicatorId": "mayores59",
+      "indicator": "Población mayor de 59 años",
+      "ambito": "nacional",
+      "valor": 13.3,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de personas censadas con 60 años o más. No es cobertura de atención al adulto mayor ni proyección de 2026.",
+      "verificado": "cotejado-ficha-dane"
+    },
+    {
+      "id": "mayores59-departamental",
+      "topicId": "salud-5",
+      "indicatorId": "mayores59",
+      "indicator": "Población mayor de 59 años",
+      "ambito": "departamental",
+      "valor": 13.4,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de personas censadas con 60 años o más. No es cobertura de atención al adulto mayor ni proyección de 2026.",
+      "verificado": "cotejado-ficha-dane"
+    },
+    {
+      "id": "mayores59-municipal",
+      "topicId": "salud-5",
+      "indicatorId": "mayores59",
+      "indicator": "Población mayor de 59 años",
+      "ambito": "municipal",
+      "valor": 12.8,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de personas censadas con 60 años o más. No es cobertura de atención al adulto mayor ni proyección de 2026.",
+      "verificado": "cotejado-ficha-dane"
+    },
+    {
+      "id": "mujeres-nacional",
+      "topicId": "inclusion-4",
+      "indicatorId": "mujeres",
+      "indicator": "Porcentaje de mujeres",
+      "ambito": "nacional",
+      "valor": 51.2,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de mujeres entre las personas censadas. No mide por sí solo brechas de género, violencia ni acceso a programas.",
+      "verificado": "cotejado-ficha-dane"
+    },
+    {
+      "id": "mujeres-departamental",
+      "topicId": "inclusion-4",
+      "indicatorId": "mujeres",
+      "indicator": "Porcentaje de mujeres",
+      "ambito": "departamental",
+      "valor": 50.6,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de mujeres entre las personas censadas. No mide por sí solo brechas de género, violencia ni acceso a programas.",
+      "verificado": "cotejado-ficha-dane"
+    },
+    {
+      "id": "mujeres-municipal",
+      "topicId": "inclusion-4",
+      "indicatorId": "mujeres",
+      "indicator": "Porcentaje de mujeres",
+      "ambito": "municipal",
+      "valor": 50,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de mujeres entre las personas censadas. No mide por sí solo brechas de género, violencia ni acceso a programas.",
+      "verificado": "cotejado-ficha-dane"
+    },
+    {
+      "id": "indigena-nacional",
+      "topicId": "inclusion-6",
+      "indicatorId": "indigena",
+      "indicator": "Autorreconocimiento indígena",
+      "ambito": "nacional",
+      "valor": 4.3,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de autorreconocimiento indígena; es un componente particular, no el total de población perteneciente a grupos étnicos.",
+      "verificado": "cotejado-ficha-dane"
+    },
+    {
+      "id": "indigena-departamental",
+      "topicId": "inclusion-6",
+      "indicatorId": "indigena",
+      "indicator": "Autorreconocimiento indígena",
+      "ambito": "departamental",
+      "valor": 0.4,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de autorreconocimiento indígena; es un componente particular, no el total de población perteneciente a grupos étnicos.",
+      "verificado": "cotejado-ficha-dane"
+    },
+    {
+      "id": "indigena-municipal",
+      "topicId": "inclusion-6",
+      "indicatorId": "indigena",
+      "indicator": "Autorreconocimiento indígena",
+      "ambito": "municipal",
+      "valor": 0.2,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "notaMetodologica": "Porcentaje de autorreconocimiento indígena; es un componente particular, no el total de población perteneciente a grupos étnicos.",
+      "verificado": "cotejado-ficha-dane"
+    }
+  ],
+  "politica": "No completar valores faltantes con estimaciones. Todo gráfico debe declarar periodo, variable, unidad, cobertura, entidad y fuente. Portales de referencia no constituyen datasets conectados."
+}
