@@ -289,3 +289,29 @@
 @media (prefers-reduced-motion: reduce){
   #data-subachoque .ds3-dimension{transition:none}
 }
+
+
+/* Señal discreta de presencia de datos: no se confunde con un estado de completitud. */
+#data-subachoque .ds3-topic-verified{
+ color:#007bbd!important;font-size:11px;font-weight:900!important;
+ margin-left:auto;letter-spacing:0!important;flex:0 0 auto;
+}
+#data-subachoque .ds3-topic.is-active .ds3-topic-verified{color:#0c67a9!important}
+#data-subachoque .ds3-indicator-nav{
+ display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;
+ gap:9px;padding:10px 0 2px;margin-top:11px;
+}
+#data-subachoque .ds3-indicator-nav label{
+ font-size:12px!important;font-weight:800;color:#264b73!important;
+}
+#data-subachoque .ds3-indicator-nav select{
+ border:1px solid #c3d9eb;border-radius:7px;background:#f7fbff;
+ color:#123c6f;font:600 12px/1.3 Arial,Helvetica,sans-serif;
+ min-height:40px;max-width:100%;min-width:0;flex:1 1 190px;
+ padding:7px 11px;cursor:pointer;
+}
+#data-subachoque .ds3-indicator-nav select:focus-visible{outline:2px solid #f0bd00!important}
+@media (max-width:490px){
+ #data-subachoque .ds3-indicator-nav label{width:100%}
+ #data-subachoque .ds3-indicator-nav select{flex:1 1 100%}
+}
