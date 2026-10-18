@@ -214,7 +214,9 @@
   function timeSeriesSVG(rows,years){
     const metricUnit=String(rows[0].unidad||'');
     const suffix=metricUnit==='%'?' %':' '+metricUnit;
-    const max=roundMax(rows.map(x=>x.valor));
+    const distinctUnits=metricUnit==='viviendas'||metricUnit==='hogares';
+    const displayed=distinctUnits?rows.filter(r=>r.ambito===state.nivel):rows;
+    const max=roundMax(displayed.map(x=>x.valor));
     const x0=67,xWidth=560,y0=48,yBottom=301,yHeight=yBottom-y0;
     const getX=year=>x0+(year-years[0])/(years[years.length-1]-years[0])*xWidth;
     const getY=value=>yBottom-(Math.max(0,value)/max)*yHeight;
@@ -226,19 +228,21 @@
     const times=years.map(year=>
       '<text class="ds3-tick" x="'+getX(year).toFixed(1)+'" y="329" text-anchor="middle">'+year+'</text>'
     ).join('');
-    const lines=LEVELS.map(lvl=>{
+    const shownLevels=distinctUnits?LEVELS.filter(lvl=>lvl.id===state.nivel):LEVELS;
+    const lines=shownLevels.map(lvl=>{
       const metrics=years.map(year=>rows.find(row=>row.ambito===lvl.id&&yearOf(row)===year));
       const pts=metrics.map((row,i)=>row?[getX(years[i]),getY(row.valor)]:null).filter(Boolean);
       if(!pts.length)return '';
       const active=lvl.id===state.nivel;
       const poly=pts.length>=2?'<polyline points="'+pts.map(p=>p.map(z=>z.toFixed(1)).join(',')).join(' ')+
-        '" fill="none" stroke="'+lvl.color+'" stroke-width="'+(active?4:3)+'" stroke-linecap="round" stroke-linejoin="round"/>':'';
+        '" fill="none" stroke="'+lvl.color+'" stroke-width="'+(active?4:3)+'" stroke-linecap="round" stroke-linejoin="round"'+(rows.some(r=>r.periodo?.includes('CG 2005'))?' stroke-dasharray="6 5"':'')+'/>':'';
       return '<g>'+poly+pts.map(p=>'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+
         '" r="'+(active?5:4)+'" stroke="#fff" stroke-width="1.2" fill="'+lvl.color+'"/>').join('')+'</g>';
     }).join('');
-    const legend=LEVELS.map((lvl,i)=>'<circle cx="'+(91+i*200)+'" cy="356" r="6" fill="'+lvl.color+'"/>'+
+    const legend=shownLevels.map((lvl,i)=>'<circle cx="'+(91+i*200)+'" cy="356" r="6" fill="'+lvl.color+'"/>'+
       '<text class="ds3-legend-label" x="'+(104+i*200)+'" y="360">'+escapeHTML(lvl.name)+'</text>').join('');
-    const description='Series anuales verificadas de '+rows[0].indicator+', '+years[0]+' a '+years[years.length-1]+'.';
+    const census=rows.some(r=>r.periodo?.includes('CG 2005'));
+    const description=(census?'Cortes censales':'Serie anual')+' de '+rows[0].indicator+', '+years[0]+' a '+years[years.length-1]+'.';
     return '<svg class="ds3-chart-svg" viewBox="0 0 720 373" role="img" aria-label="'+escapeHTML(description)+'">'+
       '<text class="ds3-graph-kicker" x="17" y="22">'+escapeHTML(metricUnit==='%'?'PORCENTAJE':metricUnit.toLocaleUpperCase('es'))+
       ' · '+years[0]+'–'+years[years.length-1]+'</text>'+grid+times+lines+legend+'</svg>';
@@ -281,8 +285,11 @@
     const t=topic(),groups=indicators(),rows=currentIndicator();
     const have=rows.length>0;
     $('ds3-indicator-title').textContent=have?rows[0].indicator:t.title;
+    const scopes=new Set(rows.map(r=>r.ambito));
+    const years=[...new Set(rows.map(r=>r.ano||yearOf(r)))].sort();
+    const coverage=scopes.size===3?'Colombia · Cundinamarca · Subachoque':scopes.size===1?'Cobertura '+(LEVELS.find(l=>scopes.has(l.id))?.name||'parcial'):'Cobertura territorial parcial';
     $('ds3-indicator-description').textContent=have?
-      'Comparación territorial · '+rows[0].periodo+' · '+rows[0].unidad:
+      coverage+' · '+years.join(' / ')+' · '+rows[0].unidad:
       'Información pendiente de incorporación y validación.';
     $('ds3-chart-area').innerHTML=have?chartSVG(rows):
       '<div class="ds3-no-data" role="status"><div class="ds3-no-data-symbol" aria-hidden="true">▥</div>'+
