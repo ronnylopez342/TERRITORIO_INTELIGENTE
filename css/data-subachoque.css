@@ -14,7 +14,7 @@
 #data-subachoque *,#data-subachoque *::before,#data-subachoque *::after{box-sizing:border-box}
 #data-subachoque[hidden],#data-subachoque [hidden]{display:none!important}
 #data-subachoque button,#data-subachoque input{font:inherit}
-#data-subachoque button{cursor:pointer}
+#data-subachoque button{cursor:pointer;text-transform:none!important;letter-spacing:normal!important}
 #data-subachoque :focus-visible{outline:3px solid #e5bc00!important;outline-offset:2px}
 #data-subachoque .ds3-shell{max-width:1760px;margin:0 auto;padding:26px clamp(17px,2.55vw,43px) 60px;min-width:0}
 #data-subachoque h1,#data-subachoque h2,#data-subachoque h3,#data-subachoque h4{font-family:Arial,Helvetica,sans-serif!important;text-transform:none!important;overflow-wrap:break-word;letter-spacing:-.025em}
@@ -171,6 +171,7 @@
 #data-subachoque .ds3-chart-svg{width:100%;height:auto;max-width:740px;max-height:370px}
 #data-subachoque .ds3-grid-line{stroke:#dce6ef;stroke-width:1.5}
 #data-subachoque .ds3-tick{font-size:14px;fill:#607a95;font-family:Arial,Helvetica,sans-serif}
+#data-subachoque .ds3-legend-label{font-size:15px;fill:#3e6383;font-weight:650;font-family:Arial,Helvetica,sans-serif}
 #data-subachoque .ds3-track{fill:#e8f0f7}
 #data-subachoque .ds3-bar-label{fill:#244668;font-size:17px;font-weight:650;font-family:Arial,Helvetica,sans-serif}
 #data-subachoque .ds3-bar-value{fill:#07366c;font-size:16px;font-weight:800;font-family:Arial,Helvetica,sans-serif}
