@@ -602,3 +602,47 @@
 #data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"][data-cover-type="ficha"]::before{background-position:100% 50%!important}
 #data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"] .cn-pubs-cover-title{z-index:2}
 #data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"] .cn-pubs-cover-caption{z-index:2}
+
+
+/* === FIX PORTADAS COMPLETAS 2026-10-18 ============================
+   La antigua franja compartida fue estirada al 54% de cada tarjeta:
+   causaba el corte horizontal que aparece en la captura del usuario.
+   Mantener una sola imagen completa por portada, sin superposiciones.
+   ================================================================ */
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"]::before,
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"]::after{
+  content:none!important;
+  display:none!important;
+  background-image:none!important;
+}
+/* Las ilustraciones originales SVG se ajustan dentro de la portada.
+   contain preserva todos los bordes y evita cortes por background-size:cover. */
+#data-conoce #cn-publicaciones .cn-pubs-card .cn-pubs-cover[data-cover-kind="demo"]{
+  background-repeat:no-repeat!important;
+  background-position:center center!important;
+  background-size:contain!important;
+  background-color:#0b3651!important;
+}
+/* Asegurar que la cubierta no empuje contenido, recorte ni distorsione.
+   Se mantiene el alto establecido para las seis tarjetas del diseño. */
+#data-conoce #cn-publicaciones .cn-pubs-card .cn-pubs-cover{
+  min-width:0;
+  overflow:hidden;
+  flex-shrink:0;
+}
+#data-conoce #cn-publicaciones .cn-pubs-card .cn-pubs-cover-title,
+#data-conoce #cn-publicaciones .cn-pubs-card .cn-pubs-cover-caption{
+  z-index:2;
+  overflow-wrap:break-word;
+}
+/* La portada principal utiliza el paisaje como una ilustración entera,
+   sin reutilizar el recorte horizontal de otras cinco publicaciones. */
+#data-conoce #cn-publicaciones .cn-pubs-feature .cn-pubs-cover[data-cover-kind="demo"]{
+  background-repeat:no-repeat!important;
+  background-size:contain!important;
+  background-position:center bottom!important;
+  background-color:#102e47!important;
+}
+#data-conoce #cn-publicaciones .cn-pubs-feature .cn-pubs-cover[data-cover-kind="demo"] .cn-pubs-cover-title{
+  text-shadow:0 2px 6px rgba(2,17,33,.95);
+}
