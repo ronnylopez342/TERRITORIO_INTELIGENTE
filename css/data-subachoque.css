@@ -43,3 +43,32 @@
 .app-view[data-view="data"]:has(#data-subachoque:not([hidden]))>.view-body>.inner{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
 @media(max-width:1050px){#data-subachoque .ds-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#data-subachoque .ds-card{min-height:300px}}
 @media(max-width:680px){#data-subachoque .ds-home{padding:32px 20px 40px}#data-subachoque #ds-title{font-size:clamp(43px,9vw,70px)}#data-subachoque .ds-grid{grid-template-columns:1fr}#data-subachoque .ds-card{min-height:220px;padding:22px}#data-subachoque .ds-toolbar{flex-direction:column;align-items:stretch;padding:11px 12px;gap:8px;top:var(--v25-header-h,64px)}#data-subachoque .ds-back{align-self:flex-start}#data-subachoque .ds-tab{font-size:12px;min-height:36px;padding:8px 12px}}
+
+
+/* 2.3: el nombre aprobado necesita tres líneas legibles sin cubrir la fotografía. */
+#data-encuesta .sv-hero{height:clamp(325px,27vw,415px);min-height:325px}
+#data-encuesta .sv-hero-copy{width:min(61%,920px);padding-right:18px}
+#data-encuesta #svMainTitle{
+  font-size:clamp(34px,4.05vw,68px)!important;
+  white-space:normal!important;
+  overflow-wrap:normal;
+  line-height:.95!important;
+  letter-spacing:-.05em!important;
+}
+#data-encuesta .sv-hero h2{white-space:normal!important;font-size:clamp(16px,1.45vw,23px)!important;line-height:1.2!important}
+#data-encuesta .sv-hero-description{white-space:normal!important}
+#data-encuesta .sv-hero-photo{inset:0 0 0 37%}
+#data-encuesta .sv-handwriting{left:75%;top:23%;font-size:clamp(15px,1.6vw,25px)}
+@media(max-width:850px){
+  #data-encuesta .sv-hero{height:auto;min-height:350px}
+  #data-encuesta .sv-hero-copy{width:min(88%,700px);padding:24px 14px 30px 22px}
+  #data-encuesta #svMainTitle{font-size:clamp(31px,5.1vw,49px)!important}
+  #data-encuesta .sv-handwriting{display:none}
+  #data-encuesta .sv-hero-photo{inset:0;opacity:.3;background-size:cover}
+}
+@media(max-width:520px){
+  #data-encuesta .sv-hero{min-height:365px}
+  #data-encuesta .sv-hero-copy{width:100%;padding:22px 18px}
+  #data-encuesta #svMainTitle{font-size:clamp(32px,8.4vw,43px)!important}
+  #data-encuesta .sv-breadcrumb{font-size:11px}
+}
