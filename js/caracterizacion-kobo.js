@@ -119,40 +119,80 @@
     $('k23-topic-title').textContent=t.nombre;
     $('k23-topic-breadcrumb').textContent=area().nombre+' / '+t.nombre;
     $('k23-metric-title').textContent=m.title;
-    $('k23-scope').textContent='Cobertura municipal · encuesta KoBo · corte '+data.corte;
+    $('k23-scope').textContent='Encuesta de caracterización · '+data.corte+' · '+(m.universe||'Base según la pregunta');
     $('k23-n').textContent=num(m.n);
-    $('k23-denominator').textContent='Respuestas válidas: '+num(m.n)+' '+m.unit;
+    $('k23-denominator').textContent='Base del porcentaje: '+num(m.n)+' '+m.unit;
     const selector=$('k23-metric-selector');
     selector.hidden=t.metrics.length<=1;
     selector.innerHTML=t.metrics.length>1?'<label for="k23-metric-select">Indicador</label><select id="k23-metric-select" aria-label="Seleccionar indicador">'+
       t.metrics.map((v,i)=>'<option value="'+i+'"'+(i===state.metric?' selected':'')+'>'+esc(v.title)+'</option>').join('')+'</select>':'';
     const values=getMetricLabels(m);
+    const focused=values.find(v=>v.label===m.focusCategory);
+    const units=m.unit==='personas registradas'?'personas registradas':'encuestas respondidas';
     $('k23-chart').innerHTML='<div class="k23-bars" role="list" aria-label="Distribución agregada de respuestas">'+
-      values.map(row=>'<div class="k23-bar-row" role="listitem"><div class="k23-bar-top"><span>'+esc(row.label)+
-      '</span><strong>'+num(row.pct)+' %</strong></div><div class="k23-bar-track" aria-label="'+num(row.count)+
-      ' respuestas"><span style="width:'+Math.min(100,row.pct)+'%;background:'+row.color+'"></span></div>'+
-      '<small>'+num(row.count)+' respuestas</small></div>').join('')+
-      '</div><p class="k23-chart-note">'+(m.type==='multi'?'Pregunta de selección múltiple: una persona puede marcar varias opciones y los porcentajes pueden superar el 100 % en total.':'Las opciones corresponden a las respuestas registradas en la pregunta.')+
-      '</p>';
+      values.map(row=>{
+        const isFocus=Boolean(focused&&row.label===focused.label);
+        return '<div class="k23-bar-row'+(isFocus?' k23-bar-focus':'')+'" role="listitem"><div class="k23-bar-top"><span>'+esc(row.label)+
+        '</span><strong>'+num(row.pct)+' %</strong></div><div class="k23-bar-track" aria-label="'+num(row.count)+
+        ' registros"><span style="width:'+Math.min(100,Math.max(0,row.pct))+'%;background:'+(isFocus?'#e6b522':row.color)+'"></span></div>'+
+        '<small>'+num(row.count)+' '+esc(units)+'</small></div>';
+      }).join('')+'</div><p class="k23-chart-note">'+(m.type==='multi'?
+      'Respuesta múltiple: se puede seleccionar más de una opción. Los porcentajes pueden sumar más del 100 %.':
+      'Porcentaje calculado exclusivamente sobre las respuestas válidas de esta pregunta.')+'</p>';
     const biggest=values.slice().sort((a,b)=>b.count-a.count)[0];
-    const coverage=m.coverage==='directa'?'Medición directa':'Indicador aproximado';
-    const incomplete=values.reduce((s,x)=>s+x.count,0)<m.n;
-    const context=m.unit==='personas registradas'?'La unidad es la persona registrada dentro del hogar, NO cada encuesta.':'La unidad corresponde a respuestas de encuesta, NO a la población total del municipio.';
-    $('k23-insight').innerHTML='<span class="k23-data-badge">'+esc(coverage)+'</span>'+
-      '<p>Entre <strong>'+num(m.n)+'</strong> respuestas válidas, la categoría con mayor frecuencia visible fue <strong>'+
-      esc(biggest?.label||'Sin categoría publicable')+'</strong> ('+num(biggest?.pct||0)+' %, '+num(biggest?.count||0)+' registros).</p>'+
-      '<div class="k23-important"><strong>Cómo interpretar este resultado</strong><p>'+esc(context)+
-      ' La encuesta no establece representatividad estadística de todo Subachoque; describe a quienes contestaron.</p></div>'+
-      (m.coverage==='aproximada'?'<p>Esta pregunta aproxima el tema seleccionado, pero no constituye por sí sola una medición técnica o administrativa completa.</p>':'')+
-      (incomplete?'<p>Por privacidad no se publican categorías con menos de cinco registros, por lo que las barras mostradas pueden no sumar el 100 %.</p>':'');
-    $('k23-meta').innerHTML='<div><span>Fuente</span><strong>Encuesta KoBo · Caracterización no técnica</strong></div>'+
-      '<div><span>Pregunta</span><strong>'+esc(m.q)+'</strong></div>'+
-      '<div><span>Respuestas válidas</span><strong>'+num(m.n)+'</strong></div>'+
+    const highlighted=focused||biggest;
+    const focusText=focused?'La categoría correspondiente al subtema es':'La respuesta más frecuente entre las opciones publicadas es';
+    const badge=m.coverage==='directa'?'Respuesta directa a KoBo':'Aproximación, no medición técnica';
+    const shownSum=values.reduce((sum,x)=>sum+x.count,0);
+    const suppressNote=shownSum<m.n&&m.type!=='multi'?
+      'Algunas opciones infrecuentes fueron agrupadas u omitidas para proteger las respuestas.':'';
+    $('k23-insight').innerHTML='<span class="k23-data-badge">'+esc(badge)+'</span>'+
+      '<p>'+focusText+' <strong>'+esc(highlighted?.label||'Sin categoría publicable')+'</strong>: <strong>'+
+      num(highlighted?.count||0)+'</strong> de '+num(m.n)+' '+esc(units)+' ('+num(highlighted?.pct||0)+' %).</p>'+
+      '<div class="k23-important"><strong>¿Cómo se debe interpretar?</strong><p>'+
+      (m.unit==='personas registradas'?'La base está formada por personas registradas en los hogares que participaron, no por 324 encuestas.':
+      'La base corresponde solo a quienes respondieron esta pregunta, no a la población completa de Subachoque.')+
+      ' Los datos describen participantes de una encuesta no probabilística.</p></div>'+
+      (m.hasFilter?'<p><strong>Pregunta condicional:</strong> '+esc(m.universe||'Se aplicó solo a un grupo definido en KoBo.')+'</p>':'')+
+      (m.coverageNote?'<p>'+esc(m.coverageNote)+'</p>':m.coverage==='aproximada'?
+        '<p>Este resultado sirve como aproximación al subtema, pero no equivale a un indicador administrativo, censal o técnico.</p>':'')+
+      (m.focusNote?'<p>'+esc(m.focusNote)+'</p>':'')+
+      (m.privacyNote?'<p>'+esc(m.privacyNote)+'</p>':suppressNote?'<p>'+esc(suppressNote)+'</p>':'');
+    $('k23-meta').innerHTML='<div><span>Fuente y unidad</span><strong>KoBo · Caracterización no técnica · '+esc(m.unit)+'</strong></div>'+
+      '<div><span>Pregunta original</span><strong>'+esc(m.q)+'</strong><details class="k23-question-details"><summary>Leer el texto literal</summary><p>'+esc(m.questionLabel||m.title)+'</p></details></div>'+
+      '<div><span>Base válida</span><strong>'+num(m.n)+'</strong></div>'+
       '<div><span>Corte</span><strong>'+esc(data.corte)+'</strong></div>';
   }
+  function renderGaps(){
+    const wrap=$('k23-gaps');
+    if(!wrap)return;
+    const unmeasured=(data.notMeasured||{})[state.dim]||[];
+    if(!unmeasured.length){
+      wrap.innerHTML='<p class="k23-covered-note">Esta dimensión reúne preguntas específicas de percepción ciudadana, distintas de los indicadores administrativos de Data Subachoque.</p>';
+      return;
+    }
+    const grouped=new Map();
+    for(const item of unmeasured){
+      if(!grouped.has(item.area))grouped.set(item.area,[]);
+      grouped.get(item.area).push(item);
+    }
+    const why={
+      no_cubierto:'Sin pregunta equivalente en KoBo',
+      muestra_insuficiente:'Respuestas insuficientes',
+      requiere_validacion:'Excluido por sensibilidad',
+      excluida_vivienda:'Fuera de alcance: vivienda'
+    };
+    wrap.innerHTML='<details class="k23-gaps-details"><summary><span>¿Qué subtemas no cubre KoBo en esta dimensión?</span>'+
+      '<strong>'+unmeasured.length+' sin indicador publicable</strong></summary>'+
+      '<p>Se conservan en el inventario territorial; no se les atribuyen respuestas o cifras que el formulario no recolectó.</p>'+
+      [...grouped].map(([group,items])=>'<section class="k23-gap-group"><h4>'+esc(group)+'</h4><ul>'+
+      items.map(item=>'<li><span>'+esc(item.code+' '+item.title)+'</span><small>'+esc(why[item.state]||'Pendiente de validación')+'</small></li>').join('')+
+      '</ul></section>').join('')+'</details>';
+  }
+
   function render(){
     if(!data)return;
-    renderDims();renderAreas();renderTopics();renderMetric();
+    renderDims();renderAreas();renderTopics();renderMetric();renderGaps();
     root.dataset.koboReady='true';
   }
   root.addEventListener('click',e=>{
@@ -182,11 +222,11 @@
     return decoded.json();
   }
   load().then(loaded=>{
-    if(loaded.nEncuestas!==324||loaded.dimensiones?.length!==4||loaded.dimensiones[3]?.id!=='percepcion')
+    if(loaded.v!==2||loaded.nEncuestas!==324||loaded.dimensiones?.length!==4||loaded.dimensiones[3]?.id!=='percepcion')
       throw Error('La estructura de la caracterización no pasó las verificaciones.');
     const items=loaded.dimensiones.flatMap(d=>d.areas.flatMap(a=>a.temas));
     const metrics=items.flatMap(t=>t.metrics);
-    if(items.length!==48||metrics.length!==49||metrics.some(m=>!Number.isInteger(m.n)||m.n<15||!m.q||!m.title))
+    if(items.length!==48||metrics.length!==49||(loaded.notMeasured?.social?.length+loaded.notMeasured?.economica?.length+loaded.notMeasured?.ambiental?.length)!==53||metrics.some(m=>!Number.isInteger(m.n)||m.n<15||!m.q||!m.title||!m.universe||!m.questionLabel))
       throw Error('Los indicadores agregados no pasaron las verificaciones de integridad.');
     data=loaded;syncHash();render();
   }).catch(err=>{
