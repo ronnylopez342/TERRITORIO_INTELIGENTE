@@ -204,3 +204,10 @@
 @media(min-width:1750px){#data-subachoque .ds-analytic-card{min-height:377px}}
 @media(max-width:1380px){#data-subachoque .ds-analytic-card{min-height:390px}}
 @media(max-width:1030px){#data-subachoque .ds-analytic-card{min-height:270px}}
+
+
+#data-subachoque .ds-indicator-set{display:flex;flex-direction:column;gap:13px;margin-bottom:22px}
+#data-subachoque .ds-indicator-set:last-child{margin-bottom:0}
+#data-subachoque .ds-indicator-heading{background:#1c3a4d;border:1px solid #456c83;border-radius:6px;padding:12px 17px}
+#data-subachoque .ds-indicator-heading>span{display:block;font-size:10px;color:#ffe500;font-weight:800;letter-spacing:.06em;margin-bottom:4px}
+#data-subachoque .ds-indicator-heading h4{font-size:18px;font-weight:800;color:#fff;margin:0;line-height:1.23}
