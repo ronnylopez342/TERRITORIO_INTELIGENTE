@@ -72,7 +72,8 @@
       i.topicId===state.topic && LEVELS.some(l=>l.id===i.ambito) &&
       typeof i.indicatorId==='string' && typeof i.valor==='number' &&
       Number.isFinite(i.valor) && typeof i.unidad==='string' &&
-      typeof i.periodo==='string' && safeUrl(i.fuente));
+      typeof i.periodo==='string' && safeUrl(i.fuente) &&
+      ['cotejado-ficha-dane','verificado'].includes(i.verificado));
     return [...new Set(found.map(i=>i.indicatorId))].map(id=>found.filter(i=>i.indicatorId===id));
   };
   const currentIndicator=()=>indicators()[Math.min(state.indicator,indicators().length-1)]||[];
@@ -132,6 +133,7 @@
   }
   function changeTopic(id){
     const t=topicById(id);if(!t)return;
+    if(t.dimensionId!==state.dimension)state.nivel=defaultLevel[t.dimensionId];
     state.dimension=t.dimensionId;state.area=t.areaId;state.topic=t.id;
     state.indicator=0;state.search='';
     setURL();render();
@@ -195,13 +197,58 @@
     $('ds3-topic-title').textContent=t?.title||'';
   }
   function tickHTML(value){return format(value).replace(',0','');}
-  function chartSVG(rows){
-    if(!rows.length)return '';
+  function yearOf(metric){
+    const match=String(metric.periodo||'').match(/(?:19|20)\d{2}/);
+    return match?Number(match[0]):null;
+  }
+  function latest(rows,levelId){
+    return rows.filter(row=>row.ambito===levelId)
+      .sort((a,b)=>(yearOf(b)||0)-(yearOf(a)||0))[0]||null;
+  }
+  function roundMax(values){
+    const max=Math.max(.1,...values.filter(Number.isFinite));
+    const step=Math.pow(10,Math.floor(Math.log10(max)));
+    return Math.ceil(max/step)*step||1;
+  }
+  function timeSeriesSVG(rows,years){
     const metricUnit=String(rows[0].unidad||'');
     const suffix=metricUnit==='%'?' %':' '+metricUnit;
-    const max=Math.max(10,...rows.map(row=>Number(row.valor)||0));
-    const roundedStep=Math.pow(10,Math.floor(Math.log10(max)));
-    const ceil=Math.ceil(max/roundedStep)*roundedStep||10;
+    const max=roundMax(rows.map(x=>x.valor));
+    const x0=67,xWidth=560,y0=48,yBottom=301,yHeight=yBottom-y0;
+    const getX=year=>x0+(year-years[0])/(years[years.length-1]-years[0])*xWidth;
+    const getY=value=>yBottom-(Math.max(0,value)/max)*yHeight;
+    const grid=[0,1,2,3,4].map(i=>{
+      const value=max*i/4,y=getY(value);
+      return '<line class="ds3-grid-line" x1="'+x0+'" y1="'+y.toFixed(1)+'" x2="'+(x0+xWidth)+'" y2="'+y.toFixed(1)+'"/>'+
+        '<text class="ds3-tick" x="58" y="'+(y+5).toFixed(1)+'" text-anchor="end">'+tickHTML(value)+'</text>';
+    }).join('');
+    const times=years.map(year=>
+      '<text class="ds3-tick" x="'+getX(year).toFixed(1)+'" y="329" text-anchor="middle">'+year+'</text>'
+    ).join('');
+    const lines=LEVELS.map(lvl=>{
+      const metrics=years.map(year=>rows.find(row=>row.ambito===lvl.id&&yearOf(row)===year));
+      const pts=metrics.map((row,i)=>row?[getX(years[i]),getY(row.valor)]:null).filter(Boolean);
+      if(!pts.length)return '';
+      const active=lvl.id===state.nivel;
+      const poly=pts.length>=2?'<polyline points="'+pts.map(p=>p.map(z=>z.toFixed(1)).join(',')).join(' ')+
+        '" fill="none" stroke="'+lvl.color+'" stroke-width="'+(active?4:3)+'" stroke-linecap="round" stroke-linejoin="round"/>':'';
+      return '<g>'+poly+pts.map(p=>'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+
+        '" r="'+(active?5:4)+'" stroke="#fff" stroke-width="1.2" fill="'+lvl.color+'"/>').join('')+'</g>';
+    }).join('');
+    const legend=LEVELS.map((lvl,i)=>'<circle cx="'+(91+i*200)+'" cy="356" r="6" fill="'+lvl.color+'"/>'+
+      '<text class="ds3-legend-label" x="'+(104+i*200)+'" y="360">'+escapeHTML(lvl.name)+'</text>').join('');
+    const description='Series anuales verificadas de '+rows[0].indicator+', '+years[0]+' a '+years[years.length-1]+'.';
+    return '<svg class="ds3-chart-svg" viewBox="0 0 720 373" role="img" aria-label="'+escapeHTML(description)+'">'+
+      '<text class="ds3-graph-kicker" x="17" y="22">'+escapeHTML(metricUnit==='%'?'PORCENTAJE':metricUnit.toLocaleUpperCase('es'))+
+      ' · '+years[0]+'–'+years[years.length-1]+'</text>'+grid+times+lines+legend+'</svg>';
+  }
+  function chartSVG(rows){
+    if(!rows.length)return '';
+    const years=[...new Set(rows.map(yearOf).filter(Number.isFinite))].sort((a,b)=>a-b);
+    if(years.length>=2)return timeSeriesSVG(rows,years);
+    const metricUnit=String(rows[0].unidad||'');
+    const suffix=metricUnit==='%'?' %':' '+metricUnit;
+    const ceil=roundMax(rows.map(row=>row.valor));
     const axisTop=76,axisBottom=318,axisLeft=176,axisWidth=456,step=axisWidth/4;
     const ticks=[0,1,2,3,4].map(i=>{
       const x=axisLeft+i*step;
@@ -210,7 +257,7 @@
     }).join('');
     const bars=LEVELS.map((lvl,index)=>{
       const y=113+index*79;
-      const entry=rows.find(v=>v.ambito===lvl.id);
+      const entry=latest(rows,lvl.id);
       const selected=lvl.id===state.nivel;
       const background='<rect x="'+axisLeft+'" y="'+(y-2)+'" width="'+axisWidth+'" height="24" rx="4" class="ds3-track"/>';
       if(!entry)return '<g>'+background+'<text class="ds3-bar-label" x="13" y="'+(y+14)+'">'+escapeHTML(lvl.name)+'</text>'+
@@ -224,7 +271,7 @@
         '<text class="ds3-bar-value" x="'+Math.min(687,textX)+'" y="'+(y+15)+'" text-anchor="'+(textX>655?'end':'start')+'">'+format(entry.valor)+escapeHTML(suffix)+'</text></g>';
     }).join('');
     const label='Comparación por nivel territorial de '+String(rows[0].indicator)+', '+String(rows[0].periodo)+
-      ': '+LEVELS.map(l=>l.name+' '+(rows.find(v=>v.ambito===l.id)?.valor ?? 'sin dato')).join(', ');
+      ': '+LEVELS.map(l=>l.name+' '+(latest(rows,l.id)?.valor ?? 'sin dato')).join(', ');
     return '<svg class="ds3-chart-svg" viewBox="0 0 720 365" role="img" aria-label="'+escapeHTML(label)+'">'+
       '<text x="14" y="30" class="ds3-graph-kicker">'+escapeHTML(metricUnit==='%'?'PORCENTAJE':metricUnit.toLocaleUpperCase('es'))+' · '+escapeHTML(rows[0].periodo)+'</text>'+
       ticks+bars+'</svg>';
@@ -262,7 +309,7 @@
   }
   function renderAnalysis(){
     const t=topic(),selected=level(),rows=currentIndicator();
-    const current=rows.find(i=>i.ambito===state.nivel);
+    const current=latest(rows,state.nivel);
     const parent=$('ds3-analysis-body'),source=$('ds3-source');
     if(!current){
       parent.innerHTML='<span class="ds3-state ds3-state-unavailable">DATO NO DISPONIBLE</span>'+
@@ -278,7 +325,8 @@
       return;
     }
     const others=LEVELS.filter(l=>l.id!==state.nivel).map(l=>{
-      const row=rows.find(x=>x.ambito===l.id);
+      const row=rows.find(x=>x.ambito===l.id&&x.periodo===current.periodo)||
+        rows.find(x=>x.ambito===l.id&&yearOf(x)===yearOf(current));
       return row?diffText(current.valor,row,l.name):'No hay valor comparable para '+l.name+'.';
     });
     const note=current.notaMetodologica||'La lectura depende del universo estadístico, la unidad y la metodología original.';
@@ -297,6 +345,7 @@
   }
   function render(){
     if(!catalog)return;
+    state.indicator=Math.max(0,Math.min(state.indicator,Math.max(0,indicators().length-1)));
     root.dataset.ready='true';
     renderTitle();renderDimensions();renderAreas();renderLevels();
     renderTopics();renderChart();renderAnalysis();
