@@ -57,7 +57,12 @@
     const [route, query] = location.hash.slice(1).split('?');
     if (route !== 'data') return;
     const params = new URLSearchParams(query || '');
-    if (params.get('seccion') !== 'data-subachoque') return;
+    if (params.get('seccion') !== 'data-subachoque') {
+      // Una vista interna no puede quedar visible en el DOM después
+      // de salir de 2.2: los estilos antiguos consultan su atributo hidden.
+      if (selected) show('', {history:false,scroll:false,focus:false});
+      return;
+    }
     show(params.get('sub') || '', {history:false,scroll:false,focus:false});
   }
   root.addEventListener('click', event => {
