@@ -1,0 +1,45 @@
+/* Data Territorio / 2.2 Data Subachoque — hub de contenidos conservados.
+   Unicamente agrupa Plan Estadistico, DANE y Memoria; no modifica los componentes originales. */
+#data-subachoque{--ds-bg:#102839;--ds-yellow:#ffe500;--ds-ink:#f4f8fc;--ds-muted:#bfd5e4;--ds-line:#3a6179;position:relative;background:var(--ds-bg);color:var(--ds-ink);font:16px/1.4 Arial,Helvetica,sans-serif;min-width:0;min-height:65vh}
+#data-subachoque[hidden],#data-subachoque [hidden]{display:none!important}
+#data-subachoque *,#data-subachoque *::before,#data-subachoque *::after{box-sizing:border-box}
+#data-subachoque .ds-home{background:radial-gradient(ellipse at 85% 15%,#244c66 0%,transparent 48%),linear-gradient(145deg,#102a3e,#112638);padding:clamp(30px,4vw,68px) clamp(24px,4.4vw,78px) clamp(36px,4.1vw,70px)}
+#data-subachoque .ds-home-inner{max-width:1700px;margin:0 auto}
+#data-subachoque .ds-breadcrumb{color:#c4d7e5;font-size:clamp(12px,1vw,16px);margin:0 0 27px}
+#data-subachoque .ds-rule{display:block;background:var(--ds-yellow);width:62px;height:4px;margin:0 0 23px}
+#data-subachoque #ds-title{font-size:clamp(46px,5.7vw,90px);line-height:.96;letter-spacing:-.045em;font-weight:900;color:var(--ds-yellow);margin:0 0 24px}
+#data-subachoque .ds-lead{font-size:clamp(17px,1.4vw,23px);line-height:1.45;color:#e2eef5;max-width:880px;margin:0 0 20px}
+#data-subachoque .ds-info{font-size:clamp(13px,1vw,16px);color:#a8c2d3;margin:0 0 34px}
+#data-subachoque .ds-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.5vw,26px)}
+#data-subachoque .ds-card{position:relative;overflow:hidden;isolation:isolate;border:1px solid #4a738b;min-height:320px;border-radius:9px;background:linear-gradient(145deg,#152d3e,#102538);text-align:left;color:#fff;padding:clamp(18px,2vw,32px);display:flex;flex-direction:column;justify-content:flex-end;gap:14px;cursor:pointer;transition:transform .18s,border-color .18s}
+#data-subachoque .ds-card:hover{transform:translateY(-4px);border-color:#ffe500}
+#data-subachoque .ds-card::before{content:"";position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;opacity:.9;transition:transform .2s}
+#data-subachoque .ds-card:hover::before{transform:scale(1.03)}
+#data-subachoque .ds-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#0b2035 0%,#0b2035f3 30%,#0b2035aa 59%,transparent 100%)}
+#data-subachoque .ds-card[data-ds-open="plan"]::before{background-image:url('../assets/img/editorial/gestion.jpg')}
+#data-subachoque .ds-card[data-ds-open="dane"]::before{background-image:url('../assets/img/editorial/territorio-aereo.jpg')}
+#data-subachoque .ds-card[data-ds-open="memoria"]::before{background-image:url('../assets/img/editorial/memoria-aprobada.webp')}
+#data-subachoque .ds-card-number{color:var(--ds-yellow);font-size:14px;font-weight:800;letter-spacing:.08em}
+#data-subachoque .ds-card-icon{display:grid;place-items:center;width:58px;height:58px;border:1px solid #6e95a9;border-radius:50%;background:#2b506a;color:#fff;font-size:28px}
+#data-subachoque .ds-card-title{font-size:clamp(23px,2vw,32px);font-weight:800;line-height:1.07}
+#data-subachoque .ds-card-desc{color:#d2e2ed;font-size:clamp(13px,1vw,17px);line-height:1.43;max-width:400px}
+#data-subachoque .ds-card-action{display:flex;align-items:center;justify-content:space-between;color:var(--ds-yellow);font-size:15px;font-weight:800;margin-top:8px}
+#data-subachoque .ds-card-action b{font-size:26px;font-weight:400}
+#data-subachoque .ds-toolbar{position:sticky;top:var(--v25-header-h,80px);z-index:18;display:flex;align-items:center;gap:12px;min-height:70px;padding:13px clamp(16px,3.1vw,55px);background:#10293dec;backdrop-filter:blur(8px);border-bottom:1px solid #547083;box-shadow:0 3px 14px #07172733}
+#data-subachoque .ds-toolbar[hidden]{display:none!important}
+#data-subachoque .ds-back{flex:0 0 auto;min-height:43px;padding:10px 16px;border:1px solid #678ba0;border-radius:5px;background:#25455b;color:#fff;font-weight:700;cursor:pointer}
+#data-subachoque .ds-back:hover{background:#ffe500;border-color:#ffe500;color:#102637}
+#data-subachoque .ds-toolbar-nav{display:flex;gap:8px;overflow-x:auto;align-items:center;padding:3px 0;min-width:0;scrollbar-width:thin}
+#data-subachoque .ds-tab{flex:0 0 auto;white-space:nowrap;min-height:40px;border:1px solid #496a82;background:#142f45;color:#e4edf4;padding:9px 14px;border-radius:23px;cursor:pointer;font-size:13px;font-weight:700}
+#data-subachoque .ds-tab[aria-pressed="true"]{background:#ffe500;color:#102335;border-color:#ffe500}
+#data-subachoque .ds-tab:hover:not([aria-pressed="true"]){border-color:#abc9dd}
+#data-subachoque :focus-visible{outline:3px solid #ffe500;outline-offset:3px}
+#data-subachoque .ds-subpanel{padding:0;margin:0;min-width:0;width:100%;border:0}
+#data-subachoque .ds-subpanel[hidden]{display:none!important}
+.app-view[data-view="data"]:has(#data-subachoque:not([hidden]))>.view-hero,
+.app-view[data-view="data"]:has(#data-subachoque:not([hidden])) .module-heading-row,
+.app-view[data-view="data"]:has(#data-subachoque:not([hidden])) #dataSubnav{display:none!important}
+.app-view[data-view="data"]:has(#data-subachoque:not([hidden]))>.view-body{padding:0!important;background:#102839!important}
+.app-view[data-view="data"]:has(#data-subachoque:not([hidden]))>.view-body>.inner{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
+@media(max-width:1050px){#data-subachoque .ds-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#data-subachoque .ds-card{min-height:300px}}
+@media(max-width:680px){#data-subachoque .ds-home{padding:32px 20px 40px}#data-subachoque #ds-title{font-size:clamp(43px,9vw,70px)}#data-subachoque .ds-grid{grid-template-columns:1fr}#data-subachoque .ds-card{min-height:220px;padding:22px}#data-subachoque .ds-toolbar{flex-direction:column;align-items:stretch;padding:11px 12px;gap:8px;top:var(--v25-header-h,64px)}#data-subachoque .ds-back{align-self:flex-start}#data-subachoque .ds-tab{font-size:12px;min-height:36px;padding:8px 12px}}
