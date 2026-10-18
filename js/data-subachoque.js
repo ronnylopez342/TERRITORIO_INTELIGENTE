@@ -33,7 +33,7 @@
       params.set('seccion', 'data-subachoque');
       if (next) params.set('sub', next);
       else params.delete('sub');
-      if (next !== 'plan' && next !== 'dane') params.delete('vista');
+      if (changed || (next !== 'plan' && next !== 'dane')) params.delete('vista');
       if (changed || location.hash !== '#data?' + params.toString()) {
         history.pushState({route:'data'}, '', '#data?' + params.toString());
       }
