@@ -23,7 +23,7 @@
 
 <link rel="stylesheet" href="css/encuesta-municipal.css?v=encuesta24-01">
 <link rel="stylesheet" href="css/conoce-publicaciones.css?v=pub21-portadas-sin-cortes-04">
-<link rel="stylesheet" href="css/data-subachoque.css?v=ds-dimensiones-social-02">
+<link rel="stylesheet" href="css/data-subachoque.css?v=ds-dashboard-cuatro-01">
 <link rel="stylesheet" href="css/explorando-territorio.css?v=ex24-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
@@ -372,62 +372,65 @@
 
 </section>
 <section aria-labelledby="tab-data-subachoque" class="module-panel ti-data-subachoque" data-panel-group="data" id="data-subachoque" role="tabpanel" data-ready="false" hidden>
-  <header class="ds-intro">
-    <div class="ds-intro-inner">
-      <p class="ds-breadcrumb">Data Territorio &nbsp; / &nbsp; 2.2 Data Subachoque</p>
-      <h1 id="ds-explore-title" tabindex="-1">Explora por temas</h1>
-      <p class="ds-intro-sub">Información territorial de Subachoque, organizada en dimensiones para conocer el municipio y orientar las decisiones con evidencia.</p>
-      <nav class="ds-dimension-grid" id="ds-dimension-grid" aria-label="Dimensiones de Data Subachoque">
-        <span role="status">Cargando dimensiones...</span>
-      </nav>
-      <p class="ds-source-notice">Tres niveles de lectura en cada subtema: nacional (Colombia), departamental (Cundinamarca) y municipal (Subachoque). Las cifras se muestran únicamente cuando existe una fuente verificable.</p>
-    </div>
-  </header>
-  <main class="ds-content" id="ds-content-start">
-    <p class="ds-setup-alert" id="ds-setup-alert" role="alert" hidden></p>
-    <section class="ds-social-app" id="ds-social-app" aria-labelledby="ds-social-title">
-      <header class="ds-content-intro">
-        <span class="ds-line" aria-hidden="true"></span>
-        <p class="ds-eyebrow">DIMENSIÓN 01 / SOCIAL</p>
-        <h2 id="ds-social-title" tabindex="-1">Dimensión Social</h2>
-        <p class="ds-social-lead">Salud y Protección Social, Educación, Inclusión Social y Equidad, Cultura, Deporte y Recreación, y Justicia y Seguridad Ciudadana. Explora sus temas con información diferenciada por nivel territorial.</p>
-        <div class="ds-summary-strip" aria-label="Cobertura temática">
-          <span><strong>6</strong> áreas</span>
-          <span><strong>33</strong> subtemas del documento</span>
-          <span><strong>3</strong> niveles territoriales por subtema</span>
-          <span>Indicadores oficiales con fecha y fuente</span>
-        </div>
-      </header>
-      <h3 class="ds-area-heading">Selecciona un área de la Dimensión Social</h3>
-      <nav class="ds-areas" id="ds-social-areas" aria-label="Áreas de la Dimensión Social">
-        <span role="status">Preparando áreas de análisis...</span>
-      </nav>
-      <div class="ds-detail-layout">
-        <aside class="ds-topic-sidebar" aria-labelledby="ds-social-topic-title">
-          <h3 id="ds-social-topic-title">Salud y Protección Social</h3>
-          <p class="ds-topic-count" id="ds-social-topic-count">7 subtemas</p>
-          <label class="ds-search-label" for="ds-topic-search">Buscar entre los 33 subtemas</label>
-          <input id="ds-topic-search" type="search" placeholder="Ej. adulto mayor, educación, pobreza..." autocomplete="off">
-          <div class="ds-search-results" id="ds-search-results" aria-label="Resultados de búsqueda" hidden></div>
-          <nav class="ds-topics" id="ds-social-topics" aria-label="Subtemas del área seleccionada">
-            <span role="status">Preparando temas...</span>
-          </nav>
-        </aside>
-        <div class="ds-analytics">
-          <header class="ds-selection" aria-labelledby="ds-active-title">
-            <p class="ds-selection-breadcrumb" id="ds-active-path">DIMENSIÓN SOCIAL</p>
-            <h3 id="ds-active-title" tabindex="-1">Adulto mayor</h3>
-            <p id="ds-active-subtitle">Tres niveles de análisis y una misma metodología de presentación.</p>
-          </header>
-          <div class="ds-level-rows" id="ds-level-rows" aria-label="Gráficas a la izquierda y análisis a la derecha para los niveles nacional, departamental y municipal" aria-live="polite">
-            <p role="status">Cargando fuentes disponibles...</p>
-          </div>
-          <p class="ds-social-footnote" id="ds-social-footnote">Los datos presentados conservarán su unidad, fuente, cobertura y período.</p>
+  <div class="ds3-shell">
+    <header class="ds3-head">
+      <p class="ds3-breadcrumb">Data Territorio <span aria-hidden="true">›</span> Data Subachoque <span aria-hidden="true">›</span> <span id="ds3-breadcrumb-current">Dimensión Social</span></p>
+      <div class="ds3-title-row">
+        <div class="ds3-title-icon" id="ds3-header-icon" aria-hidden="true">♡</div>
+        <div class="ds3-title-copy">
+          <h1 id="ds3-title" tabindex="-1">Dimensión Social</h1>
+          <p id="ds3-description">Salud, educación, inclusión, cultura, deporte y seguridad ciudadana.</p>
         </div>
       </div>
+    </header>
+
+    <nav class="ds3-dimensions" id="ds3-dimensions" aria-label="Seleccionar dimensión">
+      <p role="status">Cargando dimensiones de Data Subachoque…</p>
+    </nav>
+
+    <section class="ds3-areas-section" aria-labelledby="ds3-areas-title">
+      <h2 id="ds3-areas-title">Áreas de la dimensión</h2>
+      <nav class="ds3-areas" id="ds3-areas" aria-label="Seleccionar área de la dimensión"></nav>
     </section>
-    <section class="ds-pending-dimension" id="ds-pending-dimension" aria-live="polite" aria-label="Dimensión pendiente de implementación" hidden></section>
-  </main>
+
+    <div class="ds3-territory" role="group" aria-label="Cobertura territorial seleccionada">
+      <button type="button" class="ds3-territory-button" data-ds3-level="nacional" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20v-6h3v6M10 20V9h3v11M16 20V4h3v16"/></svg><span>Nacional</span></button>
+      <button type="button" class="ds3-territory-button" data-ds3-level="departamental" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 5 6-2 6 3 6-3v16l-6 2-6-3-6 3zM9 3v15M15 6v15"/></svg><span>Departamental</span></button>
+      <button type="button" class="ds3-territory-button" data-ds3-level="municipal" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16M7 21V8h10v13M10 8V3h4v5M10 12h1M14 12h1M10 16h1M14 16h1"/></svg><span>Municipal</span></button>
+    </div>
+
+    <div class="ds3-workspace">
+      <aside class="ds3-topic-pane" aria-labelledby="ds3-topic-heading">
+        <h2 id="ds3-topic-heading"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h2M9 5h12M3 12h2M9 12h12M3 19h2M9 19h12"/></svg> Subtemas</h2>
+        <label class="ds3-search-label" for="ds3-search">Buscar subtema</label>
+        <div class="ds3-search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="ds3-search" type="search" autocomplete="off" placeholder="Buscar subtemas..." aria-label="Buscar entre los subtemas"></div>
+        <div id="ds3-search-results" class="ds3-search-results" hidden></div>
+        <nav id="ds3-topics" class="ds3-topics" aria-label="Subtemas del área seleccionada"></nav>
+      </aside>
+
+      <section class="ds3-chart-pane" aria-labelledby="ds3-topic-title">
+        <header class="ds3-chart-heading">
+          <p class="ds3-context" id="ds3-area-label">Salud y Protección Social</p>
+          <h2 id="ds3-topic-title" tabindex="-1">Adulto mayor</h2>
+          <p class="ds3-indicator-title" id="ds3-indicator-title">Población mayor de 59 años</p>
+          <p class="ds3-indicator-description" id="ds3-indicator-description">Comparación territorial con datos y fechas verificables.</p>
+        </header>
+        <div class="ds3-chart-area" id="ds3-chart-area" aria-live="polite" aria-label="Visualización del indicador"></div>
+        <div class="ds3-chart-footer" id="ds3-chart-footer" aria-live="polite"></div>
+        <div class="ds3-indicator-nav" id="ds3-indicator-nav" hidden></div>
+      </section>
+
+      <aside class="ds3-analysis-pane" aria-labelledby="ds3-analysis-heading">
+        <h2 id="ds3-analysis-heading"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20v-6h4v6M10 20V9h4v11M17 20V4h4v16"/></svg> Análisis clave</h2>
+        <div class="ds3-analysis-body" id="ds3-analysis-body" aria-live="polite">
+          <p>Cargando información territorial…</p>
+        </div>
+        <div class="ds3-source" id="ds3-source"></div>
+      </aside>
+    </div>
+    <p class="ds3-data-policy" id="ds3-data-policy">Los indicadores publicados muestran la fuente, el período y la unidad. Si no hay información verificable, no se muestran valores de ejemplo.</p>
+    <p class="ds3-setup-alert" id="ds3-setup-alert" role="alert" hidden></p>
+  </div>
 </section>
 <section aria-labelledby="tab-data-encuesta" class="module-panel ti-encuesta" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
 <div class="sv-app" id="svApp" data-ready="false">
@@ -662,7 +665,7 @@
 
 
 
-<script defer src="js/data-subachoque.js?v=ds-dimensiones-social-02"></script>
+<script defer src="js/data-subachoque.js?v=ds-dashboard-cuatro-01"></script>
 <script defer src="js/encuesta-municipal.js?v=encuesta24-01"></script>
 <script defer src="js/conoce-publicaciones.js?v=pub21-editorial-02"></script>
 <script defer src="js/explorando-territorio.js?v=ex24-01"></script>
