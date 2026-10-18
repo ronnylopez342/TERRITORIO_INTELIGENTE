@@ -243,7 +243,7 @@ function shell(){
  <section class="ma-hero" aria-labelledby="maTitle">
  <div class="ma-hero-photo" aria-hidden="true"></div><div class="ma-hero-overlay" aria-hidden="true"></div>
  <div class="ma-shell ma-hero-content">
-  <p class="ma-kicker">Data Territorio&nbsp; / &nbsp;2.3 Memoria de la Alcaldía ${state.demoMode?'<span class="ma-demo-chip" title="Las estadísticas de esta pantalla son ejemplos de la maqueta, no datos oficiales">DEMO VISUAL</span>':""}</p>
+  <p class="ma-kicker">Data Territorio&nbsp; / &nbsp;2.2 Data Subachoque / Memoria de la Alcaldía ${state.demoMode?'<span class="ma-demo-chip" title="Las estadísticas de esta pantalla son ejemplos de la maqueta, no datos oficiales">DEMO VISUAL</span>':""}</p>
   <h1 id="maTitle" tabindex="-1">MEMORIA DE<br>LA ALCALDÍA</h1>
   <h2>Archivos, históricos y dependencias</h2>
   <p class="ma-hero-lead">Explora la memoria institucional de Subachoque. Accede a archivos históricos, documentos por dependencias, bases municipales y series de información que cuentan la historia de nuestro territorio.</p>
