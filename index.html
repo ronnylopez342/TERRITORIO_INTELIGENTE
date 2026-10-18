@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="css/memoria-alcaldia.css?v=memoria23-demo-01">
 <link rel="stylesheet" href="css/encuesta-municipal.css?v=encuesta24-01">
 <link rel="stylesheet" href="css/conoce-publicaciones.css?v=pub21-portadas-sin-cortes-04">
+<link rel="stylesheet" href="css/data-subachoque.css?v=ds22-01">
+<link rel="stylesheet" href="css/explorando-territorio.css?v=ex24-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -36,11 +38,10 @@
 <div class="ti-nav-dropdown" id="tiDataDropdown">
 <button class="nav-link route-link ti-nav-dropdown-trigger" data-route="data" id="tiDataDropdownTrigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="tiDataDropdownMenu"><span class="nav-roll"><span class="nav-roll__first">Data Territorio</span><span class="nav-roll__next" aria-hidden="true">Data Territorio</span></span><svg class="ti-nav-chevron" aria-hidden="true" viewBox="0 0 16 16" width="15" height="15" fill="none"><path d="m3 6 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div class="ti-nav-dropdown-menu" id="tiDataDropdownMenu" role="menu" aria-label="Secciones de Data Territorio" hidden>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-conoce"><span>2.1 Conoce</span></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-plan-estadistico"><span>2.2 Plan Estadístico Municipal</span><small>Documentos, indicadores y fichas técnicas</small></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-fuentes"><span>2.3 Datos del DANE</span><small>DANE y otras fuentes externas</small></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-municipales"><span>2.3 Memoria de la Alcaldía</span><small>Archivos, históricos y dependencias</small></button>
-<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta"><span>2.4 Encuesta</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-conoce"><span>2.1 Conoce Data Territorio</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-subachoque"><span>2.2 Data Subachoque</span><small>Plan Estadístico · DANE · Memoria de la Alcaldía</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-encuesta"><span>2.3 Caracterización Diagnóstica Municipal</span><small>Encuestas y diagnóstico del territorio</small></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-data-destination="data-explorando"><span>2.4 Explorando mi territorio</span><small>Mapa interactivo de veredas</small></button>
 </div>
 </div>
 <button class="nav-link route-link" data-route="desarrollo" type="button"><span class="nav-roll"><span class="nav-roll__first">Plan de Desarrollo</span><span class="nav-roll__next" aria-hidden="true">Plan de Desarrollo</span></span></button>
@@ -62,11 +63,10 @@
 <div class="ti-mobile-data-group">
 <button class="route-link ti-mobile-data-toggle" data-route="data" id="tiMobileDataToggle" type="button" aria-controls="tiMobileDataMenu" aria-expanded="false"><small>02</small><span>Data Territorio</span><b aria-hidden="true">⌄</b></button>
 <div id="tiMobileDataMenu" class="ti-mobile-data-submenu" aria-label="Secciones de Data Territorio" hidden>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-conoce"><span class="ti-mobile-data-label">2.1 Conoce</span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-plan-estadistico"><span class="ti-mobile-data-label">2.2 Plan Estadístico Municipal<small>Documentos e indicadores</small></span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-fuentes"><span class="ti-mobile-data-label">2.3 Datos del DANE<small>DANE y otras fuentes externas</small></span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-municipales"><span class="ti-mobile-data-label">2.3 Memoria de la Alcaldía<small>Archivos, históricos y dependencias</small></span><span aria-hidden="true">↗</span></button>
-<button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta"><span class="ti-mobile-data-label">2.4 Encuesta</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-conoce"><span class="ti-mobile-data-label">2.1 Conoce Data Territorio</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-subachoque"><span class="ti-mobile-data-label">2.2 Data Subachoque<small>Plan Estadístico, DANE y Memoria</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-encuesta"><span class="ti-mobile-data-label">2.3 Caracterización Diagnóstica Municipal<small>Encuestas y diagnóstico</small></span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-data-destination="data-explorando"><span class="ti-mobile-data-label">2.4 Explorando mi territorio<small>Conoce las veredas</small></span><span aria-hidden="true">↗</span></button>
 </div>
 </div>
 <button class="route-link" data-route="desarrollo" type="button"><small>03</small><span>Plan de Desarrollo</span><b>→</b></button>
@@ -136,16 +136,15 @@
 <div class="inner">
 <div class="module-heading-row"><div><p class="eyebrow">Data Territorio</p><h2 class="big-heading">De la fuente al análisis territorial.</h2></div><div aria-live="polite" class="module-status" id="dataGlobalStatus"></div></div>
 <nav aria-label="Secciones de Data Territorio" class="module-subnav" id="dataSubnav" role="tablist" hidden>
-<button aria-controls="data-conoce" aria-selected="true" class="module-tab active" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce</button>
-<button aria-controls="data-plan-estadistico" aria-selected="false" class="module-tab" data-module-panel="data-plan-estadistico" id="tab-data-plan-estadistico" role="tab" tabindex="-1" type="button">2.2 Plan Estadístico Municipal</button>
-<button aria-controls="data-fuentes" aria-selected="false" class="module-tab" data-module-panel="data-fuentes" id="tab-data-fuentes" role="tab" tabindex="-1" type="button">2.3 Datos del DANE</button>
-<button aria-controls="data-municipales" aria-selected="false" class="module-tab" data-module-panel="data-municipales" id="tab-data-municipales" role="tab" tabindex="-1" type="button">2.3 Memoria de la Alcaldía</button>
-<button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.4 Encuesta</button>
+<button aria-controls="data-conoce" aria-selected="true" class="module-tab active" data-module-panel="data-conoce" id="tab-data-conoce" role="tab" tabindex="0" type="button">2.1 Conoce Data Territorio</button>
+<button aria-controls="data-subachoque" aria-selected="false" class="module-tab" data-module-panel="data-subachoque" id="tab-data-subachoque" role="tab" tabindex="-1" type="button">2.2 Data Subachoque</button>
+<button aria-controls="data-encuesta" aria-selected="false" class="module-tab" data-module-panel="data-encuesta" id="tab-data-encuesta" role="tab" tabindex="-1" type="button">2.3 Caracterización Diagnóstica Municipal</button>
+<button aria-controls="data-explorando" aria-selected="false" class="module-tab" data-module-panel="data-explorando" id="tab-data-explorando" role="tab" tabindex="-1" type="button">2.4 Explorando mi territorio</button>
 </nav>
 <section aria-labelledby="tab-data-conoce" class="module-panel active ti-conoce" data-panel-group="data" id="data-conoce" role="tabpanel">
 <section class="cn-hero" aria-labelledby="cn-title">
 <div class="cn-photo" aria-hidden="true"></div>
-<div class="cn-hero-copy"><p class="cn-breadcrumb">Data Territorio&nbsp; / &nbsp;2.1 Conoce</p><h1 id="cn-title" tabindex="-1">CONOCE<br>DATA<br>TERRITORIO</h1><p id="dataDefinition">Reunimos y organizamos información nacional, departamental y municipal para comprender el territorio y tomar decisiones con evidencia.</p><p class="cn-scope">Población · Economía · Ambiente · Gestión pública</p><span class="cn-rule"></span><p class="cn-importance"><strong>Las estadísticas importan porque permiten</strong><br>identificar necesidades, comparar situaciones<br class="cn-desktop"> y orientar inversiones.</p></div>
+<div class="cn-hero-copy"><p class="cn-breadcrumb">Data Territorio&nbsp; / &nbsp;2.1 Conoce Data Territorio</p><h1 id="cn-title" tabindex="-1">CONOCE<br>DATA<br>TERRITORIO</h1><p id="dataDefinition">Reunimos y organizamos información nacional, departamental y municipal para comprender el territorio y tomar decisiones con evidencia.</p><p class="cn-scope">Población · Economía · Ambiente · Gestión pública</p><span class="cn-rule"></span><p class="cn-importance"><strong>Las estadísticas importan porque permiten</strong><br>identificar necesidades, comparar situaciones<br class="cn-desktop"> y orientar inversiones.</p></div>
 <span class="cn-photo-caption">Imagen conceptual del territorio</span></section>
 <section class="cn-video-section" aria-labelledby="cn-video-title"><h2 id="cn-video-title">Conoce Data Territorio en video</h2><p>Qué es, cómo funciona y cómo ayuda a tomar decisiones con evidencia.</p><div class="cn-video-placeholder" role="img" aria-label="Espacio reservado para el video explicativo. Video por incorporar."><span class="cn-play" aria-hidden="true">▶</span><strong>Espacio para video explicativo</strong><span>Video por incorporar</span></div></section>
 <section class="cn-process" aria-labelledby="cn-process-title"><div><h2 id="cn-process-title">Del dato a la decisión</h2><p>La información pasa por varias etapas<br class="cn-desktop"> para convertirse en evidencia útil para el territorio.</p></div><div class="cn-process-right"><ol id="cn-process-steps"></ol><p class="cn-levels">Nacional · Departamental · Municipal</p></div></section>
@@ -263,7 +262,7 @@
 <section class="cn-pubs" id="cn-publicaciones" aria-labelledby="cn-pubs-title" data-ready="false">
   <header class="cn-pubs-intro">
     <div class="cn-pubs-intro-copy">
-      <p class="cn-pubs-eyebrow"><span class="cn-pubs-home-icon" aria-hidden="true">⌂</span> Territorio Inteligente <span aria-hidden="true">/</span> 2.1 Conoce <span aria-hidden="true">/</span> Publicaciones</p>
+      <p class="cn-pubs-eyebrow"><span class="cn-pubs-home-icon" aria-hidden="true">⌂</span> Territorio Inteligente <span aria-hidden="true">/</span> 2.1 Conoce Data Territorio <span aria-hidden="true">/</span> Publicaciones</p>
       <span class="cn-pubs-rule" aria-hidden="true"></span>
       <h2 id="cn-pubs-title">PUBLICACIONES</h2>
       <p class="cn-pubs-lead">Consulta revistas, boletines, papers, informes y otros productos gráficos del municipio para conocer resultados, análisis y hallazgos del territorio.</p>
@@ -372,7 +371,30 @@
 </section>
 
 </section>
-<section aria-labelledby="tab-data-plan-estadistico" class="module-panel ti-plan-estadistico" data-panel-group="data" id="data-plan-estadistico" role="tabpanel" hidden>
+<section aria-labelledby="tab-data-subachoque" class="module-panel ti-data-subachoque" data-panel-group="data" id="data-subachoque" role="tabpanel" hidden>
+  <section class="ds-home" id="ds-home" aria-labelledby="ds-title">
+    <div class="ds-home-inner">
+      <p class="ds-breadcrumb">Data Territorio &nbsp; / &nbsp; 2.2 Data Subachoque</p>
+      <span class="ds-rule" aria-hidden="true"></span>
+      <h1 id="ds-title" tabindex="-1">DATA<br>SUBACHOQUE</h1>
+      <p class="ds-lead">Explora la información y los archivos estadísticos del municipio desde tres espacios conectados: el Plan Estadístico Municipal, los datos oficiales del DANE y la Memoria de la Alcaldía.</p>
+      <p class="ds-info">Selecciona el contenido que quieres consultar. Cada espacio conserva sus vistas, herramientas y documentos.</p>
+      <div class="ds-grid" aria-label="Contenidos de Data Subachoque">
+        <button type="button" class="ds-card" data-ds-open="plan"><span class="ds-card-number">01 / PLANIFICACIÓN ESTADÍSTICA</span><span class="ds-card-icon" aria-hidden="true">▤</span><span class="ds-card-title">Plan Estadístico Municipal</span><span class="ds-card-desc">Consulta el repositorio, los indicadores, las fichas técnicas y las herramientas de seguimiento.</span><span class="ds-card-action">Explorar plan <b aria-hidden="true">→</b></span></button>
+        <button type="button" class="ds-card" data-ds-open="dane"><span class="ds-card-number">02 / INFORMACIÓN OFICIAL</span><span class="ds-card-icon" aria-hidden="true">▥</span><span class="ds-card-title">Datos del DANE</span><span class="ds-card-desc">Accede a estadísticas censales, series históricas, mapas y metadatos del municipio.</span><span class="ds-card-action">Explorar datos <b aria-hidden="true">→</b></span></button>
+        <button type="button" class="ds-card" data-ds-open="memoria"><span class="ds-card-number">03 / MEMORIA INSTITUCIONAL</span><span class="ds-card-icon" aria-hidden="true">▣</span><span class="ds-card-title">Memoria de la Alcaldía</span><span class="ds-card-desc">Revisa registros, archivos de trabajo y visualizaciones de la memoria municipal.</span><span class="ds-card-action">Explorar memoria <b aria-hidden="true">→</b></span></button>
+      </div>
+    </div>
+  </section>
+  <div class="ds-toolbar" id="ds-toolbar" aria-label="Navegación interna de Data Subachoque" hidden>
+    <button type="button" class="ds-back" data-ds-back>← Data Subachoque</button>
+    <nav class="ds-toolbar-nav" aria-label="Explorar dentro de Data Subachoque">
+      <button type="button" class="ds-tab" data-ds-tab="plan" aria-pressed="false">Plan Estadístico Municipal</button>
+      <button type="button" class="ds-tab" data-ds-tab="dane" aria-pressed="false">Datos del DANE</button>
+      <button type="button" class="ds-tab" data-ds-tab="memoria" aria-pressed="false">Memoria de la Alcaldía</button>
+    </nav>
+  </div>
+<section aria-label="Plan Estadístico Municipal" class="ds-subpanel ti-plan-estadistico" data-subachoque-view="plan" id="data-plan-estadistico" role="region" hidden>
  <div class="pe-page">
  <div id="peHome">
  <div class="pe-hero">
@@ -416,7 +438,7 @@
  </div>
  <dialog class="pe-modal" id="peVideoDialog" aria-labelledby="peVideoDialogTitle"><h2 id="peVideoDialogTitle">Plan Estadístico Municipal</h2><div id="peVideoContent"></div><button class="pe-btn pe-btn-primary" type="button" data-pe-close-video>Cerrar</button></dialog>
 </section>
-<section aria-labelledby="tab-data-fuentes" class="module-panel ti-dane-subachoque" data-panel-group="data" hidden="" id="data-fuentes" role="tabpanel">
+<section aria-label="Datos del DANE" class="ds-subpanel ti-dane-subachoque" data-subachoque-view="dane" hidden id="data-fuentes" role="region">
 <div id="d23App" aria-label="Datos del DANE para Subachoque"></div>
 <details id="d23LegacyViewer" class="d23-legacy" hidden>
 <summary>Visor territorial y capítulos anteriores</summary>
@@ -424,7 +446,7 @@
 <div class="sources-reference-shell"><iframe class="sources-reference-frame" src="assets/interactive/data-fuentes-visor.html" title="Visor territorial anterior de Subachoque" loading="lazy"></iframe></div>
 </details>
 </section>
-<section aria-labelledby="tab-data-municipales" class="module-panel ti-memoria-alcaldia" data-panel-group="data" hidden="" id="data-municipales" role="tabpanel">
+<section aria-label="Memoria de la Alcaldía" class="ds-subpanel ti-memoria-alcaldia" data-subachoque-view="memoria" hidden id="data-municipales" role="region">
 <div id="maApp" aria-label="Memoria de la Alcaldía de Subachoque"></div>
 <details id="maLegacyWorkspace" class="ma-legacy" hidden>
 <summary>Bases de indicadores municipales — herramienta ya existente</summary>
@@ -432,13 +454,14 @@
 <div class="dataset-workspace" data-dataset-workspace="municipales"></div>
 </details>
 </section>
+</section>
 <section aria-labelledby="tab-data-encuesta" class="module-panel ti-encuesta" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
 <div class="sv-app" id="svApp" data-ready="false">
  <section class="sv-hero" aria-labelledby="svMainTitle">
   <div class="sv-hero-photo" aria-hidden="true"></div><div class="sv-hero-shade" aria-hidden="true"></div>
   <div class="sv-hero-copy">
-   <p class="sv-breadcrumb">Data Territorio&nbsp; / &nbsp;2.4 Encuesta Municipal</p>
-   <h1 id="svMainTitle" tabindex="-1">ENCUESTA<br>MUNICIPAL</h1>
+   <p class="sv-breadcrumb">Data Territorio&nbsp; / &nbsp;2.3 Caracterización Diagnóstica Municipal</p>
+   <h1 id="svMainTitle" tabindex="-1">CARACTERIZACIÓN<br>DIAGNÓSTICA<br>MUNICIPAL</h1>
    <h2>La voz del territorio, vereda por vereda</h2>
    <p class="sv-hero-description">Caracterización territorial&nbsp; · &nbsp;Práctica País / Universidad de los Andes</p>
   </div>
@@ -558,6 +581,45 @@
 </dialog>
 </section>
 
+<section aria-labelledby="tab-data-explorando" class="module-panel ti-explorando" data-panel-group="data" hidden id="data-explorando" role="tabpanel">
+  <header class="ex-hero">
+    <p class="ex-breadcrumb">Data Territorio &nbsp; / &nbsp; 2.4 Explorando mi territorio</p>
+    <span class="ex-rule" aria-hidden="true"></span>
+    <h1 id="ex-title" tabindex="-1">EXPLORANDO<br>MI TERRITORIO</h1>
+    <p class="ex-lead">Reconoce las veredas de Subachoque y recorre una representación visual de su territorio.</p>
+    <p class="ex-subtitle">Esta primera vista utiliza la capa esquemática de veredas existente en la aplicación. No sustituye cartografía oficial ni incorpora estadísticas no verificadas.</p>
+  </header>
+  <div class="ex-layout">
+    <section class="ex-map-panel" aria-labelledby="ex-map-heading">
+      <div class="ex-map-head"><div><h2 id="ex-map-heading">Mapa de veredas</h2><p>Selecciona una vereda para explorarla.</p></div><span class="ex-count" id="ex-count">Cargando mapa</span></div>
+      <div class="ex-map-wrap">
+        <svg id="ex-map" viewBox="0 0 900 580" role="group" aria-label="Mapa interactivo esquemático de las veredas de Subachoque"></svg>
+        <div class="ex-map-controls" aria-label="Zoom del mapa">
+          <button type="button" data-ex-zoom="in" aria-label="Acercar el mapa">+</button>
+          <button type="button" data-ex-zoom="out" aria-label="Alejar el mapa">−</button>
+          <button type="button" data-ex-zoom="reset" aria-label="Restablecer el zoom">⌑</button>
+        </div>
+      </div>
+      <div class="ex-map-foot"><span>Esquema de referencia a partir del archivo geográfico del proyecto.</span><span id="ex-zoom-label">100 %</span></div>
+      <p class="ex-status" id="ex-status" role="status" aria-live="polite">Preparando visualización territorial…</p>
+    </section>
+    <aside class="ex-sidebar" aria-labelledby="ex-filter-title">
+      <h2 class="ex-sidebar-heading" id="ex-filter-title">Conoce tus veredas</h2>
+      <p>Busca una vereda o selecciónala directamente sobre el mapa.</p>
+      <label class="ex-label" for="ex-search">Buscar vereda</label>
+      <input type="search" id="ex-search" class="ex-input" placeholder="Escribe el nombre de una vereda" autocomplete="off">
+      <label class="ex-label" for="ex-select">Seleccionar vereda</label>
+      <select id="ex-select" class="ex-select"><option value="">Todas las veredas</option></select>
+      <div class="ex-spotlight">
+        <p class="ex-spotlight-kicker">TERRITORIO SELECCIONADO</p>
+        <h3 id="ex-selected-name">Subachoque</h3>
+        <p id="ex-selected-description">Selecciona una vereda en el mapa o en el listado para identificarla.</p>
+      </div>
+      <button type="button" data-ex-reset class="ex-side-action">Restablecer exploración ↺</button>
+      <p class="ex-source-note"><strong>Fuente de la capa:</strong> archivo local <code>data/veredas-subachoque.geojson</code>. Es una representación esquemática utilizada en el sitio y no se presenta como límite catastral oficial.</p>
+    </aside>
+  </div>
+</section>
 </div>
 </div>
 </section>
@@ -626,7 +688,9 @@
 <script defer src="js/dane-subachoque.js?v=dane23-01"></script>
 <script defer src="js/memoria-alcaldia-demo.js?v=memoria23-demo-01"></script>
 <script defer src="js/memoria-alcaldia.js?v=memoria23-demo-01"></script>
+<script defer src="js/data-subachoque.js?v=ds22-01"></script>
 <script defer src="js/encuesta-municipal.js?v=encuesta24-01"></script>
 <script defer src="js/conoce-publicaciones.js?v=pub21-editorial-02"></script>
+<script defer src="js/explorando-territorio.js?v=ex24-01"></script>
 </body>
 </html>
