@@ -129,7 +129,7 @@
       detailDescription.textContent = panelNames[selected][1];
     }
     if (options.history !== false && location.hash.startsWith('#data')) {
-      const fragment = '#data?seccion=data-plan-estadistico' + (selected ? '&vista=' + encodeURIComponent(selected) : '');
+      const fragment = '#data?seccion=data-subachoque&sub=plan' + (selected ? '&vista=' + encodeURIComponent(selected) : '');
       if (location.hash !== fragment) history.pushState({ route: 'data' }, '', fragment);
     }
     if (options.focus !== false) {
@@ -148,7 +148,7 @@
   function syncFromHash() {
     if (!location.hash.startsWith('#data')) return;
     const params = new URLSearchParams(location.hash.split('?')[1] || '');
-    if (params.get('seccion') !== 'data-plan-estadistico') {
+    if (params.get('seccion') !== 'data-subachoque' || params.get('sub') !== 'plan') {
       showView('', { history: false, focus: false });
       return;
     }
@@ -568,7 +568,7 @@
     event.target.value = '';
   });
   document.addEventListener('click', event => {
-    if (event.target.closest('[data-data-destination="data-plan-estadistico"]')) {
+    if (event.target.closest('[data-ds-open="plan"], [data-ds-tab="plan"], [data-data-destination="data-subachoque"]')) {
       showView('', { history: false, focus: false });
     }
   });
