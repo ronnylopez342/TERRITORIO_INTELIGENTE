@@ -7,12 +7,27 @@ function restoreModuleSection() {
   const view=document.querySelector(`.app-view[data-view="${validRoute(route)?route:'data'}"]`);
   if(!view)return;
   const original=new URLSearchParams(fragment.split('?')[1]||'').get('seccion');
-  // Los enlaces antiguos al Georreferenciador de Data ahora llegan al mapa de Encuesta.
-  // El enlace histórico de 2.5 lleva ahora al final de 2.1 Conoce.
-  const oldPublications=route==='data'&&original==='data-publicaciones';
-  const requested=oldPublications?'data-conoce':(route==='data'&&original==='data-geo'?'data-encuesta':original);
-  if(oldPublications)history.replaceState({route:'data'},'', '#data?seccion=data-conoce&bloque=publicaciones');
-  if(route==='data'&&original==='data-geo')history.replaceState({route:'data'},'', '#data?seccion=data-encuesta');
+  // Redirecciones permanentes de la estructura anterior (2.2, 2.3, 2.4, 2.5).
+  // Las URL existentes siguen funcionando sin duplicar pestañas ni perder la vista.
+  const params=new URLSearchParams(fragment.split('?')[1]||'');
+  const aliases={
+    'data-plan-estadistico':['data-subachoque','plan'],
+    'data-fuentes':['data-subachoque','dane'],
+    'data-municipales':['data-subachoque','memoria'],
+    'data-geo':['data-explorando',''],
+    'data-caracterizacion':['data-encuesta',''],
+    'data-publicaciones':['data-conoce','']
+  };
+  const alias=route==='data'?aliases[original]:null;
+  const requested=alias?alias[0]:original;
+  if(alias){
+    params.set('seccion',requested);
+    if(alias[1])params.set('sub',alias[1]);
+    else params.delete('sub');
+    if(original==='data-publicaciones')params.set('bloque','publicaciones');
+    if(!['data-plan-estadistico','data-fuentes'].includes(original))params.delete('vista');
+    history.replaceState({route:'data'},'', '#data?'+params.toString());
+  }
   const tabs=[...view.querySelectorAll('[data-module-panel]')];
   const selected=tabs.find(tab=>tab.dataset.modulePanel===requested)||tabs[0];
   if(!selected)return;
@@ -25,6 +40,8 @@ function restoreModuleSection() {
     panel.hidden=!active;
     panel.classList.toggle('active',active);
   }
+  // El submodulo interno se sincroniza tambien al volver/avanzar en el historial.
+  if(route==='data')window.TIDataSubachoque?.syncFromHash?.();
 }
 
 function saveModuleSection(panelId, route) {
