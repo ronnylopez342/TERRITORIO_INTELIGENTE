@@ -36,12 +36,12 @@
   });
   // Muestras de maquetación: ni fechas ni números atribuidos al municipio.
   const samples = Object.freeze([
-    {id:'preview-revista',kind:'demo',type:'revista',title:'Revista Territorio 2025',coverTitle:'Revista|Territorio|2025',summary:'Datos, análisis e historias que muestran el municipio y sus comunidades.',caption:'Diseño de revista',date:'',cover:images.revista},
-    {id:'preview-boletin',kind:'demo',type:'boletin',title:'Boletín económico municipal',coverTitle:'Boletín|económico|municipal',summary:'Panorama de la economía local y de las dinámicas productivas.',caption:'Diseño de boletín',date:'',cover:images.boletin},
-    {id:'preview-paper',kind:'demo',type:'paper',title:'Paper de movilidad y espacio público',coverTitle:'Movilidad|y espacio|público',summary:'Ejemplo de un análisis especializado de movilidad en el territorio.',caption:'Diseño de paper',date:'',cover:images.paper},
-    {id:'preview-grafico',kind:'demo',type:'grafico',title:'Atlas gráfico del municipio',coverTitle:'Atlas gráfico|del municipio',summary:'Mapas, infografías y visualizaciones de los datos municipales.',caption:'Diseño gráfico',date:'',cover:images.grafico},
-    {id:'preview-informe',kind:'demo',type:'informe',title:'Informe de calidad de vida',coverTitle:'Informe de|calidad de|vida',summary:'Ejemplo de resultados e indicadores sociales y de bienestar.',caption:'Diseño de informe',date:'',cover:images.informe},
-    {id:'preview-ficha',kind:'demo',type:'ficha',title:'Ficha territorial de población',coverTitle:'Ficha territorial|de población',summary:'Indicadores de población representados en un formato visual.',caption:'Diseño de ficha',date:'',cover:images.ficha}
+    {id:'preview-revista',kind:'demo',type:'revista',title:'Revista Territorio 2025',coverTitle:'Revista|Territorio|2025',summary:'Datos, análisis e historias que muestran el municipio y sus comunidades.',caption:'Diseño de revista',date:'2025-03-01',cover:images.revista},
+    {id:'preview-boletin',kind:'demo',type:'boletin',title:'Boletín económico municipal',coverTitle:'Boletín|económico|municipal',summary:'Panorama de la economía local y de las dinámicas productivas.',caption:'Diseño de boletín',date:'2025-02-01',cover:images.boletin},
+    {id:'preview-paper',kind:'demo',type:'paper',title:'Paper de movilidad y espacio público',coverTitle:'Movilidad|y espacio|público',summary:'Ejemplo de un análisis especializado de movilidad en el territorio.',caption:'Diseño de paper',date:'2025-01-01',cover:images.paper},
+    {id:'preview-grafico',kind:'demo',type:'grafico',title:'Atlas gráfico del municipio',coverTitle:'Atlas gráfico|del municipio',summary:'Mapas, infografías y visualizaciones de los datos municipales.',caption:'Diseño gráfico',date:'2024-12-01',cover:images.grafico},
+    {id:'preview-informe',kind:'demo',type:'informe',title:'Informe de calidad de vida',coverTitle:'Informe de|calidad de|vida',summary:'Ejemplo de resultados e indicadores sociales y de bienestar.',caption:'Diseño de informe',date:'2024-11-01',cover:images.informe},
+    {id:'preview-ficha',kind:'demo',type:'ficha',title:'Ficha territorial de población',coverTitle:'Ficha territorial|de población',summary:'Indicadores de población representados en un formato visual.',caption:'Diseño de ficha',date:'2024-10-01',cover:images.ficha}
   ]);
   const state = {type:'todos',query:'',all:false,slide:0,published:[],local:[],metadata:{},ready:false};
   const icon = {
@@ -149,7 +149,7 @@
     const dots=total.slice(0,4).map((_,index)=>'<button type="button" data-cn-pubs-slide="'+index+'" aria-label="Destacada '+(index+1)+'" aria-current="'+String(index===state.slide)+'"></button>').join('');
     return '<div class="cn-pubs-feature-cover"><span class="cn-pubs-feature-sticker">'+'PUBLICACIÓN DESTACADA'+'</span>'+cover(item,true)+'</div>'+
       '<div class="cn-pubs-feature-copy"><span class="cn-pubs-type">'+escape(labels[item.type])+(item.kind==='demo'?' · EJEMPLO':item.kind==='local'?' · LOCAL':'')+'</span>'+
-      '<h3>'+escape(item.title)+'</h3><span class="cn-pubs-date">'+escape(item.kind==='demo'?'Propuesta visual · Sin documento original':dateLabel(item.date))+'</span>'+
+      '<h3>'+escape(item.title)+'</h3><span class="cn-pubs-date">'+escape(item.kind==='demo'?dateLabel(item.date)+' · Ejemplo editorial':dateLabel(item.date))+'</span>'+
       '<p class="cn-pubs-feature-desc">'+escape(item.summary)+'</p>'+
       '<div class="cn-pubs-feature-actions"><button type="button" class="cn-pubs-action cn-pubs-action-primary" data-cn-pubs-open="'+escape(item.id)+'">'+icon.book+'<span>Ver publicación</span><span aria-hidden="true">→</span></button>'+
       '<button type="button" class="cn-pubs-action" data-cn-pubs-download="'+escape(item.id)+'">'+icon.download+'<span>Descargar PDF</span></button></div>'+
@@ -158,7 +158,7 @@
   function card(item) {
     return '<article class="cn-pubs-card">'+cover(item)+
       '<div class="cn-pubs-card-body"><span class="cn-pubs-card-type">'+escape(labels[item.type])+(item.kind==='demo'?' · DEMO':item.kind==='local'?' · LOCAL':'')+'</span>'+
-      '<h4>'+escape(item.title)+'</h4><p class="cn-pubs-card-date">'+escape(item.kind==='demo'?'Muestra editorial':dateLabel(item.date))+'</p>'+
+      '<h4>'+escape(item.title)+'</h4><p class="cn-pubs-card-date">'+escape(dateLabel(item.date))+'</p>'+
       '<p class="cn-pubs-card-desc">'+escape(item.summary)+'</p>'+
       '<button type="button" class="cn-pubs-card-action" data-cn-pubs-open="'+escape(item.id)+'">'+
       '<span>▣ &nbsp; Ver publicación</span><span aria-hidden="true">→</span></button></div></article>';
