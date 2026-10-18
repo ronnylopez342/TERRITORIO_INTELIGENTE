@@ -247,6 +247,7 @@
   document.addEventListener("click",event=>{
     if(event.target.closest('[data-ds-open="dane"], [data-ds-tab="dane"]'))showView("",{history:false,focus:false});
   });
+  document.addEventListener("ti:data-subachoque-changed",event=>{if(event.detail?.sub==="dane")syncHash();});
   window.addEventListener("popstate",syncHash);
   window.addEventListener("hashchange",syncHash);
   root.addEventListener("cancel",event=>{
