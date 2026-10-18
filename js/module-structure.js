@@ -8,7 +8,10 @@ function restoreModuleSection() {
   if(!view)return;
   const original=new URLSearchParams(fragment.split('?')[1]||'').get('seccion');
   // Los enlaces antiguos al Georreferenciador de Data ahora llegan al mapa de Encuesta.
-  const requested=route==='data'&&original==='data-geo'?'data-encuesta':original;
+  // El enlace histórico de 2.5 lleva ahora al final de 2.1 Conoce.
+  const oldPublications=route==='data'&&original==='data-publicaciones';
+  const requested=oldPublications?'data-conoce':(route==='data'&&original==='data-geo'?'data-encuesta':original);
+  if(oldPublications)history.replaceState({route:'data'},'', '#data?seccion=data-conoce&bloque=publicaciones');
   if(route==='data'&&original==='data-geo')history.replaceState({route:'data'},'', '#data?seccion=data-encuesta');
   const tabs=[...view.querySelectorAll('[data-module-panel]')];
   const selected=tabs.find(tab=>tab.dataset.modulePanel===requested)||tabs[0];
