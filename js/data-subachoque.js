@@ -150,6 +150,7 @@
     ).join('');
   }
   function renderAreas(){
+    $('ds3-areas').style.setProperty('--ds3-area-count',String(areas().length));
     $('ds3-areas').innerHTML=areas().map(a=>
       '<button type="button" class="ds3-area-tab'+(a.id===state.area?' is-active':'')+
       '" data-ds3-area="'+escapeHTML(a.id)+'" aria-pressed="'+String(a.id===state.area)+'">'+
@@ -196,13 +197,16 @@
   function tickHTML(value){return format(value).replace(',0','');}
   function chartSVG(rows){
     if(!rows.length)return '';
+    const metricUnit=String(rows[0].unidad||'');
+    const suffix=metricUnit==='%'?' %':' '+metricUnit;
     const max=Math.max(10,...rows.map(row=>Number(row.valor)||0));
-    const ceil=(Math.ceil(max/10)*10)||10;
+    const roundedStep=Math.pow(10,Math.floor(Math.log10(max)));
+    const ceil=Math.ceil(max/roundedStep)*roundedStep||10;
     const axisTop=76,axisBottom=318,axisLeft=176,axisWidth=456,step=axisWidth/4;
     const ticks=[0,1,2,3,4].map(i=>{
       const x=axisLeft+i*step;
       return '<line x1="'+x+'" y1="'+axisTop+'" x2="'+x+'" y2="'+axisBottom+'" class="ds3-grid-line"/>'+
-        '<text x="'+x+'" y="347" class="ds3-tick" text-anchor="middle">'+tickHTML(ceil*i/4)+' %</text>';
+        '<text x="'+x+'" y="347" class="ds3-tick" text-anchor="middle">'+tickHTML(ceil*i/4)+escapeHTML(suffix)+'</text>';
     }).join('');
     const bars=LEVELS.map((lvl,index)=>{
       const y=113+index*79;
@@ -217,12 +221,12 @@
         '<rect x="'+axisLeft+'" y="'+(y-2)+'" width="'+value.toFixed(2)+'" height="24" rx="4" fill="'+lvl.color+'"'+
         (selected?' stroke="#f4ad00" stroke-width="2"':'')+'/>'+
         '<text class="ds3-bar-label" x="13" y="'+(y+14)+'">'+escapeHTML(lvl.name)+'</text>'+
-        '<text class="ds3-bar-value" x="'+Math.min(687,textX)+'" y="'+(y+15)+'" text-anchor="'+(textX>655?'end':'start')+'">'+format(entry.valor)+' %</text></g>';
+        '<text class="ds3-bar-value" x="'+Math.min(687,textX)+'" y="'+(y+15)+'" text-anchor="'+(textX>655?'end':'start')+'">'+format(entry.valor)+escapeHTML(suffix)+'</text></g>';
     }).join('');
     const label='Comparación por nivel territorial de '+String(rows[0].indicator)+', '+String(rows[0].periodo)+
       ': '+LEVELS.map(l=>l.name+' '+(rows.find(v=>v.ambito===l.id)?.valor ?? 'sin dato')).join(', ');
     return '<svg class="ds3-chart-svg" viewBox="0 0 720 365" role="img" aria-label="'+escapeHTML(label)+'">'+
-      '<text x="14" y="30" class="ds3-graph-kicker">PORCENTAJE DE LA POBLACIÓN · '+escapeHTML(rows[0].periodo)+'</text>'+
+      '<text x="14" y="30" class="ds3-graph-kicker">'+escapeHTML(metricUnit==='%'?'PORCENTAJE':metricUnit.toLocaleUpperCase('es'))+' · '+escapeHTML(rows[0].periodo)+'</text>'+
       ticks+bars+'</svg>';
   }
   function renderChart(){
@@ -254,7 +258,7 @@
     if(!other)return '';
     const diff=Number((value-other.valor).toFixed(1));
     if(Math.abs(diff)<0.05)return 'El resultado coincide con '+otherName+'.';
-    return 'Es '+format(Math.abs(diff))+' puntos porcentuales '+(diff>0?'mayor':'menor')+' que en '+otherName+'.';
+    return 'Es '+format(Math.abs(diff))+' '+(other.unidad==='%'?'puntos porcentuales':other.unidad)+' '+(diff>0?'mayor':'menor')+' que en '+otherName+'.';
   }
   function renderAnalysis(){
     const t=topic(),selected=level(),rows=currentIndicator();
@@ -280,7 +284,7 @@
     const note=current.notaMetodologica||'La lectura depende del universo estadístico, la unidad y la metodología original.';
     parent.innerHTML='<span class="ds3-state ds3-state-official">DATO CON FUENTE</span>'+
       '<p>En <strong>'+escapeHTML(selected.name)+'</strong>, el '+escapeHTML(current.periodo)+
-      ' registró <strong>'+format(current.valor)+' %</strong> para el indicador <strong>'+escapeHTML(current.indicator)+
+      ' registró <strong>'+format(current.valor)+' '+escapeHTML(current.unidad)+'</strong> para el indicador <strong>'+escapeHTML(current.indicator)+
       '</strong>.</p>'+
       '<p>'+escapeHTML(others.join(' '))+'</p>'+
       '<div class="ds3-explainer"><strong>¿Qué significa?</strong><p>'+escapeHTML(note)+'</p></div>'+
