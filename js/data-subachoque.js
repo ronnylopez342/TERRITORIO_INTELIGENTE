@@ -59,9 +59,9 @@
       Number.isFinite(item.valor) && item.valor>=0 && item.valor<=100 &&
       item.unidad === '%' && safeLink(item.fuente)
     );
-    // Primera dimensión: por ahora hay un indicador DANE verificable por tema.
-    const id = values[0]?.indicatorId;
-    return id ? values.filter(item=>item.indicatorId===id) : [];
+    // Varios indicadores pueden vincularse a un mismo subtema. Se representan
+    // por separado y siempre con sus tres comparaciones territoriales.
+    return values;
   }
   function updateUrl() {
     const parts = new URLSearchParams(location.hash.split('?')[1] || '');
@@ -227,22 +227,31 @@
     const topic=topicOf(state.topic) || allTopics()[0];
     const area=areaOf(topic.areaId);
     const indicators=indicatorsFor(topic.id);
-    const label=$('#ds-active-title');
-    label.textContent=topic.title;
+    const groups=[...new Set(indicators.map(item=>item.indicatorId))].map(id=>indicators.filter(item=>item.indicatorId===id));
+    // Incluso sin datos hay tres ranuras identificadas: nacional, departamental y municipal.
+    if(!groups.length) groups.push([]);
+    $('#ds-active-title').textContent=topic.title;
     $('#ds-active-path').textContent='DIMENSIÓN SOCIAL / '+area.title+' / '+topic.title;
     $('#ds-active-subtitle').textContent=indicators.length?
-      'Datos oficiales comparables por nivel territorial. Corte DANE: 2018.':
+      groups.length+' indicador(es) oficial(es) clasificado(s), con comparación territorial y corte declarado.':
       'Estructura lista para incorporar indicadores nacionales, departamentales y municipales con trazabilidad.';
-    $('#ds-level-rows').innerHTML=LEVELS.map(level=>{
-      const available=Boolean(indicators.find(row=>row.ambito===level.id));
-      return '<section class="ds-level-pair" aria-labelledby="ds-level-'+level.id+'">'+
-       '<div class="ds-graph-card"><header class="ds-card-head"><span class="ds-level-index">'+level.tag+'</span>'+
-       '<div><p>'+esc(level.label)+'</p><h3 id="ds-level-'+level.id+'">'+esc(level.place)+'</h3></div>'+
-       '<span class="ds-level-pill">'+(available?'2018 · DANE':'Por incorporar')+'</span></header>'+
-       '<div class="ds-plot">'+chart(indicators,level.id,topic)+'</div>'+
-       '<footer class="ds-chart-footer">'+esc(indicators[0]?.indicator||topic.title)+' · '+esc(level.place)+'</footer></div>'+
-       '<div class="ds-analytic-card"><div class="ds-analytic-header"><span>LECTURA TERRITORIAL</span>'+
-       '<strong>ANÁLISIS</strong></div>'+analytic(indicators,level,topic)+'</div></section>';
+    $('#ds-level-rows').innerHTML=groups.map((metricRows,k)=>{
+      const metricTitle=metricRows[0]?.indicator || topic.title;
+      const heading=metricRows.length?
+        '<div class="ds-indicator-heading"><span>INDICADOR '+(k+1)+'</span><h4>'+esc(metricTitle)+'</h4></div>':'';
+      const pairs=LEVELS.map(level=>{
+        const available=Boolean(metricRows.find(row=>row.ambito===level.id));
+        const elementId='ds-level-'+k+'-'+level.id;
+        return '<section class="ds-level-pair" aria-labelledby="'+elementId+'">'+
+          '<div class="ds-graph-card"><header class="ds-card-head"><span class="ds-level-index">'+level.tag+'</span>'+
+          '<div><p>'+esc(level.label)+'</p><h3 id="'+elementId+'">'+esc(level.place)+'</h3></div>'+
+          '<span class="ds-level-pill">'+(available?'2018 · DANE':'Por incorporar')+'</span></header>'+
+          '<div class="ds-plot">'+chart(metricRows,level.id,topic)+'</div>'+
+          '<footer class="ds-chart-footer">'+esc(metricTitle)+' · '+esc(level.place)+'</footer></div>'+
+          '<div class="ds-analytic-card"><div class="ds-analytic-header"><span>LECTURA TERRITORIAL</span>'+
+          '<strong>ANÁLISIS</strong></div>'+analytic(metricRows,level,topic)+'</div></section>';
+      }).join('');
+      return '<div class="ds-indicator-set">'+heading+pairs+'</div>';
     }).join('');
     $('#ds-social-footnote').textContent=indicators.length?
       'Los valores disponibles son porcentajes del CNPV 2018. No equivalen a datos de 2026 ni justifican conclusiones causales.':
