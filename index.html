@@ -18,12 +18,12 @@
 <link rel="stylesheet" href="css/data-conoce.css?v=conoce-03">
 <link rel="stylesheet" href="css/conoce-plan.css?v=20261017">
 <link rel="stylesheet" href="css/conoce-plan-visor.css?v=20261017-original-01">
-<link rel="stylesheet" href="css/plan-estadistico.css?v=pe22-01">
-<link rel="stylesheet" href="css/dane-subachoque.css?v=dane23-01">
-<link rel="stylesheet" href="css/memoria-alcaldia.css?v=memoria23-demo-01">
+
+
+
 <link rel="stylesheet" href="css/encuesta-municipal.css?v=encuesta24-01">
 <link rel="stylesheet" href="css/conoce-publicaciones.css?v=pub21-portadas-sin-cortes-04">
-<link rel="stylesheet" href="css/data-subachoque.css?v=ds22-01">
+<link rel="stylesheet" href="css/data-subachoque.css?v=ds-dimensiones-social-01">
 <link rel="stylesheet" href="css/explorando-territorio.css?v=ex24-01">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
@@ -371,89 +371,63 @@
 </section>
 
 </section>
-<section aria-labelledby="tab-data-subachoque" class="module-panel ti-data-subachoque" data-panel-group="data" id="data-subachoque" role="tabpanel" hidden>
-  <section class="ds-home" id="ds-home" aria-labelledby="ds-title">
-    <div class="ds-home-inner">
+<section aria-labelledby="tab-data-subachoque" class="module-panel ti-data-subachoque" data-panel-group="data" id="data-subachoque" role="tabpanel" data-ready="false" hidden>
+  <header class="ds-intro">
+    <div class="ds-intro-inner">
       <p class="ds-breadcrumb">Data Territorio &nbsp; / &nbsp; 2.2 Data Subachoque</p>
-      <span class="ds-rule" aria-hidden="true"></span>
-      <h1 id="ds-title" tabindex="-1">DATA<br>SUBACHOQUE</h1>
-      <p class="ds-lead">Explora la información y los archivos estadísticos del municipio desde tres espacios conectados: el Plan Estadístico Municipal, los datos oficiales del DANE y la Memoria de la Alcaldía.</p>
-      <p class="ds-info">Selecciona el contenido que quieres consultar. Cada espacio conserva sus vistas, herramientas y documentos.</p>
-      <div class="ds-grid" aria-label="Contenidos de Data Subachoque">
-        <button type="button" class="ds-card" data-ds-open="plan"><span class="ds-card-number">01 / PLANIFICACIÓN ESTADÍSTICA</span><span class="ds-card-icon" aria-hidden="true">▤</span><span class="ds-card-title">Plan Estadístico Municipal</span><span class="ds-card-desc">Consulta el repositorio, los indicadores, las fichas técnicas y las herramientas de seguimiento.</span><span class="ds-card-action">Explorar plan <b aria-hidden="true">→</b></span></button>
-        <button type="button" class="ds-card" data-ds-open="dane"><span class="ds-card-number">02 / INFORMACIÓN OFICIAL</span><span class="ds-card-icon" aria-hidden="true">▥</span><span class="ds-card-title">Datos del DANE</span><span class="ds-card-desc">Accede a estadísticas censales, series históricas, mapas y metadatos del municipio.</span><span class="ds-card-action">Explorar datos <b aria-hidden="true">→</b></span></button>
-        <button type="button" class="ds-card" data-ds-open="memoria"><span class="ds-card-number">03 / MEMORIA INSTITUCIONAL</span><span class="ds-card-icon" aria-hidden="true">▣</span><span class="ds-card-title">Memoria de la Alcaldía</span><span class="ds-card-desc">Revisa registros, archivos de trabajo y visualizaciones de la memoria municipal.</span><span class="ds-card-action">Explorar memoria <b aria-hidden="true">→</b></span></button>
-      </div>
+      <h1 id="ds-explore-title" tabindex="-1">Explora por temas</h1>
+      <p class="ds-intro-sub">Información territorial de Subachoque, organizada en dimensiones para conocer el municipio y orientar las decisiones con evidencia.</p>
+      <nav class="ds-dimension-grid" id="ds-dimension-grid" aria-label="Dimensiones de Data Subachoque">
+        <span role="status">Cargando dimensiones...</span>
+      </nav>
+      <p class="ds-source-notice">Tres niveles de lectura en cada subtema: nacional (Colombia), departamental (Cundinamarca) y municipal (Subachoque). Las cifras se muestran únicamente cuando existe una fuente verificable.</p>
     </div>
-  </section>
-  <div class="ds-toolbar" id="ds-toolbar" aria-label="Navegación interna de Data Subachoque" hidden>
-    <button type="button" class="ds-back" data-ds-back>← Data Subachoque</button>
-    <nav class="ds-toolbar-nav" aria-label="Explorar dentro de Data Subachoque">
-      <button type="button" class="ds-tab" data-ds-tab="plan" aria-pressed="false">Plan Estadístico Municipal</button>
-      <button type="button" class="ds-tab" data-ds-tab="dane" aria-pressed="false">Datos del DANE</button>
-      <button type="button" class="ds-tab" data-ds-tab="memoria" aria-pressed="false">Memoria de la Alcaldía</button>
-    </nav>
-  </div>
-<section aria-label="Plan Estadístico Municipal" class="ds-subpanel ti-plan-estadistico" data-subachoque-view="plan" id="data-plan-estadistico" role="region" hidden>
- <div class="pe-page">
- <div id="peHome">
- <div class="pe-hero">
-  <div class="pe-hero-copy"><span class="pe-breadcrumb">DATA TERRITORIO &nbsp; / &nbsp; 2.2</span>
-  <h1 id="pe-title" tabindex="-1">PLAN ESTADÍSTICO<br>MUNICIPAL</h1>
-  <p>Consulta los documentos, indicadores y fichas técnicas que forman parte del Plan Estadístico Municipal.</p></div>
-  <button type="button" class="pe-video" data-pe-video aria-label="Conocer el Plan Estadístico Municipal en video"><span class="pe-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m7 3 15 9-15 9z"/></svg></span><strong>Conoce el plan</strong><small>Video explicativo · pendiente de incorporar</small></button>
- </div>
- <div class="pe-card-grid" aria-label="Explorar el Plan Estadístico Municipal"><button type="button" class="pe-card" data-pe-view="documentos" style="--pe-card-art:url('assets/img/editorial/gestion.jpg')"><span class="pe-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v6h5M9 13h7M9 17h7"/></svg></span><span class="pe-card-copy"><strong>Documentos oficiales</strong><span>Consulta y descarga los PDFs estadísticos del municipio.</span></span><span class="pe-arrow" aria-hidden="true">→</span></button>
-<button type="button" class="pe-card" data-pe-view="indicadores" style="--pe-card-art:url('assets/img/editorial/alcaldia.jpg')"><span class="pe-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V11h4v9zM10 20V5h4v15zM17 20V9h4v11z"/></svg></span><span class="pe-card-copy"><strong>Indicadores del plan</strong><span>Explora los indicadores del plan, sus fuentes y actualizaciones.</span></span><span class="pe-arrow" aria-hidden="true">→</span></button>
-<button type="button" class="pe-card" data-pe-view="fichas" style="--pe-card-art:url('assets/img/editorial/comunidad.jpg')"><span class="pe-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h10l5 5v14H5zM15 2v5h5M9 11h7M9 15h4"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="m19.5 19.5 2.3 2.3"/></svg></span><span class="pe-card-copy"><strong>Fichas técnicas</strong><span>Revisa variables, periodicidad y metodología de cada indicador.</span></span><span class="pe-arrow" aria-hidden="true">→</span></button>
-<button type="button" class="pe-card" data-pe-view="seguimiento" style="--pe-card-art:url('assets/img/editorial/servicio.jpg')"><span class="pe-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM9 17v-4M12 17V9M15 17v-6"/></svg></span><span class="pe-card-copy"><strong>Seguimiento y reportes</strong><span>Accede a cálculos, alertas e informes para planeación y MIPG.</span></span><span class="pe-arrow" aria-hidden="true">→</span></button></div>
- <p class="pe-note">Repositorio institucional en preparación · Los archivos que agregues se guardan únicamente en este navegador.</p>
- </div>
- <div id="peDetail" class="pe-detail" hidden>
-  <button type="button" class="pe-back" data-pe-back>← Volver al Plan Estadístico</button>
-  <header class="pe-detail-header"><p class="pe-detail-kicker">DATA TERRITORIO / 2.2</p><h2 id="peDetailTitle" tabindex="-1"></h2><p id="peDetailDescription"></p></header>
-  <div class="pe-detail-body">
-   <section class="pe-section" data-pe-section="documentos" hidden>
-    <div class="pe-subheading"><div><h3>Repositorio oficial</h3><p>Los enlaces a documentos oficiales aparecerán aquí cuando sus archivos y procedencia hayan sido verificados.</p></div></div>
-    <div class="pe-row-grid" id="peOfficialGrid"></div><p class="pe-empty" id="peOfficialEmpty">No se han incorporado documentos oficiales verificados. Esta vista no muestra documentos de demostración como si fueran reales.</p>
-    <section class="ti-local-repository" aria-labelledby="statDocumentsTitle"><div class="module-toolbar"><div><p class="eyebrow">Registro de trabajo</p><h3 id="statDocumentsTitle">Mis archivos de trabajo</h3></div><label class="action-button">Agregar documentos<input type="file" id="statDocumentUpload" accept=".pdf,.xlsx,.xls,.csv,.json,.docx,.txt,.png,.jpg,.jpeg,.webp" multiple hidden></label></div><p>Los documentos agregados se almacenan solo en este navegador. No se publican ni se comparten con otros usuarios.</p><label>Buscar documento<input id="statDocumentSearch" type="search" placeholder="Nombre del documento"></label><div class="document-grid" id="statDocumentGrid"></div></section>
-   </section>
-   <section class="pe-section" data-pe-section="indicadores" hidden>
-    <div class="pe-subheading"><div><h3>Registro de indicadores</h3><p id="peIndicatorCount">Sin registros locales</p></div><div class="pe-controls"><button type="button" class="pe-btn pe-btn-primary" data-pe-add>+ Nuevo indicador</button><label class="pe-btn">Importar CSV / Excel<input type="file" id="peIndicatorUpload" accept=".csv,.xlsx,.xls" hidden></label><button type="button" class="pe-btn" data-pe-template>Plantilla CSV ↓</button><button type="button" class="pe-btn" data-pe-export="indicators">Exportar CSV ↓</button></div></div>
-    <div id="peFormSlot"></div>
-    <label style="display:block;margin:20px 0;color:#bacad7;font-size:13px">Buscar indicadores <input class="pe-input" id="peIndicatorSearch" type="search" placeholder="Indicador, fuente, variable o sector" style="max-width:520px;display:block;margin-top:9px"></label>
-    <div class="pe-table-wrap"><table class="pe-table"><thead><tr><th>Indicador</th><th>Sector</th><th>Fuente</th><th>Periodicidad</th><th>Valor</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="peIndicatorsBody"></tbody></table></div><p class="pe-empty" id="peIndicatorsEmpty">Todavía no hay indicadores que coincidan. Importa un Excel/CSV o registra un indicador de trabajo.</p>
-   </section>
-   <section class="pe-section" data-pe-section="fichas" hidden>
-    <div class="pe-subheading"><div><h3>Metodología y variables</h3><p>Las fichas se generan a partir del registro de indicadores. Sus metadatos requieren validación institucional.</p></div><button class="pe-btn" type="button" data-pe-view="indicadores">Gestionar indicadores →</button></div>
-    <div class="pe-row-grid" id="peSheetsGrid"></div><p class="pe-empty" id="peSheetsEmpty">No existen fichas registradas. Crea o importa indicadores para comenzar.</p>
-   </section>
-   <section class="pe-section" data-pe-section="seguimiento" hidden>
-    <div class="pe-subheading"><div><h3>Control de actualización</h3><p>Alertas estimadas a partir de la periodicidad y de la fecha consignada en cada registro local; no equivalen a alertas institucionales verificadas.</p></div><div class="pe-controls"><button class="pe-btn pe-btn-primary" type="button" data-pe-export="mipg">Exportar para MIPG ↓</button><button class="pe-btn" type="button" data-pe-print>Imprimir / PDF</button></div></div>
-    <div class="pe-summary" id="peSummary"></div><h4>Alertas y revisión pendientes</h4><div id="peWarnings"></div><p class="pe-empty" id="peNoWarnings">No se detectaron alertas con los registros locales.</p><p class="pe-hint" id="peNoReports">Aún no hay indicadores cargados para elaborar reportes.</p><p class="pe-hint" style="margin-top:24px">Para presentar informes oficiales es necesario verificar metodología, fuente, cobertura, fecha y responsable de cada dato.</p>
-   </section>
-  </div>
- </div>
- <p id="peMessage" class="pe-message" role="status" aria-live="polite"></p>
- </div>
- <dialog class="pe-modal" id="peVideoDialog" aria-labelledby="peVideoDialogTitle"><h2 id="peVideoDialogTitle">Plan Estadístico Municipal</h2><div id="peVideoContent"></div><button class="pe-btn pe-btn-primary" type="button" data-pe-close-video>Cerrar</button></dialog>
-</section>
-<section aria-label="Datos del DANE" class="ds-subpanel ti-dane-subachoque" data-subachoque-view="dane" hidden id="data-fuentes" role="region">
-<div id="d23App" aria-label="Datos del DANE para Subachoque"></div>
-<details id="d23LegacyViewer" class="d23-legacy" hidden>
-<summary>Visor territorial y capítulos anteriores</summary>
-<p>Se conserva el visor territorial construido anteriormente. Este contenido no sustituye la ficha oficial DANE.</p>
-<div class="sources-reference-shell"><iframe class="sources-reference-frame" src="assets/interactive/data-fuentes-visor.html" title="Visor territorial anterior de Subachoque" loading="lazy"></iframe></div>
-</details>
-</section>
-<section aria-label="Memoria de la Alcaldía" class="ds-subpanel ti-memoria-alcaldia" data-subachoque-view="memoria" hidden id="data-municipales" role="region">
-<div id="maApp" aria-label="Memoria de la Alcaldía de Subachoque"></div>
-<details id="maLegacyWorkspace" class="ma-legacy" hidden>
-<summary>Bases de indicadores municipales — herramienta ya existente</summary>
-<p>Conservamos la carga de Excel, CSV y JSON, la tabla y las gráficas que ya funcionaban. Esta herramienta guarda una base por categoría en tu navegador y todavía no constituye un repositorio institucional compartido.</p>
-<div class="dataset-workspace" data-dataset-workspace="municipales"></div>
-</details>
-</section>
+  </header>
+  <main class="ds-content" id="ds-content-start">
+    <p class="ds-setup-alert" id="ds-setup-alert" role="alert" hidden></p>
+    <section class="ds-social-app" id="ds-social-app" aria-labelledby="ds-social-title">
+      <header class="ds-content-intro">
+        <span class="ds-line" aria-hidden="true"></span>
+        <p class="ds-eyebrow">DIMENSIÓN 01 / SOCIAL</p>
+        <h2 id="ds-social-title" tabindex="-1">Dimensión Social</h2>
+        <p class="ds-social-lead">Salud y Protección Social, Educación, Inclusión Social y Equidad, Cultura, Deporte y Recreación, y Justicia y Seguridad Ciudadana. Explora sus temas con información diferenciada por nivel territorial.</p>
+        <div class="ds-summary-strip" aria-label="Cobertura temática">
+          <span><strong>6</strong> áreas</span>
+          <span><strong>33</strong> subtemas del documento</span>
+          <span><strong>3</strong> niveles territoriales por subtema</span>
+          <span>Indicadores oficiales con fecha y fuente</span>
+        </div>
+      </header>
+      <h3 class="ds-area-heading">Selecciona un área de la Dimensión Social</h3>
+      <nav class="ds-areas" id="ds-social-areas" aria-label="Áreas de la Dimensión Social">
+        <span role="status">Preparando áreas de análisis...</span>
+      </nav>
+      <div class="ds-detail-layout">
+        <aside class="ds-topic-sidebar" aria-labelledby="ds-social-topic-title">
+          <h3 id="ds-social-topic-title">Salud y Protección Social</h3>
+          <p class="ds-topic-count" id="ds-social-topic-count">7 subtemas</p>
+          <label class="ds-search-label" for="ds-topic-search">Buscar entre los 33 subtemas</label>
+          <input id="ds-topic-search" type="search" placeholder="Ej. adulto mayor, educación, pobreza..." autocomplete="off">
+          <div class="ds-search-results" id="ds-search-results" aria-label="Resultados de búsqueda" hidden></div>
+          <nav class="ds-topics" id="ds-social-topics" aria-label="Subtemas del área seleccionada">
+            <span role="status">Preparando temas...</span>
+          </nav>
+        </aside>
+        <div class="ds-analytics">
+          <header class="ds-selection" aria-labelledby="ds-active-title">
+            <p class="ds-selection-breadcrumb" id="ds-active-path">DIMENSIÓN SOCIAL</p>
+            <h3 id="ds-active-title" tabindex="-1">Adulto mayor</h3>
+            <p id="ds-active-subtitle">Tres niveles de análisis y una misma metodología de presentación.</p>
+          </header>
+          <div class="ds-level-rows" id="ds-level-rows" aria-label="Gráficas a la izquierda y análisis a la derecha para los niveles nacional, departamental y municipal" aria-live="polite">
+            <p role="status">Cargando fuentes disponibles...</p>
+          </div>
+          <p class="ds-social-footnote" id="ds-social-footnote">Los datos presentados conservarán su unidad, fuente, cobertura y período.</p>
+        </div>
+      </div>
+    </section>
+    <section class="ds-pending-dimension" id="ds-pending-dimension" aria-live="polite" aria-label="Dimensión pendiente de implementación" hidden></section>
+  </main>
 </section>
 <section aria-labelledby="tab-data-encuesta" class="module-panel ti-encuesta" data-panel-group="data" hidden="" id="data-encuesta" role="tabpanel">
 <div class="sv-app" id="svApp" data-ready="false">
@@ -683,12 +657,12 @@
 <script defer src="js/module-structure.js?v=ti-cuatro-tabs-01"></script>
 <script defer src="js/data-conoce.js?v=conoce-04"></script>
 <script defer src="js/conoce-plan.js?v=20261017-original-01"></script>
-<script defer src="js/plan-estadistico.js?v=ds-plan-01"></script>
-<script defer src="js/dane-subachoque-charts.js?v=dane23-01"></script>
-<script defer src="js/dane-subachoque.js?v=ds-dane-01"></script>
-<script defer src="js/memoria-alcaldia-demo.js?v=memoria23-demo-01"></script>
-<script defer src="js/memoria-alcaldia.js?v=ds-memoria-01"></script>
-<script defer src="js/data-subachoque.js?v=ds22-01"></script>
+
+
+
+
+
+<script defer src="js/data-subachoque.js?v=ds-dimensiones-social-01"></script>
 <script defer src="js/encuesta-municipal.js?v=encuesta24-01"></script>
 <script defer src="js/conoce-publicaciones.js?v=pub21-editorial-02"></script>
 <script defer src="js/explorando-territorio.js?v=ex24-01"></script>
