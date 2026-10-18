@@ -192,3 +192,15 @@
  #data-encuesta #svMainTitle{font-size:clamp(32px,8.4vw,43px)!important}
  #data-encuesta .sv-breadcrumb{font-size:11px}
 }
+
+
+/* Textos analíticos pueden crecer; únicamente los gráficos tienen altura fija.
+   Evita cortar las fuentes y las notas metodológicas de la columna derecha. */
+#data-subachoque .ds-analytic-card{
+  height:auto!important;
+  min-height:358px;
+  overflow:visible;
+}
+@media(min-width:1750px){#data-subachoque .ds-analytic-card{min-height:377px}}
+@media(max-width:1380px){#data-subachoque .ds-analytic-card{min-height:390px}}
+@media(max-width:1030px){#data-subachoque .ds-analytic-card{min-height:270px}}
