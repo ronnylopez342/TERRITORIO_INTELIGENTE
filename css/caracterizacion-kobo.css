@@ -169,3 +169,33 @@
  #data-encuesta .k23-chart-panel{padding:14px}
 }
 @media(prefers-reduced-motion:reduce){#data-encuesta .k23-dim{transition:none}}
+
+
+/* Correcciones: jerarquía de barras focales, universos condicionales y cobertura auditable. */
+#data-encuesta .k23-bar-focus .k23-bar-top span,
+#data-encuesta .k23-bar-focus .k23-bar-top strong{color:#073c52;font-weight:900}
+#data-encuesta .k23-bar-focus .k23-bar-track{background:#fff5d5;outline:1px solid #f4d879}
+#data-encuesta .k23-bar-focus .k23-bar-track span{background:#e6b522}
+#data-encuesta #k23-scope{color:#536f80!important;line-height:1.46!important}
+#data-encuesta .k23-question-details{font-size:11px;margin-top:6px;color:#3c7180}
+#data-encuesta .k23-question-details summary{font-weight:800;cursor:pointer}
+#data-encuesta .k23-question-details p{margin:6px 0 0!important;line-height:1.4!important;color:#4a6976!important}
+#data-encuesta .k23-gaps{margin:18px 0 0}
+#data-encuesta .k23-gaps-details{border:1px solid #c6dadf;background:#eff5f6;border-radius:9px;overflow:hidden}
+#data-encuesta .k23-gaps-details>summary{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+ padding:14px 18px;color:#16465b;font-size:13px;font-weight:850;cursor:pointer;list-style:revert}
+#data-encuesta .k23-gaps-details>summary strong{font-size:11px;color:#5f7985;background:#dce9eb;border-radius:18px;padding:5px 9px}
+#data-encuesta .k23-gaps-details>p{font-size:12px;color:#577683!important;margin:0 18px 14px!important;line-height:1.47}
+#data-encuesta .k23-gap-group{margin:0 18px 18px;padding:12px 14px;border-radius:7px;background:#fff;border:1px solid #dce7e9}
+#data-encuesta .k23-gap-group h4{font-size:13px!important;margin:0 0 10px!important;color:#173f52!important;font-weight:850}
+#data-encuesta .k23-gap-group ul{list-style:none;margin:0;padding:0}
+#data-encuesta .k23-gap-group li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid #e8eef0;font-size:12px;color:#2d5363}
+#data-encuesta .k23-gap-group li:first-child{border-top:0}
+#data-encuesta .k23-gap-group li small{font-size:10px;color:#7b8b97;text-align:right;min-width:118px}
+#data-encuesta .k23-covered-note{font-size:12px;color:#617c8a!important;margin:7px 0!important}
+#data-encuesta .k23-meta{grid-template-columns:1.8fr 1.5fr .65fr .7fr}
+@media(max-width:710px){
+ #data-encuesta .k23-gap-group li{flex-direction:column;gap:2px}
+ #data-encuesta .k23-gap-group li small{text-align:left}
+ #data-encuesta .k23-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
