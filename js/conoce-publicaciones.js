@@ -287,6 +287,15 @@
     $('publicationUpload').addEventListener('change',()=>{$('pubLocalCount').textContent='Guardando archivos en este navegador…';});
   }
   function start(){setup();render();void Promise.all([loadPublic(),loadLocal()]);}
+
+  function revealPublicationsLink() {
+    const fragment=location.hash.slice(1),part=fragment.split('?');
+    if(part[0]!=='data'||new URLSearchParams(part[1]||'').get('bloque')!=='publicaciones')return;
+    if(document.getElementById('data-conoce')?.hidden)return;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>root.scrollIntoView({block:'start',behavior:'instant'})));
+  }
+  addEventListener('hashchange',()=>setTimeout(revealPublicationsLink,70));
+  setTimeout(revealPublicationsLink,180);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
   else start();
   window.TIPublicacionesConoce={refresh:()=>Promise.all([loadPublic(),loadLocal()])};
