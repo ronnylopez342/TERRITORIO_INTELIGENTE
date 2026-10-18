@@ -217,13 +217,13 @@
     const distinctUnits=metricUnit==='viviendas'||metricUnit==='hogares';
     const displayed=distinctUnits?rows.filter(r=>r.ambito===state.nivel):rows;
     const max=roundMax(displayed.map(x=>x.valor));
-    const x0=67,xWidth=560,y0=48,yBottom=301,yHeight=yBottom-y0;
+    const x0=112,xWidth=515,y0=48,yBottom=301,yHeight=yBottom-y0;
     const getX=year=>x0+(year-years[0])/(years[years.length-1]-years[0])*xWidth;
     const getY=value=>yBottom-(Math.max(0,value)/max)*yHeight;
     const grid=[0,1,2,3,4].map(i=>{
       const value=max*i/4,y=getY(value);
       return '<line class="ds3-grid-line" x1="'+x0+'" y1="'+y.toFixed(1)+'" x2="'+(x0+xWidth)+'" y2="'+y.toFixed(1)+'"/>'+
-        '<text class="ds3-tick" x="58" y="'+(y+5).toFixed(1)+'" text-anchor="end">'+tickHTML(value)+'</text>';
+        '<text class="ds3-tick" x="102" y="'+(y+5).toFixed(1)+'" text-anchor="end">'+tickHTML(value)+'</text>';
     }).join('');
     const times=years.map(year=>
       '<text class="ds3-tick" x="'+getX(year).toFixed(1)+'" y="329" text-anchor="middle">'+year+'</text>'
@@ -258,7 +258,7 @@
     const ticks=[0,1,2,3,4].map(i=>{
       const x=axisLeft+i*step;
       return '<line x1="'+x+'" y1="'+axisTop+'" x2="'+x+'" y2="'+axisBottom+'" class="ds3-grid-line"/>'+
-        '<text x="'+x+'" y="347" class="ds3-tick" text-anchor="middle">'+tickHTML(ceil*i/4)+escapeHTML(suffix)+'</text>';
+        '<text x="'+x+'" y="347" class="ds3-tick" text-anchor="middle">'+tickHTML(ceil*i/4)+(metricUnit==='%'?' %':'')+'</text>';
     }).join('');
     const bars=LEVELS.map((lvl,index)=>{
       const y=113+index*79;
@@ -273,7 +273,7 @@
         '<rect x="'+axisLeft+'" y="'+(y-2)+'" width="'+value.toFixed(2)+'" height="24" rx="4" fill="'+lvl.color+'"'+
         (selected?' stroke="#f4ad00" stroke-width="2"':'')+'/>'+
         '<text class="ds3-bar-label" x="13" y="'+(y+14)+'">'+escapeHTML(lvl.name)+'</text>'+
-        '<text class="ds3-bar-value" x="'+Math.min(687,textX)+'" y="'+(y+15)+'" text-anchor="'+(textX>655?'end':'start')+'">'+format(entry.valor)+escapeHTML(suffix)+'</text></g>';
+        '<text class="ds3-bar-value" x="'+Math.min(687,textX)+'" y="'+(y+15)+'" text-anchor="'+(textX>655?'end':'start')+'">'+format(entry.valor)+(metricUnit==='%'?' %':'')+'</text></g>';
     }).join('');
     const label='Comparación por nivel territorial de '+String(rows[0].indicator)+', '+String(rows[0].periodo)+
       ': '+LEVELS.map(l=>l.name+' '+(latest(rows,l.id)?.valor ?? 'sin dato')).join(', ');
