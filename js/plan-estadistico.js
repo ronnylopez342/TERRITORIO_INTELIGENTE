@@ -572,6 +572,7 @@
       showView('', { history: false, focus: false });
     }
   });
+  document.addEventListener('ti:data-subachoque-changed', event => { if(event.detail?.sub==='plan')syncFromHash(); });
   window.addEventListener('popstate', syncFromHash);
   window.addEventListener('hashchange', syncFromHash);
   loadRecords();
