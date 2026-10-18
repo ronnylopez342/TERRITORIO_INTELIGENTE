@@ -304,9 +304,11 @@
     const navigation=$('ds3-indicator-nav');
     navigation.hidden=groups.length<=1;
     if(groups.length>1){
-      navigation.innerHTML='<button type="button" data-ds3-step="-1" aria-label="Indicador anterior">‹</button>'+
-        '<span>Indicador '+(state.indicator+1)+' de '+groups.length+'</span>'+
-        '<button type="button" data-ds3-step="1" aria-label="Indicador siguiente">›</button>';
+      navigation.innerHTML='<label for="ds3-indicator-select">Cambiar indicador</label>'+
+        '<select id="ds3-indicator-select" aria-label="Seleccionar indicador del subtema">'+
+        groups.map((group,i)=>'<option value="'+i+'"'+(i===state.indicator?' selected':'')+'>'+
+          escapeHTML(group[0]?.indicator||'Indicador '+(i+1))+'</option>').join('')+
+        '</select>';
     }else navigation.replaceChildren();
   }
   function diffText(value,other,otherName){
@@ -376,6 +378,14 @@
     if(event.target.id!=='ds3-search')return;
     state.search=event.target.value;
     renderSearchResults();
+  });
+  root.addEventListener('change',event=>{
+    if(event.target.id!=='ds3-indicator-select')return;
+    const idx=Number(event.target.value);
+    if(!Number.isInteger(idx)||idx<0||idx>=indicators().length)return;
+    state.indicator=idx;
+    setURL();
+    render();
   });
   fetch('data/data-subachoque-dimensiones.json',{cache:'no-store'}).then(r=>{
     if(!r.ok)throw Error('No se pudo descargar el catálogo.');
