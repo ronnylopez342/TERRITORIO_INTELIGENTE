@@ -567,3 +567,38 @@
   #data-conoce #cn-publicaciones .cn-pubs-card h4{font-size:12px!important}
   #data-conoce #cn-publicaciones .cn-pubs-section-heading button{font-size:11px}
 }
+
+
+/* Fotografías recortadas de la maqueta facilitada por el cliente.
+   Las publicaciones siguen siendo DEMO: estas imágenes son recursos de interfaz
+   y no documentos municipales publicados. */
+#data-conoce #cn-publicaciones .cn-pubs-intro::before{
+ background-image:url("../assets/img/editorial/cn-pubs-reference-banner.webp")!important;
+ background-size:cover!important;
+ background-position:center center!important;
+ filter:saturate(1.18) contrast(1.08)!important;
+ opacity:1!important;
+}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"]::before{
+ content:"";
+ display:block!important;
+ position:absolute;
+ z-index:0;
+ bottom:0;left:0;right:0;
+ top:auto;
+ height:54%;
+ width:100%;
+ background-image:url("../assets/img/editorial/cn-pubs-reference-photo-strip.webp")!important;
+ background-repeat:no-repeat!important;
+ background-size:600% 100%!important;
+ background-position:0% 50%;
+ pointer-events:none;
+}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"][data-cover-type="revista"]::before{background-position:0% 50%!important}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"][data-cover-type="boletin"]::before{background-position:20% 50%!important}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"][data-cover-type="paper"]::before{background-position:40% 50%!important}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"][data-cover-type="grafico"]::before{background-position:60% 50%!important}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"][data-cover-type="informe"]::before{background-position:80% 50%!important}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"][data-cover-type="ficha"]::before{background-position:100% 50%!important}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"] .cn-pubs-cover-title{z-index:2}
+#data-conoce #cn-publicaciones .cn-pubs-cover[data-cover-kind="demo"] .cn-pubs-cover-caption{z-index:2}
