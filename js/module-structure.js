@@ -11,9 +11,11 @@ function restoreModuleSection() {
   // Las URL existentes siguen funcionando sin duplicar pestañas ni perder la vista.
   const params=new URLSearchParams(fragment.split('?')[1]||'');
   const aliases={
-    'data-plan-estadistico':['data-subachoque','plan'],
-    'data-fuentes':['data-subachoque','dane'],
-    'data-municipales':['data-subachoque','memoria'],
+    // Los tres apartados anteriores se sustituyeron por las dimensiones.
+    // Solo redireccionamos: no restauramos pestañas canceladas.
+    'data-plan-estadistico':['data-subachoque','social'],
+    'data-fuentes':['data-subachoque','social'],
+    'data-municipales':['data-subachoque','social'],
     'data-geo':['data-explorando',''],
     'data-caracterizacion':['data-encuesta',''],
     'data-publicaciones':['data-conoce','']
@@ -22,10 +24,10 @@ function restoreModuleSection() {
   const requested=alias?alias[0]:original;
   if(alias){
     params.set('seccion',requested);
-    if(alias[1])params.set('sub',alias[1]);
-    else params.delete('sub');
+    params.delete('sub');
+    params.delete('vista');
+    if(alias[1])params.set('dimension',alias[1]);
     if(original==='data-publicaciones')params.set('bloque','publicaciones');
-    if(!['data-plan-estadistico','data-fuentes'].includes(original))params.delete('vista');
     history.replaceState({route:'data'},'', '#data?'+params.toString());
   }
   const tabs=[...view.querySelectorAll('[data-module-panel]')];
