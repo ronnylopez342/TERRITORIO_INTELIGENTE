@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "municipio": "Subachoque",
   "departamento": "Cundinamarca",
   "pais": "Colombia",
@@ -85,6 +85,20 @@
               "nombre": "Portal institucional de Subachoque",
               "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
             }
+          },
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "SISPRO",
+              "url": "https://www.sispro.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
           }
         },
         {
@@ -129,6 +143,20 @@
             },
             "municipal": {
               "nombre": "Portal institucional de Subachoque",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          },
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio de Educación Nacional",
+              "url": "https://www.mineducacion.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
               "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
             }
           }
@@ -187,6 +215,20 @@
               "nombre": "Portal institucional de Subachoque",
               "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
             }
+          },
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "DANE — Estadísticas poblacionales",
+              "url": "https://www.dane.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
           }
         },
         {
@@ -233,6 +275,20 @@
               "nombre": "Portal institucional de Subachoque",
               "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
             }
+          },
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio de las Culturas",
+              "url": "https://www.minculturas.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
           }
         },
         {
@@ -272,6 +328,20 @@
             },
             "municipal": {
               "nombre": "Portal institucional de Subachoque",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          },
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio del Deporte",
+              "url": "https://www.mindeporte.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
               "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
             }
           }
@@ -320,6 +390,20 @@
               "nombre": "Portal institucional de Subachoque",
               "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
             }
+          },
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Policía Nacional / Ministerio de Defensa",
+              "url": "https://www.policia.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
           }
         }
       ]
@@ -360,7 +444,21 @@
               "documentCode": "2.1.6",
               "title": "Seguridad alimentaria"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "UPRA — Evaluaciones Agropecuarias Municipales",
+              "url": "https://upra.gov.co/es-co/eva"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "comercio",
@@ -387,7 +485,21 @@
               "documentCode": "2.2.4",
               "title": "Economía local"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio de Comercio, Industria y Turismo",
+              "url": "https://www.mincit.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "turismo",
@@ -409,7 +521,21 @@
               "documentCode": "2.3.3",
               "title": "Patrimonio turístico"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio de Comercio, Industria y Turismo",
+              "url": "https://www.mincit.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "empleo",
@@ -431,7 +557,21 @@
               "documentCode": "2.4.3",
               "title": "Formalización laboral"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio del Trabajo",
+              "url": "https://www.mintrabajo.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "energia",
@@ -458,7 +598,21 @@
               "documentCode": "2.5.4",
               "title": "Recursos minero-energéticos"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio de Minas y Energía",
+              "url": "https://www.minenergia.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "hacienda",
@@ -535,7 +689,21 @@
               "documentCode": "2.6.14",
               "title": "Cartera municipal"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "DNP — CIFFIT / Finanzas territoriales",
+              "url": "https://ciffit.dnp.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         }
       ]
     },
@@ -580,7 +748,21 @@
               "documentCode": "3.1.6",
               "title": "Calidad del agua"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "IDEAM — Ambiente y clima",
+              "url": "https://www.ideam.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "vivienda",
@@ -617,7 +799,21 @@
               "documentCode": "3.2.6",
               "title": "Catastro"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "DANE — Censo Nacional de Población y Vivienda",
+              "url": "https://www.dane.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "movilidad",
@@ -644,7 +840,21 @@
               "documentCode": "3.3.4",
               "title": "Seguridad vial"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio de Transporte",
+              "url": "https://www.mintransporte.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "riesgo",
@@ -671,7 +881,21 @@
               "documentCode": "3.4.4",
               "title": "Adaptación al cambio climático"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Unidad Nacional para la Gestión del Riesgo de Desastres",
+              "url": "https://portal.gestiondelriesgo.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         }
       ]
     },
@@ -701,7 +925,21 @@
               "documentCode": "4.1.3",
               "title": "Desempeño municipal"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Departamento Nacional de Planeación — TerriData",
+              "url": "https://terridata.dnp.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "tic",
@@ -728,7 +966,21 @@
               "documentCode": "4.2.4",
               "title": "Sistemas de información"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Ministerio TIC",
+              "url": "https://www.mintic.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "estadistica",
@@ -755,7 +1007,21 @@
               "documentCode": "4.3.4",
               "title": "Datos abiertos"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "DANE — Sistema Estadístico Nacional",
+              "url": "https://www.dane.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "transparencia",
@@ -787,7 +1053,21 @@
               "documentCode": "4.4.5",
               "title": "Transparencia institucional"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Función Pública",
+              "url": "https://www.funcionpublica.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         },
         {
           "id": "talento",
@@ -809,7 +1089,21 @@
               "documentCode": "4.5.3",
               "title": "Bienestar laboral"
             }
-          ]
+          ],
+          "fuentesConsulta": {
+            "nacional": {
+              "nombre": "Función Pública",
+              "url": "https://www.funcionpublica.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca — información territorial",
+              "url": "https://www.cundinamarca.gov.co/"
+            },
+            "municipal": {
+              "nombre": "Alcaldía de Subachoque — portal institucional",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
         }
       ]
     }
@@ -821,157 +1115,2092 @@
   },
   "indicadores": [
     {
-      "id": "mayores59-nacional",
+      "id": "mayores59-2005-nacional",
       "topicId": "salud-5",
       "indicatorId": "mayores59",
-      "indicator": "Población mayor de 59 años",
+      "indicator": "Población de 60 años o más",
+      "ambito": "nacional",
+      "valor": 9,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Participación de la población de 60 años o más. Se comparan dos cortes censales (2005 y 2018), no una serie anual.",
+      "ano": 2005
+    },
+    {
+      "id": "mayores59-2005-departamental",
+      "topicId": "salud-5",
+      "indicatorId": "mayores59",
+      "indicator": "Población de 60 años o más",
+      "ambito": "departamental",
+      "valor": 10,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Participación de la población de 60 años o más. Se comparan dos cortes censales (2005 y 2018), no una serie anual.",
+      "ano": 2005
+    },
+    {
+      "id": "mayores59-2005-municipal",
+      "topicId": "salud-5",
+      "indicatorId": "mayores59",
+      "indicator": "Población de 60 años o más",
+      "ambito": "municipal",
+      "valor": 8.5,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Participación de la población de 60 años o más. Se comparan dos cortes censales (2005 y 2018), no una serie anual.",
+      "ano": 2005
+    },
+    {
+      "id": "mayores59-2018-nacional",
+      "topicId": "salud-5",
+      "indicatorId": "mayores59",
+      "indicator": "Población de 60 años o más",
       "ambito": "nacional",
       "valor": 13.3,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de personas censadas con 60 años o más. No es cobertura de atención al adulto mayor ni proyección de 2026.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "Participación de la población de 60 años o más. Se comparan dos cortes censales (2005 y 2018), no una serie anual.",
+      "ano": 2018
     },
     {
-      "id": "mayores59-departamental",
+      "id": "mayores59-2018-departamental",
       "topicId": "salud-5",
       "indicatorId": "mayores59",
-      "indicator": "Población mayor de 59 años",
+      "indicator": "Población de 60 años o más",
       "ambito": "departamental",
       "valor": 13.4,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de personas censadas con 60 años o más. No es cobertura de atención al adulto mayor ni proyección de 2026.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "Participación de la población de 60 años o más. Se comparan dos cortes censales (2005 y 2018), no una serie anual.",
+      "ano": 2018
     },
     {
-      "id": "mayores59-municipal",
+      "id": "mayores59-2018-municipal",
       "topicId": "salud-5",
       "indicatorId": "mayores59",
-      "indicator": "Población mayor de 59 años",
+      "indicator": "Población de 60 años o más",
       "ambito": "municipal",
       "valor": 12.8,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de personas censadas con 60 años o más. No es cobertura de atención al adulto mayor ni proyección de 2026.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "Participación de la población de 60 años o más. Se comparan dos cortes censales (2005 y 2018), no una serie anual.",
+      "ano": 2018
     },
     {
-      "id": "mujeres-nacional",
+      "id": "indice-envejecimiento-2005-nacional",
+      "topicId": "salud-5",
+      "indicatorId": "indice-envejecimiento",
+      "indicator": "Índice demográfico de envejecimiento",
+      "ambito": "nacional",
+      "valor": 29.2,
+      "unidad": "índice",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Índice demográfico de envejecimiento publicado por DANE. No debe interpretarse como porcentaje de personas mayores.",
+      "ano": 2005
+    },
+    {
+      "id": "indice-envejecimiento-2005-departamental",
+      "topicId": "salud-5",
+      "indicatorId": "indice-envejecimiento",
+      "indicator": "Índice demográfico de envejecimiento",
+      "ambito": "departamental",
+      "valor": 32.4,
+      "unidad": "índice",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Índice demográfico de envejecimiento publicado por DANE. No debe interpretarse como porcentaje de personas mayores.",
+      "ano": 2005
+    },
+    {
+      "id": "indice-envejecimiento-2005-municipal",
+      "topicId": "salud-5",
+      "indicatorId": "indice-envejecimiento",
+      "indicator": "Índice demográfico de envejecimiento",
+      "ambito": "municipal",
+      "valor": 27.9,
+      "unidad": "índice",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Índice demográfico de envejecimiento publicado por DANE. No debe interpretarse como porcentaje de personas mayores.",
+      "ano": 2005
+    },
+    {
+      "id": "indice-envejecimiento-2018-nacional",
+      "topicId": "salud-5",
+      "indicatorId": "indice-envejecimiento",
+      "indicator": "Índice demográfico de envejecimiento",
+      "ambito": "nacional",
+      "valor": 58.7,
+      "unidad": "índice",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Índice demográfico de envejecimiento publicado por DANE. No debe interpretarse como porcentaje de personas mayores.",
+      "ano": 2018
+    },
+    {
+      "id": "indice-envejecimiento-2018-departamental",
+      "topicId": "salud-5",
+      "indicatorId": "indice-envejecimiento",
+      "indicator": "Índice demográfico de envejecimiento",
+      "ambito": "departamental",
+      "valor": 60.9,
+      "unidad": "índice",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Índice demográfico de envejecimiento publicado por DANE. No debe interpretarse como porcentaje de personas mayores.",
+      "ano": 2018
+    },
+    {
+      "id": "indice-envejecimiento-2018-municipal",
+      "topicId": "salud-5",
+      "indicatorId": "indice-envejecimiento",
+      "indicator": "Índice demográfico de envejecimiento",
+      "ambito": "municipal",
+      "valor": 59.9,
+      "unidad": "índice",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Índice demográfico de envejecimiento publicado por DANE. No debe interpretarse como porcentaje de personas mayores.",
+      "ano": 2018
+    },
+    {
+      "id": "mujeres-2005-nacional",
       "topicId": "inclusion-4",
       "indicatorId": "mujeres",
-      "indicator": "Porcentaje de mujeres",
+      "indicator": "Mujeres en la población censada",
+      "ambito": "nacional",
+      "valor": 51,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo. La participación femenina no equivale a una medición de inequidad o violencia.",
+      "ano": 2005
+    },
+    {
+      "id": "mujeres-2005-departamental",
+      "topicId": "inclusion-4",
+      "indicatorId": "mujeres",
+      "indicator": "Mujeres en la población censada",
+      "ambito": "departamental",
+      "valor": 50,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo. La participación femenina no equivale a una medición de inequidad o violencia.",
+      "ano": 2005
+    },
+    {
+      "id": "mujeres-2005-municipal",
+      "topicId": "inclusion-4",
+      "indicatorId": "mujeres",
+      "indicator": "Mujeres en la población censada",
+      "ambito": "municipal",
+      "valor": 48.9,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo. La participación femenina no equivale a una medición de inequidad o violencia.",
+      "ano": 2005
+    },
+    {
+      "id": "mujeres-2018-nacional",
+      "topicId": "inclusion-4",
+      "indicatorId": "mujeres",
+      "indicator": "Mujeres en la población censada",
       "ambito": "nacional",
       "valor": 51.2,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de mujeres entre las personas censadas. No mide por sí solo brechas de género, violencia ni acceso a programas.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo. La participación femenina no equivale a una medición de inequidad o violencia.",
+      "ano": 2018
     },
     {
-      "id": "mujeres-departamental",
+      "id": "mujeres-2018-departamental",
       "topicId": "inclusion-4",
       "indicatorId": "mujeres",
-      "indicator": "Porcentaje de mujeres",
+      "indicator": "Mujeres en la población censada",
       "ambito": "departamental",
       "valor": 50.6,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de mujeres entre las personas censadas. No mide por sí solo brechas de género, violencia ni acceso a programas.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo. La participación femenina no equivale a una medición de inequidad o violencia.",
+      "ano": 2018
     },
     {
-      "id": "mujeres-municipal",
+      "id": "mujeres-2018-municipal",
       "topicId": "inclusion-4",
       "indicatorId": "mujeres",
-      "indicator": "Porcentaje de mujeres",
+      "indicator": "Mujeres en la población censada",
       "ambito": "municipal",
       "valor": 50,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de mujeres entre las personas censadas. No mide por sí solo brechas de género, violencia ni acceso a programas.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo. La participación femenina no equivale a una medición de inequidad o violencia.",
+      "ano": 2018
     },
     {
-      "id": "indigena-nacional",
+      "id": "hombres-2005-nacional",
+      "topicId": "inclusion-4",
+      "indicatorId": "hombres",
+      "indicator": "Hombres en la población censada",
+      "ambito": "nacional",
+      "valor": 49,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo, DANE. No representa participación en empleo o cargos públicos.",
+      "ano": 2005
+    },
+    {
+      "id": "hombres-2005-departamental",
+      "topicId": "inclusion-4",
+      "indicatorId": "hombres",
+      "indicator": "Hombres en la población censada",
+      "ambito": "departamental",
+      "valor": 50,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo, DANE. No representa participación en empleo o cargos públicos.",
+      "ano": 2005
+    },
+    {
+      "id": "hombres-2005-municipal",
+      "topicId": "inclusion-4",
+      "indicatorId": "hombres",
+      "indicator": "Hombres en la población censada",
+      "ambito": "municipal",
+      "valor": 51.1,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo, DANE. No representa participación en empleo o cargos públicos.",
+      "ano": 2005
+    },
+    {
+      "id": "hombres-2018-nacional",
+      "topicId": "inclusion-4",
+      "indicatorId": "hombres",
+      "indicator": "Hombres en la población censada",
+      "ambito": "nacional",
+      "valor": 48.8,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo, DANE. No representa participación en empleo o cargos públicos.",
+      "ano": 2018
+    },
+    {
+      "id": "hombres-2018-departamental",
+      "topicId": "inclusion-4",
+      "indicatorId": "hombres",
+      "indicator": "Hombres en la población censada",
+      "ambito": "departamental",
+      "valor": 49.4,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo, DANE. No representa participación en empleo o cargos públicos.",
+      "ano": 2018
+    },
+    {
+      "id": "hombres-2018-municipal",
+      "topicId": "inclusion-4",
+      "indicatorId": "hombres",
+      "indicator": "Hombres en la población censada",
+      "ambito": "municipal",
+      "valor": 50,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Distribución poblacional por sexo, DANE. No representa participación en empleo o cargos públicos.",
+      "ano": 2018
+    },
+    {
+      "id": "indigena-2005-nacional",
       "topicId": "inclusion-6",
       "indicatorId": "indigena",
-      "indicator": "Autorreconocimiento indígena",
+      "indicator": "Personas con autorreconocimiento indígena",
+      "ambito": "nacional",
+      "valor": 3.4,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "El indicador representa exclusivamente el autorreconocimiento indígena y no la totalidad de grupos étnicos.",
+      "ano": 2005
+    },
+    {
+      "id": "indigena-2005-departamental",
+      "topicId": "inclusion-6",
+      "indicatorId": "indigena",
+      "indicator": "Personas con autorreconocimiento indígena",
+      "ambito": "departamental",
+      "valor": 0.3,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "El indicador representa exclusivamente el autorreconocimiento indígena y no la totalidad de grupos étnicos.",
+      "ano": 2005
+    },
+    {
+      "id": "indigena-2005-municipal",
+      "topicId": "inclusion-6",
+      "indicatorId": "indigena",
+      "indicator": "Personas con autorreconocimiento indígena",
+      "ambito": "municipal",
+      "valor": 0.1,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "El indicador representa exclusivamente el autorreconocimiento indígena y no la totalidad de grupos étnicos.",
+      "ano": 2005
+    },
+    {
+      "id": "indigena-2018-nacional",
+      "topicId": "inclusion-6",
+      "indicatorId": "indigena",
+      "indicator": "Personas con autorreconocimiento indígena",
       "ambito": "nacional",
       "valor": 4.3,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de autorreconocimiento indígena; es un componente particular, no el total de población perteneciente a grupos étnicos.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "El indicador representa exclusivamente el autorreconocimiento indígena y no la totalidad de grupos étnicos.",
+      "ano": 2018
     },
     {
-      "id": "indigena-departamental",
+      "id": "indigena-2018-departamental",
       "topicId": "inclusion-6",
       "indicatorId": "indigena",
-      "indicator": "Autorreconocimiento indígena",
+      "indicator": "Personas con autorreconocimiento indígena",
       "ambito": "departamental",
       "valor": 0.4,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de autorreconocimiento indígena; es un componente particular, no el total de población perteneciente a grupos étnicos.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "El indicador representa exclusivamente el autorreconocimiento indígena y no la totalidad de grupos étnicos.",
+      "ano": 2018
     },
     {
-      "id": "indigena-municipal",
+      "id": "indigena-2018-municipal",
       "topicId": "inclusion-6",
       "indicatorId": "indigena",
-      "indicator": "Autorreconocimiento indígena",
+      "indicator": "Personas con autorreconocimiento indígena",
       "ambito": "municipal",
       "valor": 0.2,
       "unidad": "%",
       "periodo": "CNPV 2018",
       "municipio": "Subachoque",
       "departamento": "Cundinamarca",
-      "origen": "DANE — Ficha municipal CNPV 2018 (código 25769)",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
       "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
       "pagina": 1,
-      "notaMetodologica": "Porcentaje de autorreconocimiento indígena; es un componente particular, no el total de población perteneciente a grupos étnicos.",
-      "verificado": "cotejado-ficha-dane"
+      "verificado": "verificado",
+      "notaMetodologica": "El indicador representa exclusivamente el autorreconocimiento indígena y no la totalidad de grupos étnicos.",
+      "ano": 2018
+    },
+    {
+      "id": "sin-etnia-2005-nacional",
+      "topicId": "inclusion-7",
+      "indicatorId": "sin-etnia",
+      "indicator": "Personas que no se autorreconocen en un grupo étnico",
+      "ambito": "nacional",
+      "valor": 85.9,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Categoría de autorreconocimiento, no una medición integral de diversidad ni una ausencia comprobada de identidades étnicas.",
+      "ano": 2005
+    },
+    {
+      "id": "sin-etnia-2005-departamental",
+      "topicId": "inclusion-7",
+      "indicatorId": "sin-etnia",
+      "indicator": "Personas que no se autorreconocen en un grupo étnico",
+      "ambito": "departamental",
+      "valor": 96.3,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Categoría de autorreconocimiento, no una medición integral de diversidad ni una ausencia comprobada de identidades étnicas.",
+      "ano": 2005
+    },
+    {
+      "id": "sin-etnia-2005-municipal",
+      "topicId": "inclusion-7",
+      "indicatorId": "sin-etnia",
+      "indicator": "Personas que no se autorreconocen en un grupo étnico",
+      "ambito": "municipal",
+      "valor": 99.8,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Categoría de autorreconocimiento, no una medición integral de diversidad ni una ausencia comprobada de identidades étnicas.",
+      "ano": 2005
+    },
+    {
+      "id": "sin-etnia-2018-nacional",
+      "topicId": "inclusion-7",
+      "indicatorId": "sin-etnia",
+      "indicator": "Personas que no se autorreconocen en un grupo étnico",
+      "ambito": "nacional",
+      "valor": 88.8,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Categoría de autorreconocimiento, no una medición integral de diversidad ni una ausencia comprobada de identidades étnicas.",
+      "ano": 2018
+    },
+    {
+      "id": "sin-etnia-2018-departamental",
+      "topicId": "inclusion-7",
+      "indicatorId": "sin-etnia",
+      "indicator": "Personas que no se autorreconocen en un grupo étnico",
+      "ambito": "departamental",
+      "valor": 99.2,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Categoría de autorreconocimiento, no una medición integral de diversidad ni una ausencia comprobada de identidades étnicas.",
+      "ano": 2018
+    },
+    {
+      "id": "sin-etnia-2018-municipal",
+      "topicId": "inclusion-7",
+      "indicatorId": "sin-etnia",
+      "indicator": "Personas que no se autorreconocen en un grupo étnico",
+      "ambito": "municipal",
+      "valor": 99.5,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Categoría de autorreconocimiento, no una medición integral de diversidad ni una ausencia comprobada de identidades étnicas.",
+      "ano": 2018
+    },
+    {
+      "id": "dependencia-demo-2005-nacional",
+      "topicId": "inclusion-2",
+      "indicatorId": "dependencia-demo",
+      "indicator": "Índice de dependencia demográfica (contexto)",
+      "ambito": "nacional",
+      "valor": 65.9,
+      "unidad": "índice",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador estrictamente demográfico. Aporta contexto sobre dependientes por población en edad productiva; NO mide pobreza, vulnerabilidad individual ni Sisbén.",
+      "ano": 2005
+    },
+    {
+      "id": "dependencia-demo-2005-departamental",
+      "topicId": "inclusion-2",
+      "indicatorId": "dependencia-demo",
+      "indicator": "Índice de dependencia demográfica (contexto)",
+      "ambito": "departamental",
+      "valor": 69,
+      "unidad": "índice",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador estrictamente demográfico. Aporta contexto sobre dependientes por población en edad productiva; NO mide pobreza, vulnerabilidad individual ni Sisbén.",
+      "ano": 2005
+    },
+    {
+      "id": "dependencia-demo-2005-municipal",
+      "topicId": "inclusion-2",
+      "indicatorId": "dependencia-demo",
+      "indicator": "Índice de dependencia demográfica (contexto)",
+      "ambito": "municipal",
+      "valor": 63.2,
+      "unidad": "índice",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador estrictamente demográfico. Aporta contexto sobre dependientes por población en edad productiva; NO mide pobreza, vulnerabilidad individual ni Sisbén.",
+      "ano": 2005
+    },
+    {
+      "id": "dependencia-demo-2018-nacional",
+      "topicId": "inclusion-2",
+      "indicatorId": "dependencia-demo",
+      "indicator": "Índice de dependencia demográfica (contexto)",
+      "ambito": "nacional",
+      "valor": 55.9,
+      "unidad": "índice",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador estrictamente demográfico. Aporta contexto sobre dependientes por población en edad productiva; NO mide pobreza, vulnerabilidad individual ni Sisbén.",
+      "ano": 2018
+    },
+    {
+      "id": "dependencia-demo-2018-departamental",
+      "topicId": "inclusion-2",
+      "indicatorId": "dependencia-demo",
+      "indicator": "Índice de dependencia demográfica (contexto)",
+      "ambito": "departamental",
+      "valor": 54.9,
+      "unidad": "índice",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador estrictamente demográfico. Aporta contexto sobre dependientes por población en edad productiva; NO mide pobreza, vulnerabilidad individual ni Sisbén.",
+      "ano": 2018
+    },
+    {
+      "id": "dependencia-demo-2018-municipal",
+      "topicId": "inclusion-2",
+      "indicatorId": "dependencia-demo",
+      "indicator": "Índice de dependencia demográfica (contexto)",
+      "ambito": "municipal",
+      "valor": 52,
+      "unidad": "índice",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador estrictamente demográfico. Aporta contexto sobre dependientes por población en edad productiva; NO mide pobreza, vulnerabilidad individual ni Sisbén.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-energia-2005-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-energia",
+      "indicator": "Acceso de viviendas a energía eléctrica",
+      "ambito": "nacional",
+      "valor": 93.6,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-energia-2005-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-energia",
+      "indicator": "Acceso de viviendas a energía eléctrica",
+      "ambito": "departamental",
+      "valor": 95.9,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-energia-2005-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-energia",
+      "indicator": "Acceso de viviendas a energía eléctrica",
+      "ambito": "municipal",
+      "valor": 98.4,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-energia-2018-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-energia",
+      "indicator": "Acceso de viviendas a energía eléctrica",
+      "ambito": "nacional",
+      "valor": 96.3,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-energia-2018-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-energia",
+      "indicator": "Acceso de viviendas a energía eléctrica",
+      "ambito": "departamental",
+      "valor": 98.4,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-energia-2018-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-energia",
+      "indicator": "Acceso de viviendas a energía eléctrica",
+      "ambito": "municipal",
+      "valor": 99.4,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-acueducto-2005-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-acueducto",
+      "indicator": "Acceso de viviendas a acueducto",
+      "ambito": "nacional",
+      "valor": 83.4,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-acueducto-2005-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-acueducto",
+      "indicator": "Acceso de viviendas a acueducto",
+      "ambito": "departamental",
+      "valor": 81,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-acueducto-2005-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-acueducto",
+      "indicator": "Acceso de viviendas a acueducto",
+      "ambito": "municipal",
+      "valor": 88.2,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-acueducto-2018-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-acueducto",
+      "indicator": "Acceso de viviendas a acueducto",
+      "ambito": "nacional",
+      "valor": 86.4,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-acueducto-2018-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-acueducto",
+      "indicator": "Acceso de viviendas a acueducto",
+      "ambito": "departamental",
+      "valor": 89.7,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-acueducto-2018-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-acueducto",
+      "indicator": "Acceso de viviendas a acueducto",
+      "ambito": "municipal",
+      "valor": 94.9,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-alcantarillado-2005-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-alcantarillado",
+      "indicator": "Acceso de viviendas a alcantarillado",
+      "ambito": "nacional",
+      "valor": 73.1,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-alcantarillado-2005-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-alcantarillado",
+      "indicator": "Acceso de viviendas a alcantarillado",
+      "ambito": "departamental",
+      "valor": 65.8,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-alcantarillado-2005-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-alcantarillado",
+      "indicator": "Acceso de viviendas a alcantarillado",
+      "ambito": "municipal",
+      "valor": 49.4,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-alcantarillado-2018-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-alcantarillado",
+      "indicator": "Acceso de viviendas a alcantarillado",
+      "ambito": "nacional",
+      "valor": 76.6,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-alcantarillado-2018-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-alcantarillado",
+      "indicator": "Acceso de viviendas a alcantarillado",
+      "ambito": "departamental",
+      "valor": 76.8,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-alcantarillado-2018-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-alcantarillado",
+      "indicator": "Acceso de viviendas a alcantarillado",
+      "ambito": "municipal",
+      "valor": 62.4,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-gas-2005-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-gas",
+      "indicator": "Acceso de viviendas a gas",
+      "ambito": "nacional",
+      "valor": 40.4,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-gas-2005-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-gas",
+      "indicator": "Acceso de viviendas a gas",
+      "ambito": "departamental",
+      "valor": 28.5,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-gas-2005-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-gas",
+      "indicator": "Acceso de viviendas a gas",
+      "ambito": "municipal",
+      "valor": 0,
+      "unidad": "%",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2005
+    },
+    {
+      "id": "servicio-gas-2018-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-gas",
+      "indicator": "Acceso de viviendas a gas",
+      "ambito": "nacional",
+      "valor": 67.3,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-gas-2018-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-gas",
+      "indicator": "Acceso de viviendas a gas",
+      "ambito": "departamental",
+      "valor": 69.9,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-gas-2018-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-gas",
+      "indicator": "Acceso de viviendas a gas",
+      "ambito": "municipal",
+      "valor": 48.2,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-basuras-2018-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-basuras",
+      "indicator": "Viviendas con recolección de basuras",
+      "ambito": "nacional",
+      "valor": 81.6,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-basuras-2018-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-basuras",
+      "indicator": "Viviendas con recolección de basuras",
+      "ambito": "departamental",
+      "valor": 82.2,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-basuras-2018-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-basuras",
+      "indicator": "Viviendas con recolección de basuras",
+      "ambito": "municipal",
+      "valor": 89.4,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-internet-2018-nacional",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-internet",
+      "indicator": "Viviendas con servicio de internet",
+      "ambito": "nacional",
+      "valor": 43.8,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-internet-2018-departamental",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-internet",
+      "indicator": "Viviendas con servicio de internet",
+      "ambito": "departamental",
+      "valor": 42.3,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "servicio-internet-2018-municipal",
+      "topicId": "ambiental-vivienda-3",
+      "indicatorId": "servicio-internet",
+      "indicator": "Viviendas con servicio de internet",
+      "ambito": "municipal",
+      "valor": 37.3,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Cobertura de servicios domiciliarios en viviendas según el censo. Para gas e internet se excluyen viviendas sin respuesta conforme a la nota del DANE. No utilizar como cobertura vigente en 2026.",
+      "ano": 2018
+    },
+    {
+      "id": "conectividad-internet-2018-nacional",
+      "topicId": "institucional-tic-2",
+      "indicatorId": "conectividad-internet",
+      "indicator": "Viviendas con acceso a internet",
+      "ambito": "nacional",
+      "valor": 43.8,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Disponibilidad del servicio de internet en vivienda (CNPV 2018); no mide velocidad, adopción de gobierno digital ni conectividad actual.",
+      "ano": 2018
+    },
+    {
+      "id": "conectividad-internet-2018-departamental",
+      "topicId": "institucional-tic-2",
+      "indicatorId": "conectividad-internet",
+      "indicator": "Viviendas con acceso a internet",
+      "ambito": "departamental",
+      "valor": 42.3,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Disponibilidad del servicio de internet en vivienda (CNPV 2018); no mide velocidad, adopción de gobierno digital ni conectividad actual.",
+      "ano": 2018
+    },
+    {
+      "id": "conectividad-internet-2018-municipal",
+      "topicId": "institucional-tic-2",
+      "indicatorId": "conectividad-internet",
+      "indicator": "Viviendas con acceso a internet",
+      "ambito": "municipal",
+      "valor": 37.3,
+      "unidad": "%",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 2,
+      "verificado": "verificado",
+      "notaMetodologica": "Disponibilidad del servicio de internet en vivienda (CNPV 2018); no mide velocidad, adopción de gobierno digital ni conectividad actual.",
+      "ano": 2018
+    },
+    {
+      "id": "viviendas-ocupadas-2005-nacional",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "viviendas-ocupadas",
+      "indicator": "Viviendas ocupadas con personas presentes",
+      "ambito": "nacional",
+      "valor": 9742928,
+      "unidad": "viviendas",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Conteo absoluto de viviendas ocupadas. Los niveles difieren mucho de tamaño; comparar el número de viviendas NO equivale a comparar el desempeño habitacional. En los censos hubo revisiones de límites.",
+      "ano": 2005
+    },
+    {
+      "id": "viviendas-ocupadas-2005-departamental",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "viviendas-ocupadas",
+      "indicator": "Viviendas ocupadas con personas presentes",
+      "ambito": "departamental",
+      "valor": 539306,
+      "unidad": "viviendas",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Conteo absoluto de viviendas ocupadas. Los niveles difieren mucho de tamaño; comparar el número de viviendas NO equivale a comparar el desempeño habitacional. En los censos hubo revisiones de límites.",
+      "ano": 2005
+    },
+    {
+      "id": "viviendas-ocupadas-2005-municipal",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "viviendas-ocupadas",
+      "indicator": "Viviendas ocupadas con personas presentes",
+      "ambito": "municipal",
+      "valor": 3353,
+      "unidad": "viviendas",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Conteo absoluto de viviendas ocupadas. Los niveles difieren mucho de tamaño; comparar el número de viviendas NO equivale a comparar el desempeño habitacional. En los censos hubo revisiones de límites.",
+      "ano": 2005
+    },
+    {
+      "id": "viviendas-ocupadas-2018-nacional",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "viviendas-ocupadas",
+      "indicator": "Viviendas ocupadas con personas presentes",
+      "ambito": "nacional",
+      "valor": 13480729,
+      "unidad": "viviendas",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Conteo absoluto de viviendas ocupadas. Los niveles difieren mucho de tamaño; comparar el número de viviendas NO equivale a comparar el desempeño habitacional. En los censos hubo revisiones de límites.",
+      "ano": 2018
+    },
+    {
+      "id": "viviendas-ocupadas-2018-departamental",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "viviendas-ocupadas",
+      "indicator": "Viviendas ocupadas con personas presentes",
+      "ambito": "departamental",
+      "valor": 899740,
+      "unidad": "viviendas",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Conteo absoluto de viviendas ocupadas. Los niveles difieren mucho de tamaño; comparar el número de viviendas NO equivale a comparar el desempeño habitacional. En los censos hubo revisiones de límites.",
+      "ano": 2018
+    },
+    {
+      "id": "viviendas-ocupadas-2018-municipal",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "viviendas-ocupadas",
+      "indicator": "Viviendas ocupadas con personas presentes",
+      "ambito": "municipal",
+      "valor": 4814,
+      "unidad": "viviendas",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Conteo absoluto de viviendas ocupadas. Los niveles difieren mucho de tamaño; comparar el número de viviendas NO equivale a comparar el desempeño habitacional. En los censos hubo revisiones de límites.",
+      "ano": 2018
+    },
+    {
+      "id": "hogares-particulares-2005-nacional",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "hogares-particulares",
+      "indicator": "Hogares particulares censados",
+      "ambito": "nacional",
+      "valor": 10570899,
+      "unidad": "hogares",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Número absoluto de hogares particulares de cada entidad territorial. Diferente de viviendas y de personas; comparación entre censos, no serie anual.",
+      "ano": 2005
+    },
+    {
+      "id": "hogares-particulares-2005-departamental",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "hogares-particulares",
+      "indicator": "Hogares particulares censados",
+      "ambito": "departamental",
+      "valor": 601884,
+      "unidad": "hogares",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Número absoluto de hogares particulares de cada entidad territorial. Diferente de viviendas y de personas; comparación entre censos, no serie anual.",
+      "ano": 2005
+    },
+    {
+      "id": "hogares-particulares-2005-municipal",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "hogares-particulares",
+      "indicator": "Hogares particulares censados",
+      "ambito": "municipal",
+      "valor": 3522,
+      "unidad": "hogares",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Número absoluto de hogares particulares de cada entidad territorial. Diferente de viviendas y de personas; comparación entre censos, no serie anual.",
+      "ano": 2005
+    },
+    {
+      "id": "hogares-particulares-2018-nacional",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "hogares-particulares",
+      "indicator": "Hogares particulares censados",
+      "ambito": "nacional",
+      "valor": 14243223,
+      "unidad": "hogares",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Número absoluto de hogares particulares de cada entidad territorial. Diferente de viviendas y de personas; comparación entre censos, no serie anual.",
+      "ano": 2018
+    },
+    {
+      "id": "hogares-particulares-2018-departamental",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "hogares-particulares",
+      "indicator": "Hogares particulares censados",
+      "ambito": "departamental",
+      "valor": 945586,
+      "unidad": "hogares",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Número absoluto de hogares particulares de cada entidad territorial. Diferente de viviendas y de personas; comparación entre censos, no serie anual.",
+      "ano": 2018
+    },
+    {
+      "id": "hogares-particulares-2018-municipal",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "hogares-particulares",
+      "indicator": "Hogares particulares censados",
+      "ambito": "municipal",
+      "valor": 4839,
+      "unidad": "hogares",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Número absoluto de hogares particulares de cada entidad territorial. Diferente de viviendas y de personas; comparación entre censos, no serie anual.",
+      "ano": 2018
+    },
+    {
+      "id": "personas-por-hogar-2005-nacional",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "personas-por-hogar",
+      "indicator": "Personas por hogar particular (promedio)",
+      "ambito": "nacional",
+      "valor": 3.9,
+      "unidad": "personas/hogar",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Promedio censal de personas por hogar particular, no porcentaje. Los años corresponden a censos, no a mediciones anuales.",
+      "ano": 2005
+    },
+    {
+      "id": "personas-por-hogar-2005-departamental",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "personas-por-hogar",
+      "indicator": "Personas por hogar particular (promedio)",
+      "ambito": "departamental",
+      "valor": 3.7,
+      "unidad": "personas/hogar",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Promedio censal de personas por hogar particular, no porcentaje. Los años corresponden a censos, no a mediciones anuales.",
+      "ano": 2005
+    },
+    {
+      "id": "personas-por-hogar-2005-municipal",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "personas-por-hogar",
+      "indicator": "Personas por hogar particular (promedio)",
+      "ambito": "municipal",
+      "valor": 3.7,
+      "unidad": "personas/hogar",
+      "periodo": "CG 2005",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Promedio censal de personas por hogar particular, no porcentaje. Los años corresponden a censos, no a mediciones anuales.",
+      "ano": 2005
+    },
+    {
+      "id": "personas-por-hogar-2018-nacional",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "personas-por-hogar",
+      "indicator": "Personas por hogar particular (promedio)",
+      "ambito": "nacional",
+      "valor": 3.1,
+      "unidad": "personas/hogar",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Promedio censal de personas por hogar particular, no porcentaje. Los años corresponden a censos, no a mediciones anuales.",
+      "ano": 2018
+    },
+    {
+      "id": "personas-por-hogar-2018-departamental",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "personas-por-hogar",
+      "indicator": "Personas por hogar particular (promedio)",
+      "ambito": "departamental",
+      "valor": 2.9,
+      "unidad": "personas/hogar",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Promedio censal de personas por hogar particular, no porcentaje. Los años corresponden a censos, no a mediciones anuales.",
+      "ano": 2018
+    },
+    {
+      "id": "personas-por-hogar-2018-municipal",
+      "topicId": "ambiental-vivienda-1",
+      "indicatorId": "personas-por-hogar",
+      "indicator": "Personas por hogar particular (promedio)",
+      "ambito": "municipal",
+      "valor": 3.1,
+      "unidad": "personas/hogar",
+      "periodo": "CNPV 2018",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "DANE — ficha municipal CNPV 2018 y CG 2005, código 25769",
+      "fuente": "https://sitios.dane.gov.co/cnpv/app/views/informacion/fichas/25769.pdf",
+      "pagina": 1,
+      "verificado": "verificado",
+      "notaMetodologica": "Promedio censal de personas por hogar particular, no porcentaje. Los años corresponden a censos, no a mediciones anuales.",
+      "ano": 2018
+    },
+    {
+      "id": "violencia-intrafamiliar-2017-2017-nacional",
+      "topicId": "justicia-2",
+      "indicatorId": "violencia-intrafamiliar-2017",
+      "indicator": "Tasa de violencia intrafamiliar",
+      "ambito": "nacional",
+      "valor": 188.5,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de violencia intrafamiliar de 2017 por cada 100.000 habitantes, extraída del diagnóstico provincial 2020–2024. No refleja 2026.",
+      "ano": 2017
+    },
+    {
+      "id": "violencia-intrafamiliar-2017-2017-departamental",
+      "topicId": "justicia-2",
+      "indicatorId": "violencia-intrafamiliar-2017",
+      "indicator": "Tasa de violencia intrafamiliar",
+      "ambito": "departamental",
+      "valor": 138.1,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de violencia intrafamiliar de 2017 por cada 100.000 habitantes, extraída del diagnóstico provincial 2020–2024. No refleja 2026.",
+      "ano": 2017
+    },
+    {
+      "id": "violencia-intrafamiliar-2017-2017-municipal",
+      "topicId": "justicia-2",
+      "indicatorId": "violencia-intrafamiliar-2017",
+      "indicator": "Tasa de violencia intrafamiliar",
+      "ambito": "municipal",
+      "valor": 119.4,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de violencia intrafamiliar de 2017 por cada 100.000 habitantes, extraída del diagnóstico provincial 2020–2024. No refleja 2026.",
+      "ano": 2017
+    },
+    {
+      "id": "hurto-2017-2017-nacional",
+      "topicId": "justicia-3",
+      "indicatorId": "hurto-2017",
+      "indicator": "Tasa de hurto",
+      "ambito": "nacional",
+      "valor": 567,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de hurto de 2017 por cada 100.000 habitantes. Un indicador anual de delitos registrados, no una estimación de victimización total.",
+      "ano": 2017
+    },
+    {
+      "id": "hurto-2017-2017-departamental",
+      "topicId": "justicia-3",
+      "indicatorId": "hurto-2017",
+      "indicator": "Tasa de hurto",
+      "ambito": "departamental",
+      "valor": 537,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de hurto de 2017 por cada 100.000 habitantes. Un indicador anual de delitos registrados, no una estimación de victimización total.",
+      "ano": 2017
+    },
+    {
+      "id": "hurto-2017-2017-municipal",
+      "topicId": "justicia-3",
+      "indicatorId": "hurto-2017",
+      "indicator": "Tasa de hurto",
+      "ambito": "municipal",
+      "valor": 239,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de hurto de 2017 por cada 100.000 habitantes. Un indicador anual de delitos registrados, no una estimación de victimización total.",
+      "ano": 2017
+    },
+    {
+      "id": "homicidios-2017-2017-nacional",
+      "topicId": "justicia-3",
+      "indicatorId": "homicidios-2017",
+      "indicator": "Tasa de homicidios",
+      "ambito": "nacional",
+      "valor": 24.8,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de homicidios de 2017 por cada 100.000 habitantes. Cero en un año concreto no equivale a ausencia permanente de riesgo.",
+      "ano": 2017
+    },
+    {
+      "id": "homicidios-2017-2017-departamental",
+      "topicId": "justicia-3",
+      "indicatorId": "homicidios-2017",
+      "indicator": "Tasa de homicidios",
+      "ambito": "departamental",
+      "valor": 15.4,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de homicidios de 2017 por cada 100.000 habitantes. Cero en un año concreto no equivale a ausencia permanente de riesgo.",
+      "ano": 2017
+    },
+    {
+      "id": "homicidios-2017-2017-municipal",
+      "topicId": "justicia-3",
+      "indicatorId": "homicidios-2017",
+      "indicator": "Tasa de homicidios",
+      "ambito": "municipal",
+      "valor": 0,
+      "unidad": "casos por 100.000 hab.",
+      "periodo": "2017",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — diagnóstico provincial para el PDD 2020–2024 (datos 2017)",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/834c06dc-16da-4aaa-988f-a11b6198e55d/DIAGNOSTICO%2BPROVINCIAL.pdf?CVID=n9MdILs&MOD=AJPERES",
+      "pagina": 103,
+      "verificado": "verificado",
+      "notaMetodologica": "Tasa de homicidios de 2017 por cada 100.000 habitantes. Cero en un año concreto no equivale a ausencia permanente de riesgo.",
+      "ano": 2017
+    },
+    {
+      "id": "icld-2023-municipal",
+      "topicId": "economica-hacienda-1",
+      "indicatorId": "icld",
+      "indicator": "Ingresos corrientes de libre destinación (ICLD)",
+      "ambito": "municipal",
+      "valor": 9917.671,
+      "unidad": "millones COP",
+      "periodo": "2023",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 149,
+      "verificado": "verificado",
+      "notaMetodologica": "Montos ICLD en millones de pesos, convertidos de miles de pesos reportados en la tabla 44. Son un componente de ingresos, NO el total de ingresos municipales.",
+      "ano": 2023
+    },
+    {
+      "id": "icld-2024-municipal",
+      "topicId": "economica-hacienda-1",
+      "indicatorId": "icld",
+      "indicator": "Ingresos corrientes de libre destinación (ICLD)",
+      "ambito": "municipal",
+      "valor": 10758.168,
+      "unidad": "millones COP",
+      "periodo": "2024",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 149,
+      "verificado": "verificado",
+      "notaMetodologica": "Montos ICLD en millones de pesos, convertidos de miles de pesos reportados en la tabla 44. Son un componente de ingresos, NO el total de ingresos municipales.",
+      "ano": 2024
+    },
+    {
+      "id": "gasto-funcionamiento-2023-municipal",
+      "topicId": "economica-hacienda-10",
+      "indicatorId": "gasto-funcionamiento",
+      "indicator": "Gastos de funcionamiento",
+      "ambito": "municipal",
+      "valor": 4491.872,
+      "unidad": "millones COP",
+      "periodo": "2023",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 149,
+      "verificado": "verificado",
+      "notaMetodologica": "Gastos de funcionamiento en millones COP, según informe de viabilidad financiera. No equivale al presupuesto municipal total.",
+      "ano": 2023
+    },
+    {
+      "id": "gasto-funcionamiento-2024-municipal",
+      "topicId": "economica-hacienda-10",
+      "indicatorId": "gasto-funcionamiento",
+      "indicator": "Gastos de funcionamiento",
+      "ambito": "municipal",
+      "valor": 4378.4,
+      "unidad": "millones COP",
+      "periodo": "2024",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 149,
+      "verificado": "verificado",
+      "notaMetodologica": "Gastos de funcionamiento en millones COP, según informe de viabilidad financiera. No equivale al presupuesto municipal total.",
+      "ano": 2024
+    },
+    {
+      "id": "deficit-fiscal-2023-municipal",
+      "topicId": "economica-hacienda-10",
+      "indicatorId": "deficit-fiscal",
+      "indicator": "Magnitud absoluta del déficit fiscal reportado",
+      "ambito": "municipal",
+      "valor": 498,
+      "unidad": "millones COP",
+      "periodo": "2023",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Contraloría de Cundinamarca — Informe anual de finanzas públicas, vigencia 2024",
+      "fuente": "https://www.lamesa-cundinamarca.gov.co/Transparencia/InformacionFinanciera/Informe%20Anual%20Finanzas%20Publicas%20Cundinamarca%20Vigencia%20_2024.pdf",
+      "pagina": 262,
+      "verificado": "verificado",
+      "notaMetodologica": "Se grafica la magnitud positiva del DÉFICIT (no un superávit). A mayor magnitud, mayor déficit. Los datos corresponden al resultado fiscal reportado por Contraloría.",
+      "ano": 2023
+    },
+    {
+      "id": "deficit-fiscal-2024-municipal",
+      "topicId": "economica-hacienda-10",
+      "indicatorId": "deficit-fiscal",
+      "indicator": "Magnitud absoluta del déficit fiscal reportado",
+      "ambito": "municipal",
+      "valor": 5339,
+      "unidad": "millones COP",
+      "periodo": "2024",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Contraloría de Cundinamarca — Informe anual de finanzas públicas, vigencia 2024",
+      "fuente": "https://www.lamesa-cundinamarca.gov.co/Transparencia/InformacionFinanciera/Informe%20Anual%20Finanzas%20Publicas%20Cundinamarca%20Vigencia%20_2024.pdf",
+      "pagina": 262,
+      "verificado": "verificado",
+      "notaMetodologica": "Se grafica la magnitud positiva del DÉFICIT (no un superávit). A mayor magnitud, mayor déficit. Los datos corresponden al resultado fiscal reportado por Contraloría.",
+      "ano": 2024
+    },
+    {
+      "id": "incremento-predial-2024-municipal",
+      "topicId": "economica-hacienda-4",
+      "indicatorId": "incremento-predial",
+      "indicator": "Incremento interanual de ingresos por impuesto predial",
+      "ambito": "municipal",
+      "valor": 752,
+      "unidad": "millones COP",
+      "periodo": "2024",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera, vigencia 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 78,
+      "verificado": "verificado",
+      "notaMetodologica": "Variación positiva del recaudo por impuesto predial unificado frente a 2023; NO es el recaudo total del impuesto de 2024.",
+      "ano": 2024
+    },
+    {
+      "id": "incremento-ica-2024-municipal",
+      "topicId": "economica-hacienda-5",
+      "indicatorId": "incremento-ica",
+      "indicator": "Incremento interanual de ingresos por industria y comercio",
+      "ambito": "municipal",
+      "valor": 383,
+      "unidad": "millones COP",
+      "periodo": "2024",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera, vigencia 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 78,
+      "verificado": "verificado",
+      "notaMetodologica": "Variación positiva del recaudo del impuesto de industria y comercio frente a 2023; NO es el recaudo total de 2024.",
+      "ano": 2024
+    },
+    {
+      "id": "gf-icld-617-2020-municipal",
+      "topicId": "institucional-gobierno-2",
+      "indicatorId": "gf-icld-617",
+      "indicator": "Gastos de funcionamiento sobre ICLD (Ley 617)",
+      "ambito": "municipal",
+      "valor": 41.38,
+      "unidad": "%",
+      "periodo": "2020",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera, vigencia 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 78,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador GF/ICLD bajo Ley 617 de 2000. Un valor menor indica menor proporción de recursos ICLD destinada al gasto de funcionamiento. NO es el Índice de Desempeño Fiscal (IDF) del DNP.",
+      "ano": 2020
+    },
+    {
+      "id": "gf-icld-617-2021-municipal",
+      "topicId": "institucional-gobierno-2",
+      "indicatorId": "gf-icld-617",
+      "indicator": "Gastos de funcionamiento sobre ICLD (Ley 617)",
+      "ambito": "municipal",
+      "valor": 41.71,
+      "unidad": "%",
+      "periodo": "2021",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera, vigencia 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 78,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador GF/ICLD bajo Ley 617 de 2000. Un valor menor indica menor proporción de recursos ICLD destinada al gasto de funcionamiento. NO es el Índice de Desempeño Fiscal (IDF) del DNP.",
+      "ano": 2021
+    },
+    {
+      "id": "gf-icld-617-2022-municipal",
+      "topicId": "institucional-gobierno-2",
+      "indicatorId": "gf-icld-617",
+      "indicator": "Gastos de funcionamiento sobre ICLD (Ley 617)",
+      "ambito": "municipal",
+      "valor": 42.91,
+      "unidad": "%",
+      "periodo": "2022",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera, vigencia 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 78,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador GF/ICLD bajo Ley 617 de 2000. Un valor menor indica menor proporción de recursos ICLD destinada al gasto de funcionamiento. NO es el Índice de Desempeño Fiscal (IDF) del DNP.",
+      "ano": 2022
+    },
+    {
+      "id": "gf-icld-617-2023-municipal",
+      "topicId": "institucional-gobierno-2",
+      "indicatorId": "gf-icld-617",
+      "indicator": "Gastos de funcionamiento sobre ICLD (Ley 617)",
+      "ambito": "municipal",
+      "valor": 45.29,
+      "unidad": "%",
+      "periodo": "2023",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera, vigencia 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 78,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador GF/ICLD bajo Ley 617 de 2000. Un valor menor indica menor proporción de recursos ICLD destinada al gasto de funcionamiento. NO es el Índice de Desempeño Fiscal (IDF) del DNP.",
+      "ano": 2023
+    },
+    {
+      "id": "gf-icld-617-2024-municipal",
+      "topicId": "institucional-gobierno-2",
+      "indicatorId": "gf-icld-617",
+      "indicator": "Gastos de funcionamiento sobre ICLD (Ley 617)",
+      "ambito": "municipal",
+      "valor": 40.7,
+      "unidad": "%",
+      "periodo": "2024",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — Informe de viabilidad financiera, vigencia 2024",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5/2024%2BInforme%2Bde%2BViabilidad%2BFinanciera_%2Bv2-5%2B3.pdf?CACHEID=ROOTWORKSPACE-c8f00a8a-5ddb-4b5a-89e9-a6a933d6e7e5-pt23g5z&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 78,
+      "verificado": "verificado",
+      "notaMetodologica": "Indicador GF/ICLD bajo Ley 617 de 2000. Un valor menor indica menor proporción de recursos ICLD destinada al gasto de funcionamiento. NO es el Índice de Desempeño Fiscal (IDF) del DNP.",
+      "ano": 2024
+    },
+    {
+      "id": "irca-2020-2020-municipal",
+      "topicId": "ambiental-ambiente-6",
+      "indicatorId": "irca-2020",
+      "indicator": "Índice de riesgo para la calidad del agua (IRCA promedio)",
+      "ambito": "municipal",
+      "valor": 4.8,
+      "unidad": "%",
+      "periodo": "2020",
+      "municipio": "Subachoque",
+      "departamento": "Cundinamarca",
+      "origen": "Gobernación de Cundinamarca — boletín epidemiológico de vigilancia ambiental, 2020",
+      "fuente": "https://www.cundinamarca.gov.co/wcm/connect/b589afba-56e1-46b8-b03e-026166cad6af/BOLET%C3%8DN%2BEPIDEMIOL%C3%93GICO%2BDE%2BLA%2BUNIDAD%2BDE%2BVIGILANCIA%2BDE%2BFACTORES%2BDE%2BRIESGO%2BDEL%2BAMBIENTE%2BY%2BDEL%2BCONSUMO%2BA%C3%91O%2B2020%2BAJUSTES%2BFINALES.pdf?CACHEID=ROOTWORKSPACE-b589afba-56e1-46b8-b03e-026166cad6af-oVo9yV3&CONVERT_TO=url&MOD=AJPERES",
+      "pagina": 63,
+      "verificado": "verificado",
+      "notaMetodologica": "Promedio IRCA del municipio en 2020, según vigilancia de calidad del agua. En el IRCA un valor más alto implica más riesgo; NO equivale a cobertura de acueducto ni a un dato de 2026.",
+      "ano": 2020
     }
   ],
   "politica": "No inventar valores ni tendencias a partir de maquetas. Solamente mostrar gráficas cuando cada indicador tenga valor, fuente, unidad y periodo verificables. Los enlaces a portales son sitios para localizar datos: no indican que existan series conectadas.",
@@ -1033,5 +3262,7 @@
         "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
       }
     }
-  }
+  },
+  "lastVerified": "2026-10-17",
+  "metodologia": "Indicadores verificados manualmente contra fuentes oficiales publicadas; CNPV 2018 y CG 2005, registros departamentales de seguridad (2017), vigilancia IRCA (2020) y finanzas territoriales (2020–2024). Las series se almacenan con valor, nivel, unidad, período, fuente y advertencia metodológica. No se interpolan años ni se suplanta información faltante."
 }
