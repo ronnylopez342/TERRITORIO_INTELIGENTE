@@ -31,7 +31,7 @@
       <section class="d23-hero" aria-labelledby="d23HeroTitle">
         <div class="d23-hero-image" aria-hidden="true"></div><div class="d23-hero-shade" aria-hidden="true"></div>
         <div class="d23-hero-copy">
-          <span class="d23-breadcrumb">Data Territorio&nbsp; / &nbsp;2.3 Datos del DANE</span>
+          <span class="d23-breadcrumb">Data Territorio&nbsp; / &nbsp;2.2 Data Subachoque / Datos del DANE</span>
           <h1 id="d23HeroTitle" tabindex="-1">DATOS<br>DEL<br>DANE</h1>
           <p class="d23-hero-lede">Organizamos la información oficial del DANE para Subachoque, con series históricas, comparaciones y visualizaciones territoriales.</p>
           <p class="d23-topicline">Población · Vivienda · Hogares · Servicios</p><span class="d23-shortline"></span>
@@ -126,7 +126,7 @@
     const [title,description]=sections[view];
     return `<div class="d23-detail" id="d23Detail">
       <button class="d23-back" type="button" data-d23-back>← Volver a Datos del DANE</button>
-      <header class="d23-detail-header"><div><p class="d23-eyebrow">DATA TERRITORIO / 2.3 / SUBACHOQUE</p><h2 tabindex="-1" id="d23DetailTitle">${esc(title)}</h2><p>${esc(description)}</p></div><span class="d23-meta">DANE · CNPV 2018 / CG 2005</span></header>
+      <header class="d23-detail-header"><div><p class="d23-eyebrow">DATA TERRITORIO / 2.2 / DANE / SUBACHOQUE</p><h2 tabindex="-1" id="d23DetailTitle">${esc(title)}</h2><p>${esc(description)}</p></div><span class="d23-meta">DANE · CNPV 2018 / CG 2005</span></header>
       <nav class="d23-tabs" aria-label="Vistas de Datos del DANE">${featureInfo.map(([key,name])=>`<button class="d23-tab" type="button" data-d23-view="${key}" aria-selected="${String(key===view)}">${esc(name)}</button>`).join("")}</nav>
       ${view==="poblacion"?stagePopulation():view==="series"?stageSeries():view==="mapas"?stageMaps():stageSources()}
       <div class="d23-actions"><button class="d23-btn d23-btn-primary" type="button" data-d23-export>Descargar datos oficiales utilizados ↓</button><a class="d23-btn" href="${esc(source.source.url)}" target="_blank" rel="noopener noreferrer">Consultar ficha original ↗</a></div>
@@ -147,7 +147,7 @@
     legacy.hidden=next!=="fuentes";
     if(next!=="fuentes")legacy.open=false;
     if(options.history!==false&&location.hash.startsWith("#data")){
-      const hash="#data?seccion=data-fuentes"+(next?"&vista="+encodeURIComponent(next):"");
+      const hash="#data?seccion=data-subachoque&sub=dane"+(next?"&vista="+encodeURIComponent(next):"");
       if(location.hash!==hash)history.pushState({route:"data"}, "",hash);
     }
     if(options.focus!==false)scrollIntoFocus();
@@ -156,7 +156,7 @@
     const hash=location.hash;
     if(!hash.startsWith("#data"))return;
     const params=new URLSearchParams(hash.split("?")[1]||"");
-    if(params.get("seccion")==="data-fuentes")showView(params.get("vista")||"",{history:false,focus:false});
+    if(params.get("seccion")==="data-subachoque"&&params.get("sub")==="dane")showView(params.get("vista")||"",{history:false,focus:false});
   }
   function status(text){
     const elm=root.querySelector("#d23GeneralStatus")||root.querySelector("#d23Status");
@@ -245,7 +245,7 @@
     }
   });
   document.addEventListener("click",event=>{
-    if(event.target.closest('[data-data-destination="data-fuentes"]'))showView("",{history:false,focus:false});
+    if(event.target.closest('[data-ds-open="dane"], [data-ds-tab="dane"]'))showView("",{history:false,focus:false});
   });
   window.addEventListener("popstate",syncHash);
   window.addEventListener("hashchange",syncHash);
