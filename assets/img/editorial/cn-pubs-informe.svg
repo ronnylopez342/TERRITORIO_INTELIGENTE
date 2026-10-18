@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="260" viewBox="0 0 300 260"><defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#8fc5ee"/><stop offset=".85" stop-color="#d6ecfb"/></linearGradient><linearGradient id="hills" x2="0" y2="1"><stop stop-color="#235b85"/><stop offset="1" stop-color="#102c55"/></linearGradient></defs>
+<rect width="300" height="260" fill="url(#sky)"/><path d="M0 128 30 95 66 113 103 74 144 92 200 77 241 103 300 83v92H0Z" fill="#477f9c"/>
+<path d="M0 176Q150 158 300 175v85H0Z" fill="#acd49d"/><path d="M119 260 161 176h29l55 84Z" fill="#dbd0ae"/>
+<path d="M145 260 166 176" stroke="#eee7d1" stroke-width="3"/>
+<g fill="#386e47"><circle cx="25" cy="121" r="34"/><circle cx="74" cy="104" r="33"/><circle cx="277" cy="120" r="36"/><circle cx="225" cy="107" r="29"/></g>
+<g stroke="#704b32" stroke-width="7"><path d="M26 130v83M75 130v77M273 136v81M226 123v92"/></g>
+<g fill="#2f5660"><circle cx="174" cy="207" r="6"/><path d="M170 214h9l5 25h-19Z"/><circle cx="209" cy="212" r="5"/><path d="M207 219h8l3 21h-16Z"/></g></svg>
