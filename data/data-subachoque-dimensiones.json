@@ -1,9 +1,9 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "municipio": "Subachoque",
   "departamento": "Cundinamarca",
   "pais": "Colombia",
-  "referenciaTematica": "DIMENSIONES.docx, suministrado para Territorio Inteligente",
+  "referenciaTematica": "Listado de cuatro dimensiones, áreas y subtemas compartido por el usuario; mantener la numeración literal incluso donde el listado repite códigos.",
   "niveles": [
     {
       "id": "nacional",
@@ -28,324 +28,796 @@
     {
       "id": "social",
       "titulo": "Dimensión Social",
-      "estado": "activa"
+      "subtitulo": "Personas y bienestar",
+      "descripcion": "Salud, educación, inclusión social, cultura, deporte, recreación y seguridad ciudadana.",
+      "areas": [
+        {
+          "id": "salud",
+          "code": "1.1",
+          "title": "Salud y Protección Social",
+          "topics": [
+            {
+              "id": "salud-1",
+              "documentCode": "1.1.1",
+              "title": "Aseguramiento"
+            },
+            {
+              "id": "salud-2",
+              "documentCode": "1.1.2",
+              "title": "Salud pública"
+            },
+            {
+              "id": "salud-3",
+              "documentCode": "1.1.3",
+              "title": "Prestación de servicios de salud"
+            },
+            {
+              "id": "salud-4",
+              "documentCode": "1.1.4",
+              "title": "Discapacidad"
+            },
+            {
+              "id": "salud-5",
+              "documentCode": "1.1.5",
+              "title": "Adulto mayor"
+            },
+            {
+              "id": "salud-6",
+              "documentCode": "1.1.6",
+              "title": "Primera infancia"
+            },
+            {
+              "id": "salud-7",
+              "documentCode": "1.1.7",
+              "title": "Nutrición"
+            }
+          ],
+          "portales": {
+            "nacional": {
+              "nombre": "SISPRO — Ministerio de Salud",
+              "url": "https://www.sispro.gov.co/central-gestion-del-conocimiento/Pages/construya-su-consulta-aseguramiento.aspx"
+            },
+            "departamental": {
+              "nombre": "Observatorio de Salud de Cundinamarca",
+              "url": "https://www.cundinamarca.gov.co/observatorios/observatorio-salud/datos-en-salud/"
+            },
+            "municipal": {
+              "nombre": "Portal institucional de Subachoque",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
+        },
+        {
+          "id": "educacion",
+          "code": "1.2",
+          "title": "Educación",
+          "topics": [
+            {
+              "id": "educacion-1",
+              "documentCode": "1.2.1",
+              "title": "Cobertura educativa"
+            },
+            {
+              "id": "educacion-2",
+              "documentCode": "1.2.2",
+              "title": "Calidad educativa"
+            },
+            {
+              "id": "educacion-3",
+              "documentCode": "1.2.3",
+              "title": "Permanencia escolar"
+            },
+            {
+              "id": "educacion-4",
+              "documentCode": "1.2.4",
+              "title": "Infraestructura educativa"
+            },
+            {
+              "id": "educacion-5",
+              "documentCode": "1.2.5",
+              "title": "Educación superior"
+            }
+          ],
+          "portales": {
+            "nacional": {
+              "nombre": "Ministerio de Educación Nacional",
+              "url": "https://www.mineducacion.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca",
+              "url": "https://www.cundinamarca.gov.co/home/"
+            },
+            "municipal": {
+              "nombre": "Portal institucional de Subachoque",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
+        },
+        {
+          "id": "inclusion",
+          "code": "1.3",
+          "title": "Inclusión Social y Equidad",
+          "topics": [
+            {
+              "id": "inclusion-1",
+              "documentCode": "1.3.1",
+              "title": "Pobreza"
+            },
+            {
+              "id": "inclusion-2",
+              "documentCode": "1.3.2",
+              "title": "Vulnerabilidad"
+            },
+            {
+              "id": "inclusion-3",
+              "documentCode": "1.3.3",
+              "title": "Víctimas del conflicto"
+            },
+            {
+              "id": "inclusion-4",
+              "documentCode": "1.3.4",
+              "title": "Mujeres"
+            },
+            {
+              "id": "inclusion-5",
+              "documentCode": "1.3.5",
+              "title": "Juventud"
+            },
+            {
+              "id": "inclusion-6",
+              "documentCode": "1.3.6",
+              "title": "Grupos étnicos"
+            },
+            {
+              "id": "inclusion-7",
+              "documentCode": "1.3.7",
+              "title": "Diversidad poblacional"
+            }
+          ],
+          "portales": {
+            "nacional": {
+              "nombre": "DANE — Estadísticas nacionales",
+              "url": "https://www.dane.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca",
+              "url": "https://www.cundinamarca.gov.co/home/"
+            },
+            "municipal": {
+              "nombre": "Portal institucional de Subachoque",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
+        },
+        {
+          "id": "cultura",
+          "code": "1.4",
+          "title": "Cultura",
+          "topics": [
+            {
+              "id": "cultura-1",
+              "documentCode": "1.4.1",
+              "title": "Escuelas de formación cultural"
+            },
+            {
+              "id": "cultura-2",
+              "documentCode": "1.4.2",
+              "title": "Biblioteca pública"
+            },
+            {
+              "id": "cultura-3",
+              "documentCode": "1.4.3",
+              "title": "Actividades culturales"
+            },
+            {
+              "id": "cultura-4",
+              "documentCode": "1.4.4",
+              "title": "Infraestructura cultural"
+            },
+            {
+              "id": "cultura-5",
+              "documentCode": "1.4.5",
+              "title": "Patrimonio cultural"
+            }
+          ],
+          "portales": {
+            "nacional": {
+              "nombre": "Ministerio de las Culturas",
+              "url": "https://www.minculturas.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca",
+              "url": "https://www.cundinamarca.gov.co/home/"
+            },
+            "municipal": {
+              "nombre": "Portal institucional de Subachoque",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
+        },
+        {
+          "id": "deporte",
+          "code": "1.5",
+          "title": "Deporte y Recreación",
+          "topics": [
+            {
+              "id": "deporte-1",
+              "documentCode": "1.5.1",
+              "title": "Escuelas de deporte y recreación"
+            },
+            {
+              "id": "deporte-2",
+              "documentCode": "1.5.1",
+              "title": "Actividad física"
+            },
+            {
+              "id": "deporte-3",
+              "documentCode": "1.5.1",
+              "title": "Escenarios deportivos"
+            },
+            {
+              "id": "deporte-4",
+              "documentCode": "1.5.1",
+              "title": "Participación deportiva"
+            }
+          ],
+          "portales": {
+            "nacional": {
+              "nombre": "Ministerio del Deporte",
+              "url": "https://www.mindeporte.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca",
+              "url": "https://www.cundinamarca.gov.co/home/"
+            },
+            "municipal": {
+              "nombre": "Portal institucional de Subachoque",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
+        },
+        {
+          "id": "justicia",
+          "code": "1.6",
+          "title": "Justicia y Seguridad Ciudadana",
+          "topics": [
+            {
+              "id": "justicia-1",
+              "documentCode": "1.6.1",
+              "title": "Convivencia ciudadana"
+            },
+            {
+              "id": "justicia-2",
+              "documentCode": "1.6.2",
+              "title": "Violencia intrafamiliar"
+            },
+            {
+              "id": "justicia-3",
+              "documentCode": "1.6.3",
+              "title": "Delitos"
+            },
+            {
+              "id": "justicia-4",
+              "documentCode": "1.6.4",
+              "title": "Acceso a la justicia"
+            },
+            {
+              "id": "justicia-5",
+              "documentCode": "1.6.5",
+              "title": "Inspección, vigilancia y control"
+            }
+          ],
+          "portales": {
+            "nacional": {
+              "nombre": "Ministerio de Justicia y del Derecho",
+              "url": "https://www.minjusticia.gov.co/"
+            },
+            "departamental": {
+              "nombre": "Gobernación de Cundinamarca",
+              "url": "https://www.cundinamarca.gov.co/home/"
+            },
+            "municipal": {
+              "nombre": "Portal institucional de Subachoque",
+              "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+            }
+          }
+        }
+      ]
     },
     {
       "id": "economica",
       "titulo": "Dimensión Económica",
-      "estado": "por_desarrollar"
+      "subtitulo": "Desarrollo y competitividad",
+      "descripcion": "Producción agropecuaria, comercio, turismo, empleo, energía y hacienda pública.",
+      "areas": [
+        {
+          "id": "agricultura",
+          "code": "2.1",
+          "title": "Agricultura y Desarrollo Rural",
+          "topics": [
+            {
+              "id": "economica-agricultura-1",
+              "documentCode": "2.1.2",
+              "title": "Producción agropecuaria"
+            },
+            {
+              "id": "economica-agricultura-2",
+              "documentCode": "2.1.3",
+              "title": "Extensión rural"
+            },
+            {
+              "id": "economica-agricultura-3",
+              "documentCode": "2.1.4",
+              "title": "Asociatividad"
+            },
+            {
+              "id": "economica-agricultura-4",
+              "documentCode": "2.1.5",
+              "title": "Desarrollo campesino"
+            },
+            {
+              "id": "economica-agricultura-5",
+              "documentCode": "2.1.6",
+              "title": "Seguridad alimentaria"
+            }
+          ]
+        },
+        {
+          "id": "comercio",
+          "code": "2.2",
+          "title": "Comercio y Desarrollo Empresarial",
+          "topics": [
+            {
+              "id": "economica-comercio-1",
+              "documentCode": "2.2.1",
+              "title": "Unidades productivas"
+            },
+            {
+              "id": "economica-comercio-2",
+              "documentCode": "2.2.2",
+              "title": "Emprendimiento"
+            },
+            {
+              "id": "economica-comercio-3",
+              "documentCode": "2.2.3",
+              "title": "Competitividad"
+            },
+            {
+              "id": "economica-comercio-4",
+              "documentCode": "2.2.4",
+              "title": "Economía local"
+            }
+          ]
+        },
+        {
+          "id": "turismo",
+          "code": "2.3",
+          "title": "Turismo",
+          "topics": [
+            {
+              "id": "economica-turismo-1",
+              "documentCode": "2.3.1",
+              "title": "Oferta turística"
+            },
+            {
+              "id": "economica-turismo-2",
+              "documentCode": "2.3.2",
+              "title": "Demanda turística"
+            },
+            {
+              "id": "economica-turismo-3",
+              "documentCode": "2.3.3",
+              "title": "Patrimonio turístico"
+            }
+          ]
+        },
+        {
+          "id": "empleo",
+          "code": "2.4",
+          "title": "Trabajo y Empleo",
+          "topics": [
+            {
+              "id": "economica-empleo-1",
+              "documentCode": "2.4.1",
+              "title": "Mercado laboral"
+            },
+            {
+              "id": "economica-empleo-2",
+              "documentCode": "2.4.2",
+              "title": "Empleabilidad"
+            },
+            {
+              "id": "economica-empleo-3",
+              "documentCode": "2.4.3",
+              "title": "Formalización laboral"
+            }
+          ]
+        },
+        {
+          "id": "energia",
+          "code": "2.5",
+          "title": "Minas y Energía",
+          "topics": [
+            {
+              "id": "economica-energia-1",
+              "documentCode": "2.5.1",
+              "title": "Servicios energéticos"
+            },
+            {
+              "id": "economica-energia-2",
+              "documentCode": "2.5.2",
+              "title": "Alumbrado público"
+            },
+            {
+              "id": "economica-energia-3",
+              "documentCode": "2.5.3",
+              "title": "Transición energética"
+            },
+            {
+              "id": "economica-energia-4",
+              "documentCode": "2.5.4",
+              "title": "Recursos minero-energéticos"
+            }
+          ]
+        },
+        {
+          "id": "hacienda",
+          "code": "2.6",
+          "title": "Hacienda Pública y Gestión Financiera",
+          "topics": [
+            {
+              "id": "economica-hacienda-1",
+              "documentCode": "2.6.1",
+              "title": "Ingresos municipales"
+            },
+            {
+              "id": "economica-hacienda-2",
+              "documentCode": "2.6.2",
+              "title": "Recaudo tributario"
+            },
+            {
+              "id": "economica-hacienda-3",
+              "documentCode": "2.6.3",
+              "title": "Recaudo no tributario"
+            },
+            {
+              "id": "economica-hacienda-4",
+              "documentCode": "2.6.4",
+              "title": "Impuesto predial"
+            },
+            {
+              "id": "economica-hacienda-5",
+              "documentCode": "2.6.5",
+              "title": "Industria y comercio"
+            },
+            {
+              "id": "economica-hacienda-6",
+              "documentCode": "2.6.6",
+              "title": "Sobretasa a la gasolina"
+            },
+            {
+              "id": "economica-hacienda-7",
+              "documentCode": "2.6.7",
+              "title": "Transferencias"
+            },
+            {
+              "id": "economica-hacienda-8",
+              "documentCode": "2.6.8",
+              "title": "Regalías"
+            },
+            {
+              "id": "economica-hacienda-9",
+              "documentCode": "2.6.9",
+              "title": "Presupuesto"
+            },
+            {
+              "id": "economica-hacienda-10",
+              "documentCode": "2.6.10",
+              "title": "Ejecución presupuestal"
+            },
+            {
+              "id": "economica-hacienda-11",
+              "documentCode": "2.6.11",
+              "title": "Inversión pública"
+            },
+            {
+              "id": "economica-hacienda-12",
+              "documentCode": "2.6.12",
+              "title": "Tesorería"
+            },
+            {
+              "id": "economica-hacienda-13",
+              "documentCode": "2.6.13",
+              "title": "Deuda pública"
+            },
+            {
+              "id": "economica-hacienda-14",
+              "documentCode": "2.6.14",
+              "title": "Cartera municipal"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "ambiental",
       "titulo": "Dimensión Ambiental y Territorial",
-      "estado": "por_desarrollar"
+      "subtitulo": "Territorio sostenible",
+      "descripcion": "Ambiente, vivienda, ordenamiento territorial, transporte y gestión del riesgo.",
+      "areas": [
+        {
+          "id": "ambiente",
+          "code": "3.1",
+          "title": "Ambiente y Desarrollo Sostenible",
+          "topics": [
+            {
+              "id": "ambiental-ambiente-1",
+              "documentCode": "3.1.1",
+              "title": "Recursos naturales"
+            },
+            {
+              "id": "ambiental-ambiente-2",
+              "documentCode": "3.1.2",
+              "title": "Gestión ambiental"
+            },
+            {
+              "id": "ambiental-ambiente-3",
+              "documentCode": "3.1.3",
+              "title": "Biodiversidad"
+            },
+            {
+              "id": "ambiental-ambiente-4",
+              "documentCode": "3.1.4",
+              "title": "Cambio climático"
+            },
+            {
+              "id": "ambiental-ambiente-5",
+              "documentCode": "3.1.5",
+              "title": "Calidad del aire"
+            },
+            {
+              "id": "ambiental-ambiente-6",
+              "documentCode": "3.1.6",
+              "title": "Calidad del agua"
+            }
+          ]
+        },
+        {
+          "id": "vivienda",
+          "code": "3.2",
+          "title": "Vivienda, Hábitat y Ordenamiento Territorial",
+          "topics": [
+            {
+              "id": "ambiental-vivienda-1",
+              "documentCode": "3.2.1",
+              "title": "Vivienda"
+            },
+            {
+              "id": "ambiental-vivienda-2",
+              "documentCode": "3.2.2",
+              "title": "Mejoramiento de vivienda"
+            },
+            {
+              "id": "ambiental-vivienda-3",
+              "documentCode": "3.2.3",
+              "title": "Servicios públicos domiciliarios"
+            },
+            {
+              "id": "ambiental-vivienda-4",
+              "documentCode": "3.2.4",
+              "title": "Estratificación"
+            },
+            {
+              "id": "ambiental-vivienda-5",
+              "documentCode": "3.2.5",
+              "title": "Ordenamiento territorial"
+            },
+            {
+              "id": "ambiental-vivienda-6",
+              "documentCode": "3.2.6",
+              "title": "Catastro"
+            }
+          ]
+        },
+        {
+          "id": "movilidad",
+          "code": "3.3",
+          "title": "Transporte y Movilidad",
+          "topics": [
+            {
+              "id": "ambiental-movilidad-1",
+              "documentCode": "3.3.1",
+              "title": "Infraestructura vial"
+            },
+            {
+              "id": "ambiental-movilidad-2",
+              "documentCode": "3.3.2",
+              "title": "Transporte público"
+            },
+            {
+              "id": "ambiental-movilidad-3",
+              "documentCode": "3.3.3",
+              "title": "Movilidad rural"
+            },
+            {
+              "id": "ambiental-movilidad-4",
+              "documentCode": "3.3.4",
+              "title": "Seguridad vial"
+            }
+          ]
+        },
+        {
+          "id": "riesgo",
+          "code": "3.4",
+          "title": "Gestión del Riesgo de Desastres",
+          "topics": [
+            {
+              "id": "ambiental-riesgo-1",
+              "documentCode": "3.4.1",
+              "title": "Amenazas"
+            },
+            {
+              "id": "ambiental-riesgo-2",
+              "documentCode": "3.4.2",
+              "title": "Vulnerabilidad"
+            },
+            {
+              "id": "ambiental-riesgo-3",
+              "documentCode": "3.4.3",
+              "title": "Atención de emergencias"
+            },
+            {
+              "id": "ambiental-riesgo-4",
+              "documentCode": "3.4.4",
+              "title": "Adaptación al cambio climático"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "institucional",
       "titulo": "Dimensión Institucional",
-      "estado": "por_desarrollar"
+      "subtitulo": "Gobernanza y gestión pública",
+      "descripcion": "Gobierno, TIC, información estadística, transparencia y gestión administrativa.",
+      "areas": [
+        {
+          "id": "gobierno",
+          "code": "4.1",
+          "title": "Gobierno Territorial",
+          "topics": [
+            {
+              "id": "institucional-gobierno-1",
+              "documentCode": "4.1.1",
+              "title": "Desempeño institucional"
+            },
+            {
+              "id": "institucional-gobierno-2",
+              "documentCode": "4.1.2",
+              "title": "Desempeño fiscal"
+            },
+            {
+              "id": "institucional-gobierno-3",
+              "documentCode": "4.1.3",
+              "title": "Desempeño municipal"
+            }
+          ]
+        },
+        {
+          "id": "tic",
+          "code": "4.2",
+          "title": "Tecnologías de la Información y las Comunicaciones",
+          "topics": [
+            {
+              "id": "institucional-tic-1",
+              "documentCode": "4.2.1",
+              "title": "Gobierno digital"
+            },
+            {
+              "id": "institucional-tic-2",
+              "documentCode": "4.2.2",
+              "title": "Conectividad"
+            },
+            {
+              "id": "institucional-tic-3",
+              "documentCode": "4.2.3",
+              "title": "Transformación digital"
+            },
+            {
+              "id": "institucional-tic-4",
+              "documentCode": "4.2.4",
+              "title": "Sistemas de información"
+            }
+          ]
+        },
+        {
+          "id": "estadistica",
+          "code": "4.3",
+          "title": "Información Estadística y Gestión del Conocimiento",
+          "topics": [
+            {
+              "id": "institucional-estadistica-1",
+              "documentCode": "4.3.1",
+              "title": "Registros administrativos"
+            },
+            {
+              "id": "institucional-estadistica-2",
+              "documentCode": "4.3.2",
+              "title": "Indicadores"
+            },
+            {
+              "id": "institucional-estadistica-3",
+              "documentCode": "4.3.3",
+              "title": "Interoperabilidad"
+            },
+            {
+              "id": "institucional-estadistica-4",
+              "documentCode": "4.3.4",
+              "title": "Datos abiertos"
+            }
+          ]
+        },
+        {
+          "id": "transparencia",
+          "code": "4.4",
+          "title": "Transparencia, Participación y Control Social",
+          "topics": [
+            {
+              "id": "institucional-transparencia-1",
+              "documentCode": "4.4.1",
+              "title": "Participación ciudadana"
+            },
+            {
+              "id": "institucional-transparencia-2",
+              "documentCode": "4.4.2",
+              "title": "Rendición de cuentas"
+            },
+            {
+              "id": "institucional-transparencia-3",
+              "documentCode": "4.4.3",
+              "title": "Control social"
+            },
+            {
+              "id": "institucional-transparencia-4",
+              "documentCode": "4.4.4",
+              "title": "PQRSD"
+            },
+            {
+              "id": "institucional-transparencia-5",
+              "documentCode": "4.4.5",
+              "title": "Transparencia institucional"
+            }
+          ]
+        },
+        {
+          "id": "talento",
+          "code": "4.5",
+          "title": "Gestión Administrativa y Talento Humano",
+          "topics": [
+            {
+              "id": "institucional-talento-1",
+              "documentCode": "4.5.1",
+              "title": "Empleo público"
+            },
+            {
+              "id": "institucional-talento-2",
+              "documentCode": "4.5.2",
+              "title": "Capacitación"
+            },
+            {
+              "id": "institucional-talento-3",
+              "documentCode": "4.5.3",
+              "title": "Bienestar laboral"
+            }
+          ]
+        }
+      ]
     }
   ],
   "seccionAdicional": {
     "titulo": "Percepción ciudadana sobre la gestión municipal",
     "estado": "pendiente_de_definicion",
     "nota": "El Word la enumera otra vez como dimensión 4. No está integrada ni eliminada hasta definir con el equipo su ubicación."
-  },
-  "social": {
-    "titulo": "Dimensión Social",
-    "areas": [
-      {
-        "id": "salud",
-        "code": "1.1",
-        "title": "Salud y Protección Social",
-        "topics": [
-          {
-            "id": "salud-1",
-            "documentCode": "1.1.1",
-            "title": "Aseguramiento"
-          },
-          {
-            "id": "salud-2",
-            "documentCode": "1.1.2",
-            "title": "Salud pública"
-          },
-          {
-            "id": "salud-3",
-            "documentCode": "1.1.3",
-            "title": "Prestación de servicios de salud"
-          },
-          {
-            "id": "salud-4",
-            "documentCode": "1.1.4",
-            "title": "Discapacidad"
-          },
-          {
-            "id": "salud-5",
-            "documentCode": "1.1.5",
-            "title": "Adulto mayor"
-          },
-          {
-            "id": "salud-6",
-            "documentCode": "1.1.6",
-            "title": "Primera infancia"
-          },
-          {
-            "id": "salud-7",
-            "documentCode": "1.1.7",
-            "title": "Nutrición"
-          }
-        ],
-        "portales": {
-          "nacional": {
-            "nombre": "SISPRO — Ministerio de Salud",
-            "url": "https://www.sispro.gov.co/central-gestion-del-conocimiento/Pages/construya-su-consulta-aseguramiento.aspx"
-          },
-          "departamental": {
-            "nombre": "Observatorio de Salud de Cundinamarca",
-            "url": "https://www.cundinamarca.gov.co/observatorios/observatorio-salud/datos-en-salud/"
-          },
-          "municipal": {
-            "nombre": "Portal institucional de Subachoque",
-            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
-          }
-        }
-      },
-      {
-        "id": "educacion",
-        "code": "1.2",
-        "title": "Educación",
-        "topics": [
-          {
-            "id": "educacion-1",
-            "documentCode": "1.2.1",
-            "title": "Cobertura educativa"
-          },
-          {
-            "id": "educacion-2",
-            "documentCode": "1.2.2",
-            "title": "Calidad educativa"
-          },
-          {
-            "id": "educacion-3",
-            "documentCode": "1.2.3",
-            "title": "Permanencia escolar"
-          },
-          {
-            "id": "educacion-4",
-            "documentCode": "1.2.4",
-            "title": "Infraestructura educativa"
-          },
-          {
-            "id": "educacion-5",
-            "documentCode": "1.2.5",
-            "title": "Educación superior"
-          }
-        ],
-        "portales": {
-          "nacional": {
-            "nombre": "Ministerio de Educación Nacional",
-            "url": "https://www.mineducacion.gov.co/"
-          },
-          "departamental": {
-            "nombre": "Gobernación de Cundinamarca",
-            "url": "https://www.cundinamarca.gov.co/home/"
-          },
-          "municipal": {
-            "nombre": "Portal institucional de Subachoque",
-            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
-          }
-        }
-      },
-      {
-        "id": "inclusion",
-        "code": "1.3",
-        "title": "Inclusión Social y Equidad",
-        "topics": [
-          {
-            "id": "inclusion-1",
-            "documentCode": "1.3.1",
-            "title": "Pobreza"
-          },
-          {
-            "id": "inclusion-2",
-            "documentCode": "1.3.2",
-            "title": "Vulnerabilidad"
-          },
-          {
-            "id": "inclusion-3",
-            "documentCode": "1.3.3",
-            "title": "Víctimas del conflicto"
-          },
-          {
-            "id": "inclusion-4",
-            "documentCode": "1.3.4",
-            "title": "Mujeres"
-          },
-          {
-            "id": "inclusion-5",
-            "documentCode": "1.3.5",
-            "title": "Juventud"
-          },
-          {
-            "id": "inclusion-6",
-            "documentCode": "1.3.6",
-            "title": "Grupos étnicos"
-          },
-          {
-            "id": "inclusion-7",
-            "documentCode": "1.3.7",
-            "title": "Diversidad poblacional"
-          }
-        ],
-        "portales": {
-          "nacional": {
-            "nombre": "DANE — Estadísticas nacionales",
-            "url": "https://www.dane.gov.co/"
-          },
-          "departamental": {
-            "nombre": "Gobernación de Cundinamarca",
-            "url": "https://www.cundinamarca.gov.co/home/"
-          },
-          "municipal": {
-            "nombre": "Portal institucional de Subachoque",
-            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
-          }
-        }
-      },
-      {
-        "id": "cultura",
-        "code": "1.4",
-        "title": "Cultura",
-        "topics": [
-          {
-            "id": "cultura-1",
-            "documentCode": "1.4.1",
-            "title": "Escuelas de formación cultural"
-          },
-          {
-            "id": "cultura-2",
-            "documentCode": "1.4.2",
-            "title": "Biblioteca pública"
-          },
-          {
-            "id": "cultura-3",
-            "documentCode": "1.4.3",
-            "title": "Actividades culturales"
-          },
-          {
-            "id": "cultura-4",
-            "documentCode": "1.4.4",
-            "title": "Infraestructura cultural"
-          },
-          {
-            "id": "cultura-5",
-            "documentCode": "1.4.5",
-            "title": "Patrimonio cultural"
-          }
-        ],
-        "portales": {
-          "nacional": {
-            "nombre": "Ministerio de las Culturas",
-            "url": "https://www.minculturas.gov.co/"
-          },
-          "departamental": {
-            "nombre": "Gobernación de Cundinamarca",
-            "url": "https://www.cundinamarca.gov.co/home/"
-          },
-          "municipal": {
-            "nombre": "Portal institucional de Subachoque",
-            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
-          }
-        }
-      },
-      {
-        "id": "deporte",
-        "code": "1.5",
-        "title": "Deporte y Recreación",
-        "topics": [
-          {
-            "id": "deporte-1",
-            "documentCode": "1.5.1",
-            "title": "Escuelas de deporte y recreación"
-          },
-          {
-            "id": "deporte-2",
-            "documentCode": "1.5.1",
-            "title": "Actividad física"
-          },
-          {
-            "id": "deporte-3",
-            "documentCode": "1.5.1",
-            "title": "Escenarios deportivos"
-          },
-          {
-            "id": "deporte-4",
-            "documentCode": "1.5.1",
-            "title": "Participación deportiva"
-          }
-        ],
-        "portales": {
-          "nacional": {
-            "nombre": "Ministerio del Deporte",
-            "url": "https://www.mindeporte.gov.co/"
-          },
-          "departamental": {
-            "nombre": "Gobernación de Cundinamarca",
-            "url": "https://www.cundinamarca.gov.co/home/"
-          },
-          "municipal": {
-            "nombre": "Portal institucional de Subachoque",
-            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
-          }
-        }
-      },
-      {
-        "id": "justicia",
-        "code": "1.6",
-        "title": "Justicia y Seguridad Ciudadana",
-        "topics": [
-          {
-            "id": "justicia-1",
-            "documentCode": "1.6.1",
-            "title": "Convivencia ciudadana"
-          },
-          {
-            "id": "justicia-2",
-            "documentCode": "1.6.2",
-            "title": "Violencia intrafamiliar"
-          },
-          {
-            "id": "justicia-3",
-            "documentCode": "1.6.3",
-            "title": "Delitos"
-          },
-          {
-            "id": "justicia-4",
-            "documentCode": "1.6.4",
-            "title": "Acceso a la justicia"
-          },
-          {
-            "id": "justicia-5",
-            "documentCode": "1.6.5",
-            "title": "Inspección, vigilancia y control"
-          }
-        ],
-        "portales": {
-          "nacional": {
-            "nombre": "Ministerio de Justicia y del Derecho",
-            "url": "https://www.minjusticia.gov.co/"
-          },
-          "departamental": {
-            "nombre": "Gobernación de Cundinamarca",
-            "url": "https://www.cundinamarca.gov.co/home/"
-          },
-          "municipal": {
-            "nombre": "Portal institucional de Subachoque",
-            "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
-          }
-        }
-      }
-    ]
   },
   "indicadores": [
     {
@@ -502,5 +974,64 @@
       "verificado": "cotejado-ficha-dane"
     }
   ],
-  "politica": "No completar valores faltantes con estimaciones. Todo gráfico debe declarar periodo, variable, unidad, cobertura, entidad y fuente. Portales de referencia no constituyen datasets conectados."
+  "politica": "No inventar valores ni tendencias a partir de maquetas. Solamente mostrar gráficas cuando cada indicador tenga valor, fuente, unidad y periodo verificables. Los enlaces a portales son sitios para localizar datos: no indican que existan series conectadas.",
+  "notaNumeracion": "En el listado original Deporte y Recreación repite el código 1.5.1 y Agricultura empieza en 2.1.2. Se conservan exactamente los códigos originales y los IDs internos son únicos.",
+  "guiaFuentes": {
+    "social": {
+      "nacional": {
+        "nombre": "DANE — Estadísticas nacionales",
+        "url": "https://www.dane.gov.co/"
+      },
+      "departamental": {
+        "nombre": "Gobernación de Cundinamarca",
+        "url": "https://www.cundinamarca.gov.co/"
+      },
+      "municipal": {
+        "nombre": "Alcaldía de Subachoque",
+        "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+      }
+    },
+    "economica": {
+      "nacional": {
+        "nombre": "DANE / DIAN — portales generales",
+        "url": "https://www.dane.gov.co/"
+      },
+      "departamental": {
+        "nombre": "Gobernación de Cundinamarca",
+        "url": "https://www.cundinamarca.gov.co/"
+      },
+      "municipal": {
+        "nombre": "Alcaldía de Subachoque",
+        "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+      }
+    },
+    "ambiental": {
+      "nacional": {
+        "nombre": "IDEAM — portal institucional",
+        "url": "https://www.ideam.gov.co/"
+      },
+      "departamental": {
+        "nombre": "Gobernación de Cundinamarca",
+        "url": "https://www.cundinamarca.gov.co/"
+      },
+      "municipal": {
+        "nombre": "Alcaldía de Subachoque",
+        "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+      }
+    },
+    "institucional": {
+      "nacional": {
+        "nombre": "Departamento Administrativo de la Función Pública",
+        "url": "https://www.funcionpublica.gov.co/"
+      },
+      "departamental": {
+        "nombre": "Gobernación de Cundinamarca",
+        "url": "https://www.cundinamarca.gov.co/"
+      },
+      "municipal": {
+        "nombre": "Alcaldía de Subachoque",
+        "url": "https://subachoquecundinamarca.micolombiadigital.gov.co/"
+      }
+    }
+  }
 }
