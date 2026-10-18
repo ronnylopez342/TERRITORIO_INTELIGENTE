@@ -1,338 +1,338 @@
-/* DATA SUBACHOQUE / catálogo por dimensiones / Social v1.
-   La taxonomía procede de DIMENSIONES.docx. Ningún valor se inventa:
-   los indicadores se leen del manifiesto y presentan fuente, corte y cobertura.
-   Los antiguos módulos permanecen versionados en Git, no se exponen como pestañas. */
+/* Territorio Inteligente · Data Subachoque · 4 dimensiones y 105 subtemas
+   La maqueta define el diseño, NO las cifras. Solo mostrar datos con fuente verificable.
+   El selector territorial se ubica antes del contenido (no dentro del gráfico). */
 (() => {
   'use strict';
-
   const root = document.getElementById('data-subachoque');
-  if (!root) return;
-  const $ = selector => root.querySelector(selector);
-  const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
-    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
-  }[ch]));
-  const norm = value => String(value ?? '').normalize('NFD')
-    .replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  const format = value => new Intl.NumberFormat('es-CO',{
-    maximumFractionDigits:1, minimumFractionDigits:1
-  }).format(value);
-  const LEVELS = [
-    {id:'nacional', label:'NACIONAL',place:'Colombia',tag:'01'},
-    {id:'departamental',label:'DEPARTAMENTAL',place:'Cundinamarca',tag:'02'},
-    {id:'municipal',label:'MUNICIPAL',place:'Subachoque',tag:'03'}
+  if(!root) return;
+  const $ = id => root.querySelector('#'+id);
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const normalize = value => String(value||'').normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').trim();
+  const format = value => new Intl.NumberFormat('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1}).format(value);
+  const LEVELS=[
+    {id:'nacional',name:'Colombia',label:'Nacional',color:'#082c5b'},
+    {id:'departamental',name:'Cundinamarca',label:'Departamental',color:'#388cef'},
+    {id:'municipal',name:'Subachoque',label:'Municipal',color:'#ffd400'}
   ];
-  const icons = {
-    social:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="24" cy="14" r="7"/><path d="M11 41V31a13 13 0 0 1 26 0v10zM3 39V30q0-8 8-10M45 39V30q0-8-8-10"/></svg>',
-    economica:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 40V24h9v16M20 40V15h9v25M34 40V7h8v33M3 41h42"/></svg>',
-    ambiental:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 41c0-22 14-30 34-34 0 22-11 34-34 34zM10 38c7-12 16-19 25-26M25 24l-2-12M25 24l13 1"/></svg>',
-    institucional:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 17 19-11 19 11M4 20h40M7 40h34M10 23v14M19 23v14M29 23v14M38 23v14M4 44h40"/></svg>'
+  const icons={
+    social:'<path d="M20 43 6 29C-1 21 4 9 14 9c5 0 8 3 10 6 2-3 6-6 11-6 11 0 16 13 7 22L28 43Z"/><path d="M8 25h10l4-7 5 14 4-7h10"/>',
+    economica:'<path d="M5 42V29h10v13M19 42V19h10v23M33 42V7h10v35M3 44h42"/>',
+    ambiental:'<path d="M8 42C5 19 19 9 42 6 43 30 28 42 8 42Zm0 0 24-24"/><path d="m20 30-3-12m3 12 12 2"/>',
+    institucional:'<path d="M3 18 24 5l21 13M3 22h42M6 44h36M10 25v16M20 25v16M29 25v16M39 25v16M2 46h44"/>'
   };
-  const descriptions = {
-    social:'Salud, educación, inclusión, cultura, deporte y seguridad ciudadana.',
-    economica:'Producción, empleo, turismo, comercio y hacienda pública.',
-    ambiental:'Ambiente, vivienda, movilidad, ordenamiento y gestión del riesgo.',
-    institucional:'Capacidad institucional, tecnologías, datos, transparencia y gestión.'
+  const areaIcons={
+    salud:'<path d="M6 8v10a7 7 0 0 0 14 0V8M4 8h5M18 8h5M13 25v6a8 8 0 0 0 16 0v-3"/><circle cx="29" cy="26" r="3"/>',
+    educacion:'<path d="m4 15 18-9 18 9-18 9zM11 19v12q11 9 22 0V19M40 15v18"/>',
+    inclusion:'<circle cx="22" cy="12" r="5"/><circle cx="9" cy="17" r="4"/><circle cx="35" cy="17" r="4"/><path d="M12 36v-7a10 10 0 0 1 20 0v7ZM1 34v-5a9 9 0 0 1 9-9M43 34v-5a9 9 0 0 0-9-9"/>',
+    cultura:'<path d="M6 9h15v12q0 14-8 14T6 21ZM25 9h15v12q0 14-8 14t-7-14M10 17h5M29 17h5"/>',
+    deporte:'<circle cx="30" cy="8" r="4"/><path d="m28 15-9 9 7 6-6 12M18 18l10-3 10 8M26 30l11 8M12 24l-6 9"/>',
+    justicia:'<path d="M23 4 6 12v12q0 14 17 19 17-5 17-19V12zM14 23l6 6 12-13"/>',
+    agricultura:'<path d="M24 42V22M24 23C10 23 8 13 6 7c16 0 19 9 18 16Zm0 5c16 0 17-9 19-16-15 0-19 7-19 16Z"/>',
+    comercio:'<path d="M5 20h38M7 20v22h34V20M5 20l4-13h30l4 13M14 42V28h12v14M34 27h3"/>',
+    turismo:'<rect x="5" y="12" width="38" height="29" rx="4"/><circle cx="24" cy="26" r="8"/><path d="M16 12l3-6h11l3 6"/>',
+    empleo:'<circle cx="23" cy="10" r="6"/><path d="M11 40V28a12 12 0 0 1 24 0v12M3 42h40"/>',
+    energia:'<path d="m27 3-17 23h14l-4 19 19-27H25z"/>',
+    hacienda:'<rect x="8" y="7" width="32" height="36" rx="3"/><circle cx="24" cy="25" r="9"/><path d="M18 18h12M24 14v22"/>',
+    ambiente:'<path d="M8 42C5 19 19 9 42 6 43 30 28 42 8 42Zm0 0 24-24"/>',
+    vivienda:'<path d="M3 22 24 5l21 17M9 19v24h30V19M20 43V27h9v16"/>',
+    movilidad:'<rect x="8" y="8" width="32" height="30" rx="5"/><path d="M8 24h32M15 15h18M16 38v5M32 38v5"/><circle cx="16" cy="31" r="2"/><circle cx="32" cy="31" r="2"/>',
+    riesgo:'<path d="M24 3 5 10v16q0 14 19 20 19-6 19-20V10zM24 14v14m0 6v2"/>',
+    gobierno:'<path d="M3 17 24 5l21 12M5 21h38M7 43h34M12 23v17M22 23v17M32 23v17"/>',
+    tic:'<rect x="5" y="6" width="38" height="29" rx="3"/><path d="M16 43h16M24 35v8"/>',
+    estadistica:'<ellipse cx="24" cy="9" rx="16" ry="6"/><path d="M8 9v28c0 8 32 8 32 0V9M8 22c0 8 32 8 32 0"/>',
+    transparencia:'<circle cx="24" cy="12" r="6"/><circle cx="8" cy="22" r="4"/><circle cx="40" cy="22" r="4"/><path d="M13 43V32a11 11 0 0 1 22 0v11M1 43v-9a7 7 0 0 1 8-7m38 16v-9a7 7 0 0 0-8-7"/>',
+    talento:'<circle cx="24" cy="24" r="9"/><path d="m20 2-1 6m10 32 1 6M2 20l6 1m32 6 6 1M8 8l5 5m22 22 5 5M40 8l-5 5M13 35l-5 5"/>'
   };
-  let catalog = null;
-  const state = {dimension:'social',area:'salud',topic:'salud-5',query:''};
+  const svgIcon=(body,cssClass='')=>'<svg class="'+cssClass+'" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'+(body||icons.social)+'</svg>';
+  const defaultLevel={social:'nacional',economica:'municipal',ambiental:'departamental',institucional:'nacional'};
+  const firstTopic={
+    social:'salud-5',
+    economica:'economica-hacienda-1',
+    ambiental:'ambiental-ambiente-6',
+    institucional:'institucional-gobierno-1'
+  };
+  const state={dimension:'social',area:'salud',topic:'salud-5',nivel:'nacional',indicator:0,search:''};
+  let catalog=null;
+  const dimensions=()=>catalog?.dimensiones||[];
+  const dimension=()=>dimensions().find(d=>d.id===state.dimension);
+  const areas=()=>dimension()?.areas||[];
+  const allTopics=()=>dimensions().flatMap(d=>d.areas.flatMap(a=>a.topics.map(t=>({...t,dimensionId:d.id,dimensionTitle:d.titulo,areaId:a.id,areaTitle:a.title}))));
+  const topicById=id=>allTopics().find(t=>t.id===id);
+  const areaById=id=>areas().find(a=>a.id===id);
+  const topic=()=>topicById(state.topic);
+  const level=()=>LEVELS.find(l=>l.id===state.nivel)||LEVELS[0];
+  const safeUrl=url=>{
+    try{const parsed=new URL(url);return parsed.protocol==='https:'?parsed.href:null;}
+    catch{return null;}
+  };
+  const indicators=()=> {
+    const found=(catalog?.indicadores||[]).filter(i=>
+      i.topicId===state.topic && LEVELS.some(l=>l.id===i.ambito) &&
+      typeof i.indicatorId==='string' && typeof i.valor==='number' &&
+      Number.isFinite(i.valor) && typeof i.unidad==='string' &&
+      typeof i.periodo==='string' && safeUrl(i.fuente));
+    return [...new Set(found.map(i=>i.indicatorId))].map(id=>found.filter(i=>i.indicatorId===id));
+  };
+  const currentIndicator=()=>indicators()[Math.min(state.indicator,indicators().length-1)]||[];
 
-  function safeLink(url) {
-    try {
-      const parsed = new URL(url);
-      if(parsed.protocol !== 'https:') return null;
-      return parsed.href;
-    } catch {return null;}
-  }
-
-  function allTopics() {
-    return (catalog?.social?.areas || []).flatMap(area => area.topics.map(topic => ({...topic,areaId:area.id,areaTitle:area.title})));
-  }
-  function areaOf(id) {
-    return (catalog?.social?.areas || []).find(area => area.id === id) || catalog?.social?.areas?.[0];
-  }
-  function topicOf(id) {
-    return allTopics().find(t => t.id === id);
-  }
-  function indicatorsFor(topicId) {
-    const values = (catalog?.indicadores || []).filter(item =>
-      item.topicId === topicId && LEVELS.some(level => level.id === item.ambito) &&
-      Number.isFinite(item.valor) && item.valor>=0 && item.valor<=100 &&
-      item.unidad === '%' && safeLink(item.fuente)
-    );
-    // Varios indicadores pueden vincularse a un mismo subtema. Se representan
-    // por separado y siempre con sus tres comparaciones territoriales.
-    return values;
-  }
-  function updateUrl() {
-    const parts = new URLSearchParams(location.hash.split('?')[1] || '');
-    parts.set('seccion','data-subachoque');
-    parts.set('dimension',state.dimension);
-    parts.delete('sub');
-    parts.delete('vista');
-    if(state.dimension === 'social') {
-      parts.set('area',state.area);
-      parts.set('tema',state.topic);
-    } else {
-      parts.delete('area');
-      parts.delete('tema');
+  function setURL(replace=false){
+    const params=new URLSearchParams(location.hash.split('?')[1]||'');
+    params.set('seccion','data-subachoque');
+    params.set('dimension',state.dimension);
+    params.set('area',state.area);
+    params.set('tema',state.topic);
+    params.set('nivel',state.nivel);
+    params.delete('sub');params.delete('vista');
+    if(state.indicator)params.set('indicador',String(state.indicator));
+    else params.delete('indicador');
+    const hash='#data?'+params.toString();
+    if(location.hash!==hash){
+      if(replace)history.replaceState({route:'data'},'',hash);
+      else history.pushState({route:'data'},'',hash);
     }
-    const hash='#data?'+parts.toString();
-    if(location.hash!==hash) history.pushState({route:'data'},'',hash);
   }
-
-  function syncFromHash() {
-    const [page,query] = location.hash.slice(1).split('?');
-    if(page!=='data') return;
-    const params = new URLSearchParams(query||'');
-    if(params.get('seccion')!=='data-subachoque') return;
-    if(!catalog)return;
-    const dim=params.get('dimension') || 'social';
-    state.dimension = catalog.dimensiones.some(d=>d.id===dim) ? dim : 'social';
-    const requestedTopic=topicOf(params.get('tema'));
-    const requestedArea=areaOf(params.get('area'));
-    state.area = requestedTopic?.areaId || requestedArea?.id || 'salud';
-    state.topic = requestedTopic?.id || (params.has('area') ? areaOf(state.area)?.topics?.[0]?.id : 'salud-5') || 'salud-1';
-    // URLs antiguas apuntaban a tres módulos cancelados. No reabrirlos.
-    if(params.has('sub') || params.has('vista')) {
-      params.delete('sub');
-      params.delete('vista');
-      params.set('dimension',state.dimension);
-      if(state.dimension==='social'){
-        params.set('area',state.area);
-        params.set('tema',state.topic);
-      }
-      history.replaceState({route:'data'},'', '#data?'+params.toString());
-    }
+  function syncFromHash(){
+    const [route,query]=location.hash.slice(1).split('?');
+    if(route!=='data'||!catalog)return;
+    const params=new URLSearchParams(query||'');
+    if(params.get('seccion')!=='data-subachoque')return;
+    let dim=dimensions().find(d=>d.id===params.get('dimension'))||dimensions()[0];
+    state.dimension=dim.id;
+    const targeted=topicById(params.get('tema'));
+    const area=dim.areas.find(a=>a.id===params.get('area'));
+    const starter=topicById(firstTopic[dim.id]);
+    state.area=(targeted?.dimensionId===dim.id?targeted.areaId:area?.id)||starter?.areaId||dim.areas[0].id;
+    const chosen=targeted?.dimensionId===dim.id?targeted:null;
+    state.topic=chosen?.id||(area?area.topics[0]?.id:null)||starter?.id||dim.areas[0].topics[0].id;
+    state.nivel=LEVELS.some(l=>l.id===params.get('nivel'))?params.get('nivel'):defaultLevel[dim.id];
+    const indicatorIndex=Number(params.get('indicador'));
+    state.indicator=Number.isInteger(indicatorIndex)&&indicatorIndex>=0?indicatorIndex:0;
+    state.search='';
     render();
   }
 
-  function renderDimensions() {
-    const markup=catalog.dimensiones.map((dimension,i)=>{
-      const selected=state.dimension===dimension.id;
-      const prepared=dimension.estado==='activa';
-      return '<button type="button" class="ds-dimension-card'+(selected?' is-selected':'')+
-        '" data-ds-dimension="'+esc(dimension.id)+'" aria-pressed="'+String(selected)+'">'+
-        '<span class="ds-dimension-icon" aria-hidden="true">'+icons[dimension.id]+'</span>'+
-        '<span class="ds-dimension-copy"><strong>'+esc(dimension.titulo)+'</strong>'+
-        '<span>'+esc(descriptions[dimension.id]||'')+'</span>'+
-        '<small>'+(prepared?'6 áreas · 33 subtemas':'Próxima etapa')+'</small></span>'+
-        '<span class="ds-dimension-arrow" aria-hidden="true">→</span></button>';
-    }).join('');
-    $('#ds-dimension-grid').innerHTML=markup;
+  function changeDimension(id){
+    const d=dimensions().find(x=>x.id===id);
+    if(!d)return;
+    state.dimension=id;
+    const selection=topicById(firstTopic[id]);
+    state.area=selection?.areaId||d.areas[0].id;
+    state.topic=selection?.id||d.areas[0].topics[0].id;
+    state.nivel=defaultLevel[id];
+    state.indicator=0;state.search='';
+    setURL();render();
   }
-
-  function renderAreas(){
-    $('#ds-social-areas').innerHTML=catalog.social.areas.map(a=>
-      '<button type="button" data-ds-area="'+esc(a.id)+'" class="ds-area'+(a.id===state.area?' is-selected':'')+
-      '" aria-pressed="'+String(a.id===state.area)+'"><span class="ds-area-code">'+esc(a.code)+'</span>'+
-      '<span class="ds-area-name">'+esc(a.title)+'</span><span class="ds-area-count">'+a.topics.length+' →</span></button>'
+  function changeArea(id){
+    const a=areaById(id);if(!a)return;
+    state.area=a.id;state.topic=a.topics[0].id;
+    state.indicator=0;state.search='';
+    setURL();render();
+  }
+  function changeTopic(id){
+    const t=topicById(id);if(!t)return;
+    state.dimension=t.dimensionId;state.area=t.areaId;state.topic=t.id;
+    state.indicator=0;state.search='';
+    setURL();render();
+  }
+  function changeLevel(id){
+    if(!LEVELS.some(l=>l.id===id))return;
+    state.nivel=id;setURL();render();
+  }
+  function renderDimensions(){
+    $('ds3-dimensions').innerHTML=dimensions().map(d=>
+      '<button type="button" class="ds3-dimension'+(d.id===state.dimension?' is-active':'')+
+      '" data-ds3-dimension="'+escapeHTML(d.id)+'" aria-pressed="'+String(d.id===state.dimension)+'">'+
+      '<span class="ds3-dimension-icon">'+svgIcon(icons[d.id])+'</span>'+
+      '<span class="ds3-dimension-copy"><strong>'+escapeHTML(d.titulo)+'</strong><small>'+escapeHTML(d.subtitulo)+'</small></span>'+
+      '<span class="ds3-dimension-arrow" aria-hidden="true">›</span></button>'
     ).join('');
+  }
+  function renderAreas(){
+    $('ds3-areas').innerHTML=areas().map(a=>
+      '<button type="button" class="ds3-area-tab'+(a.id===state.area?' is-active':'')+
+      '" data-ds3-area="'+escapeHTML(a.id)+'" aria-pressed="'+String(a.id===state.area)+'">'+
+      svgIcon(areaIcons[a.id])+'<span>'+escapeHTML(a.title)+'</span></button>'
+    ).join('');
+  }
+  function renderLevels(){
+    root.querySelectorAll('[data-ds3-level]').forEach(button=>{
+      button.classList.toggle('is-active',button.dataset.ds3Level===state.nivel);
+      button.setAttribute('aria-pressed',String(button.dataset.ds3Level===state.nivel));
+      const lvl=LEVELS.find(item=>item.id===button.dataset.ds3Level);
+      button.setAttribute('aria-label',lvl?.label+': '+lvl?.name);
+    });
+  }
+  function renderSearchResults(){
+    const results=$('ds3-search-results');
+    if(!state.search.trim()){results.hidden=true;results.replaceChildren();return;}
+    const term=normalize(state.search);
+    const matches=allTopics().filter(t=>normalize(t.title+' '+t.areaTitle+' '+t.dimensionTitle).includes(term)).slice(0,30);
+    results.hidden=false;
+    results.innerHTML=matches.length?'<p class="ds3-search-count">Resultados en las cuatro dimensiones</p>'+matches.map(t=>
+      '<button type="button" data-ds3-topic="'+escapeHTML(t.id)+'" class="ds3-search-result"><b>'+escapeHTML(t.title)+'</b><small>'+escapeHTML(t.dimensionTitle+' · '+t.areaTitle)+'</small></button>'
+    ).join(''):'<p class="ds3-empty-search">No se encontraron subtemas.</p>';
   }
   function renderTopics(){
-    const area=areaOf(state.area);
-    $('#ds-social-topic-title').textContent=area.title;
-    $('#ds-social-topic-count').textContent=area.topics.length+' subtemas';
-    $('#ds-social-topics').innerHTML=area.topics.map(t=>
-      '<button type="button" data-ds-topic="'+esc(t.id)+'" class="ds-topic'+(state.topic===t.id?' is-selected':'')+
-      '" aria-pressed="'+String(state.topic===t.id)+'"><span>'+esc(t.title)+'</span><span aria-hidden="true">↗</span></button>'
+    const list=areaById(state.area)?.topics||[];
+    $('ds3-topics').innerHTML=list.map(t=>
+      '<button type="button" class="ds3-topic'+(t.id===state.topic?' is-active':'')+
+      '" data-ds3-topic="'+escapeHTML(t.id)+'" aria-current="'+(t.id===state.topic?'true':'false')+'">'+
+      '<span>'+escapeHTML(t.title)+'</span><span aria-hidden="true">›</span></button>'
     ).join('');
-    renderSearch();
+    $('ds3-search').value=state.search;
+    renderSearchResults();
   }
-  function renderSearch(){
-    const results=$('#ds-search-results');
-    if(!results)return;
-    if(!state.query.trim()){
-      results.hidden=true;
-      results.replaceChildren();
+  function renderTitle(){
+    const d=dimension(),t=topic(),a=areaById(state.area);
+    $('ds3-title').textContent=d.titulo;
+    $('ds3-breadcrumb-current').textContent=d.titulo;
+    $('ds3-description').textContent=d.areas.map(x=>x.title).join(', ')+'.';
+    $('ds3-header-icon').innerHTML=svgIcon(icons[d.id],'ds3-big-icon');
+    $('ds3-area-label').textContent=a?.title||'';
+    $('ds3-topic-title').textContent=t?.title||'';
+  }
+  function tickHTML(value){return format(value).replace(',0','');}
+  function chartSVG(rows){
+    if(!rows.length)return '';
+    const max=Math.max(10,...rows.map(row=>Number(row.valor)||0));
+    const ceil=(Math.ceil(max/10)*10)||10;
+    const axisTop=76,axisBottom=318,axisLeft=176,axisWidth=456,step=axisWidth/4;
+    const ticks=[0,1,2,3,4].map(i=>{
+      const x=axisLeft+i*step;
+      return '<line x1="'+x+'" y1="'+axisTop+'" x2="'+x+'" y2="'+axisBottom+'" class="ds3-grid-line"/>'+
+        '<text x="'+x+'" y="347" class="ds3-tick" text-anchor="middle">'+tickHTML(ceil*i/4)+' %</text>';
+    }).join('');
+    const bars=LEVELS.map((lvl,index)=>{
+      const y=113+index*79;
+      const entry=rows.find(v=>v.ambito===lvl.id);
+      const selected=lvl.id===state.nivel;
+      const background='<rect x="'+axisLeft+'" y="'+(y-2)+'" width="'+axisWidth+'" height="24" rx="4" class="ds3-track"/>';
+      if(!entry)return '<g>'+background+'<text class="ds3-bar-label" x="13" y="'+(y+14)+'">'+escapeHTML(lvl.name)+'</text>'+
+        '<text class="ds3-missing-number" text-anchor="end" x="690" y="'+(y+14)+'">s/d</text></g>';
+      const value=Math.max(2,entry.valor/ceil*axisWidth);
+      const textX=axisLeft+Math.min(axisWidth+16,value+14);
+      return '<g class="'+(selected?'ds3-focused':'')+'">'+background+
+        '<rect x="'+axisLeft+'" y="'+(y-2)+'" width="'+value.toFixed(2)+'" height="24" rx="4" fill="'+lvl.color+'"'+
+        (selected?' stroke="#f4ad00" stroke-width="2"':'')+'/>'+
+        '<text class="ds3-bar-label" x="13" y="'+(y+14)+'">'+escapeHTML(lvl.name)+'</text>'+
+        '<text class="ds3-bar-value" x="'+Math.min(687,textX)+'" y="'+(y+15)+'" text-anchor="'+(textX>655?'end':'start')+'">'+format(entry.valor)+' %</text></g>';
+    }).join('');
+    const label='Comparación por nivel territorial de '+String(rows[0].indicator)+', '+String(rows[0].periodo)+
+      ': '+LEVELS.map(l=>l.name+' '+(rows.find(v=>v.ambito===l.id)?.valor ?? 'sin dato')).join(', ');
+    return '<svg class="ds3-chart-svg" viewBox="0 0 720 365" role="img" aria-label="'+escapeHTML(label)+'">'+
+      '<text x="14" y="30" class="ds3-graph-kicker">PORCENTAJE DE LA POBLACIÓN · '+escapeHTML(rows[0].periodo)+'</text>'+
+      ticks+bars+'</svg>';
+  }
+  function renderChart(){
+    const t=topic(),groups=indicators(),rows=currentIndicator();
+    const have=rows.length>0;
+    $('ds3-indicator-title').textContent=have?rows[0].indicator:t.title;
+    $('ds3-indicator-description').textContent=have?
+      'Comparación territorial · '+rows[0].periodo+' · '+rows[0].unidad:
+      'Información pendiente de incorporación y validación.';
+    $('ds3-chart-area').innerHTML=have?chartSVG(rows):
+      '<div class="ds3-no-data" role="status"><div class="ds3-no-data-symbol" aria-hidden="true">▥</div>'+
+      '<h3>Gráfica pendiente de datos</h3>'+
+      '<p>Aún no hay un indicador con valores verificados para <strong>'+escapeHTML(t.title)+'</strong>. La estructura está preparada para Colombia, Cundinamarca y Subachoque.</p>'+
+      '<p class="ds3-empty-method">Sin cifras de muestra ni series temporales inventadas.</p></div>';
+    $('ds3-chart-footer').innerHTML=have?
+      '<span class="ds3-source-mark">●</span> '+escapeHTML(rows[0].origen||'Entidad productora')+
+      ' <span class="ds3-meta-sep">·</span> '+escapeHTML(rows[0].periodo)+
+      ' <span class="ds3-meta-sep">·</span> '+escapeHTML(rows[0].unidad):
+      '<span class="ds3-source-mark">○</span> Pendiente: indicador, unidad, período, fuente y cobertura.';
+    const navigation=$('ds3-indicator-nav');
+    navigation.hidden=groups.length<=1;
+    if(groups.length>1){
+      navigation.innerHTML='<button type="button" data-ds3-step="-1" aria-label="Indicador anterior">‹</button>'+
+        '<span>Indicador '+(state.indicator+1)+' de '+groups.length+'</span>'+
+        '<button type="button" data-ds3-step="1" aria-label="Indicador siguiente">›</button>';
+    }else navigation.replaceChildren();
+  }
+  function diffText(value,other,otherName){
+    if(!other)return '';
+    const diff=Number((value-other.valor).toFixed(1));
+    if(Math.abs(diff)<0.05)return 'El resultado coincide con '+otherName+'.';
+    return 'Es '+format(Math.abs(diff))+' puntos porcentuales '+(diff>0?'mayor':'menor')+' que en '+otherName+'.';
+  }
+  function renderAnalysis(){
+    const t=topic(),selected=level(),rows=currentIndicator();
+    const current=rows.find(i=>i.ambito===state.nivel);
+    const parent=$('ds3-analysis-body'),source=$('ds3-source');
+    if(!current){
+      parent.innerHTML='<span class="ds3-state ds3-state-unavailable">DATO NO DISPONIBLE</span>'+
+        '<p>Para <strong>'+escapeHTML(t.title)+'</strong> todavía no se ha incorporado un indicador cuantitativo comprobado del nivel <strong>'+escapeHTML(selected.label.toLowerCase())+
+        '</strong> ('+escapeHTML(selected.name)+').</p>'+
+        '<div class="ds3-explainer"><strong>¿Qué hace falta?</strong><p>Identificar una variable comparable, su unidad, período, cobertura territorial y fuente original. No se utilizarán cifras ilustrativas como datos oficiales.</p></div>';
+      const portal=catalog?.guiaFuentes?.[state.dimension]?.[state.nivel];
+      const link=portal?safeUrl(portal.url):null;
+      source.innerHTML='<span class="ds3-source-label">PORTAL PARA CONSULTA</span>'+
+        '<p>'+(portal?escapeHTML(portal.nombre):'Fuente institucional por identificar')+'</p>'+
+        (link?'<a href="'+escapeHTML(link)+'" target="_blank" rel="noopener noreferrer">Consultar portal ↗</a>':'')+
+        '<small>No se ha vinculado todavía una serie oficial de este subtema.</small>';
       return;
     }
-    const q=norm(state.query);
-    const hits=allTopics().filter(t=>norm(t.title+' '+t.areaTitle+' '+t.documentCode).includes(q));
-    results.hidden=false;
-    results.innerHTML=hits.length?hits.map(t=>
-      '<button type="button" data-ds-topic="'+esc(t.id)+'" class="ds-result">'+
-      '<span>'+esc(t.title)+'</span><small>'+esc(t.areaTitle)+'</small></button>').join(''):
-      '<p>No hay subtemas con ese nombre. Prueba otra palabra.</p>';
+    const others=LEVELS.filter(l=>l.id!==state.nivel).map(l=>{
+      const row=rows.find(x=>x.ambito===l.id);
+      return row?diffText(current.valor,row,l.name):'No hay valor comparable para '+l.name+'.';
+    });
+    const note=current.notaMetodologica||'La lectura depende del universo estadístico, la unidad y la metodología original.';
+    parent.innerHTML='<span class="ds3-state ds3-state-official">DATO CON FUENTE</span>'+
+      '<p>En <strong>'+escapeHTML(selected.name)+'</strong>, el '+escapeHTML(current.periodo)+
+      ' registró <strong>'+format(current.valor)+' %</strong> para el indicador <strong>'+escapeHTML(current.indicator)+
+      '</strong>.</p>'+
+      '<p>'+escapeHTML(others.join(' '))+'</p>'+
+      '<div class="ds3-explainer"><strong>¿Qué significa?</strong><p>'+escapeHTML(note)+'</p></div>'+
+      '<p class="ds3-avoid-overreach">Una medición censal no demuestra por sí sola una tendencia entre años ni una relación causal.</p>';
+    const link=safeUrl(current.fuente);
+    source.innerHTML='<span class="ds3-source-label">FUENTE ORIGINAL</span>'+
+      '<p>'+escapeHTML(current.origen||'DANE')+' · '+escapeHTML(current.periodo)+
+      (current.pagina?', pág. '+escapeHTML(current.pagina):'')+'</p>'+
+      (link?'<a href="'+escapeHTML(link)+'" target="_blank" rel="noopener noreferrer">Ver ficha oficial ↗</a>':'');
   }
-
-  function chart(indicators,focus,topic) {
-    const active=indicators.find(item=>item.ambito===focus);
-    if(!active) {
-      return '<div class="ds-plot-empty" role="status">'+
-        '<span class="ds-empty-glyph" aria-hidden="true">▥</span>'+
-        '<strong>Dato pendiente de incorporación</strong>'+
-        '<p>No hay una serie cuantitativa verificada para este tema y nivel territorial.</p></div>';
-    }
-    const commonMax=Math.max(5,Math.max(...indicators.map(row=>row.valor))*1.12);
-    const rows=LEVELS.map(level=>{
-      const metric=indicators.find(item=>item.ambito===level.id);
-      if(!metric)return '<div class="ds-bar-row is-unavailable"><span>'+esc(level.place)+'</span><div class="ds-bar-axis"></div><b>—</b></div>';
-      const pct=(metric.valor/commonMax*100).toFixed(2);
-      return '<div class="ds-bar-row'+(level.id===focus?' is-focused':'')+'">'+
-        '<span>'+esc(level.place)+'</span>'+
-        '<div class="ds-bar-axis"><span style="width:'+pct+'%"></span></div>'+
-        '<b>'+format(metric.valor)+' %</b></div>';
-    }).join('');
-    return '<div class="ds-plot-data" role="img" aria-label="'+
-       esc('Comparación en porcentaje de '+active.indicator+' en Colombia, Cundinamarca y Subachoque, CNPV 2018')+'">'+
-       '<div class="ds-plot-value"><strong>'+format(active.valor)+' %</strong><span>'+esc(active.indicator)+'</span></div>'+
-       '<div class="ds-plot-bars">'+rows+'</div>'+
-       '<span class="ds-plot-key">La barra resaltada corresponde al nivel seleccionado.</span></div>';
+  function render(){
+    if(!catalog)return;
+    root.dataset.ready='true';
+    renderTitle();renderDimensions();renderAreas();renderLevels();
+    renderTopics();renderChart();renderAnalysis();
   }
-
-  function comparisonText(metric,all) {
-    const other=all.filter(item=>item.ambito!==metric.ambito && item.indicatorId===metric.indicatorId);
-    if(!other.length)return 'No existe un valor equivalente incorporado para contrastar entre territorios.';
-    return other.map(o=>{
-      const diff=Math.round((metric.valor-o.valor)*10)/10;
-      const value=Math.abs(diff)<.001?'coincide con':(diff>0?'supera a':'está por debajo de');
-      return diff===0?
-        'El valor coincide con '+LEVELS.find(l=>l.id===o.ambito).place+'.':
-        'El valor '+value+' '+LEVELS.find(l=>l.id===o.ambito).place+
-          ' en '+format(Math.abs(diff))+' puntos porcentuales.';
-    }).join(' ');
-  }
-  function sourceMarkup(topic,level,indicator) {
-    const area=areaOf(topic.areaId);
-    const portal=area.portales?.[level.id] || null;
-    const officialUrl=indicator?safeLink(indicator.fuente):null;
-    const otherUrl=portal?safeLink(portal.url):null;
-    const href=officialUrl||otherUrl;
-    const title=indicator?'Ficha oficial DANE · CNPV 2018':portal?.nombre || 'Fuente por identificar';
-    return '<div class="ds-source">'+
-      '<span class="ds-source-heading">'+(indicator?'FUENTE DEL DATO':'PORTAL DE CONSULTA (SIN DATOS CONECTADOS)')+'</span>'+
-      '<strong>'+esc(title)+'</strong>'+
-      (href?'<a href="'+esc(href)+'" target="_blank" rel="noopener noreferrer" aria-label="Consultar '+esc(title)+' en otra pestaña">Consultar fuente ↗</a>':'')+
-      '</div>';
-  }
-  function analytic(indicators,level,topic) {
-    const indicator=indicators.find(row=>row.ambito===level.id);
-    if(!indicator){
-      return '<span class="ds-state ds-state-missing">SIN VALOR INCORPORADO</span>'+
-        '<h4>Datos por validar</h4>'+
-        '<p>Para <strong>'+esc(topic.title)+'</strong> todavía no se ha incorporado un indicador comparable de '+esc(level.place)+'. Esto no significa que la entidad carezca de datos.</p>'+
-        '<p>Antes de graficar debemos confirmar <strong>variable, unidad, denominador, período, cobertura y responsable</strong>.</p>'+
-        sourceMarkup(topic,level,null);
-    }
-    const meta='<div class="ds-analytic-facts"><span>2018 · corte censal</span><span>DANE</span><span>% de población</span></div>';
-    return '<span class="ds-state ds-state-ready">DATO CON FUENTE</span>'+
-      '<h4>'+esc(indicator.indicator)+'</h4>'+
-      '<p>En <strong>'+esc(level.place)+'</strong>, '+format(indicator.valor)+' % es el valor registrado por el Censo Nacional de Población y Vivienda de 2018.</p>'+
-      '<p>'+esc(comparisonText(indicator,indicators))+'</p>'+
-      '<p class="ds-analysis-caution">'+esc(indicator.notaMetodologica)+'</p>'+
-      meta+sourceMarkup(topic,level,indicator);
-  }
-
-  function renderAnalysis() {
-    const topic=topicOf(state.topic) || allTopics()[0];
-    const area=areaOf(topic.areaId);
-    const indicators=indicatorsFor(topic.id);
-    const groups=[...new Set(indicators.map(item=>item.indicatorId))].map(id=>indicators.filter(item=>item.indicatorId===id));
-    // Incluso sin datos hay tres ranuras identificadas: nacional, departamental y municipal.
-    if(!groups.length) groups.push([]);
-    $('#ds-active-title').textContent=topic.title;
-    $('#ds-active-path').textContent='DIMENSIÓN SOCIAL / '+area.title+' / '+topic.title;
-    $('#ds-active-subtitle').textContent=indicators.length?
-      groups.length+' indicador(es) oficial(es) clasificado(s), con comparación territorial y corte declarado.':
-      'Estructura lista para incorporar indicadores nacionales, departamentales y municipales con trazabilidad.';
-    $('#ds-level-rows').innerHTML=groups.map((metricRows,k)=>{
-      const metricTitle=metricRows[0]?.indicator || topic.title;
-      const heading=metricRows.length?
-        '<div class="ds-indicator-heading"><span>INDICADOR '+(k+1)+'</span><h4>'+esc(metricTitle)+'</h4></div>':'';
-      const pairs=LEVELS.map(level=>{
-        const available=Boolean(metricRows.find(row=>row.ambito===level.id));
-        const elementId='ds-level-'+k+'-'+level.id;
-        return '<section class="ds-level-pair" aria-labelledby="'+elementId+'">'+
-          '<div class="ds-graph-card"><header class="ds-card-head"><span class="ds-level-index">'+level.tag+'</span>'+
-          '<div><p>'+esc(level.label)+'</p><h3 id="'+elementId+'">'+esc(level.place)+'</h3></div>'+
-          '<span class="ds-level-pill">'+(available?'2018 · DANE':'Por incorporar')+'</span></header>'+
-          '<div class="ds-plot">'+chart(metricRows,level.id,topic)+'</div>'+
-          '<footer class="ds-chart-footer">'+esc(metricTitle)+' · '+esc(level.place)+'</footer></div>'+
-          '<div class="ds-analytic-card"><div class="ds-analytic-header"><span>LECTURA TERRITORIAL</span>'+
-          '<strong>ANÁLISIS</strong></div>'+analytic(metricRows,level,topic)+'</div></section>';
-      }).join('');
-      return '<div class="ds-indicator-set">'+heading+pairs+'</div>';
-    }).join('');
-    $('#ds-social-footnote').textContent=indicators.length?
-      'Los valores disponibles son porcentajes del CNPV 2018. No equivalen a datos de 2026 ni justifican conclusiones causales.':
-      'No hay valores cuantitativos cargados para este subtema. Los portales indicados son referencias de consulta, no series conectadas.';
-  }
-
-  function renderPending() {
-    const d=catalog.dimensiones.find(x=>x.id===state.dimension);
-    $('#ds-social-app').hidden=true;
-    const pending=$('#ds-pending-dimension');
-    pending.hidden=false;
-    pending.innerHTML='<span class="ds-state ds-state-missing">PRÓXIMA DIMENSIÓN</span>'+
-      '<h2>'+esc(d?.titulo || '')+'</h2>'+
-      '<p>La estructura de esta dimensión se implementará en una siguiente etapa, tomando los temas del documento <strong>DIMENSIONES</strong>. Por ahora no se mostrarán indicadores, datos ni gráficas de demostración.</p>'+
-      '<button type="button" data-ds-dimension="social" class="ds-return-social">Volver a Dimensión Social →</button>';
-  }
-  function render() {
-    if(!catalog) return;
-    renderDimensions();
-    const social=state.dimension==='social';
-    $('#ds-social-app').hidden=!social;
-    $('#ds-pending-dimension').hidden=social;
-    if(!social){renderPending();return;}
-    renderAreas();
-    renderTopics();
-    renderAnalysis();
-  }
-  function selectDimension(dim) {
-    if(!catalog.dimensiones.some(x=>x.id===dim))return;
-    state.dimension=dim;
-    updateUrl();render();
-    $('#ds-content-start')?.scrollIntoView({behavior:'smooth',block:'start'});
-  }
-  function selectArea(id) {
-    const area=areaOf(id);
-    if(!area)return;
-    state.area=area.id;
-    state.topic=area.topics[0]?.id;
-    updateUrl();render();
-  }
-  function selectTopic(id) {
-    const topic=topicOf(id);
-    if(!topic)return;
-    state.dimension='social';
-    state.area=topic.areaId;
-    state.topic=topic.id;
-    state.query='';
-    const field=$('#ds-topic-search');if(field)field.value='';
-    updateUrl();render();
-    $('#ds-active-title')?.scrollIntoView({behavior:'smooth',block:'start'});
-  }
-
   root.addEventListener('click',event=>{
-    const element=event.target.closest('button');
-    if(!element||!root.contains(element))return;
-    if(element.hasAttribute('data-ds-dimension')){selectDimension(element.dataset.dsDimension);return;}
-    if(element.hasAttribute('data-ds-area')){selectArea(element.dataset.dsArea);return;}
-    if(element.hasAttribute('data-ds-topic')){selectTopic(element.dataset.dsTopic);}
+    const btn=event.target.closest('button');
+    if(!btn||!root.contains(btn))return;
+    if(btn.hasAttribute('data-ds3-dimension'))return changeDimension(btn.dataset.ds3Dimension);
+    if(btn.hasAttribute('data-ds3-area'))return changeArea(btn.dataset.ds3Area);
+    if(btn.hasAttribute('data-ds3-topic'))return changeTopic(btn.dataset.ds3Topic);
+    if(btn.hasAttribute('data-ds3-level'))return changeLevel(btn.dataset.ds3Level);
+    if(btn.hasAttribute('data-ds3-step')){
+      const groups=indicators();if(!groups.length)return;
+      state.indicator=(state.indicator+Number(btn.dataset.ds3Step)+groups.length)%groups.length;
+      setURL();render();
+    }
   });
   root.addEventListener('input',event=>{
-    if(event.target.id!=='ds-topic-search')return;
-    state.query=event.target.value;
-    renderSearch();
+    if(event.target.id!=='ds3-search')return;
+    state.search=event.target.value;
+    renderSearchResults();
   });
-  const json='data/data-subachoque-dimensiones.json';
-  fetch(json,{cache:'no-store'}).then(response=>{
-    if(!response.ok)throw Error('No se pudo consultar el catálogo');
-    return response.json();
+  fetch('data/data-subachoque-dimensiones.json',{cache:'no-store'}).then(r=>{
+    if(!r.ok)throw Error('No se pudo descargar el catálogo.');
+    return r.json();
   }).then(data=>{
-    const n=Array.isArray(data.social?.areas)?data.social.areas.reduce((a,v)=>a+(v.topics?.length||0),0):0;
-    if(data.municipio!=='Subachoque'||!Array.isArray(data.dimensiones)||data.dimensiones.length!==4||n!==33||
-       !Array.isArray(data.indicadores)||!Array.isArray(data.social.areas)||data.social.areas.length!==6)
-       throw Error('El catálogo de dimensiones no pasó las comprobaciones de integridad');
+    const ds=data.dimensiones||[];
+    if(data.municipio!=='Subachoque'||ds.length!==4||
+       ds.map(d=>d.areas.reduce((n,a)=>n+a.topics.length,0)).join(',')!=='33,33,20,19'||
+       ds.reduce((n,d)=>n+d.areas.length,0)!==21||!Array.isArray(data.indicadores)){
+      throw Error('La estructura de dimensiones está incompleta.');
+    }
     catalog=data;
-    root.dataset.ready='true';
     syncFromHash();
     render();
   }).catch(error=>{
     root.dataset.ready='error';
-    $('#ds-setup-alert').textContent='No se pudo cargar la Dimensión Social: '+error.message;
-    $('#ds-setup-alert').hidden=false;
+    $('ds3-setup-alert').textContent='No se pudieron cargar las dimensiones: '+error.message;
+    $('ds3-setup-alert').hidden=false;
+    $('ds3-dimensions').textContent='No se pudieron cargar las dimensiones.';
   });
   window.TIDataSubachoque=Object.freeze({syncFromHash});
   addEventListener('hashchange',syncFromHash);
