@@ -1,0 +1,171 @@
+/* Territorio Inteligente / 2.3 Caracterización y Diagnóstico Municipal
+   Estética propia: editorial azul noche + espacios claros + acento dorado.
+   Distinta del catálogo estadístico DANE en 2.2. */
+#data-encuesta{--k23-deep:#071f31;--k23-mid:#103e51;--k23-gold:#f4c62a;
+ --k23-ink:#123349;--k23-line:#d9e5eb;--k23-muted:#607c8b;--k23-sky:#4bb1c4;
+ --k23-paper:#f5f8f8;background:#f5f8f8!important;color:#17364b!important;
+ font:15px/1.48 Arial,Helvetica,sans-serif!important;margin:0!important;padding:0!important;
+ min-width:0;overflow-x:clip}
+#data-encuesta *{box-sizing:border-box}
+#data-encuesta[hidden],#data-encuesta [hidden]{display:none!important}
+#data-encuesta button,#data-encuesta input,#data-encuesta select{font:inherit}
+#data-encuesta button{cursor:pointer;text-transform:none!important;letter-spacing:normal!important}
+#data-encuesta :focus-visible{outline:3px solid #e7b724;outline-offset:3px}
+#data-encuesta .k23-wrap{width:100%;max-width:1710px;margin:0 auto;padding:0 clamp(16px,3.4vw,64px)}
+#data-encuesta .k23-hero{background:radial-gradient(circle at 89% 30%,#216077b3 0%,transparent 35%),
+ linear-gradient(115deg,#072336 0%,#0e364a 62%,#0f4355 100%);color:#fff!important;
+ padding:clamp(30px,4.4vw,68px) 0 36px;border-bottom:4px solid #e1b61c}
+#data-encuesta .k23-breadcrumb{font-size:12px;color:#9fc5d5!important;margin:0 0 27px!important;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+#data-encuesta .k23-breadcrumb span{color:#f4c62a}
+#data-encuesta .k23-hero-top{display:flex;justify-content:space-between;align-items:start;gap:25px}
+#data-encuesta .k23-tag{color:#f4c62a;font-size:11px;font-weight:850;letter-spacing:.12em;margin:0 0 12px!important}
+#data-encuesta #k23-main-title{font-family:Arial,Helvetica,sans-serif!important;
+ font-size:clamp(37px,4.45vw,72px)!important;line-height:.98!important;letter-spacing:-.04em!important;
+ font-weight:900!important;max-width:890px;margin:0 0 16px!important;color:#fff!important;text-transform:none!important}
+#data-encuesta .k23-hero-lead{font-size:clamp(15px,1.16vw,19px);max-width:850px;
+ color:#d7e8ef!important;line-height:1.47;margin:0 0 19px!important}
+#data-encuesta .k23-count-note{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#bad4e0;font-size:13px}
+#data-encuesta .k23-count-note strong{color:#f4c62a;font-size:17px}
+#data-encuesta .k23-count-note i{display:inline-block;width:4px;height:4px;border-radius:50%;background:#719cae}
+#data-encuesta .k23-emblem{flex:0 0 180px;width:180px;height:180px;position:relative;
+ border:1px solid #49788a;border-radius:50%;display:flex;align-items:center;justify-content:center;
+ color:#dce9ed;background:radial-gradient(circle,#1c5263 0%,#16455777 56%,transparent 60%);
+ box-shadow:inset 0 0 0 13px #1b506233}
+#data-encuesta .k23-emblem span{font-size:85px;line-height:1;color:#f4c62a;font-weight:300}
+#data-encuesta .k23-dim-section{margin-top:30px}
+#data-encuesta .k23-overline{font-size:11px;font-weight:800;letter-spacing:.1em;color:#9fc6d4;margin:0 0 10px!important}
+#data-encuesta .k23-dims{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+#data-encuesta .k23-dim{min-width:0;min-height:104px;background:#143e52a8;
+ border:1px solid #588195aa;border-radius:8px;display:flex;align-items:center;gap:13px;
+ text-align:left;padding:16px 17px;color:#e1eaf0!important;
+ transition:background .2s,transform .2s,border .2s}
+#data-encuesta .k23-dim:hover{transform:translateY(-2px);background:#1d5368}
+#data-encuesta .k23-dim.active{background:#f2c62c;color:#102d3d!important;border-color:#f2c62c}
+#data-encuesta .k23-dim-index{font-size:29px;font-weight:900;color:#70b7c9;line-height:1.1}
+#data-encuesta .k23-dim.active .k23-dim-index{color:#1c5f71}
+#data-encuesta .k23-dim-copy{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}
+#data-encuesta .k23-dim-copy strong{font-size:clamp(13px,1.07vw,18px);line-height:1.16;font-weight:800}
+#data-encuesta .k23-dim-copy small{color:#adc8d4;font-size:12px;line-height:1.25}
+#data-encuesta .k23-dim.active .k23-dim-copy small{color:#325568}
+#data-encuesta .k23-dim-arrow{font-size:23px;color:#9bbeca}
+#data-encuesta .k23-dim.active .k23-dim-arrow{color:#1c5667}
+#data-encuesta .k23-body{padding:28px 0 65px}
+#data-encuesta #k23-heading{font-size:clamp(25px,2.3vw,38px)!important;letter-spacing:-.035em!important;
+ color:#12344b!important;font-weight:850!important;line-height:1.14!important;margin:0 0 6px!important;text-transform:none!important}
+#data-encuesta #k23-description{color:#577485!important;line-height:1.48!important;font-size:14px;margin:0 0 21px!important}
+#data-encuesta #k23-areas-label{color:#275c71;font-size:12px;font-weight:850;letter-spacing:.045em;margin:0 0 10px!important}
+#data-encuesta .k23-areas{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 24px;padding:0 0 16px;border-bottom:1px solid #dbe4e8}
+#data-encuesta .k23-area{padding:10px 15px;min-height:40px;border:1px solid transparent;border-radius:23px;
+ background:transparent;color:#3b6375;font-size:12px;font-weight:700;text-align:center}
+#data-encuesta .k23-area:hover{background:#e8f1f2}
+#data-encuesta .k23-area.active{color:#0d4255;background:#d8e8ea;border-color:#b0d0d7;font-weight:850}
+#data-encuesta .k23-workspace{display:grid;grid-template-columns:minmax(210px,280px) minmax(0,1.5fr) minmax(250px,.82fr);
+ align-items:stretch;gap:14px;min-width:0}
+#data-encuesta .k23-topics-panel{background:#0d3044;border-radius:10px;padding:21px 17px;color:#fff;min-width:0}
+#data-encuesta #k23-topics-heading{color:#fff!important;font-size:21px!important;font-weight:800!important;
+ line-height:1.21!important;margin:0 0 14px!important;letter-spacing:-.02em!important;text-transform:none!important}
+#data-encuesta .k23-search-label{font-size:11px;color:#bad7e1;display:block;margin-bottom:6px}
+#data-encuesta #k23-search{width:100%;min-height:42px;border:1px solid #4e7c92;border-radius:6px;
+ background:#1b485b;color:#fff;padding:9px 12px;font-size:13px;outline-offset:2px}
+#data-encuesta #k23-search::placeholder{color:#b5ced8}
+#data-encuesta .k23-topics-list{display:flex;flex-direction:column;gap:5px;margin-top:17px}
+#data-encuesta .k23-topic{width:100%;min-height:45px;padding:10px 11px;display:flex;align-items:center;
+ justify-content:space-between;gap:10px;border:1px solid transparent;border-radius:5px;
+ background:#184154;color:#d4e6ed;text-align:left;font-size:13px;font-weight:600}
+#data-encuesta .k23-topic.active{background:#f4c62a;color:#102d40;font-weight:800}
+#data-encuesta .k23-topic:hover:not(.active){border-color:#80a9b9;background:#245368}
+#data-encuesta .k23-topic span:last-child{font-size:21px;font-weight:400}
+#data-encuesta .k23-search-results{margin-top:11px;max-height:320px;overflow:auto;border:1px solid #436c7e;border-radius:7px;padding:6px;background:#163d50}
+#data-encuesta .k23-result{width:100%;display:flex;flex-direction:column;text-align:left;gap:4px;
+ padding:10px 9px;background:transparent;color:#fff;border:0;border-radius:5px}
+#data-encuesta .k23-result:hover{background:#23576a}
+#data-encuesta .k23-result strong{font-size:12px}
+#data-encuesta .k23-result small{font-size:10px;color:#bad6df}
+#data-encuesta .k23-search-results p{font-size:12px;color:#dbe8ee}
+#data-encuesta .k23-chart-panel,#data-encuesta .k23-insight-panel{
+ min-width:0;background:#fff;border:1px solid #dce7e9;border-radius:10px;padding:22px 23px;
+ box-shadow:0 3px 14px #163f4c07}
+#data-encuesta .k23-topic-breadcrumb{color:#3e8b97;font-size:11px;font-weight:800;margin:0 0 10px!important}
+#data-encuesta #k23-topic-title{font-size:clamp(27px,2.35vw,39px)!important;color:#173b50!important;
+ line-height:1.1!important;letter-spacing:-.036em!important;margin:0 0 15px!important;font-weight:900!important}
+#data-encuesta #k23-metric-title{font-size:18px!important;color:#163b4e!important;font-weight:800!important;
+ line-height:1.25!important;margin:0 0 7px!important;letter-spacing:-.01em!important}
+#data-encuesta #k23-scope{font-size:12px;color:#668293;margin:0 0 15px!important}
+#data-encuesta .k23-valid{display:flex;gap:8px;align-items:center;margin:0 0 17px;padding:8px 12px;border-radius:7px;background:#edf4f4;font-size:12px;color:#426477}
+#data-encuesta #k23-n{font-size:18px;color:#134959;font-weight:900}
+#data-encuesta #k23-denominator{font-size:12px}
+#data-encuesta .k23-chart{min-width:0;min-height:270px;display:flex;flex-direction:column;justify-content:center}
+#data-encuesta .k23-bars{display:flex;flex-direction:column;gap:13px}
+#data-encuesta .k23-bar-row{min-width:0}
+#data-encuesta .k23-bar-top{display:flex;align-items:baseline;justify-content:space-between;gap:15px;margin-bottom:6px;font-size:13px;color:#244961}
+#data-encuesta .k23-bar-top span{min-width:0;overflow-wrap:anywhere}
+#data-encuesta .k23-bar-top strong{font-size:14px;color:#0a3b51;white-space:nowrap}
+#data-encuesta .k23-bar-track{width:100%;height:13px;border-radius:5px;overflow:hidden;background:#eef3f5}
+#data-encuesta .k23-bar-track span{display:block;min-width:2px;height:100%;border-radius:5px}
+#data-encuesta .k23-bar-row>small{display:block;text-align:right;font-size:10px;color:#78919e;margin-top:3px}
+#data-encuesta .k23-chart-note{color:#607c89;font-size:11px;line-height:1.4;margin:17px 0 0!important;border-top:1px solid #e4ecee;padding-top:11px}
+#data-encuesta .k23-metric-selector{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+#data-encuesta .k23-metric-selector label{font-size:12px;font-weight:800;color:#436273}
+#data-encuesta .k23-metric-selector select{min-width:0;max-width:100%;flex:1 1 230px;
+ border:1px solid #c5d9dd;border-radius:6px;background:#f5fafb;color:#173e53;font-size:12px;padding:9px;cursor:pointer}
+#data-encuesta #k23-insight-heading{font-size:22px!important;font-weight:850!important;color:#163b50!important;margin:0 0 17px!important}
+#data-encuesta .k23-insight{display:flex;flex-direction:column;gap:14px}
+#data-encuesta .k23-insight p{color:#416072!important;font-size:13px;line-height:1.54;margin:0!important}
+#data-encuesta .k23-insight p strong{color:#123d51}
+#data-encuesta .k23-data-badge{align-self:flex-start;color:#1e695e;font-size:10px;font-weight:850;background:#e0f3eb;border-radius:25px;padding:5px 10px}
+#data-encuesta .k23-important{border-left:4px solid #e9bd28;background:#fff8df;border-radius:5px;padding:13px}
+#data-encuesta .k23-important strong{font-size:13px;color:#264352}
+#data-encuesta .k23-important p{font-size:12px;margin-top:6px!important}
+#data-encuesta .k23-meta{display:grid;grid-template-columns:2fr .65fr .95fr .8fr;gap:8px;margin-top:13px;background:#e9f2f2;border-radius:8px;padding:14px 17px}
+#data-encuesta .k23-meta>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+#data-encuesta .k23-meta span{font-size:10px;color:#647e8b;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+#data-encuesta .k23-meta strong{font-size:12px;color:#244c5c;line-height:1.33;overflow-wrap:anywhere}
+#data-encuesta .k23-disclaimer{margin:19px 0 0!important;color:#66818d!important;font-size:12px;line-height:1.52}
+#data-encuesta .k23-tools{border-top:1px solid #cedfe2;padding:0 0 55px}
+#data-encuesta .sv-real-space{border:1px solid #c8dce1;background:#fff;border-radius:10px;margin:20px auto;max-width:1570px;padding:18px;color:#173d50}
+#data-encuesta .sv-real-space summary{font-size:15px;font-weight:800;cursor:pointer;color:#133f52}
+#data-encuesta .sv-real-space p{font-size:13px;line-height:1.5;color:#537483;margin:13px 0}
+#data-encuesta .sv-real-space .dataset-workspace,#data-encuesta .sv-geo-integrado{margin:20px 0 0}
+#data-encuesta .sv-real-space .module-toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+#data-encuesta .sv-real-space .geo-layout{display:grid;grid-template-columns:2fr 1fr;gap:15px;margin-top:20px}
+#data-encuesta .sv-real-space .territory-map{min-width:0}
+#data-encuesta .sv-real-space .territory-map svg{width:100%;min-height:300px;background:#123d51;border-radius:6px}
+#data-encuesta .sv-real-space .map-detail{padding:15px;background:#e6f0f3;border-radius:6px}
+#data-encuesta .k23-load{margin:14px 0;color:#802f27;border:1px solid #ddbfb7;border-radius:7px;background:#fff5ef;padding:13px}
+.app-view[data-view="data"]:has(#data-encuesta:not([hidden]))>.view-hero,
+.app-view[data-view="data"]:has(#data-encuesta:not([hidden])) .module-heading-row,
+.app-view[data-view="data"]:has(#data-encuesta:not([hidden])) #dataSubnav{display:none!important}
+.app-view[data-view="data"]:has(#data-encuesta:not([hidden]))>.view-body{padding:0!important;background:#f5f8f8!important;color:#173d50!important}
+.app-view[data-view="data"]:has(#data-encuesta:not([hidden]))>.view-body>.inner{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
+@media(max-width:1390px){
+ #data-encuesta .k23-workspace{grid-template-columns:minmax(190px,250px) minmax(0,1.3fr) minmax(235px,.85fr);gap:10px}
+ #data-encuesta .k23-chart-panel,#data-encuesta .k23-insight-panel{padding:18px 15px}
+ #data-encuesta .k23-dim{padding:13px 10px}
+}
+@media(max-width:1090px){
+ #data-encuesta .k23-dims{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #data-encuesta .k23-workspace{grid-template-columns:minmax(210px,.65fr) minmax(0,1.35fr)}
+ #data-encuesta .k23-insight-panel{grid-column:2}
+ #data-encuesta .k23-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:710px){
+ #data-encuesta .k23-hero{padding-top:30px}
+ #data-encuesta .k23-emblem{display:none}
+ #data-encuesta #k23-main-title{font-size:clamp(35px,7vw,52px)!important}
+ #data-encuesta .k23-workspace{grid-template-columns:1fr}
+ #data-encuesta .k23-insight-panel{grid-column:auto}
+ #data-encuesta .k23-topics-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #data-encuesta .k23-topics-panel{padding:17px}
+ #data-encuesta .k23-chart-panel,#data-encuesta .k23-insight-panel{padding:18px}
+ #data-encuesta .k23-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #data-encuesta .sv-real-space .geo-layout{grid-template-columns:1fr}
+}
+@media(max-width:470px){
+ #data-encuesta .k23-dims{grid-template-columns:1fr}
+ #data-encuesta .k23-dim{min-height:72px}
+ #data-encuesta .k23-topics-list{grid-template-columns:1fr}
+ #data-encuesta .k23-meta{grid-template-columns:1fr 1fr}
+ #data-encuesta .k23-count-note{font-size:11px}
+ #data-encuesta .k23-chart-panel{padding:14px}
+}
+@media(prefers-reduced-motion:reduce){#data-encuesta .k23-dim{transition:none}}
