@@ -1,0 +1,48 @@
+/* 2.4 Explorando mi territorio · visor esquematico de veredas de Subachoque.
+   Se nutre del GeoJSON existente del proyecto y no atribuye cifras inventadas. */
+#data-explorando{--ex-bg:#112737;--ex-deep:#0b1f30;--ex-soft:#aec9d7;--ex-yellow:#ffe500;--ex-line:#3b6780;min-height:75vh;box-sizing:border-box;background:var(--ex-bg);color:#f7fafc;font:16px/1.45 Arial,Helvetica,sans-serif}
+#data-explorando[hidden],#data-explorando [hidden]{display:none!important}
+#data-explorando *{box-sizing:border-box}
+#data-explorando .ex-hero{padding:clamp(30px,4vw,66px) clamp(20px,4.5vw,70px) 38px;background:linear-gradient(94deg,#102838ee,#0e3049ce),url('../assets/img/editorial/encuesta-subachoque-referencia.webp') right center/cover no-repeat;border-bottom:1px solid var(--ex-line)}
+#data-explorando .ex-breadcrumb{font-size:13px;color:#bad2df;margin:0 0 22px}
+#data-explorando .ex-rule{display:block;width:60px;height:4px;background:var(--ex-yellow);margin:0 0 20px}
+#data-explorando #ex-title{font-size:clamp(45px,5.5vw,87px);letter-spacing:-.043em;font-weight:900;line-height:.98;color:var(--ex-yellow);margin:0 0 23px}
+#data-explorando .ex-lead{color:#e9f2f8;font-size:clamp(16px,1.4vw,23px);max-width:800px;margin:0 0 12px;line-height:1.36}
+#data-explorando .ex-subtitle{color:#d3e5ed;font-size:14px;max-width:900px;line-height:1.5;margin:0}
+#data-explorando .ex-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(290px,.8fr);gap:18px;padding:27px clamp(20px,4.5vw,70px) 36px;max-width:1780px;margin:auto}
+#data-explorando .ex-map-panel,#data-explorando .ex-sidebar{min-width:0;border:1px solid var(--ex-line);border-radius:9px;background:linear-gradient(145deg,#1b3a4d,#102d41);overflow:hidden}
+#data-explorando .ex-map-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 22px 14px}
+#data-explorando .ex-map-head h2{font-size:clamp(22px,2vw,31px);font-weight:800;margin:0 0 6px}
+#data-explorando .ex-map-head p{font-size:13px;color:var(--ex-soft);margin:0}
+#data-explorando .ex-count{display:inline-block;border:1px solid #4e7d96;border-radius:30px;white-space:nowrap;color:var(--ex-yellow);padding:8px 12px;font-size:13px;font-weight:800}
+#data-explorando .ex-map-wrap{position:relative;margin:0 19px 18px;border:1px solid #3e6c83;border-radius:7px;min-height:460px;overflow:hidden;background:radial-gradient(circle at 60% 34%,#1f5f73 0%,#143c55 50%,#0b283a 100%)}
+#data-explorando #ex-map{display:block;width:100%;height:min(62vh,620px);min-height:460px;transition:transform .17s;transform-origin:center;touch-action:pan-y}
+#data-explorando .ex-vereda{stroke:#0d2840;stroke-width:1.65;vector-effect:non-scaling-stroke;fill:#338d9a;cursor:pointer;transition:fill .13s,stroke .13s}
+#data-explorando .ex-vereda:nth-child(3n){fill:#2f789e}
+#data-explorando .ex-vereda:nth-child(3n+1){fill:#459e8b}
+#data-explorando .ex-vereda:hover,#data-explorando .ex-vereda.is-selected{fill:#ffe500;stroke:#fff;stroke-width:2.7;filter:drop-shadow(0 0 5px #ffe50075)}
+#data-explorando .ex-vereda:focus-visible{outline:none;fill:#ffe500;stroke:#fff;stroke-width:3.5}
+#data-explorando .ex-map-controls{position:absolute;top:15px;right:15px;z-index:2;display:flex;flex-direction:column;gap:7px}
+#data-explorando .ex-map-controls button{width:42px;height:42px;border:1px solid #6995ab;border-radius:5px;background:#123448ee;color:#fff;font-size:24px;cursor:pointer}
+#data-explorando .ex-map-controls button:hover{background:#ffe500;color:#132938}
+#data-explorando .ex-map-foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:0 22px 19px;color:#b1cddc;font-size:12px}
+#data-explorando .ex-sidebar{padding:22px;align-self:start}
+#data-explorando .ex-sidebar-heading{font-size:clamp(22px,2vw,30px);font-weight:800;margin:0 0 12px}
+#data-explorando .ex-sidebar>p{font-size:14px;color:#cee0eb;margin:0 0 20px}
+#data-explorando .ex-label{display:block;font-size:12px;color:#d5e6ef;font-weight:700;margin-bottom:8px}
+#data-explorando .ex-input,#data-explorando .ex-select{width:100%;background:#0b2639;border:1px solid #5c859f;border-radius:5px;padding:12px;color:#fff;font:inherit;font-size:14px;margin:0 0 15px}
+#data-explorando .ex-spotlight{margin-top:12px;border:1px solid #537991;border-radius:6px;background:#0b2b40;padding:22px}
+#data-explorando .ex-spotlight-kicker{color:var(--ex-yellow);font-size:12px;font-weight:800;letter-spacing:.06em;margin:0 0 9px}
+#data-explorando #ex-selected-name{font-size:clamp(22px,2.4vw,36px);font-weight:850;margin:0 0 10px;line-height:1.13}
+#data-explorando #ex-selected-description{font-size:14px;color:#d2e5ef;line-height:1.55;margin:0}
+#data-explorando .ex-source-note{font-size:12px;color:#a7c4d5;margin:20px 0 0;line-height:1.52;border-top:1px solid #496e81;padding-top:14px}
+#data-explorando .ex-status{font-size:13px;color:#d6e7f1;padding:10px 22px 20px}
+#data-explorando .ex-side-action{margin-top:20px;width:100%;min-height:44px;text-align:center;border-radius:5px;border:1px solid #ffe500;background:#ffe500;color:#0b2535;font-size:13px;font-weight:800;padding:10px;cursor:pointer}
+#data-explorando :focus-visible{outline:3px solid #ffe500;outline-offset:3px}
+.app-view[data-view="data"]:has(#data-explorando:not([hidden]))>.view-hero,
+.app-view[data-view="data"]:has(#data-explorando:not([hidden])) .module-heading-row,
+.app-view[data-view="data"]:has(#data-explorando:not([hidden])) #dataSubnav{display:none!important}
+.app-view[data-view="data"]:has(#data-explorando:not([hidden]))>.view-body{padding:0!important;background:#112737!important}
+.app-view[data-view="data"]:has(#data-explorando:not([hidden]))>.view-body>.inner{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
+@media(max-width:850px){#data-explorando .ex-layout{grid-template-columns:1fr}#data-explorando .ex-map-wrap{min-height:350px}#data-explorando #ex-map{min-height:350px;height:52vh}}
+@media(max-width:520px){#data-explorando .ex-hero{padding:34px 18px}#data-explorando #ex-title{font-size:clamp(40px,10vw,58px)}#data-explorando .ex-layout{padding:18px 12px;gap:12px}#data-explorando .ex-map-head{padding:16px}#data-explorando .ex-map-wrap{margin:0 10px 12px}#data-explorando .ex-sidebar{padding:17px}#data-explorando .ex-map-foot{padding:0 15px 13px}}
