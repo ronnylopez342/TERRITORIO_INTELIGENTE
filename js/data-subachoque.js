@@ -91,7 +91,7 @@
     const requestedTopic=topicOf(params.get('tema'));
     const requestedArea=areaOf(params.get('area'));
     state.area = requestedTopic?.areaId || requestedArea?.id || 'salud';
-    state.topic = requestedTopic?.id || areaOf(state.area)?.topics?.[0]?.id || 'salud-1';
+    state.topic = requestedTopic?.id || (params.has('area') ? areaOf(state.area)?.topics?.[0]?.id : 'salud-5') || 'salud-1';
     // URLs antiguas apuntaban a tres módulos cancelados. No reabrirlos.
     if(params.has('sub') || params.has('vista')) {
       params.delete('sub');
