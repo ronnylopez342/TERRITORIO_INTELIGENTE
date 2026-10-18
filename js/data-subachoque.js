@@ -46,12 +46,12 @@
     talento:'<circle cx="24" cy="24" r="9"/><path d="m20 2-1 6m10 32 1 6M2 20l6 1m32 6 6 1M8 8l5 5m22 22 5 5M40 8l-5 5M13 35l-5 5"/>'
   };
   const svgIcon=(body,cssClass='')=>'<svg class="'+cssClass+'" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'+(body||icons.social)+'</svg>';
-  const defaultLevel={social:'nacional',economica:'municipal',ambiental:'departamental',institucional:'nacional'};
+  const defaultLevel={social:'nacional',economica:'municipal',ambiental:'municipal',institucional:'municipal'};
   const firstTopic={
     social:'salud-5',
     economica:'economica-hacienda-1',
     ambiental:'ambiental-ambiente-6',
-    institucional:'institucional-gobierno-1'
+    institucional:'institucional-gobierno-2'
   };
   const state={dimension:'social',area:'salud',topic:'salud-5',nivel:'nacional',indicator:0,search:''};
   let catalog=null;
@@ -179,10 +179,11 @@
   }
   function renderTopics(){
     const list=areaById(state.area)?.topics||[];
+    const available=new Set((catalog?.indicadores||[]).map(i=>i.topicId));
     $('ds3-topics').innerHTML=list.map(t=>
-      '<button type="button" class="ds3-topic'+(t.id===state.topic?' is-active':'')+
+      '<button type="button" class="ds3-topic'+(t.id===state.topic?' is-active':'')+(available.has(t.id)?' has-data':'')+
       '" data-ds3-topic="'+escapeHTML(t.id)+'" aria-current="'+(t.id===state.topic?'true':'false')+'">'+
-      '<span>'+escapeHTML(t.title)+'</span><span aria-hidden="true">›</span></button>'
+      '<span>'+escapeHTML(t.title)+'</span>'+(available.has(t.id)?'<span class="ds3-topic-verified" title="Datos verificables">●</span>':'<span aria-hidden="true">›</span>')+'</button>'
     ).join('');
     $('ds3-search').value=state.search;
     renderSearchResults();
@@ -316,7 +317,7 @@
         '<p>Para <strong>'+escapeHTML(t.title)+'</strong> todavía no se ha incorporado un indicador cuantitativo comprobado del nivel <strong>'+escapeHTML(selected.label.toLowerCase())+
         '</strong> ('+escapeHTML(selected.name)+').</p>'+
         '<div class="ds3-explainer"><strong>¿Qué hace falta?</strong><p>Identificar una variable comparable, su unidad, período, cobertura territorial y fuente original. No se utilizarán cifras ilustrativas como datos oficiales.</p></div>';
-      const portal=catalog?.guiaFuentes?.[state.dimension]?.[state.nivel];
+      const portal=areaById(state.area)?.fuentesConsulta?.[state.nivel]||catalog?.guiaFuentes?.[state.dimension]?.[state.nivel];
       const link=portal?safeUrl(portal.url):null;
       source.innerHTML='<span class="ds3-source-label">PORTAL PARA CONSULTA</span>'+
         '<p>'+(portal?escapeHTML(portal.nombre):'Fuente institucional por identificar')+'</p>'+
@@ -324,7 +325,8 @@
         '<small>No se ha vinculado todavía una serie oficial de este subtema.</small>';
       return;
     }
-    const others=LEVELS.filter(l=>l.id!==state.nivel).map(l=>{
+    const countMetric=['viviendas','hogares'].includes(current.unidad);
+    const others=countMetric?[]:LEVELS.filter(l=>l.id!==state.nivel).map(l=>{
       const row=rows.find(x=>x.ambito===l.id&&x.periodo===current.periodo)||
         rows.find(x=>x.ambito===l.id&&yearOf(x)===yearOf(current));
       return row?diffText(current.valor,row,l.name):'No hay valor comparable para '+l.name+'.';
@@ -334,9 +336,9 @@
       '<p>En <strong>'+escapeHTML(selected.name)+'</strong>, el '+escapeHTML(current.periodo)+
       ' registró <strong>'+format(current.valor)+' '+escapeHTML(current.unidad)+'</strong> para el indicador <strong>'+escapeHTML(current.indicator)+
       '</strong>.</p>'+
-      '<p>'+escapeHTML(others.join(' '))+'</p>'+
+      (others.length?'<p>'+escapeHTML(others.join(' '))+'</p>':'')+
       '<div class="ds3-explainer"><strong>¿Qué significa?</strong><p>'+escapeHTML(note)+'</p></div>'+
-      '<p class="ds3-avoid-overreach">Una medición censal no demuestra por sí sola una tendencia entre años ni una relación causal.</p>';
+      '<p class="ds3-avoid-overreach">'+(rows.some(r=>r.periodo?.includes('CG 2005'))?'La comparación entre censos no es una serie anual; no se interpolan los años intermedios.':'Este dato corresponde únicamente al período indicado. Evita extrapolarlo a 2026 o deducir causalidad.')+'</p>';
     const link=safeUrl(current.fuente);
     source.innerHTML='<span class="ds3-source-label">FUENTE ORIGINAL</span>'+
       '<p>'+escapeHTML(current.origen||'DANE')+' · '+escapeHTML(current.periodo)+
