@@ -13,7 +13,52 @@
 .ti34-tags{display:flex;gap:7px;flex-wrap:wrap}.ti34-tags span{padding:6px 10px;background:#0c3349a8;border:1px solid #416b84;border-radius:5px;color:#f5faff;font-size:11px}
 .ti34-photo-caption{position:absolute;bottom:12px;right:15px;color:white;font-size:10px;background:#082437ae;border-radius:4px;padding:5px 8px}
 .ti34-ready>.ti34-video{max-width:none!important;width:calc(100% - 24px)!important;margin:12px auto 0!important;background:linear-gradient(145deg,#0a2a40,#102f48)!important;border-color:#37647c!important}
-.ti34-ready .ti34-video .ti-video-placeholder{min-height:145px!important}
+/* 16:9 real: reservar el espacio final del reproductor, aunque todavía no haya video. */
+.ti34-ready .ti34-video{padding:clamp(15px,1.6vw,25px)!important}
+.ti34-ready .ti34-video .ti-video-copy h2{margin-bottom:7px!important}
+.ti34-ready .ti34-video .ti-video-copy p{margin-bottom:18px!important}
+.ti34-ready .ti34-video .ti-video-placeholder{
+  position:relative;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:16 / 9;
+  gap:12px;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid #5d7d91;
+  background:linear-gradient(180deg,rgba(9,32,49,.33),rgba(9,32,49,.70)),
+    url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+}
+.ti34-ready .ti34-video .ti-video-play{
+  width:clamp(72px,6.2vw,96px);
+  height:clamp(72px,6.2vw,96px);
+  flex:none;
+  font-size:clamp(29px,2.9vw,44px);
+  box-shadow:0 12px 35px rgba(0,0,0,.36);
+}
+.ti34-ready .ti34-video .ti-video-status{
+  position:absolute;
+  bottom:clamp(12px,2vw,27px);
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  font-size:clamp(10px,.9vw,12px);
+  color:#eef8ff;
+  letter-spacing:.12em;
+  text-shadow:0 2px 8px rgba(0,0,0,.8);
+}
+@media(max-width:560px){
+  .ti34-ready .ti34-video{padding:14px!important}
+  .ti34-ready .ti34-video .ti-video-copy p{font-size:12px!important}
+  .ti34-ready .ti34-video .ti-video-play{width:62px;height:62px;font-size:26px}
+  .ti34-ready .ti34-video .ti-video-status{bottom:8px;font-size:9px;letter-spacing:.05em}
+}
 .ti34-ready .ti34-layout{display:grid;grid-template-columns:minmax(240px,290px) minmax(0,1fr);gap:13px;padding:12px clamp(12px,1.35vw,24px) 45px!important;max-width:1800px!important}
 .ti34-sidebar{background:linear-gradient(150deg,#0c3049,#072337);border:1px solid #345d77;border-radius:9px;padding:14px 10px;align-self:start;position:sticky;top:78px;max-height:calc(100vh - 92px);overflow:auto}
 .ti34-sidebar-title{display:flex;gap:11px;align-items:center;border-bottom:1px solid #37627c;padding:8px 8px 16px;margin-bottom:6px}
