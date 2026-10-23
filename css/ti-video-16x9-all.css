@@ -1,0 +1,150 @@
+/* TERRITORIO INTELIGENTE - Unificacion real del area de videos 16:9.
+   Alcance: 2.1, 2.2, 2.3, 2.4, 3, 4 y 5.
+   No modifica datos, navegacion, reproductores existentes ni el hero principal. */
+#data-conoce .cn-video-placeholder,
+#data-subachoque .ds3-video .ti-video-placeholder,
+#data-encuesta .ti-intro-video .ti-video-placeholder,
+#data-explorando .ti-intro-video .ti-video-placeholder,
+.ti-stage-one > .ti-intro-video .ti-video-placeholder{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:16 / 9!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  padding:clamp(10px,2.2vw,32px)!important;
+  gap:clamp(8px,1.05vw,14px)!important;
+  border-radius:9px!important;
+  border:1px solid #547b94!important;
+}
+
+/* Dimensiones y aspecto: los marcos tienen el espacio real de un video,
+   sin forzar una altura fija distinta para cada modulo. */
+#data-conoce .cn-video-placeholder{
+  background:linear-gradient(180deg,#16364ce6,#0b293db8),
+    url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+}
+#data-subachoque .ds3-video .ti-video-placeholder{
+  background:linear-gradient(180deg,#16364ce3,#0b293dbb),
+    url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+}
+#data-encuesta .ti-intro-video .ti-video-placeholder{
+  background:linear-gradient(180deg,#193b51e8,#09293bc7),
+    url('../assets/img/editorial/comunidad.jpg') center/cover no-repeat!important;
+}
+#data-explorando .ti-intro-video .ti-video-placeholder{
+  background:linear-gradient(180deg,#18384be6,#09293cc8),
+    url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+}
+.ti-stage-one[data-view="politicas"] > .ti-intro-video .ti-video-placeholder{
+  background:linear-gradient(180deg,#17394fe8,#092c40c9),
+    url('../assets/img/editorial/participacion.jpg') center/cover no-repeat!important;
+}
+
+/* Las vistas 3 y 4 conservan sus portadas de video ya aprobadas. */
+.ti-stage-one[data-view="desarrollo"] > .ti-intro-video .ti-video-placeholder,
+.ti-stage-one[data-view="cumplimiento"] > .ti-intro-video .ti-video-placeholder{
+  background-position:center!important;
+  background-size:cover!important;
+}
+
+#data-conoce .cn-video-placeholder .cn-play{
+  width:clamp(62px,7vw,98px)!important;
+  height:clamp(62px,7vw,98px)!important;
+  flex:none;
+  font-size:clamp(26px,3.4vw,43px)!important;
+  box-shadow:0 9px 32px #00172499;
+}
+
+#data-subachoque .ds3-video .ti-video-play,
+#data-encuesta .ti-intro-video .ti-video-play,
+#data-explorando .ti-intro-video .ti-video-play,
+.ti-stage-one > .ti-intro-video .ti-video-play{
+  width:clamp(62px,6.5vw,94px);
+  height:clamp(62px,6.5vw,94px);
+  flex:none!important;
+  font-size:clamp(26px,3vw,41px);
+  box-shadow:0 10px 30px #00152288;
+}
+
+#data-subachoque .ds3-video .ti-video-status,
+#data-encuesta .ti-intro-video .ti-video-status,
+#data-explorando .ti-intro-video .ti-video-status,
+.ti-stage-one > .ti-intro-video .ti-video-status{
+  position:absolute!important;
+  left:50%!important;
+  bottom:clamp(10px,2vw,26px)!important;
+  transform:translateX(-50%)!important;
+  color:#f0f8fc!important;
+  font-size:clamp(9px,.85vw,12px)!important;
+  letter-spacing:.1em!important;
+  white-space:nowrap!important;
+  text-shadow:0 2px 7px #00101bcc;
+}
+
+/* Si se incorpora un iframe o video real, rellena exactamente el mismo
+   marco sin cambios de altura; el icono de espera desaparece. */
+#data-conoce .cn-video-placeholder > iframe,
+#data-conoce .cn-video-placeholder > video,
+.app-view .ti-video-placeholder > iframe,
+.app-view .ti-video-placeholder > video{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  border:0!important;
+  object-fit:contain!important;
+}
+#data-conoce .cn-video-placeholder:has(> iframe, > video) > :not(iframe):not(video),
+.app-view .ti-video-placeholder:has(> iframe, > video) > :not(iframe):not(video){
+  display:none!important;
+}
+
+@media(max-width:700px){
+  #data-conoce .cn-video-placeholder,
+  #data-subachoque .ds3-video .ti-video-placeholder,
+  #data-encuesta .ti-intro-video .ti-video-placeholder,
+  #data-explorando .ti-intro-video .ti-video-placeholder,
+  .ti-stage-one > .ti-intro-video .ti-video-placeholder{
+    aspect-ratio:16 / 9!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:9px!important;
+    gap:8px!important;
+  }
+  #data-conoce .cn-video-placeholder strong{
+    font-size:clamp(13px,3.5vw,18px)!important;
+    line-height:1.25!important;
+    text-align:center!important;
+    margin:0!important;
+  }
+  #data-conoce .cn-video-placeholder > span:last-child{
+    font-size:clamp(10px,2.8vw,14px)!important;
+  }
+  #data-conoce .cn-video-placeholder .cn-play,
+  #data-subachoque .ds3-video .ti-video-play,
+  #data-encuesta .ti-intro-video .ti-video-play,
+  #data-explorando .ti-intro-video .ti-video-play,
+  .ti-stage-one > .ti-intro-video .ti-video-play{
+    width:clamp(44px,12vw,68px)!important;
+    height:clamp(44px,12vw,68px)!important;
+    font-size:clamp(20px,5.5vw,30px)!important;
+  }
+  #data-subachoque .ds3-video .ti-video-status,
+  #data-encuesta .ti-intro-video .ti-video-status,
+  #data-explorando .ti-intro-video .ti-video-status,
+  .ti-stage-one > .ti-intro-video .ti-video-status{
+    bottom:8px!important;
+    font-size:9px!important;
+    letter-spacing:.045em!important;
+  }
+}
