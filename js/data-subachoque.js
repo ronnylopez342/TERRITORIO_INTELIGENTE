@@ -193,6 +193,8 @@
     $('ds3-title').textContent=d.titulo;
     $('ds3-breadcrumb-current').textContent=d.titulo;
     $('ds3-description').textContent=d.areas.map(x=>x.title).join(', ')+'.';
+    const videoTitle=$('ds3-video-title');
+    if(videoTitle)videoTitle.textContent='Conoce la '+d.titulo+' en video';
     $('ds3-header-icon').innerHTML=svgIcon(icons[d.id],'ds3-big-icon');
     $('ds3-area-label').textContent=a?.title||'';
     $('ds3-topic-title').textContent=t?.title||'';
