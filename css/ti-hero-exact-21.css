@@ -314,3 +314,16 @@
   .ti34-ready .ti34-hero h1,
   .ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero h1{font-size:clamp(43px,12vw,56px)!important}
 }
+
+/* El marco usa 41.26vw; el 100% anterior solo corresponde a interiores.
+   Fijamos la geometria de 2.2 y 2.4 tras las reglas de distribucion. */
+@media(min-width:701px){
+  #data-subachoque .ds3-head,#data-explorando .ex-hero{
+    height:41.26vw!important;min-height:365px!important;max-height:none!important
+  }
+}
+@media(max-width:700px){
+  #data-subachoque .ds3-head,#data-explorando .ex-hero{
+    height:auto!important;min-height:460px!important
+  }
+}
