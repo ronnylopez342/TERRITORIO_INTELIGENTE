@@ -1,0 +1,79 @@
+
+/* Territorio Inteligente · Módulos 3 y 4, 2026-10-23 */
+.ti-stage-one.ti34-ready{--module-bg:#09263a;--module-surface:#123650;--module-text:#f5faff;--module-muted:#b9d2e3;--module-line:#315d78;background:#092438!important}
+.ti34-ready .ti34-hero{padding:0!important;min-height:330px!important;background-image:linear-gradient(90deg,#09283e 0%,#09283ef7 34%,#09283e8c 61%,#09283e1c 100%),url('../assets/img/editorial/territorio-aereo.jpg')!important;background-position:center!important;background-size:cover!important;border-bottom:1px solid #345f76}
+.ti34-ready[data-view="cumplimiento"] .ti34-hero{background-image:linear-gradient(90deg,#09283e 0%,#09283ef1 37%,#09283e75 69%,#09283e17 100%),url('../assets/img/editorial/gestion.jpg')!important}
+.ti34-ready .ti34-hero>.inner{max-width:none!important;width:100%;padding:23px clamp(20px,4vw,65px) 28px;min-height:330px;position:relative}
+.ti34-breadcrumb{font-size:12px!important;color:#dfedf8!important;max-width:none!important;margin:0 0 33px!important}
+.ti34-hero-main{display:flex;align-items:flex-start;gap:17px;max-width:660px}
+.ti34-hero-icon{width:68px;height:68px;border-radius:12px;border:1px solid #c6a900;background:#102e44de;color:#ffdf00;font-size:43px;display:grid;place-items:center;flex:none}
+.ti34-ready .ti34-hero h1{font-weight:900!important;color:#ffdf00!important;font-size:clamp(38px,5.1vw,79px)!important;letter-spacing:-.047em!important;line-height:.97!important;margin:0 0 17px!important}
+.ti34-ready .ti34-hero h1 span{font-size:.39em;letter-spacing:0;line-height:1.15;display:inline-block;vertical-align:top;color:#fff}
+.ti34-ready .ti34-hero-main p{font-size:clamp(14px,1.1vw,18px)!important;line-height:1.42!important;color:#f3f8fd!important;margin:0 0 18px!important;max-width:600px}
+.ti34-tags{display:flex;gap:7px;flex-wrap:wrap}.ti34-tags span{padding:6px 10px;background:#0c3349a8;border:1px solid #416b84;border-radius:5px;color:#f5faff;font-size:11px}
+.ti34-photo-caption{position:absolute;bottom:12px;right:15px;color:white;font-size:10px;background:#082437ae;border-radius:4px;padding:5px 8px}
+.ti34-ready>.ti34-video{max-width:none!important;width:calc(100% - 24px)!important;margin:12px auto 0!important;background:linear-gradient(145deg,#0a2a40,#102f48)!important;border-color:#37647c!important}
+.ti34-ready .ti34-video .ti-video-placeholder{min-height:145px!important}
+.ti34-ready .ti34-layout{display:grid;grid-template-columns:minmax(240px,290px) minmax(0,1fr);gap:13px;padding:12px clamp(12px,1.35vw,24px) 45px!important;max-width:1800px!important}
+.ti34-sidebar{background:linear-gradient(150deg,#0c3049,#072337);border:1px solid #345d77;border-radius:9px;padding:14px 10px;align-self:start;position:sticky;top:78px;max-height:calc(100vh - 92px);overflow:auto}
+.ti34-sidebar-title{display:flex;gap:11px;align-items:center;border-bottom:1px solid #37627c;padding:8px 8px 16px;margin-bottom:6px}
+.ti34-sidebar-title>span{font-size:30px;color:#ffdf00}.ti34-sidebar-title small{font-size:9px;letter-spacing:.11em;color:#a6c6da}.ti34-sidebar-title h2{font-size:15px!important;line-height:1.2!important;margin:5px 0 0!important;color:#fff!important}
+.ti34-ready .ti34-nav{display:flex!important;flex-direction:column!important;gap:2px!important}
+.ti34-ready .ti34-nav .ti34-tab{display:flex!important;align-items:center!important;gap:8px!important;min-height:44px!important;padding:10px 9px!important;border:1px solid transparent!important;border-radius:5px!important;color:#e8f4fc!important;text-align:left!important;font-weight:650!important;background:transparent!important;font-size:12px!important;text-transform:none!important;line-height:1.23!important;white-space:normal!important}
+.ti34-ready .ti34-nav .ti34-tab:hover{background:#21465e!important}
+.ti34-ready .ti34-nav .ti34-tab.active,.ti34-ready .ti34-nav .ti34-tab[aria-selected=true]{background:#ffdf00!important;color:#0b2638!important;border-color:#ffdf00!important;font-weight:800!important}
+.ti34-nav-number{font-size:11px;color:inherit!important;flex:0 0 30px;font-weight:850}
+.ti34-nav-label{flex:1}.ti34-chevron{font-size:21px;line-height:1;color:inherit}
+.ti34-group-head{display:flex;align-items:stretch;gap:2px}.ti34-group-head .ti34-tab{flex:1;min-width:0}
+.ti34-toggle{border:1px solid #41647b;background:#14374e;color:#d9edfb;padding:0 10px;min-width:32px;border-radius:5px;cursor:pointer}
+.ti34-toggle[aria-expanded=false]{transform:none}.ti34-toggle[aria-expanded=false]::first-letter{color:#ffdf00}
+.ti34-subnav{border-left:1px solid #416b84;margin-left:17px;padding-left:8px;padding-bottom:4px}
+.ti34-subnav[hidden]{display:none!important}
+.ti34-ready .ti34-nav .ti34-child{min-height:34px!important;font-size:11px!important;padding:6px 8px!important}
+.ti34-child .ti34-nav-number{flex-basis:42px;font-size:10px}
+.ti34-nav-hint{font-size:11px!important;color:#a9c0d0!important;border-top:1px solid #30546c;margin:15px 8px 0;padding-top:12px}
+.ti34-ready .ti34-content{min-width:0}
+.ti34-ready .ti34-pane{background:transparent!important;padding:6px 0 0!important;min-width:0}
+.ti34-ready .ti34-pane[hidden]{display:none!important}
+.ti34-content-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;flex-wrap:wrap;border-bottom:1px solid #365d76;padding-bottom:9px}
+.ti34-ready .ti34-content-head h2{color:#f6fbff!important;font-size:clamp(23px,2.25vw,35px)!important;margin:0!important;letter-spacing:-.03em}
+.ti34-content-head>span{font-size:10px;font-weight:750;color:#a4c7dc}
+.ti34-content-lead{color:#c2dbea!important;font-size:14px!important;line-height:1.5!important;margin:12px 0 18px!important}
+.ti34-card{background:linear-gradient(150deg,#10344c,#0c2a40);border:1px solid #37617b;border-radius:9px;min-width:0;padding:18px;margin-bottom:11px;color:#ebf5ff}
+.ti34-card h3,.ti34-ready .ti34-pane .ti34-card h3{font-size:17px!important;font-weight:800!important;margin:0 0 12px!important;color:#fff!important}
+.ti34-card p{color:#c9e0ee;font-size:13px;line-height:1.52;margin:0 0 10px}
+.ti34-feature{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ti34-feature>p{max-width:650px}.ti34-doc{border:1px solid #496f83;border-radius:5px;padding:12px;background:#0a283d;font-size:11px;color:#ffc}
+.ti34-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.ti34-tile{display:flex;align-items:center;gap:10px;min-height:75px;border-radius:6px;padding:13px;color:white;font-size:12px}
+.ti34-tile-symbol{font-size:27px}.ti34-tile-0{background:#1660ac}.ti34-tile-1{background:#ffdf00;color:#112a3e}.ti34-tile-2{background:#087850}.ti34-tile-3{background:#bd4258}.ti34-tile-4{background:#078387}.ti34-tile-5{background:#6044a8}
+.ti34-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.ti34-three .ti34-card{margin:0}
+.ti34-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ti34-indicators{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:0 0 13px}
+.ti34-indicator{background:linear-gradient(150deg,#19435f,#10334b);border:1px solid #42718a;border-radius:7px;padding:14px;display:grid;grid-template-columns:auto 1fr;column-gap:12px;row-gap:4px}
+.ti34-indicator-symbol{grid-row:1/4;font-size:28px;color:#ffdf00}.ti34-indicator strong{font-size:31px;color:#fff;line-height:1}.ti34-indicator>span:not(.ti34-indicator-symbol){font-size:12px;color:#fff;font-weight:700}.ti34-indicator small{font-size:10px;color:#a8c5d6}
+.ti34-empty{background:#153b53;border:1px dashed #517790;padding:16px;border-radius:7px;min-width:0}
+.ti34-empty strong{font-size:13px;color:#f7fbff}.ti34-empty p{margin:7px 0!important;font-size:11px;color:#bfd4e2!important}.ti34-empty>span{font-size:9px;letter-spacing:.05em;color:#ffdf00}
+.ti34-chart{height:200px;position:relative;border-radius:5px;background:linear-gradient(180deg,#133a54,#0b273d);overflow:hidden}
+.ti34-chart-lines{display:flex;flex-direction:column;justify-content:space-evenly;position:absolute;inset:0 15px}.ti34-chart-lines i{display:block;border-top:1px solid #3e6075;width:100%}
+.ti34-chart-label{position:absolute;inset:0;display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;text-align:center;color:#ffdf00;font-size:12px;font-weight:800;padding:10px;background:#0b2b4077}
+.ti34-chart-label small{font-size:11px;font-weight:400;color:#c2d9e7}
+.ti34-link{display:inline-flex;align-items:center;justify-content:space-between;gap:15px;color:#ffdf00;border:1px solid #587e95;background:#123950;padding:10px 13px;border-radius:5px;cursor:pointer;font-size:12px;font-weight:700}
+.ti34-link:hover{background:#245570}.ti34-year-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:15px}.ti34-year{border:1px solid #4b7086;background:#123751;border-radius:9px;padding:18px}.ti34-year>span{font-size:10px;color:#abcbdb}.ti34-year>strong{display:block;font-size:40px;color:#ffdf00;margin:7px 0}.ti34-year p{font-size:12px;color:#c6dcea;min-height:46px}.ti34-year .ti34-link{width:100%}
+.ti34-year-banner{border-radius:9px;border:1px solid #426d84;background:linear-gradient(110deg,#183f57,#0c2d43);padding:19px;margin:0 0 14px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.ti34-year-banner span{font-size:10px;color:#bfd4e0}.ti34-year-banner strong{font-size:40px;color:#ffdf00}.ti34-year-banner em{font-style:normal;font-weight:750;color:#fff}
+.ti34-back{margin-top:17px}
+.ti34-inventory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:16px}
+.ti34-inventory-item{background:linear-gradient(155deg,#18445e,#0e2f47);border:1px solid #426c85;border-radius:8px;padding:15px;text-align:left;color:#fff;display:flex;flex-direction:column;min-width:0;cursor:pointer;min-height:210px}
+.ti34-inventory-item:hover{border-color:#ffdf00;transform:translateY(-2px)}.ti34-inventory-item>span{font-size:33px;color:#ffdf00}.ti34-inventory-item small{color:#ffdf00;margin:10px 0 5px}.ti34-inventory-item strong{font-size:16px}.ti34-inventory-item p{font-size:11px;color:#bfd4e1;flex:1;line-height:1.4}.ti34-inventory-item em{font-size:11px;font-style:normal;color:#ffdf00;font-weight:800}
+.ti34-featured{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.ti34-featured button{min-height:155px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:9px;text-align:left;border:1px solid #527e96;border-radius:6px;padding:14px;cursor:pointer;color:#fff;background-size:cover!important;background-position:center!important}
+.ti34-featured button strong{font-size:14px;text-shadow:0 2px 4px #000}.ti34-featured button span{font-size:11px;color:#ffdf00}.ti34-featured-1{background:linear-gradient(0deg,#071b2e,#071b2e22),url('../assets/img/editorial/gestion.jpg')}.ti34-featured-2{background:linear-gradient(0deg,#071b2e,#071b2e22),url('../assets/img/editorial/servicio.jpg')}.ti34-featured-3{background:linear-gradient(0deg,#071b2e,#071b2e22),url('../assets/img/editorial/territorio-aereo.jpg')}
+.ti34-search{display:flex;align-items:center;gap:10px;border:1px solid #477289;background:#153c54;padding:10px 14px;color:#fff;border-radius:7px;margin-bottom:15px}
+.ti34-search input{min-width:0;width:100%;border:0;outline:0;background:none;color:#fff;font-size:13px}.ti34-search input::placeholder{color:#b9ccd8}
+.ti34-project-list{display:flex;flex-direction:column;gap:8px}.ti34-project{border:1px solid #456e84;border-radius:8px;background:#153b54;overflow:hidden}
+.ti34-project[hidden]{display:none!important}.ti34-project>summary{display:flex;align-items:center;gap:14px;padding:15px;list-style:none;cursor:pointer}.ti34-project>summary>span:first-child{font-size:25px;color:#ffdf00}.ti34-project summary strong{flex:1;font-size:14px}.ti34-project summary small{font-size:9px;color:#ffdf00}.ti34-project-details{border-top:1px solid #365f76;padding:15px;background:#0b283d}
+.ti34-project-details .ti-project-fields{margin-top:0}.ti34-project-details details{border-color:#44667c}.ti34-project-details summary{color:#fff}.ti34-project-details p{color:#cbdce7}
+.ti34-disclaimer{font-size:11px!important;color:#bad1dd!important;margin:15px 0!important}.ti34-no-results{color:#ffdf00;font-size:13px}
+.ti34-ready .ti34-pane :focus-visible,.ti34-ready .ti34-nav :focus-visible{outline:2px solid #ffdf00!important;outline-offset:3px!important}
+@media(max-width:1080px){.ti34-ready .ti34-layout{grid-template-columns:230px minmax(0,1fr)}.ti34-three{grid-template-columns:1fr}.ti34-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:780px){.ti34-ready .ti34-layout{grid-template-columns:1fr!important}.ti34-sidebar{position:static;max-height:none}.ti34-ready .ti34-hero>.inner{min-height:360px}.ti34-hero-main{gap:10px}.ti34-hero-icon{width:45px;height:45px;font-size:27px}.ti34-ready .ti34-hero h1{font-size:clamp(35px,8vw,60px)!important}.ti34-year-grid,.ti34-two{grid-template-columns:1fr}.ti34-featured{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.ti34-ready .ti34-hero>.inner{min-height:370px;padding:18px}.ti34-ready .ti34-hero{background-image:linear-gradient(0deg,#09283e,#09283ec9 70%,#09283e55),url('../assets/img/editorial/territorio-aereo.jpg')!important}.ti34-hero-main{flex-direction:column}.ti34-ready .ti34-hero h1{font-size:39px!important}.ti34-ready .ti34-hero-main p{font-size:13px!important}.ti34-tags{gap:4px}.ti34-tags span{font-size:9px}.ti34-tiles,.ti34-featured{grid-template-columns:1fr 1fr}.ti34-inventory-grid{grid-template-columns:1fr 1fr}.ti34-inventory-item{min-height:180px}.ti34-indicators{grid-template-columns:1fr 1fr}}
