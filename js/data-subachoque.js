@@ -190,11 +190,12 @@
   }
   function renderTitle(){
     const d=dimension(),t=topic(),a=areaById(state.area);
-    $('ds3-title').textContent=d.titulo;
-    $('ds3-breadcrumb-current').textContent=d.titulo;
-    $('ds3-description').textContent=d.areas.map(x=>x.title).join(', ')+'.';
+    // La portada identifica el modulo 2.2; las dimensiones cambian debajo, no el hero.
+    $('ds3-title').innerHTML='DATA<br>SUBACHOQUE';
+    $('ds3-breadcrumb-current').textContent='2.2 Data Subachoque';
+    $('ds3-description').textContent='Consulta datos nacionales, departamentales y municipales sobre las dimensiones social, económica, ambiental e institucional del territorio.';
     const videoTitle=$('ds3-video-title');
-    if(videoTitle)videoTitle.textContent='Conoce la '+d.titulo+' en video';
+    if(videoTitle)videoTitle.textContent='Conoce Data Subachoque en video';
     $('ds3-header-icon').innerHTML=svgIcon(icons[d.id],'ds3-big-icon');
     $('ds3-area-label').textContent=a?.title||'';
     $('ds3-topic-title').textContent=t?.title||'';

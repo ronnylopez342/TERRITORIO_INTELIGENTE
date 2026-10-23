@@ -1,0 +1,316 @@
+/* TERRITORIO INTELIGENTE | Geometria editorial canonica 2.1
+   Una unica estructura: 41.26vw, sin margenes laterales, contenido en x=4.4vw,
+   breadcrumb y titulo alineados arriba, imagen a la derecha, video inmediato.
+   Solo vistas editoriales. HOME y vistas auxiliares no se modifican. */
+
+/* Data Territorio: las cuatro paginas usan el MISMO contenedor a ancho completo
+   que 2.1 Conoce Data Territorio, sin el max-width heredado de .inner. */
+.app-view[data-view="data"]:has(#data-conoce:not([hidden]),#data-subachoque:not([hidden]),#data-encuesta:not([hidden]),#data-explorando:not([hidden]))>.view-hero,
+.app-view[data-view="data"]:has(#data-conoce:not([hidden]),#data-subachoque:not([hidden]),#data-encuesta:not([hidden]),#data-explorando:not([hidden])) .module-heading-row{
+  display:none!important
+}
+.app-view[data-view="data"]>.view-body{
+  padding:0!important;margin:0!important;width:100%!important;
+  max-width:none!important;background:#182b39!important
+}
+.app-view[data-view="data"]>.view-body>.inner{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  padding:0!important;margin:0!important
+}
+#data-subachoque,#data-encuesta,#data-explorando{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  min-width:0!important;margin:0!important;border-radius:0!important
+}
+#data-subachoque .ds3-shell{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  margin:0!important;padding:0 0 52px!important
+}
+#data-encuesta .k23-app,#data-explorando{
+  max-width:none!important;margin:0!important
+}
+/* Canon: el hero original 2.1 ocupa 41.26vw y como minimo 365px. */
+#data-subachoque .ds3-head,
+#data-encuesta .k23-hero,
+#data-explorando .ex-hero,
+.ti-stage-one.ti34-ready>.ti34-hero,
+.ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero{
+  box-sizing:border-box!important;
+  height:41.26vw!important;min-height:365px!important;max-height:none!important;
+  width:100%!important;max-width:100%!important;
+  margin:0!important;border-radius:0!important;
+  border:0!important;border-bottom:1px solid #365367!important;
+  overflow:hidden!important;
+  background-size:cover!important;background-position:right center!important
+}
+/* Mismo punto inicial que .cn-hero-copy de 2.1: 2.1vw arriba, 4.4vw a la izquierda. */
+#data-subachoque .ds3-head,
+#data-explorando .ex-hero,
+#data-encuesta .k23-hero>.k23-wrap,
+.ti-stage-one.ti34-ready>.ti34-hero>.inner,
+.ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero>.inner{
+  box-sizing:border-box!important;
+  padding:2.1vw 4.4vw 3vw!important;
+  min-height:0!important;
+  height:100%!important;
+  max-width:none!important;
+  width:100%!important;
+  margin:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important
+}
+/* La portada 2.2 ya no se centra verticalmente ni retrocede por el icono. */
+#data-subachoque .ds3-breadcrumb,
+#data-encuesta .k23-breadcrumb,
+#data-explorando .ex-breadcrumb,
+.ti34-ready .ti34-breadcrumb,
+.ti-stage-one:not(.ti34-ready):not([data-view="login"]) .ti-module-kicker{
+  box-sizing:border-box!important;
+  margin:0 0 1.7vw!important;
+  padding:0!important;
+  align-self:stretch!important;
+  flex:0 0 auto!important;
+  font-size:clamp(10px,1.05vw,16px)!important;
+  line-height:1.3!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  color:#d5e0e8!important
+}
+#data-subachoque .ds3-title-row{
+  display:block!important;
+  box-sizing:border-box!important;
+  margin:0!important;padding:0!important;
+  width:47%!important;max-width:47%!important;
+  min-width:0!important;flex:none!important
+}
+#data-subachoque .ds3-title-icon{display:none!important}
+#data-subachoque .ds3-title-copy{width:100%!important;max-width:100%!important}
+#data-subachoque #ds3-title{
+  color:#ffe500!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:clamp(48px,6.45vw,100px)!important;
+  line-height:.93!important;
+  font-weight:800!important;
+  letter-spacing:-.028em!important;
+  text-transform:uppercase!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-wrap:balance!important;
+  margin:0 0 1.4vw!important
+}
+#data-subachoque #ds3-description{
+  color:#fff!important;
+  font-size:clamp(14px,1.6vw,25px)!important;
+  line-height:1.18!important;
+  width:100%!important;max-width:none!important;
+  margin:0!important
+}
+/* 2.3: mismo inicio de portada, pero el titulo largo se ajusta dentro del
+   47% sin invadir la fotografia; el rectangulo del hero no varia. */
+#data-encuesta .k23-hero>.k23-wrap{max-width:none!important}
+#data-encuesta .k23-hero-top{
+  display:block!important;
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  margin:0!important;padding:0!important
+}
+#data-encuesta .k23-hero-top>div:first-child{
+  box-sizing:border-box!important;width:47%!important;max-width:47%!important
+}
+#data-encuesta .k23-tag{display:none!important}
+#data-encuesta #k23-main-title{
+  font-size:clamp(41px,5.1vw,83px)!important;
+  line-height:.93!important;
+  letter-spacing:-.035em!important;
+  font-weight:800!important;
+  color:#ffe500!important;
+  margin:0 0 1.4vw!important;
+  overflow-wrap:break-word!important
+}
+#data-encuesta .k23-hero-lead{
+  max-width:none!important;
+  font-size:clamp(14px,1.55vw,24px)!important;
+  line-height:1.2!important;
+  color:white!important;
+  margin:0 0 1.3vw!important
+}
+#data-encuesta .k23-count-note{font-size:clamp(10px,1.04vw,15px)!important;line-height:1.5!important}
+#data-encuesta .k23-emblem{display:none!important}
+/* 2.4: mantener el breadcrumb, titulo y texto en la misma posicion que 2.1. */
+#data-explorando .ex-hero{justify-content:flex-start!important;align-items:stretch!important}
+#data-explorando .ex-rule{display:none!important}
+#data-explorando #ex-title,
+#data-explorando .ex-lead,
+#data-explorando .ex-subtitle{
+  box-sizing:border-box!important;
+  width:47%!important;max-width:47%!important;
+  margin-left:0!important
+}
+#data-explorando #ex-title{
+  font-size:clamp(48px,6.45vw,100px)!important;
+  line-height:.93!important;
+  letter-spacing:-.028em!important;
+  font-weight:800!important;
+  color:#ffe500!important;
+  margin-top:0!important;margin-bottom:1.4vw!important
+}
+#data-explorando .ex-lead{
+  font-size:clamp(14px,1.6vw,25px)!important;
+  line-height:1.18!important;
+  color:#fff!important;
+  margin-top:0!important;margin-bottom:1.35vw!important
+}
+#data-explorando .ex-subtitle{
+  font-size:clamp(12px,1.12vw,17px)!important;
+  line-height:1.34!important;color:#d7e5ed!important;margin-top:0!important
+}
+/* Modulos 3 y 4: mismos limites y misma coordenada de texto, no centrar el contenido. */
+.ti-stage-one.ti34-ready>.ti34-hero>.inner{justify-content:flex-start!important}
+.ti34-ready .ti34-hero-main{
+  display:block!important;
+  flex:0 0 auto!important;
+  margin:0!important;padding:0!important;
+  width:47%!important;max-width:47%!important
+}
+.ti34-ready .ti34-hero-icon,.ti34-ready .ti34-tags{display:none!important}
+.ti34-ready .ti34-hero h1{
+  font-size:clamp(48px,6.45vw,100px)!important;
+  line-height:.93!important;
+  letter-spacing:-.028em!important;
+  font-weight:800!important;
+  color:#ffe500!important;
+  margin:0 0 1.4vw!important;
+  max-width:none!important;
+  overflow-wrap:normal!important
+}
+.ti34-ready .ti34-hero h1.ti-master-long-title{font-size:clamp(43px,5.6vw,90px)!important}
+.ti34-ready .ti34-hero h1.ti-master-extra-long-title{font-size:clamp(39px,5vw,80px)!important}
+.ti34-ready .ti34-hero-main p{
+  margin:0!important;
+  font-size:clamp(14px,1.6vw,25px)!important;
+  line-height:1.18!important;
+  max-width:none!important;
+  color:#fff!important
+}
+/* Modulos 5, 6 y 7: mismo orden arriba, no titulo verticalmente centrado. */
+.ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero{
+  display:block!important
+}
+.ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero h1,
+.ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero .inner>p:not(.ti-module-kicker){
+  width:47%!important;max-width:47%!important;
+  margin-left:0!important
+}
+.ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero h1{
+  margin-top:0!important;margin-bottom:1.4vw!important;
+  font-size:clamp(48px,6.45vw,100px)!important;
+  line-height:.93!important;letter-spacing:-.028em!important;
+  color:#ffe500!important;font-weight:800!important
+}
+.ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero .inner>p:not(.ti-module-kicker){
+  font-size:clamp(14px,1.6vw,25px)!important;
+  line-height:1.18!important;color:#fff!important;
+  margin-top:0!important;margin-bottom:0!important
+}
+/* Imagen siempre protagonista a la derecha. No cambiar la anchura al cambiar pestana. */
+#data-subachoque .ds3-head{
+  background-image:linear-gradient(90deg,#182b39 0%,#182b39 36%,#182b39ea 43%,#182b3999 52%,transparent 64%),
+    url('../assets/img/editorial/territorio-aereo.jpg')!important
+}
+#data-encuesta .k23-hero{
+  background-image:linear-gradient(90deg,#182b39 0%,#182b39 36%,#182b39ea 43%,#182b3999 52%,transparent 64%),
+    url('../assets/img/editorial/comunidad.jpg')!important
+}
+#data-explorando .ex-hero{
+  background-image:linear-gradient(90deg,#182b39 0%,#182b39 36%,#182b39ea 43%,#182b3999 52%,transparent 64%),
+    url('../assets/img/editorial/territorio-aereo.jpg')!important
+}
+.ti-stage-one.ti34-ready>.ti34-hero,
+.ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero{
+  background-image:linear-gradient(90deg,#182b39 0%,#182b39 36%,#182b39ea 43%,#182b3999 52%,transparent 64%),
+    var(--ti-hero-photo,url('../assets/img/editorial/territorio-aereo.jpg'))!important
+}
+/* El video comienza inmediatamente al terminar la portada, sin marcos exteriores. */
+#data-subachoque .ds3-video,
+#data-encuesta>.k23-app>.ti-intro-video,
+#data-explorando>.ti-intro-video,
+.ti-stage-one>.ti-intro-video{
+  box-sizing:border-box!important;
+  width:100%!important;max-width:none!important;
+  margin:0!important;
+  border-left:0!important;border-right:0!important;
+  border-radius:0!important;
+  padding:3.1vw 4.4vw!important
+}
+/* Contenido inferior permanece funcional, con su propia reticula y espaciado. */
+#data-subachoque .ds3-shell>.ds3-dimensions,
+#data-subachoque .ds3-shell>.ds3-areas-section,
+#data-subachoque .ds3-shell>.ds3-territory,
+#data-subachoque .ds3-shell>.ds3-workspace{
+  margin-left:clamp(13px,2.4vw,43px)!important;
+  margin-right:clamp(13px,2.4vw,43px)!important
+}
+@media(max-width:700px){
+  #data-subachoque .ds3-head,
+  #data-encuesta .k23-hero,
+  #data-explorando .ex-hero,
+  .ti-stage-one.ti34-ready>.ti34-hero,
+  .ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero{
+    height:auto!important;min-height:460px!important;max-height:none!important;
+    background-position:right center!important
+  }
+  #data-subachoque .ds3-head,
+  #data-explorando .ex-hero,
+  #data-encuesta .k23-hero>.k23-wrap,
+  .ti-stage-one.ti34-ready>.ti34-hero>.inner,
+  .ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero>.inner{
+    height:auto!important;min-height:460px!important;
+    padding:24px!important
+  }
+  #data-subachoque .ds3-title-row,
+  #data-encuesta .k23-hero-top>div:first-child,
+  #data-explorando #ex-title,
+  #data-explorando .ex-lead,
+  #data-explorando .ex-subtitle,
+  .ti34-ready .ti34-hero-main,
+  .ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero h1,
+  .ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero .inner>p:not(.ti-module-kicker){
+    width:100%!important;max-width:100%!important
+  }
+  #data-subachoque .ds3-breadcrumb,
+  #data-encuesta .k23-breadcrumb,
+  #data-explorando .ex-breadcrumb,
+  .ti34-ready .ti34-breadcrumb,
+  .ti-stage-one:not(.ti34-ready):not([data-view="login"]) .ti-module-kicker{
+    margin-bottom:24px!important
+  }
+  #data-subachoque #ds3-title,
+  #data-explorando #ex-title,
+  .ti34-ready .ti34-hero h1,
+  .ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero h1{
+    font-size:56px!important;line-height:.93!important;margin-bottom:20px!important
+  }
+  #data-encuesta #k23-main-title{font-size:clamp(36px,8vw,55px)!important;margin-bottom:20px!important}
+  .ti34-ready .ti34-hero h1.ti-master-extra-long-title{font-size:clamp(33px,7vw,50px)!important}
+  #data-subachoque #ds3-description,
+  #data-encuesta .k23-hero-lead,
+  #data-explorando .ex-lead,
+  .ti34-ready .ti34-hero-main p,
+  .ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero .inner>p:not(.ti-module-kicker){
+    font-size:16px!important;line-height:1.25!important
+  }
+  #data-subachoque .ds3-video,
+  #data-encuesta>.k23-app>.ti-intro-video,
+  #data-explorando>.ti-intro-video,
+  .ti-stage-one>.ti-intro-video{padding:28px 20px!important}
+}
+@media(max-width:420px){
+  #data-subachoque #ds3-title,
+  #data-explorando #ex-title,
+  .ti34-ready .ti34-hero h1,
+  .ti-stage-one:not(.ti34-ready):not([data-view="login"])>.ti-module-hero h1{font-size:clamp(43px,12vw,56px)!important}
+}
