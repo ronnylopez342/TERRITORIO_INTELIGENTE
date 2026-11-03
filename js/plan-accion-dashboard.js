@@ -11,8 +11,8 @@
   const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const fullMonths = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const categories = ['Resumen','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Soportes','Observaciones'];
-  const categoryIcons = ['▣','ⓘ','☷','▥','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M1 20v-3c0-3 3-5 7-5s7 2 7 5v3M9 20v-3c0-3 3-5 7-5s7 2 7 5v3"/></svg>','＄','♧','▰','▤'];
-  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, loading:true, error:null };
+  const categoryIcons = ['▣','ⓘ','☷','▥','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M1 20v-3c0-3 3-5 7-5s7 2 7 5v3M9 20v-3c0-3 3-5 7-5s7 2 7 5v3"/></svg>','＄','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 22s8-7.5 8-14a8 8 0 1 0-16 0c0 6.5 8 14 8 14Z"/><circle cx="12" cy="8" r="2.5"/></svg>','▰','▤'];
+  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, loading:true, error:null };
   const fmtNum = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const fmtInt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
   const fmtMoney = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -80,7 +80,7 @@
       </div>
     </div>`;
   };
-  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=5,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries')||(i===5&&state.activeTab==='budget');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':i===4?'beneficiaries':'budget'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
+  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=6,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries')||(i===5&&state.activeTab==='budget')||(i===6&&state.activeTab==='territory');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':i===4?'beneficiaries':i===5?'budget':'territory'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function statusBar(m){
     const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
@@ -727,6 +727,7 @@
     const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
     return igMetaHeader(m,infoRecord())+tabMarkup(m)+benDashboard(m);
   }
+
   /* Sixth functional tab: financial execution. Source data: six budget columns
      and the recorded financial percentage for each meta in the two workbooks.
      This view NEVER invents monthly CDP/RP/cash series or funding shares. */
@@ -871,6 +872,330 @@
     const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
     return igMetaHeader(m,infoRecord())+tabMarkup(m)+buDashboard(m);
   }
+
+  /* PESTAÑA 7 · TERRITORIO. Las actividades de los Excel no incluyen coordenadas exactas;
+     una mención de vereda o barrio NO se convierte en un punto ni en una obra ejecutada.
+     Límites: IGAC (municipio) e IDEAM/DANE 2024 (veredas), vía API de lectura. */
+  const trYears=[2024,2025,2026,2027];
+  const trCenter=[4.92614,-74.17299];
+  const trOsmUrl='https://www.openstreetmap.org/#map=12/4.92614/-74.17299';
+  const trKnown=[
+    ['canica alta','Canica Alta','vereda'],['canica baja','Canica Baja','vereda'],
+    ['el paramo','El Páramo','vereda'],['paramo','El Páramo','vereda'],
+    ['el valle','El Valle','vereda'],['galdamez','Galdámez','vereda'],
+    ['tibagota','Tibagota','vereda'],['altania','Altania','vereda'],
+    ['la union','La Unión','vereda'],['cascajal','Cascajal','vereda'],
+    ['rincon santo','Rincón Santo','vereda'],['la cuesta','La Cuesta','vereda'],
+    ['el tobal','El Tobal','vereda'],['llanitos','Llanitos','vereda'],
+    ['el guamal','Guamal','vereda'],['guamal','Guamal','vereda'],
+    ['pantano de arce','Pantano de Arce','vereda'],['pantano de vargas','Pantano de Vargas','vereda'],
+    ['el pantano','Pantano','vereda'],['pantano','Pantano','vereda'],
+    ['santa rosa','Santa Rosa','vereda'],['la yeguera','La Yegüera','vereda'],
+    ['las pilas','Las Pilas','vereda'],['santuario','Santuario','vereda'],
+    ['la pradera','La Pradera','centro poblado'],['siglo xxi','Siglo XXI','barrio'],
+    ['centro poblado','Centro poblado','centro poblado'],['casco urbano','Casco urbano','casco urbano'],
+    ['subachoque centro','Centro de Subachoque','casco urbano'],['zona urbana','Zona urbana','casco urbano']
+  ];
+  const trSlug=s=>normalizeQuery(s).replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
+  const trMentionsOnly=s=>{const n=trSlug(s);return /^(todo el municipio|municipio de subachoque|subachoque|jurisdiccion municipal|zona rural y urbana|casco rural y urbano)$/.test(n);};
+  const trWordMatch=(hay,word)=>{
+    const pieces=trSlug(word).split(/\s+/);const words=trSlug(hay).split(/\s+/);
+    for(let i=0;i<=words.length-pieces.length;i++)if(pieces.every((p,j)=>words[i+j]===p))return true;
+    return false;
+  };
+  function trRaw(a,m){
+    const fromExtra=state.territoryExtra?.periods?.[state.year]?.[String(m.id)]?.[String(a.n)];
+    return String(fromExtra||a.territory||'').trim();
+  }
+  function trPlaceData(m){
+    const byKey=new Map(),broad=[],activities=[];
+    for(const a of (m?.activities||[])){
+      const raw=trRaw(a,m);
+      if(!raw)continue;
+      const act={n:String(a.n),name:a.name,raw,activity:a,state:actStatus(a)};
+      activities.push(act);
+      if(trMentionsOnly(raw)||/^(alcaldia|secretaria|idcts|coliseo municipal)/i.test(trSlug(raw)))broad.push(act);
+      for(const [token,label,type] of trKnown){
+        if(!trWordMatch(raw,token))continue;
+        const key=trSlug(label);
+        if(!byKey.has(key))byKey.set(key,{key,label,type,activities:[],sources:[],isOfficial:false});
+        const place=byKey.get(key);
+        if(!place.activities.some(x=>x.n===act.n))place.activities.push(act);
+        if(!place.sources.includes(raw))place.sources.push(raw);
+      }
+      // Registrar barrios declarados expresamente, aunque no estén en el catálogo de coincidencias conocidas.
+      const re=/\bbarrio\s+([\p{L}0-9]+(?:\s+(?!de\s+la\s+|en\s+la\s+)[\p{L}0-9]+){0,3})/giu;
+      let match;
+      while((match=re.exec(raw))!==null){
+        const candidate=match[1].replace(/\s+(del|y|que|para|donde|se|con)\b.*$/i,'').trim();
+        if(!candidate||candidate.length>45)continue;
+        const key=trSlug(candidate);
+        if(!byKey.has(key))byKey.set(key,{key,label:candidate,type:'barrio',activities:[],sources:[],isOfficial:false});
+        const place=byKey.get(key);
+        if(!place.activities.some(x=>x.n===act.n))place.activities.push(act);
+        if(!place.sources.includes(raw))place.sources.push(raw);
+      }
+    }
+    const places=[...byKey.values()].sort((a,b)=>a.label.localeCompare(b.label,'es'));
+    const veredas=places.filter(p=>p.type==='vereda'),barrios=places.filter(p=>p.type==='barrio');
+    const activityCount=activities.length;
+    // No existen coordenadas exactas de sitios de obra en los Excel; este conteo queda indeterminado.
+    return {places,veredas,barrios,broad,activities,activityCount};
+  }
+  const trAll=()=>trPlaceData(selected());
+  const trIconPaths={
+    pin:'<path d="M12 22s8-7.5 8-14a8 8 0 1 0-16 0c0 6.5 8 14 8 14Z"/><circle cx="12" cy="8" r="2.7"/>',
+    village:'<path d="M3 21V8l6-4 6 4v13H3Zm12 0V5h6v16M6 11h2M6 15h2M10 11h2M10 15h2M18 9h1M18 13h1"/>',
+    nodes:'<circle cx="12" cy="3.5" r="2"/><circle cx="4" cy="15" r="2"/><circle cx="20" cy="15" r="2"/><path d="M11 5 5 13M13 5l6 8M6 16l12 0"/>',
+    photo:'<rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="8" cy="9" r="1.6"/><path d="m3 18 5-5 4 3 4-5 5 7"/>',
+    file:'<path d="M6 2h9l4 4v16H6zM15 2v5h4M9 12h7M9 16h7"/>',
+    north:'<path d="m12 2 7 20-7-5-7 5z"/>',
+    download:'<path d="M12 2v13m-5-5 5 5 5-5M4 18v4h16v-4"/>',
+    layers:'<path d="m12 2 10 5-10 5L2 7zm-10 10 10 5 10-5M2 17l10 5 10-5"/>',
+    info:'<circle cx="12" cy="12" r="10"/><path d="M12 10v6M12 7h.01"/>',
+    satellite:'<circle cx="12" cy="12" r="8"/><path d="M4 4h4M16 4h4M4 20h4M16 20h4"/>'
+  };
+  const trIcon=k=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${trIconPaths[k]||trIconPaths.pin}</svg>`;
+  function trHero(){
+    return `<header class="pa-ig-hero pa-act-hero pa-tr-hero"><div class="pa-ig-hero-main"><nav class="pa-act-breadcrumb" aria-label="Ruta del módulo"><span>Inicio</span><span>Metas</span><span>Meta ${state.current}</span><strong>Territorio</strong></nav><h1>Territorio de la Meta</h1><p>Conoce dónde se ejecutan las actividades de esta meta y su impacto en las veredas y barrios del municipio.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">“Territorios que<br>se transforman en<br>bienestar para la gente”</div><label class="pa-ig-select-year">Año de seguimiento<select id="pa-tr-year-select" aria-label="Año de seguimiento">${trYears.map(y=>`<option value="${y}"${String(y)===state.year?' selected':''}>${y}</option>`).join('')}</select></label></div></header>`;
+  }
+  function trCard(title,body,cls='',extra=''){
+    return `<section class="pa-tr-card ${cls}"><div class="pa-tr-card-head"><h3>${html(title)}</h3>${extra}</div>${body}</section>`;
+  }
+  function trMapPanel(m){
+    const msg='<strong>Sin puntos de obra georreferenciados</strong><span>La capa muestra límites territoriales oficiales, no ubicaciones exactas de ejecución.</span>';
+    const legend=`<div class="pa-tr-map-legend"><strong>Tipo de intervención</strong><div><span class="pa-tr-map-dot green"></span>Con actividad citada (sin punto exacto)</div><div><span class="pa-tr-map-dot gray"></span>Sin actividad identificada en el Excel</div><div class="pa-tr-legend-rule"></div><strong>Convenciones</strong><div><i class="pa-tr-line solid"></i>Límite municipal (IGAC)</div><div><i class="pa-tr-line dashed"></i>Veredas (DANE 2024)</div><small>Las vías visibles pertenecen al mapa base. No se dibujan rutas de obras sin trazado verificable.</small></div>`;
+    const controls=`<div class="pa-tr-map-controls"><button type="button" class="pa-tr-map-mode" data-pa-tr-basemap title="Cambiar mapa base">${trIcon('layers')} <span id="pa-tr-basemap-label">Mapa satelital</span>⌄</button><button type="button" data-pa-tr-fullmap title="Ampliar mapa" aria-label="Ampliar mapa">⛶</button></div>`;
+    const layers=`<div class="pa-tr-layer-tools" role="group" aria-label="Capas del mapa"><label><input type="checkbox" data-pa-tr-layer="municipio" checked>Municipio</label><label><input type="checkbox" data-pa-tr-layer="veredas" checked>Veredas</label></div>`;
+    const map=`<div class="pa-tr-map-frame"><div id="pa-tr-map" class="pa-tr-map-canvas" aria-label="Mapa interactivo de Subachoque, con límites del municipio y veredas, sujeto a disponibilidad cartográfica"></div><div class="pa-tr-map-fallback" id="pa-tr-map-fallback" role="status"><span class="pa-tr-map-spinner" aria-hidden="true"></span>Cargando visor cartográfico…</div><div class="pa-tr-map-compass">${trIcon('north')}<b>N</b></div>${legend}${controls}${layers}<div class="pa-tr-map-bottom">${trIcon('info')}<span>Fuente de límites: IGAC · veredas DANE 2024 / IDEAM. Sin coordenadas de obra verificadas.</span></div></div>`;
+    const after=`<div class="pa-tr-map-after"><span>Subachoque · Cundinamarca · código DIVIPOLA 25769</span><span class="pa-tr-map-status" id="pa-tr-map-status">Cargando geometrías de referencia…</span><a href="${trOsmUrl}" target="_blank" rel="noopener noreferrer">Abrir mapa externo ↗</a></div>`;
+    return trCard('Mapa de Intervenciones de la Meta',map+after,'pa-tr-primary-map');
+  }
+  function trCoverageStats(m){
+    const d=trPlaceData(m);
+    const stat=(icon,value,label,hint,tone)=>`<article class="pa-tr-coverage-stat ${tone}" title="${html(hint)}"><span class="pa-tr-stat-symbol">${trIcon(icon)}</span><div><strong>${html(value)}</strong><p>${html(label)}</p><small>${html(hint)}</small></div></article>`;
+    const body=`<div class="pa-tr-coverage-grid">${stat('pin',fmtInt.format(d.veredas.length),'Veredas citadas','Menciones explícitas en las actividades; no son obras georreferenciadas.','green')}${stat('village',fmtInt.format(d.barrios.length),'Barrios citados','Solo barrios nombrados en los campos territoriales.','blue')}${stat('nodes','—','Sitios exactos','El Excel no proporciona coordenadas de sitios únicos.','purple')}</div>`;
+    return trCard('Cobertura Territorial',body,'pa-tr-coverage');
+  }
+  function trPlaceStatus(p){
+    const progress=p.activities.map(a=>a.state.key);
+    if(progress.includes('running')||progress.includes('done')){
+      if(progress.includes('idle')||progress.includes('missing')||progress.includes('delay'))return ['mixed','Avances mixtos'];
+      return ['running','Con avance'];
+    }
+    if(progress.every(x=>x==='idle'))return ['idle','Sin avance registrado'];
+    return ['missing','Sin estado consolidado'];
+  }
+  function trDetailTable(m){
+    const d=trPlaceData(m),rows=d.places.slice(0,state.territoryExpanded?999:7);
+    const htmlRows=rows.map((p,i)=>{
+      const [k,desc]=trPlaceStatus(p);
+      return `<tr><td><button type="button" class="pa-tr-place-btn${state.territorySelected===p.key?' selected':''}" data-pa-tr-place="${html(p.key)}" title="Ver actividades asociadas a ${html(p.label)}">${html(p.label)}</button><small>${html(p.type)}</small></td><td><strong>${p.activities.length}</strong><small>actividades que la mencionan</small></td><td><span class="pa-tr-status ${k}"><i></i>${html(desc)}</span></td><td><span class="pa-tr-progress-unknown" title="No hay avance desagregado por vereda o barrio">No evaluable</span></td></tr>`;
+    }).join('');
+    const nothing='<tr><td colspan="4" class="pa-tr-empty-table">Los campos de ubicación no identifican nombres específicos de veredas o barrios para esta meta. Consulta los textos originales en Actividades.</td></tr>';
+    const action=d.places.length>7?`<button type="button" class="pa-tr-link" data-pa-tr-expand-places>${state.territoryExpanded?'Ver menos':'Ver todas'} →</button>`:'<span class="pa-tr-minicaption">Según el Excel</span>';
+    const detail=`<div class="pa-tr-table-scroll"><table class="pa-tr-place-table"><thead><tr><th>Vereda / Barrio</th><th>Actividades citadas</th><th>Lectura del avance</th><th>Avance territorial</th></tr></thead><tbody>${htmlRows||nothing}</tbody></table></div><div class="pa-tr-table-foot"><span>${d.places.length} localidades identificadas por nombre. No equivale a número de sitios de obra.</span></div>`;
+    return trCard('Detalle por Vereda / Barrio',detail,'pa-tr-places',action);
+  }
+  function trEvidenceCards(m){
+    const urls=actFileList(m).filter(f=>f.kind==='image'&&safeLink(f.url));
+    const byAct=(m.activities||[]).filter(a=>safeLink(a.evidence));
+    if(urls.length)return urls.map((file,i)=>({kind:'image',title:file.title,description:file.activity||file.act||'Evidencia enlazada',url:file.url,activity:file.act||'',verified:file.verified||false}));
+    // Sin fotografía comprobable: mostrar las cuatro posiciones visuales, pero nunca imágenes genéricas de obras.
+    const docs=byAct.map(a=>({kind:'document',title:a.name,description:`Actividad ${a.n} · enlace registrado en Excel`,url:safeLink(a.evidence),activity:String(a.n)}));
+    if(!docs.length)return [0,1,2,3].map(i=>({kind:'empty',title:'Evidencia fotográfica no disponible',description:'No hay fotografía enlazada a esta meta.',url:null}));
+    while(docs.length<4)docs.push({kind:'empty',title:'Evidencia fotográfica no disponible',description:'Sin fotografía enlazada',url:null});
+    return docs;
+  }
+  function trGallery(m){
+    const all=trEvidenceCards(m),first=Math.min(state.territoryGalleryPage||0,Math.max(0,all.length-4));
+    const current=all.slice(first,first+4);
+    const cards=current.map(item=>`<article class="pa-tr-photo-tile"><div class="pa-tr-photo-visual${item.kind==='image'?' image':''}">${item.kind==='image'?`<a href="${html(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir evidencia fotográfica enlazada"><img src="${html(item.url)}" alt="Fotografía enlazada en el Excel: ${html(item.title)}" loading="lazy"/></a>`:`<span>${trIcon(item.kind==='document'?'file':'photo')}</span><strong>${item.kind==='document'?'Soporte documental':'Sin fotografía'}</strong>`}</div><h4 title="${html(item.title)}">${html(item.title)}</h4><small>${html(item.description)}</small>${item.url?`<a href="${html(item.url)}" target="_blank" rel="noopener noreferrer">Abrir soporte ↗</a>`:''}</article>`).join('');
+    const controls=`<div class="pa-tr-carousel-nav"><button type="button" data-pa-tr-gallery-step="-1" aria-label="Evidencias anteriores" ${first===0?'disabled':''}>‹</button><div class="pa-tr-carousel-pages" aria-label="Página de evidencias">${Array.from({length:Math.max(1,all.length-3)},(_,i)=>`<button type="button" data-pa-tr-gallery-page="${i}" class="${first===i?'selected':''}" aria-label="Mostrar grupo de evidencias ${i+1}" ${first===i?'aria-current="page"':''}></button>`).join('')}</div><button type="button" data-pa-tr-gallery-step="1" aria-label="Evidencias siguientes" ${first>=all.length-4?'disabled':''}>›</button></div>`;
+    const more=`<button type="button" class="pa-tr-link" data-pa-tr-gallery-all aria-haspopup="dialog">Ver todas →</button>`;
+    const modal=`<dialog class="pa-tr-dialog" id="pa-tr-gallery-dialog" aria-label="Soportes territoriales de la meta"><header><h3>Registro fotográfico y soportes · Meta ${m.id}</h3><button type="button" data-pa-tr-dialog-close aria-label="Cerrar">×</button></header><p>Solo se muestran fotografías enlazadas de manera identificable. Los archivos de Drive son soportes, no fotografías verificadas de obras.</p>${all.filter(x=>x.url).length?all.filter(x=>x.url).map(x=>`<a href="${html(x.url)}" target="_blank" rel="noopener noreferrer">${html(x.title)} · ${html(x.activity)} ↗</a>`).join(''):'<p>No se recibieron soportes fotográficos ni documentales verificables para esta meta.</p>'}</dialog>`;
+    return trCard('Registro Fotográfico del Territorio',`<div class="pa-tr-photo-grid">${cards}</div>${controls}<p class="pa-tr-fineprint">Los documentos se muestran como soporte, no como fotografía de una intervención ejecutada.</p>${modal}`,'pa-tr-gallery',more);
+  }
+  function trCoverageDonut(m){
+    const d=trPlaceData(m),linked=d.activities;
+    let withProgress=0,idle=0,missing=0,done=0;
+    for(const a of linked){if(a.state.key==='done')done++;else if(a.state.key==='running')withProgress++;else if(a.state.key==='idle')idle++;else missing++;}
+    const count=linked.length;const circle=count?`conic-gradient(#0ca357 0 ${100*done/count}%,#2c97e9 ${100*done/count}% ${100*(done+withProgress)/count}%,#f8b524 ${100*(done+withProgress)/count}% ${100*(done+withProgress+idle)/count}%,#b0bbc8 ${100*(done+withProgress+idle)/count}% 100%)`:'conic-gradient(#d3dce5 0 100%)';
+    const legend=[['#0ca357','Meta de actividad alcanzada',done],['#2c97e9','Con avance registrado',withProgress],['#f8b524','Sin avance reportado',idle],['#b0bbc8','Sin porcentaje evaluable',missing]];
+    const legendMarkup=legend.map(([color,label,value])=>`<div class="pa-tr-donut-key"><i style="background:${color}"></i><span>${html(label)}</span><b>${value}${count?` <small>(${fmtNum.format(value*100/count)}%)</small>`:''}</b></div>`).join('');
+    const body=`<div class="pa-tr-donut-layout"><div class="pa-tr-donut" style="background:${circle}" role="img" aria-label="Distribución de ${count} registros de actividades con campo territorial, no número de intervenciones físicas"><div><strong>${fmtInt.format(count)}</strong><small>actividades con<br>campo territorial</small></div></div><div class="pa-tr-donut-legend">${legendMarkup}</div></div><p class="pa-tr-fineprint">Indicadores calculados a partir de <strong>actividades con información territorial</strong>, no conteos de sitios intervenidos. No acreditan ejecución en cada vereda.</p>`;
+    return trCard('Indicadores de Cobertura Territorial',body,'pa-tr-indicators');
+  }
+  function trDownloads(m){
+    const link='<a href="https://sigi.igac.gov.co/dip/rest/services/Limites/FeatureServer/0" target="_blank" rel="noopener noreferrer">IGAC · límite municipal ↗</a>';
+    const body=`<div class="pa-tr-download-list">
+      <button type="button" data-pa-tr-csv class="pa-tr-file-item"><span class="pa-tr-file-symbol excel">CSV</span><span><strong>Localidades y actividades</strong><small>CSV generado a partir del Plan de Acción ${state.year}</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
+      <button type="button" data-pa-tr-geo="municipio" class="pa-tr-file-item" disabled><span class="pa-tr-file-symbol geo">GEO</span><span><strong>Límite municipal · IGAC</strong><small>GeoJSON · descargable al cargar capa</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
+      <button type="button" data-pa-tr-geo="veredas" class="pa-tr-file-item" disabled><span class="pa-tr-file-symbol geo">GEO</span><span><strong>Veredas · DANE 2024</strong><small>GeoJSON · fuente IDEAM</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
+      <div class="pa-tr-file-item unavailable"><span class="pa-tr-file-symbol pdf">PDF</span><span><strong>Mapa de intervenciones (PDF)</strong><small>No se recibió un archivo geográfico de obras por meta</small></span><span>—</span></div>
+    </div><p class="pa-tr-fineprint">Archivos cartográficos oficiales disponibles según la conectividad del servicio. No se generan shapefiles ni puntos de obra inexistentes.</p><p class="pa-tr-geo-sources">Fuentes: ${link} · <a href="https://visualizador.ideam.gov.co/gisserver/rest/services/Entidades_Territoriales/FeatureServer/5" target="_blank" rel="noopener noreferrer">IDEAM · veredas DANE 2024 ↗</a></p>`;
+    return trCard('Descargas y Capas de Información',body,'pa-tr-downloads');
+  }
+  function trDashboard(m){
+    return `<div class="pa-tr-dashboard"><div class="pa-tr-upper"><div class="pa-tr-map-col">${trMapPanel(m)}</div><div class="pa-tr-data-col">${trCoverageStats(m)}${trDetailTable(m)}</div></div><div class="pa-tr-lower">${trGallery(m)}${trCoverageDonut(m)}${trDownloads(m)}</div><p class="pa-tr-source"><strong>Fuente de actividades y ubicaciones:</strong> ${html(currentYear()?.source||'Excel del Plan de Acción')} · ${state.year==='2026'?'Corte: segundo trimestre de 2026.':'Vigencia 2025.'} La información geográfica oficial sirve como referencia municipal y veredal; no demuestra coordenadas exactas de intervenciones. Las cifras del ejemplo visual no se trasladaron al tablero.</p></div>`;
+  }
+  function trResults(){
+    if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando Territorio…</h2></div>';
+    if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>No fue posible cargar la información territorial</h2><p>${html(state.error)}</p><button type="button" data-pa-reload>Reintentar</button></div>`;
+    if(state.list)return listMarkup();
+    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty" role="status"><h2>Información territorial no disponible para ${state.year}</h2><p>El encabezado, el año y las pestañas siguen disponibles. No se han aportado registros territoriales para ${state.year}.</p></div>`;
+    const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+trDashboard(m);
+  }
+  let trMap=null,trMapLayers=null,trLeafletPromise=null,trGeoData={municipio:null,veredas:null},trGeoPromises={},trInitSequence=0;
+  function trUnmountMap(){trInitSequence++;if(trMap){try{trMap.remove();}catch(e){}trMap=null;}trMapLayers=null;}
+  function trUpdateStatus(message){const el=panel.querySelector('#pa-tr-map-status');if(el)el.textContent=message;}
+  function trLoadLeaflet(){
+    if(window.L&&typeof window.L.map==='function')return Promise.resolve(window.L);
+    if(trLeafletPromise)return trLeafletPromise;
+    trLeafletPromise=new Promise((resolve,reject)=>{
+      if(!document.querySelector('link[data-ti-territory-leaflet]')){
+        const css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';css.dataset.tiTerritoryLeaflet='true';document.head.appendChild(css);
+      }
+      const script=document.createElement('script');script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';script.async=true;script.dataset.tiTerritoryLeaflet='true';
+      script.onload=()=>window.L?.map?resolve(window.L):reject(Error('No se cargó el motor cartográfico'));
+      script.onerror=()=>{
+        const backup=document.createElement('script');backup.src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';backup.async=true;
+        backup.onload=()=>window.L?.map?resolve(window.L):reject(Error('No se cargó el motor cartográfico de respaldo'));
+        backup.onerror=()=>reject(Error('No se puede acceder a los servidores del motor cartográfico'));
+        document.head.appendChild(backup);
+      };
+      document.head.appendChild(script);
+      setTimeout(()=>{if(!window.L?.map)reject(Error('Tiempo de espera del visor cartográfico agotado'));},12000);
+    }).catch(e=>{trLeafletPromise=null;throw e;});
+    return trLeafletPromise;
+  }
+  async function trGeoGet(kind){
+    if(trGeoData[kind])return trGeoData[kind];
+    if(trGeoPromises[kind])return trGeoPromises[kind];
+    trGeoPromises[kind]=(async()=>{
+      const response=await fetch('/api/territorio-geometria?capa='+kind,{cache:'force-cache'});
+      if(!response.ok)throw Error('Servicio de geometría '+kind+': HTTP '+response.status);
+      const geo=await response.json();
+      if(geo?.type!=='FeatureCollection'||!Array.isArray(geo.features)||!geo.features.length)throw Error('La respuesta no contiene polígonos');
+      trGeoData[kind]=geo;return geo;
+    })();
+    try{return await trGeoPromises[kind];}finally{delete trGeoPromises[kind];}
+  }
+  function trMatchedPlace(feature,m){
+    const v=feature?.properties||{};
+    const official=trSlug(v.nom_ver||v.NOMBRE_VER||'');
+    if(!official)return null;
+    const places=trPlaceData(m).places;
+    return places.find(p=>p.type==='vereda'&&(p.key===official||p.key.replace(/^el /,'')===official.replace(/^el /,'')||trWordMatch(p.key,official)||trWordMatch(official,p.key)))||null;
+  }
+  function trShowFallback(message){
+    const host=panel.querySelector('#pa-tr-map-fallback');if(!host)return;
+    host.innerHTML=`<strong>Mapa interactivo de referencia</strong><p>${html(message)}</p><iframe title="Mapa OpenStreetMap de Subachoque" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-74.225%2C4.879%2C-74.123%2C4.989&amp;layer=mapnik"></iframe><a href="${trOsmUrl}" target="_blank" rel="noopener noreferrer">Abrir mapa completo ↗</a>`;
+    host.classList.add('pa-tr-show-fallback');trUpdateStatus('Visor alternativo · sin capas administrativas cargadas');
+  }
+  async function trInitMap(){
+    const host=panel.querySelector('#pa-tr-map');if(!host||state.activeTab!=='territory'||!currentYear()||state.list)return;
+    const seq=++trInitSequence;
+    try{
+      const L=await trLoadLeaflet();if(seq!==trInitSequence||!document.contains(host))return;
+      if(trMap){try{trMap.remove()}catch(e){}}
+      trMap=L.map(host,{zoomControl:true,scrollWheelZoom:false,minZoom:9,maxZoom:18}).setView(trCenter,12);
+      const streets=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'});
+      const satellite=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Tiles © Esri / Maxar / Earthstar Geographics'});
+      satellite.addTo(trMap);
+      trMapLayers={street:streets,satellite:satellite,basemap:'satellite',municipio:null,veredas:null,veredaLookup:new Map()};
+      const fallback=panel.querySelector('#pa-tr-map-fallback');if(fallback)fallback.remove();
+      trUpdateStatus('Mapa satelital interactivo · cargando límites de IGAC y DANE…');
+      trMap.on('click',()=>{});
+      // Las capas son polígonos de referencia, no georreferenciación de las obras.
+      const tasks=[
+        trGeoGet('municipio').then(geo=>{
+          if(seq!==trInitSequence||!trMap)return;
+          const layer=L.geoJSON(geo,{style:{color:'#fff',weight:3,fillColor:'#ffffff',fillOpacity:0.025,dashArray:null}});
+          trMapLayers.municipio=layer;
+          if(panel.querySelector('[data-pa-tr-layer="municipio"]')?.checked)layer.addTo(trMap);
+          const bounds=layer.getBounds();if(bounds&&bounds.isValid())trMap.fitBounds(bounds,{padding:[18,18],maxZoom:13});
+          trEnableDownload('municipio');
+        }),
+        trGeoGet('veredas').then(geo=>{
+          if(seq!==trInitSequence||!trMap)return;
+          const m=selected();
+          const layer=L.geoJSON(geo,{style:f=>{
+            const p=trMatchedPlace(f,m),sel=state.territorySelected&&p?.key===state.territorySelected;
+            return {color:sel?'#ffdb43':p?'#36e2a3':'#bdced7',weight:sel?3:p?1.6:0.8,fillColor:p?'#0ba75b':'#fff',fillOpacity:p?0.16:0.025};
+          },onEachFeature:(feature,leaf)=>{
+            const name=String(feature.properties?.nom_ver||feature.properties?.NOMBRE_VER||'Vereda sin nombre');
+            const place=trMatchedPlace(feature,m);
+            if(place)trMapLayers?.veredaLookup.set(place.key,leaf);
+            const popup=()=>`<strong>${html(name)}</strong><p>${place?place.activities.length+' actividades que la mencionan en el Excel':'Sin coincidencias con las ubicaciones de esta meta'}</p><small>Polígono DANE 2024. No representa el sitio exacto de intervención.</small>${place?place.activities.slice(0,5).map(a=>`<button type="button" data-pa-tr-act-detail="${html(a.n)}">Ver actividad ${html(a.n)} ↗</button>`).join(''):''}`;
+            if(leaf.bindPopup)leaf.bindPopup(popup());
+            if(leaf.on)leaf.on('click',()=>{if(place)trSelectPlace(place.key,false);});
+          }});
+          trMapLayers.veredas=layer;
+          if(panel.querySelector('[data-pa-tr-layer="veredas"]')?.checked)layer.addTo(trMap);
+          trEnableDownload('veredas');
+        })
+      ];
+      const settled=await Promise.allSettled(tasks);
+      if(seq!==trInitSequence)return;
+      const ok=settled.filter(r=>r.status==='fulfilled').length;
+      trUpdateStatus(ok===2?'Límites IGAC y veredas DANE 2024 cargados':ok===1?'Una capa administrativa disponible · la otra no respondió':'No fue posible cargar las capas oficiales · permanece el mapa base');
+      if(trMap)requestAnimationFrame(()=>trMap?.invalidateSize());
+    }catch(err){if(seq!==trInitSequence)return;trShowFallback(err?.message||'Sin acceso a la librería del mapa');}
+  }
+  function trEnableDownload(kind){const button=panel.querySelector(`[data-pa-tr-geo="${kind}"]`);if(button)button.disabled=false;}
+  function trSelectPlace(key,withScroll){
+    state.territorySelected=key;
+    panel.querySelectorAll('[data-pa-tr-place]').forEach(button=>{const selected=button.dataset.paTrPlace===key;button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));});
+    const popupPlace=trPlaceData(selected()).places.find(p=>p.key===key);
+    let info=panel.querySelector('.pa-tr-selected-info');
+    if(!info){info=document.createElement('div');info.className='pa-tr-selected-info';panel.querySelector('.pa-tr-places')?.appendChild(info);}
+    if(info&&popupPlace)info.innerHTML=`<strong>${html(popupPlace.label)}</strong><span>${popupPlace.activities.map(a=>`<button type="button" data-pa-tr-act-detail="${html(a.n)}">Actividad ${html(a.n)} ↗</button>`).join(' · ')} · mención territorial, no punto exacto de obra.</span>`;
+    const geoLayer=trMapLayers?.veredaLookup?.get(key);
+    if(geoLayer&&trMap){if(geoLayer.getBounds){const bounds=geoLayer.getBounds();if(bounds?.isValid())trMap.fitBounds(bounds,{padding:[32,32],maxZoom:14});}geoLayer.openPopup?.();}
+    if(withScroll)panel.querySelector('.pa-tr-primary-map')?.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function trChangeBasemap(){
+    if(!trMapLayers||!trMap)return;
+    const next=trMapLayers.basemap==='satellite'?'street':'satellite';
+    const oldLayer=trMapLayers[trMapLayers.basemap],newLayer=trMapLayers[next];
+    if(trMap.hasLayer(oldLayer))trMap.removeLayer(oldLayer);
+    newLayer.addTo(trMap);newLayer.bringToBack();trMapLayers.basemap=next;
+    const title=panel.querySelector('#pa-tr-basemap-label');if(title)title.textContent=next==='satellite'?'Mapa satelital':'Mapa de calles';
+  }
+  function trToggleLayer(kind,enabled){const layer=trMapLayers?.[kind];if(!layer||!trMap)return;if(enabled)layer.addTo(trMap);else if(trMap.hasLayer(layer))trMap.removeLayer(layer);}
+  function trDownload(name,text,mime){const blob=new Blob([text],{type:mime});const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download=name;document.body.append(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);}
+  function trExportCsv(){
+    const m=selected();if(!m)return;
+    const header=['Año','Meta','Actividad','Descripción de actividad','Ubicación original declarada','Avance reportado','Unidad','Soporte (URL)','Fuente'];
+    const entries=(m.activities||[]).map(a=>[state.year,m.id,a.n,a.name,trRaw(a,m),a.progress??'',a.unit||'',a.evidence||'',currentYear()?.source||'']);
+    const csv=[header,...entries].map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');
+    trDownload(`Territorio_Inteligente_Meta_${m.id}_${state.year}.csv`,'\ufeff'+csv,'text/csv;charset=utf-8');
+  }
+  function trDownloadGeo(kind){
+    const data=trGeoData[kind];if(!data)return;
+    const provenance=kind==='municipio'?'IGAC - Base de Datos Geográfica de Entidades Territoriales':'DANE 2024 publicado por IDEAM';
+    const exported={...data,metadata:{fuente:provenance,municipio:'Subachoque',codigo_Divipola:'25769',nota:'Geometría administrativa, no georreferenciación de actividades del Plan de Acción'}};
+    trDownload('subachoque_'+(kind==='municipio'?'limite_IGAC':'veredas_DANE_2024')+'.geojson',JSON.stringify(exported),'application/geo+json');
+  }
+  async function trLoadFullTexts(){
+    if(state.territoryExtraLoaded||state.territoryExtraLoading)return;
+    state.territoryExtraLoading=true;
+    try{
+      const r=await fetch('/data/plan-accion-territorio-completo.b64.txt',{cache:'no-cache'});
+      if(!r.ok)throw Error('Catálogo territorial '+r.status);
+      const b64=(await r.text()).trim(),binary=atob(b64),buf=new Uint8Array(binary.length);
+      for(let i=0;i<binary.length;i++)buf[i]=binary.charCodeAt(i);
+      const content=await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+      const v=JSON.parse(content);
+      if(!v?.periods?.['2025']||!v?.periods?.['2026'])throw Error('Catálogo territorial incompleto');
+      state.territoryExtra=v;state.territoryExtraLoaded=true;
+      if(state.activeTab==='territory'&&currentYear()){const y=window.scrollY;refresh();window.scrollTo({top:y});}
+    }catch(err){console.warn('Texto territorial original:',err);state.territoryExtraLoaded=true;}
+    finally{state.territoryExtraLoading=false;}
+  }
+
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
@@ -880,6 +1205,7 @@
     return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
   }
   function pageMarkup(){
+    if(state.activeTab==='territory')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-territory-mode">${trHero()}<section class="pa-body pa-ig-body" aria-label="Territorio para ${state.year}"><div class="pa-content" id="pa-content">${trResults()}</div></section></div>`;
     if(state.activeTab==='budget')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-budget-mode">${buHero()}<section class="pa-body pa-ig-body" aria-label="Ejecución Presupuestal para ${state.year}"><div class="pa-content" id="pa-content">${buResults()}</div></section></div>`;
     if(state.activeTab==='beneficiaries')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-beneficiaries-mode">${benHero()}<section class="pa-body pa-ig-body" aria-label="Beneficiarios de la meta para ${state.year}"><div class="pa-content" id="pa-content">${benResults()}</div></section></div>`;
     if(state.activeTab==='physical')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-physical-mode">${physicalHero()}<section class="pa-body pa-ig-body" aria-label="Avance f\u00edsico para ${state.year}"><div class="pa-content" id="pa-content">${physicalResults()}</div></section></div>`;
@@ -889,10 +1215,15 @@
   }
   function refresh({preserveFocus=false}={}){
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
+    trUnmountMap();
     panel.innerHTML=pageMarkup();
+    if(state.activeTab==='territory'&&currentYear()&&!state.list){
+      requestAnimationFrame(()=>trInitMap());
+      if(!state.territoryExtraLoaded)trLoadFullTexts();
+    }
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
   }
-  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
+  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
@@ -907,12 +1238,37 @@
     if(ev.target.id==='pa-act-compare-unit'){state.activityCompareUnit=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.id==='pa-ph-filter-status'){state.physicalFilters.status=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.id==='pa-ph-filter-activity'){state.physicalFilters.activity=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
-    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select'].includes(ev.target.id))return;
-    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;refresh();
+    if(ev.target.matches('[data-pa-tr-layer]')){trToggleLayer(ev.target.dataset.paTrLayer,ev.target.checked);return;}
+    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select','pa-tr-year-select'].includes(ev.target.id))return;
+    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;refresh();
   });
   panel.addEventListener('click',ev=>{
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries','budget'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries','budget','territory'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(ev.target.closest('[data-pa-tr-dialog-close]')){ev.target.closest('dialog')?.close();return;}
+    if(ev.target.closest('[data-pa-tr-gallery-all]')){panel.querySelector('#pa-tr-gallery-dialog')?.showModal();return;}
+    const trGalleryButton=ev.target.closest('[data-pa-tr-gallery-page],[data-pa-tr-gallery-step]');
+    if(trGalleryButton){
+      const m=selected();if(!m)return;
+      const total=trEvidenceCards(m).length;
+      const max=Math.max(0,total-4);
+      state.territoryGalleryPage=trGalleryButton.hasAttribute('data-pa-tr-gallery-page')?Math.max(0,Math.min(max,Number(trGalleryButton.dataset.paTrGalleryPage))):Math.max(0,Math.min(max,(state.territoryGalleryPage||0)+Number(trGalleryButton.dataset.paTrGalleryStep)));
+      const container=panel.querySelector('.pa-tr-gallery');if(container)container.outerHTML=trGallery(m);
+      return;
+    }
+    if(ev.target.closest('[data-pa-tr-expand-places]')){
+      state.territoryExpanded=!state.territoryExpanded;
+      const node=panel.querySelector('.pa-tr-places');if(node&&selected())node.outerHTML=trDetailTable(selected());
+      return;
+    }
+    const place=ev.target.closest('[data-pa-tr-place]');
+    if(place){trSelectPlace(place.dataset.paTrPlace,true);return;}
+    if(ev.target.closest('[data-pa-tr-basemap]')){trChangeBasemap();return;}
+    if(ev.target.closest('[data-pa-tr-fullmap]')){panel.querySelector('.pa-tr-primary-map')?.classList.toggle('pa-tr-expanded');setTimeout(()=>trMap?.invalidateSize(),160);return;}
+    if(ev.target.closest('[data-pa-tr-csv]')){trExportCsv();return;}
+    const geographic=ev.target.closest('[data-pa-tr-geo]');if(geographic){trDownloadGeo(geographic.dataset.paTrGeo);return;}
+    const openActivity=ev.target.closest('[data-pa-tr-act-detail]');
+    if(openActivity){const id=String(openActivity.dataset.paTrActDetail),idx=selected()?.activities?.findIndex(a=>String(a.n)===id)??-1;if(idx>=0){state.activeTab='activities';refresh();actShowDetail(idx);}return;}
     if(ev.target.closest('[data-pa-bu-method]')){panel.querySelector('#pa-bu-method-dialog')?.showModal();return;}
     if(ev.target.closest('[data-pa-bu-method-close]')){panel.querySelector('#pa-bu-method-dialog')?.close();return;}
     if(ev.target.closest('[data-pa-bu-docs]')){panel.querySelector('#pa-bu-doc-dialog')?.showModal();return;}
@@ -996,6 +1352,6 @@
       await loadActivityExtras();
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
   }
-  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog'))dialog.close();});
+  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog')||dialog?.classList?.contains('pa-tr-dialog'))dialog.close();});
   load();
 })();
