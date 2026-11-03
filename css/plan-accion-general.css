@@ -1,0 +1,152 @@
+/* Información General, segunda vista de 3.3: aislada; Resumen permanece con su CSS original. */
+#desarrollo-accion.pa-mounted{scroll-margin-top:78px}
+#desarrollo-accion.pa-mounted .pa-general-mode{--ig-navy:#0b2850;--ig-green:#087c3a;--ig-border:#d7e1e9;--ig-muted:#526b86;background:#f3f6fa!important}
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-body{padding:7px 8px 35px!important;background:#eef2f6!important}
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-content{width:100%!important}
+#desarrollo-accion.pa-mounted .pa-ig-hero{display:flex;gap:32px;justify-content:space-between;align-items:center;min-height:110px;padding:18px clamp(16px,1.3vw,26px);background:linear-gradient(90deg,rgba(235,242,247,.94) 0%,rgba(238,242,244,.86) 28%,rgba(25,54,77,.2) 64%,rgba(5,29,48,.67) 100%),url('../assets/img/editorial/territorio-aereo.jpg') center 51%/cover no-repeat;color:#133156;overflow:hidden;border-bottom:1px solid #b9c9d4}
+#desarrollo-accion.pa-mounted .pa-ig-hero-main{min-width:0;flex:1 1 auto}
+#desarrollo-accion.pa-mounted .pa-ig-kicker{font-size:10px;color:#2c6181;letter-spacing:.1em;font-weight:850;display:block;margin-bottom:6px}
+#desarrollo-accion.pa-mounted .pa-ig-hero h1{color:#0f2b52!important;font-size:clamp(28px,2.32vw,38px)!important;font-weight:850!important;line-height:1.1!important;text-shadow:0 1px 1px #fff7!important}
+#desarrollo-accion.pa-mounted .pa-ig-hero-main p{color:#29496c!important;font-size:clamp(12px,1vw,16px)!important;line-height:1.3!important;margin-top:5px!important;max-width:840px}
+#desarrollo-accion.pa-mounted .pa-ig-hero-actions{display:flex;align-items:center;gap:22px;flex:0 0 auto}
+#desarrollo-accion.pa-mounted .pa-ig-quote{font-size:clamp(12px,1.2vw,18px);line-height:1.18;font-weight:750;color:#fff;text-shadow:0 2px 5px #071b2ddc;text-align:right}
+#desarrollo-accion.pa-mounted .pa-ig-select-year{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:700;color:#eff7fb;white-space:nowrap;text-shadow:0 1px 3px #142c45}
+#desarrollo-accion.pa-mounted .pa-ig-select-year select{border:1px solid #86a3bb;background:#0b457e;color:#fff;padding:7px 22px 7px 12px;border-radius:5px;font-weight:800;font-size:15px!important;min-width:84px;cursor:pointer}
+#desarrollo-accion.pa-mounted .pa-ig-meta{display:grid;grid-template-columns:130px minmax(240px,1.6fr) auto minmax(185px,.63fr) minmax(170px,.6fr);gap:12px;align-items:stretch;min-height:102px;margin:0 0 9px;border-radius:7px;background:linear-gradient(90deg,#f9fafb,#e8eef4);border:1px solid #dce5eb;box-shadow:0 1px 5px #1b3a5310;color:#122e53}
+#desarrollo-accion.pa-mounted .pa-ig-number{display:flex;flex-direction:column;gap:0;justify-content:center;align-items:center;border:0;border-radius:7px 0 0 7px;background:linear-gradient(145deg,#078c44,#006032);color:#fff;padding:9px;min-height:102px}
+#desarrollo-accion.pa-mounted .pa-ig-number:hover{filter:brightness(1.06)}
+#desarrollo-accion.pa-mounted .pa-ig-number small{font-size:14px;color:#fff;font-weight:700}
+#desarrollo-accion.pa-mounted .pa-ig-number strong{font-size:43px;line-height:1.05;font-weight:900}
+#desarrollo-accion.pa-mounted .pa-ig-meta-text{min-width:0;align-self:center;padding:10px 0}
+#desarrollo-accion.pa-mounted .pa-ig-meta-text h2{font-size:clamp(16px,1.22vw,20px)!important;font-weight:850!important;line-height:1.2!important;color:#133258!important;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-ig-meta-text p{font-size:clamp(11px,.9vw,14px)!important;line-height:1.32!important;margin-top:6px!important;color:#526b85!important;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-ig-change{background:transparent;border:0;color:#116eaa;font-size:11px!important;font-weight:800!important;padding:5px 0 0}
+#desarrollo-accion.pa-mounted .pa-ig-change:hover{text-decoration:underline}
+#desarrollo-accion.pa-mounted .pa-ig-state{display:flex;align-self:center;align-items:center;justify-content:center;gap:7px;border-radius:30px;font-size:clamp(11px,.84vw,13px)!important;white-space:normal;min-height:43px;padding:9px 13px!important;max-width:150px;text-align:center;box-shadow:0 2px 5px #12422d2b}
+#desarrollo-accion.pa-mounted .pa-ig-state span{font-size:19px}
+#desarrollo-accion.pa-mounted .pa-ig-meta-fact{min-width:0;display:flex;gap:12px;align-items:center;margin:11px 0;padding:11px 9px;background:#fff;border:1px solid #e0e6ed;border-radius:7px;box-shadow:0 2px 7px #09253d12}
+#desarrollo-accion.pa-mounted .pa-ig-meta-fact:last-child{margin-right:11px}
+#desarrollo-accion.pa-mounted .pa-ig-fact-icon{font-size:23px;color:#163a68;flex:0 0 auto}
+#desarrollo-accion.pa-mounted .pa-ig-meta-fact small{display:block;font-size:11px;color:#617997;line-height:1.1;margin-bottom:6px}
+#desarrollo-accion.pa-mounted .pa-ig-meta-fact strong{font-size:clamp(11px,.88vw,13px);line-height:1.25;color:#152b51;font-weight:850;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-tabs{margin:9px 0 9px!important;overflow-x:auto!important;scrollbar-width:thin}
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-tab{min-height:44px!important;font-size:clamp(11px,.88vw,14px)!important;padding:8px clamp(8px,.9vw,17px)!important}
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-tab:disabled{opacity:.7}
+#desarrollo-accion.pa-mounted .pa-ig-dashboard{display:flex;flex-direction:column;gap:11px}
+#desarrollo-accion.pa-mounted .pa-ig-top-grid{display:grid;grid-template-columns:minmax(0,1.09fr) minmax(0,1.09fr) minmax(0,.73fr);gap:11px;align-items:stretch}
+#desarrollo-accion.pa-mounted .pa-ig-bottom-grid{display:grid;grid-template-columns:minmax(0,1.46fr) minmax(0,.79fr) minmax(0,.73fr);gap:11px;align-items:stretch}
+#desarrollo-accion.pa-mounted .pa-ig-card{min-width:0;padding:13px 14px 14px;border:1px solid #d5e0e8;border-radius:7px;background:#fff;box-shadow:0 2px 5px #09294d12;color:#123052;overflow:hidden}
+#desarrollo-accion.pa-mounted .pa-ig-card h3{display:flex;align-items:center;gap:10px;font-size:clamp(15px,1.15vw,19px)!important;line-height:1.2!important;font-weight:850!important;color:#102951!important;margin:0 0 12px!important}
+#desarrollo-accion.pa-mounted .pa-ig-headicon{font-size:21px;line-height:1;color:#142c55;flex:0 0 22px;text-align:center}
+#desarrollo-accion.pa-mounted .pa-ig-table{margin:0;width:100%;border:1px solid #ecf0f5;border-radius:4px;overflow:hidden}
+#desarrollo-accion.pa-mounted .pa-ig-table-row{display:grid;grid-template-columns:minmax(138px,43%) minmax(0,1fr);min-height:27px;align-items:stretch;border-bottom:1px solid #e3eaf0}
+#desarrollo-accion.pa-mounted .pa-ig-table-row:last-child{border-bottom:0}
+#desarrollo-accion.pa-mounted .pa-ig-table-row:nth-child(odd){background:#eef2f7}
+#desarrollo-accion.pa-mounted .pa-ig-table-row dt,#desarrollo-accion.pa-mounted .pa-ig-table-row dd{margin:0;padding:6px 9px;font-size:clamp(11px,.89vw,13.5px);line-height:1.32;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-ig-table-row dt{color:#324f75;font-weight:700;border-right:1px solid #d9e4eb}
+#desarrollo-accion.pa-mounted .pa-ig-table-row dd{color:#274365;font-weight:550}
+#desarrollo-accion.pa-mounted .pa-ig-chain{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+#desarrollo-accion.pa-mounted .pa-ig-chain-step{min-height:48px;display:grid;grid-template-columns:49px minmax(0,1fr);gap:10px;align-items:center;position:relative;border-radius:6px;padding:6px 8px;color:#24415c}
+#desarrollo-accion.pa-mounted .pa-ig-chain-step:not(:last-child)::after{content:'↓';position:absolute;bottom:-10px;left:24px;font-size:15px;z-index:2;color:#1d82b4;line-height:1;font-weight:900;text-shadow:0 1px 1px #fff}
+#desarrollo-accion.pa-mounted .pa-ig-step-line{background:#e4f6e9}#desarrollo-accion.pa-mounted .pa-ig-step-program{background:#e3eefa}#desarrollo-accion.pa-mounted .pa-ig-step-project{background:#f0e4f4}#desarrollo-accion.pa-mounted .pa-ig-step-meta{background:#ffede4}#desarrollo-accion.pa-mounted .pa-ig-step-product{background:#fff1e1}#desarrollo-accion.pa-mounted .pa-ig-step-indicator{background:#e1eefe}
+#desarrollo-accion.pa-mounted .pa-ig-chain-symbol{display:grid;place-items:center;height:39px;min-width:40px;border-right:1px solid #b5d3d0;font-size:26px;font-weight:800;color:#0b9551}
+#desarrollo-accion.pa-mounted .pa-ig-step-program .pa-ig-chain-symbol{color:#1b83d6}#desarrollo-accion.pa-mounted .pa-ig-step-project .pa-ig-chain-symbol{color:#8734a5}#desarrollo-accion.pa-mounted .pa-ig-step-meta .pa-ig-chain-symbol{color:#ad3f25}#desarrollo-accion.pa-mounted .pa-ig-step-product .pa-ig-chain-symbol{color:#e98c17}#desarrollo-accion.pa-mounted .pa-ig-step-indicator .pa-ig-chain-symbol{color:#124795}
+#desarrollo-accion.pa-mounted .pa-ig-chain-step strong{display:block;color:#204f51;font-size:12px;font-weight:850;line-height:1.13;margin-bottom:3px}
+#desarrollo-accion.pa-mounted .pa-ig-chain-step p{color:#344a65!important;font-size:clamp(11px,.84vw,13px)!important;line-height:1.22!important;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-ig-territory-card .pa-ig-territory-layout{display:grid;grid-template-columns:minmax(170px,38%) minmax(0,1fr);gap:12px}
+#desarrollo-accion.pa-mounted .pa-ig-location-list{min-width:0;display:flex;flex-direction:column;gap:10px}
+#desarrollo-accion.pa-mounted .pa-ig-location-switch{display:grid;grid-template-columns:repeat(2,1fr);background:#edf2f8;border-radius:5px;overflow:hidden}
+#desarrollo-accion.pa-mounted .pa-ig-location-switch button{font-size:12px!important;color:#536d90;border:0;padding:9px 8px;font-weight:800!important}
+#desarrollo-accion.pa-mounted .pa-ig-location-switch button.selected{color:#fff;background:#058547}
+#desarrollo-accion.pa-mounted .pa-ig-loc-results{max-height:247px;min-height:145px;overflow:auto;display:flex;flex-direction:column;gap:4px}
+#desarrollo-accion.pa-mounted .pa-ig-loc-results>span{display:flex;align-items:flex-start;gap:8px;border:1px solid #e0e7ed;background:#f8fafb;padding:8px;border-radius:5px;font-size:clamp(11px,.86vw,13px);line-height:1.2;color:#27476a}
+#desarrollo-accion.pa-mounted .pa-ig-loc-results>span b{font-size:14px;color:#078a4c;line-height:.85;margin-top:1px}
+#desarrollo-accion.pa-mounted .pa-ig-missing{color:#67819b!important;font-size:13px!important;line-height:1.35!important;padding:12px;background:#f7fafc;border:1px dashed #cddce6;border-radius:5px}
+#desarrollo-accion.pa-mounted .pa-ig-location-list small{font-size:10px;line-height:1.35;color:#728498}
+#desarrollo-accion.pa-mounted .pa-ig-more-locations{display:block;width:100%;padding:9px 8px;border:1px solid #d5e3f2;border-radius:5px;background:#edf5ff;color:#1264ab;font-size:12px!important;font-weight:800!important}
+#desarrollo-accion.pa-mounted .pa-ig-map{position:relative;min-width:0;display:flex;flex-direction:column;gap:4px}
+#desarrollo-accion.pa-mounted .pa-ig-map iframe{display:block;width:100%;height:239px;border:1px solid #c5d9d1;border-radius:5px;background:#e1eee1}
+#desarrollo-accion.pa-mounted .pa-ig-map-legend{display:flex;align-items:center;gap:7px;font-size:10px;line-height:1.3;color:#647d8e}
+#desarrollo-accion.pa-mounted .pa-ig-map-legend span{color:#008446}
+#desarrollo-accion.pa-mounted .pa-ig-map a{align-self:flex-end;font-size:11px;font-weight:750;color:#176dbe;text-decoration:none}
+#desarrollo-accion.pa-mounted .pa-ig-map a:hover{text-decoration:underline}
+#desarrollo-accion.pa-mounted .pa-ig-kpi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#desarrollo-accion.pa-mounted .pa-ig-kpi{display:flex;gap:8px;align-items:center;min-height:84px;border-radius:6px;padding:10px 9px;background:#ecf6ef}
+#desarrollo-accion.pa-mounted .pa-ig-kpi-avance{background:#eaf3ff}#desarrollo-accion.pa-mounted .pa-ig-kpi-saldo{background:#fff1e5}#desarrollo-accion.pa-mounted .pa-ig-kpi-actividades{background:#f0f3f9}#desarrollo-accion.pa-mounted .pa-ig-kpi-beneficiarios{background:#faeefe;grid-column:1/-1;min-height:73px}
+#desarrollo-accion.pa-mounted .pa-ig-kpi-symbol{min-width:38px;font-size:28px;color:#0f9550;text-align:center}
+#desarrollo-accion.pa-mounted .pa-ig-kpi-avance .pa-ig-kpi-symbol{color:#246bd4}#desarrollo-accion.pa-mounted .pa-ig-kpi-saldo .pa-ig-kpi-symbol{color:#e77a05}#desarrollo-accion.pa-mounted .pa-ig-kpi-actividades .pa-ig-kpi-symbol{color:#173a6d}#desarrollo-accion.pa-mounted .pa-ig-kpi-beneficiarios .pa-ig-kpi-symbol{color:#992bad}
+#desarrollo-accion.pa-mounted .pa-ig-kpi strong{display:block;color:#087e3b;font-size:clamp(17px,1.58vw,24px);line-height:1.12;font-weight:900;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-ig-kpi-avance strong{color:#246bd4}#desarrollo-accion.pa-mounted .pa-ig-kpi-saldo strong{color:#e77a05}#desarrollo-accion.pa-mounted .pa-ig-kpi-actividades strong{color:#173a6d}#desarrollo-accion.pa-mounted .pa-ig-kpi-beneficiarios strong{color:#992bad}
+#desarrollo-accion.pa-mounted .pa-ig-kpi span:last-child{font-size:11px;line-height:1.2;color:#3b5272}
+#desarrollo-accion.pa-mounted .pa-ig-kpi-note{margin-top:11px!important;color:#667e96!important;font-size:11px!important;line-height:1.34!important}
+#desarrollo-accion.pa-mounted .pa-ig-doc-card{position:relative}
+#desarrollo-accion.pa-mounted .pa-ig-document-list{display:flex;flex-direction:column;gap:5px}
+#desarrollo-accion.pa-mounted .pa-ig-document-link{display:grid;grid-template-columns:30px minmax(0,1fr) 22px;align-items:center;gap:8px;padding:7px;background:#fcfdff;border:1px solid #e1e8ef;border-radius:5px;text-decoration:none;color:#173652;min-width:0}
+#desarrollo-accion.pa-mounted .pa-ig-document-link:hover{border-color:#89b5d5;background:#f0f9ff}
+#desarrollo-accion.pa-mounted .pa-ig-document-icon{display:grid;place-items:center;border-radius:5px;background:#fff1ee;color:#ea443a;width:27px;height:29px;font-weight:800;font-size:20px}
+#desarrollo-accion.pa-mounted .pa-ig-document-icon.folder{color:#d79612;background:#fff8e4}
+#desarrollo-accion.pa-mounted .pa-ig-document-link strong{display:block;font-size:11px;font-weight:800;line-height:1.23;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-ig-document-link small{display:block;font-size:10px;color:#678099;line-height:1.25;margin-top:3px}
+#desarrollo-accion.pa-mounted .pa-ig-document-action{font-size:18px;color:#1f6496;text-align:center}
+#desarrollo-accion.pa-mounted .pa-ig-doc-more{margin-top:10px;width:100%;padding:11px;background:#edf4fe;border:1px solid #cbddef;border-radius:5px;color:#126ab6;font-size:12px!important;font-weight:800!important}
+#desarrollo-accion.pa-mounted .pa-ig-doc-note{font-size:10px!important;line-height:1.34!important;color:#6a829a!important;margin-top:10px!important}
+#desarrollo-accion.pa-mounted .pa-ig-method{padding:7px 9px;color:#57718a!important;font-size:11px!important;line-height:1.4!important}
+#desarrollo-accion.pa-mounted .pa-ig-pending{min-height:160px;display:grid;place-items:center;font-size:17px;color:#6d8298;background:#fff;border-radius:7px;padding:24px}
+#desarrollo-accion.pa-mounted .pa-ig-doc-dialog{margin:auto;width:min(720px,calc(100vw - 24px));max-height:85dvh;overflow:auto;padding:23px;border:1px solid #bacfdd;border-radius:9px;background:#fff;color:#1a3651;box-shadow:0 25px 70px #00172a66}
+#desarrollo-accion.pa-mounted .pa-ig-doc-dialog::backdrop{background:#061d30a6}
+#desarrollo-accion.pa-mounted .pa-ig-doc-modal-head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:15px}
+#desarrollo-accion.pa-mounted .pa-ig-doc-modal-head h3{font-size:19px!important;margin:0!important}
+#desarrollo-accion.pa-mounted .pa-ig-doc-modal-head button{width:36px;height:36px;border-radius:50%;background:#eaf2f7;color:#1b3859;border:1px solid #c9d9e5;font-size:23px!important}
+@media(max-width:1400px){
+ #desarrollo-accion.pa-mounted .pa-ig-meta{grid-template-columns:100px minmax(205px,1.5fr) auto minmax(140px,.8fr) minmax(135px,.75fr)}
+ #desarrollo-accion.pa-mounted .pa-ig-meta-fact{gap:6px;padding:8px 6px}
+ #desarrollo-accion.pa-mounted .pa-ig-meta-fact:last-child{margin-right:8px}
+ #desarrollo-accion.pa-mounted .pa-ig-headicon{font-size:19px}
+ #desarrollo-accion.pa-mounted .pa-ig-top-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.78fr)}
+ #desarrollo-accion.pa-mounted .pa-ig-bottom-grid{grid-template-columns:minmax(0,1.45fr) minmax(0,.8fr) minmax(0,.83fr)}
+}
+@media(max-width:1100px){
+ #desarrollo-accion.pa-mounted .pa-ig-meta{grid-template-columns:100px minmax(0,1fr) auto;gap:9px}
+ #desarrollo-accion.pa-mounted .pa-ig-meta-text{padding-right:6px}
+ #desarrollo-accion.pa-mounted .pa-ig-meta-fact{margin:0 0 9px 9px}
+ #desarrollo-accion.pa-mounted .pa-ig-meta-fact:nth-last-child(2){grid-column:2;grid-row:2}
+ #desarrollo-accion.pa-mounted .pa-ig-meta-fact:last-child{grid-column:3;grid-row:2;margin-right:9px}
+ #desarrollo-accion.pa-mounted .pa-ig-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #desarrollo-accion.pa-mounted .pa-ig-chain-card{grid-column:1/-1}
+ #desarrollo-accion.pa-mounted .pa-ig-chain{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ #desarrollo-accion.pa-mounted .pa-ig-chain-step:not(:last-child)::after{display:none}
+ #desarrollo-accion.pa-mounted .pa-ig-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #desarrollo-accion.pa-mounted .pa-ig-territory-card{grid-column:1/-1}
+}
+@media(max-width:740px){
+ #desarrollo-accion.pa-mounted .pa-ig-hero{padding:17px 14px;min-height:150px;align-items:start;gap:10px}
+ #desarrollo-accion.pa-mounted .pa-ig-hero h1{font-size:clamp(26px,6vw,34px)!important}
+ #desarrollo-accion.pa-mounted .pa-ig-hero-main p{font-size:12px!important}
+ #desarrollo-accion.pa-mounted .pa-ig-quote{display:none}
+ #desarrollo-accion.pa-mounted .pa-ig-hero-actions{flex-direction:column}
+ #desarrollo-accion.pa-mounted .pa-ig-meta{grid-template-columns:77px minmax(0,1fr);gap:7px}
+ #desarrollo-accion.pa-mounted .pa-ig-number{grid-row:span 2;min-height:145px}
+ #desarrollo-accion.pa-mounted .pa-ig-number strong{font-size:30px}
+ #desarrollo-accion.pa-mounted .pa-ig-meta-text{padding-right:10px}
+ #desarrollo-accion.pa-mounted .pa-ig-state{grid-column:2;max-width:none;justify-self:start;margin-bottom:8px}
+ #desarrollo-accion.pa-mounted .pa-ig-meta-fact:nth-last-child(2),#desarrollo-accion.pa-mounted .pa-ig-meta-fact:last-child{grid-column:1/-1;grid-row:auto;margin:0 8px 7px}
+ #desarrollo-accion.pa-mounted .pa-ig-top-grid,#desarrollo-accion.pa-mounted .pa-ig-bottom-grid{grid-template-columns:1fr}
+ #desarrollo-accion.pa-mounted .pa-ig-chain-card,#desarrollo-accion.pa-mounted .pa-ig-territory-card{grid-column:auto}
+ #desarrollo-accion.pa-mounted .pa-ig-chain{display:flex;flex-direction:column}
+ #desarrollo-accion.pa-mounted .pa-ig-chain-step:not(:last-child)::after{display:block}
+ #desarrollo-accion.pa-mounted .pa-ig-table-row{grid-template-columns:42% 58%}
+ #desarrollo-accion.pa-mounted .pa-ig-card{padding:15px 12px}
+ #desarrollo-accion.pa-mounted .pa-ig-territory-card .pa-ig-territory-layout{grid-template-columns:minmax(0,1fr)}
+ #desarrollo-accion.pa-mounted .pa-ig-map iframe{height:225px}
+}
+@media(max-width:460px){
+ #desarrollo-accion.pa-mounted .pa-ig-hero{min-height:154px}
+ #desarrollo-accion.pa-mounted .pa-ig-kicker{font-size:9px}
+ #desarrollo-accion.pa-mounted .pa-ig-hero-actions{flex:0 0 auto}
+ #desarrollo-accion.pa-mounted .pa-ig-select-year{font-size:9px}
+ #desarrollo-accion.pa-mounted .pa-ig-select-year select{font-size:12px!important;padding:6px 8px;min-width:60px}
+ #desarrollo-accion.pa-mounted .pa-ig-table-row dt,#desarrollo-accion.pa-mounted .pa-ig-table-row dd{font-size:11px}
+ #desarrollo-accion.pa-mounted .pa-ig-table-row{grid-template-columns:43% 57%}
+ #desarrollo-accion.pa-mounted .pa-ig-kpi-grid{grid-template-columns:1fr}
+ #desarrollo-accion.pa-mounted .pa-ig-kpi-beneficiarios{grid-column:auto}
+}

@@ -12,7 +12,7 @@
   const fullMonths = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const categories = ['Resumen','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Soportes','Observaciones'];
   const categoryIcons = ['▣','ⓘ','☷','▥','♟','＄','♧','▰','▤'];
-  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), loading:true, error:null };
+  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, loading:true, error:null };
   const fmtNum = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const fmtInt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
   const fmtMoney = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -80,7 +80,7 @@
       </div>
     </div>`;
   };
-  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>`<button type="button" role="tab" class="pa-tab ${i===0?'pa-tab--selected':''}" ${i===0?'aria-selected="true"':'aria-selected="false" disabled title="Sección por incorporar"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`).join('')}</div>`;}
+  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=1,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':'general'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function statusBar(m){
     const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
@@ -159,6 +159,146 @@
     const items=matches.slice(0,109).map(m=>{const s=classification(m);return `<button class="pa-result" type="button" data-pa-meta="${m.id}"><span class="pa-result-id">${m.id}</span><span class="pa-result-text"><strong>${html(m.name)}</strong><small>${html(m.line||'Sin línea estratégica')}</small></span><span class="pa-state-chip pa-state-${s.key}">${html(s.label)}</span><b>${pctLabel(m.pct)}</b></button>`}).join('');
     return `<div class="pa-meta-catalog"><div class="pa-list-head"><h2>Metas del Plan de Acción · ${state.year}</h2><p>Selecciona una meta para abrir su resumen y los reportes del año.</p><span>${matches.length} de ${metas().length} metas</span></div><div class="pa-list-content">${items || '<p>No se encontraron metas para los criterios seleccionados.</p>'}</div></div>`;
   }
+  /* Segunda pestaña: Información General. Campos obtenidos del mismo año y meta que Resumen.
+     El diseño es una plantilla; los valores se leen del Excel, jamás del ejemplo gráfico. */
+  const igIcon = {
+    strategic:'▦',technical:'▣',chain:'⇵',territory:'◈',metrics:'▥',documents:'▤',
+    line:'✦',program:'▤',project:'⚙',meta:'◎',product:'⬡',indicator:'▥'
+  };
+  const igYears=[2024,2025,2026,2027];
+  const infoRecord = () => state.infoData?.periods?.[state.year]?.metas?.[String(state.current)] || null;
+  const infoPeriod = () => state.infoData?.periods?.[state.year]?.reportingPeriod || (state.year==='2026'?'Segundo trimestre de 2026':`Vigencia ${state.year}`);
+  const igValue = value => {
+    if(Array.isArray(value)) return value.filter(x=>x!==null&&x!==undefined&&String(x).trim()).join(' · ') || 'Sin dato registrado';
+    return value===null || value===undefined || String(value).trim()==='' ? 'Sin dato registrado' : String(value);
+  };
+  const igEsc = value => html(igValue(value));
+  const igSimple = value => value===null || value===undefined || String(value).trim()==='' ? '—' : html(String(value));
+  const igSourceNote = () => `Fuente: ${html(currentYear()?.source || 'Archivo de Plan de Acción')}. ${state.year==='2026'?'Corte del segundo trimestre de 2026.':'Periodo del archivo: vigencia 2025; el Excel no informa fecha de actualización por meta.'} Los campos vacíos se muestran como «Sin dato registrado».`;
+  function igSection(title,symbol,body,extra=''){
+    return `<section class="pa-ig-card ${extra}"><h3><span class="pa-ig-headicon" aria-hidden="true">${igIcon[symbol]||'▣'}</span>${html(title)}</h3>${body}</section>`;
+  }
+  function igTable(entries){
+    return `<dl class="pa-ig-table">${entries.map(([key,value])=>`<div class="pa-ig-table-row"><dt>${html(key)}</dt><dd>${igEsc(value)}</dd></div>`).join('')}</dl>`;
+  }
+  function igHero(){
+    return `<header class="pa-ig-hero"><div class="pa-ig-hero-main"><span class="pa-ig-kicker">PLAN DE DESARROLLO · SUBACHOQUE</span><h1>Información General</h1><p>Conoce el detalle de la meta, su propósito, alcance y la información estratégica asociada.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">“Un territorio<br>que avanza con<br>la fuerza de su gente”</div><label class="pa-ig-select-year">Año de seguimiento <select id="pa-ig-year-select" aria-label="Año de seguimiento">${igYears.map(y=>`<option value="${y}" ${String(y)===state.year?'selected':''}>${y}</option>`).join('')}</select></label></div></header>`;
+  }
+  function igMetaHeader(m,inf){
+    const c=classification(m);
+    return `<div class="pa-ig-meta"><button type="button" class="pa-ig-number" data-pa-list="true" title="Elegir otra meta" aria-label="Cambiar meta ${m.id}"><small>Meta</small><strong>${m.id}</strong></button><div class="pa-ig-meta-text"><h2>${html(m.name)}</h2><p>${html(m.project||'El archivo no registra una descripción complementaria del proyecto.')}</p><button type="button" class="pa-ig-change" data-pa-list="true">← Cambiar meta</button></div><span class="pa-state-chip pa-state-${c.key} pa-ig-state" title="${html(c.hint)}"><span aria-hidden="true">⌁</span>${html(c.label)}</span><div class="pa-ig-meta-fact"><span class="pa-ig-fact-icon" aria-hidden="true">▦</span><div><small>Dependencia responsable</small><strong>${igEsc(inf?.responsible || m.agency)}</strong></div></div><div class="pa-ig-meta-fact"><span class="pa-ig-fact-icon" aria-hidden="true">▣</span><div><small>Periodo del reporte</small><strong>${html(infoPeriod())}</strong></div></div></div>`;
+  }
+  function igStrategic(m,inf){
+    return igSection('Información Estratégica','strategic',igTable([
+      ['Línea Estratégica',inf?.line || m.line],
+      ['Sector MGA',inf?.sector || m.sector],
+      ['Programa Catálogo de Productos DNP',inf?.programDNP],
+      ['Programa Plan de Desarrollo',inf?.programPlan || m.program],
+      ['Código BPIN',inf?.bpin],
+      ['Nombre del proyecto',inf?.project || m.project],
+      ['Descripción (campo del Excel)',inf?.description],
+    ]),'pa-ig-strategic');
+  }
+  function igTechnical(m,inf){
+    return igSection('Información Técnica de la Meta','technical',igTable([
+      ['Código de Producto',inf?.productCode],
+      ['Producto',inf?.product || m.product],
+      ['Código de Indicador',inf?.indicatorCode],
+      ['Indicador Producto',inf?.indicatorProduct],
+      ['Unidad de Medida',inf?.unit || m.unit],
+      ['Número de Meta',m.id],
+      ['Meta Producto',inf?.metaName || m.name],
+      ['Tipo de Meta Producto',inf?.metaType || m.type],
+      ['Línea Base',inf?.baseline ?? m.base],
+      ['Fuente',inf?.source],
+      ['Valor esperado cuatrienio',inf?.expected ?? m.expected]
+    ]),'pa-ig-technical');
+  }
+  function igChain(m,inf){
+    const steps=[
+      ['Línea Estratégica',inf?.line || m.line,'line'],
+      ['Programa',inf?.programPlan || m.program,'program'],
+      ['Proyecto',inf?.project || m.project,'project'],
+      ['Meta',`${m.id}. ${m.name}`,'meta'],
+      ['Producto',inf?.product || m.product,'product'],
+      ['Indicador',inf?.indicatorProduct,'indicator']
+    ];
+    return igSection('Cadena de Gestión','chain',`<ol class="pa-ig-chain">${steps.map(([label,value,key])=>`<li class="pa-ig-chain-step pa-ig-step-${key}"><span class="pa-ig-chain-symbol" aria-hidden="true">${igIcon[key]}</span><div><strong>${html(label)}</strong><p>${igEsc(value)}</p></div></li>`).join('')}</ol>`,'pa-ig-chain-card');
+  }
+  function igPlaces(m){
+    const out={veredas:[],barrios:[],other:[]};
+    const seen={veredas:new Set(),barrios:new Set(),other:new Set()};
+    for(const a of (m.activities||[])){
+      const raw=String(a.territory||'').trim();
+      if(!raw)continue;
+      for(const fragment of raw.split(/[,;\n]+/)){
+        const token=fragment.trim().replace(/\.$/,'');
+        if(!token)continue;
+        const v=token.match(/^veredas?\s*[:\-]?\s*(.+)$/i);
+        const b=token.match(/^barrios?\s*[:\-]?\s*(.+)$/i);
+        const type=v?'veredas':b?'barrios':'other';
+        const label=(v?.[1]||b?.[1]||token).trim();
+        const clean=label.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es-CO').replace(/\s+/g,' ');
+        if(!clean || seen[type].has(clean))continue;
+        seen[type].add(clean);out[type].push(label);
+      }
+    }
+    return out;
+  }
+  function igTerritory(m){
+    const places=igPlaces(m),isVereda=state.territoryKind==='veredas';
+    const active=isVereda?places.veredas:places.barrios;
+    const visible=state.territoryExpanded?active:active.slice(0,6);
+    const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
+    const locs=`<div class="pa-ig-location-list"><div class="pa-ig-location-switch" role="group" aria-label="Tipo de territorio"><button type="button" class="${isVereda?'selected':''}" data-pa-ig-kind="veredas" aria-pressed="${isVereda}">Veredas</button><button type="button" class="${!isVereda?'selected':''}" data-pa-ig-kind="barrios" aria-pressed="${!isVereda}">Barrios</button></div><div class="pa-ig-loc-results">${visible.length?visible.map(x=>`<span><b aria-hidden="true">●</b>${html(x)}</span>`).join(''):`<p class="pa-ig-missing">No se identifican ${isVereda?'veredas':'barrios'} con nombre explícito en el archivo de esta meta.</p>`}</div>${active.length>6?`<button type="button" class="pa-ig-more-locations" data-pa-ig-expand>${state.territoryExpanded?'Mostrar menos':'Ver todas las '+(isVereda?'veredas':'barrios')} ↗</button>`:''}${places.other.length?'<small>El Excel contiene además descripciones territoriales sin tipo de localidad explícito; se conservan en los registros de las actividades.</small>':''}</div>`;
+    return igSection('Cobertura Territorial','territory',`<div class="pa-ig-territory-layout">${locs}<div class="pa-ig-map"><iframe loading="lazy" title="Mapa exploratorio de Subachoque. No representa ubicación geográfica verificada de intervenciones" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="pa-ig-map-legend"><span>●</span> Mapa municipal de referencia · sin puntos de intervención</div><a href="https://www.openstreetmap.org/#map=12/4.92614/-74.17299" target="_blank" rel="noopener noreferrer">Abrir mapa interactivo ↗</a></div></div>`,'pa-ig-territory-card');
+  }
+  function igPeople(m){
+    const records=(m.activities||[]).map(a=>a.people?.[1]).filter(isNumeric);
+    if(!records.length)return {value:'—',detail:'Sin beneficiarios cuantificados en el archivo'};
+    const sum=records.reduce((a,b)=>a+b,0);
+    return {value:fmtInt.format(sum),detail:'Suma de registros por actividad; no representa personas únicas'};
+  }
+  function igKPIs(m,inf){
+    const exp=inf?.expected??m.expected,base=inf?.baseline??m.base,people=igPeople(m);
+    const unit=String(inf?.unit||m.unit||'').trim();
+    const suffix=unit && normalizeQuery(unit)!=='numero' && unit!=='%' ? ' '+unit : '';
+    const val=isNumeric(m.expected)?fmtNum.format(m.expected)+suffix:igValue(exp)+(suffix||'');
+    const props=[
+      ['flag',val,'Valor esperado cuatrienio','Valor oficial de la meta, no avance ejecutado'],
+      ['avance',isNumeric(m.pct)?pctLabel(m.pct):'—','Avance acumulado','Porcentaje de ejecución de meta reportado en el Excel'],
+      ['saldo','—','Saldo por ejecutar','No se calcula sin magnitudes físicas acumuladas compatibles'],
+      ['actividades',fmtInt.format((m.activities||[]).length),'Actividades asociadas','Número de actividades del año seleccionado'],
+      ['beneficiarios',people.value,'Beneficiarios registrados',people.detail]
+    ];
+    return igSection('Indicadores Clave de la Meta','metrics',`<div class="pa-ig-kpi-grid">${props.map(([key,v,label,desc])=>`<div class="pa-ig-kpi pa-ig-kpi-${key}" title="${html(desc)}"><span class="pa-ig-kpi-symbol" aria-hidden="true">${key==='actividades'?'☷':key==='beneficiarios'?'♟':key==='avance'?'▥':key==='saldo'?'◷':'⚑'}</span><div><strong>${html(v)}</strong><span>${html(label)}</span></div></div>`).join('')}</div><p class="pa-ig-kpi-note">${html(people.detail)}. No se inventan saldos físicos ni se deduplican personas.</p>`,'pa-ig-kpi-card');
+  }
+  function igDocuments(m){
+    const verified=verifiedPDFs[state.year+':'+m.id]||[];
+    const candidate=[...verified.map(a=>({...a,verified:true})),...(m.activities||[]).filter(a=>safeLink(a.evidence)).map(a=>({url:safeLink(a.evidence),title:'Soporte de la actividad '+(a.n||'sin número'),kind:/\/file\/d\//.test(a.evidence)||/\.pdf(?:[?#]|$)/i.test(a.evidence)?'pdf':'folder',act:a.n,verified:false}))];
+    const unique=[];const seen=new Set();
+    for(const item of candidate){if(!item.url||seen.has(item.url))continue;seen.add(item.url);unique.push(item);}
+    return unique;
+  }
+  function igDocs(m){
+    const items=igDocuments(m);
+    const documentLine = item=>`<a class="pa-ig-document-link" href="${html(item.url)}" target="_blank" rel="noopener noreferrer"><span class="pa-ig-document-icon ${item.kind==='pdf'?'pdf':'folder'}" aria-hidden="true">${item.kind==='pdf'?'▣':'▰'}</span><span><strong>${html(item.title)}</strong><small>${item.kind==='pdf'?(item.verified?'PDF confirmado en carpeta de soporte':'Archivo PDF enlazado en Excel'):'Carpeta / vínculo registrado en Excel'}${item.act?' · Act. '+html(item.act):''}</small></span><span class="pa-ig-document-action" title="Abrir vínculo en una nueva pestaña" aria-hidden="true">↗</span></a>`;
+    return igSection('Documentos de referencia','documents',`<div class="pa-ig-document-list">${items.length?items.slice(0,4).map(documentLine).join(''):'<p class="pa-ig-missing">No hay documentos o enlaces de soporte registrados para esta meta.</p>'}</div>${items.length>4?'<button type="button" class="pa-ig-doc-more" data-pa-ig-docs>Ver todos los documentos →</button>':''}<p class="pa-ig-doc-note">Las carpetas se abren en Google Drive; no se identifican como descargas directas.</p><dialog class="pa-ig-doc-dialog" id="pa-ig-doc-dialog" aria-label="Todos los documentos de referencia"><div class="pa-ig-doc-modal-head"><h3>Documentos registrados · Meta ${m.id}</h3><button type="button" data-pa-ig-doc-close aria-label="Cerrar ventana">×</button></div><div class="pa-ig-document-list">${items.map(documentLine).join('')}</div></dialog>`,'pa-ig-doc-card');
+  }
+  function generalDashboard(m){
+    const inf=infoRecord();
+    if(state.infoLoading){return '<div class="pa-ig-pending">Preparando la ficha oficial de Información General…</div>';}
+    return `<div class="pa-ig-dashboard"><div class="pa-ig-top-grid">${igStrategic(m,inf)}${igTechnical(m,inf)}${igChain(m,inf)}</div><div class="pa-ig-bottom-grid">${igTerritory(m)}${igKPIs(m,inf)}${igDocs(m)}</div><p class="pa-ig-method">${igSourceNote()} Los porcentajes y estados son los mismos de Resumen; los indicadores no equivalen necesariamente a avances físicos en unidades.</p></div>`;
+  }
+  function generalResults(){
+    if(state.loading)return tabMarkup(null)+`<div class="pa-empty"><h2>Cargando registros de Información General…</h2><p>Preparando los datos de los Excel.</p></div>`;
+    if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>No fue posible cargar la información</h2><p>${html(state.error)}</p><button type="button" data-pa-reload>Reintentar</button></div>`;
+    if(state.list)return listMarkup();
+    if(!currentYear())return tabMarkup(null)+unavailableMarkup();
+    const m=selected(); if(!m)return tabMarkup(null)+unavailableMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+generalDashboard(m);
+  }
+
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
@@ -168,6 +308,7 @@
     return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
   }
   function pageMarkup(){
+    if(state.activeTab==='general')return `<div class="pa-shell pa-general-mode">${igHero()}<section class="pa-body pa-ig-body" aria-label="Información General para ${state.year}"><div class="pa-content" id="pa-content">${generalResults()}</div></section></div>`;
     const avail=!!currentYear();return `<div class="pa-shell">${topMarkup()}<section class="pa-body" aria-label="Panel de seguimiento para ${state.year}">${!avail?tabMarkup(null):''}<div class="pa-content" id="pa-content">${resultsMarkup()}</div></section></div>`;
   }
   function refresh({preserveFocus=false}={}){
@@ -184,8 +325,15 @@
   }
   panel.addEventListener('submit',ev=>{if(ev.target.id==='pa-query-form'){ev.preventDefault();searchAction();}});
   panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);});
-  panel.addEventListener('change',ev=>{if(ev.target.id!=='pa-year-select')return;state.year=ev.target.value;state.list=false;state.listCategory='all';state.activityExpanded.clear();state.qNumber='';state.qKeyword='';refresh();});
+  panel.addEventListener('change',ev=>{if(!['pa-year-select','pa-ig-year-select'].includes(ev.target.id))return;state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';refresh();});
   panel.addEventListener('click',ev=>{
+    const tab=ev.target.closest('[data-pa-tab]');
+    if(tab){const next=tab.dataset.paTab;if(next!=='general'&&next!=='summary')return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    const kind=ev.target.closest('[data-pa-ig-kind]');
+    if(kind){state.territoryKind=kind.dataset.paIgKind;state.territoryExpanded=false;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    if(ev.target.closest('[data-pa-ig-expand]')){state.territoryExpanded=!state.territoryExpanded;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    if(ev.target.closest('[data-pa-ig-docs]')){panel.querySelector('#pa-ig-doc-dialog')?.showModal();return;}
+    if(ev.target.closest('[data-pa-ig-doc-close]')){panel.querySelector('#pa-ig-doc-dialog')?.close();return;}
     const meta=ev.target.closest('[data-pa-meta]');if(meta){focusMeta(Number(meta.dataset.paMeta));return;}
     if(ev.target.closest('[data-pa-list]')){state.list=true;state.listCategory='all';refresh();return;}
     const kpi=ev.target.closest('[data-pa-kpi]');if(kpi){if(!currentYear())return;state.list=true;state.listCategory=kpi.dataset.paKpi;refresh();return;}
@@ -210,8 +358,21 @@
       if(!parsed?.periods?.['2025']?.metas || !parsed?.periods?.['2026']?.metas)throw Error('No están completos los años 2025 y 2026.');
       if(parsed.periods['2025'].metas.length!==109 || parsed.periods['2026'].metas.length!==109)throw Error('El número de metas no coincide con los Excel.');
       state.data=parsed;state.loading=false;refresh();
+      // Load metadata separately: failure must never break the existing Resumen.
+      try{
+        const infoResponse=await fetch('/data/plan-accion-info-general-2025-2026.b64.txt',{cache:'no-cache'});
+        if(!infoResponse.ok)throw Error('Ficha técnica '+infoResponse.status);
+        const infoB64=(await infoResponse.text()).trim();
+        const infoBin=atob(infoB64),infoBytes=new Uint8Array(infoBin.length);
+        for(let i=0;i<infoBin.length;i++)infoBytes[i]=infoBin.charCodeAt(i);
+        const infoText=await new Response(new Blob([infoBytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+        const infoParsed=JSON.parse(infoText);
+        if(Object.keys(infoParsed?.periods?.['2025']?.metas||{}).length!==109 || Object.keys(infoParsed?.periods?.['2026']?.metas||{}).length!==109)throw Error('Faltan fichas por meta.');
+        state.infoData=infoParsed;state.infoError=null;
+      }catch(e){state.infoError=e.message||'No se pudieron leer fichas adicionales.';console.warn('Información General:',e);}
+      finally{state.infoLoading=false;refresh();}
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
   }
-  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog'))dialog.close();});
+  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog'))dialog.close();});
   load();
 })();
