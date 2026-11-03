@@ -122,3 +122,8 @@
 @media(max-width:1080px){.ti34-ready .ti34-layout{grid-template-columns:230px minmax(0,1fr)}.ti34-three{grid-template-columns:1fr}.ti34-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:780px){.ti34-ready .ti34-layout{grid-template-columns:1fr!important}.ti34-sidebar{position:static;max-height:none}.ti34-ready .ti34-hero>.inner{min-height:360px}.ti34-hero-main{gap:10px}.ti34-hero-icon{width:45px;height:45px;font-size:27px}.ti34-ready .ti34-hero h1{font-size:clamp(35px,8vw,60px)!important}.ti34-year-grid,.ti34-two{grid-template-columns:1fr}.ti34-featured{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.ti34-ready .ti34-hero>.inner{min-height:370px;padding:18px}.ti34-ready .ti34-hero{background-image:linear-gradient(0deg,#09283e,#09283ec9 70%,#09283e55),url('../assets/img/editorial/territorio-aereo.jpg')!important}.ti34-hero-main{flex-direction:column}.ti34-ready .ti34-hero h1{font-size:39px!important}.ti34-ready .ti34-hero-main p{font-size:13px!important}.ti34-tags{gap:4px}.ti34-tags span{font-size:9px}.ti34-tiles,.ti34-featured{grid-template-columns:1fr 1fr}.ti34-inventory-grid{grid-template-columns:1fr 1fr}.ti34-inventory-item{min-height:180px}.ti34-indicators{grid-template-columns:1fr 1fr}}
+
+/* Plan de Desarrollo: cuatro apartados principales, sin navegación anual. */
+.ti34-ready[data-view="desarrollo"] .ti34-nav .ti34-tab{font-size:15px!important;min-height:58px!important;padding:14px 12px!important;line-height:1.3!important}
+.ti34-ready[data-view="desarrollo"] .ti34-nav .ti34-tab .ti34-nav-number{font-size:13px!important;flex-basis:34px}
+.ti34-ready[data-view="desarrollo"] .ti34-nav .ti34-tab .ti34-nav-label{font-weight:800!important}
