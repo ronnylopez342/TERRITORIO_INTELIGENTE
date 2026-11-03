@@ -167,6 +167,112 @@ document.addEventListener('keydown', e => {
   }
 });
 
+
+/* Plan de Desarrollo — desplegable principal y movil, reutilizando la estetica de Data Territorio. */
+const tiPlanDropdown = document.getElementById('tiPlanDropdown');
+const tiPlanTrigger = document.getElementById('tiPlanDropdownTrigger');
+const tiPlanMenu = document.getElementById('tiPlanDropdownMenu');
+const tiMobilePlanGroup = document.getElementById('tiMobilePlanGroup');
+const tiMobilePlanToggle = document.getElementById('tiMobilePlanToggle');
+const tiMobilePlanMenu = document.getElementById('tiMobilePlanMenu');
+function setTiPlanOpen(open, restoreFocus=false) {
+  if (!tiPlanMenu || !tiPlanTrigger) return;
+  tiPlanMenu.hidden = !open;
+  tiPlanTrigger.setAttribute('aria-expanded', String(open));
+  tiPlanDropdown.classList.toggle('open', open);
+  if (open) setDataDropdownOpen(false);
+  if (!open && restoreFocus) tiPlanTrigger.focus();
+}
+function setTiMobilePlanOpen(open) {
+  if (!tiMobilePlanMenu || !tiMobilePlanToggle) return;
+  tiMobilePlanMenu.hidden = !open;
+  tiMobilePlanToggle.setAttribute('aria-expanded', String(open));
+  if (open) setMobileDataDropdownOpen(false);
+}
+function syncTiPlanSelection(id) {
+  const selected=id || new URLSearchParams(location.hash.split('?')[1] || '').get('seccion') || 'desarrollo-conoce';
+  document.querySelectorAll('[data-desarrollo-destination]').forEach(el => el.classList.toggle('is-selected',el.dataset.desarrolloDestination===selected));
+}
+tiPlanTrigger?.addEventListener('click', event => {
+  event.preventDefault();
+  event.stopPropagation();
+  setTiPlanOpen(true);
+});
+tiPlanTrigger?.addEventListener('keydown', event => {
+  if (!['ArrowDown','ArrowUp'].includes(event.key)) return;
+  event.preventDefault();
+  setTiPlanOpen(true);
+  const entries=[...tiPlanMenu.querySelectorAll('[role="menuitem"]')];
+  (event.key==='ArrowDown'?entries[0]:entries.at(-1))?.focus();
+});
+tiPlanDropdown?.addEventListener('pointerenter', event => {
+  if (event.pointerType==='mouse') setTiPlanOpen(true);
+});
+tiPlanDropdown?.addEventListener('pointerleave', event => {
+  if (event.pointerType==='mouse') setTiPlanOpen(false);
+});
+tiPlanMenu?.addEventListener('keydown', event => {
+  if (event.key==='Escape') {
+    event.preventDefault();
+    setTiPlanOpen(false,true);
+    return;
+  }
+  if (!['ArrowDown','ArrowUp','Home','End'].includes(event.key)) return;
+  event.preventDefault();
+  const entries=[...tiPlanMenu.querySelectorAll('[role="menuitem"]')];
+  const pos=entries.indexOf(document.activeElement);
+  const next=event.key==='Home'?0:event.key==='End'?entries.length-1:event.key==='ArrowDown'?(pos+1)%entries.length:(pos-1+entries.length)%entries.length;
+  entries[next]?.focus();
+});
+tiMobilePlanToggle?.addEventListener('click', event => {
+  event.preventDefault();
+  event.stopPropagation();
+  setTiMobilePlanOpen(tiMobilePlanMenu.hidden);
+});
+document.addEventListener('click',event => {
+  const choice=event.target.closest('[data-desarrollo-destination]');
+  if (choice) {
+    event.preventDefault();
+    const id=choice.dataset.desarrolloDestination;
+    const tab=[...document.querySelectorAll('#desarrolloSubnav [data-module-panel]')].find(el=>el.dataset.modulePanel===id);
+    if (!tab || !document.getElementById(id)) return;
+    setTiPlanOpen(false);
+    setTiMobilePlanOpen(false);
+    setRoute('desarrollo',{historyMode:'push',focus:false,scroll:false});
+    tab.click();
+    syncTiPlanSelection(id);
+    requestAnimationFrame(()=>{
+      const panel=document.getElementById(id);
+      const layout=document.querySelector('[data-view="desarrollo"] .ti34-layout');
+      const navHeight=header?.getBoundingClientRect().height||90;
+      const top=window.scrollY+(layout||panel).getBoundingClientRect().top;
+      window.scrollTo({top:Math.max(0,top-navHeight-16),behavior:'instant'});
+      panel.setAttribute('tabindex','-1');
+      panel.focus({preventScroll:true});
+    });
+    return;
+  }
+  const tab=event.target.closest('#desarrolloSubnav [data-module-panel]');
+  if(tab) syncTiPlanSelection(tab.dataset.modulePanel);
+  if (tiPlanDropdown && !tiPlanDropdown.contains(event.target)) setTiPlanOpen(false);
+  if (tiMobilePlanGroup && !tiMobilePlanGroup.contains(event.target)) setTiMobilePlanOpen(false);
+});
+document.addEventListener('pointerdown', event => {
+  if (tiPlanDropdown && !tiPlanDropdown.contains(event.target)) setTiPlanOpen(false);
+});
+document.addEventListener('focusin', event => {
+  if (tiPlanDropdown && !tiPlanDropdown.contains(event.target)) setTiPlanOpen(false);
+});
+document.addEventListener('keydown', event => {
+  if(event.key==='Escape' && tiPlanMenu && !tiPlanMenu.hidden) {
+    event.preventDefault();
+    setTiPlanOpen(false,true);
+  }
+});
+window.addEventListener('hashchange',()=>syncTiPlanSelection());
+window.addEventListener('popstate',()=>syncTiPlanSelection());
+syncTiPlanSelection();
+
 openBtn?.addEventListener('click', () => setMenu(true));
 closeBtn?.addEventListener('click', () => setMenu(false));
 
