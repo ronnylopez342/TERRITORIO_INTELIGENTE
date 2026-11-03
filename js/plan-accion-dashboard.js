@@ -12,7 +12,7 @@
   const fullMonths = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const categories = ['Resumen','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Soportes','Observaciones'];
   const categoryIcons = ['▣','ⓘ','☷','▥','♟','＄','♧','▰','▤'];
-  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, loading:true, error:null };
+  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, loading:true, error:null };
   const fmtNum = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const fmtInt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
   const fmtMoney = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -80,7 +80,7 @@
       </div>
     </div>`;
   };
-  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=1,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':'general'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
+  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=2,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':'activities'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function statusBar(m){
     const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
@@ -299,6 +299,176 @@
     return igMetaHeader(m,infoRecord())+tabMarkup(m)+generalDashboard(m);
   }
 
+  /* Third functional tab, Actividades. The only factual inputs are the supplied
+     Plan de Accion workbooks and the previously verified support PDFs. */
+  const actIcons={
+    list:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h6M8 1v4M16 1v4"/>',
+    done:'<circle cx="12" cy="12" r="9"/><path d="m7 12 3.2 3.2L17 8"/>',
+    alert:'<path d="m12 2 10 19H2L12 2zM12 8v6M12 18h.01"/>',
+    chart:'<path d="M3 21h18M6 17V9h3v8M12 17V3h3v14M18 17V11h3v6"/>',
+    budget:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 2 16 2 16 0V5M4 12v7c0 2 16 2 16 0v-7"/>',
+    eye:'<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="3"/>',
+    search:'<circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 5 5"/>',
+    folder:'<path d="M2 5h8l3 3h9v12H2z"/>',
+    image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m4 18 6-5 4 3 4-5 3 7"/>',
+    filter:'<path d="M3 4h18l-7 8v7l-4 2v-9z"/>'
+  };
+  const actIcon = key => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${actIcons[key]||actIcons.list}</svg>`;
+  const actOwner=(a,m)=>state.activityData?.periods?.[state.year]?.[String(m.id)]?.[String(a.n)]||null;
+  const actRatio=a=>isNumeric(a.target)&&a.target>0&&isNumeric(a.progress)?Math.max(0,a.progress/a.target):null;
+  function actStatus(a){
+    const note=normalizeQuery(a.note||'');
+    const explicit=/(con retraso|retraso en|actividad retrasada|incumplimiento del cronograma|fuera de plazo)/.test(note);
+    if(explicit)return {key:'delay',label:'Retraso indicado',hint:'La observaci\u00f3n del archivo menciona un retraso; revisar su contexto.'};
+    const ratio=actRatio(a);
+    if(ratio!==null&&ratio>=1)return {key:'done',label:'Objetivo alcanzado',hint:'El avance reportado iguala o supera el valor programado de la actividad.'};
+    if(isNumeric(a.progress)&&a.progress>0)return {key:'running',label:'En ejecuci\u00f3n',hint:'Existe avance mayor que cero; no equivale a una certificaci\u00f3n administrativa.'};
+    if(isNumeric(a.progress)&&a.progress===0)return {key:'idle',label:'Sin avance',hint:'Avance num\u00e9rico 0 registrado. No implica retraso acreditado.'};
+    return {key:'missing',label:'Sin dato',hint:'Avance no cuantificado en el archivo.'};
+  }
+  const actFileList=m=>{
+    const items=[...(verifiedPDFs[state.year+':'+m.id]||[]).map(x=>({...x,verified:true,kind:'pdf'}))];
+    for(const a of m.activities||[]){
+      const url=safeLink(a.evidence);if(!url)continue;
+      const isImage=/\.(?:png|jpg|jpeg|webp|gif)(?:[?#]|$)/i.test(url);
+      const isPdf=/\/file\/d\/|\.pdf(?:[?#]|$)/i.test(url);
+      items.push({title:`Soporte de la actividad ${a.n}`,url,kind:isImage?'image':isPdf?'pdf':'folder',verified:false,act:a.n,activity:a.name});
+    }
+    const seen=new Set();return items.filter(x=>{if(seen.has(x.url))return false;seen.add(x.url);return true;});
+  };
+  function actHero(){
+    const yearOptions=[2024,2025,2026,2027].map(y=>`<option value="${y}"${String(y)===state.year?' selected':''}>${y}</option>`).join('');
+    return `<header class="pa-ig-hero pa-act-hero"><div class="pa-ig-hero-main"><nav class="pa-act-breadcrumb" aria-label="Ruta del m\u00f3dulo"><span>Inicio</span><span>Metas</span><span>Meta ${state.current}</span><strong>Actividades</strong></nav><h1>Actividades de la Meta</h1><p>Consulta el plan de acci\u00f3n, programaci\u00f3n, avances y evidencias de cada actividad.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">\u201cAcciones que<br>transforman nuestro<br>territorio\u201d</div><label class="pa-ig-select-year">A\u00f1o de seguimiento<select id="pa-act-year-select" aria-label="A\u00f1o de seguimiento">${yearOptions}</select></label></div></header>`;
+  }
+  function actKeyStats(m){
+    const total=m.activities.length;
+    const statuses=m.activities.map(actStatus);
+    const running=statuses.filter(s=>s.key==='running').length;
+    const delay=statuses.filter(s=>s.key==='delay').length;
+    const entries=[
+      {key:'list',value:fmtInt.format(total),title:'Actividades registradas',hint:'N\u00famero de actividades asociadas a la meta en el Excel.'},
+      {key:'done',value:fmtInt.format(running),title:'En ejecuci\u00f3n',hint:'Actividades con avance registrado positivo y objetivo no alcanzado.'},
+      {key:'alert',value:delay?fmtInt.format(delay):'\u2014',title:'Con retraso',hint:delay?'Observaci\u00f3n expl\u00edcita que contiene una menci\u00f3n de retraso.':'No hay datos suficientes de fechas l\u00edmite para certificar retrasos.'},
+      {key:'chart',value:pctLabel(m.pct),title:'Avance f\u00edsico de la meta',hint:'Porcentaje de ejecuci\u00f3n de la meta registrado en el Excel; no es promedio simple de actividades.'},
+      {key:'budget',value:pctLabel(m.budgetPct),title:'Ejecuci\u00f3n presupuestal',hint:'Porcentaje presupuestal de la meta reportado en el Excel.'}
+    ];
+    return `<section class="pa-act-summary-kpis" aria-label="Indicadores de las actividades">${entries.map(e=>`<div class="pa-act-kpi pa-act-kpi-${e.key}" title="${html(e.hint)}"><span class="pa-act-kpi-icon">${actIcon(e.key)}</span><div class="pa-act-kpi-text"><strong>${e.value}</strong><span>${e.title}</span></div></div>`).join('')}</section>`;
+  }
+  function actPlaceTokens(a){
+    if(!a.territory)return [];
+    return String(a.territory).split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean);
+  }
+  function actFiltersMarkup(m){
+    const activities=m.activities||[];
+    const owners=[...new Set(activities.map(a=>actOwner(a,m)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+    const places=[...new Set(activities.flatMap(actPlaceTokens))].sort((a,b)=>a.localeCompare(b,'es'));
+    const opts=(items,value)=>items.map(x=>`<option value="${html(x)}"${x===value?' selected':''}>${html(x)}</option>`).join('');
+    return `<div class="pa-act-table-toolbar"><div class="pa-act-toolbar-heading"><h2>Listado de Actividades del Plan de Acci\u00f3n ${state.year}</h2><small>Registros reales de la meta ${m.id}</small></div><div class="pa-act-toolbar-controls"><label class="pa-act-find"><span class="sr-only">Buscar actividad</span><input id="pa-act-search" type="search" placeholder="Buscar actividad..." value="${html(state.activityFilters.q)}" autocomplete="off"/><span class="pa-act-find-icon">${actIcon('search')}</span></label><label>Estado<select id="pa-act-filter-state"><option value="all">Todos</option>${[['running','En ejecuci\u00f3n'],['done','Objetivo alcanzado'],['idle','Sin avance'],['delay','Retraso indicado'],['missing','Sin dato']].map(([v,l])=>`<option value="${v}"${v===state.activityFilters.status?' selected':''}>${l}</option>`).join('')}</select></label><label>Responsable<select id="pa-act-filter-owner"><option value="all">Todos</option>${opts(owners,state.activityFilters.owner)}</select></label><label>Vereda / Barrio<select id="pa-act-filter-place"><option value="all">Todos</option>${opts(places,state.activityFilters.place)}</select></label><button type="button" class="pa-act-reset" data-pa-act-clear ${!state.activityFilters.q&&state.activityFilters.status==='all'&&state.activityFilters.owner==='all'&&state.activityFilters.place==='all'?'disabled':''}>Limpiar</button></div></div>`;
+  }
+  function actFiltered(m){
+    const f=state.activityFilters;
+    return m.activities.filter(a=>{
+      if(f.status!=='all'&&actStatus(a).key!==f.status)return false;
+      if(f.owner!=='all'&&actOwner(a,m)!==f.owner)return false;
+      if(f.place!=='all'&&!actPlaceTokens(a).some(t=>t===f.place))return false;
+      const q=normalizeQuery(f.q);
+      return !q||[a.n,a.name,a.indicator,a.unit,a.territory,actOwner(a,m),a.note].some(x=>normalizeQuery(x).includes(q));
+    });
+  }
+  const actStatePill=s=>`<span class="pa-act-state pa-act-state-${s.key}" title="${html(s.hint)}"><span class="pa-act-state-dot" aria-hidden="true"></span>${s.label}</span>`;
+  function actTable(m,filtered){
+    const trs=filtered.map(a=>{
+      const i=m.activities.indexOf(a), ratio=actRatio(a),progressPct=ratio===null?null:Math.min(100,ratio*100),s=actStatus(a),owner=actOwner(a,m);
+      return `<tr><td class="pa-act-id">${html(a.n)}</td><td class="pa-act-name" title="${html(a.name)}">${html(a.name)}</td><td>${isNumeric(a.weight)?pctLabel(a.weight):'\u2014'}</td><td>${html(a.indicator||'Sin dato')}</td><td>${html(a.unit||'\u2014')}</td><td>${numberOrDash(a.target)}</td><td><div class="pa-act-progress-value"><strong>${numberOrDash(a.progress)}</strong>${progressPct===null?'':`<small>(${fmtNum.format(ratio*100)}%)</small>`}</div><div class="pa-act-progress-track" aria-label="${progressPct===null?'Avance no evaluable':`Avance ${fmtNum.format(ratio*100)}%`}"><span style="width:${progressPct??0}%" class="pa-act-progress-fill pa-act-fill-${s.key}"></span></div></td><td>${actStatePill(s)}</td><td class="pa-act-owner">${html(owner||'Sin dato registrado')}</td><td><button type="button" data-pa-act-detail="${i}" class="pa-act-detail-btn" aria-label="Ver detalle de actividad ${html(a.n)}">${actIcon('eye')}<span>Ver detalle</span></button></td></tr>`;
+    }).join('');
+    return `<section class="pa-act-table-panel"><div class="pa-act-table-scroll" tabindex="0" aria-label="Listado desplazable de actividades"><table class="pa-act-main-table"><thead><tr><th>N\u00ba</th><th>Actividad</th><th>Peso %</th><th>Indicador</th><th>Unidad de medida</th><th>Valor programado ${state.year}</th><th>Avance</th><th>Estado</th><th>Responsable</th><th>Ver detalle</th></tr></thead><tbody>${trs||'<tr><td colspan="10" class="pa-act-noresults">No hay actividades que coincidan con los filtros. Usa Limpiar para ver todos los registros.</td></tr>'}</tbody></table></div><p class="pa-act-count">Mostrando ${filtered.length} de ${m.activities.length} actividades. Las etiquetas de estado son lecturas de los avances reportados; un avance bajo por s\u00ed solo no certifica retraso.</p></section>`;
+  }
+  const actCanonicalUnit=x=>{
+    const v=normalizeQuery(x||'Sin unidad');
+    if(['numero','n\u00famero','n\u00f9mero','unidad','unidades'].includes(v))return 'N\u00famero';
+    if(['kilometros','kilometro','km'].includes(v))return 'Kil\u00f3metros';
+    return String(x||'Sin unidad').trim();
+  };
+  function actComparison(m,filtered){
+    const candidates=filtered.filter(a=>isNumeric(a.target)&&isNumeric(a.progress)&&a.target>=0);
+    const groups=new Map();for(const a of candidates){const key=actCanonicalUnit(a.unit);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(a);}
+    const sorted=[...groups.entries()].sort((a,b)=>b[1].length-a[1].length);
+    if(!sorted.length)return '<div class="pa-act-nodata">No hay valores programados y ejecutados comparables para representar gr\u00e1ficamente.</div>';
+    const chosen=groups.has(state.activityCompareUnit)?state.activityCompareUnit:sorted[0][0];const arr=groups.get(chosen)||[];
+    const maxVal=Math.max(1,...arr.flatMap(a=>[a.target,a.progress]));
+    const w=Math.max(430,arr.length*92+74),h=260,left=48,top=25,plotHeight=181,barBase=top+plotHeight,groupSize=(w-left-22)/arr.length;
+    const svg=[];
+    for(let n=0;n<=4;n++){const value=(maxVal*n/4),y=barBase-(plotHeight*n/4);svg.push(`<line x1="${left}" y1="${y}" x2="${w-10}" y2="${y}" stroke="#dfe8f0" stroke-width="1"/><text x="${left-7}" y="${y+4}" font-size="10" fill="#54718b" text-anchor="end">${html(fmtNum.format(value))}</text>`);}
+    arr.forEach((a,i)=>{
+      const center=left+groupSize*(i+.5),barW=Math.min(20,groupSize*.25);
+      const f1=plotHeight*Math.max(0,a.target)/maxVal,f2=plotHeight*Math.max(0,a.progress)/maxVal;
+      svg.push(`<rect x="${center-barW-3}" y="${barBase-f1}" width="${barW}" height="${f1}" rx="3" fill="#338cf0"><title>${html(a.n)}: Programado ${numberOrDash(a.target)} ${html(chosen)}</title></rect>`);
+      svg.push(`<rect x="${center+3}" y="${barBase-f2}" width="${barW}" height="${f2}" rx="3" fill="#3caf57"><title>${html(a.n)}: Avance ${numberOrDash(a.progress)} ${html(chosen)}</title></rect>`);
+      svg.push(`<text x="${center-barW/2-3}" y="${Math.max(11,barBase-f1-6)}" fill="#0a3462" font-size="11" font-weight="700" text-anchor="middle">${html(fmtNum.format(a.target))}</text><text x="${center+3+barW/2}" y="${Math.max(11,barBase-f2-6)}" fill="#176e39" font-size="11" font-weight="700" text-anchor="middle">${html(fmtNum.format(a.progress))}</text>`);
+      svg.push(`<text x="${center}" y="${barBase+20}" font-size="10" fill="#29486d" text-anchor="middle">Act. ${html(a.n)}</text>`);
+    });
+    const options=sorted.map(([k,a])=>`<option value="${html(k)}"${k===chosen?' selected':''}>${html(k)} (${a.length})</option>`).join('');
+    return `<div class="pa-act-compare-control"><span>Unidad de medida</span><select id="pa-act-compare-unit" aria-label="Filtrar gr\u00e1fico por unidad">${options}</select></div><div class="pa-act-chart-scroll" tabindex="0"><svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="Barras azules de valores programados y verdes de avances para actividades con unidad ${html(chosen)}">${svg.join('')}</svg></div><div class="pa-act-chart-legend"><span><i class="pa-act-legend-blue"></i>Programado ${state.year}</span><span><i class="pa-act-legend-green"></i>Ejecutado ${state.year}</span></div><p class="pa-act-smallnote">Comparaci\u00f3n exclusivamente entre actividades con la misma unidad de medida; desplaza la gr\u00e1fica si hay muchos registros.</p>`;
+  }
+  function actTimeline(m,filtered){
+    if(!filtered.length)return '<div class="pa-act-nodata">No hay actividades que mostrar en el registro mensual.</div>';
+    const hdr=months.map(x=>`<th scope="col">${x}</th>`).join('');
+    const rows=filtered.map(a=>{
+      const index=m.activities.indexOf(a);
+      const cells=months.map((label,i)=>{
+        const v=Array.isArray(a.months)?a.months[i]:null;
+        const key=!isNumeric(v)?'unknown':v>0?'positive':'zero';
+        const note=!isNumeric(v)?'Sin reporte en el archivo':`${fmtNum.format(v)} ${a.unit||'unidades'} reportados`;
+        return `<td><button type="button" class="pa-act-month pa-act-month-${key}" data-pa-act-detail="${index}" title="${html(a.n)} \u00b7 ${fullMonths[i]} ${state.year}: ${html(note)}" aria-label="${html(a.n)} ${fullMonths[i]}: ${html(note)}">${key==='positive'?'\u25cf':key==='zero'?'\u00b7':'\u2014'}</button></td>`;
+      }).join('');
+      return `<tr><th scope="row" title="${html(a.name)}"><span>${html(a.n)}</span><small>${html(a.name.length>42?a.name.slice(0,42)+'\u2026':a.name)}</small></th>${cells}</tr>`;
+    }).join('');
+    return `<div class="pa-act-timeline-scroll" tabindex="0" aria-label="Registro mensual de las actividades"><table class="pa-act-timeline-table"><thead><tr><th scope="col">Actividad</th>${hdr}</tr></thead><tbody>${rows}</tbody></table></div><div class="pa-act-timeline-legend"><span><i class="pa-act-month-positive"></i>Avance reportado</span><span><i class="pa-act-month-zero"></i>Cero reportado</span><span><i class="pa-act-month-unknown"></i>Sin informaci\u00f3n</span></div><p class="pa-act-smallnote">Muestra los registros mensuales del Excel, <strong>no</strong> un cronograma de fechas programadas. En 2026 solo hay datos hasta junio.</p>`;
+  }
+  function actCarousel(m){
+    const files=actFileList(m);
+    const groups=Math.max(1,Math.ceil(files.length/3)),page=Math.min(state.activityCarouselPage,groups-1),start=page*3;
+    const visible=Array.from({length:3},(_,i)=>files[start+i]||null);
+    const tile=entry=>{
+      if(!entry)return `<div class="pa-act-evidence-tile pa-act-evidence-empty" aria-label="Evidencia fotogr\u00e1fica no disponible"><div class="pa-act-thumb-placeholder">${actIcon('image')}<span>Sin fotograf\u00eda<br>verificada</span></div><small>Evidencia no disponible</small></div>`;
+      const photo=entry.kind==='image';const filename=photo?'<img src="'+html(entry.url)+'" alt="Imagen enlazada en el Excel" loading="lazy" referrerpolicy="no-referrer"/>':`<span class="pa-act-thumb-${entry.kind}">${actIcon(entry.kind==='folder'?'folder':'list')}<b>${entry.kind==='pdf'?'PDF':'CARPETA'}</b></span>`;
+      return `<a class="pa-act-evidence-tile" href="${html(entry.url)}" target="_blank" rel="noopener noreferrer" title="${html(entry.title)}"><div class="pa-act-thumb-placeholder">${filename}</div><small>${html(entry.title)}</small><em>${entry.verified?'Documento verificado':'Enlace registrado en Excel'} \u2197</em></a>`;
+    };
+    const dots=Array.from({length:groups},(_,i)=>`<button type="button" class="${page===i?'selected':''}" data-pa-act-carousel-page="${i}" aria-label="P\u00e1gina ${i+1} de ${groups}" aria-current="${page===i?'true':'false'}"></button>`).join('');
+    return `<div class="pa-act-carousel"><div class="pa-act-carousel-inner"><button class="pa-act-arrow" type="button" data-pa-act-carousel-step="-1" aria-label="Evidencias anteriores" ${groups===1?'disabled':''}>\u276e</button><div class="pa-act-evidence-grid">${visible.map(tile).join('')}</div><button class="pa-act-arrow" type="button" data-pa-act-carousel-step="1" aria-label="Evidencias siguientes" ${groups===1?'disabled':''}>\u276f</button></div><div class="pa-act-carousel-dots">${dots}</div><p class="pa-act-smallnote">${files.length} enlaces de soporte vinculados a esta meta. Los PDFs y carpetas no se presentan como fotograf\u00edas de obras.</p><div class="pa-act-repository"><span>${actIcon('folder')}</span><div><p>Consulta las evidencias, informes y archivos registrados en los Excel.</p><button type="button" data-pa-act-show-docs ${!files.length?'disabled':''}>Ver repositorio de soportes \u2192</button></div></div></div>`;
+  }
+  function actDetailDialog(){
+    return `<dialog class="pa-act-dialog" id="pa-act-dialog" aria-labelledby="pa-act-dialog-title"><div class="pa-act-dialog-head"><div><small>PLAN DE ACCI\u00d3N \u00b7 ${state.year}</small><h2 id="pa-act-dialog-title">Detalle de actividad</h2></div><button type="button" data-pa-act-close aria-label="Cerrar detalle">\u00d7</button></div><div id="pa-act-dialog-body"></div></dialog>`;
+  }
+  function actRepositoryDialog(m){
+    const files=actFileList(m);
+    const links=files.map(item=>`<a href="${html(item.url)}" class="pa-act-repository-link" target="_blank" rel="noopener noreferrer"><span class="pa-act-repo-icon">${actIcon(item.kind==='image'?'image':'folder')}</span><span><strong>${html(item.title)}</strong><small>${item.verified?'Archivo PDF verificado':'Enlace aportado en el Excel'}${item.act?' \u00b7 Actividad '+html(item.act):''}</small></span><span aria-hidden="true">\u2197</span></a>`).join('');
+    return `<dialog class="pa-act-dialog" id="pa-act-repository-dialog" aria-labelledby="pa-act-repository-title"><div class="pa-act-dialog-head"><div><small>META ${m.id} \u00b7 ${state.year}</small><h2 id="pa-act-repository-title">Soportes y evidencias</h2></div><button type="button" data-pa-act-close aria-label="Cerrar repositorio">\u00d7</button></div><p class="pa-act-smallnote">V\u00ednculos consignados en los archivos. Una carpeta no se identifica como descarga directa.</p><div class="pa-act-repository-list">${links||'<p>Esta meta no tiene enlaces disponibles en los datos aportados.</p>'}</div></dialog>`;
+  }
+  function actDashboard(m){
+    const filtered=actFiltered(m);
+    const content=`<div class="pa-act-dashboard">${actKeyStats(m)}${actFiltersMarkup(m)}${actTable(m,filtered)}<div class="pa-act-bottom-grid"><section class="pa-act-card"><h3>Programaci\u00f3n vs ejecuci\u00f3n por actividad</h3>${actComparison(m,filtered)}</section><section class="pa-act-card"><h3>Registro mensual de ejecuci\u00f3n ${state.year}</h3>${actTimeline(m,filtered)}</section><section class="pa-act-card"><h3>Soportes y Evidencias Destacadas</h3>${actCarousel(m)}</section></div><p class="pa-act-source"><strong>Fuente:</strong> ${html(currentYear()?.source||'Excel de plan de acci\u00f3n')} \u00b7 ${state.year==='2026'?'Segundo trimestre de 2026.':'Vigencia 2025.'} Los colores de avance son indicadores de lectura; los retrasos solo se mencionan cuando el texto original los especifica.</p></div>${actDetailDialog()}${actRepositoryDialog(m)}`;
+    return content;
+  }
+  function actResults(){
+    if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando actividades...</h2></div>';
+    if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" data-pa-reload>Reintentar</button></div>`;
+    if(state.list)return listMarkup();
+    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty"><h2>Informaci\u00f3n de actividades no disponible para ${state.year}</h2><p>Los buscadores, el selector y las pesta\u00f1as siguen disponibles. Selecciona 2025 o 2026 para consultar registros oficiales.</p></div>`;
+    const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+actDashboard(m);
+  }
+  function actShowDetail(index){
+    const m=selected(),a=m?.activities?.[index];if(!a)return;
+    const data=[['Meta',m.id],['N.\u00ba de actividad',a.n],['Actividad',a.name],['Responsable (Excel)',actOwner(a,m)],['Indicador',a.indicator],['Unidad de medida',a.unit],['Peso en la meta',isNumeric(a.weight)?pctLabel(a.weight):null],['Valor programado',isNumeric(a.target)?fmtNum.format(a.target):null],['Avance reportado',isNumeric(a.progress)?fmtNum.format(a.progress):null],['Porcentaje de cumplimiento de la actividad',actRatio(a)!==null?pctLabel(actRatio(a)):null],['Territorio consignado',a.territory],['Estado orientativo',actStatus(a).label],['Observaciones del Excel',a.note]];
+    const rows=data.map(([k,v])=>`<div><dt>${html(k)}</dt><dd>${v===null||v===undefined||v===''?'Sin dato registrado':html(v)}</dd></div>`).join('');
+    const link=safeLink(a.evidence);
+    const dialog=panel.querySelector('#pa-act-dialog');if(!dialog)return;
+    dialog.querySelector('#pa-act-dialog-title').textContent=`Actividad ${a.n}`;
+    dialog.querySelector('#pa-act-dialog-body').innerHTML=`<dl class="pa-act-dialog-list">${rows}</dl>${link?`<a class="pa-act-modal-link" href="${html(link)}" target="_blank" rel="noopener noreferrer">Abrir soporte original en nueva pesta\u00f1a \u2197</a>`:'<p>Sin soporte enlazado en el archivo.</p>'}`;
+    dialog.showModal();
+  }
+
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
@@ -308,6 +478,7 @@
     return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
   }
   function pageMarkup(){
+    if(state.activeTab==='activities')return `<div class="pa-shell pa-general-mode pa-activities-mode">${actHero()}<section class="pa-body pa-ig-body" aria-label="Actividades para ${state.year}"><div class="pa-content" id="pa-content">${actResults()}</div></section></div>`;
     if(state.activeTab==='general')return `<div class="pa-shell pa-general-mode">${igHero()}<section class="pa-body pa-ig-body" aria-label="Información General para ${state.year}"><div class="pa-content" id="pa-content">${generalResults()}</div></section></div>`;
     const avail=!!currentYear();return `<div class="pa-shell">${topMarkup()}<section class="pa-body" aria-label="Panel de seguimiento para ${state.year}">${!avail?tabMarkup(null):''}<div class="pa-content" id="pa-content">${resultsMarkup()}</div></section></div>`;
   }
@@ -316,7 +487,7 @@
     panel.innerHTML=pageMarkup();
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
   }
-  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
+  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
@@ -324,11 +495,25 @@
     state.list=true;state.listCategory='all';refresh();panel.querySelector('.pa-meta-catalog')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
   panel.addEventListener('submit',ev=>{if(ev.target.id==='pa-query-form'){ev.preventDefault();searchAction();}});
-  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);});
-  panel.addEventListener('change',ev=>{if(!['pa-year-select','pa-ig-year-select'].includes(ev.target.id))return;state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';refresh();});
+  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}});
+  panel.addEventListener('change',ev=>{
+    const filterMap={'pa-act-filter-state':'status','pa-act-filter-owner':'owner','pa-act-filter-place':'place'};
+    if(filterMap[ev.target.id]){state.activityFilters[filterMap[ev.target.id]]=ev.target.value;refresh();return;}
+    if(ev.target.id==='pa-act-compare-unit'){state.activityCompareUnit=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select'].includes(ev.target.id))return;
+    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;refresh();
+  });
   panel.addEventListener('click',ev=>{
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(next!=='general'&&next!=='summary')return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(ev.target.closest('[data-pa-act-clear]')){state.activityFilters={q:'',status:'all',owner:'all',place:'all'};refresh();return;}
+    const d=ev.target.closest('[data-pa-act-detail]');if(d){actShowDetail(Number(d.dataset.paActDetail));return;}
+    if(ev.target.closest('[data-pa-act-close]')){ev.target.closest('dialog')?.close();return;}
+    if(ev.target.closest('[data-pa-act-show-docs]')){panel.querySelector('#pa-act-repository-dialog')?.showModal();return;}
+    const pageBtn=ev.target.closest('[data-pa-act-carousel-page]');
+    if(pageBtn){state.activityCarouselPage=Number(pageBtn.dataset.paActCarouselPage);const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    const stepBtn=ev.target.closest('[data-pa-act-carousel-step]');
+    if(stepBtn){const m=selected(),count=Math.max(1,Math.ceil(actFileList(m).length/3));state.activityCarouselPage=(state.activityCarouselPage+Number(stepBtn.dataset.paActCarouselStep)+count)%count;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     const kind=ev.target.closest('[data-pa-ig-kind]');
     if(kind){state.territoryKind=kind.dataset.paIgKind;state.territoryExpanded=false;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.closest('[data-pa-ig-expand]')){state.territoryExpanded=!state.territoryExpanded;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
@@ -344,6 +529,20 @@
     if(ev.target.closest('[data-pa-close-gallery]')){panel.querySelector('#pa-gallery-dialog')?.close();return;}
     if(ev.target.closest('[data-pa-reload]'))load();
   });
+  async function loadActivityExtras(){
+    try{
+      const res=await fetch('/data/plan-accion-actividades-responsables.b64.txt',{cache:'no-cache'});
+      if(!res.ok)throw Error('Responsables por actividad '+res.status);
+      const b64=(await res.text()).trim(),binary=atob(b64),bytes=new Uint8Array(binary.length);
+      for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+      const decoded=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+      const payload=JSON.parse(decoded);
+      if(!payload?.periods?.['2025']||!payload?.periods?.['2026'])throw Error('No se encuentran ambos periodos en el archivo de responsables.');
+      state.activityData=payload;state.activityError=null;
+    }catch(err){state.activityError=err?.message||'Faltan los responsables por actividad';console.warn('Responsables de actividades:',err);}
+    finally{state.activityLoading=false;if(state.activeTab==='activities')refresh();}
+  }
+
   async function load(){
     state.loading=true;state.error=null;refresh();
     try{
@@ -371,8 +570,9 @@
         state.infoData=infoParsed;state.infoError=null;
       }catch(e){state.infoError=e.message||'No se pudieron leer fichas adicionales.';console.warn('Información General:',e);}
       finally{state.infoLoading=false;refresh();}
+      await loadActivityExtras();
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
   }
-  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog'))dialog.close();});
+  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog'))dialog.close();});
   load();
 })();
