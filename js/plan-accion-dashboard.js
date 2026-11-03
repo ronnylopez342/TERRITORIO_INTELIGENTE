@@ -11,8 +11,8 @@
   const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const fullMonths = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const categories = ['Resumen','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Soportes','Observaciones'];
-  const categoryIcons = ['▣','ⓘ','☷','▥','♟','＄','♧','▰','▤'];
-  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, loading:true, error:null };
+  const categoryIcons = ['▣','ⓘ','☷','▥','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M1 20v-3c0-3 3-5 7-5s7 2 7 5v3M9 20v-3c0-3 3-5 7-5s7 2 7 5v3"/></svg>','＄','♧','▰','▤'];
+  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, loading:true, error:null };
   const fmtNum = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const fmtInt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
   const fmtMoney = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -80,7 +80,7 @@
       </div>
     </div>`;
   };
-  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=3,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':'physical'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
+  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=4,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':'beneficiaries'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function statusBar(m){
     const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
@@ -625,6 +625,108 @@
     const href=URL.createObjectURL(blob),link=document.createElement('a');link.href=href;link.download=name+'.csv';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(href),1500);
   }
 
+  /* Quinta pestaña: Beneficiarios. La pestaña se alimenta ÚNICAMENTE de las
+     tres columnas de asistentes en las actividades del Excel. La columna TOTAL
+     de los archivos NO es un total de personas (contiene avance físico); por
+     tanto nunca se utiliza para beneficiarios. Los registros por actividad
+     pueden repetir personas y NO equivalen a personas únicas. */
+  const benGroups=[
+    ['Población rural campesina','#10a465'],
+    ['Niños, niñas y adolescentes','#3085f5'],
+    ['Jóvenes','#f5b80c'],
+    ['Adultos','#ff8d50'],
+    ['Personas mayores','#e54f63'],
+    ['Mujeres','#ac63df'],
+    ['Personas con discapacidad','#8394a6']
+  ];
+  const benIconPaths={
+    people:'<circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M1 20v-3c0-3 3-5 7-5s7 2 7 5v3M9 20v-3c0-3 3-5 7-5s7 2 7 5v3"/>',
+    community:'<circle cx="12" cy="7" r="3"/><circle cx="4.5" cy="10" r="2"/><circle cx="19.5" cy="10" r="2"/><path d="M5 21v-3c0-3 3-5 7-5s7 2 7 5v3M1 20v-3c0-2 1-3 3-4m19 7v-3c0-2-1-3-3-4"/>',
+    person:'<circle cx="12" cy="6" r="4"/><path d="M4 22v-4c0-5 3-7 8-7s8 2 8 7v4z"/>',
+    geo:'<path d="M12 22s8-7.5 8-14a8 8 0 1 0-16 0c0 6.5 8 14 8 14Z"/><circle cx="12" cy="8" r="2.6"/>',
+    info:'<circle cx="12" cy="12" r="10"/><path d="M12 10v7M12 7h.01"/>'
+  };
+  const benIcon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${benIconPaths[name]||benIconPaths.people}</svg>`;
+  function benHero(){
+    const opts=[2024,2025,2026,2027].map(y=>`<option value="${y}"${state.year===String(y)?' selected':''}>${y}</option>`).join('');
+    return `<header class="pa-ig-hero pa-act-hero pa-ben-hero"><div class="pa-ig-hero-main"><nav class="pa-act-breadcrumb" aria-label="Ruta del módulo"><span>Inicio</span><span>Metas</span><span>Meta ${state.current}</span><strong>Beneficiarios</strong></nav><h1>Beneficiarios de la Meta</h1><p>Conoce la población que se beneficia con esta meta y su impacto en el territorio.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">“La gente<br>es el centro de<br>todo lo que hacemos”</div><label class="pa-ig-select-year">Año de seguimiento<select id="pa-ben-year-select" aria-label="Año de seguimiento">${opts}</select></label></div></header>`;
+  }
+  function benData(m){
+    const acts=m.activities||[];
+    const groups=[{key:'staff',index:0,name:'Funcionarios y contratistas',tone:'petrol',icon:'person'},
+                  {key:'community',index:1,name:'Beneficiarios de programas (Comunidad)',tone:'blue',icon:'community'},
+                  {key:'casual',index:2,name:'Asistentes ocasionales',tone:'amber',icon:'people'}];
+    const categories=groups.map(g=>{
+      const valid=acts.map(a=>a.people?.[g.index]).filter(v=>isNumeric(v)&&v>=0&&Number.isInteger(v));
+      const invalid=acts.map(a=>a.people?.[g.index]).filter(v=>v!==null&&v!==undefined&&v!==''&&!(isNumeric(v)&&v>=0&&Number.isInteger(v)));
+      return {...g,value:valid.length?valid.reduce((a,b)=>a+b,0):null,reported:valid.length,invalid:invalid.length,activities:acts.length};
+    });
+    return {categories, totalUnique:null, reports:categories.reduce((n,c)=>n+(isNumeric(c.value)?c.value:0),0),hasRecords:categories.some(c=>c.reported>0),hasPopulationBreakdown:false,hasMonthlyBreakdown:false};
+  }
+  const benSumText=c=>c&&isNumeric(c.value)?fmtInt.format(c.value):'—';
+  const benCategoryNote=c=>c.reported>0?`Suma de valores de ${c.reported} actividad${c.reported===1?'':'es'}; no son personas únicas${c.invalid?', con '+c.invalid+' registro(s) no validables':''}.`:'No se registró una cifra numérica en esta categoría.';
+  function benCard(tone,title,value,description,icon,sub){
+    return `<article class="pa-ben-kpi pa-ben-${tone}" title="${html(sub)}"><span class="pa-ben-kpi-icon">${benIcon(icon)}</span><div class="pa-ben-kpi-body"><h3>${html(title)}</h3><div class="pa-ben-kpi-amount">${value}</div><p>${html(description)}</p></div></article>`;
+  }
+  function benStats(m){
+    const b=benData(m), community=b.categories[1],staff=b.categories[0],casual=b.categories[2];
+    return `<section class="pa-ben-stats" aria-label="Indicadores de beneficiarios de la meta">
+      ${benCard('green','Total de beneficiarios','—','Sin total verificable de personas únicas','people','Los Excel no ofrecen una clave de deduplicación de beneficiarios.')}
+      ${benCard('blue','Beneficiarios de programas (Comunidad)',benSumText(community),community.reported?'Registros reportados en actividades':'Sin dato registrado','community',benCategoryNote(community))}
+      ${benCard('petrol','Funcionarios y contratistas',benSumText(staff),staff.reported?'Participaciones informadas':'Sin dato registrado','person',benCategoryNote(staff))}
+      ${benCard('amber','Asistentes ocasionales',benSumText(casual),casual.reported?'Asistencias registradas':'Sin dato registrado','people',benCategoryNote(casual))}
+    </section><p class="pa-ben-kpi-method"><strong>Lectura de las cifras:</strong> son sumas de valores enteros no negativos en las actividades con dato. Pueden repetirse personas entre actividades; no representan población única. La columna «TOTAL» del Excel corresponde al avance de actividad y no se utiliza para contar beneficiarios.</p>`;
+  }
+  function benEmpty(title,message){return `<div class="pa-ben-empty" role="note"><span aria-hidden="true">${benIcon('info')}</span><strong>${html(title)}</strong><p>${html(message)}</p></div>`;}
+  function benPanel(title,body,klass=''){
+    return `<section class="pa-ben-card ${klass}"><h3>${html(title)}</h3>${body}</section>`;
+  }
+  function benMonthly(){
+    const lines=[0,1,2,3,4].map(i=>`<line x1="42" x2="730" y1="${36+i*42}" y2="${36+i*42}" stroke="#dce5ee" stroke-width="1"/>`).join('');
+    const monthsLabel=months.map((a,i)=>`<text x="${63+i*55}" y="222" text-anchor="middle" fill="#5d748d" font-size="12">${a}</text>`).join('');
+    return benPanel('Evolución de beneficiarios por mes ('+state.year+')',`<div class="pa-ben-legend"><span><i class="green"></i>Beneficiarios de programas</span><span><i class="blue"></i>Funcionarios y contratistas</span><span><i class="yellow"></i>Asistentes ocasionales</span></div><div class="pa-ben-monthly-graphic"><svg viewBox="0 0 760 240" role="img" aria-label="Cuadrícula mensual sin datos de beneficiarios: el archivo presenta avances físicos por mes, no desagregación de personas">${lines}${monthsLabel}</svg><div class="pa-ben-monthly-overlay">${benEmpty('Sin distribución mensual verificable','Las columnas de enero a diciembre describen avance físico de actividades, no beneficiarios por mes.')}</div></div>`,'pa-ben-monthly-card');
+  }
+  function benDistribution(m){
+    const b=benData(m);
+    const legend=b.categories.map(c=>`<div class="pa-ben-dist-line"><span class="pa-ben-dot ${c.tone}"></span><span>${html(c.name)}</span><strong>${benSumText(c)}</strong></div>`).join('');
+    return benPanel('Distribución de beneficiarios',`<div class="pa-ben-dist-layout"><div class="pa-ben-dist-circle" role="img" aria-label="Total de beneficiarios únicos no disponible; no se representan porcentajes de categorías superpuestas"><span>—<small>Sin total<br>único</small></span></div><div class="pa-ben-dist-labels">${legend}</div></div><p class="pa-ben-footnote">Los datos son valores reportados por actividad. No se dibujan porcentajes porque no se acreditó que las categorías sean excluyentes ni que correspondan a personas únicas.</p>`,'pa-ben-dist-card');
+  }
+  function benPopulation(){
+    return benPanel('Beneficiarios por grupo poblacional',`<div class="pa-ben-group-list">${benGroups.map(([label,color])=>`<div class="pa-ben-group-row"><span>${html(label)}</span><span class="pa-ben-group-track"><i style="--ben-group-color:${color}"></i></span><b>—</b></div>`).join('')}</div><p class="pa-ben-footnote">El archivo no contiene cantidades desagregadas verificables por grupo poblacional. Los guiones indican ausencia de dato, no cero.</p>`,'pa-ben-groups-card');
+  }
+  function benPlaces(m){
+    const known=igPlaces(m);const names=[...known.veredas.map(s=>({name:'Vereda '+s,group:'vereda'})),...known.barrios.map(s=>({name:'Barrio '+s,group:'barrio'}))];
+    const byName=new Map();for(const x of names){const key=normalizeQuery(x.name);if(!byName.has(key))byName.set(key,x);}
+    const list=[...byName.values()];
+    const general=known.other.filter(s=>/^todo el municipio$|^casco urbano\b|^centro poblado\b|^municipio de subachoque$|^subachoque$/i.test(s));
+    if(!list.length&&general.length)for(const x of general)list.push({name:x,group:'general'});
+    return {places:list,otherCount:known.other.length};
+  }
+  function benTerritoryTable(m){
+    const list=benPlaces(m).places;
+    const rows=list.map((place,i)=>`<tr><td><button type="button" class="pa-ben-place-select${state.beneficiaryPlace===i?' selected':''}" data-pa-ben-place="${i}" aria-pressed="${state.beneficiaryPlace===i}">${benIcon('geo')}<span>${html(place.name)}</span></button></td><td>—</td><td>—</td></tr>`).join('');
+    return benPanel('Beneficiarios por vereda / barrio',`<div class="pa-ben-territory-scroll" tabindex="0" aria-label="Tabla desplazable de lugares reportados"><table class="pa-ben-table"><thead><tr><th>Vereda / Barrio</th><th>Beneficiarios</th><th>% del total</th></tr></thead><tbody>${rows||'<tr><td colspan="3" class="pa-ben-no-places">No se identificaron veredas o barrios de forma explícita para esta meta.</td></tr>'}</tbody></table></div><p class="pa-ben-footnote">Se muestran nombres consignados en las actividades. El Excel no distribuye los beneficiarios numéricamente por vereda o barrio: los guiones no representan cero.</p>`,'pa-ben-territory-card');
+  }
+  function benMap(m){
+    const {places}=benPlaces(m);
+    const chosen=Number.isInteger(state.beneficiaryPlace)?places[state.beneficiaryPlace]:null;
+    const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
+    return benPanel('Mapa de beneficiarios',`<div class="pa-ben-map-area"><iframe title="Mapa interactivo de referencia de Subachoque sin marcadores de beneficiarios" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik"></iframe></div><div class="pa-ben-map-caption"><span class="pa-ben-map-dot"></span><span>Mapa de Subachoque (referencia geográfica, sin puntos de beneficiarios)</span></div><p class="pa-ben-territory-selection" id="pa-ben-selected-place" aria-live="polite">${chosen?'Localidad en el Excel: '+html(chosen.name):places.length?'Selecciona un lugar de la tabla para identificarlo en el listado documental.':'No hay localidades específicas verificadas en el Excel para esta meta.'}</p><a class="pa-ben-map-link" href="https://www.openstreetmap.org/#map=12/4.92614/-74.17299" target="_blank" rel="noopener noreferrer">Abrir mapa completo ↗</a>`,'pa-ben-map-card');
+  }
+  function benTestimonies(){
+    return benPanel('Testimonios de la comunidad',`<button class="pa-ben-view-all" type="button" data-pa-ben-testimony-all aria-haspopup="dialog" aria-controls="pa-ben-testimonials-dialog">Ver todos →</button><div class="pa-ben-testimonial-cards">${[1,2,3].map(()=>`<div class="pa-ben-testimony"><div class="pa-ben-testimony-image" aria-label="Fotografía de participante pendiente de incorporar">${benIcon('people')}</div><p>Testimonio pendiente de incorporar</p><small>No existe cita verificada y autorizada para esta meta.</small></div>`).join('')}</div><div class="pa-ben-pagination"><button type="button" disabled aria-label="Testimonio anterior no disponible">‹</button><span aria-label="Sin testimonios incorporados">○ ○ ○</span><button type="button" disabled aria-label="Testimonio siguiente no disponible">›</button></div><dialog id="pa-ben-testimonials-dialog" class="pa-ben-dialog" aria-labelledby="pa-ben-dialog-title"><div class="pa-ben-modal-top"><h3 id="pa-ben-dialog-title">Testimonios de la comunidad · Meta ${state.current}</h3><button type="button" data-pa-ben-testimony-close aria-label="Cerrar">×</button></div>${benEmpty('Testimonios pendientes de verificación','Los Excel de Plan de Acción no contienen testimonios consentidos ni retratos atribuibles a esta meta. No se muestran citas ni fotografías ficticias.')}</dialog>`,'pa-ben-testimonials-card');
+  }
+  function benDashboard(m){
+    return `<div class="pa-ben-dashboard">${benStats(m)}<div class="pa-ben-mid-grid">${benMonthly()}${benDistribution(m)}${benPopulation()}</div><div class="pa-ben-bottom-grid">${benTerritoryTable(m)}${benMap(m)}${benTestimonies()}</div><p class="pa-ben-source"><strong>Fuente:</strong> ${html(currentYear()?.source||'Plan de Acción')} · ${state.year==='2026'?'Información reportada al segundo trimestre de 2026.':'Vigencia 2025.'} Los valores numéricos son los registrados por actividad, sin deduplicación; el desglose poblacional y los testimonios no figuran en los archivos aportados. No se confunden avances físicos mensuales con personas beneficiadas.</p></div>`;
+  }
+  function benResults(){
+    if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando beneficiarios…</h2></div>';
+    if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>No fue posible cargar beneficiarios</h2><p>${html(state.error)}</p><button type="button" data-pa-reload>Reintentar</button></div>`;
+    if(state.list)return listMarkup();
+    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty" role="status"><h2>Información de beneficiarios no disponible para ${state.year}</h2><p>El encabezado y el selector de vigencia permanecen visibles. Selecciona 2025 o 2026 para consultar los datos oficiales disponibles.</p></div>`;
+    const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+benDashboard(m);
+  }
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
@@ -634,6 +736,7 @@
     return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
   }
   function pageMarkup(){
+    if(state.activeTab==='beneficiaries')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-beneficiaries-mode">${benHero()}<section class="pa-body pa-ig-body" aria-label="Beneficiarios de la meta para ${state.year}"><div class="pa-content" id="pa-content">${benResults()}</div></section></div>`;
     if(state.activeTab==='physical')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-physical-mode">${physicalHero()}<section class="pa-body pa-ig-body" aria-label="Avance f\u00edsico para ${state.year}"><div class="pa-content" id="pa-content">${physicalResults()}</div></section></div>`;
     if(state.activeTab==='activities')return `<div class="pa-shell pa-general-mode pa-activities-mode">${actHero()}<section class="pa-body pa-ig-body" aria-label="Actividades para ${state.year}"><div class="pa-content" id="pa-content">${actResults()}</div></section></div>`;
     if(state.activeTab==='general')return `<div class="pa-shell pa-general-mode">${igHero()}<section class="pa-body pa-ig-body" aria-label="Información General para ${state.year}"><div class="pa-content" id="pa-content">${generalResults()}</div></section></div>`;
@@ -644,7 +747,7 @@
     panel.innerHTML=pageMarkup();
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
   }
-  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
+  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
@@ -659,12 +762,23 @@
     if(ev.target.id==='pa-act-compare-unit'){state.activityCompareUnit=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.id==='pa-ph-filter-status'){state.physicalFilters.status=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.id==='pa-ph-filter-activity'){state.physicalFilters.activity=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
-    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year'].includes(ev.target.id))return;
-    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;refresh();
+    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select'].includes(ev.target.id))return;
+    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;refresh();
   });
   panel.addEventListener('click',ev=>{
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(ev.target.closest('[data-pa-ben-testimony-all]')){panel.querySelector('#pa-ben-testimonials-dialog')?.showModal();return;}
+    if(ev.target.closest('[data-pa-ben-testimony-close]')){panel.querySelector('#pa-ben-testimonials-dialog')?.close();return;}
+    const benPlace=ev.target.closest('[data-pa-ben-place]');
+    if(benPlace){
+      state.beneficiaryPlace=Number(benPlace.dataset.paBenPlace);
+      panel.querySelectorAll('[data-pa-ben-place]').forEach(btn=>{const chosen=btn===benPlace;btn.classList.toggle('selected',chosen);btn.setAttribute('aria-pressed',String(chosen));});
+      const title=selected()&&benPlaces(selected()).places[state.beneficiaryPlace]?.name;
+      const region=panel.querySelector('#pa-ben-selected-place');
+      if(region)region.textContent=title?'Localidad en el Excel: '+title:'Localidad no especificada';
+      return;
+    }
     if(ev.target.closest('[data-pa-ph-export]')){phExport();return;}
     if(ev.target.closest('[data-pa-act-clear]')){state.activityFilters={q:'',status:'all',owner:'all',place:'all'};refresh();return;}
     const d=ev.target.closest('[data-pa-act-detail]');if(d){actShowDetail(Number(d.dataset.paActDetail));return;}
@@ -733,6 +847,6 @@
       await loadActivityExtras();
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
   }
-  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog'))dialog.close();});
+  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog'))dialog.close();});
   load();
 })();

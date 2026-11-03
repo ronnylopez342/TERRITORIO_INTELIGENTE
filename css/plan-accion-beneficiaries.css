@@ -1,0 +1,139 @@
+/* Beneficiarios — quinta pestaña de 3.3. Diseño aislado de las cuatro vistas previas. */
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode{--ben-ink:#112c51;--ben-green:#008544;--ben-line:#dbe6ed;--ben-muted:#59718b;background:#f1f5f9!important;color:var(--ben-ink)!important;min-height:100vh}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-body{background:#f1f5f9!important;padding:9px clamp(9px,1.7vw,26px) 32px!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero{padding:12px clamp(16px,2vw,31px)!important;min-height:103px!important;background:linear-gradient(90deg,#102c46d4 0%,#183b5759 56%,#071d31b8 100%),url('../assets/img/editorial/territorio-aereo.jpg') center 53%/cover no-repeat!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero h1{font-size:clamp(27px,2.18vw,35px)!important;font-weight:850!important;color:white!important;line-height:1.12!important;text-shadow:none!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero .pa-ig-hero-main p{font-size:clamp(12px,1.08vw,16px)!important;color:#f4f9ff!important;line-height:1.3!important;text-shadow:none!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero .pa-ig-quote{color:white!important;text-shadow:0 1px 5px #0a1c2b!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero .pa-act-breadcrumb{margin-bottom:5px!important;color:#eaf3f9!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero .pa-ig-select-year{color:#fff!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero .pa-ig-select-year select{background:#fff!important;color:#102c4c!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-tabs{margin:8px 0 10px!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-tab{min-height:43px!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-tab.pa-tab--selected{background:#008446!important;color:white!important}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-tab [aria-hidden="true"] svg{width:18px;height:18px;vertical-align:middle}
+#desarrollo-accion.pa-mounted .pa-ben-dashboard{display:flex;flex-direction:column;gap:10px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-ben-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-ben-kpi{border:1px solid var(--ben-line);border-radius:8px;padding:clamp(12px,1.2vw,18px);min-height:112px;display:flex;align-items:center;gap:clamp(10px,1.3vw,19px);background:linear-gradient(105deg,#f1faf6,#e6f6ef);color:#087d43;min-width:0;box-shadow:0 2px 8px #112c510b}
+#desarrollo-accion.pa-mounted .pa-ben-kpi.pa-ben-blue{background:linear-gradient(105deg,#f1f6ff,#e5eefd);color:#0862ee}
+#desarrollo-accion.pa-mounted .pa-ben-kpi.pa-ben-petrol{background:linear-gradient(105deg,#eef8f9,#dff4f6);color:#006e85}
+#desarrollo-accion.pa-mounted .pa-ben-kpi.pa-ben-amber{background:linear-gradient(105deg,#fffaf1,#fff1db);color:#f19400}
+#desarrollo-accion.pa-mounted .pa-ben-kpi-icon{flex:0 0 clamp(46px,4vw,62px);display:flex;align-items:center;justify-content:center}
+#desarrollo-accion.pa-mounted .pa-ben-kpi-icon svg{width:clamp(39px,3.7vw,58px);height:clamp(39px,3.7vw,58px);stroke:currentColor;fill:currentColor;fill-opacity:.11}
+#desarrollo-accion.pa-mounted .pa-ben-kpi-body{min-width:0;flex:1}
+#desarrollo-accion.pa-mounted .pa-ben-kpi h3{font-weight:800!important;font-size:clamp(12px,1.04vw,16px)!important;color:#14315a!important;line-height:1.16!important;margin:0 0 3px!important}
+#desarrollo-accion.pa-mounted .pa-ben-kpi-amount{font-size:clamp(29px,2.35vw,39px);font-weight:900;line-height:1.02;color:currentColor;white-space:nowrap}
+#desarrollo-accion.pa-mounted .pa-ben-kpi p{margin:5px 0 0!important;line-height:1.2!important;font-size:clamp(10px,.88vw,12px)!important;color:#4f7290!important}
+#desarrollo-accion.pa-mounted .pa-ben-kpi-method{font-size:clamp(10px,.78vw,12px)!important;color:#6b8196!important;line-height:1.3!important;margin:-3px 1px 0!important}
+#desarrollo-accion.pa-mounted .pa-ben-mid-grid{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(0,.88fr) minmax(0,1.08fr);gap:10px;align-items:stretch}
+#desarrollo-accion.pa-mounted .pa-ben-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr) minmax(0,1.19fr);gap:10px;align-items:stretch}
+#desarrollo-accion.pa-mounted .pa-ben-card{background:#fff;border:1px solid var(--ben-line);box-shadow:0 2px 10px #173b530a;border-radius:8px;padding:12px 14px 11px;min-width:0;min-height:240px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+#desarrollo-accion.pa-mounted .pa-ben-card>h3{color:#142f54!important;font-size:clamp(14px,1.08vw,18px)!important;line-height:1.2!important;font-weight:850!important;margin:0 0 9px!important}
+#desarrollo-accion.pa-mounted .pa-ben-legend{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px 14px;margin-bottom:9px;font-size:clamp(9px,.73vw,12px);color:#2b4770;font-weight:650}
+#desarrollo-accion.pa-mounted .pa-ben-legend span{display:inline-flex;align-items:center;gap:5px}
+#desarrollo-accion.pa-mounted .pa-ben-legend i{display:inline-block;width:11px;height:11px;background:#098e56;border-radius:2px}
+#desarrollo-accion.pa-mounted .pa-ben-legend i.blue{background:#2476f2}
+#desarrollo-accion.pa-mounted .pa-ben-legend i.yellow{background:#f4b300}
+#desarrollo-accion.pa-mounted .pa-ben-monthly-graphic{position:relative;width:100%;flex:1;min-height:165px}
+#desarrollo-accion.pa-mounted .pa-ben-monthly-graphic svg{width:100%;height:100%;min-height:177px;display:block}
+#desarrollo-accion.pa-mounted .pa-ben-monthly-overlay{position:absolute;inset:12% 12% 19%;display:flex;align-items:center;justify-content:center}
+#desarrollo-accion.pa-mounted .pa-ben-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:7px;border:1px dashed #c7d6e2;background:#f8fbfebf;border-radius:8px;padding:12px;max-width:100%;min-height:90px;color:#416283}
+#desarrollo-accion.pa-mounted .pa-ben-empty>span svg{width:21px;height:21px;stroke:#42779d}
+#desarrollo-accion.pa-mounted .pa-ben-empty strong{font-size:clamp(11px,.95vw,15px);font-weight:800;color:#294b70}
+#desarrollo-accion.pa-mounted .pa-ben-empty p{color:#637e98!important;font-size:clamp(10px,.76vw,13px)!important;line-height:1.3!important;margin:0!important}
+#desarrollo-accion.pa-mounted .pa-ben-dist-layout{flex:1;display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,1.28fr);gap:10px;align-items:center}
+#desarrollo-accion.pa-mounted .pa-ben-dist-circle{height:min(16vw,182px);width:min(16vw,182px);min-height:115px;min-width:115px;max-height:175px;max-width:175px;margin:auto;border-radius:50%;background:conic-gradient(#d7e2ea 0% 100%);position:relative;display:grid;place-items:center;box-shadow:inset 0 0 2px #7890a4}
+#desarrollo-accion.pa-mounted .pa-ben-dist-circle::before{content:'';position:absolute;inset:24px;border-radius:50%;background:white}
+#desarrollo-accion.pa-mounted .pa-ben-dist-circle>span{position:relative;text-align:center;color:#18395d;font-weight:900;font-size:clamp(21px,2vw,30px);line-height:1.08}
+#desarrollo-accion.pa-mounted .pa-ben-dist-circle small{display:block;font-size:clamp(10px,.8vw,13px);font-weight:600;color:#546c83}
+#desarrollo-accion.pa-mounted .pa-ben-dist-labels{display:flex;flex-direction:column;gap:13px}
+#desarrollo-accion.pa-mounted .pa-ben-dist-line{display:grid;grid-template-columns:11px minmax(0,1fr) auto;align-items:center;gap:7px;color:#304c6d;font-size:clamp(10px,.85vw,13px);line-height:1.25}
+#desarrollo-accion.pa-mounted .pa-ben-dist-line strong{font-size:13px;color:#142e4b}
+#desarrollo-accion.pa-mounted .pa-ben-dot{width:11px;height:11px;border-radius:50%;background:#008e54}
+#desarrollo-accion.pa-mounted .pa-ben-dot.blue{background:#2476f2}
+#desarrollo-accion.pa-mounted .pa-ben-dot.petrol{background:#007186}
+#desarrollo-accion.pa-mounted .pa-ben-dot.amber{background:#ffb200}
+#desarrollo-accion.pa-mounted .pa-ben-footnote{margin-top:auto!important;padding-top:10px!important;font-size:clamp(10px,.76vw,12px)!important;color:#6d8095!important;line-height:1.4!important}
+#desarrollo-accion.pa-mounted .pa-ben-group-list{display:flex;flex-direction:column;gap:11px;padding:7px 0 0;flex:1}
+#desarrollo-accion.pa-mounted .pa-ben-group-row{display:grid;grid-template-columns:minmax(125px,.82fr) minmax(70px,1fr) 22px;gap:10px;align-items:center;font-size:clamp(10px,.8vw,13px);color:#304c71}
+#desarrollo-accion.pa-mounted .pa-ben-group-track{height:17px;background:#e4ebf2;border-radius:4px;position:relative;overflow:hidden}
+#desarrollo-accion.pa-mounted .pa-ben-group-track i{background:var(--ben-group-color);display:block;height:100%;width:0}
+#desarrollo-accion.pa-mounted .pa-ben-group-row b{text-align:right;color:#61788e;font-size:13px}
+#desarrollo-accion.pa-mounted .pa-ben-territory-scroll{max-height:226px;min-height:210px;overflow:auto;border-radius:6px;border:1px solid #dce7ee}
+#desarrollo-accion.pa-mounted .pa-ben-table{border-collapse:collapse;width:100%;min-width:310px;table-layout:fixed;font-size:clamp(11px,.87vw,13px);color:#2e4e75}
+#desarrollo-accion.pa-mounted .pa-ben-table th{background:#e2f2ed;color:#213b57;font-size:clamp(10px,.8vw,12px);font-weight:800;padding:9px 7px;text-align:left;position:sticky;top:0}
+#desarrollo-accion.pa-mounted .pa-ben-table th:nth-child(1){width:54%}
+#desarrollo-accion.pa-mounted .pa-ben-table th:nth-child(2),#desarrollo-accion.pa-mounted .pa-ben-table th:nth-child(3){text-align:right}
+#desarrollo-accion.pa-mounted .pa-ben-table td{padding:0 8px;border-top:1px solid #e1e7ed;line-height:1.3;vertical-align:middle;height:30px}
+#desarrollo-accion.pa-mounted .pa-ben-table tbody tr:nth-child(even){background:#f4f8fb}
+#desarrollo-accion.pa-mounted .pa-ben-table td:nth-child(n+2){text-align:right;color:#768aa2}
+#desarrollo-accion.pa-mounted .pa-ben-table .pa-ben-no-places{padding:22px 12px!important;color:#617892;text-align:left!important}
+#desarrollo-accion.pa-mounted .pa-ben-place-select{background:none;border:0;color:#274a68;text-align:left;padding:6px 0;display:flex;align-items:start;gap:7px;width:100%;font-size:clamp(11px,.88vw,13px);cursor:pointer}
+#desarrollo-accion.pa-mounted .pa-ben-place-select svg{width:16px;height:16px;flex:none;color:#008e4f}
+#desarrollo-accion.pa-mounted .pa-ben-place-select.selected{font-weight:850;color:#0665a4}
+#desarrollo-accion.pa-mounted .pa-ben-place-select:hover span{text-decoration:underline}
+#desarrollo-accion.pa-mounted .pa-ben-map-area{min-height:209px;flex:1;border-radius:6px;overflow:hidden;border:1px solid #c5d8d8;background:#e7f0e7}
+#desarrollo-accion.pa-mounted .pa-ben-map-area iframe{width:100%;height:100%;min-height:226px;display:block;border:0}
+#desarrollo-accion.pa-mounted .pa-ben-map-caption{display:flex;gap:7px;align-items:center;color:#446785;font-size:11px;margin-top:9px;line-height:1.3}
+#desarrollo-accion.pa-mounted .pa-ben-map-dot{display:inline-block;width:10px;height:10px;border:2px solid #128353;border-radius:50%;flex:none}
+#desarrollo-accion.pa-mounted .pa-ben-territory-selection{font-size:11px!important;line-height:1.35!important;color:#58738f!important;padding-top:5px!important}
+#desarrollo-accion.pa-mounted .pa-ben-map-link{font-size:12px;color:#1375b9;text-decoration:none;margin-top:auto;font-weight:800;text-align:right;display:block}
+#desarrollo-accion.pa-mounted .pa-ben-map-link:hover{text-decoration:underline}
+#desarrollo-accion.pa-mounted .pa-ben-testimonials-card{padding-top:12px}
+#desarrollo-accion.pa-mounted .pa-ben-view-all{position:absolute;right:12px;top:9px;border:none;background:transparent;color:#1077c5;font-weight:800;font-size:12px;cursor:pointer;padding:4px 5px}
+#desarrollo-accion.pa-mounted .pa-ben-view-all:hover{text-decoration:underline}
+#desarrollo-accion.pa-mounted .pa-ben-testimonial-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;min-height:233px;flex:1}
+#desarrollo-accion.pa-mounted .pa-ben-testimony{border:1px solid #e1e8f0;border-radius:6px;overflow:hidden;display:flex;flex-direction:column;background:#fcfdfe}
+#desarrollo-accion.pa-mounted .pa-ben-testimony-image{height:94px;background:linear-gradient(145deg,#dbe8e1,#eaf3ee);display:flex;align-items:center;justify-content:center;color:#829e93}
+#desarrollo-accion.pa-mounted .pa-ben-testimony-image svg{width:39px;height:39px;fill:#8dab9e;fill-opacity:.18}
+#desarrollo-accion.pa-mounted .pa-ben-testimony p{margin:10px 8px 5px!important;font-size:clamp(11px,.88vw,13px)!important;line-height:1.32!important;color:#365473!important;font-weight:650}
+#desarrollo-accion.pa-mounted .pa-ben-testimony small{margin:auto 8px 8px;font-size:clamp(9px,.73vw,11px);line-height:1.3;color:#71859a}
+#desarrollo-accion.pa-mounted .pa-ben-pagination{display:flex;align-items:center;justify-content:space-between;margin-top:6px;color:#7b96b1}
+#desarrollo-accion.pa-mounted .pa-ben-pagination button{width:26px;height:25px;border-radius:50%;border:1px solid #e2eaf1;background:#fff;color:#6f88a2;font-size:19px}
+#desarrollo-accion.pa-mounted .pa-ben-pagination button:disabled{opacity:.4;cursor:not-allowed}
+#desarrollo-accion.pa-mounted .pa-ben-dialog{width:min(560px,calc(100vw - 30px));max-height:80dvh;overflow:auto;margin:auto;background:white;border:1px solid #bdd0db;border-radius:10px;padding:24px;color:#143251;box-shadow:0 12px 45px #041b3290}
+#desarrollo-accion.pa-mounted .pa-ben-dialog::backdrop{background:#071b2ba8}
+#desarrollo-accion.pa-mounted .pa-ben-dialog .pa-ben-empty{min-height:190px}
+#desarrollo-accion.pa-mounted .pa-ben-modal-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+#desarrollo-accion.pa-mounted .pa-ben-modal-top h3{margin:0!important;font-size:18px!important}
+#desarrollo-accion.pa-mounted .pa-ben-modal-top button{background:#ecf2f6;color:#163b52;font-size:25px;border:1px solid #d5e1e9;border-radius:50%;width:36px;height:36px;cursor:pointer}
+#desarrollo-accion.pa-mounted .pa-ben-source{font-size:11px!important;line-height:1.45!important;color:#5e7890!important;margin:4px 2px!important}
+@media(max-width:1200px){
+ #desarrollo-accion.pa-mounted .pa-ben-stats{gap:8px}
+ #desarrollo-accion.pa-mounted .pa-ben-kpi{gap:9px;padding:12px}
+ #desarrollo-accion.pa-mounted .pa-ben-mid-grid{grid-template-columns:1.1fr .9fr}
+ #desarrollo-accion.pa-mounted .pa-ben-groups-card{grid-column:1/-1}
+ #desarrollo-accion.pa-mounted .pa-ben-group-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ #desarrollo-accion.pa-mounted .pa-ben-bottom-grid{grid-template-columns:1fr 1fr}
+ #desarrollo-accion.pa-mounted .pa-ben-testimonials-card{grid-column:1/-1}
+}
+@media(max-width:800px){
+ #desarrollo-accion.pa-mounted .pa-ben-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #desarrollo-accion.pa-mounted .pa-ben-mid-grid,#desarrollo-accion.pa-mounted .pa-ben-bottom-grid{grid-template-columns:1fr}
+ #desarrollo-accion.pa-mounted .pa-ben-groups-card,#desarrollo-accion.pa-mounted .pa-ben-testimonials-card{grid-column:auto}
+ #desarrollo-accion.pa-mounted .pa-ben-dist-circle{width:172px;height:172px}
+ #desarrollo-accion.pa-mounted .pa-ben-card{min-height:230px}
+}
+@media(max-width:520px){
+ #desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero{min-height:160px!important;padding:15px 12px!important}
+ #desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero h1{font-size:27px!important}
+ #desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-hero .pa-ig-quote{font-size:10px!important}
+ #desarrollo-accion.pa-mounted .pa-ben-stats{gap:7px}
+ #desarrollo-accion.pa-mounted .pa-ben-kpi{padding:11px 9px;min-height:104px;align-items:flex-start;gap:6px}
+ #desarrollo-accion.pa-mounted .pa-ben-kpi-icon{flex-basis:31px}
+ #desarrollo-accion.pa-mounted .pa-ben-kpi-icon svg{width:29px;height:29px}
+ #desarrollo-accion.pa-mounted .pa-ben-kpi h3{font-size:11px!important;line-height:1.16!important}
+ #desarrollo-accion.pa-mounted .pa-ben-kpi-amount{font-size:25px}
+ #desarrollo-accion.pa-mounted .pa-ben-kpi p{font-size:10px!important}
+ #desarrollo-accion.pa-mounted .pa-ben-card{padding:12px 10px}
+ #desarrollo-accion.pa-mounted .pa-ben-group-list{display:flex;flex-direction:column;gap:10px}
+ #desarrollo-accion.pa-mounted .pa-ben-monthly-overlay{inset:7% 6% 17%}
+ #desarrollo-accion.pa-mounted .pa-ben-dist-layout{grid-template-columns:125px minmax(0,1fr);gap:8px}
+ #desarrollo-accion.pa-mounted .pa-ben-dist-circle{width:115px;height:115px;min-height:115px;min-width:115px}
+ #desarrollo-accion.pa-mounted .pa-ben-dist-circle::before{inset:20px}
+ #desarrollo-accion.pa-mounted .pa-ben-testimonial-cards{gap:5px}
+ #desarrollo-accion.pa-mounted .pa-ben-testimony-image{height:78px}
+ #desarrollo-accion.pa-mounted .pa-ben-testimony p{font-size:10px!important;margin:8px 6px 4px!important}
+ #desarrollo-accion.pa-mounted .pa-ben-testimony small{font-size:9px;margin:5px 6px}
+ #desarrollo-accion.pa-mounted .pa-ben-testimonials-card .pa-ben-view-all{font-size:11px}
+}
