@@ -80,7 +80,7 @@
       </div>
     </div>`;
   };
-  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=4,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':'beneficiaries'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
+  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=5,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries')||(i===5&&state.activeTab==='budget');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':i===4?'beneficiaries':'budget'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function statusBar(m){
     const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
@@ -727,6 +727,150 @@
     const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
     return igMetaHeader(m,infoRecord())+tabMarkup(m)+benDashboard(m);
   }
+  /* Sixth functional tab: financial execution. Source data: six budget columns
+     and the recorded financial percentage for each meta in the two workbooks.
+     This view NEVER invents monthly CDP/RP/cash series or funding shares. */
+  const buYears=[2024,2025,2026,2027];
+  const buPalette=['#087be9','#11884c','#eeb20e','#aa4bcd','#ea4265'];
+  const buIcons={
+    balance:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 4 16 4 16 0V5M4 12v6c0 4 16 4 16 0v-6"/>',
+    cdp:'<path d="M5 3h14v18H5zM9 2v4m6-4v4M8 11h8m-8 4h8"/>',
+    rp:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="m7 12 3 3 7-7"/>',
+    oblig:'<path d="M6 2h9l4 4v16H6zM15 2v5h4M9 11h6m-6 4h6m-6 4h4"/>',
+    pay:'<rect x="2" y="6" width="20" height="13" rx="3"/><path d="M2 10h20M6 15h4"/>',
+    avail:'<path d="m12 3 9 5-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/>',
+    note:'<path d="M3 4h18v14H7l-4 4zM7 9h10M7 13h7"/>',
+    info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/>',
+    link:'<path d="M14 4h6v6M20 4l-9 9M20 13v7H4V4h7"/>',
+    file:'<path d="M5 2h10l4 4v16H5zM15 2v5h4M8 12h8M8 16h6"/>'
+  };
+  const buIcon=(type)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${buIcons[type]||buIcons.file}</svg>`;
+  const buCurrency=value=>isNumeric(value)?'$ '+new Intl.NumberFormat('es-CO',{maximumFractionDigits:0}).format(value):'—';
+  const buMillions=value=>isNumeric(value)?'$ '+fmtNum.format(value/1e6)+' M':'—';
+  const buNum=(v)=>isNumeric(v)?fmtNum.format(v):'—';
+  const buEntries=[
+    {name:'1. Saldo Definitivo de la Meta',short:'Saldo definitivo',icon:'balance',tone:'navy'},
+    {name:'2. Disponibilidades (CDP)',short:'Disponibilidades (CDP)',icon:'cdp',tone:'blue'},
+    {name:'3. Compromisos (RP)',short:'Compromisos (RP)',icon:'rp',tone:'green'},
+    {name:'4. Obligaciones',short:'Obligaciones',icon:'oblig',tone:'amber'},
+    {name:'5. Pagos',short:'Pagos',icon:'pay',tone:'purple'},
+    {name:'6. Saldo Disponible',short:'Saldo disponible',icon:'avail',tone:'red'}
+  ];
+  function buRecord(m){
+    const values=Array.isArray(m?.budget)?Array.from({length:6},(_,i)=>isNumeric(m.budget[i])?m.budget[i]:null):Array(6).fill(null);
+    const def=values[0];
+    const rel=values.map((v,i)=>isNumeric(def)&&def>0&&isNumeric(v)?v/def:null);
+    const official=isNumeric(m?.budgetPct)?m.budgetPct:null;
+    const basedOnRP=isNumeric(def)&&def>0&&isNumeric(values[2])?values[2]/def:null;
+    const diff=official!==null&&basedOnRP!==null?Math.abs(official-basedOnRP):null;
+    const noResource=m?.budgetPctRaw==='SIN RECURSO'||(isNumeric(def)&&def===0);
+    return {values,rel,official,basedOnRP,diff,noResource};
+  }
+  const buRatioLabel=(v)=>isNumeric(v)?fmtNum.format(v*100)+'%':'—';
+  const buSafeFill=(ratio)=>isNumeric(ratio)?Math.max(0,Math.min(100,ratio*100)) : 0;
+  function buHero(){
+    const years=buYears.map(y=>`<option value="${y}"${String(y)===state.year?' selected':''}>${y}</option>`).join('');
+    return `<header class="pa-ig-hero pa-act-hero pa-bu-hero"><div class="pa-ig-hero-main"><nav class="pa-act-breadcrumb" aria-label="Ruta del módulo"><span>Inicio</span><span>Metas</span><span>Meta ${state.current}</span><strong>Ejecución Presupuestal</strong></nav><h1>Ejecución Presupuestal de la Meta</h1><p>Consulta el estado de los recursos asignados y su ejecución en el marco del plan de acción.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">“Transparencia<br>en la inversión,<br>bienestar para nuestra gente”</div><label class="pa-ig-select-year">Año de seguimiento<select id="pa-bu-year-select" aria-label="Año de seguimiento">${years}</select></label></div></header>`;
+  }
+  function buPanel(title,body,extra=''){
+    return `<section class="pa-bu-panel ${extra}"><h3>${html(title)}</h3>${body}</section>`;
+  }
+  function buCards(m,r){
+    return `<section class="pa-bu-six" aria-label="Seis etapas presupuestales">${buEntries.map((k,i)=>{
+      const v=r.values[i],rto=r.rel[i];
+      return `<article class="pa-bu-stage pa-bu-${k.tone}" title="${html(k.name)} · ${buCurrency(v)} · Fuente: Plan de Acción ${state.year}"><span class="pa-bu-stage-icon">${buIcon(k.icon)}</span><div class="pa-bu-stage-text"><strong class="pa-bu-stage-heading">${html(k.name)}</strong><span class="pa-bu-stage-amount">${buCurrency(v)}</span>${i===0?`<small>${isNumeric(v)?'Apropiación registrada en el archivo':'No hay valor registrado'}</small>`:`<div class="pa-bu-stage-progress"><b>${buRatioLabel(rto)}</b><span class="pa-bu-track"><i style="width:${buSafeFill(rto)}%"></i></span></div>`}</div></article>`;
+    }).join('')}</section>`;
+  }
+  function buDonut(m,r){
+    const value=r.official;
+    const hasValue=isNumeric(value)&&!r.noResource;
+    const percent=hasValue?Math.max(0,Math.min(100,value*100)):0;
+    const remaining=isNumeric(r.values[0])&&isNumeric(r.values[2])?Math.max(0,r.values[0]-r.values[2]):null;
+    const method=r.diff!==null&&r.diff>.005?`El porcentaje consignado en el archivo no coincide con RP / saldo definitivo. Diferencia: ${fmtNum.format(r.diff*100)} puntos porcentuales.`:'Porcentaje registrado en el Excel: compromisos RP / saldo definitivo. No equivale al porcentaje pagado.';
+    return buPanel('Porcentaje de Ejecución Presupuestal',`<div class="pa-bu-donut-layout"><div class="pa-bu-ring" role="img" aria-label="${hasValue?buRatioLabel(value):'No disponible'} de ejecución presupuestal reportada" style="--bu-progress:${percent}%"><div class="pa-bu-ring-label"><strong>${hasValue?buRatioLabel(value):'—'}</strong><span>Ejecución<br>presupuestal</span></div></div><div class="pa-bu-donut-key"><div><i class="pa-bu-key-dot green"></i>Comprometido (RP)</div><div><i class="pa-bu-key-dot gray"></i>Sin comprometer</div></div><div class="pa-bu-donut-amounts"><div><strong>${buCurrency(r.values[2])}</strong><small>Compromisos (RP)</small></div><div><strong>${buCurrency(remaining)}</strong><small>Diferencia saldo definitivo − RP</small></div></div></div><p class="pa-bu-clarification">${html(method)} ${state.year==='2026'?'Corte: segundo trimestre de 2026.':''}</p>`,'pa-bu-budget-percent');
+  }
+  function buExpenses(m,r){
+    const def=r.values[0],rp=r.values[2];
+    const valid=isNumeric(def)&&def>0&&isNumeric(rp);
+    let bars='';
+    if(valid){
+      const W=400,H=182,L=42,B=32,T=12,barH=H-T-B,max=def*1.12;
+      const y=v=>T+barH-(v/max)*barH;
+      const lines=[0,.25,.5,.75,1].map(q=>{const yy=y(def*q);return `<line x1="${L}" y1="${yy}" x2="${W-12}" y2="${yy}" stroke="#d9e5ee"/><text x="${L-6}" y="${yy+3}" text-anchor="end" font-size="10" fill="#55708c">${fmtNum.format(def*q/1e6)} M</text>`;}).join('');
+      bars=`<div class="pa-bu-bar-key"><span><i class="green"></i>Asignado</span><span><i class="blue"></i>Comprometido (RP)</span></div><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Comparación del saldo definitivo y el registro presupuestal de la meta"><g>${lines}</g><rect x="125" y="${y(def)}" width="64" height="${barH*def/max}" fill="#24a45d" rx="3"><title>Saldo definitivo: ${buCurrency(def)}</title></rect><rect x="219" y="${y(rp)}" width="64" height="${barH*rp/max}" fill="#328bed" rx="3"><title>Compromisos (RP): ${buCurrency(rp)}</title></rect><text x="204" y="${H-10}" text-anchor="middle" font-size="12" fill="#1c385c">Total de la meta · ${state.year}</text></svg>`;
+    } else bars='<div class="pa-bu-graph-empty">No hay importes compatibles para comparar la apropiación y los compromisos.</div>';
+    return buPanel('Ejecución por Tipo de Gasto',`<div class="pa-bu-chart-zone">${bars}</div><p class="pa-bu-clarification"><strong>Comparación total de la meta.</strong> Los Excel no identifican una desagregación financiera verificable por Funcionamiento, Inversión y Transferencias. No se construye una distribución ficticia.</p>`,'pa-bu-expenses');
+  }
+  function buMonthly(m,r){
+    const data=[{label:'CDP',amount:r.values[1],class:'blue'},{label:'Compromisos (RP)',amount:r.values[2],class:'green'},{label:'Obligaciones',amount:r.values[3],class:'amber'},{label:'Pagos',amount:r.values[4],class:'purple'}];
+    const scale=Math.max(1,...data.map(a=>a.amount||0));
+    return buPanel('Evolución de la Ejecución Presupuestal '+state.year,`<div class="pa-bu-month-legend">${data.map(s=>`<span><i class="${s.class}"></i>${html(s.label)}</span>`).join('')}</div><div class="pa-bu-month-axis" aria-hidden="true">${months.map((m,i)=>`<span${state.year==='2026'&&i>=6?' class="future"':''}>${m}</span>`).join('')}</div><div class="pa-bu-reported"><div class="pa-bu-reported-title">Valores registrados al corte · ${state.year}</div>${data.map(s=>`<div class="pa-bu-reported-row" title="${html(s.label)}: ${buCurrency(s.amount)}"><span>${html(s.label)}</span><div class="pa-bu-reported-track"><i class="${s.class}" style="width:${isNumeric(s.amount)?Math.max(0,100*s.amount/scale):0}%"></i></div><strong>${buMillions(s.amount)}</strong></div>`).join('')}</div><p class="pa-bu-clarification">No existe serie financiera mensual de CDP, RP, obligaciones y pagos en los archivos. Estas barras representan <strong>totales del corte</strong>, no importes por mes. ${state.year==='2026'?'Solo se dispone del segundo trimestre.':''}</p>`,'pa-bu-monthly');
+  }
+  function buTable(m,r){
+    const table=`<div class="pa-bu-table-scroll"><table class="pa-bu-table"><thead><tr><th>Concepto</th><th>Valor</th><th>% del saldo definitivo</th><th>Estado del dato</th></tr></thead><tbody>${buEntries.map((e,i)=>{
+      const v=r.values[i],pctValue=r.rel[i];
+      const meaningful=isNumeric(v)&&isNumeric(r.values[0])&&r.values[0]>0;
+      const flag=meaningful?'Registrado':isNumeric(v)?'Sin base porcentual':'Sin dato';
+      return `<tr><td>${html(e.name)}</td><td>${buCurrency(v)}</td><td>${buRatioLabel(pctValue)}</td><td><span class="pa-bu-data-state ${meaningful?'known':'unknown'}">${meaningful?'●':'○'} ${html(flag)}</span></td></tr>`;
+    }).join('')}</tbody></table></div><p class="pa-bu-clarification">El estado indica disponibilidad del registro, no una evaluación de cumplimiento. La clasificación financiera no se infiere por el color de los saldos.</p>`;
+    return buPanel('Detalle de la Ejecución Presupuestal',table,'pa-bu-table-panel');
+  }
+  function buWaterfall(m,r){
+    const [def,cdp,rp,obl,pay,free]=r.values;
+    const ordered=[def,cdp,rp,obl,pay].every(isNumeric)&&def>0&&def>=cdp-0.01&&cdp>=rp-0.01&&rp>=obl-0.01&&obl>=pay-0.01;
+    if(!ordered){
+      return buPanel('Trazabilidad del Recurso',`<div class="pa-bu-graph-empty">Los valores disponibles no permiten construir una cascada financiera conciliable para esta meta.</div><p class="pa-bu-clarification">Se conservan los importes originales en la tabla. No se calculan saldos con conceptos incompatibles.</p>`,'pa-bu-waterfall');
+    }
+    const vals=[def,def-cdp,cdp-rp,rp-obl,obl-pay,pay];
+    const heads=['Saldo\ndefinitivo','Sin CDP','Sin RP','Sin obligación','Pendiente\nde pago','Pagos'];
+    const W=610,H=254,L=22,R=16,T=36,B=60,ht=H-T-B,gap=(W-L-R)/6,bw=44;
+    const y=value=>T+ht-(value/def)*ht;
+    const rects=[];let top=def;
+    vals.forEach((v,i)=>{
+      const cx=L+gap*(i+.5),zero=i===0?0:i===5?0:top-v;
+      const y1=y(i===0?def:i===5?v:top),y2=y(i===0?0:i===5?0:zero);
+      const h=Math.max(1,Math.abs(y2-y1));
+      const fill=i===0?'#22a15c':i===5?'#258bed':'#e95c5d';
+      rects.push(`<rect x="${cx-bw/2}" y="${Math.min(y1,y2)}" width="${bw}" height="${h}" rx="2" fill="${fill}"><title>${heads[i].replace(/\n/g,' ')}: ${buCurrency(v)}</title></rect><text x="${cx}" y="${Math.max(13,Math.min(y1,y2)-5)}" text-anchor="middle" font-size="10" font-weight="700" fill="#194066">${i===0||i===5?buMillions(v):'− '+buMillions(v)}</text>${heads[i].split('\n').map((line,j)=>`<text x="${cx}" y="${H-B+20+j*12}" text-anchor="middle" font-size="10" fill="#2d4c70">${line}</text>`).join('')}`);
+      if(i>0&&i<5)top=zero;
+    });
+    const ledger=`<div class="pa-bu-trace-legend"><span><i></i>Saldo inicial</span><span><i></i>Diferencias entre etapas</span><span><i></i>Pagos</span></div>`;
+    const availability=isNumeric(free)?`<div class="pa-bu-free-badge">Saldo disponible reportado: <strong>${buCurrency(free)}</strong>${isNumeric(def)&&isNumeric(cdp)&&Math.abs((def-cdp)-free)>1?'<span> · Difiere de saldo definitivo menos CDP</span>':''}</div>`:'';
+    return buPanel('Trazabilidad del Recurso',`${ledger}<div class="pa-bu-waterfall-chart"><svg role="img" aria-label="Cascada conciliable de apropiación, etapas y pagos" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><line x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}" stroke="#bacbd9"/>${rects.join('')}</svg></div>${availability}<p class="pa-bu-clarification">Cascada conciliada hasta <strong>Pagos</strong>: las deducciones son diferencias entre etapas consecutivas. El saldo disponible se reporta por separado porque corresponde a otro concepto.</p>`,'pa-bu-waterfall');
+  }
+  function buFunding(m,r){
+    return buPanel('Fuentes de Financiación',`<div class="pa-bu-funding-layout"><div class="pa-bu-funding-ring" role="img" aria-label="Sin distribución presupuestal verificable por fuentes"><div><strong>—</strong><small>Sin desglose<br>por fuentes</small></div></div><div class="pa-bu-funding-legend"><div><i class="green"></i>Recursos propios <span>—</span></div><div><i class="blue"></i>SGP <span>—</span></div><div><i class="amber"></i>Cofinanciación <span>—</span></div><div><i class="purple"></i>Otras fuentes <span>—</span></div></div></div><p class="pa-bu-clarification">Los archivos de Plan de Acción no desagregan recursos por estas fuentes para cada meta. No se estiman porcentajes.</p>`,'pa-bu-funding');
+  }
+  function buDocs(m){
+    const keys=[['CDP','cdp'],['Registro presupuestal','rp'],['Obligaciones','oblig'],['Pagos','pay']];
+    const links=igDocuments(m).filter(x=>!!safeLink(x.url));
+    const htmlDocs=keys.map(([name,key])=>`<div class="pa-bu-document"><span class="pa-bu-doc-symbol ${key}">${buIcon('file')}</span><span><strong>${name}</strong><small>Documento presupuestal no identificado</small></span><span class="pa-bu-doc-unavailable" aria-label="Sin archivo verificado">—</span></div>`).join('');
+    const references=links.length?`<div class="pa-bu-support-references"><strong>Enlaces de soporte registrados (sin certificación de carácter presupuestal):</strong>${links.slice(0,3).map(x=>`<a href="${html(safeLink(x.url))}" target="_blank" rel="noopener noreferrer">${html(x.title)} ↗</a>`).join('')}${links.length>3?`<button type="button" data-pa-bu-docs>Ver los ${links.length} enlaces registrados →</button>`:''}</div>`:'<div class="pa-bu-support-references">El Excel no contiene enlaces de soporte para esta meta.</div>';
+    const dialog=links.length>3?`<dialog id="pa-bu-doc-dialog" class="pa-bu-dialog" aria-label="Enlaces de soporte registrados para esta meta"><header><h3>Enlaces registrados · Meta ${m.id}</h3><button type="button" data-pa-bu-docs-close aria-label="Cerrar">×</button></header>${links.map(x=>`<a href="${html(safeLink(x.url))}" target="_blank" rel="noopener noreferrer">${html(x.title)} ↗</a>`).join('')}</dialog>`:'';
+    return buPanel('Documentos Presupuestales',`<div class="pa-bu-document-list">${htmlDocs}</div>${references}${dialog}`,'pa-bu-docs');
+  }
+  function buObservations(m){
+    const note=String(m?.notes||'').trim();
+    const match=/(presupuest|\bcdp\b|\bRP\b|financiaci[oó]n|financiero|saldo disponible|recursos? (?:asignados?|comprometidos?|pendientes?|gestionados?|faltantes?)|obligaciones?|\bpagos?\b)/i.test(note);
+    const phrase=match?`<strong>Observación consignada en el archivo:</strong><br>${html(note)}`:'Sin observaciones presupuestales específicas registradas para esta meta y vigencia.';
+    return buPanel('Observaciones',`<div class="pa-bu-observation-box"><span>${buIcon('note')}</span><p>${phrase}</p></div><p class="pa-bu-clarification">Las observaciones operativas generales no se presentan como hallazgos financieros.</p>`,'pa-bu-observations');
+  }
+  function buMethodDialog(m,r){
+    const ratio=isNumeric(r.values[0])&&r.values[0]>0&&isNumeric(r.values[2])?buRatioLabel(r.values[2]/r.values[0]):'No calculable';
+    return `<dialog class="pa-bu-dialog" id="pa-bu-method-dialog" aria-labelledby="pa-bu-method-title"><header><h3 id="pa-bu-method-title">Metodología y procedencia · Meta ${m.id} · ${state.year}</h3><button type="button" data-pa-bu-method-close aria-label="Cerrar">×</button></header><p><strong>Fuente:</strong> ${html(currentYear()?.source||'Plan de Acción')}. Se utilizan una sola vez los seis valores de presupuesto registrados por meta, sin repetir los importes de cada actividad.</p><p><strong>Porcentaje:</strong> en estos archivos coincide con Compromisos (RP) / Saldo definitivo. Cálculo de contraste: ${ratio}. Porcentaje reportado: ${buRatioLabel(r.official)}.</p><p><strong>CDP, RP, obligaciones y pagos:</strong> etapas financieras distintas. El saldo disponible se toma del campo oficial; no se obtiene restando pagos.</p><p><strong>Desagregaciones:</strong> no se registran series mensuales de ejecución, composición por tipo de gasto ni participaciones por fuentes de financiación a nivel de meta.</p><p><strong>Corte:</strong> ${state.year==='2026'?'segundo trimestre de 2026':'archivo de vigencia 2025, sin fecha individual de actualización por meta'}.</p></dialog>`;
+  }
+  function buDashboard(m){
+    const r=buRecord(m);
+    return `<div class="pa-bu-dashboard">${buCards(m,r)}<div class="pa-bu-top-grid">${buDonut(m,r)}${buExpenses(m,r)}${buMonthly(m,r)}</div><div class="pa-bu-middle-grid">${buTable(m,r)}${buWaterfall(m,r)}${buFunding(m,r)}</div><div class="pa-bu-bottom-grid">${buDocs(m)}${buObservations(m)}</div><div class="pa-bu-source"><span>Datos presupuestales reportados en el Plan de Acción ${state.year}${state.year==='2026'?' · Segundo trimestre':''}.</span><button type="button" data-pa-bu-method aria-haspopup="dialog" aria-controls="pa-bu-method-dialog">${buIcon('info')} Consultar metodología de los cálculos</button></div>${buMethodDialog(m,r)}</div>`;
+  }
+  function buResults(){
+    if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando Ejecución Presupuestal…</h2></div>';
+    if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>No fue posible cargar el presupuesto</h2><p>${html(state.error)}</p><button type="button" data-pa-reload>Reintentar</button></div>`;
+    if(state.list)return listMarkup();
+    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty" role="status"><h2>Información presupuestal no disponible para ${state.year}</h2><p>Se conservan los buscadores y la navegación. No se ha recibido el Plan de Acción de esta vigencia.</p></div>`;
+    const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+buDashboard(m);
+  }
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
@@ -736,6 +880,7 @@
     return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
   }
   function pageMarkup(){
+    if(state.activeTab==='budget')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-budget-mode">${buHero()}<section class="pa-body pa-ig-body" aria-label="Ejecución Presupuestal para ${state.year}"><div class="pa-content" id="pa-content">${buResults()}</div></section></div>`;
     if(state.activeTab==='beneficiaries')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-beneficiaries-mode">${benHero()}<section class="pa-body pa-ig-body" aria-label="Beneficiarios de la meta para ${state.year}"><div class="pa-content" id="pa-content">${benResults()}</div></section></div>`;
     if(state.activeTab==='physical')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-physical-mode">${physicalHero()}<section class="pa-body pa-ig-body" aria-label="Avance f\u00edsico para ${state.year}"><div class="pa-content" id="pa-content">${physicalResults()}</div></section></div>`;
     if(state.activeTab==='activities')return `<div class="pa-shell pa-general-mode pa-activities-mode">${actHero()}<section class="pa-body pa-ig-body" aria-label="Actividades para ${state.year}"><div class="pa-content" id="pa-content">${actResults()}</div></section></div>`;
@@ -762,12 +907,16 @@
     if(ev.target.id==='pa-act-compare-unit'){state.activityCompareUnit=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.id==='pa-ph-filter-status'){state.physicalFilters.status=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.id==='pa-ph-filter-activity'){state.physicalFilters.activity=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
-    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select'].includes(ev.target.id))return;
+    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select'].includes(ev.target.id))return;
     state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;refresh();
   });
   panel.addEventListener('click',ev=>{
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries','budget'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(ev.target.closest('[data-pa-bu-method]')){panel.querySelector('#pa-bu-method-dialog')?.showModal();return;}
+    if(ev.target.closest('[data-pa-bu-method-close]')){panel.querySelector('#pa-bu-method-dialog')?.close();return;}
+    if(ev.target.closest('[data-pa-bu-docs]')){panel.querySelector('#pa-bu-doc-dialog')?.showModal();return;}
+    if(ev.target.closest('[data-pa-bu-docs-close]')){panel.querySelector('#pa-bu-doc-dialog')?.close();return;}
     if(ev.target.closest('[data-pa-ben-testimony-all]')){panel.querySelector('#pa-ben-testimonials-dialog')?.showModal();return;}
     if(ev.target.closest('[data-pa-ben-testimony-close]')){panel.querySelector('#pa-ben-testimonials-dialog')?.close();return;}
     const benPlace=ev.target.closest('[data-pa-ben-place]');
@@ -847,6 +996,6 @@
       await loadActivityExtras();
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
   }
-  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog'))dialog.close();});
+  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog'))dialog.close();});
   load();
 })();

@@ -1,0 +1,176 @@
+/* Sixth tab ONLY. Match the reference financial dashboard without fabricated amounts. */
+#desarrollo-accion.pa-mounted .pa-budget-mode{background:#f6f8fa!important;color:#102b50!important}
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-ig-hero{min-height:130px!important}
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-ig-hero-main h1{font-size:clamp(23px,2.05vw,34px)!important;line-height:1.06!important}
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-ig-hero-main p{font-size:clamp(12px,1.06vw,16px)!important}
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-ig-meta{margin:3px 0 7px!important}
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-tabs{margin:6px 0 9px!important}
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-tab{font-size:clamp(11px,.87vw,14px)!important}
+#desarrollo-accion.pa-mounted .pa-bu-dashboard{display:flex;flex-direction:column;gap:10px;width:100%;min-width:0;padding-bottom:18px;color:#133258;font-family:Arial,Helvetica,sans-serif}
+#desarrollo-accion.pa-mounted .pa-bu-six{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-bu-stage{display:flex;align-items:center;gap:8px;min-width:0;min-height:100px;padding:10px 11px 10px 10px;border:1px solid #e1e8ef;border-radius:8px;background:linear-gradient(120deg,#fff,#f4f7fb);box-shadow:0 1px 7px #1c395912}
+#desarrollo-accion.pa-mounted .pa-bu-stage-icon{display:grid;place-items:center;flex:0 0 43px;width:43px;height:46px;border-radius:7px;background:#e8f1ff;color:#087bf3}
+#desarrollo-accion.pa-mounted .pa-bu-stage-icon svg{width:29px;height:29px}
+#desarrollo-accion.pa-mounted .pa-bu-stage-text{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+#desarrollo-accion.pa-mounted .pa-bu-stage-heading{font-size:clamp(10px,.77vw,12px);font-weight:850;line-height:1.2;color:#163660;min-height:25px}
+#desarrollo-accion.pa-mounted .pa-bu-stage-amount{font-size:clamp(15px,1.26vw,21px);font-weight:900;line-height:1.15;letter-spacing:-.03em;color:#0e2850;white-space:nowrap;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+#desarrollo-accion.pa-mounted .pa-bu-stage small{color:#59748e;font-size:10px;line-height:1.1}
+#desarrollo-accion.pa-mounted .pa-bu-stage-progress{display:flex;align-items:center;gap:6px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-bu-stage-progress b{font-size:clamp(12px,1.11vw,17px);font-weight:850;min-width:34px;color:#1368d9}
+#desarrollo-accion.pa-mounted .pa-bu-track{display:block;flex:1;min-width:22px;height:14px;background:#d8e2eb;border-radius:4px;overflow:hidden}
+#desarrollo-accion.pa-mounted .pa-bu-track i{display:block;height:100%;background:linear-gradient(90deg,#1784f3,#0066dd);border-radius:4px}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-green .pa-bu-stage-icon{background:#e2f7ed;color:#159a64}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-green .pa-bu-stage-progress b{color:#138c48}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-green .pa-bu-track i{background:#1baa61}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-amber .pa-bu-stage-icon{background:#fff4d9;color:#f5a900}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-amber .pa-bu-stage-progress b{color:#de9900}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-amber .pa-bu-track i{background:#ffb90c}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-purple .pa-bu-stage-icon{background:#f5e4ff;color:#a83cce}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-purple .pa-bu-stage-progress b{color:#9d2ec6}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-purple .pa-bu-track i{background:#b74bdc}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-red .pa-bu-stage-icon{background:#ffeaf0;color:#e93f69}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-red .pa-bu-stage-progress b{color:#e0315b}
+#desarrollo-accion.pa-mounted .pa-bu-stage.pa-bu-red .pa-bu-track i{background:#f04e75}
+#desarrollo-accion.pa-mounted .pa-bu-top-grid{display:grid;grid-template-columns:1.05fr .97fr 1.18fr;gap:9px;min-width:0;align-items:stretch}
+#desarrollo-accion.pa-mounted .pa-bu-middle-grid{display:grid;grid-template-columns:1.26fr 1.12fr .81fr;gap:9px;min-width:0;align-items:stretch}
+#desarrollo-accion.pa-mounted .pa-bu-bottom-grid{display:grid;grid-template-columns:1fr .98fr;gap:9px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-bu-panel{position:relative;min-width:0;background:#fff;border:1px solid #e0e8ef;border-radius:8px;padding:13px 14px 12px;box-shadow:0 2px 8px #122e450b;display:flex;flex-direction:column;gap:9px;overflow:hidden}
+#desarrollo-accion.pa-mounted .pa-bu-panel>h3{font-size:clamp(15px,1.13vw,19px)!important;font-weight:850!important;color:#12315a!important;line-height:1.14;margin:0!important}
+#desarrollo-accion.pa-mounted .pa-bu-clarification{font-size:clamp(10px,.76vw,12px)!important;line-height:1.34!important;color:#678098!important;margin:4px 0 0!important;font-weight:500!important}
+#desarrollo-accion.pa-mounted .pa-bu-budget-percent,#desarrollo-accion.pa-mounted .pa-bu-expenses,#desarrollo-accion.pa-mounted .pa-bu-monthly{min-height:276px}
+#desarrollo-accion.pa-mounted .pa-bu-donut-layout{display:grid;grid-template-columns:minmax(115px,1.2fr) minmax(90px,.71fr) minmax(110px,.94fr);gap:10px;align-items:center;flex:1}
+#desarrollo-accion.pa-mounted .pa-bu-ring{height:auto;aspect-ratio:1;width:100%;max-width:200px;display:grid;place-items:center;justify-self:center;border-radius:50%;background:conic-gradient(#098841 var(--bu-progress),#d3dbe3 0);padding:clamp(13px,1.3vw,22px)}
+#desarrollo-accion.pa-mounted .pa-bu-ring-label{width:100%;height:100%;background:#fff;border-radius:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:4px;color:#085c3e}
+#desarrollo-accion.pa-mounted .pa-bu-ring-label strong{font-size:clamp(23px,2.4vw,38px);font-weight:950;line-height:1}
+#desarrollo-accion.pa-mounted .pa-bu-ring-label span{font-size:clamp(9px,.79vw,12px);font-weight:750;line-height:1.25;color:#39557c}
+#desarrollo-accion.pa-mounted .pa-bu-donut-key{display:flex;flex-direction:column;gap:10px;font-size:clamp(10px,.77vw,13px);font-weight:700;line-height:1.23}
+#desarrollo-accion.pa-mounted .pa-bu-donut-key div{display:flex;align-items:start;gap:5px}
+#desarrollo-accion.pa-mounted .pa-bu-key-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none;margin-top:1px}
+#desarrollo-accion.pa-mounted .pa-bu-key-dot.green{background:#179952}
+#desarrollo-accion.pa-mounted .pa-bu-key-dot.gray{background:#cfd8e2}
+#desarrollo-accion.pa-mounted .pa-bu-donut-amounts{display:flex;flex-direction:column;gap:15px;border-left:1px solid #e0e8f0;padding-left:10px}
+#desarrollo-accion.pa-mounted .pa-bu-donut-amounts div{display:flex;flex-direction:column;gap:2px}
+#desarrollo-accion.pa-mounted .pa-bu-donut-amounts strong{font-size:clamp(14px,1.2vw,19px);line-height:1.1;color:#087e4c;font-weight:850;white-space:nowrap}
+#desarrollo-accion.pa-mounted .pa-bu-donut-amounts div+div strong{color:#193c65}
+#desarrollo-accion.pa-mounted .pa-bu-donut-amounts small{font-size:10px;color:#4d7092;line-height:1.26}
+#desarrollo-accion.pa-mounted .pa-bu-chart-zone{flex:1;display:flex;justify-content:center;align-items:center;min-height:177px}
+#desarrollo-accion.pa-mounted .pa-bu-chart-zone svg{width:100%;height:auto;max-height:187px;display:block}
+#desarrollo-accion.pa-mounted .pa-bu-bar-key,#desarrollo-accion.pa-mounted .pa-bu-month-legend{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;font-size:11px;color:#496585;font-weight:750}
+#desarrollo-accion.pa-mounted .pa-bu-bar-key i,#desarrollo-accion.pa-mounted .pa-bu-month-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:middle;background:#24a45d}
+#desarrollo-accion.pa-mounted .pa-bu-bar-key i.blue,#desarrollo-accion.pa-mounted .pa-bu-month-legend i.blue{background:#298cf3}
+#desarrollo-accion.pa-mounted .pa-bu-bar-key i.green,#desarrollo-accion.pa-mounted .pa-bu-month-legend i.green{background:#198451}
+#desarrollo-accion.pa-mounted .pa-bu-month-legend i.amber{background:#f5bb0e}
+#desarrollo-accion.pa-mounted .pa-bu-month-legend i.purple{background:#a644d3}
+#desarrollo-accion.pa-mounted .pa-bu-month-axis{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px;padding-top:12px;padding-bottom:4px;border-bottom:1px solid #dbe7f0;color:#8aa2b9;font-size:clamp(9px,.62vw,11px);text-align:center}
+#desarrollo-accion.pa-mounted .pa-bu-month-axis span.future{opacity:.45}
+#desarrollo-accion.pa-mounted .pa-bu-reported{display:flex;flex-direction:column;gap:8px;justify-content:center;flex:1;min-height:146px}
+#desarrollo-accion.pa-mounted .pa-bu-reported-title{text-align:center;color:#44688b;font-size:11px;font-weight:750}
+#desarrollo-accion.pa-mounted .pa-bu-reported-row{display:grid;grid-template-columns:95px minmax(20px,1fr) 85px;align-items:center;gap:9px;font-size:10px;color:#28466a;font-weight:700}
+#desarrollo-accion.pa-mounted .pa-bu-reported-row strong{text-align:right;white-space:nowrap}
+#desarrollo-accion.pa-mounted .pa-bu-reported-track{height:12px;border-radius:4px;overflow:hidden;background:#ebf0f5}
+#desarrollo-accion.pa-mounted .pa-bu-reported-track i{display:block;height:100%;border-radius:4px;background:#2189eb}
+#desarrollo-accion.pa-mounted .pa-bu-reported-track i.green{background:#17834b}
+#desarrollo-accion.pa-mounted .pa-bu-reported-track i.amber{background:#f5ad0b}
+#desarrollo-accion.pa-mounted .pa-bu-reported-track i.purple{background:#aa43d0}
+#desarrollo-accion.pa-mounted .pa-bu-table-scroll{overflow-x:auto;flex:1}
+#desarrollo-accion.pa-mounted .pa-bu-table{width:100%;border-collapse:collapse;min-width:430px;font-size:clamp(10px,.76vw,13px);line-height:1.2;color:#244366}
+#desarrollo-accion.pa-mounted .pa-bu-table th{background:#dfefe9;color:#173957;font-size:clamp(10px,.77vw,12px);font-weight:850;text-align:left;border:1px solid #d4e2e7;padding:9px 7px}
+#desarrollo-accion.pa-mounted .pa-bu-table td{border:1px solid #e4ebf0;padding:9px 7px}
+#desarrollo-accion.pa-mounted .pa-bu-table tr:nth-child(even){background:#f7fafc}
+#desarrollo-accion.pa-mounted .pa-bu-table td:nth-child(2),#desarrollo-accion.pa-mounted .pa-bu-table td:nth-child(3){font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+#desarrollo-accion.pa-mounted .pa-bu-table td:first-child{min-width:140px}
+#desarrollo-accion.pa-mounted .pa-bu-data-state{display:inline-block;padding:3px 5px;border-radius:5px;white-space:nowrap;font-weight:700;font-size:10px}
+#desarrollo-accion.pa-mounted .pa-bu-data-state.known{background:#e7f6ec;color:#11714b}
+#desarrollo-accion.pa-mounted .pa-bu-data-state.unknown{background:#e9eff4;color:#586d83}
+#desarrollo-accion.pa-mounted .pa-bu-graph-empty{min-height:155px;display:grid;place-items:center;text-align:center;padding:20px;background:#f4f8fb;border:1px dashed #cad8e5;border-radius:7px;color:#59718a;line-height:1.45;font-size:13px}
+#desarrollo-accion.pa-mounted .pa-bu-waterfall-chart{min-height:180px;display:flex;align-items:center;justify-content:center;flex:1}
+#desarrollo-accion.pa-mounted .pa-bu-waterfall-chart svg{width:100%;max-height:240px}
+#desarrollo-accion.pa-mounted .pa-bu-trace-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;font-weight:750;color:#54708a}
+#desarrollo-accion.pa-mounted .pa-bu-trace-legend span{display:inline-flex;align-items:center;gap:4px}
+#desarrollo-accion.pa-mounted .pa-bu-trace-legend i{width:11px;height:11px;background:#24a45d;border-radius:2px}
+#desarrollo-accion.pa-mounted .pa-bu-trace-legend span:nth-child(2) i{background:#ee6262}
+#desarrollo-accion.pa-mounted .pa-bu-trace-legend span:nth-child(3) i{background:#258bed}
+#desarrollo-accion.pa-mounted .pa-bu-free-badge{padding:6px 10px;background:#ebf4fd;color:#1c5d99;border-radius:5px;font-size:11px;font-weight:650}
+#desarrollo-accion.pa-mounted .pa-bu-funding-layout{display:grid;grid-template-columns:minmax(95px,1fr) minmax(110px,1.1fr);gap:10px;align-items:center;justify-items:center;flex:1}
+#desarrollo-accion.pa-mounted .pa-bu-funding-ring{width:100%;max-width:166px;aspect-ratio:1;border-radius:50%;background:conic-gradient(#d6e0ea 0 25%,#e4ebf2 25% 50%,#d6e0ea 50% 75%,#e4ebf2 75%);padding:19px;display:grid;place-items:center}
+#desarrollo-accion.pa-mounted .pa-bu-funding-ring>div{width:100%;height:100%;background:#fff;border-radius:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+#desarrollo-accion.pa-mounted .pa-bu-funding-ring strong{font-size:35px;font-weight:900;color:#6e8297}
+#desarrollo-accion.pa-mounted .pa-bu-funding-ring small{text-align:center;color:#5a728b;font-size:11px;line-height:1.2}
+#desarrollo-accion.pa-mounted .pa-bu-funding-legend{width:100%;display:flex;flex-direction:column;gap:11px;font-size:clamp(10px,.8vw,12px);color:#2d4f75;font-weight:750}
+#desarrollo-accion.pa-mounted .pa-bu-funding-legend>div{display:flex;align-items:center;gap:7px;white-space:nowrap}
+#desarrollo-accion.pa-mounted .pa-bu-funding-legend i{width:11px;height:11px;flex:none;border-radius:50%;background:#13934f}
+#desarrollo-accion.pa-mounted .pa-bu-funding-legend i.blue{background:#1689e9}
+#desarrollo-accion.pa-mounted .pa-bu-funding-legend i.amber{background:#eeb900}
+#desarrollo-accion.pa-mounted .pa-bu-funding-legend i.purple{background:#a341d6}
+#desarrollo-accion.pa-mounted .pa-bu-funding-legend span{margin-left:auto}
+#desarrollo-accion.pa-mounted .pa-bu-document-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#desarrollo-accion.pa-mounted .pa-bu-document{display:flex;align-items:center;gap:6px;border:1px solid #dce6f0;border-radius:7px;background:linear-gradient(150deg,#fff,#f6f9fc);padding:10px 9px;min-width:0;min-height:54px}
+#desarrollo-accion.pa-mounted .pa-bu-doc-symbol{color:#ef414d;flex:0 0 25px;width:25px;height:25px}
+#desarrollo-accion.pa-mounted .pa-bu-doc-symbol svg{width:24px;height:24px}
+#desarrollo-accion.pa-mounted .pa-bu-doc-symbol.rp{color:#1383e5}
+#desarrollo-accion.pa-mounted .pa-bu-doc-symbol.oblig{color:#15994a}
+#desarrollo-accion.pa-mounted .pa-bu-doc-symbol.pay{color:#b850cb}
+#desarrollo-accion.pa-mounted .pa-bu-document>span:nth-child(2){min-width:0;display:flex;flex-direction:column;gap:3px}
+#desarrollo-accion.pa-mounted .pa-bu-document strong{font-size:11px;color:#24466c;line-height:1.1}
+#desarrollo-accion.pa-mounted .pa-bu-document small{font-size:9px;color:#728aa1;line-height:1.2}
+#desarrollo-accion.pa-mounted .pa-bu-doc-unavailable{margin-left:auto;flex:none;color:#b6c4d0}
+#desarrollo-accion.pa-mounted .pa-bu-support-references{font-size:11px;line-height:1.5;color:#6b8198;display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+#desarrollo-accion.pa-mounted .pa-bu-support-references strong{flex:0 0 100%;font-size:10px}
+#desarrollo-accion.pa-mounted .pa-bu-support-references a,#desarrollo-accion.pa-mounted .pa-bu-support-references button{border:1px solid #dce9f2;padding:5px 8px;background:#eef6fc;border-radius:5px;font-weight:700;font-size:10px;color:#195880;text-decoration:none}
+#desarrollo-accion.pa-mounted .pa-bu-observation-box{display:flex;align-items:flex-start;gap:15px;padding:15px 12px;min-height:66px;border-radius:7px;background:#e9f2fb;color:#3f6288;line-height:1.5;font-size:clamp(11px,.91vw,14px)}
+#desarrollo-accion.pa-mounted .pa-bu-observation-box>span{flex:0 0 30px;color:#133f6a}
+#desarrollo-accion.pa-mounted .pa-bu-observation-box svg{width:27px;height:27px}
+#desarrollo-accion.pa-mounted .pa-bu-observation-box p{margin:0!important;font-size:inherit!important;line-height:inherit!important;color:inherit!important}
+#desarrollo-accion.pa-mounted .pa-bu-source{display:flex;align-items:center;gap:15px;justify-content:space-between;font-size:11px;color:#5d768f;flex-wrap:wrap;padding:0 3px}
+#desarrollo-accion.pa-mounted .pa-bu-source button{display:inline-flex;align-items:center;gap:7px;border:1px solid #c5d9e9;background:#edf6fc;color:#1b577e;padding:8px 13px;border-radius:6px;font-size:11px;font-weight:750}
+#desarrollo-accion.pa-mounted .pa-bu-source button svg{width:17px;height:17px}
+#desarrollo-accion.pa-mounted .pa-bu-dialog{width:min(610px,calc(100vw - 32px));max-height:min(80vh,700px);overflow:auto;background:#fff;border:1px solid #b2c8d9;border-radius:9px;color:#1a4267;padding:25px;margin:auto;box-shadow:0 20px 80px #0006}
+#desarrollo-accion.pa-mounted .pa-bu-dialog::backdrop{background:#04172dd1}
+#desarrollo-accion.pa-mounted .pa-bu-dialog header{display:flex;justify-content:space-between;align-items:start;gap:10px;margin-bottom:15px}
+#desarrollo-accion.pa-mounted .pa-bu-dialog header h3{margin:0;font-size:19px!important;font-weight:800!important}
+#desarrollo-accion.pa-mounted .pa-bu-dialog header button{border-radius:50%;background:#eaf2f8;border:1px solid #c5d6e4;color:#24486c;width:36px;height:36px;font-size:23px;cursor:pointer;flex:none}
+#desarrollo-accion.pa-mounted .pa-bu-dialog p{margin:12px 0!important;font-size:14px!important;line-height:1.45!important;color:#315270!important}
+#desarrollo-accion.pa-mounted .pa-bu-dialog>a{display:block;text-decoration:none;font-weight:700;font-size:13px;color:#145f91;padding:10px 8px;border-bottom:1px solid #e2edf4}
+@media(max-width:1320px){
+#desarrollo-accion.pa-mounted .pa-bu-stage{padding:10px 8px;gap:5px}
+#desarrollo-accion.pa-mounted .pa-bu-stage-icon{flex-basis:34px;width:34px;height:39px}
+#desarrollo-accion.pa-mounted .pa-bu-stage-icon svg{width:23px;height:23px}
+#desarrollo-accion.pa-mounted .pa-bu-stage-amount{font-size:clamp(14px,1.2vw,18px)}
+#desarrollo-accion.pa-mounted .pa-bu-donut-layout{grid-template-columns:1.05fr .85fr;gap:7px}
+#desarrollo-accion.pa-mounted .pa-bu-donut-amounts{grid-column:1/-1;flex-direction:row;justify-content:space-evenly;border:0;border-top:1px solid #e0e8f0;padding:6px 0 0}
+#desarrollo-accion.pa-mounted .pa-bu-budget-percent,#desarrollo-accion.pa-mounted .pa-bu-expenses,#desarrollo-accion.pa-mounted .pa-bu-monthly{min-height:285px}
+#desarrollo-accion.pa-mounted .pa-bu-document-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:1040px){
+#desarrollo-accion.pa-mounted .pa-bu-six{grid-template-columns:repeat(3,minmax(0,1fr))}
+#desarrollo-accion.pa-mounted .pa-bu-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#desarrollo-accion.pa-mounted .pa-bu-monthly{grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-bu-middle-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#desarrollo-accion.pa-mounted .pa-bu-funding{grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-bu-funding-layout{grid-template-columns:160px minmax(180px,300px);justify-content:center}
+#desarrollo-accion.pa-mounted .pa-bu-stage-amount{font-size:clamp(18px,2vw,24px)}
+}
+@media(max-width:700px){
+#desarrollo-accion.pa-mounted .pa-bu-six{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#desarrollo-accion.pa-mounted .pa-bu-top-grid,#desarrollo-accion.pa-mounted .pa-bu-middle-grid,#desarrollo-accion.pa-mounted .pa-bu-bottom-grid{grid-template-columns:minmax(0,1fr);gap:9px}
+#desarrollo-accion.pa-mounted .pa-bu-monthly,#desarrollo-accion.pa-mounted .pa-bu-funding{grid-column:auto}
+#desarrollo-accion.pa-mounted .pa-bu-stage{min-height:105px;align-items:flex-start;flex-direction:column;padding:9px}
+#desarrollo-accion.pa-mounted .pa-bu-stage-icon{height:29px;width:30px;flex:0 0 auto}
+#desarrollo-accion.pa-mounted .pa-bu-stage-icon svg{width:22px;height:22px}
+#desarrollo-accion.pa-mounted .pa-bu-stage-heading{font-size:11px;min-height:0}
+#desarrollo-accion.pa-mounted .pa-bu-stage-amount{font-size:clamp(15px,4vw,20px)}
+#desarrollo-accion.pa-mounted .pa-bu-stage-progress{width:100%}
+#desarrollo-accion.pa-mounted .pa-bu-budget-percent,#desarrollo-accion.pa-mounted .pa-bu-expenses,#desarrollo-accion.pa-mounted .pa-bu-monthly{min-height:260px}
+#desarrollo-accion.pa-mounted .pa-bu-donut-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#desarrollo-accion.pa-mounted .pa-bu-ring{max-width:210px}
+#desarrollo-accion.pa-mounted .pa-bu-funding-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#desarrollo-accion.pa-mounted .pa-bu-document-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+#desarrollo-accion.pa-mounted .pa-bu-source button{width:100%;justify-content:center}
+}
+@media(max-width:410px){
+#desarrollo-accion.pa-mounted .pa-bu-stage-amount{font-size:clamp(13px,3.4vw,15px)}
+#desarrollo-accion.pa-mounted .pa-bu-stage-heading{font-size:10px}
+#desarrollo-accion.pa-mounted .pa-bu-panel{padding:11px 10px}
+#desarrollo-accion.pa-mounted .pa-bu-donut-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#desarrollo-accion.pa-mounted .pa-bu-document-list{grid-template-columns:1fr 1fr}
+}
