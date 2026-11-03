@@ -11,8 +11,8 @@
   const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const fullMonths = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const categories = ['Resumen','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Soportes','Observaciones'];
-  const categoryIcons = ['▣','ⓘ','☷','▥','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M1 20v-3c0-3 3-5 7-5s7 2 7 5v3M9 20v-3c0-3 3-5 7-5s7 2 7 5v3"/></svg>','＄','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 22s8-7.5 8-14a8 8 0 1 0-16 0c0 6.5 8 14 8 14Z"/><circle cx="12" cy="8" r="2.5"/></svg>','▰','▤'];
-  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, loading:true, error:null };
+  const categoryIcons = ['▣','ⓘ','☷','▥','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M1 20v-3c0-3 3-5 7-5s7 2 7 5v3M9 20v-3c0-3 3-5 7-5s7 2 7 5v3"/></svg>','＄','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 22s8-7.5 8-14a8 8 0 1 0-16 0c0 6.5 8 14 8 14Z"/><circle cx="12" cy="8" r="2.5"/></svg>','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l4 4v16H6zM15 2v5h4M9 12h7M9 16h7"/></svg>','▤'];
+  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, loading:true, error:null };
   const fmtNum = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const fmtInt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
   const fmtMoney = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -80,7 +80,7 @@
       </div>
     </div>`;
   };
-  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=6,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries')||(i===5&&state.activeTab==='budget')||(i===6&&state.activeTab==='territory');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':i===4?'beneficiaries':i===5?'budget':'territory'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
+  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=7,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries')||(i===5&&state.activeTab==='budget')||(i===6&&state.activeTab==='territory')||(i===7&&state.activeTab==='supports');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':i===4?'beneficiaries':i===5?'budget':i===6?'territory':'supports'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function statusBar(m){
     const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
@@ -1196,6 +1196,221 @@
     finally{state.territoryExtraLoading=false;}
   }
 
+  /* Octava pestaña: catálogo documental enlazado en los Excel de 2025/2026.
+     Sin fotos ni contadores inventados. Las carpetas no inspeccionadas no se
+     hacen pasar por archivos y las fechas de Drive se etiquetan como modificación. */
+  const suYears=[2024,2025,2026,2027];
+  const suSvg={
+    folder:'<path d="M3 6h7l2 2h9v12H3z"/>',
+    photo:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m4 18 5-5 3 2 4-5 5 7"/>',
+    document:'<path d="M6 2h9l4 4v16H6zM15 2v5h4M9 12h7M9 16h7"/>',
+    video:'<rect x="2" y="4" width="20" height="16" rx="3"/><path d="m10 8 6 4-6 4z"/>',
+    certificate:'<path d="M7 2h10v12H7zM9 6h6M9 10h6M9 14v8l3-2 3 2v-8"/>',
+    open:'<path d="M14 4h6v6M20 4l-9 9M20 13v7H4V4h7"/>',
+    close:'<path d="M4 4l16 16M20 4 4 20"/>',
+    search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/>',
+    clear:'<path d="M5 5l14 14M19 5 5 19"/>',
+    calendar:'<rect x="3" y="5" width="18" height="16" rx="1"/><path d="M7 2v6M17 2v6M3 10h18"/>',
+    file:'<path d="M6 2h9l4 4v16H6zM15 2v5h4M9 12h7M9 16h7"/>',
+    sort:'<path d="M5 5h14M7 10h10M9 15h6"/>'
+  };
+  const suIcon=k=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${suSvg[k]||suSvg.file}</svg>`;
+  const suKey=()=>`${state.year}:${state.current}`;
+  function suFolderId(url){return String(url||'').match(/drive\.google\.com\/drive\/(?:u\/\d+\/)?folders\/([\w-]+)/)?.[1]||null;}
+  function suFileId(url){return String(url||'').match(/(?:\/file\/d\/|\/document\/d\/|\/spreadsheets\/d\/|\/presentation\/d\/)([\w-]+)/)?.[1]||null;}
+  const suFileUrl=f=>{
+    const id=String(f.id||'');
+    if(safeLink(f.url))return safeLink(f.url);
+    if(!/^[A-Za-z0-9_-]{15,}$/.test(id))return null;
+    if(f.mime?.includes('wordprocessingml'))return 'https://drive.google.com/file/d/'+id+'/view';
+    return 'https://drive.google.com/file/d/'+id+'/view';
+  };
+  const suValidDate=v=>/^\d{4}-\d\d-\d\d/.test(String(v||''))?String(v).slice(0,10):'';
+  const suDateFormat=v=>{const d=suValidDate(v);if(!d)return 'Fecha no registrada';return d.slice(8,10)+'/'+d.slice(5,7)+'/'+d.slice(0,4);};
+  const suSizeFormat=size=>{const n=Number(size);return !Number.isFinite(n)||n<=0?'Tamaño no disponible':n>=1048576?fmtNum.format(n/1048576)+' MB':Math.round(n/1024)+' KB';};
+  function suType(file){
+    const mime=String(file.mime||'').toLowerCase(),title=String(file.title||'').toLowerCase();
+    if(file.kind==='folder')return 'folder';
+    if(/^image\//.test(mime)||/\.(png|jpe?g|webp|gif)$/i.test(title))return 'photo';
+    if(/^video\//.test(mime)||/\.(mp4|webm|mov)$/i.test(title))return 'video';
+    if(/(actas?|certificad[oa]s?|constancias?)/i.test(title))return 'certificate';
+    return 'document';
+  }
+  function suExtras(m){return state.supportExtra?.periods?.[state.year]?.[String(m.id)]||{};}
+  function suBuild(m){
+    const metaExtras=suExtras(m),verifiedFolders=state.supportVerified?.folders||{};
+    const repoMap=new Map(),fileMap=new Map();
+    for(const a of m.activities||[]){
+      const extra=metaExtras[String(a.n)]||{},url=safeLink(a.evidence)||safeLink(extra.url);
+      if(!url)continue;
+      const folderId=suFolderId(url),fileId=suFileId(url);
+      const base={acts:[String(a.n)],actNames:[String(a.name||'')],territories:[String(extra.territory||a.territory||'')],expected:[String(extra.expected||'')]};
+      if(folderId){
+        const k='folder:'+folderId;
+        if(repoMap.has(k)){
+          const v=repoMap.get(k);v.acts.push(...base.acts);v.actNames.push(...base.actNames);v.territories.push(...base.territories);v.expected.push(...base.expected);
+        }else repoMap.set(k,{key:k,kind:'folder',id:folderId,title:'Repositorio de la actividad '+a.n,url,verified:false,complete:!!verifiedFolders[folderId]?.complete,...base});
+      }else if(fileId){
+        const k='file:'+fileId;
+        if(fileMap.has(k)){
+          const v=fileMap.get(k);v.acts.push(...base.acts);v.actNames.push(...base.actNames);v.territories.push(...base.territories);v.expected.push(...base.expected);
+        }else{
+          const known=state.supportVerified?.direct?.[fileId]||{};
+          fileMap.set(k,{key:k,id:fileId,kind:'file',mime:known.mime||'application/vnd.google-apps.document',title:known.title||'Documento enlazado · actividad '+a.n,url:safeLink(known.url)||url,size:known.size||null,modified:suValidDate(known.modified),verified:!!known.title,complete:!!known.title,...base});
+        }
+      }else{
+        const k='link:'+url;
+        if(!repoMap.has(k))repoMap.set(k,{key:k,kind:'folder',id:null,title:'Repositorio externo · actividad '+a.n,url,verified:false,complete:false,...base});
+      }
+    }
+    for(const repo of repoMap.values()){
+      const folder=verifiedFolders[repo.id]||{};
+      if(folder.title)repo.title=folder.title;
+      if(folder.status==='unverified')repo.accessNote='No se pudo consultar el contenido del repositorio';
+      if(!folder.complete||!Array.isArray(folder.files))continue;
+      repo.complete=true;
+      for(const f of folder.files){
+        if(!f.id||!f.title)continue;
+        const k='file:'+f.id;
+        const existing=fileMap.get(k);
+        if(existing){existing.acts.push(...repo.acts);existing.territories.push(...repo.territories);existing.expected.push(...repo.expected);continue;}
+        const file={key:k,kind:'file',id:f.id,title:String(f.title),mime:String(f.mime||''),url:suFileUrl(f),size:f.size||null,modified:suValidDate(f.modified),created:suValidDate(f.created),verified:true,complete:true,sourceFolder:repo.id,acts:[...repo.acts],actNames:[...repo.actNames],territories:[...repo.territories],expected:[...repo.expected]};
+        fileMap.set(k,file);
+      }
+    }
+    const files=[...fileMap.values()],repos=[...repoMap.values()];
+    for(const item of [...files,...repos]){
+      item.acts=[...new Set(item.acts)];item.type=suType(item);
+      item.search=[item.title,...item.actNames,...item.acts,...item.territories,...item.expected].map(normalizeQuery).join(' ');
+    }
+    const unknownRepos=repos.filter(x=>!x.complete).length;
+    const types={photo:0,document:0,certificate:0,video:0};
+    for(const f of files){if(types[f.type]!==undefined)types[f.type]++;}
+    return {files,repos,entries:[...files,...repos],types,unknownRepos};
+  }
+  function suPlaceOptions(m){
+    const t=trPlaceData(m);return [...t.places].map(p=>({name:p.label,acts:p.activities.map(a=>String(a.n)),key:p.key}));
+  }
+  function suSelectedItems(m){
+    const f=state.supportFilters||{},catalog=suBuild(m),places=suPlaceOptions(m);
+    return catalog.entries.filter(item=>{
+      if(f.activity!=='all'&&!item.acts.includes(f.activity))return false;
+      if(f.type!=='all'&&item.type!==f.type)return false;
+      if(f.place!=='all'){
+        const p=places.find(p=>p.key===f.place);
+        if(!p||!item.acts.some(a=>p.acts.includes(a)))return false;
+      }
+      if(f.from&&!item.modified)return false;
+      if(f.from&&item.modified<f.from)return false;
+      if(f.to&&!item.modified)return false;
+      if(f.to&&item.modified>f.to)return false;
+      if(f.q&&!item.search.includes(normalizeQuery(f.q)))return false;
+      return true;
+    });
+  }
+  function suHero(){
+    return `<header class="pa-ig-hero pa-act-hero pa-su-hero"><div class="pa-ig-hero-main"><nav class="pa-act-breadcrumb" aria-label="Ruta del módulo"><span>Inicio</span><span>Metas</span><span>Meta ${state.current}</span><strong>Soportes</strong></nav><h1>Soportes de la Meta</h1><p>Consulta las evidencias, documentos y soportes que respaldan la ejecución de las actividades.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">“La transparencia<br>también construye<br>desarrollo”</div><label class="pa-ig-select-year">Año de seguimiento<select id="pa-su-year-select" aria-label="Año de seguimiento">${suYears.map(y=>`<option value="${y}" ${String(y)===state.year?'selected':''}>${y}</option>`).join('')}</select></label></div></header>`;
+  }
+  function suSummary(m){
+    const cat=suBuild(m),len=cat.files.length;
+    const suffix=cat.unknownRepos?'identificados · hay carpetas sin enumerar':'individuales identificados';
+    const values=[['folder','Total de soportes',len||(!cat.unknownRepos?'0':'—'),'Archivos '+suffix],['photo','Fotografías',cat.types.photo||(cat.unknownRepos?'—':'0'),cat.unknownRepos?'Archivos no clasificados en otras carpetas':'Imágenes identificadas'],['document','Documentos',cat.types.document||(cat.unknownRepos?'—':'0'),'Archivos documentales'],['video','Videos',cat.types.video||(cat.unknownRepos?'—':'0'),'Videos identificados'],['certificate','Actas / Certificaciones',cat.types.certificate||(cat.unknownRepos?'—':'0'),'Sin duplicar documentos']];
+    return `<div class="pa-su-summary" aria-label="Indicadores de soportes">${values.map(([icon,title,value,sub])=>`<article class="pa-su-stat pa-su-stat-${icon}"><span class="pa-su-stat-icon">${suIcon(icon)}</span><div><h3>${html(title)}</h3><strong>${html(value)}</strong><small>${html(sub)}</small></div></article>`).join('')}</div><p class="pa-su-accuracy-note">${cat.repos.length} ${cat.repos.length===1?'repositorio enlazado':'repositorios enlazados'} en el Excel para esta meta. ${cat.unknownRepos?'El contenido de '+cat.unknownRepos+' no se ha podido enumerar; los contadores de archivos son parciales.':'Los archivos identificados se muestran sin duplicar enlaces compartidos.'}</p>`;
+  }
+  function suFilterBar(m){
+    const opts=(arr,value)=>arr.map(([v,t])=>`<option value="${html(v)}"${v===value?' selected':''}>${html(t)}</option>`).join('');
+    const f=state.supportFilters,locs=suPlaceOptions(m);const d=suBuild(m);
+    const actOpts=[['all','Todas'],...(m.activities||[]).map(a=>[String(a.n),a.n+' · '+String(a.name).slice(0,53)])];
+    const typeOpts=[['all','Todos'],['photo','Fotografías'],['document','Documentos'],['video','Videos'],['certificate','Actas / Certificaciones'],['folder','Carpetas / enlaces']];
+    return `<section class="pa-su-filter-panel"><h3>Filtrar soportes</h3><div class="pa-su-filter-grid"><label>Actividad<select id="pa-su-filter-activity">${opts(actOpts,f.activity)}</select></label><label>Tipo de soporte<select id="pa-su-filter-type">${opts(typeOpts,f.type)}</select></label><label>Vereda / Barrio<select id="pa-su-filter-place">${opts([['all','Todos'],...locs.map(x=>[x.key,x.name])],f.place)}</select></label><label>Fecha desde<input type="date" id="pa-su-from" value="${html(f.from)}" aria-label="Fecha inicial de modificación"></label><label>Fecha hasta<input type="date" id="pa-su-to" value="${html(f.to)}" aria-label="Fecha final de modificación"></label></div><div class="pa-su-searchline"><label class="pa-su-searchbox"><span aria-hidden="true">${suIcon('search')}</span><input id="pa-su-search" value="${html(f.q)}" placeholder="Buscar por palabra clave..." autocomplete="off" aria-label="Buscar soportes por palabra clave"><button type="button" data-pa-su-search title="Aplicar búsqueda">${suIcon('search')}</button></label><button class="pa-su-reset" type="button" data-pa-su-reset>${suIcon('clear')}<span>Limpiar</span></button></div><small class="pa-su-filter-note">Las fechas se refieren a última modificación verificada en Drive, no a la fecha de ejecución de la actividad. Enlaces sin fecha quedan fuera del rango seleccionado.</small></section>`;
+  }
+  function suFileBadge(item){
+    const type=item.type;
+    const types={photo:'Fotografía',document:'Documento',video:'Video',certificate:'Acta / Certificación',folder:'Carpeta'};
+    return `<span class="pa-su-badge ${type}">${suIcon(type==='certificate'?'certificate':type)}${html(types[type]||'Archivo')}</span>`;
+  }
+  function suFileCard(item){
+    const kind=item.type,info=item.acts.length>1?'Actividades '+item.acts.join(', '):'Actividad '+(item.acts[0]||'—');
+    const heading=html(item.title||'Archivo sin título');
+    const visual=kind==='photo'&&item.id?`<img loading="lazy" referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w640" alt="Miniatura del archivo ${heading}">`:`<span class="pa-su-file-pict ${kind}">${suIcon(kind==='folder'?'folder':kind==='certificate'?'certificate':kind)}</span>`;
+    const date=item.modified?`Última modificación: ${suDateFormat(item.modified)}`:(item.type==='folder'?(item.complete?'Repositorio consultado':'Contenido del repositorio sin enumerar'):'Fecha no registrada');
+    const footer=item.verified?`${suSizeFormat(item.size)} · archivo identificado`:(item.type==='folder'?(item.complete?'Carpeta consultada':'Repositorio enlazado; acceso por verificar'):'Archivo individual enlazado');
+    return `<article class="pa-su-file-card ${kind}" data-su-file="${html(item.key)}"><div class="pa-su-file-preview">${visual}${suFileBadge(item)}</div><div class="pa-su-file-body"><strong title="${heading}">${heading}</strong><small title="${html(info)}">${html(info)}</small><div class="pa-su-file-meta"><span>${html(date)}</span><button type="button" data-pa-su-preview="${html(item.key)}" aria-label="Consultar soporte ${heading}" title="Consultar soporte">${suIcon('open')}</button></div><p class="pa-su-file-origin">${html(footer)}</p></div></article>`;
+  }
+  function suGallery(m){
+    const rows=suSelectedItems(m),total=suBuild(m),f=state.supportFilters;
+    const cards=rows.slice(0,state.supportShowAll?999:24);
+    const text=rows.length?`${rows.length} entradas encontradas (${rows.filter(x=>x.kind==='file').length} archivos individuales y ${rows.filter(x=>x.kind==='folder').length} enlaces a repositorios).`:'No se encontraron soportes con los filtros seleccionados.';
+    return `<section class="pa-su-gallery"><div class="pa-su-section-head"><h3>Galería de Soportes</h3><span>${html(text)}</span></div>${rows.length?`<div class="pa-su-gallery-grid">${cards.map(suFileCard).join('')}</div>`:`<div class="pa-su-empty"><span>${suIcon('folder')}</span><strong>${html(text)}</strong><small>${total.repos.length?'Prueba con otro filtro o consulta el árbol de carpetas.':'No se encontraron enlaces de soporte registrados para esta meta en el Excel.'}</small></div>`}${rows.length>24&&!state.supportShowAll?`<button type="button" class="pa-su-show-all" data-pa-su-gallery-all>Mostrar todas las ${rows.length} entradas →</button>`:''}</section>`;
+  }
+  function suTree(m){
+    const cat=suBuild(m),f=state.supportFilters;
+    const branches=(m.activities||[]).map((a,i)=>{
+      const id=String(a.n),items=cat.entries.filter(x=>x.acts.includes(id));const actual=items.filter(x=>x.kind==='file').length;
+      const expanded=state.supportTreeOpen.has(id);
+      const header=`<div class="pa-su-tree-row ${f.activity===id?'selected':''}"><button type="button" data-pa-su-tree-toggle="${html(id)}" aria-expanded="${expanded}" aria-label="${expanded?'Contraer':'Expandir'} actividad ${html(id)}">${expanded?'⌄':'›'}</button><button type="button" data-pa-su-tree-activity="${html(id)}" aria-pressed="${f.activity===id}">${suIcon('folder')}<span>${html('Actividad '+id+' - '+String(a.name).slice(0,38))}${actual?` (${actual})`:''}</span></button></div>`;
+      const children=expanded?`<div class="pa-su-tree-children">${items.length?items.map(x=>`<button type="button" data-pa-su-preview="${html(x.key)}">${suIcon(x.kind==='folder'?'folder':x.type)}<span>${html(x.title)}</span></button>`).join(''):'<small>Sin enlace documental en esta actividad.</small>'}</div>`:'';
+      return `<div class="pa-su-tree-branch">${header}${children}</div>`;
+    }).join('');
+    const all=f.activity==='all';
+    return `<section class="pa-su-sidecard pa-su-folders"><h3>Estructura de carpetas</h3><div class="pa-su-tree"><div class="pa-su-tree-root"><button type="button" data-pa-su-tree-root class="${all?'selected':''}" aria-pressed="${all}">${suIcon('folder')}<span>Meta ${m.id} · ${html(String(m.name).slice(0,45))}</span></button></div>${branches}<p class="pa-su-tree-note">Organización virtual por meta y actividad. Los enlaces conducen a los repositorios originales; no se crean carpetas nuevas.</p></div></section>`;
+  }
+  function suRecent(m){
+    const cat=suBuild(m),items=cat.files.filter(f=>!!f.modified).sort((a,b)=>b.modified.localeCompare(a.modified));
+    const rows=(state.supportRecentAll?items:items.slice(0,5));
+    const extra=items.length>5?`<button type="button" data-pa-su-recent-toggle>${state.supportRecentAll?'Ver menos':'Ver todos →'}</button>`:'';
+    return `<section class="pa-su-sidecard pa-su-recent"><div class="pa-su-side-head"><h3>Últimos soportes cargados</h3>${extra}</div>${items.length?`<p class="pa-su-recent-explainer">Ordenados por última modificación verificada en Drive.</p><div class="pa-su-recent-list">${rows.map(f=>`<button class="pa-su-recent-row" type="button" data-pa-su-preview="${html(f.key)}"><span class="pa-su-recent-icon ${f.type}">${suIcon(f.type)}</span><span><strong>${html(f.title)}</strong><small>${html(suSizeFormat(f.size))} · ${html('Actividad '+f.acts.join(', '))}</small></span><time datetime="${html(f.modified)}">${html(suDateFormat(f.modified))}</time></button>`).join('')}</div>`:`<div class="pa-su-recent-empty">No hay fechas de modificación verificables para ordenar los soportes de esta meta. Puedes abrir los repositorios desde la galería o el árbol de carpetas.</div>`}</section>`;
+  }
+  function suPreviewDialog(){return `<dialog class="pa-su-dialog" id="pa-su-dialog" aria-labelledby="pa-su-preview-title"><div class="pa-su-dialog-title"><div><small>Repositorio documental · ${state.year}</small><h2 id="pa-su-preview-title">Soporte de la Meta</h2></div><button type="button" data-pa-su-close aria-label="Cerrar visor">×</button></div><div id="pa-su-dialog-content"></div></dialog>`;}
+  function suDashboard(m){
+    const loading=state.supportLoading&&!state.supportExtraLoaded;
+    if(loading)return `<div class="pa-su-loading" role="status">Cargando descripciones y enlaces del Excel…</div>`;
+    return `<div class="pa-su-dashboard">${suSummary(m)}<div class="pa-su-main-grid"><div class="pa-su-main-col">${suFilterBar(m)}${suGallery(m)}</div><aside class="pa-su-sidebar">${suTree(m)}${suRecent(m)}</aside></div><p class="pa-su-source"><strong>Fuentes:</strong> Plan de Acción ${state.year} · campos «Soporte de Cumplimiento Actividad» y «Link de soportes de la actividad». ${state.year==='2026'?'Corte: segundo trimestre de 2026.':''} Solo se muestran documentos individualizados cuando se obtuvo su metadato del repositorio. El contenido de las carpetas sin inspeccionar no se contabiliza como archivo.</p>${suPreviewDialog()}</div>`;
+  }
+  function suResults(){
+    if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando Soportes…</h2></div>';
+    if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>No se pudieron cargar los datos</h2><p>${html(state.error)}</p></div>`;
+    if(state.list)return listMarkup();
+    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty" role="status"><h2>Información de soportes no disponible para ${state.year}</h2><p>El encabezado, el selector y las pestañas se conservan. Se dispone de información documental de 2025 y 2026.</p></div>`;
+    const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+suDashboard(m);
+  }
+  function suRefreshPart(){
+    if(state.activeTab!=='supports'||!currentYear()||state.list)return;
+    const m=selected();if(!m)return;
+    const dashboard=panel.querySelector('.pa-su-dashboard');if(dashboard)dashboard.outerHTML=suDashboard(m);
+  }
+  function suResetFilters(){state.supportFilters={activity:'all',type:'all',place:'all',from:'',to:'',q:''};state.supportTreeOpen=new Set();state.supportRecentAll=false;state.supportShowAll=false;}
+  async function suLoadCatalog(){
+    if(state.supportLoading||state.supportExtraLoaded)return;
+    state.supportLoading=true;
+    try{
+      const [extraRes,verifiedRes]=await Promise.all([fetch('/data/plan-accion-soportes-extra.b64.txt',{cache:'no-cache'}),fetch('/data/plan-accion-soportes-verificados.json',{cache:'no-cache'})]);
+      if(!extraRes.ok)throw Error('No se pudo abrir el inventario de soportes ('+extraRes.status+').');
+      const b64=(await extraRes.text()).trim(),binary=atob(b64),bytes=new Uint8Array(binary.length);
+      for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+      const decoded=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+      const obj=JSON.parse(decoded);
+      if(!obj?.periods?.['2025']||!obj?.periods?.['2026'])throw Error('Faltan los dos periodos de soportes.');
+      state.supportExtra=obj;
+      if(verifiedRes.ok){const meta=await verifiedRes.json();if(meta?.folders)state.supportVerified=meta;}
+      state.supportError=null;
+    }catch(error){state.supportError=String(error.message||error);console.warn('Soportes:',error);}
+    finally{state.supportLoading=false;state.supportExtraLoaded=true;if(state.activeTab==='supports')refresh();}
+  }
+  function suOpenPreview(key){
+    const m=selected(),item=m?suBuild(m).entries.find(f=>f.key===key):null;
+    if(!item)return;
+    const dialog=panel.querySelector('#pa-su-dialog'),content=dialog?.querySelector('#pa-su-dialog-content');if(!dialog||!content)return;
+    const title=dialog.querySelector('#pa-su-preview-title');if(title)title.textContent=item.title;
+    const type=item.type,isImage=type==='photo'&&item.id,isVideo=type==='video';
+    const link=safeLink(item.url);
+    const photo=isImage?`<img class="pa-su-preview-image" loading="lazy" src="https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w1600" alt="Vista del archivo ${html(item.title)}">`:'';
+    const video=isVideo&&/\.(mp4|webm)(?:\?|$)/i.test(link||'')?`<video controls playsinline src="${html(link)}"></video>`:'';
+    content.innerHTML=`<div class="pa-su-preview-art ${type}">${photo||video||suIcon(type==='folder'?'folder':type)}</div><dl class="pa-su-preview-details"><div><dt>Tipo</dt><dd>${html(type==='folder'?'Repositorio de archivos':type==='photo'?'Fotografía':type==='video'?'Video':type==='certificate'?'Acta / Certificación':'Documento')}</dd></div><div><dt>Actividad</dt><dd>${html(item.acts.join(', ')||'No indicada')}</dd></div><div><dt>Fecha</dt><dd>${html(suDateFormat(item.modified))}${item.modified?' · última modificación':''}</dd></div><div><dt>Tamaño</dt><dd>${html(item.kind==='file'?suSizeFormat(item.size):'No se conoce número de archivos')}</dd></div><div><dt>Verificación</dt><dd>${html(item.kind==='folder'?(item.complete?'Contenido enumerado en una consulta de Drive':'Enlace del Excel; contenido no enumerado'):item.verified?'Archivo identificado en Drive':'Archivo individual enlazado en Excel; acceso no comprobado')}</dd></div></dl><div class="pa-su-preview-actions">${link?`<a href="${html(link)}" target="_blank" rel="noopener noreferrer">${suIcon('open')} Abrir ${item.kind==='folder'?'repositorio':'archivo'} original</a>`:'<span>Enlace no disponible</span>'}</div><p class="pa-su-preview-warning">Si el proveedor solicita iniciar sesión, el acceso depende de los permisos originales. Esta página no modifica ni publica archivos restringidos.</p>`;
+    if(typeof dialog.showModal==='function')dialog.showModal();
+  }
+
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
@@ -1205,6 +1420,7 @@
     return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
   }
   function pageMarkup(){
+    if(state.activeTab==='supports')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-supports-mode">${suHero()}<section class="pa-body pa-ig-body" aria-label="Soportes de la meta para ${state.year}"><div class="pa-content" id="pa-content">${suResults()}</div></section></div>`;
     if(state.activeTab==='territory')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-territory-mode">${trHero()}<section class="pa-body pa-ig-body" aria-label="Territorio para ${state.year}"><div class="pa-content" id="pa-content">${trResults()}</div></section></div>`;
     if(state.activeTab==='budget')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-budget-mode">${buHero()}<section class="pa-body pa-ig-body" aria-label="Ejecución Presupuestal para ${state.year}"><div class="pa-content" id="pa-content">${buResults()}</div></section></div>`;
     if(state.activeTab==='beneficiaries')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-beneficiaries-mode">${benHero()}<section class="pa-body pa-ig-body" aria-label="Beneficiarios de la meta para ${state.year}"><div class="pa-content" id="pa-content">${benResults()}</div></section></div>`;
@@ -1221,9 +1437,10 @@
       requestAnimationFrame(()=>trInitMap());
       if(!state.territoryExtraLoaded)trLoadFullTexts();
     }
+    if(state.activeTab==='supports'&&currentYear()&&!state.list&&!state.supportExtraLoaded&&!state.supportLoading)suLoadCatalog();
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
   }
-  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
+  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
@@ -1231,20 +1448,34 @@
     state.list=true;state.listCategory='all';refresh();panel.querySelector('.pa-meta-catalog')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
   panel.addEventListener('submit',ev=>{if(ev.target.id==='pa-query-form'){ev.preventDefault();searchAction();}});
-  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}});
+  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}});
   panel.addEventListener('change',ev=>{
     const filterMap={'pa-act-filter-state':'status','pa-act-filter-owner':'owner','pa-act-filter-place':'place'};
     if(filterMap[ev.target.id]){state.activityFilters[filterMap[ev.target.id]]=ev.target.value;refresh();return;}
     if(ev.target.id==='pa-act-compare-unit'){state.activityCompareUnit=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.id==='pa-ph-filter-status'){state.physicalFilters.status=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.id==='pa-ph-filter-activity'){state.physicalFilters.activity=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    const suFilters={'pa-su-filter-activity':'activity','pa-su-filter-type':'type','pa-su-filter-place':'place','pa-su-from':'from','pa-su-to':'to'};
+    if(suFilters[ev.target.id]){state.supportFilters[suFilters[ev.target.id]]=ev.target.value;state.supportShowAll=false;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.matches('[data-pa-tr-layer]')){trToggleLayer(ev.target.dataset.paTrLayer,ev.target.checked);return;}
-    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select','pa-tr-year-select'].includes(ev.target.id))return;
-    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;refresh();
+    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select','pa-tr-year-select','pa-su-year-select'].includes(ev.target.id))return;
+    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();refresh();
   });
   panel.addEventListener('click',ev=>{
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries','budget','territory'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries','budget','territory','supports'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(ev.target.closest('[data-pa-su-close]')){ev.target.closest('dialog')?.close();return;}
+    const suPreview=ev.target.closest('[data-pa-su-preview]');
+    if(suPreview){suOpenPreview(suPreview.dataset.paSuPreview);return;}
+    if(ev.target.closest('[data-pa-su-reset]')){suResetFilters();const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    if(ev.target.closest('[data-pa-su-search]')){const input=panel.querySelector('#pa-su-search');if(input){state.supportFilters.q=input.value;const y=window.scrollY;refresh();window.scrollTo({top:y});}return;}
+    if(ev.target.closest('[data-pa-su-gallery-all]')){state.supportShowAll=true;suRefreshPart();return;}
+    if(ev.target.closest('[data-pa-su-recent-toggle]')){state.supportRecentAll=!state.supportRecentAll;suRefreshPart();return;}
+    if(ev.target.closest('[data-pa-su-tree-root]')){state.supportFilters.activity='all';state.supportShowAll=false;suRefreshPart();return;}
+    const suTree=ev.target.closest('[data-pa-su-tree-activity]');
+    if(suTree){state.supportFilters.activity=suTree.dataset.paSuTreeActivity;state.supportShowAll=false;suRefreshPart();return;}
+    const suToggle=ev.target.closest('[data-pa-su-tree-toggle]');
+    if(suToggle){const id=suToggle.dataset.paSuTreeToggle;if(state.supportTreeOpen.has(id))state.supportTreeOpen.delete(id);else state.supportTreeOpen.add(id);suRefreshPart();return;}
     if(ev.target.closest('[data-pa-tr-dialog-close]')){ev.target.closest('dialog')?.close();return;}
     if(ev.target.closest('[data-pa-tr-gallery-all]')){panel.querySelector('#pa-tr-gallery-dialog')?.showModal();return;}
     const trGalleryButton=ev.target.closest('[data-pa-tr-gallery-page],[data-pa-tr-gallery-step]');
@@ -1352,6 +1583,6 @@
       await loadActivityExtras();
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
   }
-  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog')||dialog?.classList?.contains('pa-tr-dialog'))dialog.close();});
+  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog')||dialog?.classList?.contains('pa-tr-dialog')||dialog?.classList?.contains('pa-su-dialog'))dialog.close();});
   load();
 })();

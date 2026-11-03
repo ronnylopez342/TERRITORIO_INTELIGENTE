@@ -1,0 +1,15 @@
+{
+  "schema":"ti-soportes-verificados-v1",
+  "scope":"Subcarpetas comprobadas mediante Google Drive; catálogo parcial, no censo completo de repositorios.",
+  "folders":{
+    "1G0lK6aRaZ8jaWomYDlZsU1RzPdOF-QEz":{"status":"listed","complete":true,"title":"Actividad 101.1 y 101.2","files":[{"id":"1KYqwpuzIoZbJW1c29-o4tN0MuG843dgj","title":"KM - INTERVENIDOS- HASTA JUN 2025.pdf","mime":"application/pdf","size":418319,"modified":"2025-07-01T21:27:59.000Z"},{"id":"1PscOVLUmCcRpTlUHzwUFU58NYtJLCwiu","title":"META 101 - INF DATAVISOR - 1 -JUN-2025.pdf","mime":"application/pdf","size":60245194,"modified":"2025-06-30T22:57:04.000Z"}]},
+    "1L1looocY4k32AF_9qqLHPOl0oTrXIVfr":{"status":"listed","complete":true,"title":"Actividad 101.5","files":[{"id":"1_CVfgf9odMsxxsPdxsRJfxSCAKB8Tha8","title":"INFORME AVANCE DE CUMPLIMIENTO META No 101.5.pdf","mime":"application/pdf","size":302779,"modified":"2025-06-27T17:43:10.000Z"}]},
+    "1khseITzFbbAbjj3525VfsMbO67WEQYLK":{"status":"listed","complete":true,"title":"META 25","files":[{"id":"1PmsIjNk22UBdvrjCEFNmpZhN2mdjqFmU","title":"25 INFORME META PLAN DE DESARROLLO.docx","mime":"application/vnd.openxmlformats-officedocument.wordprocessingml.document","size":366480,"modified":"2025-03-10T14:44:58.000Z"}]},
+    "1xc7UETf_qVx3FXbck-yFdAdZWnzdyH_p":{"status":"listed","complete":true,"title":"53.1","files":[{"id":"1e3UrCspuBkGUfXSdAV3MfaQwFlZE4Qwn","title":"INFORME DE MONÓLOGO DE PAUTAS DE CRIANZA ORIGINAL.pdf","mime":"application/pdf","size":2135101,"modified":"2025-12-06T01:23:31.000Z"},{"id":"1QOQItDBQuDy0r8c0NK_h3GerNjdRbIOC","title":"ACTA PAUTAS DE CRIANZA Y VIOLENTOMETRO.pdf","mime":"application/pdf","size":2691163,"modified":"2025-09-17T16:05:38.000Z"},{"id":"1Prt-5GajNS5NTMMEZoIbnjjMXICpYIIQ","title":"ACTA DE CAPACITACIÓN-.pdf","mime":"application/pdf","size":2518378,"modified":"2025-09-17T15:55:22.000Z"},{"id":"15eKH6Vd6jjWqadvlitfi1EkOR6O3zdzG","title":"CAPACITACIÓN MUJERES JULIO.pdf","mime":"application/pdf","size":3189787,"modified":"2025-09-10T14:21:32.000Z"}]},
+    "1e9i-IqfYrnM4p6BNCuXfnek_7QC70R-q":{"status":"listed","complete":true,"title":"META 101","files":[{"id":"1aGcMVH-1XXhOyJaYcPhD_AXWWFSk_k3i","title":"INFORME AVANCE DE CUMPLIMIENTO META No 101-2026.pdf","mime":"application/pdf","size":19148150,"modified":"2026-04-30T18:29:20.098Z"}]},
+    "13tITtFX2V8g-BxVD_Cj9BGntGDnGnaxl":{"status":"unverified","complete":false},
+    "17YXmvcfDCNNI4hF--uG3S25-FoT0JHGD":{"status":"unverified","complete":false},
+    "1LSY14wF9gbXGBh03IgLmHOqhgGKrHzVp":{"status":"unverified","complete":false}
+  },
+  "direct":{}
+}
