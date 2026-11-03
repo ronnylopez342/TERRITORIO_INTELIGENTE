@@ -12,7 +12,7 @@
   const fullMonths = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const categories = ['Resumen','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Soportes','Observaciones'];
   const categoryIcons = ['▣','ⓘ','☷','▥','♟','＄','♧','▰','▤'];
-  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, loading:true, error:null };
+  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, loading:true, error:null };
   const fmtNum = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const fmtInt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
   const fmtMoney = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -80,7 +80,7 @@
       </div>
     </div>`;
   };
-  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=2,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':'activities'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
+  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=3,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':'physical'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function statusBar(m){
     const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
@@ -469,6 +469,162 @@
     dialog.showModal();
   }
 
+  /* Fourth section: Avance Fisico. Derived calculations are explicitly labelled.
+     Monthly cells preserve all raw Excel values. A monthly time series is constructed
+     only for activities whose monthly figures reconcile with the reported total. */
+  const physYearOptions=()=>[2024,2025,2026,2027].map(y=>`<option value="${y}"${String(y)===state.year?' selected':''}>${y}</option>`).join('');
+  const physActivityOptions=m=>(m.activities||[]).map((a,i)=>`<option value="${i}"${String(i)===state.physicalFilters.activity?' selected':''}>${html(a.n)} \u00b7 ${html(a.name.length>54?a.name.slice(0,54)+'\u2026':a.name)}</option>`).join('');
+  const physCard=(title,body,klass='')=>`<section class="pa-ph-card ${klass}"><h3>${title}</h3>${body}</section>`;
+  const phFmtUnit=m=>html(m.unit||'Sin unidad informada');
+  const phShown=v=>isNumeric(v)?fmtNum.format(v):'\u2014';
+  const phText=(k,v)=>`<div class="pa-ph-field"><span>${k}</span><strong>${v}</strong></div>`;
+  function physicalHero(){
+    return `<header class="pa-ig-hero pa-act-hero pa-ph-hero"><div class="pa-ig-hero-main"><nav class="pa-act-breadcrumb" aria-label="Ruta del m\u00f3dulo"><span>Inicio</span><span>Metas</span><span>Meta ${state.current}</span><strong>Avance F\u00edsico</strong></nav><h1>Avance F\u00edsico de la Meta</h1><p>Consulta el cumplimiento f\u00edsico de las actividades y el avance en la ejecuci\u00f3n de la meta.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">\u201cTerritorios que<br>avanzan con<br>su gente\u201d</div><label class="pa-ig-select-year">A\u00f1o de seguimiento<select id="pa-ph-year-select" aria-label="A\u00f1o de seguimiento">${physYearOptions()}</select></label></div></header>`;
+  }
+  function phStatus(a){return actStatus(a);}
+  function phVisible(m){return m.activities.filter((a,i)=>(state.physicalFilters.activity==='all'||String(i)===state.physicalFilters.activity)&&(state.physicalFilters.status==='all'||phStatus(a).key===state.physicalFilters.status));}
+  function phMainProgress(m){
+    const remaining=isNumeric(m.pct)?Math.max(0,100-m.pct*100):null;
+    const detail=[
+      ['Valor esperado cuatrienio',isNumeric(m.expected)?`${phShown(m.expected)} ${phFmtUnit(m)}`:'Sin dato'],
+      ['Avance registrado (Excel)',pctLabel(m.pct)],
+      ['Saldo porcentual pendiente',remaining===null?'Sin dato':`${fmtNum.format(remaining)}%`],
+      ['N\u00famero de actividades',fmtInt.format(m.activities.length)],
+      ['Tipo de meta',html(m.type||'No informado')]
+    ].map(x=>phText(...x)).join('');
+    return `<div class="pa-ph-overview">${dial(m.pct,'Avance f\u00edsico de la meta','#087946')}<div class="pa-ph-fields">${detail}</div></div><p class="pa-ph-caption">Porcentaje de ejecuci\u00f3n de la meta reportado en el Excel. No se infiere un avance absoluto en ${phFmtUnit(m)} desde ese porcentaje.</p>`;
+  }
+  function phMonthlyKind(a){
+    const obs=state.year==='2026'?6:12;
+    const vals=(a.months||[]).slice(0,obs);
+    if(!isNumeric(a.progress)||!isNumeric(a.target)||a.target<=0||!isNumeric(a.weight)||a.weight<0||!vals.some(isNumeric))return null;
+    const numerical=vals.filter(isNumeric);
+    const sum=numerical.reduce((s,x)=>s+x,0);
+    const last=numerical[numerical.length-1];
+    const tolerance=Math.max(0.015,Math.abs(a.progress)*0.012);
+    const nonnegative=numerical.every(v=>v>=-tolerance);
+    if(nonnegative&&Math.abs(sum-a.progress)<=tolerance)return {kind:'monthly',values:vals};
+    const nondecreasing=numerical.every((v,i)=>i===0||v>=numerical[i-1]-tolerance);
+    if(nondecreasing&&Math.abs(last-a.progress)<=tolerance){
+      let prev=0;
+      return {kind:'cumulative',values:vals.map(v=>{if(!isNumeric(v))return null;const change=Math.max(0,v-prev);prev=v;return change;})};
+    }
+    return null;
+  }
+  function phMonthlyTrend(m){
+    const observed=state.year==='2026'?6:12;
+    const accepted=m.activities.map(a=>({activity:a,reconciled:phMonthlyKind(a)})).filter(x=>x.reconciled);
+    const increments=Array(12).fill(null),cumul=Array(12).fill(null);
+    let accumulated=0;
+    for(let i=0;i<observed;i++){
+      let addition=0;
+      for(const entry of accepted){
+        const a=entry.activity;const target=a.target;
+        let prev=0;
+        for(let j=0;j<i;j++){const v=entry.reconciled.values[j];if(isNumeric(v))prev+=v;}
+        const delta=entry.reconciled.values[i];
+        const cur=prev+(isNumeric(delta)?delta:0);
+        // Each activity is normalized by its own unit before applying its official weight.
+        const weighted=Math.max(0,cur/target-prev/target)*a.weight*100;
+        addition+=weighted;
+      }
+      increments[i]=Math.max(0,addition);
+      accumulated+=Math.max(0,addition);
+      cumul[i]=accumulated;
+    }
+    return {increments,cumul,accepted:accepted.length,excluded:m.activities.length-accepted.length,observed};
+  }
+  function phChart(m){
+    const stats=phMonthlyTrend(m);
+    if(stats.accepted===0)return `<p class="pa-ph-empty-chart">No hay series mensuales que concilien con los totales reportados. Consulta los valores originales en la matriz.</p>`;
+    const W=655,H=238,L=43,T=18,B=31,R=15,h=H-T-B,w=W-L-R;
+    const max=Math.max(10,...stats.cumul.filter(isNumeric),...stats.increments.filter(isNumeric));
+    const ymax=Math.ceil(max/10)*10;
+    const barW=w/12, x=i=>L+i*barW+barW*.5,y=v=>T+h-Math.min(ymax,v)/ymax*h;
+    const rules=[0,.25,.5,.75,1].map(q=>{const yy=T+h*(1-q);return `<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#dfe7ed"/><text x="${L-7}" y="${yy+4}" text-anchor="end" font-size="11" fill="#5a7188">${fmtNum.format(ymax*q)}</text>`;}).join('');
+    const bars=stats.increments.slice(0,stats.observed).map((v,i)=>{const hh=h*v/ymax;return `<rect x="${x(i)-barW*.29}" y="${y(v)}" width="${barW*.58}" height="${hh}" rx="2" fill="#99cfe9"><title>${fullMonths[i]} ${state.year}: aporte ponderado ${fmtNum.format(v)} puntos porcentuales (calculado)</title></rect>`;}).join('');
+    const linePts=stats.cumul.slice(0,stats.observed).map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+    const circles=stats.cumul.slice(0,stats.observed).map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="4.6" fill="#087a43" stroke="#fff" stroke-width="1.5"><title>${fullMonths[i]} ${state.year}: ${fmtNum.format(v)}% ponderado acumulado (calculado, no porcentaje oficial)</title></circle>`).join('');
+    const labels=months.map((name,i)=>`<text x="${x(i)}" y="${H-10}" text-anchor="middle" font-size="11" fill="${i>=stats.observed?'#acbcc9':'#4b6380'}">${name}</text>`).join('');
+    return `<div class="pa-ph-trend-key"><span><i></i>Aporte mensual ponderado</span><span><i></i>Acumulado ponderado</span></div><div class="pa-ph-trend-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Evoluci\u00f3n mensual calculada para ${stats.accepted} de ${m.activities.length} actividades" preserveAspectRatio="xMidYMid meet">${rules}${bars}<polyline points="${linePts}" stroke="#067b41" stroke-width="3" fill="none"/>${circles}${labels}</svg></div><p class="pa-ph-caption">\u00cdndice normalizado por unidad y ponderado por peso: ${stats.accepted} de ${m.activities.length} actividades con meses conciliados. <strong>No equivale al avance oficial de la meta.</strong> ${stats.excluded?`${stats.excluded} actividad(es) no tienen una serie conciliable.`:''} ${state.year==='2026'?'Julio a diciembre: sin reporte.':''}</p>`;
+  }
+  function phActivityProgress(m){
+    const acts=m.activities||[];
+    if(!acts.length)return '<p class="pa-ph-empty-chart">Sin actividades documentadas.</p>';
+    return `<div class="pa-ph-bars">${acts.map((a,i)=>{
+      const ratio=actRatio(a),s=phStatus(a),progress=ratio===null?null:Math.round(Math.max(0,Math.min(100,ratio*100)));
+      return `<button type="button" class="pa-ph-activity-row" data-pa-act-detail="${i}" title="Ver detalle de ${html(a.n)}"><span class="pa-ph-activity-label"><strong>Actividad ${html(a.n)}</strong><small>${html(a.name)}</small></span><span class="pa-ph-bar"><i class="pa-ph-bar-${s.key}" style="width:${progress??0}%"></i></span><strong>${progress===null?'\u2014':fmtNum.format(ratio*100)+'%'}</strong></button>`;
+    }).join('')}</div><p class="pa-ph-caption">Porcentaje = avance / valor programado de cada actividad. Se mantienen actividades que no tienen denominador v\u00e1lido.</p>`;
+  }
+  function phToolbar(m){
+    return `<div class="pa-ph-table-head"><h2>Avance F\u00edsico por Actividad y Mes</h2><div class="pa-ph-tools"><label>A\u00f1o<select id="pa-ph-table-year">${physYearOptions()}</select></label><label>Estado<select id="pa-ph-filter-status"><option value="all">Todos</option>${[['running','En ejecuci\u00f3n'],['done','Objetivo alcanzado'],['idle','Sin avance'],['delay','Retraso indicado'],['missing','Sin dato']].map(([k,l])=>`<option value="${k}" ${state.physicalFilters.status===k?'selected':''}>${l}</option>`).join('')}</select></label><label>Actividad<select id="pa-ph-filter-activity"><option value="all">Todas</option>${physActivityOptions(m)}</select></label><button type="button" class="pa-ph-export" data-pa-ph-export title="Exportar los registros visibles en Excel">${actIcon('file')}<span>Exportar</span></button></div></div>`;
+  }
+  function phMatrix(m){
+    const filtered=phVisible(m);
+    const header=months.map(x=>`<th>${x}</th>`).join('');
+    const body=filtered.map((a)=>{
+      const i=m.activities.indexOf(a),status=phStatus(a),ratio=actRatio(a);
+      const reportCells=months.map((name,mi)=>{
+        const v=Array.isArray(a.months)?a.months[mi]:null;
+        const present=isNumeric(v);
+        const color=!present?'none':v>0?'positive':'zero';
+        const title=`${fullMonths[mi]} ${state.year}: ${present?fmtNum.format(v)+' '+(a.unit||'unidades'):'Sin dato reportado'}. ${status.key==='delay'?'Retraso mencionado en observaci\u00f3n; revisar contexto.':''}`;
+        return `<td class="pa-ph-month pa-ph-month-${color}" title="${html(title)}">${present?fmtNum.format(v):'\u2014'}</td>`;
+      }).join('');
+      return `<tr><td>${html(a.n)}</td><td class="pa-ph-name">${html(a.name)}</td><td>${html(a.indicator||'Sin dato')}</td><td>${html(a.unit||'\u2014')}</td><td>${phShown(a.target)}</td>${reportCells}<td class="pa-ph-total">${phShown(a.progress)}</td><td>${ratio===null?'\u2014':fmtNum.format(ratio*100)+'%'}</td><td>${actStatePill(status)}</td><td><button type="button" class="pa-ph-eye" data-pa-act-detail="${i}" aria-label="Ver detalle de la actividad ${html(a.n)}">${actIcon('eye')}</button></td></tr>`;
+    }).join('');
+    return `<section class="pa-ph-table-card">${phToolbar(m)}<div class="pa-ph-table-scroller" tabindex="0" aria-label="Matriz mensual desplazable por actividad"><table class="pa-ph-matrix"><thead><tr><th>N\u00ba</th><th>Actividad</th><th>Indicador</th><th>Unidad de medida</th><th>Valor programado ${state.year}</th>${header}<th>Total avance</th><th>% avance</th><th>Estado</th><th>Ver detalle</th></tr></thead><tbody>${body||'<tr><td colspan="21" class="pa-ph-no-results">No hay actividades para los filtros seleccionados.</td></tr>'}</tbody></table></div><div class="pa-ph-legend"><span><i class="pa-ph-month-positive"></i>Valor positivo reportado</span><span><i class="pa-ph-month-zero"></i>Cero informado</span><span><i class="pa-ph-month-none"></i>Sin dato</span><span><i class="pa-ph-month-delay"></i>Retrasos mensuales: sin fechas verificables</span></div><p class="pa-ph-caption">Cada celda presenta el valor mensual original del Excel. El total mostrado es el campo de avance reportado, <strong>no la suma autom\u00e1tica de los meses</strong>. La coincidencia entre total y suma mensual puede variar por actividad. Los estados son orientativos. ${state.year==='2026'?'Corte: segundo trimestre; julio a diciembre no reportados.':''}</p></section>`;
+  }
+  function phTypeCard(m){
+    return `${dial(m.pct,'Cumplimiento f\u00edsico reportado','#078146')}<div class="pa-ph-legend-details"><div><i class="pa-ph-legend-run"></i><span>Avance reportado por la meta</span><strong>${pctLabel(m.pct)}</strong></div><div><i class="pa-ph-legend-wait"></i><span>Saldo porcentual pendiente</span><strong>${isNumeric(m.pct)?fmtNum.format(Math.max(0,100-m.pct*100))+'%':'\u2014'}</strong></div><p>Valor esperado: ${isNumeric(m.expected)?phShown(m.expected)+' '+phFmtUnit(m):'sin dato'}. El Excel no certifica una cantidad acumulada en la unidad de la meta para cada mes.</p></div>`;
+  }
+  function phMap(m){
+    const places=[...new Set((m.activities||[]).map(x=>x.territory).filter(Boolean))];
+    const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
+    return `<div class="pa-ph-map-wrap"><div class="pa-ph-map-view"><iframe title="Mapa de referencia de Subachoque sin marcadores de intervenciones" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik"></iframe></div><div class="pa-ph-map-side"><strong>Ubicaciones reportadas</strong>${places.length?places.slice(0,5).map(s=>`<p>${html(s)}</p>`).join(''):'<p>No se registraron lugares espec\u00edficos.</p>'}<p class="pa-ph-map-warning">El mapa muestra Subachoque como referencia, no coordenadas de obras. No se atribuyen puntos ni estados sin evidencia geogr\u00e1fica.</p><a href="https://www.openstreetmap.org/#map=12/4.92614/-74.17299" target="_blank" rel="noopener noreferrer">Ver mapa completo \u2192</a></div></div>`;
+  }
+  function phEvidence(m){
+    const n=actFileList(m).length;
+    return `<div class="pa-ph-evidence-top"><p>Documentos, enlaces y fotograf\u00edas verificadas asociados a esta meta.</p><button type="button" data-pa-act-show-docs ${n?'':'disabled'}>Ver todas \u2192</button></div>${actCarousel(m)}`;
+  }
+  function physicalDashboard(m){
+    return `<div class="pa-ph-dashboard"><div class="pa-ph-top-grid">${physCard('Avance f\u00edsico de la meta',phMainProgress(m),'pa-ph-overview-card')}${physCard('Evoluci\u00f3n del Avance F\u00edsico de la Meta',phChart(m),'pa-ph-trend-card')}${physCard('Cumplimiento por Actividad',phActivityProgress(m),'pa-ph-activity-card')}</div>${phMatrix(m)}<div class="pa-ph-bottom-grid">${physCard('Tipo de Meta - Avance F\u00edsico',phTypeCard(m),'pa-ph-type-card')}${physCard('Mapa de Intervenciones Ejecutadas',phMap(m),'pa-ph-map-card')}${physCard('Evidencias de Avance F\u00edsico',phEvidence(m),'pa-ph-evidence-card')}</div><p class="pa-ph-method"><strong>Fuente:</strong> ${html(currentYear()?.source||'Archivo de Plan de Acci\u00f3n')} \u00b7 ${state.year==='2026'?'Segundo trimestre de 2026.':'Vigencia 2025.'} El porcentaje de cumplimiento de la meta se toma directamente del Excel. Las gr\u00e1ficas derivadas se identifican como calculadas y no se extrapolan a periodos no reportados.</p></div>${actDetailDialog()}${actRepositoryDialog(m)}`;
+  }
+  function physicalResults(){
+    if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando avances f\u00edsicos...</h2></div>';
+    if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" data-pa-reload>Reintentar</button></div>`;
+    if(state.list)return listMarkup();
+    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty" role="status"><h2>Informaci\u00f3n de avance f\u00edsico no disponible para ${state.year}</h2><p>Se conserva la navegaci\u00f3n del seguimiento. Selecciona 2025 o 2026 para consultar los archivos oficiales.</p></div>`;
+    const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+physicalDashboard(m);
+  }
+  function phExport(){
+    const m=selected();if(!m||!currentYear())return;
+    const rows=phVisible(m).map(a=>{
+      const r={'Meta':m.id,'A\u00f1o':state.year,'N.\u00ba Actividad':a.n,'Actividad':a.name,'Indicador':a.indicator||'','Unidad de medida':a.unit||'','Valor programado':isNumeric(a.target)?a.target:null};
+      months.forEach((name,i)=>r[fullMonths[i].charAt(0).toUpperCase()+fullMonths[i].slice(1)]=isNumeric(a.months?.[i])?a.months[i]:null);
+      r['Total avance reportado']=isNumeric(a.progress)?a.progress:null;
+      r['Porcentaje calculado']=actRatio(a)!==null?actRatio(a)*100:null;
+      r['Estado orientativo']=phStatus(a).label;
+      r['Responsable']=actOwner(a,m)||'';
+      r['Territorio registrado']=a.territory||'';
+      r['Observaciones']=a.note||'';
+      return r;
+    });
+    const name=`Avance-Fisico-Subachoque-${state.year}-meta-${m.id}`;
+    // The page already loads the verified XLSX browser library for existing tools.
+    if(window.XLSX?.utils?.json_to_sheet){
+      const sheet=window.XLSX.utils.json_to_sheet(rows.length?rows:[{Meta:m.id,'A\u00f1o':state.year,Nota:'No hay actividades con los filtros actuales'}]);
+      const book=window.XLSX.utils.book_new();window.XLSX.utils.book_append_sheet(book,sheet,'Avance Fisico');window.XLSX.writeFile(book,name+'.xlsx');return;
+    }
+    // If the CDN library is temporarily unavailable, download Excel-compatible CSV.
+    const fields=rows.length?Object.keys(rows[0]):['Meta','A\u00f1o','Nota'];
+    const serial=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+    const data=[fields.map(serial).join(';'),...(rows.length?rows:[{Meta:m.id,'A\u00f1o':state.year,Nota:'Sin actividades con estos filtros'}]).map(row=>fields.map(k=>serial(row[k])).join(';'))].join('\r\n');
+    const blob=new Blob(['\ufeff',data],{type:'text/csv;charset=utf-8'});
+    const href=URL.createObjectURL(blob),link=document.createElement('a');link.href=href;link.download=name+'.csv';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(href),1500);
+  }
+
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
@@ -478,6 +634,7 @@
     return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
   }
   function pageMarkup(){
+    if(state.activeTab==='physical')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-physical-mode">${physicalHero()}<section class="pa-body pa-ig-body" aria-label="Avance f\u00edsico para ${state.year}"><div class="pa-content" id="pa-content">${physicalResults()}</div></section></div>`;
     if(state.activeTab==='activities')return `<div class="pa-shell pa-general-mode pa-activities-mode">${actHero()}<section class="pa-body pa-ig-body" aria-label="Actividades para ${state.year}"><div class="pa-content" id="pa-content">${actResults()}</div></section></div>`;
     if(state.activeTab==='general')return `<div class="pa-shell pa-general-mode">${igHero()}<section class="pa-body pa-ig-body" aria-label="Información General para ${state.year}"><div class="pa-content" id="pa-content">${generalResults()}</div></section></div>`;
     const avail=!!currentYear();return `<div class="pa-shell">${topMarkup()}<section class="pa-body" aria-label="Panel de seguimiento para ${state.year}">${!avail?tabMarkup(null):''}<div class="pa-content" id="pa-content">${resultsMarkup()}</div></section></div>`;
@@ -487,7 +644,7 @@
     panel.innerHTML=pageMarkup();
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
   }
-  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
+  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
@@ -500,12 +657,15 @@
     const filterMap={'pa-act-filter-state':'status','pa-act-filter-owner':'owner','pa-act-filter-place':'place'};
     if(filterMap[ev.target.id]){state.activityFilters[filterMap[ev.target.id]]=ev.target.value;refresh();return;}
     if(ev.target.id==='pa-act-compare-unit'){state.activityCompareUnit=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
-    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select'].includes(ev.target.id))return;
-    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;refresh();
+    if(ev.target.id==='pa-ph-filter-status'){state.physicalFilters.status=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    if(ev.target.id==='pa-ph-filter-activity'){state.physicalFilters.activity=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year'].includes(ev.target.id))return;
+    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;refresh();
   });
   panel.addEventListener('click',ev=>{
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(ev.target.closest('[data-pa-ph-export]')){phExport();return;}
     if(ev.target.closest('[data-pa-act-clear]')){state.activityFilters={q:'',status:'all',owner:'all',place:'all'};refresh();return;}
     const d=ev.target.closest('[data-pa-act-detail]');if(d){actShowDetail(Number(d.dataset.paActDetail));return;}
     if(ev.target.closest('[data-pa-act-close]')){ev.target.closest('dialog')?.close();return;}
