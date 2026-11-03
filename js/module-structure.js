@@ -20,7 +20,8 @@ function restoreModuleSection() {
     'data-caracterizacion':['data-encuesta',''],
     'data-publicaciones':['data-conoce','']
   };
-  const alias=route==='data'?aliases[original]:null;
+  const legacyPlan=route==='desarrollo' && /^desarrollo-(accion|contratacion)-202[456]$/.test(original||'') ? original.replace(/-202[456]$/,'') : (route==='desarrollo' && original==='desarrollo-gestion' ? 'desarrollo-cumplimos' : null);
+  const alias=route==='data'?aliases[original]:(legacyPlan?[legacyPlan,'']:null);
   const requested=alias?alias[0]:original;
   if(alias){
     params.set('seccion',requested);
@@ -28,7 +29,7 @@ function restoreModuleSection() {
     params.delete('vista');
     if(alias[1])params.set('dimension',alias[1]);
     if(original==='data-publicaciones')params.set('bloque','publicaciones');
-    history.replaceState({route:'data'},'', '#data?'+params.toString());
+    history.replaceState({route},'', '#'+route+'?'+params.toString());
   }
   const tabs=[...view.querySelectorAll('[data-module-panel]')];
   const selected=tabs.find(tab=>tab.dataset.modulePanel===requested)||tabs[0];
