@@ -11,8 +11,8 @@
   const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const fullMonths = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const categories = ['Resumen','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Soportes','Observaciones'];
-  const categoryIcons = ['▣','ⓘ','☷','▥','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M1 20v-3c0-3 3-5 7-5s7 2 7 5v3M9 20v-3c0-3 3-5 7-5s7 2 7 5v3"/></svg>','＄','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 22s8-7.5 8-14a8 8 0 1 0-16 0c0 6.5 8 14 8 14Z"/><circle cx="12" cy="8" r="2.5"/></svg>','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l4 4v16H6zM15 2v5h4M9 12h7M9 16h7"/></svg>','▤'];
-  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, loading:true, error:null };
+  const categoryIcons = ['▣','ⓘ','☷','▥','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><path d="M1 20v-3c0-3 3-5 7-5s7 2 7 5v3M9 20v-3c0-3 3-5 7-5s7 2 7 5v3"/></svg>','＄','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 22s8-7.5 8-14a8 8 0 1 0-16 0c0 6.5 8 14 8 14Z"/><circle cx="12" cy="8" r="2.5"/></svg>','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l4 4v16H6zM15 2v5h4M9 12h7M9 16h7"/></svg>','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H9l-5 4z"/><path stroke-linecap="round" d="M8 11h.1m4 0h.1m4 0h.1"/></svg>'];
+  const state = { year:'2025', current:101, data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, obData:null, obLoading:false, obLoaded:false, obError:null, obFilters:{type:'all',status:'all',issuer:'all',from:'',to:'',q:''}, obPage:0, obSort:'source', obSortAsc:true, loading:true, error:null };
   const fmtNum = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const fmtInt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
   const fmtMoney = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -80,7 +80,7 @@
       </div>
     </div>`;
   };
-  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=7,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries')||(i===5&&state.activeTab==='budget')||(i===6&&state.activeTab==='territory')||(i===7&&state.activeTab==='supports');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':i===4?'beneficiaries':i===5?'budget':i===6?'territory':'supports'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
+  function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const enabled=i<=8,active=(i===0&&state.activeTab==='summary')||(i===1&&state.activeTab==='general')||(i===2&&state.activeTab==='activities')||(i===3&&state.activeTab==='physical')||(i===4&&state.activeTab==='beneficiaries')||(i===5&&state.activeTab==='budget')||(i===6&&state.activeTab==='territory')||(i===7&&state.activeTab==='supports')||(i===8&&state.activeTab==='observations');return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" ${enabled?`data-pa-tab="${i===0?'summary':i===1?'general':i===2?'activities':i===3?'physical':i===4?'beneficiaries':i===5?'budget':i===6?'territory':i===7?'supports':'observations'}"`:'disabled title="Sección pendiente de incorporar" aria-disabled="true"'}><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${i===2 && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function statusBar(m){
     const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
@@ -1411,6 +1411,182 @@
     if(typeof dialog.showModal==='function')dialog.showModal();
   }
 
+  /* 3.3 / Observaciones: registros documentales de los dos Excel, sin estados inferidos. */
+  const obYears=[2024,2025,2026,2027];
+  const obTypes=[['Comentario','#0c72c5'],['Alerta','#ed3746'],['Recomendación','#f8b900'],['Solicitud','#b78a03'],['Avance','#006d89'],['Otro','#8994a4'],['Sin clasificar','#7e899d']];
+  const obStatusKeys=[['closed','Cerrada','#008750'],['tracking','En seguimiento','#f5b300'],['pending','Pendiente de atención','#e63848'],['unknown','Estado no registrado','#8b9bb0']];
+  const obIcons={
+    comment:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 5h16v11H9l-5 4z"/><path stroke-linecap="round" d="M8 11h.1m4 0h.1m4 0h.1"/></svg>',
+    check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="m7.5 12 3 3 6-6"/></svg>',
+    clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>',
+    alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2 2 20h20z"/><path stroke-linecap="round" d="M12 9v5m0 3v.2"/></svg>',
+    search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="10.5" cy="10.5" r="6.4"/><path d="m15.3 15.3 5.2 5.2"/></svg>',
+    xl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 2h10l4 4v16H5zM15 2v5h4"/><path d="m8 11 5 7m0-7-5 7M15 11v7"/></svg>',
+    pdf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 2h10l4 4v16H5zM15 2v5h4M8 17v-6h2a2 2 0 0 1 0 4H8m6-4v6h1.2a3 3 0 0 0 0-6H14m5 0h-2v6m0-3h2"/></svg>',
+    open:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><path d="M13 4h7v7m0-7-10 10M20 14v6H4V4h8"/></svg>',
+  };
+  function obIcon(name){return obIcons[name]||obIcons.comment;}
+  function obList(){return state.obData?.periods?.[state.year]?.[String(state.current)]||[];}
+  function obDate(v){if(!v)return 'Fecha no registrada';const d=new Date(v+'T12:00:00');return Number.isNaN(+d)?'Fecha no registrada':d.toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'});}
+  function obTitleValue(v){return v==null||String(v).trim()===''?'No registrado':String(v);}
+  function obStatus(record){return record.status==='closed'?'closed':record.status==='tracking'?'tracking':record.status==='pending'?'pending':'unknown';}
+  function obType(record){return obTypes.find(v=>v[0]===record.type)?.[0]||'Sin clasificar';}
+  function obTypeColor(type){return obTypes.find(v=>v[0]===type)?.[1]||'#8492a5';}
+  function obReset(){state.obFilters={type:'all',status:'all',issuer:'all',from:'',to:'',q:''};state.obPage=0;state.obSort='source';state.obSortAsc=true;}
+  function obFiltered(){
+    const f=state.obFilters,needle=normalizeQuery(f.q);
+    const rows=obList().filter(x=>{
+      if(f.type!=='all'&&obType(x)!==f.type)return false;
+      if(f.status!=='all'&&obStatus(x)!==f.status)return false;
+      if(f.issuer!=='all'&&(x.issuer||'unknown')!==f.issuer)return false;
+      if(f.from&&(!x.date||x.date<f.from))return false;
+      if(f.to&&(!x.date||x.date>f.to))return false;
+      if(needle){const text=[x.text,x.type,x.status,x.issuer,x.id,...(x.activities||[]),...(x.activityNames||[]),x.response].filter(Boolean).join(' ');if(!normalizeQuery(text).includes(needle))return false;}
+      return true;
+    });
+    const order=state.obSort,dir=state.obSortAsc?1:-1;
+    rows.sort((a,b)=>{
+      let av=order==='date'?(a.date||''):order==='type'?obType(a):order==='issuer'?(a.issuer||''):order==='status'?obStatus(a):order==='text'?a.text:(a.sourceRows?.[0]||0);
+      let bv=order==='date'?(b.date||''):order==='type'?obType(b):order==='issuer'?(b.issuer||''):order==='status'?obStatus(b):order==='text'?b.text:(b.sourceRows?.[0]||0);
+      const cmp=typeof av==='number'&&typeof bv==='number'?av-bv:String(av).localeCompare(String(bv),'es');return cmp*dir;
+    });
+    return rows;
+  }
+  function obHero(){return `<header class="pa-ig-hero pa-act-hero pa-su-hero pa-ob-hero"><div class="pa-ig-hero-main"><nav class="pa-act-breadcrumb" aria-label="Ruta del módulo"><span>Inicio</span><span>Metas</span><span>Meta ${state.current}</span><strong>Observaciones</strong></nav><h1>Observaciones de la Meta</h1><p>Consulta los comentarios, alertas, recomendaciones y notas de seguimiento realizadas por las dependencias responsables y entes de control.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">“La mejora continua<br>también construye<br>desarrollo”</div><label class="pa-ig-select-year">Año de seguimiento<select id="pa-ob-year-select" aria-label="Año de seguimiento">${obYears.map(y=>`<option value="${y}"${String(y)===state.year?' selected':''}>${y}</option>`).join('')}</select></label></div></header>`;}
+  function obKpi(name,value,subtitle,icon,kind,extra){return `<article class="pa-ob-stat pa-ob-${kind}" title="${html(extra||subtitle)}"><div class="pa-ob-stat-icon">${obIcon(icon)}</div><div><span>${html(name)}</span><strong>${html(value)}</strong><small>${html(subtitle)}</small></div></article>`;}
+  function obStats(){const records=obList(),by=Object.fromEntries(obStatusKeys.map(x=>[x[0],records.filter(r=>obStatus(r)===x[0]).length])),known=records.length-by.unknown;
+    return `<div class="pa-ob-stats">${obKpi('Total de observaciones',fmtInt.format(records.length),'Registros únicos documentados','comment','total','Registros extraídos del campo de observaciones de cada actividad; textos repetidos agrupados por meta')}${obKpi('Cerradas',known?fmtInt.format(by.closed):'—',known?fmtNum.format(by.closed/known*100)+'% de estados conocidos':'Sin estado de cierre oficial','check','closed')}${obKpi('En seguimiento',known?fmtInt.format(by.tracking):'—',known?fmtNum.format(by.tracking/known*100)+'% de estados conocidos':'Estado no registrado','clock','tracking')}${obKpi('Pendiente de atención',known?fmtInt.format(by.pending):'—',known?fmtNum.format(by.pending/known*100)+'% de estados conocidos':'Estado no registrado','alert','pending')}</div>`;}
+  function obSelect(id,name,values,chosen){return `<label for="${id}">${html(name)}<select id="${id}">${values.map(([value,label])=>`<option value="${html(value)}"${value===chosen?' selected':''}>${html(label)}</option>`).join('')}</select></label>`;}
+  function obFilters(){
+    const f=state.obFilters,types=[['all','Todos'],...obTypes.map(t=>[t[0],t[0]])];
+    const status=[['all','Todos'],['closed','Cerrada'],['tracking','En seguimiento'],['pending','Pendiente de atención'],['unknown','Estado no registrado']];
+    const issuers=[...new Set(obList().map(x=>x.issuer).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+    const deps=[['all','Todas'],...issuers.map(x=>[x,x])];if(obList().some(x=>!x.issuer))deps.push(['unknown','Emisor no registrado']);
+    return `<section class="pa-ob-panel pa-ob-filter"><h3>Filtrar observaciones</h3><div class="pa-ob-filter-fields">${obSelect('pa-ob-type','Tipo de observación',types,f.type)}${obSelect('pa-ob-status','Estado',status,f.status)}${obSelect('pa-ob-issuer','Dependencia emisora',deps,f.issuer)}<label for="pa-ob-from">Fecha desde<input id="pa-ob-from" type="date" value="${html(f.from)}"></label><label for="pa-ob-to">Fecha hasta<input id="pa-ob-to" type="date" min="${html(f.from)}" value="${html(f.to)}"></label></div><div class="pa-ob-search"><span aria-hidden="true">${obIcon('search')}</span><input id="pa-ob-search" placeholder="Buscar por palabra clave..." value="${html(f.q)}" aria-label="Buscar observaciones"><button type="button" data-pa-ob-search aria-label="Buscar">${obIcon('search')}</button></div><button type="button" class="pa-ob-clear" data-pa-ob-clear>Restablecer filtros</button><div class="pa-ob-filter-legend"><h4>Tipos de observación</h4>${obTypes.slice(0,-1).map(([name,color])=>`<span><i style="background:${color}"></i>${html(name)}</span>`).join('')}<span><i style="background:#8190a5"></i>Sin clasificar</span></div></section>`;
+  }
+  function obTable(){const all=obFiltered(),pages=Math.max(1,Math.ceil(all.length/8));if(state.obPage>=pages)state.obPage=pages-1;
+    const start=state.obPage*8,slice=all.slice(start,start+8);
+    const rows=slice.map(x=>{const type=obType(x),s=obStatus(x),sname=obStatusKeys.find(k=>k[0]===s)?.[1];return `<tr><td class="pa-ob-date">${html(obDate(x.date))}</td><td><span class="pa-ob-type"><i style="background:${obTypeColor(type)}"></i>${html(type)}</span></td><td class="pa-ob-note" title="${html(x.text)}"><span class="pa-ob-note-preview">${html(x.text)}</span></td><td class="pa-ob-dependency">${html(x.issuer||'Emisor no registrado')}</td><td><span class="pa-ob-state ${s}">${s==='unknown'?'○':s==='closed'?'✓':s==='tracking'?'◷':'!'} ${html(sname)}</span></td><td><button type="button" class="pa-ob-detail-btn" data-pa-ob-detail="${html(x.id)}">Ver detalle</button></td></tr>`}).join('');
+    const heads=[['date','Fecha'],['type','Tipo'],['text','Observación'],['issuer','Dependencia'],['status','Estado'],['','Acciones']];
+    const countText=all.length?`Mostrando ${start+1} - ${Math.min(start+8,all.length)} de ${all.length} observaciones`:'Mostrando 0 de 0 observaciones';
+    const pagination=`<footer class="pa-ob-pagination"><span>${countText}</span><div>${pages>1?`<button type="button" data-pa-ob-page="${state.obPage-1}" ${state.obPage===0?'disabled':''} aria-label="Página anterior">‹</button>`:''}${Array.from({length:pages},(_,i)=>`<button type="button" data-pa-ob-page="${i}" class="${i===state.obPage?'active':''}" aria-label="Página ${i+1}" aria-current="${i===state.obPage?'page':'false'}">${i+1}</button>`).join('')}${pages>1?`<button type="button" data-pa-ob-page="${state.obPage+1}" ${state.obPage+1>=pages?'disabled':''} aria-label="Página siguiente">›</button>`:''}</div></footer>`;
+    return `<section class="pa-ob-panel pa-ob-table-panel"><h3>Listado de observaciones</h3><div class="pa-ob-table-scroller"><table class="pa-ob-table"><thead><tr>${heads.map(([k,v])=>`<th>${k?`<button type="button" data-pa-ob-sort="${k}" title="Ordenar por ${html(v)}">${html(v)}${state.obSort===k?(state.obSortAsc?' ↑':' ↓'):''}</button>`:html(v)}</th>`).join('')}</tr></thead><tbody>${rows||'<tr><td colspan="6"><div class="pa-ob-noresults">No se encontraron observaciones con los filtros seleccionados.</div></td></tr>'}</tbody></table></div>${pagination}<p class="pa-ob-method">Fuente: campo original de observaciones de cada actividad. No se asignan fechas, autores, tipos ni estados por inferencia.</p></section>`;
+  }
+  function obByAgency(){const list=obList(),matched=list.filter(x=>x.issuer),unknown=list.length-matched.length;const agg=new Map();for(const x of matched)agg.set(x.issuer,(agg.get(x.issuer)||0)+1);
+    const sorted=[...agg.entries()].sort((a,b)=>b[1]-a[1]),max=Math.max(1,...sorted.map(a=>a[1]));
+    const bars=sorted.map(([dep,n],i)=>`<button class="pa-ob-dep-row" type="button" data-pa-ob-dep="${html(dep)}" title="${html(dep)}: ${n} observaciones"><span>${html(dep)}</span><i><b style="width:${100*n/max}%;background:${['#06a258','#167bea','#e9ab11','#e94652','#9743c9'][i%5]}"></b></i><strong>${n}</strong></button>`).join('');
+    return `<section class="pa-ob-panel pa-ob-agencies"><h3>Observaciones por dependencia</h3>${bars}${unknown?`<button class="pa-ob-dep-row neutral" type="button" data-pa-ob-dep="unknown" title="No consta la dependencia que emitió estas observaciones"><span>Emisor no registrado</span><i><b style="width:${Math.round(100*unknown/Math.max(unknown,max))}%;background:#8795a9"></b></i><strong>${unknown}</strong></button>`:''}<p class="pa-ob-hint">El campo «Responsable» del Excel corresponde a la actividad, no necesariamente a quien emitió la observación.</p></section>`;
+  }
+  function obStateDonut(){const list=obList(),n=list.length,counts=Object.fromEntries(obStatusKeys.map(v=>[v[0],list.filter(x=>obStatus(x)===v[0]).length]));
+    let pos=0;const stops=obStatusKeys.map(([key,,color])=>{const share=n?counts[key]/n*100:0;const s=`${color} ${pos}% ${pos+share}%`;pos+=share;return s;});
+    const gradient=n?`conic-gradient(${stops.join(',')})`:'conic-gradient(#dce5ed 0 100%)';
+    return `<section class="pa-ob-panel pa-ob-states"><h3>Estado de las observaciones</h3><div class="pa-ob-states-content"><div class="pa-ob-donut" style="background:${gradient}"><div><strong>${fmtInt.format(n)}</strong><small>Total</small></div></div><div class="pa-ob-state-legend">${obStatusKeys.map(([key,label,color])=>`<button type="button" data-pa-ob-status="${key}" title="Filtrar por ${html(label)}"><i style="background:${color}"></i><span>${html(label)}</span><b>${counts[key]}${n?' ('+fmtNum.format(counts[key]/n*100)+'%)':''}</b></button>`).join('')}</div></div>${n&&!list.some(x=>x.status)?'<p class="pa-ob-hint">No hay estados formales de cierre en los archivos suministrados.</p>':''}</section>`;
+  }
+  function obExportPanel(){return `<section class="pa-ob-panel pa-ob-export"><h3>Descargar reporte de observaciones</h3><p>Consulta y descarga las observaciones documentadas en formato Excel o PDF.</p><label for="pa-ob-export-scope">Alcance del reporte<select id="pa-ob-export-scope"><option value="filtered">Resultados filtrados</option><option value="all">Todas las observaciones de la meta</option></select></label><div class="pa-ob-export-buttons"><button type="button" data-pa-ob-export="xlsx">${obIcon('xl')} Descargar Excel</button><button type="button" data-pa-ob-export="pdf">${obIcon('pdf')} Descargar PDF</button></div><small>Generado por Territorio Inteligente a partir del Excel original; no es certificación municipal.</small></section>`;}
+  function obDetailDialog(){return `<dialog class="pa-ob-dialog" id="pa-ob-dialog" aria-labelledby="pa-ob-dialog-title"><header><div><small>Seguimiento al Plan de Acción · ${state.year}</small><h2 id="pa-ob-dialog-title">Detalle de la observación</h2></div><button type="button" data-pa-ob-close aria-label="Cerrar detalle">×</button></header><div id="pa-ob-dialog-content"></div></dialog>`;}
+  function obDashboard(m){return `<div class="pa-ob-dashboard" id="pa-ob-dashboard"><div class="pa-ob-grid"><div class="pa-ob-left-zone">${obStats()}<div class="pa-ob-work-area">${obFilters()}${obTable()}</div></div><div class="pa-ob-right-zone">${obByAgency()}${obStateDonut()}${obExportPanel()}</div></div><div class="pa-ob-dataline">${state.obLoading?'Leyendo observaciones originales…':state.obError?`No fue posible consultar el inventario completo: ${html(state.obError)}`:`Registros de ${state.year} · ${html(state.year==='2026'?'Segundo trimestre':'Vigencia 2025')} · Observaciones sin clasificación oficial preservadas.`}</div>${obDetailDialog()}</div>`;}
+  function obResults(){
+    if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando registros…</h2></div>';
+    if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>Datos no disponibles</h2><p>${html(state.error)}</p></div>`;
+    if(state.list)return listMarkup();
+    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty" role="status"><h2>Información de observaciones no disponible para ${state.year}</h2><p>La navegación y selección de vigencia se conservan. Los archivos disponibles corresponden a 2025 y al segundo trimestre de 2026.</p></div>`;
+    const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+(state.obLoading?'<div class="pa-ob-loading" role="status">Cargando las observaciones documentadas…</div>':state.obError?`<div class="pa-empty"><h2>No fue posible cargar las observaciones</h2><p>${html(state.obError)}</p><button type="button" data-pa-ob-retry>Reintentar</button></div>`:obDashboard(m));
+  }
+  function obRefreshPart(preserve=false){
+    if(state.activeTab!=='observations'||!currentYear()||state.obLoading||state.obError)return;
+    const node=preserve?document.activeElement:null,activeId=node?.id,sel=node?.selectionStart,end=node?.selectionEnd,scroll=window.scrollY;
+    const el=panel.querySelector('#pa-ob-dashboard');if(el&&selected())el.outerHTML=obDashboard(selected());
+    if(activeId){const input=panel.querySelector('#'+activeId);if(input){input.focus({preventScroll:true});try{input.setSelectionRange(sel,end)}catch{}}}
+    window.scrollTo({top:scroll});
+  }
+  async function obLoad(){
+    if(state.obLoading||state.obLoaded)return;
+    state.obLoading=true;state.obError=null;
+    try{
+      const res=await fetch('/data/plan-accion-observaciones-2025-2026.b64.txt',{cache:'no-cache'});
+      if(!res.ok)throw Error('Inventario de observaciones: HTTP '+res.status);
+      const bin=atob((await res.text()).trim()),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+      const decoded=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+      const obj=JSON.parse(decoded);if(!obj?.periods?.['2025']||!obj?.periods?.['2026']||obj.schema!=='ti-plan-observaciones-v1')throw Error('La fuente de observaciones está incompleta.');
+      state.obData=obj;state.obLoaded=true;state.obError=null;
+    }catch(err){state.obError=String(err?.message||err);console.warn('Observaciones:',err);}
+    finally{state.obLoading=false;if(state.activeTab==='observations')refresh();}
+  }
+  function obOpenDetail(id){const item=obList().find(x=>x.id===id);if(!item)return;const dialog=panel.querySelector('#pa-ob-dialog');if(!dialog)return;
+    const field=(label,val)=>`<div><dt>${html(label)}</dt><dd>${html(obTitleValue(val))}</dd></div>`;
+    const links=item.supportUrls?.map(url=>safeLink(url)).filter(Boolean)||[];
+    const actButtons=(item.activities||[]).map(a=>`<button type="button" data-pa-ob-to-activity="${html(a)}">Actividad ${html(a)} ↗</button>`).join('');
+    dialog.querySelector('#pa-ob-dialog-content').innerHTML=`<div class="pa-ob-detail-meta"><span class="pa-ob-pill">${html(obType(item))}</span><span class="pa-ob-pill muted">${html(obStatusKeys.find(x=>x[0]===obStatus(item))?.[1])}</span></div><div class="pa-ob-detail-text">${lineBreaks(item.text)}</div><dl class="pa-ob-detail-list">${field('Identificador',item.id)}${field('Meta',item.meta)}${field('Vigencia',item.year)}${field('Fecha',obDate(item.date))}${field('Dependencia emisora',item.issuer||'No registrada')}${field('Dependencia responsable de actividad',item.responsibles?.join(' / '))}${field('Respuesta institucional',item.response)}${field('Fecha de cierre',item.closedAt)}${field('Archivo de origen',item.sourceFile)}${field('Hoja',item.sourceSheet)}${field('Campo',item.sourceField)}${field('Filas originales',item.sourceRows?.join(', '))}${field('Actividades relacionadas',item.activities?.join(', '))}</dl><div class="pa-ob-detail-links"><h4>Actividades y soportes vinculados</h4>${actButtons}${links.map(url=>`<a href="${html(url)}" target="_blank" rel="noopener noreferrer">${obIcon('open')} Abrir soporte original</a>`).join('')||'<p>No hay enlaces documentales vinculados.</p>'}</div><p class="pa-ob-detail-note">Este registro reproduce una observación del Excel. El tipo, fecha exacta, dependencia emisora y estado de cierre no se completan sin evidencia.</p>`;
+    dialog.showModal();
+  }
+  function obDownloadBlob(name,bytes,mime){const blob=new Blob([bytes],{type:mime}),href=URL.createObjectURL(blob),a=document.createElement('a');a.href=href;a.download=name;a.hidden=true;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),30000);}
+  function obReportRows(){const scope=panel.querySelector('#pa-ob-export-scope')?.value||'filtered';return scope==='all'?obList():obFiltered();}
+  function obColumns(){return ['Vigencia','Número de meta','Nombre de meta','ID observación','Actividades','Fecha','Tipo','Observación completa','Dependencia emisora','Estado','Respuesta','Fecha de cierre','Dependencia responsable de actividad','Fuente Excel','Hoja','Filas fuente','Soportes'];}
+  function obRecordsToCells(records){const meta=selected();return records.map(r=>[state.year,String(r.meta),meta?.name||'',r.id,(r.activities||[]).join(', '),r.date||'',r.type||'Sin clasificar',r.text,r.issuer||'',r.status||'Estado no registrado',r.response||'',r.closedAt||'',(r.responsibles||[]).join(' / '),r.sourceFile,r.sourceSheet,(r.sourceRows||[]).join(', '),(r.supportUrls||[]).join('\n')]);}
+  function obZip(files){
+    const te=new TextEncoder(),parts=[],centers=[];let ofs=0;
+    const u16=(dv,o,n)=>dv.setUint16(o,n,true),u32=(dv,o,n)=>dv.setUint32(o,n>>>0,true);
+    const crc=bytes=>{let c=0xffffffff;for(const b of bytes){c^=b;for(let i=0;i<8;i++)c=(c&1)?(c>>>1)^0xedb88320:c>>>1;}return(c^0xffffffff)>>>0;};
+    for(const [name,content] of Object.entries(files)){
+      const n=te.encode(name),d=te.encode(content),hash=crc(d),head=new Uint8Array(30+n.length),v=new DataView(head.buffer);
+      u32(v,0,0x04034b50);u16(v,4,20);u16(v,6,0);u16(v,8,0);u32(v,14,hash);u32(v,18,d.length);u32(v,22,d.length);u16(v,26,n.length);head.set(n,30);parts.push(head,d);
+      const center=new Uint8Array(46+n.length),c=new DataView(center.buffer);u32(c,0,0x02014b50);u16(c,4,20);u16(c,6,20);u32(c,16,hash);u32(c,20,d.length);u32(c,24,d.length);u16(c,28,n.length);u32(c,42,ofs);center.set(n,46);centers.push(center);ofs+=head.length+d.length;
+    }
+    const centralLength=centers.reduce((a,b)=>a+b.length,0),end=new Uint8Array(22),e=new DataView(end.buffer);u32(e,0,0x06054b50);u16(e,8,centers.length);u16(e,10,centers.length);u32(e,12,centralLength);u32(e,16,ofs);
+    return new Blob([...parts,...centers,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  }
+  function obXml(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,'');}
+  function obXlsx(records){
+    const cols=obColumns(),rows=[cols,...obRecordsToCells(records)],cells=rows.map((row,i)=>`<row r="${i+1}">${row.map((value,j)=>{let n=j+1,col='';while(n>0){col=String.fromCharCode(65+(n-1)%26)+col;n=Math.floor((n-1)/26);}if(value==null||value==='')return '';return `<c r="${col}${i+1}" s="${i===0?1:0}" t="inlineStr"><is><t xml:space="preserve">${obXml(value)}</t></is></c>`;}).join('')}</row>`).join('');
+    const colWidths=[11,11,39,20,23,17,20,75,27,24,42,16,34,29,31,16,45];
+    const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><dimension ref="A1:Q${rows.length}"/><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="17"/><cols>${colWidths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')}</cols><sheetData>${cells}</sheetData><autoFilter ref="A1:Q${rows.length}"/></worksheet>`;
+    return obZip({
+      '[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>',
+      '_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>',
+      'xl/workbook.xml':'<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Observaciones" sheetId="1" r:id="rId1"/></sheets></workbook>',
+      'xl/_rels/workbook.xml.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>',
+      'xl/styles.xml':'<?xml version="1.0" encoding="UTF-8"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/><color rgb="FF183962"/></font><font><b/><sz val="11"/><name val="Calibri"/><color rgb="FF102A50"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE0F2E8"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="1" borderId="0" xfId="0" applyFont="1" applyFill="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>',
+      'xl/worksheets/sheet1.xml':sheet
+    });
+  }
+  function obPdfText(v){const cp={8216:145,8217:146,8220:147,8221:148,8211:150,8212:151,8230:133,8364:128};return String(v??'').replace(/[\\()]/g,c=>'\\'+c).replace(/[^\x20-\x7e]/g,c=>{const n=c.charCodeAt(0),byte=n<=255?n:cp[n]||63;return '\\'+byte.toString(8).padStart(3,'0');});}
+  function obWrap(text,max=104){const out=[];for(const para of String(text||'').split(/\r?\n/)){const words=para.trim().split(/\s+/);let line='';for(const word of words){if((line+' '+word).trim().length>max&&line){out.push(line);line=word;}else line=(line?line+' ':'')+word;}out.push(line);}return out;}
+  function obPdf(records){
+    const m=selected(),pages=[];let cmds=[],y=0;
+    const newPage=()=>{cmds=[];pages.push(cmds);y=793;cmds.push('0.06 0.18 0.33 rg 42 812 510 8 re f');cmds.push(`BT /F2 15 Tf 0.06 0.18 0.33 rg 44 788 Td (${obPdfText('TERRITORIO INTELIGENTE')}) Tj ET`);y=764;};
+    const ensure=space=>{if(y-space<56)newPage();};
+    const textLine=(s,font='F1',size=9,color='0.11 0.22 0.34')=>{ensure(size+4);cmds.push(`BT /${font} ${size} Tf ${color} rg 44 ${y.toFixed(1)} Td (${obPdfText(s)}) Tj ET`);y-=size+4;};
+    newPage();textLine('Reporte de observaciones generado por Territorio Inteligente','F2',12);y-=3;
+    for(const line of obWrap(`Meta ${m?.id||state.current} - ${m?.name||'Sin título'}`,85))textLine(line,'F2',9.6);
+    textLine(`Vigencia: ${state.year}  |  Registros: ${records.length}  |  Generado: ${new Date().toLocaleDateString('es-CO')}`,'F1',8.5);y-=7;
+    for(const line of obWrap('Fuente: Plan de Acción municipal (archivo Excel aportado). Tipo, emisor, fecha exacta y estado solo se muestran cuando están documentados.',100))textLine(line,'F1',8.2);
+    y-=10;
+    if(!records.length)textLine('No hay registros de observaciones para esta selección.','F1',10);
+    for(const r of records){
+      ensure(83);cmds.push(`0.92 0.96 0.98 rg 42 ${(y-6).toFixed(1)} 510 17 re f`);
+      textLine(`Observación ${r.id}  |  Actividad(es): ${(r.activities||[]).join(', ')||'No registrada'}`,'F2',9);
+      textLine(`Fecha: ${obDate(r.date)}   |   Tipo: ${obType(r)}   |   Estado: ${obStatusKeys.find(x=>x[0]===obStatus(r))?.[1]||'No registrado'}`,'F1',8.1);
+      for(const line of obWrap(r.text,99))textLine(line,'F1',8.4);
+      for(const line of obWrap(`Origen: ${r.sourceFile}; hoja ${r.sourceSheet}; filas ${(r.sourceRows||[]).join(', ')}.`,108))textLine(line,'F1',7.3,'0.36 0.44 0.53');
+      y-=11;
+    }
+    const font1='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
+    const font2='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
+    const objects=['','<< /Type /Catalog /Pages 2 0 R >>','',font1,font2];
+    const children=[];for(let i=0;i<pages.length;i++){const pageId=5+i*2,streamId=pageId+1;children.push(`${pageId} 0 R`);pages[i].push(`BT /F1 8 Tf 0.45 0.53 0.61 rg 44 31 Td (${obPdfText('Reporte documental - no es certificación municipal')}) Tj ET`);pages[i].push(`BT /F1 8 Tf 0.45 0.53 0.61 rg 502 31 Td (${obPdfText((i+1)+' / '+pages.length)}) Tj ET`);const stream=pages[i].join('\n')+'\n';objects[pageId]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${streamId} 0 R >>`;objects[streamId]=`<< /Length ${stream.length} >>\nstream\n${stream}endstream`;}
+    objects[2]=`<< /Type /Pages /Count ${pages.length} /Kids [${children.join(' ')}] >>`;
+    let pdf='%PDF-1.4\n',offsets=[0];for(let i=1;i<objects.length;i++){offsets.push(pdf.length);pdf+=`${i} 0 obj\n${objects[i]}\nendobj\n`;}
+    const xref=pdf.length;pdf+=`xref\n0 ${objects.length}\n0000000000 65535 f \n`;
+    for(let i=1;i<offsets.length;i++)pdf+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';
+    pdf+=`trailer\n<< /Size ${objects.length} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+    return new Blob([pdf],{type:'application/pdf'});
+  }
+  function obExport(kind){const records=obReportRows(),suffix=`Observaciones_Meta_${state.current}_${state.year}`;
+    if(kind==='xlsx'){const doc=obXlsx(records);obDownloadBlob(suffix+'.xlsx',doc,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');}
+    else if(kind==='pdf'){const doc=obPdf(records);obDownloadBlob(suffix+'.pdf',doc,'application/pdf');}
+  }
+
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
@@ -1420,6 +1596,7 @@
     return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
   }
   function pageMarkup(){
+    if(state.activeTab==='observations')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-observations-mode">${obHero()}<section class="pa-body pa-ig-body" aria-label="Observaciones de la meta para ${state.year}"><div class="pa-content" id="pa-content">${obResults()}</div></section></div>`;
     if(state.activeTab==='supports')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-supports-mode">${suHero()}<section class="pa-body pa-ig-body" aria-label="Soportes de la meta para ${state.year}"><div class="pa-content" id="pa-content">${suResults()}</div></section></div>`;
     if(state.activeTab==='territory')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-territory-mode">${trHero()}<section class="pa-body pa-ig-body" aria-label="Territorio para ${state.year}"><div class="pa-content" id="pa-content">${trResults()}</div></section></div>`;
     if(state.activeTab==='budget')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-budget-mode">${buHero()}<section class="pa-body pa-ig-body" aria-label="Ejecución Presupuestal para ${state.year}"><div class="pa-content" id="pa-content">${buResults()}</div></section></div>`;
@@ -1438,9 +1615,10 @@
       if(!state.territoryExtraLoaded)trLoadFullTexts();
     }
     if(state.activeTab==='supports'&&currentYear()&&!state.list&&!state.supportExtraLoaded&&!state.supportLoading)suLoadCatalog();
+    if(state.activeTab==='observations'&&currentYear()&&!state.list&&!state.obLoaded&&!state.obLoading&&!state.obError)obLoad();
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
   }
-  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
+  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
@@ -1448,7 +1626,7 @@
     state.list=true;state.listCategory='all';refresh();panel.querySelector('.pa-meta-catalog')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
   panel.addEventListener('submit',ev=>{if(ev.target.id==='pa-query-form'){ev.preventDefault();searchAction();}});
-  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}});
+  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}if(ev.target.id==='pa-ob-search'){state.obFilters.q=ev.target.value.slice(0,180);state.obPage=0;obRefreshPart(true);}});
   panel.addEventListener('change',ev=>{
     const filterMap={'pa-act-filter-state':'status','pa-act-filter-owner':'owner','pa-act-filter-place':'place'};
     if(filterMap[ev.target.id]){state.activityFilters[filterMap[ev.target.id]]=ev.target.value;refresh();return;}
@@ -1457,13 +1635,26 @@
     if(ev.target.id==='pa-ph-filter-activity'){state.physicalFilters.activity=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     const suFilters={'pa-su-filter-activity':'activity','pa-su-filter-type':'type','pa-su-filter-place':'place','pa-su-from':'from','pa-su-to':'to'};
     if(suFilters[ev.target.id]){state.supportFilters[suFilters[ev.target.id]]=ev.target.value;state.supportShowAll=false;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
+    const obFilterMap={'pa-ob-type':'type','pa-ob-status':'status','pa-ob-issuer':'issuer','pa-ob-from':'from','pa-ob-to':'to'};
+    if(obFilterMap[ev.target.id]){state.obFilters[obFilterMap[ev.target.id]]=ev.target.value;state.obPage=0;obRefreshPart();return;}
     if(ev.target.matches('[data-pa-tr-layer]')){trToggleLayer(ev.target.dataset.paTrLayer,ev.target.checked);return;}
-    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select','pa-tr-year-select','pa-su-year-select'].includes(ev.target.id))return;
-    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();refresh();
+    if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select','pa-tr-year-select','pa-su-year-select','pa-ob-year-select'].includes(ev.target.id))return;
+    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();refresh();
   });
   panel.addEventListener('click',ev=>{
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries','budget','territory','supports'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries','budget','territory','supports','observations'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(ev.target.closest('[data-pa-ob-close]')){ev.target.closest('dialog')?.close();return;}
+    if(ev.target.closest('[data-pa-ob-retry]')){state.obError=null;state.obLoaded=false;obLoad();refresh();return;}
+    if(ev.target.closest('[data-pa-ob-clear]')){obReset();obRefreshPart();return;}
+    if(ev.target.closest('[data-pa-ob-search]')){const field=panel.querySelector('#pa-ob-search');if(field){state.obFilters.q=field.value;state.obPage=0;obRefreshPart();}return;}
+    const obSort=ev.target.closest('[data-pa-ob-sort]');if(obSort){const field=obSort.dataset.paObSort;if(state.obSort===field)state.obSortAsc=!state.obSortAsc;else{state.obSort=field;state.obSortAsc=true;}state.obPage=0;obRefreshPart();return;}
+    const obPager=ev.target.closest('[data-pa-ob-page]');if(obPager){state.obPage=Math.max(0,Number(obPager.dataset.paObPage));obRefreshPart();return;}
+    const obDetail=ev.target.closest('[data-pa-ob-detail]');if(obDetail){obOpenDetail(obDetail.dataset.paObDetail);return;}
+    const obToActivity=ev.target.closest('[data-pa-ob-to-activity]');if(obToActivity){const m=selected(),idx=m?.activities?.findIndex(a=>String(a.n)===obToActivity.dataset.paObToActivity)??-1;if(idx>=0){panel.querySelector('#pa-ob-dialog')?.close();state.activeTab='activities';refresh();actShowDetail(idx);}return;}
+    const obAgency=ev.target.closest('[data-pa-ob-dep]');if(obAgency){state.obFilters.issuer=obAgency.dataset.paObDep;state.obPage=0;obRefreshPart();return;}
+    const obStatusFilter=ev.target.closest('[data-pa-ob-status]');if(obStatusFilter){state.obFilters.status=obStatusFilter.dataset.paObStatus;state.obPage=0;obRefreshPart();return;}
+    const obExportButton=ev.target.closest('[data-pa-ob-export]');if(obExportButton){obExport(obExportButton.dataset.paObExport);return;}
     if(ev.target.closest('[data-pa-su-close]')){ev.target.closest('dialog')?.close();return;}
     const suPreview=ev.target.closest('[data-pa-su-preview]');
     if(suPreview){suOpenPreview(suPreview.dataset.paSuPreview);return;}
@@ -1583,6 +1774,6 @@
       await loadActivityExtras();
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
   }
-  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog')||dialog?.classList?.contains('pa-tr-dialog')||dialog?.classList?.contains('pa-su-dialog'))dialog.close();});
+  panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog')||dialog?.classList?.contains('pa-tr-dialog')||dialog?.classList?.contains('pa-su-dialog')||dialog?.classList?.contains('pa-ob-dialog'))dialog.close();});
   load();
 })();
