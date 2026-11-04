@@ -385,3 +385,24 @@
 #desarrollo-accion.pa-mounted .pa-ben-kpi.pa-ben-green b {
   color: #79e4a5 !important;
 }
+/* Ajustes finales de contraste: no se cambian los colores de advertencias. */
+#desarrollo-accion.pa-mounted .pa-budget-total :is(span,strong) {
+  color: #17354b !important;
+}
+#desarrollo-accion.pa-mounted .pa-shell :is(
+  .pa-plot-key, .pa-chart-note, .pa-card-foot,
+  .pa-location-list strong, .pa-location-list span,
+  .pa-act-source, .pa-ph-source,
+  .pa-ben-kpi-method, .pa-ben-source,
+  .pa-bu-source, .pa-tr-source, .pa-su-source,
+  .pa-ob-dataline, .pa-ct-method, .pa-ct-caption,
+  .pa-ig-method, .pa-bu-stage-heading, .pa-bu-stage-amount
+) {
+  color: #d6eaf5 !important;
+}
+#desarrollo-accion.pa-mounted .pa-shell :is(
+  .pa-ben-kpi-method, .pa-ben-source, .pa-bu-source,
+  .pa-tr-source, .pa-ob-dataline, .pa-ct-method
+) strong {
+  color: #f5fbff !important;
+}
