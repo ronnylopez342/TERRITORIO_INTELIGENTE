@@ -1,0 +1,196 @@
+/* TERRITORIO INTELIGENTE · 3.3 · Contratación de inversión. Styles scoped to new view. */
+#desarrollo-accion.pa-mounted .pa-contract-mode{background:#f4f7fb;color:#0c2c56;max-width:100%;overflow:clip}
+#desarrollo-accion.pa-mounted .pa-contract-mode *{box-sizing:border-box}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hero{min-height:115px!important;background:linear-gradient(90deg,rgba(5,29,49,.88),rgba(7,39,64,.3) 55%,rgba(5,22,40,.63)),url('../assets/img/editorial/territorio-aereo.jpg') center 52%/cover no-repeat!important;border-bottom:1px solid #d1dce7;padding:12px clamp(18px,2.1vw,36px)!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hero h1{color:#fff!important;font-size:clamp(26px,2.12vw,35px)!important;font-weight:850!important;text-shadow:0 2px 5px #081d30aa!important;line-height:1.1!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hero .pa-ig-hero-main p{color:#ecf5fe!important;font-size:clamp(12px,1vw,16px)!important;text-shadow:0 1px 2px #031c2dcc}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hero .pa-ig-quote{color:#fff!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ig-body{background:#f4f7fb!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ig-meta{margin:9px 0!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-tabs{margin:8px 0 11px!important;gap:4px!important;display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;overscroll-behavior-x:contain;scrollbar-width:thin;padding-bottom:2px;max-width:100%}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-tabs .pa-tab{flex:0 0 auto!important;min-height:42px!important;padding:7px clamp(8px,.72vw,13px)!important;font-size:clamp(10px,.73vw,12px)!important;gap:5px!important;white-space:nowrap!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-tabs .pa-tab .pa-tab-icon svg{width:17px;height:17px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-dashboard{width:100%;min-width:0;padding-bottom:24px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-meta-switch{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:1px 2px 8px;min-width:0;color:#64819d;font-size:10px;line-height:1.35}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-meta-switch label{display:flex;align-items:center;gap:8px;flex:none;font-weight:700;color:#28537b}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-meta-switch select{width:min(31vw,310px);height:29px;border:1px solid #d5e3ee;border-radius:5px;color:#224870;background:#fff;font-size:11px;padding:0 8px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-layout{display:grid;grid-template-columns:minmax(0,3.18fr) minmax(290px,1fr);align-items:start;gap:12px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-main{display:flex;flex-direction:column;gap:10px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-card{min-width:0;background:#fff;border:1px solid #dce6ef;border-radius:7px;box-shadow:0 1px 4px #14304b0d;padding:12px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-card h3{color:#0b2b5b!important;font-size:clamp(12px,.97vw,15px)!important;line-height:1.17!important;font-weight:850!important;margin:0 0 11px!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-note{font-size:12px;color:#607d99;line-height:1.45;margin:8px 0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-caption{color:#6e86a3;font-size:9px;line-height:1.4;margin:9px 0 0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-warning{color:#9b4b13;background:#fff2d7;border:1px solid #f4d7a1;border-radius:5px;padding:8px;font-size:10px;margin:9px 0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat{background:#f9fbfd;border:1px solid #e2eaf1;border-radius:6px;min-width:0;min-height:76px;padding:9px 7px;display:flex;align-items:center;gap:8px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat-icon{display:grid;place-items:center;flex:0 0 31px;color:#127de9}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat-icon svg{width:30px;height:30px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat-2 .pa-ct-stat-icon,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat-4 .pa-ct-stat-icon,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat-5 .pa-ct-stat-icon{color:#009766}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat small{font-size:clamp(9px,.68vw,11px);line-height:1.23;color:#33577e;font-weight:750;display:block}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat strong{display:block;line-height:1.13;font-size:clamp(13px,1.21vw,18px);font-weight:900;color:#071e51;margin-top:4px;overflow-wrap:anywhere;max-width:100%}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts{display:grid;grid-template-columns:1.05fr .96fr 1.06fr 1.35fr;gap:8px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts .pa-ct-card{min-height:199px;padding:10px 9px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts .pa-ct-card h3{margin-bottom:8px!important;font-size:clamp(12px,.85vw,14px)!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-donutrow{display:grid;grid-template-columns:minmax(80px,.85fr) minmax(0,1.2fr);align-items:center;gap:6px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-donut{width:min(100%,148px);aspect-ratio:1;display:grid;place-items:center;border-radius:50%;padding:24%;margin:auto}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-donut>div{background:#fff;border-radius:50%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-donut strong{font-size:clamp(22px,2.2vw,30px);font-weight:900;color:#0d325f}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-donut small{font-size:9px;color:#496f9b;font-weight:650}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-legend{min-width:0;display:flex;flex-direction:column;gap:6px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-legend button{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:5px;align-items:center;border:0;background:transparent;padding:2px 0;color:#3b5c84;font-size:10px;text-align:left}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-legend i{height:10px;width:10px;border-radius:50%}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-legend b{color:#1d4e82;font-size:10px;white-space:nowrap}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hbar{width:100%;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(32px,1fr) 15px;gap:5px;align-items:center;padding:5px 0;background:none;border:0;text-align:left;color:#3f5e7f;font-size:9.5px;border-bottom:1px solid #f1f4f7}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hbar span{line-height:1.2;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hbar i,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-contractbar i{background:#e7edf3;display:block;border-radius:3px;height:13px;overflow:hidden}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hbar i b,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-contractbar i b{height:100%;border-radius:3px;display:block}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-hbar strong{color:#315782;font-size:10px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-subline{color:#7286a0;font-size:9px;line-height:1.25;margin:-4px 0 8px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-contractbar{width:100%;display:grid;grid-template-columns:minmax(50px,.9fr) minmax(30px,1fr) minmax(36px,.55fr);align-items:center;gap:6px;border:0;border-bottom:1px solid #eef2f5;background:transparent;padding:7px 0;color:#3b5b83;text-align:left;font-size:9px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-contractbar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-contractbar strong{font-size:9px;color:#245781;text-align:right}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-contractbar i b{background:#28af75}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-contractbar.selected{background:#edf8f1}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-legend{display:flex;justify-content:center;gap:10px;color:#6183a1;font-size:9px;flex-wrap:wrap;margin:-1px 0 9px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-legend i{display:inline-block;width:11px;height:9px;border-radius:2px;background:#17a66b;margin-right:3px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-legend i.extension{background:#f3a127}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-head,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-row{display:grid;grid-template-columns:70px minmax(0,1fr);gap:4px;align-items:center}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-head>div{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border-top:1px solid #d9e7ef;border-bottom:1px solid #d9e7ef;background:#f3f7fb}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-head>div span{text-align:center;font-size:8px;color:#41678f;border-right:1px solid #e7edf4;line-height:17px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-row{height:23px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-row>span{font-size:8px;color:#3c608b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-track{height:100%;position:relative;background:repeating-linear-gradient(to right,#e6edf4 0,#e6edf4 1px,transparent 1px,transparent 8.3333%)}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-bar{position:absolute;top:6px;height:12px;background:#23aa70;border:0;border-radius:4px;min-width:2px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-bar.selected{background:#067d54;box-shadow:0 0 0 2px #72d5ae77}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-bar.extension{background:#f2a027}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-gantt-out{font-size:8px;color:#a4b2c4}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-panel{padding:12px 9px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-toolbar h3{margin:0 auto 0 0!important;white-space:nowrap;font-size:clamp(11px,.95vw,15px)!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-search{display:flex;align-items:center;flex:1 1 210px;min-width:130px;max-width:400px;border:1px solid #d6e5f1;background:#fbfdff;height:33px;border-radius:5px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-search input{width:100%;min-width:0;border:0!important;background:transparent!important;padding:0 8px!important;font-size:10px!important;color:#244b77!important;outline:0!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-search svg{height:17px;width:17px;margin-right:8px;color:#8aa4bd;flex:none}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-toolbar label{display:flex;flex-direction:column;gap:3px;font-size:9px;color:#5b7490;min-width:90px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-toolbar select{height:32px;min-width:0;width:105px;border:1px solid #d8e6f2;border-radius:4px;background:#f8fbfd;color:#315a86;font-size:10px;padding:0 5px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-export{background:#007c50;color:#fff;border:0;border-radius:5px;height:35px;padding:0 9px;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:750}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-export svg{width:15px;height:15px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-scroll{width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table{border-collapse:collapse;min-width:1300px;width:100%;color:#234972;font-size:10px;table-layout:fixed;line-height:1.3}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th{font-size:9px;white-space:normal;background:#dff0e9;color:#0b3656;font-weight:800;padding:8px 6px;border:1px solid #dae7e9;text-align:center}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(1){width:38px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(2){width:90px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(3){width:112px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(4){width:110px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(5){width:110px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(6){width:150px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(7){width:125px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(8){width:112px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(9){width:92px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(10){width:85px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(11),#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(12){width:94px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(13){width:110px}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table th:nth-child(14){width:120px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table td{padding:7px 5px;border:1px solid #e4ebf1;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;max-height:48px;line-height:1.3;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table tr:nth-child(even) td{background:#f8fafc}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table tbody tr{cursor:pointer}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table tbody tr:hover td{background:#e9f7f0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table tbody tr.selected td{background:#e2f6ec;border-color:#acd6bf}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table tbody tr:focus-visible{outline:3px solid #009a66;outline-offset:-2px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table td strong{font-weight:750;color:#1e446e}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-shared{display:block;color:#9b641d;font-size:8px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-badge{display:inline-flex;align-items:center;justify-content:center;border-radius:16px;padding:5px 7px;font-size:9px;font-weight:700;white-space:nowrap;background:#edf2f6;color:#557086}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-badge.running{background:#dff7e9;color:#007f4d}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-badge.finished{background:#e2efff;color:#1870c3}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-badge.liquidated{background:#eee4ff;color:#8044b6}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-badge.suspended{background:#fff1db;color:#9c6003}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-badge.cancelled{background:#ffe4e7;color:#c32940}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px;color:#6a85a0;font-size:10px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-footer>div{display:flex;gap:4px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-footer button{min-width:29px;height:28px;background:#fff;border:1px solid #dce8f2;border-radius:4px;color:#244d7a;font-size:11px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-footer button.active{background:#072951;color:#fff;font-weight:800}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-footer button:disabled{opacity:.38;cursor:default}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-noresults{color:#6c8097;text-align:center;padding:24px 10px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-bottom{display:grid;grid-template-columns:1.55fr .96fr 1.02fr;gap:8px;min-width:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-bottom .pa-ct-card{min-height:172px;padding:11px 9px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-track-bars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));height:112px;gap:10px;align-items:end}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-track-bars>div{height:100%;display:flex;align-items:center;flex-direction:column;gap:3px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-track-bars strong{font-size:9px;white-space:nowrap;color:#385b80}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-track-plot{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center;border-bottom:1px solid #cddbe5}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-track-plot i{max-width:45px;width:80%;min-height:3px;border-radius:3px 3px 0 0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-track-bars small{text-align:center;font-size:9px;color:#54718f;line-height:1.18}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-funding-layout{display:grid;grid-template-columns:125px minmax(0,1fr);align-items:center;gap:8px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-funding-donut{background:conic-gradient(#e4ecf2 0 100%);width:119px;height:119px;border-radius:50%;padding:28px;display:grid;place-items:center}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-funding-donut div{border-radius:50%;background:#fff;width:100%;height:100%;display:grid;place-items:center;font-size:11px;color:#64849e;text-align:center;font-weight:750}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-funding ul{margin:0;padding:0;list-style:none;max-height:135px;overflow:auto;min-width:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-funding li{display:flex;align-items:start;gap:5px;margin:7px 0;font-size:10px;color:#477094;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-funding li i{width:10px;height:10px;flex:none;border-radius:50%;margin-top:1px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-mini-dl{margin:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-mini-dl>div{display:grid;grid-template-columns:36% 64%;border-bottom:1px solid #eaf0f4;padding:6px 2px;gap:4px;font-size:10px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-mini-dl dt{color:#64809d}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-mini-dl dd{color:#284e7d;font-weight:650;margin:0;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail{position:sticky;top:85px;align-self:start;max-height:calc(100vh - 100px);min-height:550px;min-width:0;display:flex;flex-direction:column;background:#fff;border:1px solid #dce5ee;border-radius:7px;overflow:hidden;box-shadow:0 2px 7px #133c6312}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail>header{display:flex;align-items:center;justify-content:space-between;flex:none;background:#007a49;color:#fff;padding:10px 12px;min-height:36px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail>header strong{font-size:13px;font-weight:850}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail>header button{border:0;background:transparent;color:#fff;font-size:22px;line-height:1}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail.is-collapsed{display:none}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-inner{display:flex;flex-direction:column;overflow:hidden;min-height:0;flex:1;padding:12px 9px 9px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-heading{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-heading h3{font-size:clamp(15px,1.22vw,19px)!important;margin:0!important;color:#103261!important;font-weight:900!important;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-bottom:10px;flex:none;border-radius:5px;overflow:hidden;border:1px solid #dce7f0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-tabs button{min-height:33px;border:0;border-right:1px solid #dfe9f1;background:#f7f9fc;color:#476b95;font-size:9px;padding:4px 1px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-tabs button.active{background:#007744;color:#fff;font-weight:800}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-content{overflow-y:auto;overscroll-behavior:contain;flex:1;min-height:70px;padding-right:4px;scrollbar-width:thin}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-list{margin:0}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-list>div{display:grid;grid-template-columns:41% minmax(0,59%);gap:7px;border-bottom:1px solid #e3eaf1;padding:6px 2px;font-size:10px;line-height:1.36}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-list dt{color:#4a6a96;min-width:0;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-list dd{margin:0;color:#1a4675;min-width:0;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-inner footer{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:10px;border-top:1px solid #edf2f5;padding-top:9px;flex:none}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-inner footer :is(button,a){display:inline-flex;gap:5px;align-items:center;justify-content:center;border-radius:5px;padding:8px 5px;font-size:10px;text-decoration:none;font-weight:750;text-align:center;flex:1;min-height:34px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-inner footer button{background:#f5f8fc;border:1px solid #d9e6f0;color:#275787}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-inner footer button:disabled{opacity:.38;cursor:not-allowed}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-inner footer a,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-secop-link{background:#007d4e;border:1px solid #007448;color:#fff}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-inner footer svg,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-secop-link svg{width:15px;height:15px;flex:none}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-no-link{color:#7a8ca0;font-size:10px;text-align:center;flex:1}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-secop-link{display:inline-flex;align-items:center;gap:8px;padding:9px 11px;margin-top:12px;border-radius:5px;text-decoration:none;font-size:12px;font-weight:750}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-observation{font-size:11px;line-height:1.6;color:#315b7d;background:#f7fafc;padding:8px;border-radius:5px;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-mods h4{font-size:12px!important;margin:14px 0 7px!important;color:#15476e}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-method{font-size:10px;color:#607e98;line-height:1.52;margin:0 0 8px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-empty,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-placeholder{padding:40px 18px;margin:12px 0;color:#527393;border:1px solid #dfeaf3;border-radius:8px;background:#fff;text-align:center}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-empty h2{font-size:21px!important;color:#113863!important;margin:0 0 9px!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-dialog{width:min(680px,calc(100vw - 28px));max-height:78vh;margin:auto;padding:20px;background:#fff;color:#163d65;border:1px solid #d4e2ed;border-radius:9px;box-shadow:0 25px 70px #0c2d4e88}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-dialog::backdrop{background:#0c233fa3}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-dialog header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dce9f0;margin-bottom:12px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-dialog h2{font-size:20px!important;color:#123963!important;margin:0 0 10px!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-dialog header button{border:0;background:none;color:#255681;font-size:26px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-dialog a{display:inline-flex;align-items:center;gap:8px;padding:9px;border:1px solid #d9e5ee;border-radius:5px;color:#126393;text-decoration:none;margin-right:6px;margin-bottom:6px;font-size:12px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-dialog a svg{height:17px;width:17px}
+@media(max-width:1320px){
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-layout{grid-template-columns:minmax(0,2.8fr) minmax(270px,1fr)}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts{grid-template-columns:repeat(2,minmax(0,1fr))}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts .pa-ct-card{min-height:205px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-funding-layout{grid-template-columns:95px minmax(0,1fr)}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-funding-donut{width:95px;height:95px;padding:22px}
+}
+@media(max-width:1000px){
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-layout{display:flex;flex-direction:column}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-main{width:100%}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail{position:relative;top:auto;max-height:none;min-height:360px;max-width:100%;width:100%}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-content{max-height:480px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-bottom{grid-template-columns:repeat(3,minmax(0,1fr))}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-list>div{grid-template-columns:33% minmax(0,67%)}
+}
+@media(max-width:730px){
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-meta-switch{display:flex;flex-direction:column;align-items:stretch}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-meta-switch label{justify-content:space-between}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-meta-switch select{width:min(100%,310px)}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat{min-height:72px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts{grid-template-columns:1fr}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts .pa-ct-card{min-height:185px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-bottom{grid-template-columns:1fr}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-toolbar h3{flex:0 0 100%}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-toolbar label{flex:1 1 85px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-toolbar select{width:100%}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-footer{align-items:flex-start}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail{max-height:none}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail-inner footer{flex-wrap:wrap}
+}
+@media(max-width:410px){
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat{padding:7px 5px;gap:5px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat-icon{flex-basis:27px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat-icon svg{width:26px;height:26px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-stat strong{font-size:15px}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-donutrow{grid-template-columns:120px minmax(0,1fr)}
+}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table .pa-ct-celltext{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;max-height:2.7em;line-height:1.35;overflow-wrap:anywhere}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-layout.full{grid-template-columns:minmax(0,1fr)}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-open{border:1px solid #afd9c8;background:#e9f8f0;color:#067249;padding:8px 10px;border-radius:5px;font-size:11px;font-weight:800;cursor:pointer}
