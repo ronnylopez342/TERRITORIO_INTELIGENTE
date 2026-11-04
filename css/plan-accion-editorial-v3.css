@@ -1,0 +1,113 @@
+/* Territorio Inteligente · Planes de acción · rediseño editorial azul
+   Capa de presentación reversible; no modifica datos ni eventos. */
+#desarrollo-accion.pa-mounted{--ti-ink:#143851;--ti-sea:#0b2739;--ti-sea2:#143a51;--ti-surface:#d9e9f2;--ti-line:#7ca5bb;--ti-accent:#ffe100;background:var(--ti-sea)!important;color:#eef7fc!important}
+#desarrollo-accion.pa-mounted .pa-shell{background:var(--ti-sea)!important;color:#ecf7fc!important}
+#desarrollo-accion.pa-mounted .pa-shell .pa-body,
+#desarrollo-accion.pa-mounted .pa-shell .pa-ig-body{background:var(--ti-sea)!important;padding:20px clamp(14px,2.5vw,36px) 56px!important;color:#eef7fc!important}
+#desarrollo-accion.pa-mounted .pa-shell .pa-content{min-width:0;width:100%}
+#desarrollo-accion.pa-mounted .pa-top,
+#desarrollo-accion.pa-mounted .pa-shell .pa-ig-hero{background-color:#122e41!important;border-bottom:3px solid var(--ti-accent)!important}
+#desarrollo-accion.pa-mounted .pa-shell .pa-ig-hero{min-height:164px!important;padding:24px clamp(20px,3vw,44px)!important}
+#desarrollo-accion.pa-mounted .pa-shell .pa-ig-hero h1{font-size:clamp(30px,3.1vw,49px)!important;line-height:1.09!important;letter-spacing:-.025em!important;color:#fff!important}
+#desarrollo-accion.pa-mounted .pa-shell .pa-ig-hero p{font-size:clamp(14px,1.08vw,18px)!important;line-height:1.5!important;color:#eff9ff!important;max-width:800px}
+#desarrollo-accion.pa-mounted .pa-shell .pa-ig-quote{color:#fff!important}
+#desarrollo-accion.pa-mounted .pa-query{box-shadow:0 6px 24px #071b2b4d!important;border:1px solid #adc5d4!important}
+#desarrollo-accion.pa-mounted .pa-ig-meta,
+#desarrollo-accion.pa-mounted .pa-meta-line{background:#173e56!important;color:#f0faff!important;border:1px solid #59849d!important;box-shadow:none!important;border-radius:8px!important}
+#desarrollo-accion.pa-mounted .pa-ig-meta-text h2,
+#desarrollo-accion.pa-mounted .pa-ig-meta-text p,
+#desarrollo-accion.pa-mounted .pa-meta-title h2,
+#desarrollo-accion.pa-mounted .pa-meta-info strong,
+#desarrollo-accion.pa-mounted .pa-meta-info small{color:#f0faff!important}
+#desarrollo-accion.pa-mounted .pa-ig-meta-fact{background:#dcecf4!important;border:1px solid #a2bfd0!important;color:#133a53!important}
+#desarrollo-accion.pa-mounted .pa-ig-meta-fact small,
+#desarrollo-accion.pa-mounted .pa-ig-meta-fact strong{color:#133a53!important}
+#desarrollo-accion.pa-mounted .pa-back,
+#desarrollo-accion.pa-mounted .pa-ig-change{color:#ffe100!important}
+#desarrollo-accion.pa-mounted .pa-tabs{margin:16px 0 22px!important;gap:4px!important;border-bottom:1px solid #5f8da5;overflow-x:auto;scrollbar-color:#77a3b8 #173b52}
+#desarrollo-accion.pa-mounted .pa-tabs .pa-tab{min-height:46px!important;background:#1a455f!important;color:#e9f5ff!important;border:1px solid #598198!important;border-bottom:0!important;padding:10px 13px!important;border-radius:6px 6px 0 0!important;box-shadow:none!important;--pa-icon-cutout:#1a455f}
+#desarrollo-accion.pa-mounted .pa-tabs .pa-tab+.pa-tab{margin-left:0!important}
+#desarrollo-accion.pa-mounted .pa-tabs .pa-tab.pa-tab--selected{background:#087e4a!important;color:white!important;border-color:#1aaa70!important;box-shadow:inset 0 -3px #ffe100!important;--pa-icon-cutout:#087e4a}
+#desarrollo-accion.pa-mounted .pa-tabs .pa-tab:hover:not(.pa-tab--selected){background:#275f7a!important}
+#desarrollo-accion.pa-mounted .pa-shell :is(button,a,input,select):focus-visible{outline:3px solid #ffe100!important;outline-offset:2px!important}
+#desarrollo-accion.pa-mounted .pa-shell :is(.pa-card,.pa-ig-card,.pa-act-card,.pa-ph-card,.pa-ben-card,.pa-bu-card,.pa-tr-card,.pa-su-card,.pa-ob-panel,.pa-ct-card){background:#d9e9f2!important;color:#12334b!important;border:1px solid #8fb1c5!important;border-radius:11px!important;padding:clamp(16px,1.8vw,27px)!important;box-shadow:none!important;min-width:0}
+#desarrollo-accion.pa-mounted .pa-shell :is(.pa-card,.pa-ig-card,.pa-act-card,.pa-ph-card,.pa-ben-card,.pa-bu-card,.pa-tr-card,.pa-su-card,.pa-ob-panel,.pa-ct-card) :is(h2,h3){color:#11364f!important;line-height:1.19!important}
+#desarrollo-accion.pa-mounted .pa-shell :is(.pa-card,.pa-ig-card,.pa-act-card,.pa-ph-card,.pa-ben-card,.pa-bu-card,.pa-tr-card,.pa-su-card,.pa-ob-panel,.pa-ct-card)>h3{font-size:clamp(19px,1.55vw,25px)!important;margin-bottom:18px!important;letter-spacing:-.018em}
+#desarrollo-accion.pa-mounted .pa-shell :is(.pa-ig-method,.pa-ben-source,.pa-bu-source,.pa-tr-source,.pa-su-source,.pa-ct-method,.pa-method-note){background:#173d53!important;color:#dceef7!important;border:1px solid #5b8298!important;border-radius:8px!important;padding:15px 18px!important}
+#desarrollo-accion.pa-mounted .pa-shell :is(.pa-ig-method,.pa-ben-source,.pa-bu-source,.pa-tr-source,.pa-su-source,.pa-ct-method,.pa-method-note) strong{color:white!important}
+/* RESUMEN: los ocho paneles conservan sus componentes, ahora en dos columnas. */
+#desarrollo-accion.pa-mounted .pa-dashboard-cards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:21px!important;align-items:stretch}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-card-row{display:contents!important}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-card{min-height:288px!important;margin:0!important;overflow:visible!important}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-3>.pa-card:nth-child(1){order:1}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-3>.pa-card:nth-child(3){order:2}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-3>.pa-card:nth-child(2){order:3}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-mixed>.pa-card:nth-child(2){order:4}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-mixed>.pa-card:nth-child(1){order:5}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-mixed>.pa-card:nth-child(3){order:6}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-table>.pa-card:nth-child(1){order:7;grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-table>.pa-card:nth-child(2){order:8;grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-method-note{order:9;grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-gallery-dialog{order:10;grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-map-view,
+#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-map-layout{height:auto!important;min-height:280px!important}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-map-layout{grid-template-columns:minmax(0,1.5fr) minmax(155px,1fr)!important}
+#desarrollo-accion.pa-mounted .pa-map-view iframe,
+#desarrollo-accion.pa-mounted .pa-ig-map iframe,
+#desarrollo-accion.pa-mounted .pa-ben-map-area iframe,
+#desarrollo-accion.pa-mounted .pa-ph-map-view iframe{height:100%!important;width:100%!important}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-photo-tile{height:185px!important}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-activity-card{overflow-x:auto!important}
+#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-person{min-height:142px!important}
+/* INFORMACION GENERAL: estratégicos y técnicos; cadena destacada. */
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-ig-top-grid,
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-ig-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-ig-top-grid>:nth-child(3),
+#desarrollo-accion.pa-mounted .pa-general-mode .pa-ig-bottom-grid>:nth-child(3){grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-ig-chain{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px}
+#desarrollo-accion.pa-mounted .pa-ig-map,#desarrollo-accion.pa-mounted .pa-ig-map iframe{min-height:290px!important}
+#desarrollo-accion.pa-mounted .pa-ig-territory-layout{grid-template-columns:minmax(160px,35%) minmax(0,1fr)!important}
+/* ACTIVIDADES: tabla y filtros originales; dos gráficos y evidencia amplia. */
+#desarrollo-accion.pa-mounted .pa-activities-mode .pa-act-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-activities-mode .pa-act-bottom-grid>:nth-child(3){grid-column:1/-1!important}
+#desarrollo-accion.pa-mounted .pa-act-card{min-height:300px}
+#desarrollo-accion.pa-mounted .pa-act-table-wrap{max-width:100%;overflow-x:auto}
+/* AVANCE FISICO: mantener matriz y series de ejecución. */
+#desarrollo-accion.pa-mounted .pa-physical-mode .pa-ph-top-grid,
+#desarrollo-accion.pa-mounted .pa-physical-mode .pa-ph-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-ph-top-grid>:nth-child(3),#desarrollo-accion.pa-mounted .pa-ph-bottom-grid>:nth-child(3){grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-ph-map-view{height:295px!important}
+#desarrollo-accion.pa-mounted .pa-ph-map-wrap{grid-template-columns:minmax(0,1.5fr) minmax(150px,1fr)!important}
+/* BENEFICIARIOS: los cuatro KPI siguen compactos, las gráficas en pares. */
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-mid-grid,
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-ben-mid-grid>:nth-child(3),#desarrollo-accion.pa-mounted .pa-ben-bottom-grid>:nth-child(3){grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-ben-map-area{height:310px!important}
+/* PRESUPUESTO: seis etapas visibles sin cambiar unidades ni fórmulas. */
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-bu-top-grid,
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-bu-middle-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-bu-top-grid>:nth-child(3),#desarrollo-accion.pa-mounted .pa-bu-middle-grid>:nth-child(3){grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-budget-mode .pa-bu-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+/* TERRITORIO: potenciar visor Leaflet existente, no usar imágenes. */
+#desarrollo-accion.pa-mounted .pa-territory-mode .pa-tr-upper{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-territory-mode .pa-tr-map-frame,
+#desarrollo-accion.pa-mounted .pa-territory-mode .pa-tr-map-canvas{min-height:485px!important}
+#desarrollo-accion.pa-mounted .pa-territory-mode .pa-tr-data-col{grid-template-columns:1fr 1.3fr!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-territory-mode .pa-tr-lower{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-tr-lower>:nth-child(3){grid-column:1/-1}
+/* CONTRATACION: gráficos en pares; contratos y panel SECOP intactos. */
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-layout{grid-template-columns:minmax(0,3fr) minmax(320px,1fr)!important;gap:18px!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts,
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-bottom{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-bottom>:nth-child(3){grid-column:1/-1}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail{background:#d9e9f2!important;color:#11364f!important;border-color:#7ca5bb!important}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-table-wrap{overflow-x:auto!important}
+/* SOPORTES Y OBSERVACIONES: no perder filtros ni exportaciones. */
+#desarrollo-accion.pa-mounted .pa-supports-mode .pa-su-main-grid{grid-template-columns:minmax(0,1.9fr) minmax(300px,1fr)!important;gap:19px!important}
+#desarrollo-accion.pa-mounted .pa-observations-mode .pa-ob-grid{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}
+#desarrollo-accion.pa-mounted .pa-observations-mode .pa-ob-work-area{grid-template-columns:minmax(195px,.27fr) minmax(0,1fr)!important;gap:16px!important}
+#desarrollo-accion.pa-mounted .pa-observations-mode .pa-ob-right-zone{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important}
+#desarrollo-accion.pa-mounted .pa-observations-mode .pa-ob-right-zone>:nth-child(3){grid-column:1/-1}
+@media(max-width:1199px){#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-layout,#desarrollo-accion.pa-mounted .pa-supports-mode .pa-su-main-grid{grid-template-columns:1fr!important}#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-detail{position:relative!important;width:100%!important}}
+@media(max-width:990px){#desarrollo-accion.pa-mounted .pa-dashboard-cards,#desarrollo-accion.pa-mounted .pa-general-mode .pa-ig-top-grid,#desarrollo-accion.pa-mounted .pa-general-mode .pa-ig-bottom-grid,#desarrollo-accion.pa-mounted .pa-activities-mode .pa-act-bottom-grid,#desarrollo-accion.pa-mounted .pa-physical-mode .pa-ph-top-grid,#desarrollo-accion.pa-mounted .pa-physical-mode .pa-ph-bottom-grid,#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-mid-grid,#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-ben-bottom-grid,#desarrollo-accion.pa-mounted .pa-budget-mode .pa-bu-top-grid,#desarrollo-accion.pa-mounted .pa-budget-mode .pa-bu-middle-grid,#desarrollo-accion.pa-mounted .pa-budget-mode .pa-bu-bottom-grid,#desarrollo-accion.pa-mounted .pa-territory-mode .pa-tr-data-col,#desarrollo-accion.pa-mounted .pa-territory-mode .pa-tr-lower,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-charts,#desarrollo-accion.pa-mounted .pa-contract-mode .pa-ct-bottom,#desarrollo-accion.pa-mounted .pa-observations-mode .pa-ob-right-zone{grid-template-columns:minmax(0,1fr)!important}#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-row-table>.pa-card,#desarrollo-accion.pa-mounted .pa-dashboard-cards>.pa-method-note,#desarrollo-accion.pa-mounted .pa-shell :is(.pa-ig-top-grid,.pa-ig-bottom-grid,.pa-act-bottom-grid,.pa-ph-top-grid,.pa-ph-bottom-grid,.pa-ben-mid-grid,.pa-ben-bottom-grid,.pa-bu-top-grid,.pa-bu-middle-grid,.pa-tr-lower,.pa-ct-bottom,.pa-ob-right-zone)>:nth-child(3){grid-column:1/-1!important}#desarrollo-accion.pa-mounted .pa-ig-chain{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){#desarrollo-accion.pa-mounted .pa-shell .pa-body,#desarrollo-accion.pa-mounted .pa-shell .pa-ig-body{padding:12px 10px 40px!important}#desarrollo-accion.pa-mounted .pa-dashboard-cards{gap:12px!important}#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-card{min-height:0!important}#desarrollo-accion.pa-mounted .pa-shell :is(.pa-card,.pa-ig-card,.pa-act-card,.pa-ph-card,.pa-ben-card,.pa-bu-card,.pa-tr-card,.pa-su-card,.pa-ob-panel,.pa-ct-card){padding:15px!important}#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-map-layout,#desarrollo-accion.pa-mounted .pa-ig-territory-layout,#desarrollo-accion.pa-mounted .pa-ph-map-wrap,#desarrollo-accion.pa-mounted .pa-observations-mode .pa-ob-work-area,#desarrollo-accion.pa-mounted .pa-ig-chain{grid-template-columns:minmax(0,1fr)!important}#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-people-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
