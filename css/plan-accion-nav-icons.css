@@ -1,0 +1,37 @@
+/* Menú uniforme de las diez vistas del Plan de Acción: iconos institucionales */
+#desarrollo-accion.pa-mounted .pa-tabs .pa-tab {
+  --pa-icon-cutout: #f4f7fa;
+  gap: 6px !important;
+}
+#desarrollo-accion.pa-mounted .pa-tabs .pa-tab.pa-tab--selected {
+  --pa-icon-cutout: #078341;
+}
+#desarrollo-accion.pa-mounted .pa-activities-mode .pa-tabs .pa-tab.pa-tab--selected {
+  --pa-icon-cutout: #05783a;
+}
+#desarrollo-accion.pa-mounted .pa-physical-mode .pa-tabs .pa-tab.pa-tab--selected {
+  --pa-icon-cutout: #047b3b;
+}
+#desarrollo-accion.pa-mounted .pa-beneficiaries-mode .pa-tabs .pa-tab.pa-tab--selected {
+  --pa-icon-cutout: #008446;
+}
+#desarrollo-accion.pa-mounted .pa-contract-mode .pa-tabs .pa-tab.pa-tab--selected {
+  --pa-icon-cutout: #078341;
+}
+#desarrollo-accion.pa-mounted .pa-tabs .pa-tab .pa-tab-icon {
+  display: inline-flex !important;
+  width: 17px !important;
+  min-width: 17px !important;
+  height: 17px !important;
+  flex: 0 0 17px !important;
+  align-items: center;
+  justify-content: center;
+  line-height: 0 !important;
+}
+#desarrollo-accion.pa-mounted .pa-tabs .pa-tab .pa-tab-icon svg {
+  display: block !important;
+  width: 17px !important;
+  height: 17px !important;
+  flex: none !important;
+  vertical-align: middle;
+}
