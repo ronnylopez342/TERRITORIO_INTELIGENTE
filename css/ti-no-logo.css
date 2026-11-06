@@ -1,0 +1,5 @@
+
+/* Logotipo de Territorio Inteligente retirado: sin espacios reservados ni cambios de navegación. */
+#siteHeader .nav-links { margin-left: 0 !important; }
+.mobile-menu .mobile-menu-head { justify-content: flex-end; }
+.ti-team-page-footer { grid-template-columns: minmax(0, 1fr) !important; }
