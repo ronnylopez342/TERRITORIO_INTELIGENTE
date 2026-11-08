@@ -45,7 +45,7 @@
     <nav class="ti42-tabs" aria-label="Vistas de proyectos estratégicos" role="tablist">
       <button type="button" role="tab" aria-selected="true" data-ti42-view="resumen" class="ti42-tab is-active">Resumen</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="proyectos" class="ti42-tab">Proyectos</button>
-      <span class="ti42-tab is-pending" title="Pendiente de implementación">Contratos</span>
+      <button type="button" role="tab" aria-selected="false" data-ti42-view="contratos" class="ti42-tab">Contratos</button>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Ejecución financiera</span>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Cronograma</span>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Mapa</span>

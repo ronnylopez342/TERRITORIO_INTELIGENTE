@@ -38,13 +38,13 @@ try{
    for(const key of ['view','vereda','phase','sort','page','pageSize','selectedRow','detailTab'])if(Object.prototype.hasOwnProperty.call(previous,key))state[key]=previous[key];
  }
 }catch{}
-if(!['resumen','proyectos'].includes(state.view))state.view='resumen';
+if(!['resumen','proyectos','contratos'].includes(state.view))state.view='resumen';
 if(!['file','name','year','budget'].includes(state.sort))state.sort='file';
 if(!['informacion','localizacion','contratos','ejecucion','evidencias','indicadores'].includes(state.detailTab))state.detailTab='informacion';
 state.pageSize=[10,20,50].includes(Number(state.pageSize))?Number(state.pageSize):10;
 state.page=Math.max(1,Number(state.page)||1);
 let source=[],shared={},ready=false,error=null,filtered=[],selected=null,projectMap=null,mapMounted=false,loadCount=0;
-let extras=new Map(),extraStatus='Cargando campos complementarios del Excel…';
+let extras=new Map(),extraStatus='Cargando campos complementarios del Excel…',extraReady=false;const extraListeners=new Set();
 const extraFor=r=>extras.get(Number(r?.excelRow))||{};
 const extraFieldOrder=['excelRow','description','program','population','zone','address','coordStart','coordEnd','executionResponsibility','sourceDocuments','scope','selectionMethod','contractTerm','financialPct','physicalUnit','paymentStatus','riskAnnex'];
 const panel=document.createElement('section');
@@ -121,12 +121,14 @@ const set=(s,html)=>{const el=q(s);if(el)el.innerHTML=html;};
 const txt=(s,text)=>{const el=q(s);if(el)el.textContent=String(text??'');};
 const keep=()=>{try{localStorage.setItem(STORE,JSON.stringify(state));}catch{}};
 function setView(view){
- state.view=view==='proyectos'?'proyectos':'resumen';
- const projects=state.view==='proyectos';
- const hadProjectsVisible=!panel.hidden;
+ state.view=['resumen','proyectos','contratos'].includes(view)?view:'resumen';
+ const projects=state.view==='proyectos',contracts=state.view==='contratos';
+ const hadSummaryHidden=summary.hidden;
+ const contractPanel=shell.querySelector('[data-ti42-contratos-root]');
  panel.hidden=!projects;
- summary.hidden=projects;
- shell.classList.toggle('ti42-projects-active',projects);
+ summary.hidden=projects||contracts;
+ if(contractPanel)contractPanel.hidden=!contracts;
+ shell.classList.toggle('ti42-projects-active',projects||contracts);
  tabs.querySelectorAll('[data-ti42-view]').forEach(tab=>{
    const chosen=tab.dataset.ti42View===state.view;
    tab.classList.toggle('is-active',chosen);
@@ -134,7 +136,8 @@ function setView(view){
  });
  keep();
  if(projects){render();if(state.detailTab==='localizacion')requestAnimationFrame(startMap);}
- else if(hadProjectsVisible)requestAnimationFrame(()=>api.refreshMap?.());
+ else if(contracts){window.TI42Contratos?.renderIfActive?.();}
+ else if(hadSummaryHidden)requestAnimationFrame(()=>api.refreshMap?.());
 }
 function baseFilter(r){
  if(shared.meta!=='all'&&(shared.meta==='none'?!!r.meta:r.meta!==shared.meta))return false;
@@ -403,6 +406,7 @@ async function loadExtraData(){
    if(next.size!==obj.rows.length)throw Error('Se encontraron filas duplicadas en el complemento');
    extras=next;extraStatus='Campos complementarios extraídos de Proyectos DEFINITIVO.';
  }catch(err){extras=new Map();extraStatus='Campos complementarios no disponibles ('+err.message+').';}
+ extraReady=true;for(const cb of extraListeners){try{cb();}catch(e){console.error('Error sincronizando datos complementarios',e);}}
  if(ready&&selected&&state.view==='proyectos')renderDetail();
 }
 loadExtraData();
@@ -419,8 +423,23 @@ api.onChange(snapshot=>{
 });
 if(ready)choices();
 setView(state.view);
+function openProject(rowNumber,detailTab='contratos'){
+ const target=Number(rowNumber),r=source.find(x=>x.excelRow===target);
+ if(!r)return false;
+ state.vereda='all';state.phase='all';state.sort='file';state.selectedRow=target;
+ state.detailTab=['informacion','localizacion','contratos','ejecucion','evidencias','indicadores'].includes(detailTab)?detailTab:'informacion';
+ const list=source.filter(baseFilter).sort((a,b)=>a.excelRow-b.excelRow);
+ const index=list.findIndex(x=>x.excelRow===target);
+ state.page=index>=0?Math.floor(index/state.pageSize)+1:1;
+ choices();setView('proyectos');return true;
+}
 window.TI42Proyectos={
+ openProject,
  get state(){return {...state};},get filteredCount(){return filtered.length;},get selectedRow(){return selected?.excelRow||null;},
- get loaded(){return ready;},get lastUpdates(){return loadCount;},get error(){return error;}
+ get loaded(){return ready;},get lastUpdates(){return loadCount;},get error(){return error;},
+ setView,
+ getExtraRow(rowNumber){return extras.get(Number(rowNumber))||null;},
+ onExtraChange(callback){if(typeof callback!=='function')return ()=>{};extraListeners.add(callback);if(extraReady)callback();return ()=>extraListeners.delete(callback);},
+ get extraStatus(){return extraStatus;}
 };
 })();
