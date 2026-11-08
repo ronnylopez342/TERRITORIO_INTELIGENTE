@@ -162,7 +162,7 @@
   function locationsMarkup(m){
     const places=[...new Set(m.activities.map(a=>a.territory?.trim()).filter(Boolean))].slice(0,7);
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return `<div class="pa-map-layout"><div class="pa-map-view"><div class="ti-ed-map" data-ti-map="summary" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de actividades"></div></div><div class="pa-location-list"><strong>${places.length?'Lugares consignados':'Sin veredas especificadas'}</strong>${places.length ? places.map(p=>`<span>● ${html(p)}</span>`).join('') : '<span>El Excel no identifica ubicaciones específicas para las actividades de esta meta.</span>'}<a class="pa-map-open" href="#data?seccion=data-explorando">Abrir mapa interactivo ↗</a><small data-pa-map-audit="summary" role="status">Contrastando la ubicación declarada en el Excel…</small></div></div>`;
+    return `<div class="pa-map-layout"><div class="pa-map-view"><div class="ti-ed-map" data-ti-map="summary" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de actividades"></div></div><div class="pa-location-list"><strong>${places.length?'Lugares consignados':'Sin veredas especificadas'}</strong>${places.length ? places.map(p=>`<span>● ${html(p)}</span>`).join('') : '<span>El Excel no identifica ubicaciones específicas para las actividades de esta meta.</span>'}<a class="pa-map-open" href="#desarrollo?seccion=desarrollo-accion" data-pa-open-theme="interventions">Abrir mapa interactivo ↗</a><small data-pa-map-audit="summary" role="status">Contrastando la ubicación declarada en el Excel…</small></div></div>`;
   }
   function productMarkup(m){
     const links=m.activities.map(a=>({title:a.name,url:safeLink(a.evidence),act:a.n})).filter(x=>x.url);
@@ -327,7 +327,7 @@
     const visible=state.territoryExpanded?active:active.slice(0,6);
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
     const locs=`<div class="pa-ig-location-list"><div class="pa-ig-location-switch" role="group" aria-label="Tipo de territorio"><button type="button" class="${isVereda?'selected':''}" data-pa-ig-kind="veredas" aria-pressed="${isVereda}">Veredas</button><button type="button" class="${!isVereda?'selected':''}" data-pa-ig-kind="barrios" aria-pressed="${!isVereda}">Barrios</button></div><div class="pa-ig-loc-results">${visible.length?visible.map(x=>`<span><b aria-hidden="true">●</b>${html(x)}</span>`).join(''):`<p class="pa-ig-missing">No se identifican ${isVereda?'veredas':'barrios'} con nombre explícito en el archivo de esta meta.</p>`}</div>${active.length>6?`<button type="button" class="pa-ig-more-locations" data-pa-ig-expand>${state.territoryExpanded?'Mostrar menos':'Ver todas las '+(isVereda?'veredas':'barrios')} ↗</button>`:''}${places.other.length?'<small>El Excel contiene además descripciones territoriales sin tipo de localidad explícito; se conservan en los registros de las actividades.</small>':''}</div>`;
-    return igSection('Cobertura Territorial','territory',`<div class="pa-ig-territory-layout">${locs}<div class="pa-ig-map"><div class="ti-ed-map" data-ti-map="general" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de obras"></div><div class="pa-ig-map-legend"><span>●</span><span data-pa-map-audit="general" role="status">Contrastando cobertura territorial…</span></div><a href="#data?seccion=data-explorando">Abrir mapa interactivo ↗</a></div></div>`,'pa-ig-territory-card');
+    return igSection('Cobertura Territorial','territory',`<div class="pa-ig-territory-layout">${locs}<div class="pa-ig-map"><div class="ti-ed-map" data-ti-map="general" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de obras"></div><div class="pa-ig-map-legend"><span>●</span><span data-pa-map-audit="general" role="status">Contrastando cobertura territorial…</span></div><a href="#desarrollo?seccion=desarrollo-accion" data-pa-open-theme="coverage">Abrir mapa interactivo ↗</a></div></div>`,'pa-ig-territory-card');
   }
   function igPeople(m){
     const records=(m.activities||[]).map(a=>a.people?.[1]).filter(isNumeric);
@@ -782,7 +782,7 @@
   function phMap(m){
     const places=[...new Set((m.activities||[]).map(x=>x.territory).filter(Boolean))];
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return `<div class="pa-ph-map-wrap"><div class="pa-ph-map-view"><div class="ti-ed-map" data-ti-map="physical" role="region" aria-label="Mapa de referencia de Subachoque, sin puntos de intervenciones"></div></div><div class="pa-ph-map-side"><strong>Ubicaciones reportadas</strong>${places.length?places.slice(0,5).map(s=>`<p>${html(s)}</p>`).join(''):'<p>No se registraron lugares espec\u00edficos.</p>'}<p class="pa-ph-map-warning" data-pa-map-audit="physical" role="status">Comprobando lugares declarados y avance físico…</p><a href="#data?seccion=data-explorando">Ver mapa completo \u2192</a></div></div>`;
+    return `<div class="pa-ph-map-wrap"><div class="pa-ph-map-view"><div class="ti-ed-map" data-ti-map="physical" role="region" aria-label="Mapa de referencia de Subachoque, sin puntos de intervenciones"></div></div><div class="pa-ph-map-side"><strong>Ubicaciones reportadas</strong>${places.length?places.slice(0,5).map(s=>`<p>${html(s)}</p>`).join(''):'<p>No se registraron lugares espec\u00edficos.</p>'}<p class="pa-ph-map-warning" data-pa-map-audit="physical" role="status">Comprobando lugares declarados y avance físico…</p><a href="#desarrollo?seccion=desarrollo-accion" data-pa-open-theme="physical">Ver mapa completo \u2192</a></div></div>`;
   }
   function phEvidence(m){
     const n=actFileList(m).length;
@@ -912,7 +912,7 @@
     const {places}=benPlaces(m);
     const chosen=Number.isInteger(state.beneficiaryPlace)?places[state.beneficiaryPlace]:null;
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return benPanel('Mapa de beneficiarios',`<div class="pa-ben-map-area"><div class="ti-ed-map" data-ti-map="beneficiaries" role="region" aria-label="Mapa vectorial de Subachoque, sin marcadores de beneficiarios"></div></div><div class="pa-ben-map-caption"><span class="pa-ben-map-dot"></span><span data-pa-map-audit="beneficiaries" role="status">Comprobando lugares y registros de beneficiarios…</span></div><p class="pa-ben-territory-selection" id="pa-ben-selected-place" aria-live="polite">${chosen?'Localidad en el Excel: '+html(chosen.name):places.length?'Selecciona un lugar de la tabla para identificarlo en el listado documental.':'No hay localidades específicas verificadas en el Excel para esta meta.'}</p><a class="pa-ben-map-link" href="#data?seccion=data-explorando">Abrir mapa completo ↗</a>`,'pa-ben-map-card');
+    return benPanel('Mapa de beneficiarios',`<div class="pa-ben-map-area"><div class="ti-ed-map" data-ti-map="beneficiaries" role="region" aria-label="Mapa vectorial de Subachoque, sin marcadores de beneficiarios"></div></div><div class="pa-ben-map-caption"><span class="pa-ben-map-dot"></span><span data-pa-map-audit="beneficiaries" role="status">Comprobando lugares y registros de beneficiarios…</span></div><p class="pa-ben-territory-selection" id="pa-ben-selected-place" aria-live="polite">${chosen?'Localidad en el Excel: '+html(chosen.name):places.length?'Selecciona un lugar de la tabla para identificarlo en el listado documental.':'No hay localidades específicas verificadas en el Excel para esta meta.'}</p><a class="pa-ben-map-link" href="#desarrollo?seccion=desarrollo-accion" data-pa-open-theme="beneficiaries">Abrir mapa completo ↗</a>`,'pa-ben-map-card');
   }
   function benTestimonies(){
     return benPanel('Testimonios de la comunidad',`<button class="pa-ben-view-all" type="button" data-pa-ben-testimony-all aria-haspopup="dialog" aria-controls="pa-ben-testimonials-dialog">Ver todos →</button><div class="pa-ben-testimonial-cards">${[1,2,3].map(()=>`<div class="pa-ben-testimony"><div class="pa-ben-testimony-image" aria-label="Fotografía de participante pendiente de incorporar">${benIcon('people')}</div><p>Testimonio pendiente de incorporar</p><small>No existe cita verificada y autorizada para esta meta.</small></div>`).join('')}</div><div class="pa-ben-pagination"><button type="button" disabled aria-label="Testimonio anterior no disponible">‹</button><span aria-label="Sin testimonios incorporados">○ ○ ○</span><button type="button" disabled aria-label="Testimonio siguiente no disponible">›</button></div><dialog id="pa-ben-testimonials-dialog" class="pa-ben-dialog" aria-labelledby="pa-ben-dialog-title"><div class="pa-ben-modal-top"><h3 id="pa-ben-dialog-title">Testimonios de la comunidad · Meta ${state.current}</h3><button type="button" data-pa-ben-testimony-close aria-label="Cerrar">×</button></div>${benEmpty('Testimonios pendientes de verificación','Los Excel de Plan de Acción no contienen testimonios consentidos ni retratos atribuibles a esta meta. No se muestran citas ni fotografías ficticias.')}</dialog>`,'pa-ben-testimonials-card');
@@ -2063,6 +2063,18 @@
     const overallMeta=ev.target.closest('[data-pa-overall-meta]');
     if(overallMeta){state.activeTab='summary';focusMeta(Number(overallMeta.dataset.paOverallMeta));return;}
     if(ev.target.closest('[data-pa-overall-export]')){overallExport();return;}
+    const requestedMapTheme=ev.target.closest('[data-pa-open-theme]');
+    if(requestedMapTheme){
+      ev.preventDefault();
+      const kind=requestedMapTheme.dataset.paOpenTheme;
+      if(!(window.TITerritoryEvidence?.catalogue||[]).some(theme=>theme.id===kind))return;
+      state.activeTab='territory';
+      state.list=false;
+      state.territoryThemeActive=new Set([kind]);
+      refresh();
+      requestAnimationFrame(()=>panel.querySelector('.pa-tr-primary-map')?.scrollIntoView({behavior:'instant',block:'start'}));
+      return;
+    }
     const tab=ev.target.closest('[data-pa-tab]');
     if(tab){const next=tab.dataset.paTab;if(!['general','summary','overall','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
     if(ev.target.closest('[data-pa-ct-open]')){state.ctPanelOpen=true;ctRefreshPart();return;}
