@@ -1752,10 +1752,12 @@
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
-    if(!currentYear())return unavailableMarkup();
-    if(state.list)return listMarkup();
-    const m=selected();if(!m)return unavailableMarkup();
-    return statusBar(m)+tabMarkup(m)+(state.activeTab==='overall'?overallMarkup(true):overallMarkup(false)+summaryMarkup(m));
+    if(!currentYear())return tabMarkup(null)+unavailableMarkup();
+    // El Totalizador es el unico catalogo general: no tiene una ficha de meta individual.
+    if(state.activeTab==='overall')return tabMarkup(selected())+overallMarkup(true);
+    const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
+    // Resumen usa la misma ficha grande e interaccion «Cambiar meta» de las otras vistas.
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+overallMarkup(false)+summaryMarkup(m);
   }
 
   // Encabezado global único para todas las secciones 3.3: búsqueda, año y
@@ -1794,7 +1796,6 @@
     };
     // Unificar los resultados en las diez vistas, incluida Contratación,
     // cuya pantalla originalmente no manejaba state.list.
-    if(state.list&&currentYear())return detailPage('pa-general-mode','Resultados de búsqueda de metas de '+state.year,tabMarkup(selected())+listMarkup(),'search');
     if(state.activeTab==='contracts')return detailPage('pa-general-mode pa-activities-mode pa-contract-mode','Contratación de Inversión para '+state.year,ctResults());
     if(state.activeTab==='observations')return detailPage('pa-general-mode pa-activities-mode pa-observations-mode','Observaciones de la meta para '+state.year,obResults());
     if(state.activeTab==='supports')return detailPage('pa-general-mode pa-activities-mode pa-supports-mode','Soportes de la meta para '+state.year,suResults());
@@ -1805,8 +1806,8 @@
     if(state.activeTab==='activities')return detailPage('pa-general-mode pa-activities-mode','Actividades para '+state.year,actResults());
     if(state.activeTab==='general')return detailPage('pa-general-mode','Información General para '+state.year,generalResults());
     const avail=!!currentYear();
-    return '<div class="pa-shell pa-global-shell">'+sharedHeader+'<section class="pa-body" aria-label="Panel de seguimiento para '+html(state.year)+'">'+
-      (!avail?tabMarkup(null):'')+'<div class="pa-content" id="pa-content">'+sectionHeadingMarkup()+resultsMarkup()+'</div></section></div>';
+    return '<div class="pa-shell pa-global-shell pa-general-mode">'+sharedHeader+'<section class="pa-body pa-ig-body" aria-label="Panel de seguimiento para '+html(state.year)+'">'+
+      '<div class="pa-content" id="pa-content">'+sectionHeadingMarkup()+resultsMarkup()+'</div></section></div>';
   }
   function refresh({preserveFocus=false}={}){
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
@@ -1821,12 +1822,16 @@
     if(state.activeTab==='observations'&&currentYear()&&!state.list&&!state.obLoaded&&!state.obLoading&&!state.obError)obLoad();
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
   }
-  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();const header=panel.querySelector('.pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
+  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();const header=panel.querySelector('.pa-ig-meta, .pa-meta-heading');header?.scrollIntoView({behavior:'smooth',block:'start'});}
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
-    if(/^\d+$/.test(rawNum)&&!rawWord){const exact=metas().find(x=>x.id===Number(rawNum));if(exact){focusMeta(exact.id);return;}}
-    state.list=true;state.listCategory='all';refresh();panel.querySelector('.pa-meta-catalog')?.scrollIntoView({behavior:'smooth',block:'start'});
+    if(/^\d+$/.test(rawNum)&&!rawWord){const exact=metas().find(x=>x.id===Number(rawNum));if(exact){if(state.activeTab==='overall')state.activeTab='summary';focusMeta(exact.id);return;}}
+    // Una sola vista para consultar metas: el directorio del Totalizador.
+    state.overallSearch=rawWord?state.qKeyword.trim():rawNum;
+    state.overallStatus='all';state.overallSort='id';
+    state.activeTab='overall';state.list=false;state.listCategory='all';
+    refresh();panel.querySelector('.pa-total-directory')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
   panel.addEventListener('submit',ev=>{if(ev.target.id==='pa-query-form'){ev.preventDefault();searchAction();}});
   panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}if(ev.target.id==='pa-ob-search'){state.obFilters.q=ev.target.value.slice(0,180);state.obPage=0;obRefreshPart(true);}if(ev.target.id==='pa-ct-search'){state.ctFilters.q=ev.target.value.slice(0,180);state.ctPage=0;ctRefreshPart(true);}if(ev.target.id==='pa-overall-search'){state.overallSearch=ev.target.value.slice(0,180);overallRefreshTable();}});
@@ -1944,8 +1949,8 @@
     if(ev.target.closest('[data-pa-ig-docs]')){panel.querySelector('#pa-ig-doc-dialog')?.showModal();return;}
     if(ev.target.closest('[data-pa-ig-doc-close]')){panel.querySelector('#pa-ig-doc-dialog')?.close();return;}
     const meta=ev.target.closest('[data-pa-meta]');if(meta){focusMeta(Number(meta.dataset.paMeta));return;}
-    if(ev.target.closest('[data-pa-list]')){state.list=true;state.listCategory='all';refresh();return;}
-    const kpi=ev.target.closest('[data-pa-kpi]');if(kpi){if(!currentYear())return;state.list=true;state.listCategory=kpi.dataset.paKpi;refresh();return;}
+    if(ev.target.closest('[data-pa-list]')){state.activeTab='overall';state.list=false;state.listCategory='all';refresh();panel.querySelector('.pa-total-directory')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    const kpi=ev.target.closest('[data-pa-kpi]');if(kpi){if(!currentYear())return;state.activeTab='overall';state.list=false;state.overallSearch='';state.overallStatus=kpi.dataset.paKpi;refresh();panel.querySelector('.pa-total-directory')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
     const act=ev.target.closest('[data-pa-activity]');if(act){const key=selected()?.id+'-'+act.dataset.paActivity;if(state.activityExpanded.has(key))state.activityExpanded.delete(key);else state.activityExpanded.add(key);const scrollY=window.scrollY;refresh();window.scrollTo({top:scrollY});return;}
     if(ev.target.closest('[data-pa-gallery]')){
       const dialog=panel.querySelector('#pa-gallery-dialog');if(dialog && typeof dialog.showModal==='function')dialog.showModal();return;
