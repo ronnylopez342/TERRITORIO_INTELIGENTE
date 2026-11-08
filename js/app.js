@@ -60,7 +60,7 @@ function setMenu(state, { restoreFocus = true } = {}) {
   menu.classList.toggle('open', state);
   menu.setAttribute('aria-hidden', String(!state));
   menu.inert = !state;
-  if (!state) setMobileDataDropdownOpen(false);
+  if (!state) { setMobileDataDropdownOpen(false); setTiMobileUnitOpen(false); }
   openBtn.setAttribute('aria-expanded', String(state));
   document.body.style.overflow = state ? 'hidden' : '';
   if (state) {
@@ -77,6 +77,7 @@ function setDataDropdownOpen(open, { focusFirst = false, restoreFocus = false } 
   dataDropdownMenu.hidden = !open;
   dataDropdownTrigger.setAttribute('aria-expanded', String(open));
   dataDropdown?.classList.toggle('open', open);
+  if (open) setTiUnitOpen(false);
   if (open && focusFirst) dataDropdownMenu.querySelector('[role="menuitem"]')?.focus();
   if (!open && restoreFocus) dataDropdownTrigger.focus();
 }
@@ -180,14 +181,14 @@ function setTiPlanOpen(open, restoreFocus=false) {
   tiPlanMenu.hidden = !open;
   tiPlanTrigger.setAttribute('aria-expanded', String(open));
   tiPlanDropdown.classList.toggle('open', open);
-  if (open) setDataDropdownOpen(false);
+  if (open) { setDataDropdownOpen(false); setTiUnitOpen(false); }
   if (!open && restoreFocus) tiPlanTrigger.focus();
 }
 function setTiMobilePlanOpen(open) {
   if (!tiMobilePlanMenu || !tiMobilePlanToggle) return;
   tiMobilePlanMenu.hidden = !open;
   tiMobilePlanToggle.setAttribute('aria-expanded', String(open));
-  if (open) setMobileDataDropdownOpen(false);
+  if (open) { setMobileDataDropdownOpen(false); setTiMobileUnitOpen(false); }
 }
 function syncTiPlanSelection(id) {
   const selected=id || new URLSearchParams(location.hash.split('?')[1] || '').get('seccion') || 'desarrollo-conoce';
@@ -273,6 +274,130 @@ window.addEventListener('hashchange',()=>syncTiPlanSelection());
 window.addEventListener('popstate',()=>syncTiPlanSelection());
 syncTiPlanSelection();
 
+/* UNIDAD DE CUMPLIMIENTO: mismas opciones desplegables, teclado y ruta
+   persistente que Plan de Desarrollo. Solo conecta las pestañas ya existentes. */
+const tiUnitDropdown=document.getElementById('tiUnitDropdown');
+const tiUnitTrigger=document.getElementById('tiUnitDropdownTrigger');
+const tiUnitMenu=document.getElementById('tiUnitDropdownMenu');
+const tiMobileUnitGroup=document.getElementById('tiMobileUnitGroup');
+const tiMobileUnitToggle=document.getElementById('tiMobileUnitToggle');
+const tiMobileUnitMenu=document.getElementById('tiMobileUnitMenu');
+const tiUnitIds=new Set(['cumplimiento-conoce','cumplimiento-proyectos','cumplimiento-alumbrado','cumplimiento-inventario']);
+function setTiUnitOpen(open,restoreFocus=false){
+  if(!tiUnitMenu||!tiUnitTrigger)return;
+  tiUnitMenu.hidden=!open;
+  tiUnitTrigger.setAttribute('aria-expanded',String(open));
+  tiUnitDropdown?.classList.toggle('open',open);
+  if(open){
+    setDataDropdownOpen(false);
+    setTiPlanOpen(false);
+  }
+  if(!open&&restoreFocus)tiUnitTrigger.focus();
+}
+function setTiMobileUnitOpen(open){
+  if(!tiMobileUnitMenu||!tiMobileUnitToggle)return;
+  tiMobileUnitMenu.hidden=!open;
+  tiMobileUnitToggle.setAttribute('aria-expanded',String(open));
+  if(open){
+    setMobileDataDropdownOpen(false);
+    setTiMobilePlanOpen(false);
+  }
+}
+function syncTiUnitSelection(id){
+  const explicit=location.hash.startsWith('#cumplimiento?')
+    ?new URLSearchParams(location.hash.split('?')[1]||'').get('seccion'):null;
+  const selected=id||explicit||document.querySelector('#cumplimientoSubnav .module-tab.active')?.dataset.modulePanel||'cumplimiento-conoce';
+  document.querySelectorAll('[data-cumplimiento-destination]').forEach(el=>{
+    el.classList.toggle('is-selected',el.dataset.cumplimientoDestination===selected);
+  });
+}
+tiUnitTrigger?.addEventListener('click',event=>{
+  event.preventDefault();
+  event.stopPropagation();
+  setTiUnitOpen(true);
+});
+tiUnitTrigger?.addEventListener('keydown',event=>{
+  if(!['ArrowDown','ArrowUp'].includes(event.key))return;
+  event.preventDefault();
+  setTiUnitOpen(true);
+  const entries=[...tiUnitMenu.querySelectorAll('[role="menuitem"]')];
+  (event.key==='ArrowDown'?entries[0]:entries.at(-1))?.focus();
+});
+tiUnitDropdown?.addEventListener('pointerenter',event=>{
+  if(event.pointerType==='mouse')setTiUnitOpen(true);
+});
+tiUnitDropdown?.addEventListener('pointerleave',event=>{
+  if(event.pointerType==='mouse')setTiUnitOpen(false);
+});
+tiUnitMenu?.addEventListener('keydown',event=>{
+  if(event.key==='Escape'){
+    event.preventDefault();
+    setTiUnitOpen(false,true);
+    return;
+  }
+  if(!['ArrowDown','ArrowUp','Home','End'].includes(event.key))return;
+  event.preventDefault();
+  const entries=[...tiUnitMenu.querySelectorAll('[role="menuitem"]')];
+  if(!entries.length)return;
+  const pos=entries.indexOf(document.activeElement);
+  const next=event.key==='Home'?0:event.key==='End'?entries.length-1:event.key==='ArrowDown'?(pos+1)%entries.length:(pos-1+entries.length)%entries.length;
+  entries[next]?.focus();
+});
+tiMobileUnitToggle?.addEventListener('click',event=>{
+  event.preventDefault();
+  event.stopPropagation();
+  setTiMobileUnitOpen(tiMobileUnitMenu.hidden);
+});
+document.addEventListener('click',event=>{
+  const choice=event.target.closest('[data-cumplimiento-destination]');
+  if(choice){
+    event.preventDefault();
+    const id=choice.dataset.cumplimientoDestination;
+    if(!tiUnitIds.has(id))return;
+    const tab=[...document.querySelectorAll('#cumplimientoSubnav [data-module-panel]')]
+      .find(el=>el.dataset.modulePanel===id);
+    const panel=document.getElementById(id);
+    if(!tab||!panel||panel.dataset.panelGroup!=='cumplimiento')return;
+    setTiUnitOpen(false);
+    setTiMobileUnitOpen(false);
+    setRoute('cumplimiento',{historyMode:'push',focus:false,scroll:false});
+    tab.click(); /* Conserva URL, historial y pestaña elegida con module-structure.js. */
+    syncTiUnitSelection(id);
+    requestAnimationFrame(()=>{
+      const layout=document.querySelector('[data-view="cumplimiento"] .ti34-layout');
+      const navHeight=header?.getBoundingClientRect().height||90;
+      const top=window.scrollY+(layout||panel).getBoundingClientRect().top;
+      window.scrollTo({top:Math.max(0,top-navHeight-16),behavior:'instant'});
+      panel.setAttribute('tabindex','-1');
+      panel.focus({preventScroll:true});
+    });
+    return;
+  }
+  const tab=event.target.closest('#cumplimientoSubnav [data-module-panel]');
+  if(tab)syncTiUnitSelection(tab.dataset.modulePanel);
+  if(tiUnitDropdown&&!tiUnitDropdown.contains(event.target))setTiUnitOpen(false);
+  if(tiMobileUnitGroup&&!tiMobileUnitGroup.contains(event.target))setTiMobileUnitOpen(false);
+});
+document.addEventListener('pointerdown',event=>{
+  if(tiUnitDropdown&&!tiUnitDropdown.contains(event.target))setTiUnitOpen(false);
+});
+document.addEventListener('focusin',event=>{
+  if(tiUnitDropdown&&!tiUnitDropdown.contains(event.target))setTiUnitOpen(false);
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&tiUnitMenu&&!tiUnitMenu.hidden){
+    event.preventDefault();
+    setTiUnitOpen(false,true);
+  }
+});
+window.addEventListener('hashchange',()=>syncTiUnitSelection());
+window.addEventListener('popstate',()=>requestAnimationFrame(()=>syncTiUnitSelection()));
+document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>syncTiUnitSelection()));
+document.addEventListener('click',event=>{
+  if(event.target.closest('.route-link[data-route="cumplimiento"]'))requestAnimationFrame(()=>syncTiUnitSelection());
+});
+syncTiUnitSelection();
+
 openBtn?.addEventListener('click', () => setMenu(true));
 closeBtn?.addEventListener('click', () => setMenu(false));
 
@@ -336,6 +461,7 @@ function setRoute(route, { historyMode = 'push', focus = true, scroll = true } =
   });
 
   setDataDropdownOpen(false);
+  setTiUnitOpen(false);
   header?.classList.add('force-dark');
   document.title = ROUTES[route].title;
   setMenu(false, { restoreFocus: false });

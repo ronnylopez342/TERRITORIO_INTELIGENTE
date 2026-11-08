@@ -76,7 +76,14 @@
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-desarrollo-destination="desarrollo-cumplimos"><span>3.2 Así cumplimos</span></button>
 <button type="button" role="menuitem" class="ti-nav-dropdown-item" data-desarrollo-destination="desarrollo-accion"><span>3.3 Planes de acción</span></button>
 </div></div>
-<button class="nav-link route-link" data-route="cumplimiento" type="button"><span class="nav-roll"><span class="nav-roll__first">Unidad de Cumplimiento</span><span class="nav-roll__next" aria-hidden="true">Unidad de Cumplimiento</span></span></button>
+<div class="ti-nav-dropdown" id="tiUnitDropdown">
+<button class="nav-link route-link ti-nav-dropdown-trigger" data-route="cumplimiento" id="tiUnitDropdownTrigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="tiUnitDropdownMenu"><span class="nav-roll"><span class="nav-roll__first">Unidad de Cumplimiento</span><span class="nav-roll__next" aria-hidden="true">Unidad de Cumplimiento</span></span><svg class="ti-nav-chevron" aria-hidden="true" viewBox="0 0 16 16" width="15" height="15" fill="none"><path d="m3 6 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ti-nav-dropdown-menu" id="tiUnitDropdownMenu" role="menu" aria-label="Secciones de Unidad de Cumplimiento" hidden>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-cumplimiento-destination="cumplimiento-conoce"><span>4.1 Conoce la Unidad de Cumplimiento</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-cumplimiento-destination="cumplimiento-proyectos"><span>4.2 Así cumplimos · Proyectos estratégicos</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-cumplimiento-destination="cumplimiento-alumbrado"><span>4.3 Alumbrado público</span></button>
+<button type="button" role="menuitem" class="ti-nav-dropdown-item" data-cumplimiento-destination="cumplimiento-inventario"><span>4.4 Inventario automotor</span></button>
+</div></div>
 <button class="nav-link route-link" data-route="politicas" type="button"><span class="nav-roll"><span class="nav-roll__first">Políticas Públicas</span><span class="nav-roll__next" aria-hidden="true">Políticas Públicas</span></span></button>
 <button class="nav-cta route-link" data-route="login" type="button"><span class="nav-roll"><span class="nav-roll__first">Iniciar sesión</span><span class="nav-roll__next" aria-hidden="true">Iniciar sesión</span></span></button>
 </nav>
@@ -107,7 +114,14 @@
 <button type="button" class="ti-mobile-data-option" data-desarrollo-destination="desarrollo-cumplimos"><span class="ti-mobile-data-label">3.2 Así cumplimos</span><span aria-hidden="true">↗</span></button>
 <button type="button" class="ti-mobile-data-option" data-desarrollo-destination="desarrollo-accion"><span class="ti-mobile-data-label">3.3 Planes de acción</span><span aria-hidden="true">↗</span></button>
 </div></div>
-<button class="route-link" data-route="cumplimiento" type="button"><small>04</small><span>Unidad de Cumplimiento</span><b>→</b></button>
+<div class="ti-mobile-data-group" id="tiMobileUnitGroup">
+<button class="route-link ti-mobile-data-toggle" data-route="cumplimiento" id="tiMobileUnitToggle" type="button" aria-controls="tiMobileUnitMenu" aria-expanded="false"><small>04</small><span>Unidad de Cumplimiento</span><b aria-hidden="true">⌄</b></button>
+<div id="tiMobileUnitMenu" class="ti-mobile-data-submenu" aria-label="Secciones de Unidad de Cumplimiento" hidden>
+<button type="button" class="ti-mobile-data-option" data-cumplimiento-destination="cumplimiento-conoce"><span class="ti-mobile-data-label">4.1 Conoce la Unidad de Cumplimiento</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-cumplimiento-destination="cumplimiento-proyectos"><span class="ti-mobile-data-label">4.2 Así cumplimos · Proyectos estratégicos</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-cumplimiento-destination="cumplimiento-alumbrado"><span class="ti-mobile-data-label">4.3 Alumbrado público</span><span aria-hidden="true">↗</span></button>
+<button type="button" class="ti-mobile-data-option" data-cumplimiento-destination="cumplimiento-inventario"><span class="ti-mobile-data-label">4.4 Inventario automotor</span><span aria-hidden="true">↗</span></button>
+</div></div>
 <button class="route-link" data-route="politicas" type="button"><small>05</small><span>Políticas Públicas</span><b>→</b></button>
 <button class="route-link" data-route="login" type="button"><small>06</small><span>Iniciar sesión</span><b>→</b></button>
 </nav>
@@ -670,7 +684,7 @@
 <aside aria-hidden="true" class="assistant-panel" id="assistantPanel" inert=""><div class="assistant-head"><div><strong>Asistente TI</strong><small>Consulta información estructurada del portal</small></div><button aria-label="Cerrar asistente" id="assistantClose" type="button">×</button></div><form id="assistantForm"><label for="assistantQuery">¿Qué necesitas encontrar?</label><div class="assistant-input-row"><input autocomplete="off" id="assistantQuery" placeholder="Ej. predial, DANE, cronograma" type="search"/><button type="submit">Buscar</button></div></form><div aria-live="polite" class="assistant-results" id="assistantResults"></div></aside>
 <section aria-label="Modo editor local" class="editor-panel" hidden="" id="editorPanel"><div><strong>Modo editor local</strong><span>Importa/exporta contenido de prueba. La persistencia central requiere conexión de autenticación y base de datos.</span></div><div><label class="text-button">Importar JSON<input accept="application/json,.json" hidden="" id="editorImport" type="file"/></label><button class="text-button" id="editorExport" type="button">Exportar snapshot</button><button class="text-button" id="editorReset" type="button">Restablecer local</button></div></section>
 <div aria-live="polite" class="toast" id="toast" role="status"></div>
-<script defer="" src="js/app.js?v=20261103-plan-dropdown-menu-02"></script>
+<script defer="" src="js/app.js?v=20261108-unit-dropdown-v1"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script defer src="js/data-core.js?v=data-fix-01"></script>
 <script defer src="js/subachoque-map.js?v=20261108-visible-vereda-labels-v7"></script>
