@@ -22,7 +22,7 @@
   width:100%!important;
   max-width:100%!important;
   min-width:0!important;
-  height:43px!important;
+  height:auto!important;
   min-height:43px!important;
   margin:9px 0 10px!important;
   padding:0!important;
@@ -59,7 +59,6 @@
   text-transform:none!important;
   border-radius:5px 5px 0 0!important;
   transform:none!important;
-  zoom:1!important;
 }
 #desarrollo-accion.pa-mounted .pa-shell.pa-global-shell .pa-tabs .pa-tab+.pa-tab {
   margin-left:0!important;
