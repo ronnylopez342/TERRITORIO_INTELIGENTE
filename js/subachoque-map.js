@@ -216,7 +216,7 @@
         'tibagota':['Tibagotá'],
         'casco urbano':['Casco','Urbano']
       };
-      const labelLeaderLines=L.layerGroup().addTo(map);
+      // Label anchors are immutable geographic positions, always inside their own regions.
       const labelCanvas=document.createElement('canvas');
       const labelCtx=labelCanvas.getContext('2d');
       function label(kind,latLng,text,geoLayer){
@@ -226,7 +226,8 @@
           html:'<span class="ti-ed-label ti-ed-label-'+kind+'">'+content+'</span>',
           iconSize:[0,0],iconAnchor:[0,0]});
         const marker=L.marker(latLng,{icon,interactive:false,keyboard:false});
-        marker.addTo(labelGroup);
+        // Keep it invisible until its complete rectangle fits inside its polygon.
+        // Never briefly flash an overflowing name during initial map loading.
         labels.push({kind,marker,latLng,text,lines,geoLayer});
         return marker;
       }
@@ -239,138 +240,102 @@
         const height=lines.length*size*1.09+5;
         return {x:x-width/2,y:y-height/2,w:width,h:height};
       }
-      function labelOverlap(a,b,pad=2){
-        return a.x<a.x+a.w&&a.x+a.w+pad>b.x&&b.x+b.w+pad>a.x&&
-          a.y+a.h+pad>b.y&&b.y+b.h+pad>a.y;
+      function labelOverlap(a,b,pad=1.6){
+        return a.x < b.x+b.w+pad && a.x+a.w+pad > b.x &&
+          a.y < b.y+b.h+pad && a.y+a.h+pad > b.y;
       }
       function labelWithinViewport(box,width,height){
-        return box.x>=4&&box.y>=4&&box.x+box.w<=width-4&&box.y+box.h<=height-4;
+        return box.x>=3&&box.y>=3&&box.x+box.w<=width-3&&box.y+box.h<=height-3;
       }
-      function labelAt(entry,point,size,kind,placed,viewW,viewH){
-        const rect=labelBox(entry.lines,size,point.x,point.y);
-        if(!labelWithinViewport(rect,viewW,viewH))return null;
-        if(placed.some(p=>labelOverlap(rect,p.box,2)))return null;
-        return {entry,point,size,box:rect,placement:kind};
+      function segmentMeetsBox(a,b,left,bottom,right,top){
+        // Liang–Barsky: line intersection with the geographic rectangle
+        // corresponding to the unrotated Leaflet pixel text rectangle.
+        const dx=b[0]-a[0],dy=b[1]-a[1];
+        let t0=0,t1=1;
+        const edges=[[-dx,a[0]-left],[dx,right-a[0]],[-dy,a[1]-bottom],[dy,top-a[1]]];
+        for(const [p,q] of edges){
+          if(Math.abs(p)<1e-14){if(q<0)return false;continue;}
+          const t=q/p;
+          if(p<0){if(t>t1)return false;t0=Math.max(t0,t);}
+          else {if(t<t0)return false;t1=Math.min(t1,t);}
+        }
+        return t0<=t1;
       }
-      // At any display size try all interior text anchors, not just one point.
-      // The smallest geographic polygons are allocated first. If there is no
-      // interior space, reserve a nearby position outside the municipality and
-      // connect it to the original polygon with a thin leader.
+      function labelFitsOwnPolygon(entry,box){
+        // Being *centred* inside a polygon is not enough: the whole text box
+        // must stay there, even on slivers, concavities, and polygon holes.
+        const feature=entry.geoLayer?.feature;
+        if(!feature?.geometry)return false;
+        const margin=1.25;
+        const nw=map.containerPointToLatLng([box.x-margin,box.y-margin]);
+        const se=map.containerPointToLatLng([box.x+box.w+margin,box.y+box.h+margin]);
+        const left=Math.min(nw.lng,se.lng),right=Math.max(nw.lng,se.lng);
+        const bottom=Math.min(nw.lat,se.lat),top=Math.max(nw.lat,se.lat);
+        for(const fx of [0,.5,1])for(const fy of [0,.5,1]){
+          if(!inside(feature,left+(right-left)*fx,bottom+(top-bottom)*fy))return false;
+        }
+        // Do not accept a rectangular text box crossing a border, indentation,
+        // isolated island, or hole, even if all sampled points happen to fit.
+        const geom=feature.geometry;
+        const polygons=geom.type==='Polygon'?[geom.coordinates]:
+          geom.type==='MultiPolygon'?geom.coordinates:[];
+        for(const polygon of polygons)for(const ring of polygon){
+          for(let i=0,j=ring.length-1;i<ring.length;j=i++){
+            const a=ring[j],b=ring[i];
+            if(Math.max(a[0],b[0])<left||Math.min(a[0],b[0])>right||
+               Math.max(a[1],b[1])<bottom||Math.min(a[1],b[1])>top)continue;
+            if(segmentMeetsBox(a,b,left,bottom,right,top))return false;
+          }
+        }
+        return true;
+      }
       function updateLabelVisibility(){
         if(!map||disposed)return;
-        labelLeaderLines.clearLayers();
         const viewW=canvas.clientWidth,viewH=canvas.clientHeight;
         if(viewW<10||viewH<10)return;
-        const northEast=map.latLngToContainerPoint(bounds.getNorthEast());
-        const southWest=map.latLngToContainerPoint(bounds.getSouthWest());
-        const fullMapWidth=Math.abs(northEast.x-southWest.x);
-        const visible=labels.filter(labelVisible);
-        const candidates=visible.map(entry=>{
-          const point=map.latLngToContainerPoint(entry.latLng);
-          const b=entry.geoLayer?.getBounds();
-          if(!b?.isValid())return {entry,point,width:0,height:0,area:0,options:[]};
-          const nw=map.latLngToContainerPoint(b.getNorthWest());
-          const se=map.latLngToContainerPoint(b.getSouthEast());
-          const regionW=Math.abs(se.x-nw.x),regionH=Math.abs(se.y-nw.y);
-          const fontMax=Math.min(29,Math.max(8.4,fullMapWidth*.047));
-          // Avoid excessively large type inside very small regions, but never
-          // refuse to display a name merely because it needs a 7px label.
-          const starting=Math.min(fontMax,Math.max(7,regionH*.60));
-          const sizes=[starting,starting*.90,starting*.79,starting*.68,8.4,7.5,7]
-            .filter((n,i,arr)=>n>=7&&arr.findIndex(v=>Math.abs(v-n)<.20)===i);
-          const points=[point];
-          // Sample each feature's actual geographic interior in screen space.
-          // These are label presentation anchors only; no GeoJSON is modified.
-          const feature=entry.geoLayer.feature;
-          for(let row=1;row<=9;row++)for(let col=1;col<=9;col++){
-            const x=Math.min(nw.x,se.x)+regionW*col/10;
-            const y=Math.min(nw.y,se.y)+regionH*row/10;
-            const latlng=map.containerPointToLatLng([x,y]);
-            if(inside(feature,latlng.lng,latlng.lat))points.push({x,y});
-          }
-          points.sort((a,b)=>Math.hypot(a.x-point.x,a.y-point.y)-Math.hypot(b.x-point.x,b.y-point.y));
-          return {entry,point,width:regionW,height:regionH,area:regionW*regionH,
-            sizes,points};
-        }).sort((a,b)=>a.entry.kind==='casco'?-1:b.entry.kind==='casco'?1:a.area-b.area);
+        // Readable sizes depend on the viewport, not on zoom. Panning or
+        // zooming never moves an anchor or creates off-territory callouts.
+        const fontMax=Math.min(19,Math.max(9.5,Math.min(viewW,viewH)*.035));
+        const sizes=[fontMax,fontMax*.91,fontMax*.82,fontMax*.72,fontMax*.63,9,8,7]
+          .filter(n=>n>=7).sort((a,b)=>b-a)
+          .filter((n,i,arr)=>arr.findIndex(v=>Math.abs(v-n)<.18)===i);
         const placed=[];
-        // First pass: prioritize every label on its own region without overlap.
-        for(const item of candidates){
-          const {entry,point,points,sizes}=item;
-          let best=null;
+        const ordered=labels.filter(labelVisible).map(entry=>{
+          const region=entry.geoLayer?.getBounds();
+          const area=region?.isValid()?
+            Math.abs(map.latLngToContainerPoint(region.getNorthEast()).x-
+              map.latLngToContainerPoint(region.getSouthWest()).x)*
+            Math.abs(map.latLngToContainerPoint(region.getNorthEast()).y-
+              map.latLngToContainerPoint(region.getSouthWest()).y):0;
+          return {entry,area};
+        }).sort((a,b)=>a.entry.kind==='casco'?-1:b.entry.kind==='casco'?1:a.area-b.area);
+        const accepted=new Map();
+        for(const {entry} of ordered){
+          const point=map.latLngToContainerPoint(entry.latLng);
           for(const size of sizes){
-            // A few interior positions are enough for large regions; narrower
-            // regions may need the full grid before we go down a font step.
-            for(const testPoint of points){
-              const trial=labelAt(entry,testPoint,size,'inside',placed,viewW,viewH);
-              if(!trial)continue;
-              best=trial;break;
-            }
-            if(best)break;
+            const box=labelBox(entry.lines,size,point.x,point.y);
+            if(!labelWithinViewport(box,viewW,viewH))continue;
+            if(placed.some(other=>labelOverlap(box,other.box)))continue;
+            if(!labelFitsOwnPolygon(entry,box))continue;
+            const hit={size,box};
+            placed.push(hit);accepted.set(entry,hit);break;
           }
-          if(best)placed.push(best);
         }
-        // Second pass: every name that did not fit INSIDE gets a nearby callout.
-        for(const item of candidates){
-          const {entry,point}=item;
-          if(placed.some(p=>p.entry===entry))continue;
-          const sizes=[8.5,7.8,7.1];
-          let best=null,bestScore=Infinity;
-          const options=[];
-          // Search the unused margins first, not over other veredas.
-          const step=viewW<360?10:12;
-          for(let y=8;y<=viewH-8;y+=step){
-            for(let x=8;x<=viewW-8;x+=step){
-              const ll=map.containerPointToLatLng([x,y]);
-              if(inside(boundary,ll.lng,ll.lat))continue;
-              const dist=Math.hypot(x-point.x,y-point.y);
-              if(dist>Math.max(viewW,viewH)*.85)continue;
-              options.push({x,y,dist});
-            }
-          }
-          options.sort((a,b)=>a.dist-b.dist);
-          for(const size of sizes){
-            for(const test of options){
-              const trial=labelAt(entry,test,size,'callout',placed,viewW,viewH);
-              if(!trial)continue;
-              const score=test.dist+(8.5-size)*40;
-              if(score<bestScore){best=trial;bestScore=score;}
-              if(test.dist<36)break;
-            }
-            if(best)break;
-          }
-          // Severe zoom/very narrow card: use any free area instead of hiding a
-          // territory name. A line makes its real origin unambiguous.
-          if(!best){
-            for(const size of [7.2,6.6]){
-              for(let y=10;y<viewH-10&&!best;y+=8)for(let x=10;x<viewW-10&&!best;x+=8){
-                best=labelAt(entry,{x,y},size,'callout',placed,viewW,viewH);
-              }
-              if(best)break;
-            }
-          }
-          if(best)placed.push(best);
-        }
-        // Keep the actual geographic anchor unchanged. Only rendered label
-        // markers may be displaced to remove visual collisions.
         for(const entry of labels){
-          const placement=placed.find(p=>p.entry===entry);
-          if(!placement){
+          const hit=accepted.get(entry);
+          if(!hit){
             if(labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
             continue;
           }
+          // Immutable WGS84 text anchor. On pan/zoom, its pixel location changes
+          // with the map projection exactly as the polygon does—not independently.
           if(!labelGroup.hasLayer(entry.marker))labelGroup.addLayer(entry.marker);
-          const ll=map.containerPointToLatLng([placement.point.x,placement.point.y]);
-          entry.marker.setLatLng(ll);
-          const text=entry.marker.getElement()?.querySelector('.ti-ed-label');
-          if(text){
-            text.style.fontSize=placement.size.toFixed(2)+'px';
-            text.style.lineHeight='1.07';
-            text.classList.toggle('ti-ed-label-callout',placement.placement==='callout');
-            text.setAttribute('aria-label',entry.text);
-          }
-          if(placement.placement==='callout'){
-            L.polyline([entry.latLng,ll],{renderer,interactive:false,color:'#625e54',
-              weight:.75,opacity:.65,dashArray:'2 3',lineCap:'round'}).addTo(labelLeaderLines);
+          const el=entry.marker.getElement()?.querySelector('.ti-ed-label');
+          if(el){
+            el.style.fontSize=hit.size.toFixed(2)+'px';
+            el.style.lineHeight='1.07';
+            el.classList.remove('ti-ed-label-callout');
+            el.setAttribute('aria-label',entry.text);
           }
         }
       }

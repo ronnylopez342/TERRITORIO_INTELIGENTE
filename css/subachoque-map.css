@@ -85,13 +85,7 @@
 .ti-ed-map:focus-within .ti-ed-source{opacity:1}
 
 
-/* Names always remain visible: if an interior polygon cannot fit them, a
-   discreet editorial callout with a leader identifies the true territory. */
-.ti-ed-map .ti-ed-label-callout{
-  padding:1px 3px;
-  border:1px solid rgba(117,104,90,.26);
-  background:rgba(251,242,232,.94);
-  border-radius:3px;
-  box-shadow:0 1px 3px rgba(60,48,39,.07);
-}
+/* Vereda labels are strictly interior to their own polygon and anchored
+   geographically. The mapping engine hides names that cannot fit, rather than
+   drawing leader lines or moving labels to an empty region of the screen. */
 .ti-ed-map .ti-ed-label-line{white-space:nowrap;}
