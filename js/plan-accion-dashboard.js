@@ -1764,6 +1764,8 @@
   // segundo encabezado panorámico ni un selector anual duplicado.
   function sectionHeadingMarkup(tab=state.activeTab) {
     const sections={
+      summary:['Resumen de la Meta','Consulta el estado general de la meta, sus avances y principales indicadores.'],
+      overall:['Totalizador del Plan','Consulta el consolidado de todas las metas, sus avances físicos y su ejecución presupuestal.'],
       search:['Resultados de la búsqueda','Selecciona una meta para continuar en la pestaña actual.'],
       general:['Información General','Conoce el detalle de la meta, su propósito, alcance y la información estratégica asociada.'],
       activities:['Actividades de la Meta','Consulta el plan de acción, programación, avances y evidencias de cada actividad.'],
@@ -1779,7 +1781,7 @@
     return '<header class="pa-context-heading" aria-label="'+html(info[0])+'">'+
       '<div class="pa-context-heading-main"><span class="pa-context-kicker">PLAN DE ACCIÓN · '+html(state.year)+'</span>'+
       '<h2>'+html(info[0])+'</h2><p>'+html(info[1])+'</p></div>'+
-      (tab==='search'?'':'<span class="pa-context-meta">Meta '+html(state.current)+'</span>')+'</header>';
+      (tab==='search'||tab==='overall'?'':'<span class="pa-context-meta">Meta '+html(state.current)+'</span>')+'</header>';
   }
   function pageMarkup(){
     // La búsqueda y el año pertenecen a topMarkup(), compartido por cada ruta.
@@ -1804,7 +1806,7 @@
     if(state.activeTab==='general')return detailPage('pa-general-mode','Información General para '+state.year,generalResults());
     const avail=!!currentYear();
     return '<div class="pa-shell pa-global-shell">'+sharedHeader+'<section class="pa-body" aria-label="Panel de seguimiento para '+html(state.year)+'">'+
-      (!avail?tabMarkup(null):'')+'<div class="pa-content" id="pa-content">'+resultsMarkup()+'</div></section></div>';
+      (!avail?tabMarkup(null):'')+'<div class="pa-content" id="pa-content">'+sectionHeadingMarkup()+resultsMarkup()+'</div></section></div>';
   }
   function refresh({preserveFocus=false}={}){
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
