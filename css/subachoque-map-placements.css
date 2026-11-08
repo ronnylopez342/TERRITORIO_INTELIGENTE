@@ -34,6 +34,5 @@
 
 /* Uniform ivory outside the vector geometry. Map coordinates are unchanged. */
 #desarrollo-accion.pa-mounted .pa-map-view:has(.ti-ed-map),
-#desarrollo-accion.pa-mounted .pa-ig-map:has(> .ti-ed-map),
 #desarrollo-accion.pa-mounted .pa-ph-map-view:has(> .ti-ed-map),
 #desarrollo-accion.pa-mounted .pa-ben-map-area:has(> .ti-ed-map){background:#FBF2E8;}

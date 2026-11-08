@@ -53,7 +53,7 @@
 #desarrollo-accion.pa-mounted .pa-ig-step-program .pa-ig-chain-symbol{color:#1b83d6}#desarrollo-accion.pa-mounted .pa-ig-step-project .pa-ig-chain-symbol{color:#8734a5}#desarrollo-accion.pa-mounted .pa-ig-step-meta .pa-ig-chain-symbol{color:#ad3f25}#desarrollo-accion.pa-mounted .pa-ig-step-product .pa-ig-chain-symbol{color:#e98c17}#desarrollo-accion.pa-mounted .pa-ig-step-indicator .pa-ig-chain-symbol{color:#124795}
 #desarrollo-accion.pa-mounted .pa-ig-chain-step strong{display:block;color:#204f51;font-size:12px;font-weight:850;line-height:1.13;margin-bottom:3px}
 #desarrollo-accion.pa-mounted .pa-ig-chain-step p{color:#344a65!important;font-size:clamp(11px,.84vw,13px)!important;line-height:1.22!important;overflow-wrap:anywhere}
-#desarrollo-accion.pa-mounted .pa-ig-territory-card .pa-ig-territory-layout{display:grid;grid-template-columns:minmax(170px,38%) minmax(0,1fr);gap:12px}
+#desarrollo-accion.pa-mounted .pa-ig-territory-card .pa-ig-territory-layout{display:grid;grid-template-columns:minmax(170px,38%) minmax(0,1fr);gap:12px;align-items:start}
 #desarrollo-accion.pa-mounted .pa-ig-location-list{min-width:0;display:flex;flex-direction:column;gap:10px}
 #desarrollo-accion.pa-mounted .pa-ig-location-switch{display:grid;grid-template-columns:repeat(2,1fr);background:#edf2f8;border-radius:5px;overflow:hidden}
 #desarrollo-accion.pa-mounted .pa-ig-location-switch button{font-size:12px!important;color:#536d90;border:0;padding:9px 8px;font-weight:800!important}
@@ -64,7 +64,7 @@
 #desarrollo-accion.pa-mounted .pa-ig-missing{color:#67819b!important;font-size:13px!important;line-height:1.35!important;padding:12px;background:#f7fafc;border:1px dashed #cddce6;border-radius:5px}
 #desarrollo-accion.pa-mounted .pa-ig-location-list small{font-size:10px;line-height:1.35;color:#728498}
 #desarrollo-accion.pa-mounted .pa-ig-more-locations{display:block;width:100%;padding:9px 8px;border:1px solid #d5e3f2;border-radius:5px;background:#edf5ff;color:#1264ab;font-size:12px!important;font-weight:800!important}
-#desarrollo-accion.pa-mounted .pa-ig-map{position:relative;min-width:0;display:flex;flex-direction:column;gap:4px}
+#desarrollo-accion.pa-mounted .pa-ig-map{position:relative;min-width:0;display:flex;flex-direction:column;gap:4px;align-self:start;height:max-content;background:transparent}
 #desarrollo-accion.pa-mounted .pa-ig-map iframe{display:block;width:100%;height:239px;border:1px solid #c5d9d1;border-radius:5px;background:#e1eee1}
 #desarrollo-accion.pa-mounted .pa-ig-map-legend{display:flex;align-items:center;gap:7px;font-size:10px;line-height:1.3;color:#647d8e}
 #desarrollo-accion.pa-mounted .pa-ig-map-legend span{color:#008446}
