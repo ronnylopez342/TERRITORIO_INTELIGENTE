@@ -25,7 +25,7 @@
     navSvg("<path d=\"M6 2h8l5 5v15H6z\" fill=\"currentColor\" stroke=\"none\"/><path d=\"M14 2v5h5M9 12h7M9 16h7\" stroke=\"var(--pa-icon-cutout,#f4f7fa)\" stroke-width=\"1.6\"/>"),
     navSvg("<path d=\"M4 4h16c1.1 0 2 .9 2 2v11c0 1.1-.9 2-2 2H9l-6 3V6c0-1.1.9-2 2-2Z\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"8\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/><circle cx=\"13\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/><circle cx=\"18\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/>")
   ];
-  const state = { year:'2025', current:101, overallSearch:'', overallStatus:'all', overallSort:'id', data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, obData:null, obLoading:false, obLoaded:false, obError:null, obFilters:{type:'all',status:'all',issuer:'all',from:'',to:'',q:''}, obPage:0, obSort:'source', obSortAsc:true, loading:true, error:null };
+  const state = { year:'2025', current:101, overallSearch:'', overallStatus:'all', overallSort:'id', data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, territoryThemeActive:new Set(), supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, obData:null, obLoading:false, obLoaded:false, obError:null, obFilters:{type:'all',status:'all',issuer:'all',from:'',to:'',q:''}, obPage:0, obSort:'source', obSortAsc:true, loading:true, error:null };
   // Persist only public navigation state. Never persist sensitive, fetched data,
   // filters, authentication, coordinates, or open modal content here.
   const PLAN_NAV_KEY='ti:plan33:navigation:v1';
@@ -162,7 +162,7 @@
   function locationsMarkup(m){
     const places=[...new Set(m.activities.map(a=>a.territory?.trim()).filter(Boolean))].slice(0,7);
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return `<div class="pa-map-layout"><div class="pa-map-view"><div class="ti-ed-map" data-ti-map="summary" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de actividades"></div></div><div class="pa-location-list"><strong>${places.length?'Lugares consignados':'Sin veredas especificadas'}</strong>${places.length ? places.map(p=>`<span>● ${html(p)}</span>`).join('') : '<span>El Excel no identifica ubicaciones específicas para las actividades de esta meta.</span>'}<a class="pa-map-open" href="#data?seccion=data-explorando">Abrir mapa interactivo ↗</a><small>Cartografía vectorial local · sin ubicación exacta de actividades.</small></div></div>`;
+    return `<div class="pa-map-layout"><div class="pa-map-view"><div class="ti-ed-map" data-ti-map="summary" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de actividades"></div></div><div class="pa-location-list"><strong>${places.length?'Lugares consignados':'Sin veredas especificadas'}</strong>${places.length ? places.map(p=>`<span>● ${html(p)}</span>`).join('') : '<span>El Excel no identifica ubicaciones específicas para las actividades de esta meta.</span>'}<a class="pa-map-open" href="#data?seccion=data-explorando">Abrir mapa interactivo ↗</a><small data-pa-map-audit="summary" role="status">Contrastando la ubicación declarada en el Excel…</small></div></div>`;
   }
   function productMarkup(m){
     const links=m.activities.map(a=>({title:a.name,url:safeLink(a.evidence),act:a.n})).filter(x=>x.url);
@@ -327,7 +327,7 @@
     const visible=state.territoryExpanded?active:active.slice(0,6);
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
     const locs=`<div class="pa-ig-location-list"><div class="pa-ig-location-switch" role="group" aria-label="Tipo de territorio"><button type="button" class="${isVereda?'selected':''}" data-pa-ig-kind="veredas" aria-pressed="${isVereda}">Veredas</button><button type="button" class="${!isVereda?'selected':''}" data-pa-ig-kind="barrios" aria-pressed="${!isVereda}">Barrios</button></div><div class="pa-ig-loc-results">${visible.length?visible.map(x=>`<span><b aria-hidden="true">●</b>${html(x)}</span>`).join(''):`<p class="pa-ig-missing">No se identifican ${isVereda?'veredas':'barrios'} con nombre explícito en el archivo de esta meta.</p>`}</div>${active.length>6?`<button type="button" class="pa-ig-more-locations" data-pa-ig-expand>${state.territoryExpanded?'Mostrar menos':'Ver todas las '+(isVereda?'veredas':'barrios')} ↗</button>`:''}${places.other.length?'<small>El Excel contiene además descripciones territoriales sin tipo de localidad explícito; se conservan en los registros de las actividades.</small>':''}</div>`;
-    return igSection('Cobertura Territorial','territory',`<div class="pa-ig-territory-layout">${locs}<div class="pa-ig-map"><div class="ti-ed-map" data-ti-map="general" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de obras"></div><div class="pa-ig-map-legend"><span>●</span> Mapa vectorial de referencia · sin puntos de intervención</div><a href="#data?seccion=data-explorando">Abrir mapa interactivo ↗</a></div></div>`,'pa-ig-territory-card');
+    return igSection('Cobertura Territorial','territory',`<div class="pa-ig-territory-layout">${locs}<div class="pa-ig-map"><div class="ti-ed-map" data-ti-map="general" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de obras"></div><div class="pa-ig-map-legend"><span>●</span><span data-pa-map-audit="general" role="status">Contrastando cobertura territorial…</span></div><a href="#data?seccion=data-explorando">Abrir mapa interactivo ↗</a></div></div>`,'pa-ig-territory-card');
   }
   function igPeople(m){
     const records=(m.activities||[]).map(a=>a.people?.[1]).filter(isNumeric);
@@ -782,7 +782,7 @@
   function phMap(m){
     const places=[...new Set((m.activities||[]).map(x=>x.territory).filter(Boolean))];
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return `<div class="pa-ph-map-wrap"><div class="pa-ph-map-view"><div class="ti-ed-map" data-ti-map="physical" role="region" aria-label="Mapa de referencia de Subachoque, sin puntos de intervenciones"></div></div><div class="pa-ph-map-side"><strong>Ubicaciones reportadas</strong>${places.length?places.slice(0,5).map(s=>`<p>${html(s)}</p>`).join(''):'<p>No se registraron lugares espec\u00edficos.</p>'}<p class="pa-ph-map-warning">El mapa muestra Subachoque como referencia, no coordenadas de obras. No se atribuyen puntos ni estados sin evidencia geogr\u00e1fica.</p><a href="#data?seccion=data-explorando">Ver mapa completo \u2192</a></div></div>`;
+    return `<div class="pa-ph-map-wrap"><div class="pa-ph-map-view"><div class="ti-ed-map" data-ti-map="physical" role="region" aria-label="Mapa de referencia de Subachoque, sin puntos de intervenciones"></div></div><div class="pa-ph-map-side"><strong>Ubicaciones reportadas</strong>${places.length?places.slice(0,5).map(s=>`<p>${html(s)}</p>`).join(''):'<p>No se registraron lugares espec\u00edficos.</p>'}<p class="pa-ph-map-warning" data-pa-map-audit="physical" role="status">Comprobando lugares declarados y avance físico…</p><a href="#data?seccion=data-explorando">Ver mapa completo \u2192</a></div></div>`;
   }
   function phEvidence(m){
     const n=actFileList(m).length;
@@ -912,7 +912,7 @@
     const {places}=benPlaces(m);
     const chosen=Number.isInteger(state.beneficiaryPlace)?places[state.beneficiaryPlace]:null;
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return benPanel('Mapa de beneficiarios',`<div class="pa-ben-map-area"><div class="ti-ed-map" data-ti-map="beneficiaries" role="region" aria-label="Mapa vectorial de Subachoque, sin marcadores de beneficiarios"></div></div><div class="pa-ben-map-caption"><span class="pa-ben-map-dot"></span><span>Subachoque · mapa de referencia, sin puntos de beneficiarios</span></div><p class="pa-ben-territory-selection" id="pa-ben-selected-place" aria-live="polite">${chosen?'Localidad en el Excel: '+html(chosen.name):places.length?'Selecciona un lugar de la tabla para identificarlo en el listado documental.':'No hay localidades específicas verificadas en el Excel para esta meta.'}</p><a class="pa-ben-map-link" href="#data?seccion=data-explorando">Abrir mapa completo ↗</a>`,'pa-ben-map-card');
+    return benPanel('Mapa de beneficiarios',`<div class="pa-ben-map-area"><div class="ti-ed-map" data-ti-map="beneficiaries" role="region" aria-label="Mapa vectorial de Subachoque, sin marcadores de beneficiarios"></div></div><div class="pa-ben-map-caption"><span class="pa-ben-map-dot"></span><span data-pa-map-audit="beneficiaries" role="status">Comprobando lugares y registros de beneficiarios…</span></div><p class="pa-ben-territory-selection" id="pa-ben-selected-place" aria-live="polite">${chosen?'Localidad en el Excel: '+html(chosen.name):places.length?'Selecciona un lugar de la tabla para identificarlo en el listado documental.':'No hay localidades específicas verificadas en el Excel para esta meta.'}</p><a class="pa-ben-map-link" href="#data?seccion=data-explorando">Abrir mapa completo ↗</a>`,'pa-ben-map-card');
   }
   function benTestimonies(){
     return benPanel('Testimonios de la comunidad',`<button class="pa-ben-view-all" type="button" data-pa-ben-testimony-all aria-haspopup="dialog" aria-controls="pa-ben-testimonials-dialog">Ver todos →</button><div class="pa-ben-testimonial-cards">${[1,2,3].map(()=>`<div class="pa-ben-testimony"><div class="pa-ben-testimony-image" aria-label="Fotografía de participante pendiente de incorporar">${benIcon('people')}</div><p>Testimonio pendiente de incorporar</p><small>No existe cita verificada y autorizada para esta meta.</small></div>`).join('')}</div><div class="pa-ben-pagination"><button type="button" disabled aria-label="Testimonio anterior no disponible">‹</button><span aria-label="Sin testimonios incorporados">○ ○ ○</span><button type="button" disabled aria-label="Testimonio siguiente no disponible">›</button></div><dialog id="pa-ben-testimonials-dialog" class="pa-ben-dialog" aria-labelledby="pa-ben-dialog-title"><div class="pa-ben-modal-top"><h3 id="pa-ben-dialog-title">Testimonios de la comunidad · Meta ${state.current}</h3><button type="button" data-pa-ben-testimony-close aria-label="Cerrar">×</button></div>${benEmpty('Testimonios pendientes de verificación','Los Excel de Plan de Acción no contienen testimonios consentidos ni retratos atribuibles a esta meta. No se muestran citas ni fotografías ficticias.')}</dialog>`,'pa-ben-testimonials-card');
@@ -1164,13 +1164,27 @@
     return `<section class="pa-tr-card ${cls}"><div class="pa-tr-card-head"><h3>${html(title)}</h3>${extra}</div>${body}</section>`;
   }
   function trMapPanel(m){
-    const msg='<strong>Sin puntos de obra georreferenciados</strong><span>La capa muestra límites territoriales oficiales, no ubicaciones exactas de ejecución.</span>';
-    const legend=`<div class="pa-tr-map-legend"><strong>Tipo de intervención</strong><div><span class="pa-tr-map-dot green"></span>Con actividad citada (sin punto exacto)</div><div><span class="pa-tr-map-dot gray"></span>Sin actividad identificada en el Excel</div><div class="pa-tr-legend-rule"></div><strong>Convenciones</strong><div><i class="pa-tr-line solid"></i>Límite municipal · capa local</div><div><i class="pa-tr-line dashed"></i>Veredas · capa local</div><small>Vías disponibles como capa opcional. No se inventan rutas ni puntos de obras.</small></div>`;
-    const controls=`<div class="pa-tr-map-controls"><button type="button" class="pa-tr-map-mode" data-pa-tr-basemap title="Cambiar mapa base">${trIcon('layers')} <span id="pa-tr-basemap-label">Capas</span>⌄</button><button type="button" data-pa-tr-fullmap title="Ampliar mapa" aria-label="Ampliar mapa">⛶</button></div>`;
-    const layers=`<div class="pa-tr-layer-tools" role="group" aria-label="Capas del mapa"><label><input type="checkbox" data-pa-tr-layer="municipio" checked>Municipio</label><label><input type="checkbox" data-pa-tr-layer="veredas" checked>Veredas</label></div>`;
-    const map=`<div class="pa-tr-map-frame"><div id="pa-tr-map" class="pa-tr-map-canvas" data-ti-map="territory" data-ti-map-manual="1" aria-label="Mapa interactivo de Subachoque, con límites del municipio y veredas, sujeto a disponibilidad cartográfica"></div><div class="pa-tr-map-fallback" id="pa-tr-map-fallback" role="status"><span class="pa-tr-map-spinner" aria-hidden="true"></span>Cargando visor cartográfico…</div><div class="pa-tr-map-compass">${trIcon('north')}<b>N</b></div>${legend}${controls}${layers}<div class="pa-tr-map-bottom">${trIcon('info')}<span>Cartografía local de referencia · procedencia y precisión por verificar. Sin puntos de obras.</span></div></div>`;
-    const after=`<div class="pa-tr-map-after"><span>Subachoque · Cundinamarca · código DIVIPOLA 25769</span><span class="pa-tr-map-status" id="pa-tr-map-status">Cargando geometrías de referencia…</span><a href="${trOsmUrl}" target="_blank" rel="noopener noreferrer">Abrir mapa externo ↗</a></div>`;
-    return trCard('Mapa de Intervenciones de la Meta',map+after,'pa-tr-primary-map');
+    const choices=(window.TITerritoryEvidence?.catalogue||[]).map(kind=>
+      '<label class="pa-tr-theme-chip" style="--theme-color:'+html(kind.color)+'" title="'+html(kind.hint)+'">'+
+      '<input type="checkbox" data-pa-tr-theme="'+html(kind.id)+'"'+(state.territoryThemeActive.has(kind.id)?' checked':'')+'>'+
+      '<span class="pa-tr-theme-swatch" aria-hidden="true"></span>'+html(kind.label)+'</label>').join('');
+    const controls='<div class="pa-tr-map-controls"><button type="button" class="pa-tr-map-mode" data-pa-tr-basemap title="Mostrar capas base">'+trIcon('layers')+' Capas</button>'+
+      '<button type="button" data-pa-tr-fullmap title="Ampliar mapa" aria-label="Ampliar mapa">⛶</button></div>';
+    const map='<div class="pa-tr-map-frame">'+
+      '<div id="pa-tr-map" class="pa-tr-map-canvas" data-ti-map="territory" data-ti-map-manual="1" role="region"'+
+      ' aria-label="Mapa maestro territorial con capas documentales combinables"></div>'+
+      '<div class="pa-tr-map-fallback" id="pa-tr-map-fallback" role="status">Cargando cartografía…</div>'+
+      controls+'<div class="pa-tr-map-bottom">'+trIcon('info')+
+      '<span>Base vectorial WGS84. Capas del Excel, sin puntos de obras inventados.</span></div></div>';
+    const layers='<div class="pa-tr-theme-toolbar"><div class="pa-tr-theme-heading"><strong>Capas de información</strong>'+
+      '<span>Selecciona una o varias para superponerlas en este mismo mapa.</span></div>'+
+      '<div class="pa-tr-theme-chips" role="group" aria-label="Capas temáticas">'+choices+'</div>'+
+      '<p class="pa-tr-theme-status" id="pa-tr-theme-status" role="status">Mapa base · sin capas temáticas activas.</p>'+
+      '<p class="pa-tr-theme-quality" id="pa-tr-theme-quality">Contrastando información territorial…</p></div>';
+    const after='<div class="pa-tr-map-after"><span>Subachoque · Cundinamarca · DIVIPOLA 25769</span>'+
+      '<span class="pa-tr-map-status" id="pa-tr-map-status">Cartografía de referencia WGS84</span>'+
+      '<a href="#data?seccion=data-explorando">Abrir mapa completo ↗</a></div>';
+    return trCard('Mapa de Intervenciones de la Meta',map+layers+after,'pa-tr-primary-map');
   }
   function trCoverageStats(m){
     const d=trPlaceData(m);
@@ -1248,6 +1262,50 @@
     const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
     return igMetaHeader(m,infoRecord())+tabMarkup(m)+trDashboard(m);
   }
+  /* One documented evidence model for all five instances of the same map. */
+  function territorialBundle(m=selected()){
+    return window.TITerritoryEvidence?.compile(m,{year:state.year,
+      extra:state.territoryExtra,source:currentYear()?.source||'Plan de Acción'})||null;
+  }
+  function updateMapEvidenceNotes(bundle){
+    const contexts={summary:'interventions',general:'coverage',physical:'physical',beneficiaries:'beneficiaries'};
+    for(const [context,kind] of Object.entries(contexts)){
+      const note=panel.querySelector('[data-pa-map-audit="'+context+'"]');
+      if(!note)continue;
+      const layer=bundle?.themes?.[kind];
+      note.textContent=layer?.placeCount?
+        layer.placeCount+' zonas con mención territorial en '+layer.activityCount+
+        ' actividades. Sin coordenadas puntuales ni cifras desagregadas por vereda.':
+        'Información geográfica faltante: sin veredas identificables en esta capa.';
+      note.classList.toggle('pa-map-data-missing',!layer?.placeCount);
+      note.title=(window.TITerritoryEvidence?.describe(bundle,[kind])||'')+' '+
+        (window.TITerritoryEvidence?.missing(bundle)||'');
+    }
+  }
+  function attachThematicCards(){
+    const engine=window.TISubachoqueMap;if(!engine||!selected()||!currentYear())return;
+    const bundle=territorialBundle();
+    const contexts={summary:'interventions',general:'coverage',physical:'physical',beneficiaries:'beneficiaries'};
+    updateMapEvidenceNotes(bundle);
+    for(const node of panel.querySelectorAll('[data-ti-map]')){
+      if(node.dataset.tiMapManual==='1')continue;
+      const api=engine.getInstance(node),kind=contexts[node.dataset.tiMap];
+      if(api&&kind)api.setDocumentaryData(bundle,[kind]);
+    }
+  }
+  function updateMainThematicNotes(bundle=territorialBundle()){
+    const active=[...state.territoryThemeActive];
+    const status=panel.querySelector('#pa-tr-theme-status'),quality=panel.querySelector('#pa-tr-theme-quality');
+    if(status)status.textContent=window.TITerritoryEvidence?.describe(bundle,active)||'Sin información temática.';
+    if(quality)quality.textContent=window.TITerritoryEvidence?.missing(bundle)||'Datos pendientes.';
+    panel.querySelectorAll('[data-pa-tr-theme]').forEach(input=>{
+      const layer=bundle?.themes?.[input.dataset.paTrTheme];
+      input.checked=state.territoryThemeActive.has(input.dataset.paTrTheme);
+      input.closest('label')?.classList.toggle('pa-tr-theme-unavailable',!layer?.placeCount);
+      input.title=layer?.placeCount?layer.placeCount+' zonas citadas, sin puntos exactos':
+        'Sin veredas identificables en los registros';
+    });
+  }
   /* Adaptador cartográfico de la pestaña Territorio. No contiene datos puntuales de obras. */
   let trMap=null,trMapLayers=null,trGeoData={municipio:null,veredas:null},trInitSequence=0;
   function trUnmountMap(){
@@ -1283,6 +1341,8 @@
       if(!instance)return;
       if(seq!==trInitSequence||!host.isConnected){instance.destroy();return;}
       trMap=instance;trMapLayers={municipio:true,veredas:true};
+      instance.setDocumentaryData(territorialBundle(),[...state.territoryThemeActive]);
+      updateMainThematicNotes();
       const geos=await Promise.all([engine.getGeo('municipio'),engine.getGeo('veredas')]);
       if(seq!==trInitSequence)return;
       trGeoData={municipio:geos[0],veredas:geos[1]};
@@ -1334,7 +1394,9 @@
       const v=JSON.parse(content);
       if(!v?.periods?.['2025']||!v?.periods?.['2026'])throw Error('Catálogo territorial incompleto');
       state.territoryExtra=v;state.territoryExtraLoaded=true;
-      if(state.activeTab==='territory'&&currentYear()){const y=window.scrollY;refresh();window.scrollTo({top:y});}
+      if(['summary','general','physical','beneficiaries','territory'].includes(state.activeTab)&&currentYear()){
+        const y=window.scrollY;refresh();window.scrollTo({top:y});
+      }
     }catch(err){console.warn('Texto territorial original:',err);state.territoryExtraLoaded=true;}
     finally{state.territoryExtraLoading=false;}
   }
@@ -1934,7 +1996,13 @@
     window.TISubachoqueMap?.destroyWithin(panel);
     trUnmountMap();
     panel.innerHTML=pageMarkup();
-    requestAnimationFrame(()=>window.TISubachoqueMap?.mountAll(panel));
+    const activeRender=panel.firstElementChild;
+    requestAnimationFrame(()=>{
+      const engine=window.TISubachoqueMap;if(!engine)return;
+      engine.mountAll(panel).then(()=>{
+        if(panel.isConnected&&panel.firstElementChild===activeRender)attachThematicCards();
+      }).catch(error=>console.warn('Mapas de la meta:',error));
+    });
     if(state.activeTab==='activities')requestAnimationFrame(actChartControls);
     if(state.activeTab==='territory'&&currentYear()&&!state.list){
       requestAnimationFrame(()=>trInitMap());
@@ -1945,7 +2013,7 @@
     if(state.activeTab==='observations'&&currentYear()&&!state.list&&!state.obLoaded&&!state.obLoading&&!state.obError)obLoad();
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
   }
-  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();const header=panel.querySelector('.pa-context-heading, .pa-ig-meta');header?.scrollIntoView({behavior:'smooth',block:'start'});}
+  function focusMeta(id){const found=metas().find(m=>m.id===id);if(!found)return;state.current=found.id;state.territoryThemeActive.clear();state.list=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.listCategory='all';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();const header=panel.querySelector('.pa-context-heading, .pa-ig-meta');header?.scrollIntoView({behavior:'smooth',block:'start'});}
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
@@ -1961,6 +2029,15 @@
   panel.addEventListener('change',ev=>{
     if(ev.target.id==='pa-overall-status'){state.overallStatus=ev.target.value;overallRefreshTable();return;}
     if(ev.target.id==='pa-overall-sort'){state.overallSort=ev.target.value;overallRefreshTable();return;}
+    const themeInput=ev.target.closest('[data-pa-tr-theme]');
+    if(themeInput){
+      const kind=themeInput.dataset.paTrTheme;
+      if(!(window.TITerritoryEvidence?.catalogue||[]).some(x=>x.id===kind))return;
+      if(themeInput.checked)state.territoryThemeActive.add(kind);
+      else state.territoryThemeActive.delete(kind);
+      trMap?.setDocumentaryVisibility(kind,themeInput.checked);
+      updateMainThematicNotes();return;
+    }
     const filterMap={'pa-act-filter-state':'status','pa-act-filter-owner':'owner','pa-act-filter-place':'place'};
     if(filterMap[ev.target.id]){state.activityFilters[filterMap[ev.target.id]]=ev.target.value;refresh();return;}
     if(ev.target.id==='pa-act-compare-unit'){state.activityCompareUnit=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
@@ -1975,7 +2052,7 @@
     if(obFilterMap[ev.target.id]){state.obFilters[obFilterMap[ev.target.id]]=ev.target.value;state.obPage=0;obRefreshPart();return;}
     if(ev.target.matches('[data-pa-tr-layer]')){trToggleLayer(ev.target.dataset.paTrLayer,ev.target.checked);return;}
     if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select','pa-tr-year-select','pa-su-year-select','pa-ob-year-select','pa-ct-year-select'].includes(ev.target.id))return;
-    state.year=ev.target.value;
+    state.year=ev.target.value;state.territoryThemeActive.clear();
     if(metas().length&&!metas().some(m=>m.id===state.current))state.current=metas()[0].id;
     state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();
   });
@@ -2115,6 +2192,7 @@
       if(!parsed?.periods?.['2025']?.metas || !parsed?.periods?.['2026']?.metas)throw Error('No están completos los años 2025 y 2026.');
       if(parsed.periods['2025'].metas.length!==109 || parsed.periods['2026'].metas.length!==109)throw Error('El número de metas no coincide con los Excel.');
       state.data=parsed;
+      trLoadFullTexts().catch(e=>console.warn('Textos territoriales:',e));
       if(metas().length&&!metas().some(m=>m.id===state.current))state.current=metas()[0].id;
       state.loading=false;refresh();
       // Load metadata separately: failure must never break the existing Resumen.

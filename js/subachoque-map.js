@@ -510,6 +510,129 @@
           applyClip();updateLabelVisibility();
         }catch(e){if(input)input.checked=false;notice.textContent='No fue posible activar '+layerNames[kind]+': '+e.message;}
       }
+      // Five documentary overlay layers are instances of THIS map, not other
+      // maps or raster screenshots. All layers share original GeoJSON WGS84.
+      let documentaryBundle=null;
+      const documentaryActive=new Set();
+      const documentaryLayers=new Map();
+      const documentaryColours=()=>window.TITerritoryEvidence?.catalogue||[];
+      const documentaryKey=f=>window.TITerritoryEvidence?.normal(name(f))||normal(name(f));
+      const documentaryLabel=kind=>documentaryColours().find(t=>t.id===kind)?.label||kind;
+      const evidenceTag=node('div','ti-ed-evidence-alert');
+      evidenceTag.setAttribute('role','status');
+      evidenceTag.setAttribute('aria-live','polite');
+      evidenceTag.hidden=true;
+      frame.append(evidenceTag);
+      function recordBody(record,kind){
+        const chunks=[
+          '<div class="ti-ed-evidence-record"><strong>Actividad '+safe(record.id)+'</strong>',
+          '<span>'+safe(record.name)+'</span>'
+        ];
+        if(kind==='physical'){
+          const p=record.progress;
+          const t=record.target;
+          chunks.push('<small>Avance en actividad: '+(Number.isFinite(p)?safe(p):'sin dato')+
+            (Number.isFinite(t)?' de '+safe(t):'')+
+            (record.unit?' · '+safe(record.unit):'')+
+            '. No equivale al avance físico de esta vereda.</small>');
+        }
+        if(kind==='beneficiaries'&&record.participants?.length){
+          chunks.push('<small>Registros de la actividad: '+record.participants.map(p=>safe(p.label)+': '+safe(p.count)).join(' · ')+
+            '. No desagregados por vereda; no sumar entre territorios.</small>');
+        }
+        if(kind==='supports'){
+          chunks.push('<small>Enlace documental registrado (contenido no verificado).</small>');
+          if(/^https?:\/\//i.test(record.support||'')){
+            chunks.push('<a href="'+safe(record.support)+'" target="_blank" rel="noopener noreferrer">Consultar soporte enlazado ↗</a>');
+          }
+        }
+        if(record.raw)chunks.push('<small>Ubicación declarada: '+safe(record.raw.slice(0,235))+'</small>');
+        chunks.push('</div>');return chunks.join('');
+      }
+      function documentaryPopup(feature){
+        const key=documentaryKey(feature),title=display(feature);
+        const current=[...documentaryActive].filter(k=>documentaryBundle?.themes?.[k]);
+        const content=['<strong class="ti-ed-popup-title">'+safe(title)+'</strong>',
+          '<span>Referencia por vereda · no ubicación puntual de obra</span>'];
+        for(const kind of current){
+          const records=documentaryBundle.themes[kind]?.items?.[key]||[];
+          if(!records.length)continue;
+          content.push('<div class="ti-ed-theme-popup-group"><b>'+safe(documentaryLabel(kind))+
+            ' · '+records.length+' actividad'+(records.length===1?'':'es')+'</b>');
+          for(const record of records.slice(0,4))content.push(recordBody(record,kind));
+          if(records.length>4)content.push('<small>+'+(records.length-4)+' actividades relacionadas adicionales</small>');
+          content.push('</div>');
+        }
+        if(content.length===2)content.push('<small>No hay actividades que identifiquen expresamente esta vereda para las capas activas.</small>');
+        content.push('<small>Fuente: '+safe(documentaryBundle?.report?.source||'Plan de Acción')+
+          '. Mención territorial ≠ punto de intervención certificado.</small>');
+        return content.join('');
+      }
+      function updateDocumentaryPopups(){
+        layerVeredas.eachLayer(layer=>layer.bindPopup(documentaryPopup(layer.feature)));
+        layerCasco.eachLayer(layer=>{
+          const current=[...documentaryActive];
+          const entries=current.map(k=>[k,documentaryBundle?.themes?.[k]?.items?.['casco urbano']||[]])
+            .filter(([,recs])=>recs.length);
+          let content='<strong class="ti-ed-popup-title">Casco urbano de Subachoque</strong>';
+          for(const [k,recs] of entries){
+            content+='<div class="ti-ed-theme-popup-group"><b>'+safe(documentaryLabel(k))+'</b>';
+            for(const rec of recs.slice(0,4))content+=recordBody(rec,k);
+            content+='</div>';
+          }
+          if(!entries.length)content+='<small>No existe información cartografiable a nivel urbano para las capas activas.</small>';
+          layer.bindPopup(content);
+        });
+      }
+      function refreshDocumentaryVisuals(){
+        for(const oldLayer of documentaryLayers.values()){
+          map.removeLayer(oldLayer);
+          clippedGroups.delete(oldLayer);
+        }
+        documentaryLayers.clear();
+        if(!documentaryBundle){
+          evidenceTag.hidden=true;updateDocumentaryPopups();return;
+        }
+        const available=documentaryColours();
+        for(const config of available){
+          if(!documentaryActive.has(config.id))continue;
+          const items=documentaryBundle.themes?.[config.id]?.items||{};
+          const matching=veredas.features.filter(f=>(items[documentaryKey(f)]||[]).length);
+          if(items['casco urbano']?.length)matching.push(...casco.features);
+          if(!matching.length)continue;
+          const layer=L.geoJSON({type:'FeatureCollection',features:matching},{renderer,interactive:false,
+            style:()=>({renderer,interactive:false,color:config.color,opacity:.87,
+              weight:3.1,fillColor:config.color,fillOpacity:.085,
+              dashArray:config.dash,lineCap:'round',lineJoin:'round'})});
+          documentaryLayers.set(config.id,layer);
+          clippedGroups.add(layer);
+          layer.addTo(map);
+        }
+        applyClip();updateDocumentaryPopups();updateLabelVisibility();
+        const selected=[...documentaryActive];
+        const withLocation=selected.some(k=>documentaryBundle.themes?.[k]?.placeCount>0);
+        const label=!selected.length?'Mapa base: selecciona capas de la meta':
+          withLocation?'Menciones por vereda · sin coordenadas puntuales':
+          'Datos geográficos faltantes para las capas seleccionadas';
+        evidenceTag.hidden=false;
+        evidenceTag.textContent=label;
+        evidenceTag.classList.toggle('ti-ed-evidence-missing',!!selected.length&&!withLocation);
+        evidenceTag.title=window.TITerritoryEvidence?.describe(documentaryBundle,selected)||label;
+      }
+      function setDocumentaryData(bundle,active){
+        documentaryBundle=bundle||null;
+        documentaryActive.clear();
+        for(const kind of (Array.isArray(active)?active:[]))
+          if(documentaryColours().some(k=>k.id===kind))documentaryActive.add(kind);
+        refreshDocumentaryVisuals();
+      }
+      function setDocumentaryVisibility(kind,enabled){
+        if(!documentaryColours().some(k=>k.id===kind))return false;
+        if(enabled)documentaryActive.add(kind);else documentaryActive.delete(kind);
+        refreshDocumentaryVisuals();
+        return true;
+      }
+      function documentarySelection(){return [...documentaryActive];}
       function addMarkers(points=[],onClick){
         mapMarkers.clearLayers();
         for(const p of points){
@@ -529,6 +652,9 @@
         fit, invalidateSize:()=>map.invalidateSize(),
         zoomIn:()=>map.zoomIn(),zoomOut:()=>map.zoomOut(),
         setMarkers:(p,fn)=>addMarkers(p,fn),
+        setDocumentaryData:(bundle,active)=>setDocumentaryData(bundle,active),
+        setDocumentaryVisibility:(kind,enabled)=>setDocumentaryVisibility(kind,enabled),
+        getDocumentaryVisibility:()=>documentarySelection(),
         contains:(lon,lat)=>inside(boundary,lon,lat),
         coordinateToPixel:(lat,lon)=>map.latLngToContainerPoint([lat,lon]),
         pixelToCoordinate:(x,y)=>map.containerPointToLatLng([x,y]),
@@ -577,5 +703,5 @@
       if(host===root||root.contains(host))api.destroy();
     }
   }
-  window.TISubachoqueMap={mount,mountAll,destroyWithin,getGeo:geo,contains:inside,normalize:normal,featureName:display,source:'subachoque-platform / GeoJSON referencial WGS84'};
+  window.TISubachoqueMap={mount,mountAll,destroyWithin,getInstance:host=>instances.get(host)||null,getGeo:geo,contains:inside,normalize:normal,featureName:display,source:'subachoque-platform / GeoJSON referencial WGS84'};
 })();
