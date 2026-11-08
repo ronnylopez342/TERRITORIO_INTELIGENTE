@@ -166,52 +166,43 @@ const TIWorkspace = (() => {
     };
   }
   function map() {
-    const svg = document.getElementById('territoryMapSvg'), detail = document.getElementById('territoryMapDetail');
-    if (!svg || !detail) return;
-    const features = TI_STATE.geo.features || [], coords = [];
-    features.forEach(feature => walkCoords(feature.geometry.coordinates, coord => coords.push(coord)));
-    const xs = coords.map(coord => coord[0]), ys = coords.map(coord => coord[1]);
-    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
-    const scale = Math.min(904 / (maxX - minX), 544 / (maxY - minY));
-    const project = ([x, y]) => [480 + (x - (minX + maxX) / 2) * scale, 300 - (y - (minY + maxY) / 2) * scale];
-    let selected = 0;
-    const inRing = (point, ring) => { let inside = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const [xi, yi] = ring[i], [xj, yj] = ring[j]; if ((yi > point[1]) !== (yj > point[1]) && point[0] < (xj - xi) * (point[1] - yi) / (yj - yi) + xi) inside = !inside; } return inside; };
-    const contains = (feature, point) => { const polygons = feature.geometry.type === 'Polygon' ? [feature.geometry.coordinates] : feature.geometry.coordinates; return polygons.some(polygon => inRing(point, polygon[0]) && !polygon.slice(1).some(ring => inRing(point, ring))); };
-    const names = points.map(point => features.find(feature => contains(feature, [point.longitud, point.latitud]))?.properties.nombre || 'Fuera de la capa municipal');
-    const show = index => {
-      selected = index;
-      const name = features[index]?.properties.nombre;
-      if (!name) return;
-      svg.querySelectorAll('.map-vereda').forEach((path, i) => path.classList.toggle('active', i === index));
-      const list = points.filter((point, i) => names[i] === name);
-      detail.innerHTML = `<p class="eyebrow">${html(name)}</p><h3>${html(name)}</h3><p>${list.length} puntos cargados en esta zona.</p><p>Los límites geográficos no acreditan cobertura, población o beneficiarios. Estos resultados necesitan una base municipal validada.</p>${list.map(point => `<article><strong>${html(point.nombre)}</strong><p>${html(point.tipo)} · ${html(point.descripcion)}</p></article>`).join('')}<button type="button" class="text-button" data-map-export>Descargar puntos de esta zona</button>`;
-      detail.querySelector('[data-map-export]').onclick = () => downloadBlob(`puntos-${name}.json`, JSON.stringify(list, null, 2));
+    const host=document.getElementById('territoryMapSvg'),detail=document.getElementById('territoryMapDetail'),engine=window.TISubachoqueMap;
+    if(!host||!detail||!engine)return;
+    const norm=engine.normalize;
+    let api=null,features=[],areaOf=[];
+    const locate=(point)=>features.find(f=>engine.contains(f,Number(point.longitud),Number(point.latitud)));
+    function showName(label){
+      const feature=features.find(f=>norm(engine.featureName(f))===norm(label));
+      if(!feature)return;
+      const name=engine.featureName(feature);
+      const local=points.filter(p=>norm(locate(p)?.properties?.nombre)===norm(feature.properties?.nombre));
+      detail.innerHTML='<p class="eyebrow">'+html(name)+'</p><h3>'+html(name)+'</h3><p>'+local.length+' puntos cargados localmente en esta zona. La precisión depende de la fuente de cada coordenada.</p>'+
+        local.map(p=>'<article><strong>'+html(p.nombre)+'</strong><p>'+html(p.tipo)+' · '+html(p.descripcion)+'</p></article>').join('')+
+        '<button type="button" class="text-button" data-map-export>Descargar puntos de esta zona</button>';
+      detail.querySelector('[data-map-export]').onclick=()=>downloadBlob('puntos-'+name+'.json',JSON.stringify(local,null,2));
+    }
+    const markers=()=>{
+      api?.setMarkers(points,p=>openDetail(p.nombre,'<p>'+html(p.tipo)+' · '+html(p.descripcion)+'</p>'+
+        '<p>Latitud original: '+Number(p.latitud)+' · Longitud original: '+Number(p.longitud)+'</p>'+
+        '<p>Datos locales del navegador. No equivale a ubicación verificada ni a georreferenciación oficial.</p>'));
+      const report=document.getElementById('geoUploadStatus');
+      if(report)report.textContent=points.length+' puntos almacenados en este navegador. Se conservan sus coordenadas originales. '+savedNote;
     };
-    const paint = () => {
-      svg.innerHTML = features.map((feature, i) => `<path class="map-vereda" tabindex="0" role="button" data-vereda-index="${i}" aria-label="${html(feature.properties.nombre)}" d="${geometryPath(feature.geometry, project)}"></path>`).join('') + points.map((point, i) => {
-        const [x, y] = project([point.longitud, point.latitud]);
-        if (x < 0 || x > 960 || y < 0 || y > 600) return '';
-        return `<circle class="ti-map-point" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="7" tabindex="0" role="button" data-point-index="${i}" aria-label="${html(point.nombre)}"><title>${html(point.nombre)}</title></circle>`;
-      }).join('');
-      show(selected);
-      const status = document.getElementById('geoUploadStatus');
-      if (status) status.textContent = `${points.length} puntos guardados · ${names.filter(name => name === 'Fuera de la capa municipal').length} fuera de los límites de la capa. ${savedNote}`;
-    };
-    const activate = target => {
-      const area = target.closest('[data-vereda-index]'), marker = target.closest('[data-point-index]');
-      if (area) show(Number(area.dataset.veredaIndex));
-      if (marker) { const i = Number(marker.dataset.pointIndex), point = points[i]; openDetail(point.nombre, `<p>${html(point.tipo)} · ${html(names[i])}</p><p>${html(point.descripcion)}</p><p>Latitud: ${point.latitud} · Longitud: ${point.longitud}</p>`); }
-    };
-    svg.onclick = event => activate(event.target);
-    svg.onkeydown = event => { if (['Enter', ' '].includes(event.key) && event.target.matches('[data-vereda-index], [data-point-index]')) { event.preventDefault(); activate(event.target); } };
-    paint();
-    const upload = document.getElementById('geoPointUpload');
-    if (upload) upload.onchange = async () => {
-      const file = upload.files[0]; if (!file) return;
-      upload.disabled = true;
-      try { const next = TIData.points(await fileRows(file)); await TIData.write('points', next); points = next; names.splice(0, names.length, ...points.map(point => features.find(feature => contains(feature, [point.longitud, point.latitud]))?.properties.nombre || 'Fuera de la capa municipal')); paint(); openDetail('Capa guardada', `<p>${points.length} puntos cargados.</p><p>${savedNote}</p>`); }
-      catch (error) { report(error); }
-      finally { upload.disabled = false; upload.value = ''; }
+    Promise.all([engine.getGeo('veredas'),engine.mount(host,{onSelect:showName})]).then(([geo,instance])=>{
+      if(!instance)return;features=geo.features;api=instance;markers();
+    }).catch(err=>{
+      detail.textContent='No se pudo cargar la cartografía: '+err.message;
+    });
+    const upload=document.getElementById('geoPointUpload');
+    if(upload)upload.onchange=async()=>{
+      const file=upload.files[0];if(!file)return;upload.disabled=true;
+      try{
+        const next=TIData.points(await fileRows(file));
+        await TIData.write('points',next);
+        points=next;markers();
+        openDetail('Capa guardada','<p>'+points.length+' puntos cargados con sus coordenadas originales.</p><p>'+savedNote+'</p>');
+      }catch(error){report(error);}
+      finally{upload.disabled=false;upload.value='';}
     };
   }
   function glossary() {

@@ -137,7 +137,7 @@
   function locationsMarkup(m){
     const places=[...new Set(m.activities.map(a=>a.territory?.trim()).filter(Boolean))].slice(0,7);
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return `<div class="pa-map-layout"><div class="pa-map-view"><iframe loading="lazy" title="Mapa de referencia de Subachoque, sin localización de actividades" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik&amp;marker=4.92614%2C-74.17299" referrerpolicy="no-referrer-when-downgrade"></iframe></div><div class="pa-location-list"><strong>${places.length?'Lugares consignados':'Sin veredas especificadas'}</strong>${places.length ? places.map(p=>`<span>● ${html(p)}</span>`).join('') : '<span>El Excel no identifica ubicaciones específicas para las actividades de esta meta.</span>'}<a class="pa-map-open" href="https://www.openstreetmap.org/#map=12/4.92614/-74.17299" target="_blank" rel="noopener noreferrer">Abrir mapa interactivo ↗</a><small>Mapa de referencia · Centro de Subachoque. No representa georreferenciación de actividades.</small></div></div>`;
+    return `<div class="pa-map-layout"><div class="pa-map-view"><div class="ti-ed-map" data-ti-map="summary" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de actividades"></div></div><div class="pa-location-list"><strong>${places.length?'Lugares consignados':'Sin veredas especificadas'}</strong>${places.length ? places.map(p=>`<span>● ${html(p)}</span>`).join('') : '<span>El Excel no identifica ubicaciones específicas para las actividades de esta meta.</span>'}<a class="pa-map-open" href="#data?seccion=data-explorando">Abrir mapa interactivo ↗</a><small>Cartografía vectorial local · sin ubicación exacta de actividades.</small></div></div>`;
   }
   function productMarkup(m){
     const links=m.activities.map(a=>({title:a.name,url:safeLink(a.evidence),act:a.n})).filter(x=>x.url);
@@ -302,7 +302,7 @@
     const visible=state.territoryExpanded?active:active.slice(0,6);
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
     const locs=`<div class="pa-ig-location-list"><div class="pa-ig-location-switch" role="group" aria-label="Tipo de territorio"><button type="button" class="${isVereda?'selected':''}" data-pa-ig-kind="veredas" aria-pressed="${isVereda}">Veredas</button><button type="button" class="${!isVereda?'selected':''}" data-pa-ig-kind="barrios" aria-pressed="${!isVereda}">Barrios</button></div><div class="pa-ig-loc-results">${visible.length?visible.map(x=>`<span><b aria-hidden="true">●</b>${html(x)}</span>`).join(''):`<p class="pa-ig-missing">No se identifican ${isVereda?'veredas':'barrios'} con nombre explícito en el archivo de esta meta.</p>`}</div>${active.length>6?`<button type="button" class="pa-ig-more-locations" data-pa-ig-expand>${state.territoryExpanded?'Mostrar menos':'Ver todas las '+(isVereda?'veredas':'barrios')} ↗</button>`:''}${places.other.length?'<small>El Excel contiene además descripciones territoriales sin tipo de localidad explícito; se conservan en los registros de las actividades.</small>':''}</div>`;
-    return igSection('Cobertura Territorial','territory',`<div class="pa-ig-territory-layout">${locs}<div class="pa-ig-map"><iframe loading="lazy" title="Mapa exploratorio de Subachoque. No representa ubicación geográfica verificada de intervenciones" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="pa-ig-map-legend"><span>●</span> Mapa municipal de referencia · sin puntos de intervención</div><a href="https://www.openstreetmap.org/#map=12/4.92614/-74.17299" target="_blank" rel="noopener noreferrer">Abrir mapa interactivo ↗</a></div></div>`,'pa-ig-territory-card');
+    return igSection('Cobertura Territorial','territory',`<div class="pa-ig-territory-layout">${locs}<div class="pa-ig-map"><div class="ti-ed-map" data-ti-map="general" role="region" aria-label="Mapa vectorial de Subachoque sin puntos de obras"></div><div class="pa-ig-map-legend"><span>●</span> Mapa vectorial de referencia · sin puntos de intervención</div><a href="#data?seccion=data-explorando">Abrir mapa interactivo ↗</a></div></div>`,'pa-ig-territory-card');
   }
   function igPeople(m){
     const records=(m.activities||[]).map(a=>a.people?.[1]).filter(isNumeric);
@@ -757,7 +757,7 @@
   function phMap(m){
     const places=[...new Set((m.activities||[]).map(x=>x.territory).filter(Boolean))];
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return `<div class="pa-ph-map-wrap"><div class="pa-ph-map-view"><iframe title="Mapa de referencia de Subachoque sin marcadores de intervenciones" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik"></iframe></div><div class="pa-ph-map-side"><strong>Ubicaciones reportadas</strong>${places.length?places.slice(0,5).map(s=>`<p>${html(s)}</p>`).join(''):'<p>No se registraron lugares espec\u00edficos.</p>'}<p class="pa-ph-map-warning">El mapa muestra Subachoque como referencia, no coordenadas de obras. No se atribuyen puntos ni estados sin evidencia geogr\u00e1fica.</p><a href="https://www.openstreetmap.org/#map=12/4.92614/-74.17299" target="_blank" rel="noopener noreferrer">Ver mapa completo \u2192</a></div></div>`;
+    return `<div class="pa-ph-map-wrap"><div class="pa-ph-map-view"><div class="ti-ed-map" data-ti-map="physical" role="region" aria-label="Mapa de referencia de Subachoque, sin puntos de intervenciones"></div></div><div class="pa-ph-map-side"><strong>Ubicaciones reportadas</strong>${places.length?places.slice(0,5).map(s=>`<p>${html(s)}</p>`).join(''):'<p>No se registraron lugares espec\u00edficos.</p>'}<p class="pa-ph-map-warning">El mapa muestra Subachoque como referencia, no coordenadas de obras. No se atribuyen puntos ni estados sin evidencia geogr\u00e1fica.</p><a href="#data?seccion=data-explorando">Ver mapa completo \u2192</a></div></div>`;
   }
   function phEvidence(m){
     const n=actFileList(m).length;
@@ -887,7 +887,7 @@
     const {places}=benPlaces(m);
     const chosen=Number.isInteger(state.beneficiaryPlace)?places[state.beneficiaryPlace]:null;
     const bbox='-74.225%2C4.879%2C-74.123%2C4.989';
-    return benPanel('Mapa de beneficiarios',`<div class="pa-ben-map-area"><iframe title="Mapa interactivo de referencia de Subachoque sin marcadores de beneficiarios" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik"></iframe></div><div class="pa-ben-map-caption"><span class="pa-ben-map-dot"></span><span>Mapa de Subachoque (referencia geográfica, sin puntos de beneficiarios)</span></div><p class="pa-ben-territory-selection" id="pa-ben-selected-place" aria-live="polite">${chosen?'Localidad en el Excel: '+html(chosen.name):places.length?'Selecciona un lugar de la tabla para identificarlo en el listado documental.':'No hay localidades específicas verificadas en el Excel para esta meta.'}</p><a class="pa-ben-map-link" href="https://www.openstreetmap.org/#map=12/4.92614/-74.17299" target="_blank" rel="noopener noreferrer">Abrir mapa completo ↗</a>`,'pa-ben-map-card');
+    return benPanel('Mapa de beneficiarios',`<div class="pa-ben-map-area"><div class="ti-ed-map" data-ti-map="beneficiaries" role="region" aria-label="Mapa vectorial de Subachoque, sin marcadores de beneficiarios"></div></div><div class="pa-ben-map-caption"><span class="pa-ben-map-dot"></span><span>Subachoque · mapa de referencia, sin puntos de beneficiarios</span></div><p class="pa-ben-territory-selection" id="pa-ben-selected-place" aria-live="polite">${chosen?'Localidad en el Excel: '+html(chosen.name):places.length?'Selecciona un lugar de la tabla para identificarlo en el listado documental.':'No hay localidades específicas verificadas en el Excel para esta meta.'}</p><a class="pa-ben-map-link" href="#data?seccion=data-explorando">Abrir mapa completo ↗</a>`,'pa-ben-map-card');
   }
   function benTestimonies(){
     return benPanel('Testimonios de la comunidad',`<button class="pa-ben-view-all" type="button" data-pa-ben-testimony-all aria-haspopup="dialog" aria-controls="pa-ben-testimonials-dialog">Ver todos →</button><div class="pa-ben-testimonial-cards">${[1,2,3].map(()=>`<div class="pa-ben-testimony"><div class="pa-ben-testimony-image" aria-label="Fotografía de participante pendiente de incorporar">${benIcon('people')}</div><p>Testimonio pendiente de incorporar</p><small>No existe cita verificada y autorizada para esta meta.</small></div>`).join('')}</div><div class="pa-ben-pagination"><button type="button" disabled aria-label="Testimonio anterior no disponible">‹</button><span aria-label="Sin testimonios incorporados">○ ○ ○</span><button type="button" disabled aria-label="Testimonio siguiente no disponible">›</button></div><dialog id="pa-ben-testimonials-dialog" class="pa-ben-dialog" aria-labelledby="pa-ben-dialog-title"><div class="pa-ben-modal-top"><h3 id="pa-ben-dialog-title">Testimonios de la comunidad · Meta ${state.current}</h3><button type="button" data-pa-ben-testimony-close aria-label="Cerrar">×</button></div>${benEmpty('Testimonios pendientes de verificación','Los Excel de Plan de Acción no contienen testimonios consentidos ni retratos atribuibles a esta meta. No se muestran citas ni fotografías ficticias.')}</dialog>`,'pa-ben-testimonials-card');
@@ -1054,7 +1054,7 @@
      Límites: IGAC (municipio) e IDEAM/DANE 2024 (veredas), vía API de lectura. */
   const trYears=[2024,2025,2026,2027];
   const trCenter=[4.92614,-74.17299];
-  const trOsmUrl='https://www.openstreetmap.org/#map=12/4.92614/-74.17299';
+  const trOsmUrl='#data?seccion=data-explorando';
   const trKnown=[
     ['canica alta','Canica Alta','vereda'],['canica baja','Canica Baja','vereda'],
     ['el paramo','El Páramo','vereda'],['paramo','El Páramo','vereda'],
@@ -1140,10 +1140,10 @@
   }
   function trMapPanel(m){
     const msg='<strong>Sin puntos de obra georreferenciados</strong><span>La capa muestra límites territoriales oficiales, no ubicaciones exactas de ejecución.</span>';
-    const legend=`<div class="pa-tr-map-legend"><strong>Tipo de intervención</strong><div><span class="pa-tr-map-dot green"></span>Con actividad citada (sin punto exacto)</div><div><span class="pa-tr-map-dot gray"></span>Sin actividad identificada en el Excel</div><div class="pa-tr-legend-rule"></div><strong>Convenciones</strong><div><i class="pa-tr-line solid"></i>Límite municipal (IGAC)</div><div><i class="pa-tr-line dashed"></i>Veredas (DANE 2024)</div><small>Las vías visibles pertenecen al mapa base. No se dibujan rutas de obras sin trazado verificable.</small></div>`;
-    const controls=`<div class="pa-tr-map-controls"><button type="button" class="pa-tr-map-mode" data-pa-tr-basemap title="Cambiar mapa base">${trIcon('layers')} <span id="pa-tr-basemap-label">Mapa satelital</span>⌄</button><button type="button" data-pa-tr-fullmap title="Ampliar mapa" aria-label="Ampliar mapa">⛶</button></div>`;
+    const legend=`<div class="pa-tr-map-legend"><strong>Tipo de intervención</strong><div><span class="pa-tr-map-dot green"></span>Con actividad citada (sin punto exacto)</div><div><span class="pa-tr-map-dot gray"></span>Sin actividad identificada en el Excel</div><div class="pa-tr-legend-rule"></div><strong>Convenciones</strong><div><i class="pa-tr-line solid"></i>Límite municipal · capa local</div><div><i class="pa-tr-line dashed"></i>Veredas · capa local</div><small>Vías disponibles como capa opcional. No se inventan rutas ni puntos de obras.</small></div>`;
+    const controls=`<div class="pa-tr-map-controls"><button type="button" class="pa-tr-map-mode" data-pa-tr-basemap title="Cambiar mapa base">${trIcon('layers')} <span id="pa-tr-basemap-label">Capas</span>⌄</button><button type="button" data-pa-tr-fullmap title="Ampliar mapa" aria-label="Ampliar mapa">⛶</button></div>`;
     const layers=`<div class="pa-tr-layer-tools" role="group" aria-label="Capas del mapa"><label><input type="checkbox" data-pa-tr-layer="municipio" checked>Municipio</label><label><input type="checkbox" data-pa-tr-layer="veredas" checked>Veredas</label></div>`;
-    const map=`<div class="pa-tr-map-frame"><div id="pa-tr-map" class="pa-tr-map-canvas" aria-label="Mapa interactivo de Subachoque, con límites del municipio y veredas, sujeto a disponibilidad cartográfica"></div><div class="pa-tr-map-fallback" id="pa-tr-map-fallback" role="status"><span class="pa-tr-map-spinner" aria-hidden="true"></span>Cargando visor cartográfico…</div><div class="pa-tr-map-compass">${trIcon('north')}<b>N</b></div>${legend}${controls}${layers}<div class="pa-tr-map-bottom">${trIcon('info')}<span>Fuente de límites: IGAC · veredas DANE 2024 / IDEAM. Sin coordenadas de obra verificadas.</span></div></div>`;
+    const map=`<div class="pa-tr-map-frame"><div id="pa-tr-map" class="pa-tr-map-canvas" data-ti-map="territory" data-ti-map-manual="1" aria-label="Mapa interactivo de Subachoque, con límites del municipio y veredas, sujeto a disponibilidad cartográfica"></div><div class="pa-tr-map-fallback" id="pa-tr-map-fallback" role="status"><span class="pa-tr-map-spinner" aria-hidden="true"></span>Cargando visor cartográfico…</div><div class="pa-tr-map-compass">${trIcon('north')}<b>N</b></div>${legend}${controls}${layers}<div class="pa-tr-map-bottom">${trIcon('info')}<span>Cartografía local de referencia · procedencia y precisión por verificar. Sin puntos de obras.</span></div></div>`;
     const after=`<div class="pa-tr-map-after"><span>Subachoque · Cundinamarca · código DIVIPOLA 25769</span><span class="pa-tr-map-status" id="pa-tr-map-status">Cargando geometrías de referencia…</span><a href="${trOsmUrl}" target="_blank" rel="noopener noreferrer">Abrir mapa externo ↗</a></div>`;
     return trCard('Mapa de Intervenciones de la Meta',map+after,'pa-tr-primary-map');
   }
@@ -1206,8 +1206,8 @@
     const link='<a href="https://sigi.igac.gov.co/dip/rest/services/Limites/FeatureServer/0" target="_blank" rel="noopener noreferrer">IGAC · límite municipal ↗</a>';
     const body=`<div class="pa-tr-download-list">
       <button type="button" data-pa-tr-csv class="pa-tr-file-item"><span class="pa-tr-file-symbol excel">CSV</span><span><strong>Localidades y actividades</strong><small>CSV generado a partir del Plan de Acción ${state.year}</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
-      <button type="button" data-pa-tr-geo="municipio" class="pa-tr-file-item" disabled><span class="pa-tr-file-symbol geo">GEO</span><span><strong>Límite municipal · IGAC</strong><small>GeoJSON · descargable al cargar capa</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
-      <button type="button" data-pa-tr-geo="veredas" class="pa-tr-file-item" disabled><span class="pa-tr-file-symbol geo">GEO</span><span><strong>Veredas · DANE 2024</strong><small>GeoJSON · fuente IDEAM</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
+      <button type="button" data-pa-tr-geo="municipio" class="pa-tr-file-item" disabled><span class="pa-tr-file-symbol geo">GEO</span><span><strong>Límite municipal de referencia</strong><small>GeoJSON local · origen por verificar</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
+      <button type="button" data-pa-tr-geo="veredas" class="pa-tr-file-item" disabled><span class="pa-tr-file-symbol geo">GEO</span><span><strong>Veredas · referencia local</strong><small>GeoJSON local · origen por verificar</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
       <div class="pa-tr-file-item unavailable"><span class="pa-tr-file-symbol pdf">PDF</span><span><strong>Mapa de intervenciones (PDF)</strong><small>No se recibió un archivo geográfico de obras por meta</small></span><span>—</span></div>
     </div><p class="pa-tr-fineprint">Archivos cartográficos oficiales disponibles según la conectividad del servicio. No se generan shapefiles ni puntos de obra inexistentes.</p><p class="pa-tr-geo-sources">Fuentes: ${link} · <a href="https://visualizador.ideam.gov.co/gisserver/rest/services/Entidades_Territoriales/FeatureServer/5" target="_blank" rel="noopener noreferrer">IDEAM · veredas DANE 2024 ↗</a></p>`;
     return trCard('Descargas y Capas de Información',body,'pa-tr-downloads');
@@ -1223,104 +1223,54 @@
     const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
     return igMetaHeader(m,infoRecord())+tabMarkup(m)+trDashboard(m);
   }
-  let trMap=null,trMapLayers=null,trLeafletPromise=null,trGeoData={municipio:null,veredas:null},trGeoPromises={},trInitSequence=0;
-  function trUnmountMap(){trInitSequence++;if(trMap){try{trMap.remove();}catch(e){}trMap=null;}trMapLayers=null;}
+  /* Adaptador cartográfico de la pestaña Territorio. No contiene datos puntuales de obras. */
+  let trMap=null,trMapLayers=null,trGeoData={municipio:null,veredas:null},trInitSequence=0;
+  function trUnmountMap(){
+    trInitSequence++;
+    if(trMap){try{trMap.destroy();}catch(e){}trMap=null;}
+    trMapLayers=null;
+  }
   function trUpdateStatus(message){const el=panel.querySelector('#pa-tr-map-status');if(el)el.textContent=message;}
-  function trLoadLeaflet(){
-    if(window.L&&typeof window.L.map==='function')return Promise.resolve(window.L);
-    if(trLeafletPromise)return trLeafletPromise;
-    trLeafletPromise=new Promise((resolve,reject)=>{
-      if(!document.querySelector('link[data-ti-territory-leaflet]')){
-        const css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';css.dataset.tiTerritoryLeaflet='true';document.head.appendChild(css);
-      }
-      const script=document.createElement('script');script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';script.async=true;script.dataset.tiTerritoryLeaflet='true';
-      script.onload=()=>window.L?.map?resolve(window.L):reject(Error('No se cargó el motor cartográfico'));
-      script.onerror=()=>{
-        const backup=document.createElement('script');backup.src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';backup.async=true;
-        backup.onload=()=>window.L?.map?resolve(window.L):reject(Error('No se cargó el motor cartográfico de respaldo'));
-        backup.onerror=()=>reject(Error('No se puede acceder a los servidores del motor cartográfico'));
-        document.head.appendChild(backup);
-      };
-      document.head.appendChild(script);
-      setTimeout(()=>{if(!window.L?.map)reject(Error('Tiempo de espera del visor cartográfico agotado'));},12000);
-    }).catch(e=>{trLeafletPromise=null;throw e;});
-    return trLeafletPromise;
-  }
-  async function trGeoGet(kind){
-    if(trGeoData[kind])return trGeoData[kind];
-    if(trGeoPromises[kind])return trGeoPromises[kind];
-    trGeoPromises[kind]=(async()=>{
-      const response=await fetch('/api/territorio-geometria?capa='+kind,{cache:'force-cache'});
-      if(!response.ok)throw Error('Servicio de geometría '+kind+': HTTP '+response.status);
-      const geo=await response.json();
-      if(geo?.type!=='FeatureCollection'||!Array.isArray(geo.features)||!geo.features.length)throw Error('La respuesta no contiene polígonos');
-      trGeoData[kind]=geo;return geo;
-    })();
-    try{return await trGeoPromises[kind];}finally{delete trGeoPromises[kind];}
-  }
   function trMatchedPlace(feature,m){
-    const v=feature?.properties||{};
-    const official=trSlug(v.nom_ver||v.NOMBRE_VER||'');
-    if(!official)return null;
-    const places=trPlaceData(m).places;
-    return places.find(p=>p.type==='vereda'&&(p.key===official||p.key.replace(/^el /,'')===official.replace(/^el /,'')||trWordMatch(p.key,official)||trWordMatch(official,p.key)))||null;
+    const val=window.TISubachoqueMap?.featureName(feature)||'';
+    const original=trSlug(val);if(!original)return null;
+    return trPlaceData(m).places.find(p=>p.type==='vereda'&&
+      (p.key===original||p.key.replace(/^el /,'')===original.replace(/^el /,'')||
+       trWordMatch(p.key,original)||trWordMatch(original,p.key)))||null;
   }
   function trShowFallback(message){
     const host=panel.querySelector('#pa-tr-map-fallback');if(!host)return;
-    host.innerHTML=`<strong>Mapa interactivo de referencia</strong><p>${html(message)}</p><iframe title="Mapa OpenStreetMap de Subachoque" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-74.225%2C4.879%2C-74.123%2C4.989&amp;layer=mapnik"></iframe><a href="${trOsmUrl}" target="_blank" rel="noopener noreferrer">Abrir mapa completo ↗</a>`;
-    host.classList.add('pa-tr-show-fallback');trUpdateStatus('Visor alternativo · sin capas administrativas cargadas');
+    host.innerHTML='<strong>Cartografía no disponible</strong><p>'+html(message)+'</p>';
+    host.classList.add('pa-tr-show-fallback');
+    trUpdateStatus('Mapa temporalmente no disponible: revisa la conectividad');
   }
   async function trInitMap(){
-    const host=panel.querySelector('#pa-tr-map');if(!host||state.activeTab!=='territory'||!currentYear()||state.list)return;
+    const host=panel.querySelector('#pa-tr-map');
+    if(!host||state.activeTab!=='territory'||!currentYear()||state.list)return;
     const seq=++trInitSequence;
     try{
-      const L=await trLoadLeaflet();if(seq!==trInitSequence||!document.contains(host))return;
-      if(trMap){try{trMap.remove()}catch(e){}}
-      trMap=L.map(host,{zoomControl:true,scrollWheelZoom:false,minZoom:9,maxZoom:18}).setView(trCenter,12);
-      const streets=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'});
-      const satellite=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Tiles © Esri / Maxar / Earthstar Geographics'});
-      satellite.addTo(trMap);
-      trMapLayers={street:streets,satellite:satellite,basemap:'satellite',municipio:null,veredas:null,veredaLookup:new Map()};
-      const fallback=panel.querySelector('#pa-tr-map-fallback');if(fallback)fallback.remove();
-      trUpdateStatus('Mapa satelital interactivo · cargando límites de IGAC y DANE…');
-      trMap.on('click',()=>{});
-      // Las capas son polígonos de referencia, no georreferenciación de las obras.
-      const tasks=[
-        trGeoGet('municipio').then(geo=>{
-          if(seq!==trInitSequence||!trMap)return;
-          const layer=L.geoJSON(geo,{style:{color:'#fff',weight:3,fillColor:'#ffffff',fillOpacity:0.025,dashArray:null}});
-          trMapLayers.municipio=layer;
-          if(panel.querySelector('[data-pa-tr-layer="municipio"]')?.checked)layer.addTo(trMap);
-          const bounds=layer.getBounds();if(bounds&&bounds.isValid())trMap.fitBounds(bounds,{padding:[18,18],maxZoom:13});
-          trEnableDownload('municipio');
-        }),
-        trGeoGet('veredas').then(geo=>{
-          if(seq!==trInitSequence||!trMap)return;
-          const m=selected();
-          const layer=L.geoJSON(geo,{style:f=>{
-            const p=trMatchedPlace(f,m),sel=state.territorySelected&&p?.key===state.territorySelected;
-            return {color:sel?'#ffdb43':p?'#36e2a3':'#bdced7',weight:sel?3:p?1.6:0.8,fillColor:p?'#0ba75b':'#fff',fillOpacity:p?0.16:0.025};
-          },onEachFeature:(feature,leaf)=>{
-            const name=String(feature.properties?.nom_ver||feature.properties?.NOMBRE_VER||'Vereda sin nombre');
-            const place=trMatchedPlace(feature,m);
-            if(place)trMapLayers?.veredaLookup.set(place.key,leaf);
-            const popup=()=>`<strong>${html(name)}</strong><p>${place?place.activities.length+' actividades que la mencionan en el Excel':'Sin coincidencias con las ubicaciones de esta meta'}</p><small>Polígono DANE 2024. No representa el sitio exacto de intervención.</small>${place?place.activities.slice(0,5).map(a=>`<button type="button" data-pa-tr-act-detail="${html(a.n)}">Ver actividad ${html(a.n)} ↗</button>`).join(''):''}`;
-            if(leaf.bindPopup)leaf.bindPopup(popup());
-            if(leaf.on)leaf.on('click',()=>{if(place)trSelectPlace(place.key,false);});
-          }});
-          trMapLayers.veredas=layer;
-          if(panel.querySelector('[data-pa-tr-layer="veredas"]')?.checked)layer.addTo(trMap);
-          trEnableDownload('veredas');
-        })
-      ];
-      const settled=await Promise.allSettled(tasks);
+      const engine=window.TISubachoqueMap;
+      if(!engine)throw Error('No se encontró el motor cartográfico compartido');
+      const instance=await engine.mount(host,{onSelect:(label,feature)=>{
+        const m=selected(),place=m?trMatchedPlace(feature,m):null;
+        if(place)trSelectPlace(place.key,false);
+      }});
+      if(!instance)return;
+      if(seq!==trInitSequence||!host.isConnected){instance.destroy();return;}
+      trMap=instance;trMapLayers={municipio:true,veredas:true};
+      const geos=await Promise.all([engine.getGeo('municipio'),engine.getGeo('veredas')]);
       if(seq!==trInitSequence)return;
-      const ok=settled.filter(r=>r.status==='fulfilled').length;
-      trUpdateStatus(ok===2?'Límites IGAC y veredas DANE 2024 cargados':ok===1?'Una capa administrativa disponible · la otra no respondió':'No fue posible cargar las capas oficiales · permanece el mapa base');
-      if(trMap)requestAnimationFrame(()=>trMap?.invalidateSize());
-    }catch(err){if(seq!==trInitSequence)return;trShowFallback(err?.message||'Sin acceso a la librería del mapa');}
+      trGeoData={municipio:geos[0],veredas:geos[1]};
+      trEnableDownload('municipio');trEnableDownload('veredas');
+      panel.querySelector('#pa-tr-map-fallback')?.remove();
+      trUpdateStatus('17 veredas vectoriales · WGS84 · precisión geográfica del archivo por verificar');
+      requestAnimationFrame(()=>instance.invalidateSize());
+    }catch(err){if(seq!==trInitSequence)return;trShowFallback(err?.message||'No fue posible iniciar el visor');}
   }
-  function trEnableDownload(kind){const button=panel.querySelector(`[data-pa-tr-geo="${kind}"]`);if(button)button.disabled=false;}
+  function trEnableDownload(kind){
+    const button=panel.querySelector('[data-pa-tr-geo="'+kind+'"]');
+    if(button)button.disabled=false;
+  }
   function trSelectPlace(key,withScroll){
     state.territorySelected=key;
     panel.querySelectorAll('[data-pa-tr-place]').forEach(button=>{const selected=button.dataset.paTrPlace===key;button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));});
@@ -1328,19 +1278,11 @@
     let info=panel.querySelector('.pa-tr-selected-info');
     if(!info){info=document.createElement('div');info.className='pa-tr-selected-info';panel.querySelector('.pa-tr-places')?.appendChild(info);}
     if(info&&popupPlace)info.innerHTML=`<strong>${html(popupPlace.label)}</strong><span>${popupPlace.activities.map(a=>`<button type="button" data-pa-tr-act-detail="${html(a.n)}">Actividad ${html(a.n)} ↗</button>`).join(' · ')} · mención territorial, no punto exacto de obra.</span>`;
-    const geoLayer=trMapLayers?.veredaLookup?.get(key);
-    if(geoLayer&&trMap){if(geoLayer.getBounds){const bounds=geoLayer.getBounds();if(bounds?.isValid())trMap.fitBounds(bounds,{padding:[32,32],maxZoom:14});}geoLayer.openPopup?.();}
+    if(trMap&&popupPlace)trMap.focus(popupPlace.label,true);
     if(withScroll)panel.querySelector('.pa-tr-primary-map')?.scrollIntoView({behavior:'smooth',block:'center'});
   }
-  function trChangeBasemap(){
-    if(!trMapLayers||!trMap)return;
-    const next=trMapLayers.basemap==='satellite'?'street':'satellite';
-    const oldLayer=trMapLayers[trMapLayers.basemap],newLayer=trMapLayers[next];
-    if(trMap.hasLayer(oldLayer))trMap.removeLayer(oldLayer);
-    newLayer.addTo(trMap);newLayer.bringToBack();trMapLayers.basemap=next;
-    const title=panel.querySelector('#pa-tr-basemap-label');if(title)title.textContent=next==='satellite'?'Mapa satelital':'Mapa de calles';
-  }
-  function trToggleLayer(kind,enabled){const layer=trMapLayers?.[kind];if(!layer||!trMap)return;if(enabled)layer.addTo(trMap);else if(trMap.hasLayer(layer))trMap.removeLayer(layer);}
+  function trChangeBasemap(){trMap?.toggleLayerPanel();}
+  function trToggleLayer(kind,enabled){trMap?.toggle(kind,enabled);}
   function trDownload(name,text,mime){const blob=new Blob([text],{type:mime});const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download=name;document.body.append(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);}
   function trExportCsv(){
     const m=selected();if(!m)return;
@@ -1351,9 +1293,9 @@
   }
   function trDownloadGeo(kind){
     const data=trGeoData[kind];if(!data)return;
-    const provenance=kind==='municipio'?'IGAC - Base de Datos Geográfica de Entidades Territoriales':'DANE 2024 publicado por IDEAM';
+    const provenance='GeoJSON original de subachoque-platform; procedencia cartográfica oficial no verificada';
     const exported={...data,metadata:{fuente:provenance,municipio:'Subachoque',codigo_Divipola:'25769',nota:'Geometría administrativa, no georreferenciación de actividades del Plan de Acción'}};
-    trDownload('subachoque_'+(kind==='municipio'?'limite_IGAC':'veredas_DANE_2024')+'.geojson',JSON.stringify(exported),'application/geo+json');
+    trDownload('subachoque_'+(kind==='municipio'?'limite_referencia':'veredas_referencia')+'.geojson',JSON.stringify(exported),'application/geo+json');
   }
   async function trLoadFullTexts(){
     if(state.territoryExtraLoaded||state.territoryExtraLoading)return;
@@ -1963,8 +1905,10 @@
     // Las selecciones antiguas del listado de tarjetas se redirigen al unico directorio.
     if(state.list){state.list=false;state.activeTab='overall';}
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
+    window.TISubachoqueMap?.destroyWithin(panel);
     trUnmountMap();
     panel.innerHTML=pageMarkup();
+    requestAnimationFrame(()=>window.TISubachoqueMap?.mountAll(panel));
     if(state.activeTab==='activities')requestAnimationFrame(actChartControls);
     if(state.activeTab==='territory'&&currentYear()&&!state.list){
       requestAnimationFrame(()=>trInitMap());

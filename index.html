@@ -49,6 +49,8 @@
 <link rel="stylesheet" href="css/plan-accion-tabs-stable.css?v=20261108-tabs-stable-v1">
 <link rel="stylesheet" href="css/plan-accion-meta-picker.css?v=20261108-v1">
 <link rel="stylesheet" href="css/plan-accion-summary-2x2.css?v=20261108-unified-v1">
+<link rel="stylesheet" href="css/subachoque-map.css?v=20261108-editorial-gis-v1"/>
+<link rel="stylesheet" href="css/subachoque-map-placements.css?v=20261108-editorial-gis-v1"/>
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -547,7 +549,7 @@
 <summary>Puntos y capas municipales · herramienta de trabajo</summary>
 <p>Herramienta complementaria dentro de Encuesta. Conserva las capas y puntos importados anteriormente; sus archivos se guardan solamente en este navegador y no se publican. El mapa principal de Encuesta se mantiene arriba.</p>
 <div class="module-toolbar"><div><p class="eyebrow">Herramienta territorial · uso local</p><h3>Veredas, casco urbano, servicios, beneficiarios e infraestructura</h3></div><label class="action-button">Importar puntos<input accept=".csv,.json,.geojson,.xlsx,.xls" hidden="" id="geoPointUpload" type="file"/></label></div>
-<p id="geoUploadStatus" role="status"></p><p>Para puntos usa latitud y longitud; nombre, tipo, vereda y descripción son opcionales. También se admiten GeoJSON de tipo Point.</p><div class="geo-layout"><div class="territory-map"><svg aria-label="Mapa interactivo de veredas de Subachoque" id="territoryMapSvg" role="img" viewBox="0 0 960 600"></svg></div><aside class="map-detail" id="territoryMapDetail"><p class="eyebrow">Selecciona una vereda</p><p>Haz clic o usa el teclado sobre una vereda para consultar servicios, beneficiarios, grupos poblacionales e infraestructura cargada.</p></aside></div>
+<p id="geoUploadStatus" role="status"></p><p>Para puntos usa latitud y longitud; nombre, tipo, vereda y descripción son opcionales. También se admiten GeoJSON de tipo Point.</p><div class="geo-layout"><div class="territory-map"><div aria-label="Mapa interactivo georreferenciado de veredas y puntos locales de Subachoque" class="ti-ed-map" id="territoryMapSvg" role="region"></div></div><aside class="map-detail" id="territoryMapDetail"><p class="eyebrow">Selecciona una vereda</p><p>Haz clic o usa el teclado sobre una vereda para consultar servicios, beneficiarios, grupos poblacionales e infraestructura cargada.</p></aside></div>
 </details>
 </details>
 
@@ -573,12 +575,8 @@
     <section class="ex-map-panel" aria-labelledby="ex-map-heading">
       <div class="ex-map-head"><div><h2 id="ex-map-heading">Mapa de veredas</h2><p>Selecciona una vereda para explorarla.</p></div><span class="ex-count" id="ex-count">Cargando mapa</span></div>
       <div class="ex-map-wrap">
-        <svg id="ex-map" viewBox="0 0 900 580" role="group" aria-label="Mapa interactivo esquemático de las veredas de Subachoque"></svg>
-        <div class="ex-map-controls" aria-label="Zoom del mapa">
-          <button type="button" data-ex-zoom="in" aria-label="Acercar el mapa">+</button>
-          <button type="button" data-ex-zoom="out" aria-label="Alejar el mapa">−</button>
-          <button type="button" data-ex-zoom="reset" aria-label="Restablecer el zoom">⌑</button>
-        </div>
+        <div id="ex-map" class="ti-ed-map" role="region" aria-label="Mapa interactivo georreferenciado de las veredas de Subachoque"></div>
+
       </div>
       <div class="ex-map-foot"><span>Esquema de referencia a partir del archivo geográfico del proyecto.</span><span id="ex-zoom-label">100 %</span></div>
       <p class="ex-status" id="ex-status" role="status" aria-live="polite">Preparando visualización territorial…</p>
@@ -673,13 +671,14 @@
 <script defer="" src="js/app.js?v=20261103-plan-dropdown-menu-02"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script defer src="js/data-core.js?v=data-fix-01"></script>
-<script defer src="js/data-workspace.js?v=data-fix-01"></script>
+<script defer src="js/subachoque-map.js?v=20261108-editorial-gis-v1"></script>
+<script defer src="js/data-workspace.js?v=20261108-ed-map-v1"></script>
 <script defer="" src="js/requirements.js?v=restore-existing-data-01"></script>
 <script defer src="js/module-structure.js?v=20261103-plan-tabs-01"></script>
 <script defer src="js/ti-modules-34.js?v=20261103-plan-tabs-01"></script>
 <script defer src="js/plan-desarrollo-landing.js?v=20261103-plan33-v2"></script>
 <script defer src="js/plan-accion-totalizador.js?v=20261107-total-v1"></script>
-<script defer src="js/plan-accion-dashboard.js?v=20261108-activities-percent-v1"></script>
+<script defer src="js/plan-accion-dashboard.js?v=20261108-ed-map-v1"></script>
 <script defer src="js/data-conoce.js?v=conoce-04"></script>
 <script defer src="js/conoce-plan.js?v=20261017-original-01"></script>
 
@@ -690,7 +689,7 @@
 <script defer src="js/data-subachoque.js?v=20261023-cover-22-01"></script>
 <script defer src="js/caracterizacion-kobo.js?v=kobo-23-02"></script>
 <script defer src="js/conoce-publicaciones.js?v=pub21-editorial-02"></script>
-<script defer src="js/explorando-territorio.js?v=ex24-01"></script>
+<script defer src="js/explorando-territorio.js?v=20261108-ed-map-v1"></script>
 <script defer src="js/ti-master-heroes.js?v=20261023-01"></script>
 </body>
 </html>
