@@ -96,10 +96,6 @@
   const tabKeys=['summary','overall','general','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'];
   function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const active=tabKeys[i]===state.activeTab;return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" data-pa-tab="${tabKeys[i]}"><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${tabKeys[i]==='activities' && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
-  function statusBar(m){
-    const c=classification(m),fill=pct(m.pct),percent=pctLabel(m.pct);
-    return `<div class="pa-meta-heading"><button type="button" class="pa-back" data-pa-list="true">← <span>Volver a metas</span></button><div class="pa-meta-line"><div class="pa-meta-number"><span>Meta</span><strong>${m.id}</strong></div><div class="pa-meta-title"><h2>${html(m.name)}</h2><div class="pa-meta-progress"><span class="pa-state-chip pa-state-${c.key}" title="${html(c.hint)}">${html(c.label)}</span><span class="pa-progress-track"><span style="width:${fill??0}%"></span></span><strong>${percent}</strong></div></div><div class="pa-meta-info"><div><small>Línea Estratégica</small><strong>${html(m.line||'No reportada')}</strong></div><div><small>Sector MGA</small><strong>${html(m.sector||'No reportado')}</strong></div><div><small>Programa</small><strong>${html(m.program||'No reportado')}</strong></div><div><small>Dependencia Responsable</small><strong>${html(m.agency||'No reportada')}</strong></div></div></div></div>`;
-  }
   function dial(value,caption,color){const percent=pct(value),center=isNumeric(value)?pctLabel(value):'—';return `<div class="pa-dial" style="--pa-dial-color:${color};--pa-dial-fill:${percent??0}%"><div class="pa-dial-inner"><strong>${center}</strong><small>${caption}</small></div></div>`;}
   function detailRows(m){
     const display=(n,unit)=>isNumeric(n)?numberOrDash(n)+' '+html(unit||''):'—';
@@ -1810,6 +1806,8 @@
       '<div class="pa-content" id="pa-content">'+sectionHeadingMarkup()+resultsMarkup()+'</div></section></div>';
   }
   function refresh({preserveFocus=false}={}){
+    // Las selecciones antiguas del listado de tarjetas se redirigen al unico directorio.
+    if(state.list){state.list=false;state.activeTab='overall';}
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
     trUnmountMap();
     panel.innerHTML=pageMarkup();
