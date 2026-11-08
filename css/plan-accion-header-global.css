@@ -1,0 +1,44 @@
+/* Planes de Acción · encabezado único de búsqueda y vigencias para todas las pestañas.
+   El banner existente .pa-top no cambia: esta hoja únicamente da formato al
+   título contextual de cada sección, sin un segundo hero ni otro selector de año. */
+#desarrollo-accion.pa-mounted .pa-global-shell .pa-context-heading {
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  min-width:0;min-height:88px;margin:11px 6px 13px;padding:14px 20px;
+  background:linear-gradient(110deg,#e9f2f7 0%,#f7fafd 80%);
+  color:#112f4d;border:1px solid #c9d9e4;border-left:4px solid #087c48;
+  border-radius:8px;box-shadow:0 2px 9px #1737510f;
+}
+#desarrollo-accion.pa-mounted .pa-global-shell .pa-context-heading-main {
+  min-width:0;flex:1 1 auto;
+}
+#desarrollo-accion.pa-mounted .pa-global-shell .pa-context-kicker {
+  display:block;margin-bottom:3px;font-size:10px;font-weight:800;
+  line-height:1.2;letter-spacing:.11em;color:#2d698b;
+}
+#desarrollo-accion.pa-mounted .pa-global-shell .pa-context-heading h2 {
+  margin:0!important;color:#102f50!important;
+  font-size:clamp(19px,1.55vw,27px)!important;line-height:1.16!important;
+  font-weight:850!important;letter-spacing:-.018em!important;
+}
+#desarrollo-accion.pa-mounted .pa-global-shell .pa-context-heading p {
+  margin:4px 0 0!important;color:#395a76!important;
+  font-size:clamp(12px,.93vw,15px)!important;
+  line-height:1.35!important;max-width:1050px;
+}
+#desarrollo-accion.pa-mounted .pa-global-shell .pa-context-meta {
+  flex:0 0 auto;border:1px solid #b9cdd9;background:#fff;
+  color:#0c493a;padding:8px 11px;border-radius:6px;
+  font-size:12px;font-weight:800;white-space:nowrap;
+}
+@media(max-width:700px) {
+  #desarrollo-accion.pa-mounted .pa-global-shell .pa-context-heading {
+    padding:12px 14px;margin:8px 5px 10px;
+    min-height:0;align-items:flex-start;flex-wrap:wrap;gap:8px;
+  }
+  #desarrollo-accion.pa-mounted .pa-global-shell .pa-context-meta {
+    font-size:11px;padding:5px 8px;
+  }
+  #desarrollo-accion.pa-mounted .pa-global-shell .pa-context-heading h2 {
+    font-size:20px!important;
+  }
+}
