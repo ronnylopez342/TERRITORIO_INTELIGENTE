@@ -1,0 +1,104 @@
+/* 3.3 PLANES DE ACCION — una sola geometria de navegacion para las 11 vistas.
+   Antes cada modulo sobreescribia ancho, tipografia, huecos y flex-basis.
+   La pista de columnas es la misma independientemente de la pestaña activa.
+   No se altera ningun grafico, mapa, busqueda, dato ni panel de contenido. */
+#desarrollo-accion.pa-mounted .pa-shell.pa-global-shell .pa-tabs {
+  display:grid!important;
+  grid-template-columns:
+    minmax(94px,.83fr)
+    minmax(148px,1.37fr)
+    minmax(165px,1.47fr)
+    minmax(138px,1.23fr)
+    minmax(128px,1.14fr)
+    minmax(120px,1.08fr)
+    minmax(186px,1.66fr)
+    minmax(100px,.90fr)
+    minmax(205px,1.83fr)
+    minmax(100px,.90fr)
+    minmax(144px,1.30fr)!important;
+  grid-template-rows:43px!important;
+  align-items:stretch!important;
+  justify-content:stretch!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:43px!important;
+  min-height:43px!important;
+  margin:9px 0 10px!important;
+  padding:0!important;
+  gap:0!important;
+  border:0!important;
+  box-sizing:border-box!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  overscroll-behavior-x:contain;
+  scrollbar-width:thin;
+}
+#desarrollo-accion.pa-mounted .pa-shell.pa-global-shell .pa-tabs .pa-tab {
+  display:flex!important;
+  flex:none!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+  max-width:100%!important;
+  width:100%!important;
+  height:43px!important;
+  min-height:43px!important;
+  max-height:43px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:6px 5px!important;
+  gap:5px!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:clamp(11px,.76vw,13px)!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  border-radius:5px 5px 0 0!important;
+  transform:none!important;
+  zoom:1!important;
+}
+#desarrollo-accion.pa-mounted .pa-shell.pa-global-shell .pa-tabs .pa-tab+.pa-tab {
+  margin-left:0!important;
+}
+#desarrollo-accion.pa-mounted .pa-shell.pa-global-shell .pa-tabs .pa-tab .pa-tab-icon {
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 18px!important;
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  max-width:18px!important;
+  margin:0!important;
+  line-height:1!important;
+  font-size:18px!important;
+}
+#desarrollo-accion.pa-mounted .pa-shell.pa-global-shell .pa-tabs .pa-tab .pa-tab-icon svg {
+  display:block!important;
+  flex:none!important;
+  width:17px!important;
+  height:17px!important;
+  min-width:17px!important;
+  max-width:17px!important;
+}
+#desarrollo-accion.pa-mounted .pa-shell.pa-global-shell .pa-tabs .pa-tab>span:last-child {
+  display:block!important;
+  flex:0 1 auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  line-height:1.2!important;
+}
+#desarrollo-accion.pa-mounted .pa-shell.pa-global-shell .pa-tabs .pa-tab.pa-tab--selected {
+  font-size:clamp(11px,.76vw,13px)!important;
+  font-weight:700!important;
+  transform:none!important;
+}
+/* En pantallas angostas se desplaza la misma pista de 11 columnas.
+   No cambia la distribucion entre Resumen, Territorio o Contratacion. */
