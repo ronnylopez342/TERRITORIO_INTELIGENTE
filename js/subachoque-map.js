@@ -400,6 +400,136 @@
           }
         }
       }
+      // Interactive labels are attached to the currently VISIBLE PART of their
+      // own territory. The previous implementation only tested one historic
+      // anchor and required the whole word rectangle inside the polygon; it
+      // incorrectly hid labels while a substantial colored region was visible.
+      function labelInteractive(){
+        const w=canvas.clientWidth,h=canvas.clientHeight;
+        if(w<10||h<10)return;
+        const minimum=Math.max(7.5,Math.min(10,Math.min(w,h)*.025));
+        const maximum=Math.min(23,Math.max(12,Math.min(w,h)*.043));
+        const sizes=[maximum,maximum*.91,maximum*.82,maximum*.74,12,11,10,9,8]
+          .filter(n=>n>=minimum-.02)
+          .sort((a,b)=>b-a)
+          .filter((n,i,all)=>all.findIndex(v=>Math.abs(v-n)<.15)===i);
+        const visible=[];
+        // Only the intersection of a real polygon and the viewport may supply
+        // candidate positions. Never infer labels from a bbox outside the map.
+        for(const entry of labels.filter(labelVisible)){
+          const feature=entry.geoLayer?.feature,region=entry.geoLayer?.getBounds();
+          if(!feature||!region?.isValid())continue;
+          const northeast=map.latLngToContainerPoint(region.getNorthEast());
+          const southwest=map.latLngToContainerPoint(region.getSouthWest());
+          const x0=Math.max(3,Math.min(northeast.x,southwest.x));
+          const x1=Math.min(w-3,Math.max(northeast.x,southwest.x));
+          const y0=Math.max(3,Math.min(northeast.y,southwest.y));
+          const y1=Math.min(h-3,Math.max(northeast.y,southwest.y));
+          if(x1<=x0||y1<=y0)continue;
+          const center={x:(x0+x1)/2,y:(y0+y1)/2},points=[],seen=new Set();
+          const addPoint=(p)=>{
+            if(!p||p.x<3||p.x>w-3||p.y<3||p.y>h-3)return;
+            const key=Math.round(p.x)+'/'+Math.round(p.y);
+            if(seen.has(key))return;
+            const geo=map.containerPointToLatLng([p.x,p.y]);
+            if(!inside(feature,geo.lng,geo.lat))return;
+            seen.add(key);points.push(p);
+          };
+          const previous=map.latLngToContainerPoint(entry.latLng);
+          addPoint(previous);
+          addPoint(map.latLngToContainerPoint(entry.originalLatLng));
+          // Test the center first, then cover the entire visible part. This
+          // recovers names when their original label point is offscreen.
+          addPoint(center);
+          for(let i=1;i<=11;i++)for(let j=1;j<=11;j++)
+            addPoint({x:x0+(x1-x0)*i/12,y:y0+(y1-y0)*j/12});
+          // Thin, irregular shapes can fall between coarse sample points.
+          if(!points.length)
+            for(let i=1;i<=21;i++)for(let j=1;j<=21;j++)
+              addPoint({x:x0+(x1-x0)*i/22,y:y0+(y1-y0)*j/22});
+          if(!points.length)continue; // No visible colored polygon at all.
+          const previousVisible=points.find(p=>Math.hypot(p.x-previous.x,p.y-previous.y)<1);
+          points.sort((a,b)=>{
+            const score=p=>Math.hypot(p.x-center.x,p.y-center.y)+
+              (previousVisible&&Math.hypot(p.x-previous.x,p.y-previous.y)<1?-Math.max(w,h)*2:0);
+            return score(a)-score(b);
+          });
+          visible.push({entry,points,center,area:(x1-x0)*(y1-y0)});
+        }
+        // Small regions first, then larger regions select the best empty space.
+        visible.sort((a,b)=>a.entry.kind==='casco'?-1:b.entry.kind==='casco'?1:a.area-b.area);
+        const placed=[],pending=[];
+        for(const item of visible){
+          let chosen=null;
+          for(const size of sizes){
+            for(const point of item.points){
+              const box=labelBox(item.entry.lines,size,point.x,point.y);
+              if(!labelWithinViewport(box,w,h))continue;
+              if(placed.some(x=>labelOverlap(x.box,box,1)))continue;
+              if(!labelFitsOwnPolygon(item.entry,box))continue;
+              chosen={entry:item.entry,point,size,box};break;
+            }
+            if(chosen)break;
+          }
+          if(chosen)placed.push(chosen);
+          else pending.push(item);
+        }
+        // A thin visible polygon may be unable to enclose an entire word.
+        // Still render its name over its REAL colored area; score containment,
+        // overlap, legibility and distance. No outside callout/leader is used.
+        for(const item of pending){
+          let best=null,bestScore=Infinity;
+          for(const size of sizes){
+            for(const point of item.points){
+              const box=labelBox(item.entry.lines,size,point.x,point.y);
+              const outsideWindow=Math.max(0,-box.x)+Math.max(0,box.x+box.w-w)+
+                Math.max(0,-box.y)+Math.max(0,box.y+box.h-h);
+              let outsideTerritory=0;
+              for(const fx of [.15,.5,.85])for(const fy of [.15,.5,.85]){
+                const ll=map.containerPointToLatLng([box.x+box.w*fx,box.y+box.h*fy]);
+                if(!inside(item.entry.geoLayer.feature,ll.lng,ll.lat))outsideTerritory++;
+              }
+              let collision=0;
+              for(const other of placed){
+                const cw=Math.max(0,Math.min(box.x+box.w,other.box.x+other.box.w)-Math.max(box.x,other.box.x));
+                const ch=Math.max(0,Math.min(box.y+box.h,other.box.y+other.box.h)-Math.max(box.y,other.box.y));
+                collision+=cw*ch/(box.w*box.h||1);
+              }
+              const score=outsideTerritory*15+collision*140+
+                outsideWindow*8+(maximum-size)*4.5+
+                Math.hypot(point.x-item.center.x,point.y-item.center.y)*.075;
+              if(score<bestScore){
+                bestScore=score;best={entry:item.entry,point,size,box};
+              }
+            }
+          }
+          if(best)placed.push(best);
+        }
+        const byEntry=new Map(placed.map(hit=>[hit.entry,hit]));
+        for(const entry of labels){
+          const hit=byEntry.get(entry);
+          if(!hit){
+            if(labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
+            continue;
+          }
+          // An anchor is *always* verified INSIDE its own polygon.
+          const pos=map.containerPointToLatLng([hit.point.x,hit.point.y]);
+          if(!inside(entry.geoLayer.feature,pos.lng,pos.lat))continue;
+          const wasVisible=labelGroup.hasLayer(entry.marker);
+          const previousPosition=entry.marker.getLatLng?.()||entry.latLng;
+          if(Math.abs(previousPosition.lat-pos.lat)>1e-9||
+             Math.abs(previousPosition.lng-pos.lng)>1e-9)entry.marker.setLatLng(pos);
+          entry.latLng=pos;
+          if(!wasVisible)labelGroup.addLayer(entry.marker);
+          const el=entry.marker.getElement()?.querySelector('.ti-ed-label');
+          if(el){
+            el.style.fontSize=hit.size.toFixed(2)+'px';
+            el.style.lineHeight='1.07';
+            el.classList.remove('ti-ed-label-callout');
+            el.setAttribute('aria-label',entry.text);
+          }
+        }
+      }
       function updateLabelVisibility(){
         if(!map||disposed)return;
         const viewW=canvas.clientWidth,viewH=canvas.clientHeight;
@@ -408,52 +538,8 @@
           const key=[viewW,viewH,map.getZoom().toFixed(4),
             map.hasLayer(mapLayers.veredas),map.hasLayer(mapLayers.casco)].join('|');
           if(overviewLayoutKey!==key){labelOverview();overviewLayoutKey=key;}
-          return;
-        }
-        // Readable sizes depend on the viewport, not on zoom. Panning or
-        // zooming never moves an anchor or creates off-territory callouts.
-        const fontMax=Math.min(19,Math.max(9.5,Math.min(viewW,viewH)*.035));
-        const sizes=[fontMax,fontMax*.91,fontMax*.82,fontMax*.72,fontMax*.63,9,8,7]
-          .filter(n=>n>=7).sort((a,b)=>b-a)
-          .filter((n,i,arr)=>arr.findIndex(v=>Math.abs(v-n)<.18)===i);
-        const placed=[];
-        const ordered=labels.filter(labelVisible).map(entry=>{
-          const region=entry.geoLayer?.getBounds();
-          const area=region?.isValid()?
-            Math.abs(map.latLngToContainerPoint(region.getNorthEast()).x-
-              map.latLngToContainerPoint(region.getSouthWest()).x)*
-            Math.abs(map.latLngToContainerPoint(region.getNorthEast()).y-
-              map.latLngToContainerPoint(region.getSouthWest()).y):0;
-          return {entry,area};
-        }).sort((a,b)=>a.entry.kind==='casco'?-1:b.entry.kind==='casco'?1:a.area-b.area);
-        const accepted=new Map();
-        for(const {entry} of ordered){
-          const point=map.latLngToContainerPoint(entry.latLng);
-          for(const size of sizes){
-            const box=labelBox(entry.lines,size,point.x,point.y);
-            if(!labelWithinViewport(box,viewW,viewH))continue;
-            if(placed.some(other=>labelOverlap(box,other.box)))continue;
-            if(!labelFitsOwnPolygon(entry,box))continue;
-            const hit={size,box};
-            placed.push(hit);accepted.set(entry,hit);break;
-          }
-        }
-        for(const entry of labels){
-          const hit=accepted.get(entry);
-          if(!hit){
-            if(labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
-            continue;
-          }
-          // Immutable WGS84 text anchor. On pan/zoom, its pixel location changes
-          // with the map projection exactly as the polygon does—not independently.
-          if(!labelGroup.hasLayer(entry.marker))labelGroup.addLayer(entry.marker);
-          const el=entry.marker.getElement()?.querySelector('.ti-ed-label');
-          if(el){
-            el.style.fontSize=hit.size.toFixed(2)+'px';
-            el.style.lineHeight='1.07';
-            el.classList.remove('ti-ed-label-callout');
-            el.setAttribute('aria-label',entry.text);
-          }
+        }else{
+          labelInteractive();
         }
       }
       function select(value,{notify=true,focus=false}={}){
