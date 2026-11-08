@@ -33,7 +33,7 @@
   function ribbon(ctx,short){
     const m=measures(ctx),c=m.counts,total=m.total;
     return `<section class="pa-total-ribbon ${short?'pa-total-ribbon--short':''}" aria-label="Estado general de todas las metas del Plan de Acción">
-      <div class="pa-total-ribbon-title"><div class="pa-total-ribbon-icon" aria-hidden="true">▥</div><div><h2>Totalizador del Plan</h2><p>Estado general de todas las metas · ${escape(ctx.year)}</p>${short?'<button type="button" class="pa-total-ribbon-open" data-pa-overall-open>Ver todas las metas →</button>':''}</div></div>
+      <div class="pa-total-ribbon-title"><div class="pa-total-ribbon-icon" aria-hidden="true">▥</div><div><h2>Totalizador del Plan</h2><p>Estado general de todas las metas · ${escape(ctx.year)}</p><small class="pa-total-state-note">Cumplidas: ${int(c.done||0)} · Sin porcentaje: ${int(c.unavailable||0)}</small>${short?'<button type="button" class="pa-total-ribbon-open" data-pa-overall-open>Ver todas las metas →</button>':''}</div></div>
       <div class="pa-total-kpis" aria-label="Distribución de estados">
         <div class="pa-total-kpi pa-total-kpi--all"><b>${int(total)}</b><span>Metas del plan</span></div>
         <div class="pa-total-kpi pa-total-kpi--running"><b>${int(c.running||0)}</b><span>En ejecución</span></div>
