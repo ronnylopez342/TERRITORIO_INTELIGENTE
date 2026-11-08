@@ -434,33 +434,158 @@
     }).join('');
     return `<section class="pa-act-table-panel"><div class="pa-act-table-scroll" tabindex="0" aria-label="Listado desplazable de actividades"><table class="pa-act-main-table"><thead><tr><th>N\u00ba</th><th>Actividad</th><th>Peso %</th><th>Indicador</th><th>Unidad de medida</th><th>Valor programado ${state.year}</th><th>Avance</th><th>Estado</th><th>Responsable</th><th>Ver detalle</th></tr></thead><tbody>${trs||'<tr><td colspan="10" class="pa-act-noresults">No hay actividades que coincidan con los filtros. Usa Limpiar para ver todos los registros.</td></tr>'}</tbody></table></div><p class="pa-act-count">Mostrando ${filtered.length} de ${m.activities.length} actividades. Las etiquetas de estado son lecturas de los avances reportados; un avance bajo por s\u00ed solo no certifica retraso.</p></section>`;
   }
-  const actCanonicalUnit=x=>{
-    const v=normalizeQuery(x||'Sin unidad');
-    if(['numero','n\u00famero','n\u00f9mero','unidad','unidades'].includes(v))return 'N\u00famero';
-    if(['kilometros','kilometro','km'].includes(v))return 'Kil\u00f3metros';
-    return String(x||'Sin unidad').trim();
-  };
-  function actComparison(m,filtered){
-    const candidates=filtered.filter(a=>isNumeric(a.target)&&isNumeric(a.progress)&&a.target>=0);
-    const groups=new Map();for(const a of candidates){const key=actCanonicalUnit(a.unit);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(a);}
-    const sorted=[...groups.entries()].sort((a,b)=>b[1].length-a[1].length);
-    if(!sorted.length)return '<div class="pa-act-nodata">No hay valores programados y ejecutados comparables para representar gr\u00e1ficamente.</div>';
-    const chosen=groups.has(state.activityCompareUnit)?state.activityCompareUnit:sorted[0][0];const arr=groups.get(chosen)||[];
-    const maxVal=Math.max(1,...arr.flatMap(a=>[a.target,a.progress]));
-    const w=Math.max(430,arr.length*92+74),h=260,left=48,top=25,plotHeight=181,barBase=top+plotHeight,groupSize=(w-left-22)/arr.length;
-    const svg=[];
-    for(let n=0;n<=4;n++){const value=(maxVal*n/4),y=barBase-(plotHeight*n/4);svg.push(`<line x1="${left}" y1="${y}" x2="${w-10}" y2="${y}" stroke="#dfe8f0" stroke-width="1"/><text x="${left-7}" y="${y+4}" font-size="10" fill="#54718b" text-anchor="end">${html(fmtNum.format(value))}</text>`);}
-    arr.forEach((a,i)=>{
-      const center=left+groupSize*(i+.5),barW=Math.min(20,groupSize*.25);
-      const f1=plotHeight*Math.max(0,a.target)/maxVal,f2=plotHeight*Math.max(0,a.progress)/maxVal;
-      svg.push(`<rect x="${center-barW-3}" y="${barBase-f1}" width="${barW}" height="${f1}" rx="3" fill="#338cf0"><title>${html(a.n)}: Programado ${numberOrDash(a.target)} ${html(chosen)}</title></rect>`);
-      svg.push(`<rect x="${center+3}" y="${barBase-f2}" width="${barW}" height="${f2}" rx="3" fill="#3caf57"><title>${html(a.n)}: Avance ${numberOrDash(a.progress)} ${html(chosen)}</title></rect>`);
-      svg.push(`<text x="${center-barW/2-3}" y="${Math.max(11,barBase-f1-6)}" fill="#0a3462" font-size="11" font-weight="700" text-anchor="middle">${html(fmtNum.format(a.target))}</text><text x="${center+3+barW/2}" y="${Math.max(11,barBase-f2-6)}" fill="#176e39" font-size="11" font-weight="700" text-anchor="middle">${html(fmtNum.format(a.progress))}</text>`);
-      svg.push(`<text x="${center}" y="${barBase+20}" font-size="10" fill="#29486d" text-anchor="middle">Act. ${html(a.n)}</text>`);
-    });
-    const options=sorted.map(([k,a])=>`<option value="${html(k)}"${k===chosen?' selected':''}>${html(k)} (${a.length})</option>`).join('');
-    return `<div class="pa-act-compare-control"><span>Unidad de medida</span><select id="pa-act-compare-unit" aria-label="Filtrar gr\u00e1fico por unidad">${options}</select></div><div class="pa-act-chart-scroll" tabindex="0"><svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="Barras azules de valores programados y verdes de avances para actividades con unidad ${html(chosen)}">${svg.join('')}</svg></div><div class="pa-act-chart-legend"><span><i class="pa-act-legend-blue"></i>Programado ${state.year}</span><span><i class="pa-act-legend-green"></i>Ejecutado ${state.year}</span></div><p class="pa-act-smallnote">Comparaci\u00f3n exclusivamente entre actividades con la misma unidad de medida; desplaza la gr\u00e1fica si hay muchos registros.</p>`;
+  function actUnitCatalog(){
+  return [
+    {key:'metros-cuadrados',label:'Metros cuadrados',one:'metro cuadrado',many:'metros cuadrados',re:/(?:metros?\s+cuadrados?|(?:^|\W)m2(?:\W|$)|m²|m\^2)/},
+    {key:'metros-cubicos',label:'Metros cúbicos',one:'metro cúbico',many:'metros cúbicos',re:/(?:metros?\s+cubicos?|(?:^|\W)m3(?:\W|$)|m³|m\^3)/},
+    {key:'metros-lineales',label:'Metros lineales',one:'metro lineal',many:'metros lineales',re:/(?:metros?\s+lineales?|(?:^|\W)ml(?:\W|$))/},
+    {key:'kilometros',label:'Kilómetros',one:'kilómetro',many:'kilómetros',re:/(?:kilometros?|(?:^|\W)km(?:\W|$))/},
+    {key:'hectareas',label:'Hectáreas',one:'hectárea',many:'hectáreas',re:/(?:hectareas?|(?:^|\W)ha(?:\W|$))/},
+    {key:'metros',label:'Metros',one:'metro',many:'metros',re:/\bmetros?\b/},
+    {key:'litros',label:'Litros',one:'litro',many:'litros',re:/\blitros?\b/},
+    {key:'toneladas',label:'Toneladas',one:'tonelada',many:'toneladas',re:/\btoneladas?\b/},
+    {key:'kilogramos',label:'Kilogramos',one:'kilogramo',many:'kilogramos',re:/(?:\bkilogramos?\b|(?:^|\W)kg(?:\W|$))/},
+    {key:'personas',label:'Personas',one:'persona',many:'personas',re:/(?:\bpersonas?\b|\bbeneficiari[oa]s?\b|\bparticipantes?\b|\basistentes?\b|\bestudiantes?\b|\bhabitantes?\b|\bpoblacion\b)/},
+    {key:'familias',label:'Familias',one:'familia',many:'familias',re:/\bfamilias?\b/},
+    {key:'hogares',label:'Hogares',one:'hogar',many:'hogares',re:/\bhogares?\b/},
+    {key:'viviendas',label:'Viviendas',one:'vivienda',many:'viviendas',re:/\bviviendas?\b/},
+    {key:'informes',label:'Informes',one:'informe',many:'informes',re:/\binformes?\b/},
+    {key:'documentos',label:'Documentos',one:'documento',many:'documentos',re:/\bdocumentos?\b/},
+    {key:'proyectos',label:'Proyectos',one:'proyecto',many:'proyectos',re:/\bproyectos?\b/},
+    {key:'estudios',label:'Estudios',one:'estudio',many:'estudios',re:/\bestudios?\b/},
+    {key:'obras',label:'Obras',one:'obra',many:'obras',re:/\bobras?\b/},
+    {key:'equipamientos',label:'Equipamientos',one:'equipamiento',many:'equipamientos',re:/\bequipamientos?\b/},
+    {key:'capacitaciones',label:'Capacitaciones',one:'capacitación',many:'capacitaciones',re:/\bcapacitaciones?\b/},
+    {key:'talleres',label:'Talleres',one:'taller',many:'talleres',re:/\btalleres?\b/},
+    {key:'eventos',label:'Eventos',one:'evento',many:'eventos',re:/\beventos?\b/},
+    {key:'actividades',label:'Actividades',one:'actividad',many:'actividades',re:/\bactividades?\b/},
+    {key:'contratos',label:'Contratos',one:'contrato',many:'contratos',re:/\bcontratos?\b/},
+    {key:'predios',label:'Predios',one:'predio',many:'predios',re:/\bpredios?\b/},
+    {key:'instituciones',label:'Instituciones',one:'institución',many:'instituciones',re:/\binstituciones?\b/},
+    {key:'dias',label:'Días',one:'día',many:'días',re:/\bdias?\b/},
+    {key:'meses',label:'Meses',one:'mes',many:'meses',re:/\bmeses?\b/},
+    {key:'porcentaje',label:'Porcentaje',one:'%',many:'%',re:/(?:porcentaje|porcentual|%)/}
+  ];
+}
+  function actUnitInfo(activity){
+  const original=String(activity.unit||'').trim();
+  const given=normalizeQuery(original);
+  const generic=!given||/^(numero|nro|n[ºo]|cantidad|unidad|unidades|sin unidad)$/.test(given);
+  const catalog=actUnitCatalog();
+  let info=catalog.find(d=>d.re.test(given));
+  if(!info&&generic){
+    const context=normalizeQuery(activity.indicator||'')||normalizeQuery(activity.name||'');
+    info=catalog.find(d=>d.re.test(context));
   }
+  if(info){
+    const derived={key:info.key,label:info.label,one:info.one,many:info.many,original};
+    const context=normalizeQuery(activity.indicator||'');
+    if(info.key==='personas'&&/capacitad/.test(context)){
+      derived.one='persona capacitada';derived.many='personas capacitadas';
+    } else if(info.key==='informes'&&/cumplimiento/.test(context)){
+      derived.one='informe de cumplimiento';derived.many='informes de cumplimiento';
+    } else if(info.key==='personas'&&/beneficiari/.test(context)){
+      derived.one='persona beneficiaria';derived.many='personas beneficiarias';
+    }
+    return derived;
+  }
+  if(generic)return {key:'sin-especificar',label:'Número sin especificar',one:'unidad del indicador',many:'unidades del indicador',original};
+  // Preserve uncommon official units instead of silently replacing their meaning.
+  return {key:'original:'+given,label:original,one:original,many:original,original};
+}
+  function actQuantityLabel(value,unit){
+  if(!isNumeric(value))return 'Sin dato';
+  const formatted=fmtNum.format(value);
+  const name=Math.abs(value)===1?unit.one:unit.many;
+  return name==='%'?formatted+' %':formatted+' '+name;
+}
+  function actGraphLines(value,maxLength=12,maxLines=3){
+  const words=String(value||'Sin descripción').trim().split(/\s+/).filter(Boolean);
+  const result=[];let line='';
+  for(let i=0;i<words.length;i++){
+    const next=line?line+' '+words[i]:words[i];
+    if(next.length<=maxLength){line=next;continue;}
+    if(line){result.push(line);line=words[i];}
+    else{result.push(words[i].slice(0,maxLength-1)+'…');line='';}
+    if(result.length>=maxLines){line='';break;}
+  }
+  if(line&&result.length<maxLines)result.push(line);
+  if(!result.length)result.push('Sin descripción');
+  const covered=result.join(' ').replace(/…/g,'');
+  if(result.length===maxLines&&covered.length<String(value).length&&result[maxLines-1].slice(-1)!=='…'){
+    result[maxLines-1]=result[maxLines-1].slice(0,Math.max(1,maxLength-1))+'…';
+  }
+  return result;
+}
+  function actChartControls(){
+  const viewport=panel.querySelector('#pa-act-chart-scroll');
+  const nav=panel.querySelector('[data-pa-act-chart-nav]');
+  if(!viewport||!nav)return;
+  const max=Math.max(0,viewport.scrollWidth-viewport.clientWidth);
+  nav.hidden=max<=3;
+  const back=nav.querySelector('[data-pa-act-chart-step="-1"]');
+  const next=nav.querySelector('[data-pa-act-chart-step="1"]');
+  if(back)back.disabled=viewport.scrollLeft<=2;
+  if(next)next.disabled=viewport.scrollLeft>=max-2;
+}
+  function actComparison(m,filtered){
+  const source=filtered.map(a=>({activity:a,unit:actUnitInfo(a)}));
+  if(!source.length)return '<div class="pa-act-nodata">No hay actividades que coincidan con los filtros actuales.</div>';
+  const groups=new Map();
+  for(const entry of source){const key=entry.unit.key;if(!groups.has(key))groups.set(key,{unit:entry.unit,count:0});groups.get(key).count++;}
+  const groupChoices=[...groups.entries()].sort((a,b)=>b[1].count-a[1].count||a[1].unit.label.localeCompare(b[1].unit.label,'es'));
+  const selectedUnit=groups.has(state.activityCompareUnit)?state.activityCompareUnit:'all';
+  const visible=selectedUnit==='all'?source:source.filter(item=>item.unit.key===selectedUnit);
+  const options=[`<option value="all"${selectedUnit==='all'?' selected':''}>Todas las unidades (${source.length})</option>`,...groupChoices.map(([key,info])=>`<option value="${html(key)}"${key===selectedUnit?' selected':''}>${html(info.unit.label)} (${info.count})</option>`)].join('');
+  const left=59,right=16,barGroup=147,plotTop=103,plotH=160,base=plotTop+plotH;
+  const width=Math.max(648,left+visible.length*barGroup+right),height=355;
+  const slot=(width-left-right)/visible.length,svg=[];
+  const unitLine=(value,entry)=>actGraphLines(Math.abs(value)===1?entry.unit.one:entry.unit.many,12,3);
+  const badge=(cx,position,entry,kind,color)=>{
+    const a=entry.activity,u=entry.unit,val=kind==='programado'?a.target:a.progress;
+    const x=cx+(position==='left'?-70:2),lines=isNumeric(val)?unitLine(val,entry):['Sin dato'];
+    const amount=isNumeric(val)?fmtNum.format(val):'—';
+    const tip=(kind==='programado'?'Programado: ':'Ejecutado: ')+actQuantityLabel(val,u)+'. Indicador: '+(a.indicator||'Sin indicador')+'. Unidad oficial: '+(u.original||'no indicada')+'.';
+    return `<g class="pa-act-value-badge"><title>${html(tip)}</title><rect x="${x}" y="1" width="68" height="79" rx="8" fill="${color}"/><path d="M ${x+29} 80 l 5 6 l 5 -6" fill="${color}"/><text x="${x+34}" y="17" text-anchor="middle" fill="#15375b" font-size="8.8" font-weight="700">${kind==='programado'?'Programado':'Ejecutado'}</text><text x="${x+34}" y="34" text-anchor="middle" fill="#102e52" font-size="13" font-weight="850">${html(amount)}</text>${lines.map((line,i)=>`<text x="${x+34}" y="${47+i*10}" text-anchor="middle" font-size="8.5" fill="#23425b">${html(line)}</text>`).join('')}</g>`;
+  };
+  // Both series are normalized by each activity's OWN programmed value.
+  for(let tick=0;tick<=5;tick++){
+    const pct=tick*20,y=base-plotH*pct/100;
+    svg.push(`<line x1="${left}" y1="${y}" x2="${width-8}" y2="${y}" stroke="#dce6f0" stroke-width="1"/><text x="${left-7}" y="${y+4}" text-anchor="end" fill="#456581" font-size="10">${pct}%</text>`);
+  }
+  svg.push(`<text transform="translate(13 ${plotTop+plotH/2}) rotate(-90)" text-anchor="middle" fill="#163658" font-size="10" font-weight="700">Cumplimiento de la meta (%)</text>`);
+  visible.forEach((entry,i)=>{
+    const a=entry.activity,u=entry.unit,cx=left+slot*(i+.5);
+    const validTarget=isNumeric(a.target)&&a.target>0;
+    const validProgress=isNumeric(a.progress)&&a.progress>=0;
+    const rate=validTarget&&validProgress?a.progress/a.target*100:null;
+    const capped=rate===null?0:Math.max(0,Math.min(100,rate));
+    const blueX=cx-57,greenX=cx+5,barW=51;
+    const greenH=plotH*capped/100;
+    const rateText=rate===null?(validTarget?'Sin dato':'No evaluable'):fmtNum.format(rate)+'%';
+    svg.push(`<g class="pa-act-group" data-pa-act-group="${html(a.n)}"><title>${html('Actividad '+a.n+': '+a.name+'. Programado: '+actQuantityLabel(a.target,u)+'. Ejecutado: '+actQuantityLabel(a.progress,u)+'. Cumplimiento: '+rateText+'.')}</title>`);
+    svg.push(badge(cx,'left',entry,'programado','#e5f0fd')+badge(cx,'right',entry,'ejecutado','#ddf5e4'));
+    if(validTarget){
+      svg.push(`<rect x="${blueX}" y="${plotTop}" width="${barW}" height="${plotH}" rx="4" fill="#338cf0"/><text x="${blueX+barW/2}" y="${plotTop+20}" text-anchor="middle" fill="#fff" font-size="13" font-weight="850">100%</text>`);
+    }else{
+      svg.push(`<line x1="${blueX}" y1="${base-2}" x2="${blueX+barW}" y2="${base-2}" stroke="#9db2c7" stroke-width="3" stroke-dasharray="4 3"/><text x="${blueX+barW/2}" y="${base-13}" text-anchor="middle" fill="#5c7892" font-size="9">N/E</text>`);
+    }
+    if(rate!==null&&capped>0){
+      svg.push(`<rect x="${greenX}" y="${base-greenH}" width="${barW}" height="${greenH}" rx="4" fill="#3caf57"/>`);
+    }
+    if(rate===null){
+      svg.push(`<text x="${greenX+barW/2}" y="${base-13}" fill="#54728a" font-size="9" text-anchor="middle">${validTarget?'Sin dato':'N/E'}</text>`);
+    }else{
+      const pctY=capped>=15?base-greenH+19:base-greenH-5,fg=capped>=15?'#fff':'#087844';
+      svg.push(`<text x="${greenX+barW/2}" y="${pctY}" fill="${fg}" font-size="${capped>=15?12:10}" font-weight="800" text-anchor="middle">${html(rateText)}</text>`);
+    }
+    svg.push(`<text x="${cx}" y="${base+23}" text-anchor="middle" fill="#17365a" font-size="12" font-weight="850">${html(a.n)}</text>`);
+    const nameLines=actGraphLines(a.name,23,3);
+    svg.push(`<text x="${cx}" y="${base+37}" text-anchor="middle" fill="#3a5977" font-size="9">${nameLines.map((line,k)=>`<tspan x="${cx}" dy="${k===0?0:11}">${html(line)}</tspan>`).join('')}</text></g>`);
+  });
+  const legend=`<div class="pa-act-chart-legend"><span><i class="pa-act-legend-blue"></i>Programado ${state.year}</span><span><i class="pa-act-legend-green"></i>Ejecutado ${state.year}</span></div>`;
+  return `<div class="pa-act-compare-toolbar"><div class="pa-act-compare-control"><label for="pa-act-compare-unit">Unidad de medida</label><select id="pa-act-compare-unit" aria-label="Filtrar gráfico por unidad">${options}</select></div>${legend}</div><div class="pa-act-chart-nav" data-pa-act-chart-nav hidden><button type="button" data-pa-act-chart-step="-1" aria-label="Ver actividades anteriores" title="Desplazar a la izquierda">‹</button><button type="button" data-pa-act-chart-step="1" aria-label="Ver actividades siguientes" title="Desplazar a la derecha">›</button></div><div class="pa-act-chart-scroll" id="pa-act-chart-scroll" tabindex="0" role="region" aria-label="Gráfica de ${visible.length} actividades; desplázate horizontalmente para ver todas"><svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="Comparación de cumplimiento físico de ${visible.length} actividades, en porcentaje de 0 a 100">${svg.join('')}</svg></div><p class="pa-act-compare-explain"><span aria-hidden="true">ⓘ</span>El cumplimiento se calcula por actividad: ejecutado ÷ programado. Las etiquetas muestran las cantidades y unidades reportadas; en ausencia de datos, se indica expresamente.</p>`;
+}
   function actTimeline(m,filtered){
     if(!filtered.length)return '<div class="pa-act-nodata">No hay actividades que mostrar en el registro mensual.</div>';
     const hdr=months.map(x=>`<th scope="col">${x}</th>`).join('');
@@ -498,7 +623,7 @@
   }
   function actDashboard(m){
     const filtered=actFiltered(m);
-    const content=`<div class="pa-act-dashboard">${actKeyStats(m)}${actFiltersMarkup(m)}${actTable(m,filtered)}<div class="pa-act-bottom-grid"><section class="pa-act-card"><h3>Programaci\u00f3n vs ejecuci\u00f3n por actividad</h3>${actComparison(m,filtered)}</section><section class="pa-act-card"><h3>Registro mensual de ejecuci\u00f3n ${state.year}</h3>${actTimeline(m,filtered)}</section><section class="pa-act-card"><h3>Soportes y Evidencias Destacadas</h3>${actCarousel(m)}</section></div><p class="pa-act-source"><strong>Fuente:</strong> ${html(currentYear()?.source||'Excel de plan de acci\u00f3n')} \u00b7 ${state.year==='2026'?'Segundo trimestre de 2026.':'Vigencia 2025.'} Los colores de avance son indicadores de lectura; los retrasos solo se mencionan cuando el texto original los especifica.</p></div>${actDetailDialog()}${actRepositoryDialog(m)}`;
+    const content=`<div class="pa-act-dashboard">${actKeyStats(m)}${actFiltersMarkup(m)}${actTable(m,filtered)}<div class="pa-act-bottom-grid"><section class="pa-act-card"><h3>Programación vs ejecución por actividad · ${state.year}</h3>${actComparison(m,filtered)}</section><section class="pa-act-card"><h3>Registro mensual de ejecuci\u00f3n ${state.year}</h3>${actTimeline(m,filtered)}</section><section class="pa-act-card"><h3>Soportes y Evidencias Destacadas</h3>${actCarousel(m)}</section></div><p class="pa-act-source"><strong>Fuente:</strong> ${html(currentYear()?.source||'Excel de plan de acci\u00f3n')} \u00b7 ${state.year==='2026'?'Segundo trimestre de 2026.':'Vigencia 2025.'} Los colores de avance son indicadores de lectura; los retrasos solo se mencionan cuando el texto original los especifica.</p></div>${actDetailDialog()}${actRepositoryDialog(m)}`;
     return content;
   }
   function actResults(){
@@ -1840,6 +1965,7 @@
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
     trUnmountMap();
     panel.innerHTML=pageMarkup();
+    if(state.activeTab==='activities')requestAnimationFrame(actChartControls);
     if(state.activeTab==='territory'&&currentYear()&&!state.list){
       requestAnimationFrame(()=>trInitMap());
       if(!state.territoryExtraLoaded)trLoadFullTexts();
@@ -1964,6 +2090,8 @@
       return;
     }
     if(ev.target.closest('[data-pa-ph-export]')){phExport();return;}
+    const chartMove=ev.target.closest('[data-pa-act-chart-step]');
+    if(chartMove){const scroll=panel.querySelector('#pa-act-chart-scroll');if(scroll)scroll.scrollBy({left:Number(chartMove.dataset.paActChartStep)*Math.max(180,Math.round(scroll.clientWidth*.7)),behavior:'smooth'});return;}
     if(ev.target.closest('[data-pa-act-clear]')){state.activityFilters={q:'',status:'all',owner:'all',place:'all'};refresh();return;}
     const d=ev.target.closest('[data-pa-act-detail]');if(d){actShowDetail(Number(d.dataset.paActDetail));return;}
     if(ev.target.closest('[data-pa-act-close]')){ev.target.closest('dialog')?.close();return;}
@@ -2032,6 +2160,8 @@
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
   }
   panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog')||dialog?.classList?.contains('pa-tr-dialog')||dialog?.classList?.contains('pa-su-dialog')||dialog?.classList?.contains('pa-ob-dialog')||dialog?.classList?.contains('pa-ct-dialog'))dialog.close();});
+  panel.addEventListener('scroll',ev=>{if(ev.target?.id==='pa-act-chart-scroll')actChartControls();},true);
+  window.addEventListener('resize',()=>{if(state.activeTab==='activities')actChartControls();});
   panel.addEventListener('keydown',ev=>{const row=ev.target.closest('tr[data-pa-ct-contract]');if(row&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();row.click();}});
   load();
 })();

@@ -194,3 +194,18 @@
  #desarrollo-accion.pa-mounted .pa-act-thumb-placeholder{height:100px}
  #desarrollo-accion.pa-mounted .pa-act-card{padding:12px 9px}
 }
+
+/* 3.3 Actividades: comparativa porcentual de todas las actividades, sin afectar otras pestañas. */
+#desarrollo-accion.pa-mounted .pa-act-compare-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;min-width:0}
+#desarrollo-accion.pa-mounted .pa-act-compare-toolbar .pa-act-compare-control{flex:1 1 175px}
+#desarrollo-accion.pa-mounted .pa-act-compare-toolbar .pa-act-chart-legend{margin:0;flex:0 1 auto;justify-content:flex-end;gap:12px}
+#desarrollo-accion.pa-mounted .pa-act-chart-nav{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin:-3px 0 -7px}
+#desarrollo-accion.pa-mounted .pa-act-chart-nav[hidden]{display:none!important}
+#desarrollo-accion.pa-mounted .pa-act-chart-nav button{border:1px solid #cbdce9;background:#f2f7fc;color:#154978;border-radius:5px;min-width:28px;height:27px;padding:0 6px;line-height:1;font-size:22px;cursor:pointer}
+#desarrollo-accion.pa-mounted .pa-act-chart-nav button:disabled{opacity:.35;cursor:default}
+#desarrollo-accion.pa-mounted .pa-act-chart-nav button:focus-visible{outline:2px solid #167ad7;outline-offset:2px}
+#desarrollo-accion.pa-mounted .pa-act-chart-scroll{min-height:0;overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin;overscroll-behavior-x:contain}
+#desarrollo-accion.pa-mounted .pa-act-chart-scroll svg{display:block;max-width:none;min-width:100%;height:auto}
+#desarrollo-accion.pa-mounted .pa-act-compare-explain{display:flex;gap:7px;align-items:flex-start;font-size:10px!important;line-height:1.35!important;color:#315574!important;background:#edf5fc;border-radius:6px;padding:8px 9px;margin:2px 0 0!important}
+#desarrollo-accion.pa-mounted .pa-act-compare-explain>span{flex:none;color:#187ad7;font-size:16px;line-height:1}
+@media(max-width:700px){#desarrollo-accion.pa-mounted .pa-act-compare-toolbar .pa-act-chart-legend{justify-content:flex-start}#desarrollo-accion.pa-mounted .pa-act-chart-nav{margin:0 0 -4px}}
