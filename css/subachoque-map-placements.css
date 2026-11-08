@@ -1,6 +1,6 @@
 /* Encaje del mapa maestro en los contenedores existentes. No rediseña pestañas. */
 #desarrollo-accion.pa-mounted .pa-map-view > .ti-ed-map{height:100%;min-height:170px;border-radius:4px}
-#desarrollo-accion.pa-mounted .pa-ig-map > .ti-ed-map{height:239px;min-height:239px;border:1px solid #c5d9d1;border-radius:5px}
+#desarrollo-accion.pa-mounted .pa-ig-map > .ti-ed-map{height:auto;min-height:239px;flex:1 1 239px;border:1px solid #c5d9d1;border-radius:5px}
 #desarrollo-accion.pa-mounted .pa-ph-map-view > .ti-ed-map{height:215px;min-height:215px;border:1px solid #c5d8d7;border-radius:5px}
 #desarrollo-accion.pa-mounted .pa-ben-map-area > .ti-ed-map{height:226px;min-height:226px;border-radius:6px}
 #desarrollo-accion.pa-mounted .pa-tr-map-frame:has(.ti-ed-map){background:#FBF2E8;border:1px solid #dedac8}
@@ -16,8 +16,8 @@
 #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-bottom{max-width:70%;font-size:9px;background:#fffcf3db;color:#566b5b;padding:4px 7px;border-radius:4px}
 #desarrollo-accion.pa-mounted .ti-ed-map .ti-ed-navigation{z-index:850}
 #desarrollo-accion.pa-mounted .ti-ed-map .leaflet-control-scale-line{border-color:#365e4a!important}
-@media(max-width:700px){
-  #desarrollo-accion.pa-mounted .pa-ig-map > .ti-ed-map{height:225px;min-height:225px}
+@media(max-width:740px){
+  #desarrollo-accion.pa-mounted .pa-ig-map > .ti-ed-map{height:min(62vh,540px);min-height:310px;flex:0 0 auto}
   #desarrollo-accion.pa-mounted .pa-map-view > .ti-ed-map{min-height:170px}
   #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls{right:52px}
   #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-bottom{display:none}
