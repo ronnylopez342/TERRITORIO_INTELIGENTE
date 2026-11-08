@@ -47,7 +47,7 @@
       <button type="button" role="tab" aria-selected="false" data-ti42-view="proyectos" class="ti42-tab">Proyectos</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="contratos" class="ti42-tab">Contratos</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="financiera" class="ti42-tab">Ejecución financiera</button>
-      <span class="ti42-tab is-pending" title="Pendiente de implementación">Cronograma</span>
+      <button type="button" role="tab" aria-selected="false" data-ti42-view="cronograma" class="ti42-tab">Cronograma</button>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Mapa</span>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Evidencias</span>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Indicadores</span>
