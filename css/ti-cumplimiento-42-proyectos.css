@@ -1,0 +1,352 @@
+/* Unidad de Cumplimiento 4.2 / Proyectos. No toca el estilo de 4.1 o 4.3+. */
+#cumplimiento-proyectos .ti42-tabs [data-ti42-view]{
+ cursor:pointer;border:0;border-right:1px solid #d8e5ec;
+ border-radius:0;appearance:none;font-family:inherit;min-height:42px;
+ background:#f9fbfe;color:#496781;font-size:11px;font-weight:800;
+ padding:10px 17px;white-space:nowrap;display:flex;align-items:center;justify-content:center;
+}
+#cumplimiento-proyectos .ti42-tabs [data-ti42-view]:hover:not(.is-active){background:#e8f4f1;color:#04613c}
+#cumplimiento-proyectos .ti42-tabs [data-ti42-view].is-active{
+ background:#00744b;color:#fff!important;
+}
+#cumplimiento-proyectos .ti42 [data-ti42-resumen-content][hidden],
+#cumplimiento-proyectos .ti42 [data-ti42-proyectos-root][hidden]{display:none!important}
+#cumplimiento-proyectos .ti42p{
+ --ti42p-ink:#12365a;--ti42p-mid:#4b7088;--ti42p-line:#d9e6ef;--ti42p-green:#078654;
+ display:block;color:var(--ti42p-ink);min-width:0;font-family:"Poppins",Arial,sans-serif;
+}
+#cumplimiento-proyectos .ti42p *{box-sizing:border-box;min-width:0}
+#cumplimiento-proyectos .ti42p h2,
+#cumplimiento-proyectos .ti42p h3,
+#cumplimiento-proyectos .ti42p h4,
+#cumplimiento-proyectos .ti42p p{margin:0!important;padding:0;text-transform:none!important;letter-spacing:normal!important}
+#cumplimiento-proyectos .ti42p h2{font-size:clamp(24px,2.2vw,33px)!important;color:#0d3155!important;font-weight:900!important;line-height:1.2!important}
+#cumplimiento-proyectos .ti42p h3{font-size:clamp(14px,1.2vw,18px)!important;color:#0a3154!important;line-height:1.35!important;font-weight:850!important}
+#cumplimiento-proyectos .ti42p h4{font-size:12px!important;color:#174869!important;font-weight:850!important;margin:16px 0 8px!important}
+#cumplimiento-proyectos .ti42p :is(input,select,button){font-family:inherit}
+#cumplimiento-proyectos .ti42p :is(button,select,input):focus-visible{outline:3px solid #228cc9!important;outline-offset:2px}
+#cumplimiento-proyectos .ti42p-intro{
+ display:flex;justify-content:space-between;align-items:center;
+ flex-wrap:wrap;gap:12px;margin:4px 0 13px;
+}
+#cumplimiento-proyectos .ti42p-eyebrow{
+ display:block;color:#168064;font-weight:850;font-size:10px;
+ letter-spacing:.08em;margin-bottom:5px;
+}
+#cumplimiento-proyectos .ti42p-intro h2 span{color:#138d69}
+#cumplimiento-proyectos .ti42p-intro p{
+ color:#54738a;font-size:12px!important;line-height:1.55!important;
+ margin-top:5px!important;max-width:820px;
+}
+#cumplimiento-proyectos .ti42p-export{
+ border:1px solid #066f50;border-radius:6px;cursor:pointer;
+ padding:11px 15px;min-height:39px;
+ background:#00794d;color:white;font-weight:800;font-size:11px;
+ box-shadow:0 2px 4px #103a381a;white-space:nowrap;
+}
+#cumplimiento-proyectos .ti42p-export:hover{background:#0b915f}
+#cumplimiento-proyectos .ti42p-refine{
+ display:grid;grid-template-columns:minmax(220px,1.5fr) minmax(115px,.85fr) minmax(125px,.9fr) minmax(130px,.85fr) auto;
+ gap:10px;align-items:end;margin-bottom:8px;
+ border:1px solid #d9e6ed;background:#fff;border-radius:8px;
+ padding:13px;box-shadow:0 2px 6px #09364e0b;
+}
+#cumplimiento-proyectos .ti42p-refine label{
+ display:block;font-size:10px;color:#45667c;font-weight:800;margin-bottom:5px;
+}
+#cumplimiento-proyectos .ti42p-refine select,
+#cumplimiento-proyectos .ti42p-refine input{
+ display:block;background:#f9fcfe;color:#193b58;width:100%;height:36px;
+ border:1px solid #ccdce7;border-radius:5px;padding:6px 9px;font-size:11px;
+}
+#cumplimiento-proyectos .ti42p-search>div{display:flex;align-items:center;position:relative}
+#cumplimiento-proyectos .ti42p-search>div span{
+ color:#0d7453;position:absolute;left:10px;font-size:22px;pointer-events:none;
+}
+#cumplimiento-proyectos .ti42p-search input{padding-left:33px}
+#cumplimiento-proyectos .ti42p-clear{
+ background:#eef5f7;color:#1b5b71;border:1px solid #c8dce8;
+ border-radius:5px;padding:8px 12px;height:36px;font-weight:750;
+ font-size:11px;cursor:pointer;white-space:nowrap;
+}
+#cumplimiento-proyectos .ti42p-clear:hover{background:#d9f0eb}
+#cumplimiento-proyectos .ti42p-source{
+ color:#617d92;font-size:11px!important;line-height:1.45!important;
+ padding:2px 2px 12px!important;
+}
+#cumplimiento-proyectos .ti42p-main{
+ display:grid;grid-template-columns:minmax(0,1.58fr) minmax(340px,.95fr);
+ gap:13px;align-items:start;
+}
+#cumplimiento-proyectos .ti42p-left{min-width:0;display:flex;flex-direction:column;gap:12px}
+#cumplimiento-proyectos .ti42p-card{
+ border:1px solid #d5e3ed;border-radius:8px;background:white;
+ padding:clamp(12px,1.13vw,17px);box-shadow:0 2px 7px #0e35500f;
+ color:#183b57;min-width:0;
+}
+#cumplimiento-proyectos .ti42p-card-heading{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ flex-wrap:wrap;margin-bottom:11px;
+}
+#cumplimiento-proyectos .ti42p-card-heading>span{
+ background:#eaf6f2;color:#08734d;font-size:10px;font-weight:800;
+ border-radius:14px;padding:5px 9px;
+}
+#cumplimiento-proyectos .ti42p-table-scroll{
+ border:1px solid #d8e5ed;border-radius:6px;
+ overflow-x:auto;overflow-y:auto;max-height:490px;scrollbar-width:thin;
+}
+#cumplimiento-proyectos .ti42p-table-scroll table{
+ min-width:930px;width:100%;border-collapse:collapse;
+ table-layout:fixed;color:#23455e;background:#fff;
+}
+#cumplimiento-proyectos .ti42p-table-scroll th,
+#cumplimiento-proyectos .ti42p-table-scroll td{
+ font-size:10px;line-height:1.4;padding:10px 8px;
+ border-bottom:1px solid #e6eef3;vertical-align:middle;text-align:left;
+ overflow-wrap:anywhere;
+}
+#cumplimiento-proyectos .ti42p-table-scroll th{
+ position:sticky;top:0;z-index:3;background:#e8f2f5;color:#133f5f;
+ font-weight:850;font-size:10px;
+}
+#cumplimiento-proyectos .ti42p-table-scroll th:nth-child(1){width:43px}
+#cumplimiento-proyectos .ti42p-table-scroll th:nth-child(2){width:91px}
+#cumplimiento-proyectos .ti42p-table-scroll th:nth-child(3){width:238px}
+#cumplimiento-proyectos .ti42p-table-scroll th:nth-child(4){width:112px}
+#cumplimiento-proyectos .ti42p-table-scroll th:nth-child(5){width:146px}
+#cumplimiento-proyectos .ti42p-table-scroll th:nth-child(6){width:94px}
+#cumplimiento-proyectos .ti42p-table-scroll th:nth-child(7){width:113px}
+#cumplimiento-proyectos .ti42p-table-scroll th:nth-child(8){width:103px}
+#cumplimiento-proyectos .ti42p-table-scroll tbody tr:nth-child(even){background:#f9fbfc}
+#cumplimiento-proyectos .ti42p-table-scroll tbody tr.selected{
+ background:#e9f7f1;box-shadow:inset 3px 0 #078856;
+}
+#cumplimiento-proyectos .ti42p-table-scroll td strong{
+ font-size:11px;font-weight:750;color:#0b3456;line-height:1.38;display:block;
+}
+#cumplimiento-proyectos .ti42p-table-scroll td small{
+ color:#638296;font-size:9px;display:block;margin-top:5px;
+}
+#cumplimiento-proyectos .ti42p-bpin{font-weight:700;color:#136089;word-break:break-all}
+#cumplimiento-proyectos .ti42p-money{white-space:nowrap;color:#0f4965;font-weight:700}
+#cumplimiento-proyectos .ti42p-table-scroll td button{
+ border:1px solid #aecfdb;background:#f0f7fb;color:#126189;
+ border-radius:5px;padding:7px 6px;font-size:10px;
+ font-weight:800;cursor:pointer;width:100%;line-height:1.2;
+}
+#cumplimiento-proyectos .ti42p-table-scroll td button:hover,
+#cumplimiento-proyectos .ti42p-table-scroll tr.selected td button{
+ background:#d8f1e9;color:#046942;border-color:#64bda0;
+}
+#cumplimiento-proyectos .ti42p-status{
+ display:inline-flex;align-items:center;gap:5px;font-size:9px;
+ line-height:1.3;border-radius:4px;padding:4px 6px;margin:5px 0 0;
+ max-width:100%;font-weight:750;overflow-wrap:anywhere;
+ background:#e9eff4;color:#536d80;
+}
+#cumplimiento-proyectos .ti42p-status i{height:7px;width:7px;border-radius:50%;background:currentColor;flex:none}
+#cumplimiento-proyectos .ti42p-status.good{background:#ddf4e6;color:#087046}
+#cumplimiento-proyectos .ti42p-status.info{background:#e3effe;color:#1d6ba9}
+#cumplimiento-proyectos .ti42p-status.caution{background:#fff2d8;color:#8a610e}
+#cumplimiento-proyectos .ti42p-phase{display:block;color:#496c84}
+#cumplimiento-proyectos .ti42p-track{
+ height:9px;border-radius:99px;background:#e4edf3;overflow:hidden;position:relative;
+}
+#cumplimiento-proyectos .ti42p-track i{
+ display:block;height:100%;border-radius:99px;min-width:0;
+}
+#cumplimiento-proyectos .ti42p-track i.green{background:linear-gradient(90deg,#07965e,#37b67c)}
+#cumplimiento-proyectos .ti42p-track i.blue{background:linear-gradient(90deg,#157bd0,#50afea)}
+#cumplimiento-proyectos .ti42p-track i.amber{background:linear-gradient(90deg,#e9ab13,#e5c450)}
+#cumplimiento-proyectos .ti42p-bar-line{
+ display:flex;align-items:center;gap:7px;min-width:0;
+}
+#cumplimiento-proyectos .ti42p-bar-line .ti42p-track{width:100%;flex:1}
+#cumplimiento-proyectos .ti42p-bar-line strong{
+ flex:0 0 auto;font-size:10px!important;color:#174a67;
+ font-weight:850;white-space:nowrap;
+}
+#cumplimiento-proyectos .ti42p-unknown,
+#cumplimiento-proyectos .ti42p-missing{color:#8b9eaa;font-style:italic;font-size:10px}
+#cumplimiento-proyectos .ti42p-warning{display:block;margin-top:4px;color:#b33d2e;font-size:9px}
+#cumplimiento-proyectos .ti42p-pagination{
+ display:flex;justify-content:space-between;gap:12px;align-items:center;
+ flex-wrap:wrap;color:#55788d;font-size:10px;margin-top:10px;
+}
+#cumplimiento-proyectos .ti42p-pagination>div{display:flex;align-items:center;gap:7px}
+#cumplimiento-proyectos .ti42p-pagination select{
+ height:30px;border:1px solid #c7d9e5;border-radius:5px;
+ background:#f8fafc;color:#204e6c;padding:4px 6px;
+}
+#cumplimiento-proyectos .ti42p-pagination button{
+ width:30px;height:30px;border:1px solid #bcd2e0;border-radius:5px;
+ background:#f2f8fb;color:#126489;cursor:pointer;font-size:18px;
+}
+#cumplimiento-proyectos .ti42p-pagination button:disabled{opacity:.45;cursor:not-allowed}
+#cumplimiento-proyectos .ti42p-detail{
+ border-top:4px solid #0b8b59;position:relative;min-width:0;
+}
+#cumplimiento-proyectos .ti42p-detail-top{
+ padding-bottom:12px;border-bottom:1px solid #e4edf3;min-height:117px;
+}
+#cumplimiento-proyectos .ti42p-detail h3{
+ overflow-wrap:anywhere;font-size:clamp(17px,1.55vw,23px)!important;
+ margin:4px 0 9px!important;line-height:1.3!important;
+}
+#cumplimiento-proyectos .ti42p-detail-top small{
+ display:block;font-size:10px;color:#5e8094;line-height:1.5;margin-top:4px;
+}
+#cumplimiento-proyectos .ti42p-detail-tabs{
+ display:flex;gap:0;overflow-x:auto;scrollbar-width:thin;border-bottom:1px solid #d5e3ec;
+ margin:10px -2px 12px;
+}
+#cumplimiento-proyectos .ti42p-detail-tabs button{
+ border:0;border-bottom:2px solid transparent;border-radius:0;
+ background:transparent;color:#53748a;font-size:10px;
+ font-weight:750;cursor:pointer;white-space:nowrap;
+ padding:11px 10px;
+}
+#cumplimiento-proyectos .ti42p-detail-tabs button:hover{background:#f2f9f6}
+#cumplimiento-proyectos .ti42p-detail-tabs button.is-active{
+ border-bottom-color:#078956;background:#eef9f2;color:#086548;
+}
+#cumplimiento-proyectos .ti42p-detail-body{min-height:410px}
+#cumplimiento-proyectos .ti42p-detail-body>[hidden]{display:none!important}
+#cumplimiento-proyectos .ti42p-facts{
+ display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin:8px 0;
+}
+#cumplimiento-proyectos .ti42p-fact{
+ display:grid;grid-template-columns:minmax(100px,.8fr) minmax(0,1.3fr);
+ gap:10px;padding:9px 0;border-bottom:1px solid #edf2f6;
+}
+#cumplimiento-proyectos .ti42p-fact dt{
+ color:#668093;font-size:10px;line-height:1.42;font-weight:750;
+}
+#cumplimiento-proyectos .ti42p-fact dd{
+ color:#153a59;font-size:11px;line-height:1.5;margin:0;
+ overflow-wrap:anywhere;
+}
+#cumplimiento-proyectos .ti42p-excerpt{
+ background:#f7fafc;border:1px solid #e1eaf0;border-radius:5px;
+ color:#2c526a;font-size:11px!important;line-height:1.62!important;
+ padding:12px!important;overflow-wrap:anywhere;white-space:normal;
+}
+#cumplimiento-proyectos .ti42p-not-available{color:#8597a3;font-style:italic}
+#cumplimiento-proyectos .ti42p-detail-note,
+#cumplimiento-proyectos .ti42p-note{
+ color:#607d8f;font-size:10px;line-height:1.55;
+ border-left:3px solid #f0c34d;background:#fff9e9;
+ border-radius:2px;padding:9px 11px;margin:12px 0!important;
+}
+#cumplimiento-proyectos .ti42p-detail-note{margin-top:17px!important}
+#cumplimiento-proyectos .ti42p-map-caption{
+ font-size:11px!important;color:#516e84;line-height:1.5!important;margin-bottom:11px!important;
+}
+#cumplimiento-proyectos .ti42p-map-frame{
+ border:1px solid #d6dfd5;border-radius:7px;height:325px;
+ overflow:hidden;background:#f8f1e7;
+}
+#cumplimiento-proyectos .ti42p-map-host{height:100%;width:100%}
+#cumplimiento-proyectos .ti42p-map-focus{
+ display:block;cursor:pointer;background:#00744f;border:1px solid #04764f;color:#fff;
+ border-radius:6px;padding:9px 12px;font-size:11px;font-weight:850;margin:10px 0;
+}
+#cumplimiento-proyectos .ti42p-map-focus:disabled{opacity:.4;cursor:default}
+#cumplimiento-proyectos .ti42p-progress-item{
+ margin-bottom:16px;display:flex;flex-direction:column;gap:8px;
+}
+#cumplimiento-proyectos .ti42p-progress-title{font-size:12px;color:#2b5974;font-weight:750}
+#cumplimiento-proyectos .ti42p-secopp,
+#cumplimiento-proyectos .ti42p-evidence-link{
+ display:block;border:1px solid #c7e1db;background:#eef8f4;
+ color:#087550;border-radius:6px;padding:10px 12px;
+ font-size:11px;line-height:1.4;text-decoration:none;
+ font-weight:800;margin:9px 0;
+}
+#cumplimiento-proyectos .ti42p-evidence-empty,
+#cumplimiento-proyectos .ti42p-empty{
+ border:1px dashed #cddfe9;border-radius:7px;background:#f7fafc;
+ color:#567489;line-height:1.5;font-size:11px;padding:18px;
+}
+#cumplimiento-proyectos .ti42p-evidence-empty{
+ min-height:150px;display:flex;align-items:center;justify-content:center;
+ flex-direction:column;text-align:center;gap:10px;
+}
+#cumplimiento-proyectos .ti42p-evidence-empty span{font-size:36px;color:#6ea5b4}
+#cumplimiento-proyectos .ti42p-evidence-empty strong{color:#284e68}
+#cumplimiento-proyectos .ti42p-evidence-empty p{font-size:11px!important;line-height:1.5!important}
+#cumplimiento-proyectos .ti42p-indicator-cards{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0;
+}
+#cumplimiento-proyectos .ti42p-indicator-cards>div{
+ background:#eef7f5;border:1px solid #c9e4d9;border-radius:6px;padding:13px;
+}
+#cumplimiento-proyectos .ti42p-indicator-cards small{display:block;color:#477669;font-size:10px}
+#cumplimiento-proyectos .ti42p-indicator-cards strong{font-size:23px;color:#047044}
+#cumplimiento-proyectos .ti42p-observation{
+ border-left:3px solid #edbe52;background:#fff8eb;color:#5e5946;
+ font-size:11px!important;line-height:1.6!important;padding:10px!important;
+}
+#cumplimiento-proyectos .ti42p-analysis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#cumplimiento-proyectos .ti42p-analysis .ti42p-card>h3{margin-bottom:12px!important}
+#cumplimiento-proyectos .ti42p-mini-progress>div{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,1fr);
+ gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #edf2f5;
+}
+#cumplimiento-proyectos .ti42p-mini-progress>div>span{
+ font-size:10px;color:#42667d;line-height:1.4;
+}
+#cumplimiento-proyectos .ti42p-mini-foot{
+ color:#658095;font-size:10px!important;line-height:1.5!important;margin-top:10px!important;
+}
+#cumplimiento-proyectos .ti42p-state-row{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(45px,.9fr) 25px;
+ align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #edf2f5;
+}
+#cumplimiento-proyectos .ti42p-state-row span{font-size:10px;color:#41637b;overflow-wrap:anywhere}
+#cumplimiento-proyectos .ti42p-state-row strong{font-size:11px;color:#0d5375;text-align:right}
+#cumplimiento-proyectos .ti42p-coverage-list>div{
+ display:grid;grid-template-columns:minmax(0,1fr) 46px;gap:6px;
+ align-items:center;padding:8px 0;border-bottom:1px solid #edf2f5;
+}
+#cumplimiento-proyectos .ti42p-coverage-list span{color:#44677b;font-size:10px}
+#cumplimiento-proyectos .ti42p-coverage-list strong{color:#085f47;font-size:10px;text-align:right}
+#cumplimiento-proyectos .ti42p-coverage-list .ti42p-track{grid-column:1/-1}
+#cumplimiento-proyectos .ti42p-obs{list-style:none;padding:0;margin:0}
+#cumplimiento-proyectos .ti42p-obs li{
+ display:flex;flex-direction:column;gap:5px;
+ border-bottom:1px solid #e7edf1;padding:9px 0;
+}
+#cumplimiento-proyectos .ti42p-obs strong{font-size:10px;color:#176381}
+#cumplimiento-proyectos .ti42p-obs span{font-size:10px;color:#4c6e84;line-height:1.5}
+#cumplimiento-proyectos .ti42p-footer{
+ color:#5c7a90;line-height:1.6;font-size:10px;
+ margin-top:13px;border-top:1px solid #d6e3ed;padding:10px 1px;
+}
+@media(max-width:1250px){
+ #cumplimiento-proyectos .ti42p-main{grid-template-columns:minmax(0,1fr)}
+ #cumplimiento-proyectos .ti42p-refine{grid-template-columns:repeat(4,minmax(0,1fr))}
+ #cumplimiento-proyectos .ti42p-refine .ti42p-search{grid-column:span 2}
+ #cumplimiento-proyectos .ti42p-clear{grid-column:auto}
+ #cumplimiento-proyectos .ti42p-detail-body{min-height:160px}
+}
+@media(max-width:780px){
+ #cumplimiento-proyectos .ti42p-analysis{grid-template-columns:minmax(0,1fr)}
+ #cumplimiento-proyectos .ti42p-refine{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #cumplimiento-proyectos .ti42p-refine .ti42p-search{grid-column:span 2}
+ #cumplimiento-proyectos .ti42p-card{padding:11px}
+ #cumplimiento-proyectos .ti42p-detail h3{font-size:20px!important}
+ #cumplimiento-proyectos .ti42p-map-frame{height:365px}
+}
+@media(max-width:520px){
+ #cumplimiento-proyectos .ti42p-refine{grid-template-columns:minmax(0,1fr)}
+ #cumplimiento-proyectos .ti42p-refine .ti42p-search{grid-column:auto}
+ #cumplimiento-proyectos .ti42p-intro{align-items:stretch}
+ #cumplimiento-proyectos .ti42p-export{width:100%}
+ #cumplimiento-proyectos .ti42p-fact{grid-template-columns:minmax(0,1fr)}
+ #cumplimiento-proyectos .ti42p-fact dd{margin-top:0}
+ #cumplimiento-proyectos .ti42p-pagination{align-items:flex-start}
+ #cumplimiento-proyectos .ti42p-detail-tabs button{padding:10px 9px}
+ #cumplimiento-proyectos .ti42p-indicator-cards{grid-template-columns:minmax(0,1fr)}
+}
