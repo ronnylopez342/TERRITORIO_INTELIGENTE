@@ -26,6 +26,31 @@
     navSvg("<path d=\"M4 4h16c1.1 0 2 .9 2 2v11c0 1.1-.9 2-2 2H9l-6 3V6c0-1.1.9-2 2-2Z\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"8\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/><circle cx=\"13\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/><circle cx=\"18\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/>")
   ];
   const state = { year:'2025', current:101, overallSearch:'', overallStatus:'all', overallSort:'id', data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, obData:null, obLoading:false, obLoaded:false, obError:null, obFilters:{type:'all',status:'all',issuer:'all',from:'',to:'',q:''}, obPage:0, obSort:'source', obSortAsc:true, loading:true, error:null };
+  // Persist only public navigation state. Never persist sensitive, fetched data,
+  // filters, authentication, coordinates, or open modal content here.
+  const PLAN_NAV_KEY='ti:plan33:navigation:v1';
+  const planNavTabs=['summary','overall','general','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'];
+  function restorePlanNavigation(){
+    try {
+      const saved=JSON.parse(localStorage.getItem(PLAN_NAV_KEY)||'null');
+      if(!saved||typeof saved!=='object')return;
+      if(planNavTabs.includes(saved.tab))state.activeTab=saved.tab;
+      const year=String(saved.year||'');
+      if(['2025','2026'].includes(year)||
+         (state.activeTab==='contracts'&&['2024','2027'].includes(year)))state.year=year;
+      const id=Number(saved.meta);
+      if(Number.isInteger(id)&&id>=1&&id<=999)state.current=id;
+    } catch { /* Blocked storage, old format, or invalid JSON: use normal defaults. */ }
+  }
+  function rememberPlanNavigation(){
+    try {
+      localStorage.setItem(PLAN_NAV_KEY,JSON.stringify({
+        tab:state.activeTab,year:state.year,meta:state.current
+      }));
+    } catch { /* The site must function even when browser storage is disabled. */ }
+  }
+  restorePlanNavigation();
+
   const fmtNum = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const fmtInt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
   const fmtMoney = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -93,7 +118,7 @@
       </div>
     </div>`;
   };
-  const tabKeys=['summary','overall','general','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'];
+  const tabKeys=planNavTabs;
   function tabMarkup(m){return `<div class="pa-tabs" role="tablist" aria-label="Secciones del seguimiento">${categories.map((name,i)=>{const active=tabKeys[i]===state.activeTab;return `<button type="button" role="tab" class="pa-tab ${active?'pa-tab--selected':''}" aria-selected="${active}" data-pa-tab="${tabKeys[i]}"><span class="pa-tab-icon" aria-hidden="true">${categoryIcons[i]}</span><span>${name}${tabKeys[i]==='activities' && m ? ` (${m.activities.length})` : ''}</span></button>`}).join('')}</div>`;}
   function unavailableMarkup(){return `<div class="pa-empty" role="status"><span class="pa-empty-symbol" aria-hidden="true">▤</span><h2>Información no disponible para ${state.year}</h2><p>El encabezado, los buscadores, el selector anual y las secciones se mantienen visibles. No se ha incorporado un archivo de Plan de Acción de ${state.year}.</p><p>Selecciona <strong>2025</strong> o <strong>2026</strong> para consultar los datos aportados.</p></div>`;}
   function dial(value,caption,color){const percent=pct(value),center=isNumeric(value)?pctLabel(value):'—';return `<div class="pa-dial" style="--pa-dial-color:${color};--pa-dial-fill:${percent??0}%"><div class="pa-dial-inner"><strong>${center}</strong><small>${caption}</small></div></div>`;}
@@ -1904,6 +1929,7 @@
   function refresh({preserveFocus=false}={}){
     // Las selecciones antiguas del listado de tarjetas se redirigen al unico directorio.
     if(state.list){state.list=false;state.activeTab='overall';}
+    rememberPlanNavigation();
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
     window.TISubachoqueMap?.destroyWithin(panel);
     trUnmountMap();
@@ -1949,7 +1975,9 @@
     if(obFilterMap[ev.target.id]){state.obFilters[obFilterMap[ev.target.id]]=ev.target.value;state.obPage=0;obRefreshPart();return;}
     if(ev.target.matches('[data-pa-tr-layer]')){trToggleLayer(ev.target.dataset.paTrLayer,ev.target.checked);return;}
     if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select','pa-tr-year-select','pa-su-year-select','pa-ob-year-select','pa-ct-year-select'].includes(ev.target.id))return;
-    state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();
+    state.year=ev.target.value;
+    if(metas().length&&!metas().some(m=>m.id===state.current))state.current=metas()[0].id;
+    state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();
   });
   panel.addEventListener('click',ev=>{
     const visibleChooser=panel.querySelector('.pa-meta-chooser[open]');
@@ -2086,7 +2114,9 @@
       const parsed=JSON.parse(decoded);
       if(!parsed?.periods?.['2025']?.metas || !parsed?.periods?.['2026']?.metas)throw Error('No están completos los años 2025 y 2026.');
       if(parsed.periods['2025'].metas.length!==109 || parsed.periods['2026'].metas.length!==109)throw Error('El número de metas no coincide con los Excel.');
-      state.data=parsed;state.loading=false;refresh();
+      state.data=parsed;
+      if(metas().length&&!metas().some(m=>m.id===state.current))state.current=metas()[0].id;
+      state.loading=false;refresh();
       // Load metadata separately: failure must never break the existing Resumen.
       try{
         const infoResponse=await fetch('/data/plan-accion-info-general-2025-2026.b64.txt',{cache:'no-cache'});

@@ -1,6 +1,18 @@
 'use strict';
 
-/* Shared, reload-safe links for the section structure. */
+/* Shared, reload-safe links for the section structure.
+   Explicit URL section > remembered section > default first section. */
+const TI_MODULE_NAV_KEY='ti:module-navigation:v1:';
+function rememberedModuleSection(route,tabs){
+  try {
+    const value=localStorage.getItem(TI_MODULE_NAV_KEY+route);
+    return tabs.some(tab=>tab.dataset.modulePanel===value)?value:null;
+  } catch { return null; }
+}
+function rememberModuleSection(route,panelId){
+  if(!validRoute(route)||!panelId)return;
+  try { localStorage.setItem(TI_MODULE_NAV_KEY+route,panelId); } catch {}
+}
 function restoreModuleSection() {
   const fragment=location.hash.slice(1);
   const route=fragment.split('?')[0];
@@ -32,8 +44,12 @@ function restoreModuleSection() {
     history.replaceState({route},'', '#'+route+'?'+params.toString());
   }
   const tabs=[...view.querySelectorAll('[data-module-panel]')];
-  const selected=tabs.find(tab=>tab.dataset.modulePanel===requested)||tabs[0];
+  // A direct #route?seccion=... always wins; a bare #route reopens its
+  // last visited subsection rather than showing Information General.
+  const targetId=requested||rememberedModuleSection(route,tabs);
+  const selected=tabs.find(tab=>tab.dataset.modulePanel===targetId)||tabs[0];
   if(!selected)return;
+  rememberModuleSection(route,selected.dataset.modulePanel);
   for(const tab of tabs){
     const active=tab===selected;
     tab.classList.toggle('active',active);
