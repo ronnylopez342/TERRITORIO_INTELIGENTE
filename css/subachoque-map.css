@@ -40,3 +40,46 @@
 .territory-map:has(#territoryMapSvg.ti-ed-map){min-height:450px}
 #territoryMapSvg.ti-ed-map{height:min(70vh,600px);min-height:450px;width:100%}
 @media(max-width:700px){.ti-ed-map .ti-ed-label{font-size:10px;max-width:85px}.ti-ed-map .ti-ed-source{max-width:45%}#data-explorando #ex-map.ti-ed-map{min-height:360px;height:53vh}}
+
+
+/* IDENTIDAD EDITORIAL CANÓNICA — muestras de la referencia aprobada, 08/11/2026.
+   El exterior es transparente; las líneas de papel viven dentro del vector SVG. */
+.ti-ed-map{background:transparent!important;color:#17130f;font-family:Georgia,"Times New Roman",serif}
+.ti-ed-map .ti-ed-frame{background:transparent!important;background-image:none!important}
+.ti-ed-map .ti-ed-canvas,
+.ti-ed-map .ti-ed-canvas.leaflet-container{background:transparent!important}
+.ti-ed-map .ti-ed-label-wrapper{border:0!important;background:transparent!important;pointer-events:none!important}
+.ti-ed-map .ti-ed-label{
+  position:relative;left:0;top:0;transform:translate(-50%,-50%);
+  display:block;width:max-content;max-width:none;white-space:nowrap;text-align:center;
+  color:#17130f!important;font-family:Georgia,"Times New Roman",serif!important;
+  font-weight:800!important;font-style:normal;letter-spacing:-.032em!important;
+  text-shadow:none!important;filter:none!important;
+  line-height:1.07!important;pointer-events:none!important
+}
+.ti-ed-map .ti-ed-label-line{display:block;white-space:nowrap}
+.ti-ed-map .ti-ed-label-casco{
+  color:#17130f!important;max-width:none!important;letter-spacing:-.032em!important;
+  font-family:Georgia,"Times New Roman",serif!important;font-weight:800!important
+}
+.ti-ed-map .ti-ed-source,.ti-ed-map .ti-ed-georeference{
+  background:rgba(255,255,255,.85);color:#53665b
+}
+#data-explorando .ex-map-wrap:has(.ti-ed-map){background:transparent!important;border-color:#3b678057!important}
+#desarrollo-accion.pa-mounted .pa-tr-map-frame:has(.ti-ed-map){background:transparent!important}
+#desarrollo-accion.pa-mounted .pa-tr-map-canvas.ti-ed-map{background:transparent!important}
+#desarrollo-accion.pa-mounted .pa-tr-map-frame .ti-ed-map .ti-ed-label{
+  color:#17130f!important;text-shadow:none!important
+}
+@media(max-width:700px){
+  .ti-ed-map .ti-ed-label{max-width:none!important;font-weight:800!important}
+}
+
+/* Los metadatos no deben tapar el mapa: visibles al interactuar o enfocar. */
+.ti-ed-map .ti-ed-georeference,.ti-ed-map .ti-ed-source{
+  opacity:0;transition:opacity .15s ease
+}
+.ti-ed-map:hover .ti-ed-georeference,
+.ti-ed-map:hover .ti-ed-source,
+.ti-ed-map:focus-within .ti-ed-georeference,
+.ti-ed-map:focus-within .ti-ed-source{opacity:1}

@@ -16,19 +16,21 @@
     riesgo:'amenaza-inundacion-subachoque.geojson'
   };
   const layerNames={veredas:'Veredas',municipio:'Límite municipal',casco:'Casco urbano',vias:'Vías',agua:'Fuentes hídricas',escuelas:'Colegios',servicios:'Servicios',riesgo:'Amenaza de inundación'};
+  // Colores muestreados de la imagen editorial aprobada, no elegidos al azar.
+  // Las equivalencias visuales de Cascajal/La Yeguera/Galdámez no alteran sus nombres reales.
   const colors={
-    'altania':'#f3b7a2','canica alta':'#a8d9b0','canica baja':'#c6afe1',
-    'cascajal':'#f3d98f','el centro (llanitos)':'#a4dcd4','el guamal':'#eab0c9',
-    'el paramo':'#b6d79c','el tobal':'#b7cbe8','el valle':'#f4b997',
-    'galdamez':'#f0d28a','la union':'#d5afe1','la yeguera':'#b4d9df',
-    'pantano de arce':'#acd3e7','rincon santo':'#f6c4b2',
-    'santa rosa':'#b1dcae','santuario la cuesta':'#f6c5ac','tibagota':'#c6d6a8'
+    'altania':'#FA9D6D','canica alta':'#DDB4DD','canica baja':'#93C5E7',
+    'cascajal':'#FCDE85','el centro (llanitos)':'#8ACFC8','el guamal':'#F995AE',
+    'el paramo':'#A4C069','el tobal':'#C49FD8','el valle':'#CFAADD',
+    'galdamez':'#FBC751','la union':'#FB924E','la yeguera':'#FCD97C',
+    'pantano de arce':'#8ABEE0','rincon santo':'#8CCCC6',
+    'santa rosa':'#B0CE7D','santuario la cuesta':'#F1B88E','tibagota':'#A6C26C'
   };
   const defaultColors=['#efd4a0','#b0d8c5','#c8b5e2','#f2b0b9','#abd4e6','#b5d79e','#f6b7a2'];
   const accented={
     'el paramo':'El Páramo','galdamez':'Galdámez','la union':'La Unión',
     'la yeguera':'La Yegüera','rincon santo':'Rincón Santo','pantano de arce':'Pantano de Arce',
-    'santuario la cuesta':'Santuario La Cuesta'
+    'santuario la cuesta':'Santuario La Cuesta','tibagota':'Tibagotá'
   };
   const cache=new Map(),instances=new Map(),inflight=new WeakMap();
   let leafletPromise=null,sequence=0;
@@ -137,44 +139,121 @@
       const map=L.map(canvas,{zoomControl:false,attributionControl:false,scrollWheelZoom:true,touchZoom:true,
         minZoom:6,maxZoom:19,zoomSnap:0.25,preferCanvas:false,zoomAnimation:true});
       const renderer=L.svg({padding:0.35});
-      const outline=L.geoJSON(municipio,{renderer,style:{fill:false,weight:2.5,color:'#315c45',opacity:.86,interactive:false,lineJoin:'round'}});
+      const outline=L.geoJSON(municipio,{renderer,interactive:false,style:{fill:false,weight:5,color:'#ffffff',opacity:1,lineCap:'round',lineJoin:'round'}});
       const boundary=municipio.features[0];
       let lastName='',disposed=false,ready=false,firstFit=false;
       let mapLayers={},mapMarkers=L.layerGroup().addTo(map);
       let labelGroup=L.layerGroup().addTo(map);
       const byName=new Map(),labels=[];
-      const basePolygonStyle=(f,i)=>({renderer,color:'#fffdfa',weight:2.2,opacity:1,
-        fillColor:colors[normal(name(f))]||defaultColors[i%defaultColors.length],fillOpacity:0.96,
+      // Las geometrías son intactas; textura y contornos se dibujan en capas SVG
+      // separadas, sincronizadas por la misma proyección de Leaflet.
+      const borderWeight=()=>Math.max(2.8,Math.min(4.7,canvas.clientWidth*.008));
+      const basePolygonStyle=(f,i)=>({renderer,color:'#fffefa',weight:borderWeight(),opacity:1,
+        fillColor:colors[normal(name(f))]||defaultColors[i%defaultColors.length],fillOpacity:1,
         lineCap:'round',lineJoin:'round'});
       const layerVeredas=L.geoJSON(veredas,{renderer,style:f=>basePolygonStyle(f,veredas.features.indexOf(f)),
         onEachFeature:(f,l)=>{
           const title=display(f),key=normal(name(f));byName.set(key,l);
           l.bindPopup('<strong class="ti-ed-popup-title">'+safe(title)+'</strong><span>Vereda · Subachoque</span><small>Cartografía georreferenciada de referencia. Precisión posicional por verificar.</small>');
-          l.on('mouseover',()=>l.setStyle({weight:3,color:'#fff',fillOpacity:1}));
-          l.on('mouseout',()=>{if(!disposed)l.setStyle({...basePolygonStyle(f,veredas.features.indexOf(f)),...(lastName===key?{color:'#265b47',weight:3.2}:{})});});
+          l.on('mouseover',()=>l.setStyle({color:'#ffffff',weight:borderWeight()+.9,fillOpacity:1}));
+          l.on('mouseout',()=>{if(!disposed)l.setStyle({...basePolygonStyle(f,veredas.features.indexOf(f)),...(lastName===key?{color:'#ffffff',weight:borderWeight()+1.2}:{})});});
           l.on('click',()=>select(title,{notify:true,focus:false}));
         }});
-      const layerCasco=L.geoJSON(casco,{renderer,style:{color:'#fffefa',weight:2.6,fillColor:'#d9b6e9',fillOpacity:.99},onEachFeature:(f,l)=>{
+      const layerCasco=L.geoJSON(casco,{renderer,style:{color:'#fffefa',weight:borderWeight(),fillColor:'#C7A6DB',fillOpacity:1,lineJoin:'round'},onEachFeature:(f,l)=>{
         l.bindPopup('<strong class="ti-ed-popup-title">Casco urbano de Subachoque</strong><span>Área urbana representada en la cartografía de referencia</span>');
       }});
-      mapLayers={veredas:layerVeredas,casco:layerCasco,municipio:outline};
-      layerVeredas.addTo(map);layerCasco.addTo(map);outline.addTo(map);
+      // El ruido SVG es una capa de grano translúcido. No se aplica a la imagen
+      // ni al fondo: sigue cada polígono y no recibe eventos del puntero.
+      const textureStyle={renderer,stroke:false,fillColor:'#ffffff',fillOpacity:0};
+      const grainVeredas=L.geoJSON(veredas,{renderer,interactive:false,style:()=>textureStyle});
+      const grainCasco=L.geoJSON(casco,{renderer,interactive:false,style:()=>textureStyle});
+      // Volver a trazar el límite blanco sobre el grano mantiene la separación
+      // limpia, como en la referencia editorial.
+      const whiteEdge=()=>({renderer,fill:false,color:'#fffefa',weight:borderWeight()+.35,
+        opacity:1,lineJoin:'round',lineCap:'round'});
+      const lineVeredas=L.geoJSON(veredas,{renderer,interactive:false,style:whiteEdge});
+      const lineCasco=L.geoJSON(casco,{renderer,interactive:false,style:whiteEdge});
+      mapLayers={
+        veredas:L.layerGroup([layerVeredas,grainVeredas,lineVeredas]),
+        casco:L.layerGroup([layerCasco,grainCasco,lineCasco]),
+        municipio:outline
+      };
+      mapLayers.veredas.addTo(map);
+      mapLayers.casco.addTo(map);
+      outline.addTo(map);
       const bounds=outline.getBounds();
       function fit(){if(!bounds.isValid()||!canvas.clientWidth||!canvas.clientHeight)return;map.invalidateSize({pan:false});map.fitBounds(bounds,{padding:[20,20],animate:false});map.setMaxBounds(bounds.pad(.1));firstFit=true;}
       if(canvas.clientWidth>10&&canvas.clientHeight>10)fit();
-      function label(kind,latLng,text){
-        const icon=L.divIcon({className:'ti-ed-label-wrapper',html:'<span class="ti-ed-label ti-ed-label-'+kind+'">'+safe(text)+'</span>',iconSize:[0,0],iconAnchor:[0,0]});
+      const lineBreaks={
+        'pantano de arce':['Pantano','de Arce'],
+        'rincon santo':['Rincón','Santo'],
+        'el centro (llanitos)':['El Centro','(Llanitos)'],
+        'casco urbano':['Casco','Urbano'],
+        'santuario la cuesta':['Santuario','La Cuesta']
+      };
+      function label(kind,latLng,text,geoLayer){
+        const lines=lineBreaks[normal(text)]||[text];
+        const content=lines.map(line=>'<span class="ti-ed-label-line">'+safe(line)+'</span>').join('');
+        const icon=L.divIcon({className:'ti-ed-label-wrapper',
+          html:'<span class="ti-ed-label ti-ed-label-'+kind+'">'+content+'</span>',
+          iconSize:[0,0],iconAnchor:[0,0]});
         const marker=L.marker(latLng,{icon,interactive:false,keyboard:false});
-        marker.addTo(labelGroup);labels.push({kind,marker,latLng,text});return marker;
+        marker.addTo(labelGroup);
+        labels.push({kind,marker,latLng,text,lines,geoLayer});
+        return marker;
       }
-      for(const f of veredas.features)label('vereda',innerLabel(f),display(f));
-      label('casco',innerLabel(casco.features[0]),'CASCO URBANO');
+      for(const f of veredas.features)label('vereda',innerLabel(f),display(f),byName.get(normal(name(f))));
+      label('casco',innerLabel(casco.features[0]),'Casco Urbano',layerCasco.getLayers()[0]);
+      const labelVisible=(e)=>e.kind==='casco'?map.hasLayer(mapLayers.casco):map.hasLayer(mapLayers.veredas);
+      // Tipografía medida en unidades de pantalla, sin alterar anclajes WGS84.
+      // Evita invasión de regiones y colisiones entre textos en tarjetas pequeñas.
       function updateLabelVisibility(){
-        const width=canvas.clientWidth,zoom=map.getZoom();
+        if(!map||disposed)return;
+        const ne=map.latLngToContainerPoint(bounds.getNorthEast());
+        const sw=map.latLngToContainerPoint(bounds.getSouthWest());
+        const mapWidth=Math.abs(ne.x-sw.x);
+        const candidates=[];
         for(const entry of labels){
-          const hide=width<350&&zoom<12.2&&entry.kind==='vereda';
-          if(hide&&labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
-          if(!hide&&!labelGroup.hasLayer(entry.marker)&&map.hasLayer(mapLayers.veredas))labelGroup.addLayer(entry.marker);
+          if(!labelVisible(entry))continue;
+          const b=entry.geoLayer?.getBounds();
+          if(!b?.isValid())continue;
+          const topLeft=map.latLngToContainerPoint(b.getNorthWest());
+          const bottomRight=map.latLngToContainerPoint(b.getSouthEast());
+          const regionW=Math.abs(bottomRight.x-topLeft.x);
+          const regionH=Math.abs(bottomRight.y-topLeft.y);
+          const longest=Math.max(...entry.lines.map(line=>line.length));
+          const desired=Math.max(9,Math.min(31,mapWidth*.030));
+          const size=Math.min(desired,regionW*.85/(Math.max(1,longest)*.52),
+            regionH*.78/(entry.lines.length*1.10));
+          const pos=map.latLngToContainerPoint(entry.latLng);
+          const w=size*longest*.58+5,h=size*entry.lines.length*1.10+3;
+          candidates.push({entry,size,pos,box:{x:pos.x-w/2,y:pos.y-h/2,w,h},
+            priority:entry.kind==='casco'?100000:Math.max(1,regionW*regionH)});
+        }
+        candidates.sort((a,b)=>b.priority-a.priority);
+        const placed=[];
+        const safeRegion=canvas.getBoundingClientRect();
+        for(const candidate of candidates){
+          const {entry,size,pos,box}=candidate;
+          const overlapped=placed.some(p=>{
+            const iw=Math.max(0,Math.min(box.x+box.w,p.x+p.w)-Math.max(box.x,p.x));
+            const ih=Math.max(0,Math.min(box.y+box.h,p.y+p.h)-Math.max(box.y,p.y));
+            return iw*ih>Math.min(box.w*box.h,p.w*p.h)*.11;
+          });
+          const show=size>=8 && box.x>=-5 && box.y>=-6 &&
+            box.x+box.w<=safeRegion.width+5 && box.y+box.h<=safeRegion.height+6 &&
+            !overlapped;
+          if(!show){
+            if(labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
+            continue;
+          }
+          if(!labelGroup.hasLayer(entry.marker))labelGroup.addLayer(entry.marker);
+          const span=entry.marker.getElement()?.querySelector('.ti-ed-label');
+          if(span){span.style.fontSize=size.toFixed(1)+'px';span.style.lineHeight='1.07';}
+          placed.push(box);
+        }
+        for(const entry of labels){
+          if(!labelVisible(entry)&&labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
         }
       }
       function select(value,{notify=true,focus=false}={}){
@@ -184,7 +263,7 @@
           const old=byName.get(lastName),f=old.feature;
           old.setStyle(basePolygonStyle(f,veredas.features.indexOf(f)));
         }
-        lastName=key;target.setStyle({color:'#2a644d',weight:3.3,fillOpacity:1});
+        lastName=key;target.setStyle({color:'#ffffff',weight:borderWeight()+1.2,fillOpacity:1});
         if(focus){map.fitBounds(target.getBounds(),{padding:[35,35],maxZoom:15});target.openPopup();}
         if(notify&&typeof options.onSelect==='function')options.onSelect(display(target.feature),target.feature);
         return true;
@@ -217,8 +296,40 @@
       // The municipal boundary and all thematic SVG paths use the same Leaflet
       // renderer/projection. The SVG clip follows map pan and zoom, keeping
       // external features hidden without modifying their GeoJSON coordinates.
-      const clipId='ti-ed-boundary-'+(++sequence),clippedGroups=new Set([layerVeredas,layerCasco]);
+      const clipId='ti-ed-boundary-'+(++sequence);
+      const grainId='ti-ed-paper-grain-'+sequence;
+      const clippedGroups=new Set([layerVeredas,layerCasco,grainVeredas,grainCasco,lineVeredas,lineCasco]);
       let clipNode=null;
+      function makeNoiseFilter(svg,defs){
+        if(svg.querySelector('#'+grainId))return;
+        const filter=svgEl('filter');
+        filter.setAttribute('id',grainId);
+        filter.setAttribute('x','-3%');filter.setAttribute('y','-3%');
+        filter.setAttribute('width','106%');filter.setAttribute('height','106%');
+        filter.setAttribute('color-interpolation-filters','sRGB');
+        const turb=svgEl('feTurbulence');
+        turb.setAttribute('type','fractalNoise');turb.setAttribute('baseFrequency','.72');
+        turb.setAttribute('numOctaves','3');turb.setAttribute('seed','11');
+        turb.setAttribute('result','paperNoise');filter.append(turb);
+        const matrix=svgEl('feColorMatrix');
+        matrix.setAttribute('in','paperNoise');matrix.setAttribute('type','matrix');
+        matrix.setAttribute('values','0 0 0 0 .37  0 0 0 0 .25  0 0 0 0 .19  .23 .23 .23 0 -.275');
+        matrix.setAttribute('result','paperInk');filter.append(matrix);
+        const mask=svgEl('feComposite');
+        mask.setAttribute('in','paperInk');mask.setAttribute('in2','SourceAlpha');
+        mask.setAttribute('operator','in');filter.append(mask);
+        defs.append(filter);
+      }
+      function applyPaperTexture(svg,defs){
+        makeNoiseFilter(svg,defs);
+        for(const group of [grainVeredas,grainCasco])group.eachLayer(layer=>{
+          if(!layer._path)return;
+          const el=layer._path;
+          el.setAttribute('filter','url(#'+grainId+')');
+          el.setAttribute('fill-opacity','1');
+          el.setAttribute('pointer-events','none');
+        });
+      }
       function applyClip(){
         const svg=renderer._container;if(!svg)return;
         if(!clipNode){
@@ -230,6 +341,11 @@
         if(!data.length)return;
         clipNode.firstChild.setAttribute('d',data.join(' '));
         for(const group of clippedGroups)group.eachLayer(l=>{if(l._path)l._path.setAttribute('clip-path','url(#'+clipId+')');});
+        if(canvas.clientWidth>=310)applyPaperTexture(svg,clipNode.parentNode);
+        else for(const group of [grainVeredas,grainCasco])group.eachLayer(layer=>{
+          if(layer._path)layer._path.setAttribute('fill-opacity','0');
+        });
+        outline.eachLayer(l=>{if(l._path){l._path.style.filter='drop-shadow(0 0 1px rgba(44,33,25,.30))';}});
       }
       function themed(feature,kind){
         if(kind==='vias')return {renderer,color:'#ac8e6b',weight:1.25,opacity:.7};
@@ -260,12 +376,19 @@
         if(kind==='municipio'){if(enabled)outline.addTo(map);else outline.remove();return;}
         if(!files[kind])return;
         const input=checkboxes.get(kind);if(input)input.checked=enabled;
-        if(!enabled){if(mapLayers[kind]&&map.hasLayer(mapLayers[kind]))map.removeLayer(mapLayers[kind]);if(kind==='veredas')labelGroup.clearLayers();if(kind==='casco')labels.filter(e=>e.kind==='casco').forEach(e=>labelGroup.removeLayer(e.marker));return;}
+        if(!enabled){
+          if(mapLayers[kind]&&map.hasLayer(mapLayers[kind]))map.removeLayer(mapLayers[kind]);
+          if(kind==='veredas'||kind==='casco'){
+            for(const e of labels)if(!labelVisible(e)&&labelGroup.hasLayer(e.marker))labelGroup.removeLayer(e.marker);
+            updateLabelVisibility();
+          }
+          return;
+        }
         try{
           const group=mapLayers[kind]||await loadLayer(kind);
           if(!group||disposed||input&&input.checked!==enabled)return;
           group.addTo(map);
-          if(kind==='veredas'||kind==='casco')for(const e of labels)if((e.kind===kind||kind==='veredas'&&e.kind==='vereda')&&!labelGroup.hasLayer(e.marker))labelGroup.addLayer(e.marker);
+          if(kind==='veredas'||kind==='casco')for(const e of labels)if(labelVisible(e)&&!labelGroup.hasLayer(e.marker))labelGroup.addLayer(e.marker);
           applyClip();updateLabelVisibility();
         }catch(e){if(input)input.checked=false;notice.textContent='No fue posible activar '+layerNames[kind]+': '+e.message;}
       }
