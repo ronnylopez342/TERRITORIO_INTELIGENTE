@@ -1,0 +1,58 @@
+/* Hotfix del encabezado principal.
+   El tema original escondia TODA la navegacion de escritorio desde 1399 CSS px.
+   Al haber retirado el logotipo, eso dejaba una franja vacia con solo lupa y hamburguesa.
+   Este ajuste conserva las rutas existentes y el menu movil debajo de 960px. */
+@media (min-width: 960px) and (max-width: 1399px) {
+  #siteHeader .nav {
+    padding: 0 clamp(13px, 1.65vw, 26px) !important;
+    gap: 0 !important;
+  }
+  #siteHeader .nav-links {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: clamp(7px, .7vw, 12px) !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: clamp(11px, .95vw, 13px) !important;
+  }
+  #siteHeader .nav-link {
+    font-size: clamp(12px, 1.05vw, 15px) !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    padding: 8px 0 !important;
+  }
+  #siteHeader .ti-nav-dropdown-trigger { gap: 4px !important; }
+  #siteHeader .ti-nav-chevron { width: 10px !important; height: 10px !important; }
+  #siteHeader .nav-cta {
+    flex: 0 0 auto !important;
+    width: clamp(107px, 10vw, 129px) !important;
+    min-width: clamp(107px, 10vw, 129px) !important;
+    max-width: clamp(107px, 10vw, 129px) !important;
+    height: 40px !important;
+    margin: 0 !important;
+    padding: 0 7px !important;
+    font-size: 12px !important;
+  }
+  #siteHeader .ti-header-search {
+    flex: 0 0 45px !important;
+    width: 45px !important;
+    min-width: 45px !important;
+    height: 46px !important;
+    margin: 0 0 0 9px !important;
+  }
+  #siteHeader .menu-toggle { display: none !important; }
+  /* El desplegable del menu de escritorio estaba bloqueado bajo 1400px. */
+  #siteHeader .ti-nav-dropdown-menu:not([hidden]) { display: flex !important; }
+  #siteHeader #tiDataDropdown .ti-nav-dropdown-menu:not([hidden]) {
+    left: 0 !important;
+    transform: none !important;
+  }
+  #siteHeader .ti-nav-dropdown-menu[hidden] { display: none !important; }
+}
+/* Evita un segundo icono hamburguesa junto a los enlaces en pantallas grandes. */
+@media (min-width: 1400px) {
+  #siteHeader .menu-toggle { display: none !important; }
+}
