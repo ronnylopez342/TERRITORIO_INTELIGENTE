@@ -1213,32 +1213,87 @@
     return trCard('Detalle por Vereda / Barrio',detail,'pa-tr-places',action);
   }
   function trEvidenceCards(m){
-    const urls=actFileList(m).filter(f=>f.kind==='image'&&safeLink(f.url));
-    const byAct=(m.activities||[]).filter(a=>safeLink(a.evidence));
-    if(urls.length)return urls.map((file,i)=>({kind:'image',title:file.title,description:file.activity||file.act||'Evidencia enlazada',url:file.url,activity:file.act||'',verified:file.verified||false}));
-    // Sin fotografía comprobable: mostrar las cuatro posiciones visuales, pero nunca imágenes genéricas de obras.
-    const docs=byAct.map(a=>({kind:'document',title:a.name,description:`Actividad ${a.n} · enlace registrado en Excel`,url:safeLink(a.evidence),activity:String(a.n)}));
-    if(!docs.length)return [0,1,2,3].map(i=>({kind:'empty',title:'Evidencia fotográfica no disponible',description:'No hay fotografía enlazada a esta meta.',url:null}));
-    while(docs.length<4)docs.push({kind:'empty',title:'Evidencia fotográfica no disponible',description:'Sin fotografía enlazada',url:null});
-    return docs;
+    const images=actFileList(m).filter(f=>f.kind==='image'&&safeLink(f.url));
+    const documents=(m.activities||[]).filter(a=>safeLink(a.evidence));
+    const photos=images.map(file=>({
+      kind:'image',title:file.title||'Fotografía enlazada',
+      description:file.activity||file.act||'Evidencia registrada en el Plan de Acción',
+      url:safeLink(file.url),activity:file.act||'',verified:!!file.verified
+    }));
+    const photoUrls=new Set(photos.map(photo=>photo.url));
+    const docs=documents.filter(a=>!photoUrls.has(safeLink(a.evidence))).map(a=>({
+      kind:'document',title:a.name,description:'Actividad '+a.n+' · enlace registrado en Excel',
+      url:safeLink(a.evidence),activity:String(a.n)
+    }));
+    // Preserve every real source. Do not invent photography or duplicate a
+    // document link that is already represented as a verified image.
+    const available=[...photos,...docs];
+    return available.length?available:[{
+      kind:'empty',title:'Sin fotografías ni documentos enlazados',
+      description:'Esta meta no tiene soportes disponibles en el archivo consultado.',
+      activity:'',url:null
+    }];
   }
   function trGallery(m){
-    const all=trEvidenceCards(m),first=Math.min(state.territoryGalleryPage||0,Math.max(0,all.length-4));
-    const current=all.slice(first,first+4);
-    const cards=current.map(item=>`<article class="pa-tr-photo-tile"><div class="pa-tr-photo-visual${item.kind==='image'?' image':''}">${item.kind==='image'?`<a href="${html(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir evidencia fotográfica enlazada"><img src="${html(item.url)}" alt="Fotografía enlazada en el Excel: ${html(item.title)}" loading="lazy"/></a>`:`<span>${trIcon(item.kind==='document'?'file':'photo')}</span><strong>${item.kind==='document'?'Soporte documental':'Sin fotografía'}</strong>`}</div><h4 title="${html(item.title)}">${html(item.title)}</h4><small>${html(item.description)}</small>${item.url?`<a href="${html(item.url)}" target="_blank" rel="noopener noreferrer">Abrir soporte ↗</a>`:''}</article>`).join('');
-    const controls=`<div class="pa-tr-carousel-nav"><button type="button" data-pa-tr-gallery-step="-1" aria-label="Evidencias anteriores" ${first===0?'disabled':''}>‹</button><div class="pa-tr-carousel-pages" aria-label="Página de evidencias">${Array.from({length:Math.max(1,all.length-3)},(_,i)=>`<button type="button" data-pa-tr-gallery-page="${i}" class="${first===i?'selected':''}" aria-label="Mostrar grupo de evidencias ${i+1}" ${first===i?'aria-current="page"':''}></button>`).join('')}</div><button type="button" data-pa-tr-gallery-step="1" aria-label="Evidencias siguientes" ${first>=all.length-4?'disabled':''}>›</button></div>`;
-    const more=`<button type="button" class="pa-tr-link" data-pa-tr-gallery-all aria-haspopup="dialog">Ver todas →</button>`;
-    const modal=`<dialog class="pa-tr-dialog" id="pa-tr-gallery-dialog" aria-label="Soportes territoriales de la meta"><header><h3>Registro fotográfico y soportes · Meta ${m.id}</h3><button type="button" data-pa-tr-dialog-close aria-label="Cerrar">×</button></header><p>Solo se muestran fotografías enlazadas de manera identificable. Los archivos de Drive son soportes, no fotografías verificadas de obras.</p>${all.filter(x=>x.url).length?all.filter(x=>x.url).map(x=>`<a href="${html(x.url)}" target="_blank" rel="noopener noreferrer">${html(x.title)} · ${html(x.activity)} ↗</a>`).join(''):'<p>No se recibieron soportes fotográficos ni documentales verificables para esta meta.</p>'}</dialog>`;
-    return trCard('Registro Fotográfico del Territorio',`<div class="pa-tr-photo-grid">${cards}</div>${controls}<p class="pa-tr-fineprint">Los documentos se muestran como soporte, no como fotografía de una intervención ejecutada.</p>${modal}`,'pa-tr-gallery',more);
+    const all=trEvidenceCards(m),total=all.length;
+    const first=Math.max(0,Math.min(total-1,state.territoryGalleryPage||0));
+    const item=all[first];
+    const isImage=item.kind==='image',isDocument=item.kind==='document';
+    const kindLabel=isImage?'Fotografía enlazada':isDocument?'Soporte documental':'Información no disponible';
+    const visual=isImage&&item.url
+      ?'<a class="pa-tr-featured-image-link" href="'+html(item.url)+'" target="_blank" rel="noopener noreferrer" aria-label="Abrir fotografía de la evidencia"><img src="'+html(item.url)+'" alt="'+html(item.title)+'" loading="lazy"/></a>'
+      :'<div class="pa-tr-featured-placeholder '+(isDocument?'document':'empty')+'">'+
+        '<div class="pa-tr-featured-icon">'+trIcon(isDocument?'file':'photo')+'</div>'+
+        '<strong>'+(isDocument?'Soporte documental':'Sin fotografía disponible')+'</strong>'+
+        '<span>'+(isDocument?'Archivo enlazado en el Plan de Acción':'No hay imágenes ni archivos enlazados para esta meta')+'</span></div>';
+    const media='<div class="pa-tr-featured-media'+(isImage?' image':'')+'">'+visual+'</div>';
+    const caption='<div class="pa-tr-featured-caption" id="pa-tr-gallery-caption" aria-live="polite" aria-atomic="true">'+
+      '<span class="pa-tr-featured-kind">'+html(kindLabel)+'</span>'+
+      '<h4 title="'+html(item.title)+'">'+html(item.title)+'</h4>'+
+      '<p>'+html(item.description)+'</p>'+
+      (item.url?'<a class="pa-tr-featured-open" href="'+html(item.url)+'" target="_blank" rel="noopener noreferrer">Abrir '+(isImage?'fotografía':'soporte')+' ↗</a>':'')+
+      '</div>';
+    const windowSize=Math.min(total,7);
+    const dotStart=Math.min(Math.max(0,first-Math.floor(windowSize/2)),total-windowSize);
+    const dots=Array.from({length:windowSize},(_,i)=>{
+      const index=dotStart+i;
+      return '<button type="button" data-pa-tr-gallery-page="'+index+'"'+
+       (index===first?' class="selected" aria-current="true"':'')+
+       ' aria-label="Mostrar evidencia '+(index+1)+' de '+total+'"></button>';
+    }).join('');
+    const controls='<div class="pa-tr-carousel-nav" aria-label="Navegar entre fotografías y documentos">'+
+      '<button type="button" data-pa-tr-gallery-step="-1" aria-label="Evidencia anterior"'+(total===1?' disabled':'')+'>‹</button>'+
+      '<span class="pa-tr-carousel-counter" aria-label="Evidencia '+(first+1)+' de '+total+'">'+(first+1)+' / '+total+'</span>'+
+      '<div class="pa-tr-carousel-pages" aria-label="Evidencias">'+dots+'</div>'+
+      '<button type="button" data-pa-tr-gallery-step="1" aria-label="Evidencia siguiente"'+(total===1?' disabled':'')+'>›</button></div>';
+    const more='<button type="button" class="pa-tr-link" data-pa-tr-gallery-all aria-haspopup="dialog">Ver todas →</button>';
+    const modal='<dialog class="pa-tr-dialog" id="pa-tr-gallery-dialog" aria-label="Fotografías y documentos de la meta">'+
+      '<header><h3>Fotografías y documentos · Meta '+m.id+'</h3><button type="button" data-pa-tr-dialog-close aria-label="Cerrar">×</button></header>'+
+      '<p>Las imágenes se muestran únicamente cuando están enlazadas e identificadas. Los documentos son soportes, no fotografías verificadas de intervenciones.</p>'+
+      (all.some(x=>x.url)?all.filter(x=>x.url).map(x=>'<a href="'+html(x.url)+'" target="_blank" rel="noopener noreferrer">'+html(x.title)+' · '+html(x.activity)+' ↗</a>').join('')
+       :'<p>No se registraron fotografías ni documentos enlazados para esta meta.</p>')+'</dialog>';
+    const body='<p class="pa-tr-gallery-intro">Recorre las fotografías y los documentos asociados a las actividades de esta meta.</p>'+
+      '<div class="pa-tr-gallery-carousel" role="region" aria-roledescription="carrusel" aria-label="Galería de evidencias de la meta">'+
+       '<article class="pa-tr-featured">'+media+caption+'</article>'+controls+'</div>'+
+      '<p class="pa-tr-fineprint">Los documentos se muestran como soportes; no prueban por sí solos la ejecución de una obra.</p>'+modal;
+    return trCard('Fotografías y documentos del territorio',body,'pa-tr-gallery',more);
   }
   function trCoverageDonut(m){
     const d=trPlaceData(m),linked=d.activities;
     let withProgress=0,idle=0,missing=0,done=0;
     for(const a of linked){if(a.state.key==='done')done++;else if(a.state.key==='running')withProgress++;else if(a.state.key==='idle')idle++;else missing++;}
-    const count=linked.length;const circle=count?`conic-gradient(#0ca357 0 ${100*done/count}%,#2c97e9 ${100*done/count}% ${100*(done+withProgress)/count}%,#f8b524 ${100*(done+withProgress)/count}% ${100*(done+withProgress+idle)/count}%,#b0bbc8 ${100*(done+withProgress+idle)/count}% 100%)`:'conic-gradient(#d3dce5 0 100%)';
+    const count=linked.length;
+    const circle=count?'conic-gradient(#0ca357 0 '+(100*done/count)+'%,#2c97e9 '+(100*done/count)+'% '+(100*(done+withProgress)/count)+'%,#f8b524 '+(100*(done+withProgress)/count)+'% '+(100*(done+withProgress+idle)/count)+'%,#b0bbc8 '+(100*(done+withProgress+idle)/count)+'% 100%)'
+      :'conic-gradient(#d3dce5 0 100%)';
     const legend=[['#0ca357','Meta de actividad alcanzada',done],['#2c97e9','Con avance registrado',withProgress],['#f8b524','Sin avance reportado',idle],['#b0bbc8','Sin porcentaje evaluable',missing]];
-    const legendMarkup=legend.map(([color,label,value])=>`<div class="pa-tr-donut-key"><i style="background:${color}"></i><span>${html(label)}</span><b>${value}${count?` <small>(${fmtNum.format(value*100/count)}%)</small>`:''}</b></div>`).join('');
-    const body=`<div class="pa-tr-donut-layout"><div class="pa-tr-donut" style="background:${circle}" role="img" aria-label="Distribución de ${count} registros de actividades con campo territorial, no número de intervenciones físicas"><div><strong>${fmtInt.format(count)}</strong><small>actividades con<br>campo territorial</small></div></div><div class="pa-tr-donut-legend">${legendMarkup}</div></div><p class="pa-tr-fineprint">Indicadores calculados a partir de <strong>actividades con información territorial</strong>, no conteos de sitios intervenidos. No acreditan ejecución en cada vereda.</p>`;
+    const legendMarkup=legend.map(([color,label,value])=>'<div class="pa-tr-donut-key"><i style="background:'+color+'"></i><span>'+html(label)+'</span><b>'+value+(count?' <small>('+fmtNum.format(value*100/count)+'%)</small>':'')+'</b></div>').join('');
+    const body='<p class="pa-tr-indicators-intro">Conoce el estado de las actividades que mencionan una ubicación territorial.</p>'+
+      '<div class="pa-tr-donut-layout">'+
+       '<div class="pa-tr-donut" style="background:'+circle+'" role="img" aria-label="Distribución de '+count+' actividades con información territorial, no de sitios intervenidos">'+
+        '<div><strong>'+fmtInt.format(count)+'</strong><small>actividades con<br>campo territorial</small></div></div>'+
+       '<div class="pa-tr-donut-legend" aria-label="Estados de las actividades">'+legendMarkup+'</div>'+
+      '</div>'+
+      '<p class="pa-tr-fineprint">Cifras calculadas a partir de <strong>actividades con información territorial</strong>, no de sitios intervenidos. No certifican ejecución en cada vereda.</p>';
     return trCard('Indicadores de Cobertura Territorial',body,'pa-tr-indicators');
   }
   function trDownloads(m){
@@ -2126,9 +2181,15 @@
     if(trGalleryButton){
       const m=selected();if(!m)return;
       const total=trEvidenceCards(m).length;
-      const max=Math.max(0,total-4);
-      state.territoryGalleryPage=trGalleryButton.hasAttribute('data-pa-tr-gallery-page')?Math.max(0,Math.min(max,Number(trGalleryButton.dataset.paTrGalleryPage))):Math.max(0,Math.min(max,(state.territoryGalleryPage||0)+Number(trGalleryButton.dataset.paTrGalleryStep)));
-      const container=panel.querySelector('.pa-tr-gallery');if(container)container.outerHTML=trGallery(m);
+      const index=Math.max(0,Math.min(total-1,state.territoryGalleryPage||0));
+      state.territoryGalleryPage=trGalleryButton.hasAttribute('data-pa-tr-gallery-page')
+        ?Math.max(0,Math.min(total-1,Number(trGalleryButton.dataset.paTrGalleryPage)))
+        :total>1?(index+Number(trGalleryButton.dataset.paTrGalleryStep)+total)%total:0;
+      const focusSelector=trGalleryButton.hasAttribute('data-pa-tr-gallery-page')
+        ?'[data-pa-tr-gallery-page="'+state.territoryGalleryPage+'"]'
+        :'[data-pa-tr-gallery-step="'+trGalleryButton.dataset.paTrGalleryStep+'"]';
+      const container=panel.querySelector('.pa-tr-gallery');
+      if(container){container.outerHTML=trGallery(m);panel.querySelector('.pa-tr-gallery '+focusSelector)?.focus({preventScroll:true});}
       return;
     }
     if(ev.target.closest('[data-pa-tr-expand-places]')){
@@ -2235,6 +2296,16 @@
   panel.addEventListener('click',ev=>{const dialog=ev.target;if(dialog?.classList?.contains('pa-gallery-dialog')||dialog?.classList?.contains('pa-ig-doc-dialog')||dialog?.classList?.contains('pa-act-dialog')||dialog?.classList?.contains('pa-ben-dialog')||dialog?.classList?.contains('pa-bu-dialog')||dialog?.classList?.contains('pa-tr-dialog')||dialog?.classList?.contains('pa-su-dialog')||dialog?.classList?.contains('pa-ob-dialog')||dialog?.classList?.contains('pa-ct-dialog'))dialog.close();});
   panel.addEventListener('scroll',ev=>{if(ev.target?.id==='pa-act-chart-scroll')actChartControls();},true);
   window.addEventListener('resize',()=>{if(state.activeTab==='activities')actChartControls();});
-  panel.addEventListener('keydown',ev=>{const row=ev.target.closest('tr[data-pa-ct-contract]');if(row&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();row.click();}});
+  panel.addEventListener('keydown',ev=>{
+    const gallery=ev.target.closest('.pa-tr-gallery-carousel');
+    if(gallery&&(ev.key==='ArrowLeft'||ev.key==='ArrowRight')&&!ev.target.matches('input,textarea,select')){
+      const step=ev.key==='ArrowLeft'?'-1':'1';
+      const button=gallery.querySelector('[data-pa-tr-gallery-step="'+step+'"]');
+      if(button&&!button.disabled){ev.preventDefault();button.click();}
+      return;
+    }
+    const row=ev.target.closest('tr[data-pa-ct-contract]');
+    if(row&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();row.click();}
+  });
   load();
 })();
