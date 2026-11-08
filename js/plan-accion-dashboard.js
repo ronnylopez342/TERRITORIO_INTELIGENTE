@@ -1757,17 +1757,54 @@
     const m=selected();if(!m)return unavailableMarkup();
     return statusBar(m)+tabMarkup(m)+(state.activeTab==='overall'?overallMarkup(true):overallMarkup(false)+summaryMarkup(m));
   }
+
+  // Encabezado global único para todas las secciones 3.3: búsqueda, año y
+  // totalizadores siguen visibles al consultar Información General, Contratos, etc.
+  // Los títulos particulares se mantienen como subtítulo compacto, sin un
+  // segundo encabezado panorámico ni un selector anual duplicado.
+  function sectionHeadingMarkup(tab=state.activeTab) {
+    const sections={
+      search:['Resultados de la búsqueda','Selecciona una meta para continuar en la pestaña actual.'],
+      general:['Información General','Conoce el detalle de la meta, su propósito, alcance y la información estratégica asociada.'],
+      activities:['Actividades de la Meta','Consulta el plan de acción, programación, avances y evidencias de cada actividad.'],
+      physical:['Avance Físico de la Meta','Consulta el cumplimiento físico de las actividades y el avance en la ejecución de la meta.'],
+      beneficiaries:['Beneficiarios de la Meta','Conoce la población que se beneficia con esta meta y su impacto en el territorio.'],
+      budget:['Ejecución Presupuestal de la Meta','Consulta el estado de los recursos asignados y su ejecución en el marco del plan de acción.'],
+      territory:['Territorio de la Meta','Conoce dónde se ejecutan las actividades de esta meta y su impacto en las veredas y barrios del municipio.'],
+      contracts:['Contratación de Inversión de la Meta','Consulta contratos, recursos, modalidades de selección y novedades vinculados a esta meta.'],
+      supports:['Soportes de la Meta','Consulta las evidencias, documentos y soportes que respaldan la ejecución de las actividades.'],
+      observations:['Observaciones de la Meta','Consulta los comentarios, alertas, recomendaciones y notas de seguimiento realizadas por las dependencias responsables y entes de control.']
+    };
+    const info=sections[tab];if(!info)return '';
+    return '<header class="pa-context-heading" aria-label="'+html(info[0])+'">'+
+      '<div class="pa-context-heading-main"><span class="pa-context-kicker">PLAN DE ACCIÓN · '+html(state.year)+'</span>'+
+      '<h2>'+html(info[0])+'</h2><p>'+html(info[1])+'</p></div>'+
+      (tab==='search'?'':'<span class="pa-context-meta">Meta '+html(state.current)+'</span>')+'</header>';
+  }
   function pageMarkup(){
-    if(state.activeTab==='contracts')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-contract-mode">${ctHero()}<section class="pa-body pa-ig-body" aria-label="Contratación de Inversión para ${state.year}"><div class="pa-content" id="pa-content">${ctResults()}</div></section></div>`;
-    if(state.activeTab==='observations')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-observations-mode">${obHero()}<section class="pa-body pa-ig-body" aria-label="Observaciones de la meta para ${state.year}"><div class="pa-content" id="pa-content">${obResults()}</div></section></div>`;
-    if(state.activeTab==='supports')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-supports-mode">${suHero()}<section class="pa-body pa-ig-body" aria-label="Soportes de la meta para ${state.year}"><div class="pa-content" id="pa-content">${suResults()}</div></section></div>`;
-    if(state.activeTab==='territory')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-territory-mode">${trHero()}<section class="pa-body pa-ig-body" aria-label="Territorio para ${state.year}"><div class="pa-content" id="pa-content">${trResults()}</div></section></div>`;
-    if(state.activeTab==='budget')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-budget-mode">${buHero()}<section class="pa-body pa-ig-body" aria-label="Ejecución Presupuestal para ${state.year}"><div class="pa-content" id="pa-content">${buResults()}</div></section></div>`;
-    if(state.activeTab==='beneficiaries')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-beneficiaries-mode">${benHero()}<section class="pa-body pa-ig-body" aria-label="Beneficiarios de la meta para ${state.year}"><div class="pa-content" id="pa-content">${benResults()}</div></section></div>`;
-    if(state.activeTab==='physical')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-physical-mode">${physicalHero()}<section class="pa-body pa-ig-body" aria-label="Avance f\u00edsico para ${state.year}"><div class="pa-content" id="pa-content">${physicalResults()}</div></section></div>`;
-    if(state.activeTab==='activities')return `<div class="pa-shell pa-general-mode pa-activities-mode">${actHero()}<section class="pa-body pa-ig-body" aria-label="Actividades para ${state.year}"><div class="pa-content" id="pa-content">${actResults()}</div></section></div>`;
-    if(state.activeTab==='general')return `<div class="pa-shell pa-general-mode">${igHero()}<section class="pa-body pa-ig-body" aria-label="Información General para ${state.year}"><div class="pa-content" id="pa-content">${generalResults()}</div></section></div>`;
-    const avail=!!currentYear();return `<div class="pa-shell">${topMarkup()}<section class="pa-body" aria-label="Panel de seguimiento para ${state.year}">${!avail?tabMarkup(null):''}<div class="pa-content" id="pa-content">${resultsMarkup()}</div></section></div>`;
+    // La búsqueda y el año pertenecen a topMarkup(), compartido por cada ruta.
+    // Las vistas particulares conservan todos sus paneles y la navegación previa.
+    const sharedHeader=topMarkup();
+    const detailPage=(classNames,ariaLabel,content,context=state.activeTab)=>{
+      return '<div class="pa-shell pa-global-shell '+classNames+'">'+sharedHeader+
+      '<section class="pa-body pa-ig-body" aria-label="'+html(ariaLabel)+'">'+
+      '<div class="pa-content" id="pa-content">'+sectionHeadingMarkup(context)+content+'</div></section></div>';
+    };
+    // Unificar los resultados en las diez vistas, incluida Contratación,
+    // cuya pantalla originalmente no manejaba state.list.
+    if(state.list&&currentYear())return detailPage('pa-general-mode','Resultados de búsqueda de metas de '+state.year,tabMarkup(selected())+listMarkup(),'search');
+    if(state.activeTab==='contracts')return detailPage('pa-general-mode pa-activities-mode pa-contract-mode','Contratación de Inversión para '+state.year,ctResults());
+    if(state.activeTab==='observations')return detailPage('pa-general-mode pa-activities-mode pa-observations-mode','Observaciones de la meta para '+state.year,obResults());
+    if(state.activeTab==='supports')return detailPage('pa-general-mode pa-activities-mode pa-supports-mode','Soportes de la meta para '+state.year,suResults());
+    if(state.activeTab==='territory')return detailPage('pa-general-mode pa-activities-mode pa-territory-mode','Territorio para '+state.year,trResults());
+    if(state.activeTab==='budget')return detailPage('pa-general-mode pa-activities-mode pa-budget-mode','Ejecución Presupuestal para '+state.year,buResults());
+    if(state.activeTab==='beneficiaries')return detailPage('pa-general-mode pa-activities-mode pa-beneficiaries-mode','Beneficiarios de la meta para '+state.year,benResults());
+    if(state.activeTab==='physical')return detailPage('pa-general-mode pa-activities-mode pa-physical-mode','Avance físico para '+state.year,physicalResults());
+    if(state.activeTab==='activities')return detailPage('pa-general-mode pa-activities-mode','Actividades para '+state.year,actResults());
+    if(state.activeTab==='general')return detailPage('pa-general-mode','Información General para '+state.year,generalResults());
+    const avail=!!currentYear();
+    return '<div class="pa-shell pa-global-shell">'+sharedHeader+'<section class="pa-body" aria-label="Panel de seguimiento para '+html(state.year)+'">'+
+      (!avail?tabMarkup(null):'')+'<div class="pa-content" id="pa-content">'+resultsMarkup()+'</div></section></div>';
   }
   function refresh({preserveFocus=false}={}){
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
