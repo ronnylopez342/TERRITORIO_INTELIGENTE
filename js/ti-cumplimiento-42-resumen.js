@@ -131,8 +131,8 @@
       numberKpi(String(rows.length),'Registros asociados','Filas del Excel, no proyectos únicos'),
       numberKpi(pct(phys),'Avance físico informado','Promedio de '+physical.length+' con dato'),
       numberKpi(pct(rate),'Relación de costos','Sobre '+pairs.length+' pares válidos'),
-      numberKpi(money(total(budgets.map(r=>r.budget))),'Costo total consignado',budgets.length+' filas con valor'),
-      numberKpi(money(total(executions.map(r=>r.executedCost))),'Costo ejecutado consignado',executions.length+' filas con valor'),
+      numberKpi(budgets.length?money(total(budgets.map(r=>r.budget))):'Sin dato','Costo total consignado',budgets.length+' filas con valor'),
+      numberKpi(executions.length?money(total(executions.map(r=>r.executedCost))):'Sin dato','Costo ejecutado consignado',executions.length+' filas con valor'),
       numberKpi(String(contracts.length),'Registros con contrato','No implica contratos distintos'),
       numberKpi(String(locations.length),'Veredas mencionadas',rows.filter(r=>r.vereda).length+' registros con ubicación'),
       numberKpi(String(rows.filter(r=>r.contractStatus).length),'Con estado contractual','Estado textual del Excel')
