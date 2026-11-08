@@ -49,7 +49,7 @@
       <button type="button" role="tab" aria-selected="false" data-ti42-view="financiera" class="ti42-tab">Ejecución financiera</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="cronograma" class="ti42-tab">Cronograma</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="mapa" class="ti42-tab">Mapa</button>
-      <span class="ti42-tab is-pending" title="Pendiente de implementación">Evidencias</span>
+      <button type="button" role="tab" aria-selected="false" data-ti42-view="evidencias" class="ti42-tab">Evidencias</button>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Indicadores</span>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Riesgos</span>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Documentos</span>

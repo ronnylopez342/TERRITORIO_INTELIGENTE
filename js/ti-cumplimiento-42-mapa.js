@@ -495,7 +495,9 @@ panel.addEventListener('click',event=>{
   const id=selected.excelRow,kind=action.dataset.ti42mAction;
   if(kind==='contrato'){
     if(!window.TI42Contratos?.openContract?.(id))projects.openProject?.(id,'contratos');
-  }else projects.openProject?.(id,kind==='evidencias'?'evidencias':'informacion');
+  }else if(kind==='evidencias'){
+    if(!window.TI42Evidencias?.openProject?.(id))projects.openProject?.(id,'evidencias');
+  }else projects.openProject?.(id,'informacion');
   return;
  }
  const change=event.target.closest('[data-ti42m-photo]');

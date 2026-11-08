@@ -38,7 +38,7 @@ try{
    for(const key of ['view','vereda','phase','sort','page','pageSize','selectedRow','detailTab'])if(Object.prototype.hasOwnProperty.call(previous,key))state[key]=previous[key];
  }
 }catch{}
-if(!['resumen','proyectos','contratos','financiera','cronograma','mapa'].includes(state.view))state.view='resumen';
+if(!['resumen','proyectos','contratos','financiera','cronograma','mapa','evidencias'].includes(state.view))state.view='resumen';
 if(!['file','name','year','budget'].includes(state.sort))state.sort='file';
 if(!['informacion','localizacion','contratos','ejecucion','evidencias','indicadores'].includes(state.detailTab))state.detailTab='informacion';
 state.pageSize=[10,20,50].includes(Number(state.pageSize))?Number(state.pageSize):10;
@@ -121,24 +121,29 @@ const set=(s,html)=>{const el=q(s);if(el)el.innerHTML=html;};
 const txt=(s,text)=>{const el=q(s);if(el)el.textContent=String(text??'');};
 const keep=()=>{try{localStorage.setItem(STORE,JSON.stringify(state));}catch{}};
 function setView(view){
- state.view=['resumen','proyectos','contratos','financiera','cronograma','mapa'].includes(view)?view:'resumen';
- const projects=state.view==='proyectos',contracts=state.view==='contratos',finances=state.view==='financiera',chrono=state.view==='cronograma',mapMode=state.view==='mapa';
+ state.view=['resumen','proyectos','contratos','financiera','cronograma','mapa','evidencias'].includes(view)?view:'resumen';
+ const projects=state.view==='proyectos',contracts=state.view==='contratos',finances=state.view==='financiera',chrono=state.view==='cronograma',mapMode=state.view==='mapa',evidenceMode=state.view==='evidencias';
  const hadSummaryHidden=summary.hidden;
  const contractPanel=shell.querySelector('[data-ti42-contratos-root]');
  const financePanel=shell.querySelector('[data-ti42-financiera-root]');
  const chronoHead=shell.querySelector('[data-ti42g-head]');
  const chronoPanel=shell.querySelector('[data-ti42g-panel]');
  const mapPanel=shell.querySelector('[data-ti42-mapa-root]');
+ const evidenceHead=shell.querySelector('[data-ti42e-header]');
+ const evidencePanel=shell.querySelector('[data-ti42-evidencias-root]');
  panel.hidden=!projects;
- summary.hidden=projects||contracts||finances||chrono||mapMode;
+ summary.hidden=projects||contracts||finances||chrono||mapMode||evidenceMode;
+ if(evidenceHead)evidenceHead.hidden=!evidenceMode;
+ if(evidencePanel)evidencePanel.hidden=!evidenceMode;
  if(mapPanel)mapPanel.hidden=!mapMode;
  if(chronoHead)chronoHead.hidden=!chrono;
  if(chronoPanel)chronoPanel.hidden=!chrono;
  shell.classList.toggle('is-chronogram-view',chrono);
  shell.classList.toggle('is-map-view',mapMode);
+ shell.classList.toggle('is-evidence-view',evidenceMode);
  if(contractPanel)contractPanel.hidden=!contracts;
  if(financePanel)financePanel.hidden=!finances;
- shell.classList.toggle('ti42-projects-active',projects||contracts||finances||chrono||mapMode);
+ shell.classList.toggle('ti42-projects-active',projects||contracts||finances||chrono||mapMode||evidenceMode);
  tabs.querySelectorAll('[data-ti42-view]').forEach(tab=>{
    const chosen=tab.dataset.ti42View===state.view;
    tab.classList.toggle('is-active',chosen);
@@ -150,6 +155,7 @@ function setView(view){
  else if(finances){window.TI42Financiera?.renderIfActive?.();}
  else if(chrono){window.TI42Cronograma?.renderIfActive?.();}
  else if(mapMode){window.TI42Mapa?.renderIfActive?.();}
+ else if(evidenceMode){window.TI42Evidencias?.renderIfActive?.();}
  else if(hadSummaryHidden)requestAnimationFrame(()=>api.refreshMap?.());
 }
 function baseFilter(r){
@@ -285,6 +291,7 @@ function renderDetail(){
   ?'<h4>Enlaces registrados</h4>'+photos.map(([label,url])=>'<a class="ti42p-evidence-link" href="'+safe(validUrl(url))+'" target="_blank" rel="noopener noreferrer">'+safe(label)+' · Abrir evidencia ↗</a>').join('')+'<p class="ti42p-note">Los enlaces no certifican por sí mismos que las fotografías sean de la intervención.</p>'
   :'<div class="ti42p-evidence-empty"><span aria-hidden="true">▧</span><strong>Sin fotografías enlazadas</strong><p>Las columnas Antes, Seguimiento y Después no contienen enlaces de este registro. No se muestran imágenes ajenas como evidencia.</p></div>'+
     (x.sourceDocuments?'<h4>Documentos mencionados por el archivo</h4><p class="ti42p-excerpt">'+safe(x.sourceDocuments)+'</p><p class="ti42p-note">Esta lista textual no aporta por sí misma archivos descargables ni evidencia verificada.</p>':''));
+ q('[data-ti42p-detail-panel="evidencias"]')?.insertAdjacentHTML('beforeend','<button class="ti42p-evidence-link" type="button" data-ti42p-open-global-evidences>Consultar este proyecto en la pestaña Evidencias ↗</button>');
  set('[data-ti42p-detail-panel="indicadores"]',
   '<h4>Indicadores disponibles</h4><div class="ti42p-indicator-cards">'+
   '<div><small>Avance físico de obra</small><strong>'+percent(r.physicalPercent)+'</strong></div>'+
@@ -446,6 +453,9 @@ function openProject(rowNumber,detailTab='contratos'){
  state.page=index>=0?Math.floor(index/state.pageSize)+1:1;
  choices();setView('proyectos');return true;
 }
+panel.addEventListener('click',event=>{
+ if(event.target.closest('[data-ti42p-open-global-evidences]')&&selected)window.TI42Evidencias?.openProject?.(selected.excelRow);
+});
 window.TI42Proyectos={
  openProject,
  get state(){return {...state};},get filteredCount(){return filtered.length;},get selectedRow(){return selected?.excelRow||null;},
