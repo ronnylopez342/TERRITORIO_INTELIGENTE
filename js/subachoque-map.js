@@ -141,7 +141,7 @@
       const renderer=L.svg({padding:0.35});
       const outline=L.geoJSON(municipio,{renderer,interactive:false,style:{fill:false,weight:5,color:'#ffffff',opacity:1,lineCap:'round',lineJoin:'round'}});
       const boundary=municipio.features[0];
-      let lastName='',disposed=false,ready=false,firstFit=false,userNavigated=false,lastFitWidth=0,lastFitHeight=0;
+      let lastName='',disposed=false,ready=false,firstFit=false,userNavigated=false,lastFitWidth=0,lastFitHeight=0,overviewLayoutKey='';
       let mapLayers={},mapMarkers=L.layerGroup().addTo(map);
       let labelGroup=L.layerGroup().addTo(map);
       const byName=new Map(),labels=[];
@@ -193,6 +193,7 @@
         lastFitWidth=canvas.clientWidth;
         lastFitHeight=canvas.clientHeight;
         userNavigated=false;
+        overviewLayoutKey='';
         firstFit=true;
       }
       if(canvas.clientWidth>10&&canvas.clientHeight>10)fit();
@@ -208,11 +209,11 @@
         'el valle':['El Valle'],
         'galdamez':['Galdámez'],
         'la union':['La Unión'],
-        'la yeguera':['La Yegüera'],
+        'la yeguera':['La','Yegüera'],
         'pantano de arce':['Pantano','de Arce'],
         'rincon santo':['Rincón','Santo'],
         'santa rosa':['Santa','Rosa'],
-        'santuario la cuesta':['Santuario','La Cuesta'],
+        'santuario la cuesta':['Santuario','La','Cuesta'],
         'tibagota':['Tibagotá'],
         'casco urbano':['Casco','Urbano']
       };
@@ -228,7 +229,7 @@
         const marker=L.marker(latLng,{icon,interactive:false,keyboard:false});
         // Keep it invisible until its complete rectangle fits inside its polygon.
         // Never briefly flash an overflowing name during initial map loading.
-        labels.push({kind,marker,latLng,text,lines,geoLayer});
+        labels.push({kind,marker,latLng,originalLatLng:latLng,text,lines,geoLayer});
         return marker;
       }
       for(const f of veredas.features)label('vereda',innerLabel(f),display(f),byName.get(normal(name(f))));
@@ -289,10 +290,126 @@
         }
         return true;
       }
+      // Only the initial full-municipality overview is explicitly composed so
+      // every source territory is named. This is NOT a floating-label system:
+      // candidate anchor points are inside their own GeoJSON, never in the
+      // margins, and are fixed in WGS84 after placement.
+      function labelOverview(){
+        const viewW=canvas.clientWidth,viewH=canvas.clientHeight;
+        if(viewW<10||viewH<10)return;
+        const maxSize=Math.min(21,Math.max(9,Math.min(viewW,viewH)*.040));
+        const minimumSize=Math.min(8,Math.max(6.5,Math.min(viewW,viewH)*.016));
+        const sizes=[maxSize,maxSize*.88,maxSize*.76,maxSize*.65,10,9,8,7.5,7,6.5]
+          .filter(n=>n>=minimumSize-.03)
+          .sort((a,b)=>b-a).filter((n,i,a)=>a.findIndex(x=>Math.abs(n-x)<.18)===i);
+        const view={w:viewW,h:viewH},placed=[];
+        const entries=labels.filter(labelVisible).map(entry=>{
+          const box=entry.geoLayer?.getBounds();
+          const original=map.latLngToContainerPoint(entry.originalLatLng);
+          if(!box?.isValid())return {entry,original,points:[original],area:0};
+          const ne=map.latLngToContainerPoint(box.getNorthEast());
+          const sw=map.latLngToContainerPoint(box.getSouthWest());
+          const left=Math.min(ne.x,sw.x),right=Math.max(ne.x,sw.x);
+          const top=Math.min(ne.y,sw.y),bottom=Math.max(ne.y,sw.y);
+          const points=[original];
+          for(let ix=1;ix<=7;ix++)for(let iy=1;iy<=7;iy++){
+            const pt={x:left+(right-left)*ix/8,y:top+(bottom-top)*iy/8};
+            const ll=map.containerPointToLatLng([pt.x,pt.y]);
+            if(inside(entry.geoLayer.feature,ll.lng,ll.lat))points.push(pt);
+          }
+          points.sort((a,b)=>Math.hypot(a.x-original.x,a.y-original.y)-
+             Math.hypot(b.x-original.x,b.y-original.y));
+          return {entry,original,points,area:(right-left)*(bottom-top)};
+        }).sort((a,b)=>{
+          if(a.entry.kind==='casco')return -1;
+          if(b.entry.kind==='casco')return 1;
+          return a.area-b.area;
+        });
+        // Pass one: prefer labels entirely contained in their regions and not
+        // overlapping any earlier label. This is possible for large regions.
+        const pending=[];
+        for(const item of entries){
+          let best=null;
+          for(const size of sizes){
+            for(const point of item.points){
+              const box=labelBox(item.entry.lines,size,point.x,point.y);
+              if(!labelWithinViewport(box,view.w,view.h))continue;
+              if(placed.some(p=>labelOverlap(box,p.box,1.5)))continue;
+              if(!labelFitsOwnPolygon(item.entry,box))continue;
+              best={entry:item.entry,point,box,size};break;
+            }
+            if(best)break;
+          }
+          if(best)placed.push(best);else pending.push(item);
+        }
+        // Pass two: never discard a municipality-overview name. In the tiny
+        // and narrow veredas a fully-contained word-box can be geometrically
+        // impossible; prefer a centred small label with the least overspill.
+        // Its ANCHOR must still be strictly within its own region. No leader
+        // lines, callouts, or labels near unrelated veredas are created.
+        for(const item of pending){
+          let best=null,bestScore=Infinity;
+          for(const size of sizes){
+            for(const point of item.points){
+              const box=labelBox(item.entry.lines,size,point.x,point.y);
+              if(!labelWithinViewport(box,view.w,view.h))continue;
+              let out=0;
+              const sample=[.1,.5,.9];
+              for(const fx of sample)for(const fy of sample){
+                const ll=map.containerPointToLatLng([box.x+box.w*fx,box.y+box.h*fy]);
+                if(!inside(item.entry.geoLayer.feature,ll.lng,ll.lat))out++;
+              }
+              let overlap=0;
+              for(const other of placed){
+                const width=Math.max(0,Math.min(box.x+box.w,other.box.x+other.box.w)-
+                  Math.max(box.x,other.box.x));
+                const height=Math.max(0,Math.min(box.y+box.h,other.box.y+other.box.h)-
+                  Math.max(box.y,other.box.y));
+                overlap+=width*height/(box.w*box.h||1);
+              }
+              const distance=Math.hypot(point.x-item.original.x,point.y-item.original.y);
+              const score=(out/9)*100+overlap*200+(maxSize-size)*10+distance*.065;
+              if(score<bestScore){bestScore=score;best={entry:item.entry,point,box,size};}
+            }
+          }
+          if(!best){
+            const point=item.original,size=minimumSize;
+            best={entry:item.entry,point,size,box:labelBox(item.entry.lines,size,point.x,point.y)};
+          }
+          placed.push(best);
+        }
+        // The original coordinates of the polygons are never modified. Only
+        // the label's own INSIDE-polygon geographic anchor is chosen at fit.
+        for(const entry of labels){
+          const selected=placed.find(x=>x.entry===entry);
+          if(!selected){
+            if(labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
+            continue;
+          }
+          const position=map.containerPointToLatLng([selected.point.x,selected.point.y]);
+          if(inside(entry.geoLayer.feature,position.lng,position.lat)){
+            entry.latLng=position;
+            entry.marker.setLatLng(position);
+          }
+          if(!labelGroup.hasLayer(entry.marker))labelGroup.addLayer(entry.marker);
+          const el=entry.marker.getElement()?.querySelector('.ti-ed-label');
+          if(el){
+            el.style.fontSize=selected.size.toFixed(2)+'px';
+            el.style.lineHeight='1.07';
+            el.setAttribute('aria-label',entry.text);
+          }
+        }
+      }
       function updateLabelVisibility(){
         if(!map||disposed)return;
         const viewW=canvas.clientWidth,viewH=canvas.clientHeight;
         if(viewW<10||viewH<10)return;
+        if(firstFit&&!userNavigated){
+          const key=[viewW,viewH,map.getZoom().toFixed(4),
+            map.hasLayer(mapLayers.veredas),map.hasLayer(mapLayers.casco)].join('|');
+          if(overviewLayoutKey!==key){labelOverview();overviewLayoutKey=key;}
+          return;
+        }
         // Readable sizes depend on the viewport, not on zoom. Panning or
         // zooming never moves an anchor or creates off-territory callouts.
         const fontMax=Math.min(19,Math.max(9.5,Math.min(viewW,viewH)*.035));
@@ -615,7 +732,7 @@
         toggle:(kind,enabled)=>setLayer(kind,enabled),
         toggleLayerPanel:()=>panelButton.click(),
         fit, invalidateSize:()=>map.invalidateSize(),
-        zoomIn:()=>map.zoomIn(),zoomOut:()=>map.zoomOut(),
+        zoomIn:()=>{userNavigated=true;map.zoomIn();},zoomOut:()=>{userNavigated=true;map.zoomOut();},
         setMarkers:(p,fn)=>addMarkers(p,fn),
         setDocumentaryData:(bundle,active)=>setDocumentaryData(bundle,active),
         setDocumentaryVisibility:(kind,enabled)=>setDocumentaryVisibility(kind,enabled),
@@ -643,6 +760,11 @@
       // User-initiated navigation is retained across responsive resizes; the
       // "Ver todo Subachoque" control returns to automatic close framing.
       canvas.addEventListener('wheel',()=>{userNavigated=true;},{passive:true});
+      canvas.addEventListener('pointerdown',()=>{userNavigated=true;},{passive:true});
+      canvas.addEventListener('keydown',event=>{
+        if(['+','-','=','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(event.key))
+          userNavigated=true;
+      });
       map.on('dragstart',()=>{userNavigated=true;});
       resize.observe(canvas);
       if(!firstFit)requestAnimationFrame(fit);
