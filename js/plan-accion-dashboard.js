@@ -1702,10 +1702,14 @@
 
   /* 3.3 / Observaciones: registros documentales de los dos Excel, sin estados inferidos. */
   const obYears=[2024,2025,2026,2027];
-  const obTypes=[['Comentario','#0c72c5'],['Alerta','#ed3746'],['Recomendación','#f8b900'],['Solicitud','#b78a03'],['Avance','#006d89'],['Otro','#8994a4'],['Sin clasificar','#7e899d']];
+  const obTypes=[['Comentario','#008c57'],['Alerta','#ed3746'],['Recomendación','#f8b900'],['Solicitud','#b78a03'],['Avance','#006d89'],['Otro','#8994a4'],['Sin clasificar','#7e899d']];
   const obStatusKeys=[['closed','Cerrada','#008750'],['tracking','En seguimiento','#f5b300'],['pending','Pendiente de atención','#e63848'],['unknown','Estado no registrado','#8b9bb0']];
   const obIcons={
     comment:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 5h16v11H9l-5 4z"/><path stroke-linecap="round" d="M8 11h.1m4 0h.1m4 0h.1"/></svg>',
+    filter:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4h16l-6.5 8v7l-3 2v-9z"/></svg>',
+    reset:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10a9 9 0 1 1 0 5m0-5V3m0 7h7"/></svg>',
+    list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6h13M9 12h13M9 18h13M3 6h2M3 12h2M3 18h2"/></svg>',
+    eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 12s3.8-6 10-6 10 6 10 6-3.8 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg>',
     check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="m7.5 12 3 3 6-6"/></svg>',
     clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>',
     alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2 2 20h20z"/><path stroke-linecap="round" d="M12 9v5m0 3v.2"/></svg>',
@@ -1747,19 +1751,64 @@
     return `<div class="pa-ob-stats">${obKpi('Total de observaciones',fmtInt.format(records.length),'Registros únicos documentados','comment','total','Registros extraídos del campo de observaciones de cada actividad; textos repetidos agrupados por meta')}${obKpi('Cerradas',known?fmtInt.format(by.closed):'—',known?fmtNum.format(by.closed/known*100)+'% de estados conocidos':'Sin estado de cierre oficial','check','closed')}${obKpi('En seguimiento',known?fmtInt.format(by.tracking):'—',known?fmtNum.format(by.tracking/known*100)+'% de estados conocidos':'Estado no registrado','clock','tracking')}${obKpi('Pendiente de atención',known?fmtInt.format(by.pending):'—',known?fmtNum.format(by.pending/known*100)+'% de estados conocidos':'Estado no registrado','alert','pending')}</div>`;}
   function obSelect(id,name,values,chosen){return `<label for="${id}">${html(name)}<select id="${id}">${values.map(([value,label])=>`<option value="${html(value)}"${value===chosen?' selected':''}>${html(label)}</option>`).join('')}</select></label>`;}
   function obFilters(){
-    const f=state.obFilters,types=[['all','Todos'],...obTypes.map(t=>[t[0],t[0]])];
-    const status=[['all','Todos'],['closed','Cerrada'],['tracking','En seguimiento'],['pending','Pendiente de atención'],['unknown','Estado no registrado']];
+    const f=state.obFilters;
+    const statuses=[['all','Todos'],['closed','Cerrada'],['tracking','En seguimiento'],['pending','Pendiente de atención'],['unknown','Estado no registrado']];
     const issuers=[...new Set(obList().map(x=>x.issuer).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
-    const deps=[['all','Todas'],...issuers.map(x=>[x,x])];if(obList().some(x=>!x.issuer))deps.push(['unknown','Emisor no registrado']);
-    return `<section class="pa-ob-panel pa-ob-filter"><h3>Filtrar observaciones</h3><div class="pa-ob-filter-fields">${obSelect('pa-ob-type','Tipo de observación',types,f.type)}${obSelect('pa-ob-status','Estado',status,f.status)}${obSelect('pa-ob-issuer','Dependencia emisora',deps,f.issuer)}<label for="pa-ob-from">Fecha desde<input id="pa-ob-from" type="date" value="${html(f.from)}"></label><label for="pa-ob-to">Fecha hasta<input id="pa-ob-to" type="date" min="${html(f.from)}" value="${html(f.to)}"></label></div><div class="pa-ob-search"><span aria-hidden="true">${obIcon('search')}</span><input id="pa-ob-search" placeholder="Buscar por palabra clave..." value="${html(f.q)}" aria-label="Buscar observaciones"><button type="button" data-pa-ob-search aria-label="Buscar">${obIcon('search')}</button></div><button type="button" class="pa-ob-clear" data-pa-ob-clear>Restablecer filtros</button><div class="pa-ob-filter-legend"><h4>Tipos de observación</h4>${obTypes.slice(0,-1).map(([name,color])=>`<span><i style="background:${color}"></i>${html(name)}</span>`).join('')}<span><i style="background:#8190a5"></i>Sin clasificar</span></div></section>`;
+    const deps=[['all','Todas'],...issuers.map(x=>[x,x])];
+    if(obList().some(x=>!x.issuer))deps.push(['unknown','Emisor no registrado']);
+    const chips=obTypes.map(([type,color])=>{
+      const active=f.type===type;
+      const bg=active?' style="--ob-chip-color:'+color+';--ob-chip-bg:'+color+'17"':' style="--ob-chip-color:'+color+'"';
+      return '<button type="button" class="pa-ob-type-chip'+(active?' selected':'')+'" data-pa-ob-type-chip="'+html(type)+'" aria-pressed="'+String(active)+'" title="Filtrar por '+html(type)+'"'+bg+'><i aria-hidden="true"></i><span>'+html(type)+'</span></button>';
+    }).join('');
+    return '<section class="pa-ob-panel pa-ob-filter">'+
+      '<div class="pa-ob-filter-title"><span class="pa-ob-filter-icon" aria-hidden="true">'+obIcon('filter')+'</span><h3>Filtrar observaciones</h3></div>'+
+      '<div class="pa-ob-filter-types"><h4>Tipo de observación</h4><div class="pa-ob-type-options" role="group" aria-label="Filtrar por tipo de observación">'+chips+'</div></div>'+
+      '<div class="pa-ob-filter-row">'+
+        obSelect('pa-ob-status','Estado',statuses,f.status)+
+        obSelect('pa-ob-issuer','Dependencia emisora',deps,f.issuer)+
+        '<label for="pa-ob-from">Fecha desde<input id="pa-ob-from" type="date" value="'+html(f.from)+'"></label>'+
+        '<label for="pa-ob-to">Fecha hasta<input id="pa-ob-to" type="date" min="'+html(f.from)+'" value="'+html(f.to)+'"></label>'+
+        '<div class="pa-ob-search"><span aria-hidden="true">'+obIcon('search')+'</span><input id="pa-ob-search" type="search" placeholder="Buscar por palabra clave..." value="'+html(f.q)+'" aria-label="Buscar observaciones"><button type="button" data-pa-ob-search aria-label="Buscar">'+obIcon('search')+'</button></div>'+
+        '<button type="button" class="pa-ob-clear" data-pa-ob-clear>'+obIcon('reset')+'<span>Restablecer filtros</span></button>'+
+      '</div></section>';
   }
-  function obTable(){const all=obFiltered(),pages=Math.max(1,Math.ceil(all.length/8));if(state.obPage>=pages)state.obPage=pages-1;
-    const start=state.obPage*8,slice=all.slice(start,start+8);
-    const rows=slice.map(x=>{const type=obType(x),s=obStatus(x),sname=obStatusKeys.find(k=>k[0]===s)?.[1];return `<tr><td class="pa-ob-date">${html(obDate(x.date))}</td><td><span class="pa-ob-type"><i style="background:${obTypeColor(type)}"></i>${html(type)}</span></td><td class="pa-ob-note" title="${html(x.text)}"><span class="pa-ob-note-preview">${html(x.text)}</span></td><td class="pa-ob-dependency">${html(x.issuer||'Emisor no registrado')}</td><td><span class="pa-ob-state ${s}">${s==='unknown'?'○':s==='closed'?'✓':s==='tracking'?'◷':'!'} ${html(sname)}</span></td><td><button type="button" class="pa-ob-detail-btn" data-pa-ob-detail="${html(x.id)}">Ver detalle</button></td></tr>`}).join('');
-    const heads=[['date','Fecha'],['type','Tipo'],['text','Observación'],['issuer','Dependencia'],['status','Estado'],['','Acciones']];
-    const countText=all.length?`Mostrando ${start+1} - ${Math.min(start+8,all.length)} de ${all.length} observaciones`:'Mostrando 0 de 0 observaciones';
-    const pagination=`<footer class="pa-ob-pagination"><span>${countText}</span><div>${pages>1?`<button type="button" data-pa-ob-page="${state.obPage-1}" ${state.obPage===0?'disabled':''} aria-label="Página anterior">‹</button>`:''}${Array.from({length:pages},(_,i)=>`<button type="button" data-pa-ob-page="${i}" class="${i===state.obPage?'active':''}" aria-label="Página ${i+1}" aria-current="${i===state.obPage?'page':'false'}">${i+1}</button>`).join('')}${pages>1?`<button type="button" data-pa-ob-page="${state.obPage+1}" ${state.obPage+1>=pages?'disabled':''} aria-label="Página siguiente">›</button>`:''}</div></footer>`;
-    return `<section class="pa-ob-panel pa-ob-table-panel"><h3>Listado de observaciones</h3><div class="pa-ob-table-scroller"><table class="pa-ob-table"><thead><tr>${heads.map(([k,v])=>`<th>${k?`<button type="button" data-pa-ob-sort="${k}" title="Ordenar por ${html(v)}">${html(v)}${state.obSort===k?(state.obSortAsc?' ↑':' ↓'):''}</button>`:html(v)}</th>`).join('')}</tr></thead><tbody>${rows||'<tr><td colspan="6"><div class="pa-ob-noresults">No se encontraron observaciones con los filtros seleccionados.</div></td></tr>'}</tbody></table></div>${pagination}<p class="pa-ob-method">Fuente: campo original de observaciones de cada actividad. No se asignan fechas, autores, tipos ni estados por inferencia.</p></section>`;
+  function obTable(){
+    const all=obFiltered(),pageSize=4,pages=Math.max(1,Math.ceil(all.length/pageSize));
+    if(state.obPage>=pages)state.obPage=pages-1;
+    if(state.obPage<0)state.obPage=0;
+    const start=state.obPage*pageSize,slice=all.slice(start,start+pageSize);
+    const rows=slice.map(x=>{
+      const type=obType(x),status=obStatus(x),name=obStatusKeys.find(k=>k[0]===status)?.[1];
+      const kind=type==='Comentario'?'comment':type==='Alerta'?'alert':type==='Recomendación'?'recommendation':type==='Solicitud'?'request':type==='Avance'?'progress':type==='Otro'?'other':'unknown';
+      return '<tr>'+
+        '<td class="pa-ob-date">'+html(obDate(x.date))+'</td>'+
+        '<td><span class="pa-ob-type pa-ob-type-'+kind+'"><i style="background:'+obTypeColor(type)+'"></i>'+html(type)+'</span></td>'+
+        '<td class="pa-ob-note"><span class="pa-ob-note-preview">'+html(x.text)+'</span></td>'+
+        '<td class="pa-ob-dependency">'+html(x.issuer||'Emisor no registrado')+'</td>'+
+        '<td><span class="pa-ob-state '+status+'">'+(status==='unknown'?'○':status==='closed'?'✓':status==='tracking'?'◷':'!')+' '+html(name)+'</span></td>'+
+        '<td><button type="button" class="pa-ob-detail-btn" data-pa-ob-detail="'+html(x.id)+'" aria-label="Ver detalle de observación '+html(x.id)+'">'+obIcon('eye')+'<span>Ver detalle</span></button></td>'+
+       '</tr>';
+    }).join('');
+    const headings=[['date','Fecha'],['type','Tipo'],['text','Observación'],['issuer','Dependencia'],['status','Estado'],['','Acciones']];
+    const count=all.length?'Mostrando '+(start+1)+'–'+Math.min(start+pageSize,all.length)+' de '+all.length+' observaciones':'Mostrando 0 de 0 observaciones';
+    const available=Array.from({length:pages},(_,i)=>i).filter(i=>pages<=7||i===0||i===pages-1||Math.abs(i-state.obPage)<=2);
+    const buttons=available.map((number,index)=>{
+      const separator=index>0&&number>available[index-1]+1?'<span class="pa-ob-page-ellipsis" aria-hidden="true">…</span>':'';
+      return separator+'<button type="button" data-pa-ob-page="'+number+'" class="'+(number===state.obPage?'active':'')+'" aria-label="Página '+(number+1)+'" aria-current="'+(number===state.obPage?'page':'false')+'">'+(number+1)+'</button>';
+    }).join('');
+    const pagination='<footer class="pa-ob-pagination"><span>'+count+'</span>'+
+      (pages>1?'<nav aria-label="Páginas de observaciones"><button type="button" data-pa-ob-page="0" aria-label="Primera página"'+(state.obPage===0?' disabled':'')+'>«</button>'+
+      '<button type="button" data-pa-ob-page="'+(state.obPage-1)+'" aria-label="Página anterior"'+(state.obPage===0?' disabled':'')+'>‹</button>'+
+      buttons+'<button type="button" data-pa-ob-page="'+(state.obPage+1)+'" aria-label="Página siguiente"'+(state.obPage===pages-1?' disabled':'')+'>›</button>'+
+      '<button type="button" data-pa-ob-page="'+(pages-1)+'" aria-label="Última página"'+(state.obPage===pages-1?' disabled':'')+'>»</button></nav>':'')+'</footer>';
+    return '<section class="pa-ob-panel pa-ob-table-panel">'+
+      '<header class="pa-ob-table-heading"><h3>'+obIcon('list')+' Listado de observaciones</h3><span>'+count+'</span></header>'+
+      '<div class="pa-ob-table-scroller" tabindex="0" role="region" aria-label="Tabla desplazable de observaciones">'+
+      '<table class="pa-ob-table"><thead><tr>'+headings.map(([key,label])=>'<th scope="col">'+(key?'<button type="button" data-pa-ob-sort="'+key+'" title="Ordenar por '+html(label)+'">'+html(label)+(state.obSort===key?(state.obSortAsc?' ↑':' ↓'):'')+'</button>':html(label))+'</th>').join('')+'</tr></thead>'+
+      '<tbody>'+ (rows||'<tr><td colspan="6"><div class="pa-ob-noresults">No se encontraron observaciones con los filtros seleccionados.</div></td></tr>')+'</tbody></table></div>'+
+      pagination+
+      '<p class="pa-ob-method">Fuente: campo original de observaciones de cada actividad. No se asignan fechas, autores, tipos ni estados por inferencia.</p></section>';
   }
   function obByAgency(){const list=obList(),matched=list.filter(x=>x.issuer),unknown=list.length-matched.length;const agg=new Map();for(const x of matched)agg.set(x.issuer,(agg.get(x.issuer)||0)+1);
     const sorted=[...agg.entries()].sort((a,b)=>b[1]-a[1]),max=Math.max(1,...sorted.map(a=>a[1]));
@@ -2132,7 +2181,7 @@
     const ctFilterMap={'pa-ct-filter-state':'status','pa-ct-filter-selection':'selection','pa-ct-filter-contractor':'contractor'};
     if(ctFilterMap[ev.target.id]){state.ctFilters[ctFilterMap[ev.target.id]]=ev.target.value;state.ctPage=0;ctRefreshPart();return;}
     if(ev.target.id==='pa-ct-meta-select'){state.current=Number(ev.target.value);ctReset();refresh();return;}
-    const obFilterMap={'pa-ob-type':'type','pa-ob-status':'status','pa-ob-issuer':'issuer','pa-ob-from':'from','pa-ob-to':'to'};
+    const obFilterMap={'pa-ob-status':'status','pa-ob-issuer':'issuer','pa-ob-from':'from','pa-ob-to':'to'};
     if(obFilterMap[ev.target.id]){state.obFilters[obFilterMap[ev.target.id]]=ev.target.value;state.obPage=0;obRefreshPart();return;}
     if(ev.target.matches('[data-pa-tr-layer]')){trToggleLayer(ev.target.dataset.paTrLayer,ev.target.checked);return;}
     if(!['pa-year-select','pa-ig-year-select','pa-act-year-select','pa-ph-year-select','pa-ph-table-year','pa-ben-year-select','pa-bu-year-select','pa-tr-year-select','pa-su-year-select','pa-ob-year-select','pa-ct-year-select'].includes(ev.target.id))return;
@@ -2174,6 +2223,16 @@
     if(ev.target.closest('[data-pa-ct-export]')){ctCsvExport();return;}
     if(ev.target.closest('[data-pa-ob-close]')){ev.target.closest('dialog')?.close();return;}
     if(ev.target.closest('[data-pa-ob-retry]')){state.obError=null;state.obLoaded=false;obLoad();refresh();return;}
+    const observationTypeChip=ev.target.closest('[data-pa-ob-type-chip]');
+    if(observationTypeChip){
+      const type=observationTypeChip.dataset.paObTypeChip;
+      if(!obTypes.some(([value])=>value===type))return;
+      state.obFilters.type=state.obFilters.type===type?'all':type;
+      state.obPage=0;
+      obRefreshPart();
+      panel.querySelector('.pa-ob-type-chip[data-pa-ob-type-chip="'+type+'"]')?.focus({preventScroll:true});
+      return;
+    }
     if(ev.target.closest('[data-pa-ob-clear]')){obReset();obRefreshPart();return;}
     if(ev.target.closest('[data-pa-ob-search]')){const field=panel.querySelector('#pa-ob-search');if(field){state.obFilters.q=field.value;state.obPage=0;obRefreshPart();}return;}
     const obSort=ev.target.closest('[data-pa-ob-sort]');if(obSort){const field=obSort.dataset.paObSort;if(state.obSort===field)state.obSortAsc=!state.obSortAsc;else{state.obSort=field;state.obSortAsc=true;}state.obPage=0;obRefreshPart();return;}
