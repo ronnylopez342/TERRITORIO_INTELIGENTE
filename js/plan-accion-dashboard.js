@@ -104,25 +104,34 @@
     return `<div class="pa-quick-table">${vals.map(([k,v])=>`<div><span>${k}</span><strong>${v}</strong></div>`).join('')}</div>`;
   }
   function chartMarkup(m){
-  const all=m.activities||[];
-  const items=all.filter(a=>isNumeric(a.target)&&a.target>0&&isNumeric(a.progress)&&a.progress>=0);
-  if(!items.length)return `<div class="pa-act-nodata" role="status">Sin valores físicos programados y ejecutados comparables para la meta ${m.id} de ${state.year}. Consulta el detalle de Actividades.</div>`;
-  const high=Math.max(100,...items.map(a=>a.progress/a.target*100));
-  const yMax=Math.max(100,Math.ceil(high/25)*25);
-  const W=Math.max(440,items.length*72+55),H=242,L=43,T=18,B=47,R=10;
-  const h=H-T-B,band=(W-L-R)/items.length,barWidth=Math.min(18,band*.28),y=v=>T+h*(1-v/yMax);
-  const lines=[0,.25,.5,.75,1].map(q=>{
-    const value=yMax*q,yy=y(value);
-    return `<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#dce5eb"/><text x="${L-6}" y="${yy+4}" font-size="10" text-anchor="end" fill="#667a8d">${fmtNum.format(value)}%</text>`;
-  }).join('');
-  const bars=items.map((a,i)=>{
-    const center=L+(i+.5)*band,executed=a.progress/a.target*100;
-    const p=html(fmtNum.format(a.target)),v=html(fmtNum.format(a.progress)),unit=html(a.unit||'unidades'),name=html(a.n);
-    return `<rect x="${center-barWidth-3}" y="${y(100)}" width="${barWidth}" height="${y(0)-y(100)}" rx="2" fill="#91c9e8"><title>Actividad ${name}: programado ${p} ${unit} (100%)</title></rect><rect x="${center+3}" y="${y(executed)}" width="${barWidth}" height="${Math.max(0,y(0)-y(executed))}" rx="2" fill="#058546"><title>Actividad ${name}: ejecutado ${v} ${unit} (${fmtNum.format(executed)}% de lo programado)</title></rect><text x="${center}" y="${H-25}" font-size="10" text-anchor="middle" fill="#445c74">Act.</text><text x="${center}" y="${H-12}" font-size="10" text-anchor="middle" fill="#445c74">${name}</text>`;
-  }).join('');
-  const excluded=all.length-items.length;
-  return `<div class="pa-plot-key"><span><i class="pa-key-bar"></i>Programado</span><span><i class="pa-key-line" style="width:10px;height:10px;border-radius:2px"></i>Ejecución física</span></div><div class="pa-summary-compare-scroll" style="max-width:100%;overflow-x:auto;overflow-y:hidden" tabindex="0" aria-label="Comparación de ejecución física por actividad; desplaza horizontalmente para ver todas las actividades"><svg viewBox="0 0 ${W} ${H}" width="${W}" height="215" style="display:block;width:${W}px;max-width:none;height:215px" role="img" aria-label="Comparación entre programación y ejecución física por actividad para la meta ${m.id}, año ${state.year}" preserveAspectRatio="xMinYMin meet">${lines}${bars}</svg></div><p class="pa-chart-note">Cada actividad: programado = 100% de su valor físico planificado; ejecución = avance reportado dividido por ese valor. ${items.length} de ${all.length} actividades comparables.${excluded?' Se excluyen '+excluded+' sin datos completos.':''} No se infiere un cronograma mensual.</p>`;
-}
+    const all=m.activities||[];
+    const items=all.filter(a=>isNumeric(a.target)&&a.target>0&&isNumeric(a.progress)&&a.progress>=0);
+    if(!items.length)return '<div class="pa-act-nodata" role="status">No se dispone de valores físicos programados y ejecutados comparables para esta meta.</div>';
+    const maxPct=Math.max(100,...items.map(a=>a.progress/a.target*100));
+    const topValue=Math.max(100,Math.ceil(maxPct/25)*25);
+    const W=Math.max(690,items.length*96+84),H=290,L=53,T=37,B=54,R=16;
+    const plotHeight=H-T-B,groupWidth=(W-L-R)/items.length,barWidth=Math.min(26,groupWidth*.27);
+    const y=value=>T+plotHeight*(1-value/topValue);
+    const grid=[0,.25,.5,.75,1].map(fraction=>{
+      const value=topValue*fraction,yy=y(value);
+      return '<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e3eaf0" stroke-width="1"/>'+
+        '<text x="'+(L-10)+'" y="'+(yy+4)+'" text-anchor="end" font-size="12" fill="#55708b">'+html(fmtNum.format(value))+'%</text>';
+    }).join('');
+    const bars=items.map((a,i)=>{
+      const center=L+(i+.5)*groupWidth,executed=a.progress/a.target*100;
+      const barY=y(executed),barH=Math.max(0,y(0)-barY);
+      const name=html(a.n),unit=html(a.unit||'unidades');
+      const planned=html(fmtNum.format(a.target))+' '+unit,real=html(fmtNum.format(a.progress))+' '+unit;
+      return '<rect x="'+(center-barWidth-4)+'" y="'+y(100)+'" width="'+barWidth+'" height="'+Math.max(0,y(0)-y(100))+'" rx="4" fill="#91c9ea"><title>Actividad '+name+': programado '+planned+' (100% de su valor planificado)</title></rect>'+
+        '<rect x="'+(center+4)+'" y="'+barY+'" width="'+barWidth+'" height="'+barH+'" rx="4" fill="#068746"><title>Actividad '+name+': ejecutado '+real+' ('+html(fmtNum.format(executed))+'% del valor programado)</title></rect>'+
+        '<text x="'+(center+barWidth/2+4)+'" y="'+Math.max(16,barY-9)+'" font-size="12" font-weight="750" fill="#006b41" text-anchor="middle">'+html(fmtNum.format(executed))+'%</text>'+
+        '<text x="'+center+'" y="'+(H-26)+'" font-size="12" text-anchor="middle" fill="#405a73">Act.</text>'+
+        '<text x="'+center+'" y="'+(H-10)+'" font-size="12" font-weight="650" text-anchor="middle" fill="#213f5d">'+name+'</text>';
+    }).join('');
+    return '<div class="pa-summary-chart-legend" aria-label="Leyenda: Programado azul claro, ejecutado verde"><span><i class="pa-key-bar"></i>Programado</span><span><i class="pa-key-line"></i>Ejecutado</span></div>'+
+      '<div class="pa-summary-chart-scroll" tabindex="0" aria-label="Comparación física por actividad; puedes desplazar horizontalmente la gráfica">'+
+        '<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="Programación y ejecución física de las actividades de la meta '+html(m.id)+' en '+html(state.year)+'" preserveAspectRatio="xMinYMin meet">'+grid+bars+'</svg></div>';
+  }
   function budgetMarkup(m){
     const names=['Saldo definitivo de la meta','CDP','Compromiso (RP)','Obligaciones','Pagos','Saldo disponible'];
     const colors=['#24b065','#39af5b','#2676df','#9ca8b4','#edb528','#ed5d63'];
@@ -171,9 +180,38 @@
     }).join('');
     return `<div class="pa-table-wrap"><table class="pa-act-table"><thead><tr><th>N.º actividad</th><th>Actividad</th><th>Peso %</th><th>Indicador</th><th>Unidad</th><th>Valor programado</th><th>Avance reportado</th><th>Estado*</th><th>Ver detalle</th></tr></thead><tbody>${rows||'<tr><td colspan="9">Sin actividades asociadas a esta meta.</td></tr>'}</tbody></table></div>`;
   }
+  function budgetSummaryChartMarkup(m){
+    const labels=['Saldo definitivo','CDP','Compromiso (RP)','Obligaciones','Pagos','Saldo disponible'];
+    const twoLine=[['Saldo','definitivo'],['CDP',''],['Compromiso','(RP)'],['Obligaciones',''],['Pagos',''],['Saldo','disponible']];
+    const colors=['#1aa061','#22a866','#267de2','#8f9faf','#edb52a','#e55b64'];
+    const amounts=m.budget||[];
+    const max=Math.max(1,...amounts.filter(isNumeric).map(v=>Math.max(0,v)));
+    const unit=max>=1e6?1e6:max>=1e3?1e3:1;
+    const suffix=unit===1e6?' M':unit===1e3?' mil':'';
+    const topValue=max*1.14;
+    const W=760,H=294,L=89,R=16,T=29,B=65;
+    const ph=H-T-B,step=(W-L-R)/6,barWidth=Math.min(66,step*.66);
+    const y=v=>T+ph*(1-v/topValue);
+    const grid=[0,.25,.5,.75,1].map(frac=>{
+      const val=topValue*frac,yy=y(val);
+      return '<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e4ebf0"/>'+
+        '<text x="'+(L-9)+'" y="'+(yy+4)+'" font-size="11" text-anchor="end" fill="#55708b">$ '+html(fmtNum.format(val/unit))+suffix+'</text>';
+    }).join('');
+    const bars=labels.map((label,i)=>{
+      const center=L+(i+.5)*step,val=amounts[i],hasValue=isNumeric(val),amount=hasValue?Math.max(0,val):0;
+      const yy=y(amount),barH=Math.max(0,y(0)-yy);
+      const info=hasValue?'$ '+fmtNum.format(amount/unit)+suffix:'—';
+      const topY=hasValue?Math.max(16,yy-8):y(0)-6;
+      const subtitles=twoLine[i].map((line,j)=>line?'<text x="'+center+'" y="'+(H-34+j*16)+'" font-size="12" text-anchor="middle" fill="#34516b">'+html(line)+'</text>':'').join('');
+      return (hasValue?'<rect x="'+(center-barWidth/2)+'" y="'+yy+'" width="'+barWidth+'" height="'+barH+'" rx="5" fill="'+colors[i]+'"><title>'+html(label)+': '+html(currencyOrDash(val))+'</title></rect>':'<line x1="'+(center-14)+'" y1="'+(y(0)-1)+'" x2="'+(center+14)+'" y2="'+(y(0)-1)+'" stroke="#8da0b1" stroke-dasharray="4 4"/>')+
+        '<text x="'+center+'" y="'+topY+'" text-anchor="middle" font-size="11" font-weight="750" fill="#233e59">'+html(info)+'</text>'+subtitles;
+    }).join('');
+    return '<div class="pa-summary-chart-scroll" tabindex="0" aria-label="Comparación presupuestal; puedes desplazar horizontalmente la gráfica">'+
+      '<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="Valores presupuestales de la meta '+html(m.id)+' de '+html(state.year)+' en pesos colombianos">'+grid+bars+'</svg></div>';
+  }
   function card(title,content,klass=''){return `<section class="pa-card ${klass}"><h3>${title}</h3>${content}</section>`;}
   function summaryMarkup(m){
-    return `<div class="pa-dashboard-cards"><div class="pa-card-row pa-row-3">${card('Avance de la ejecución física de la meta '+state.year,`<div class="pa-progress-card">${dial(m.pct,'Avance físico','#006b3c')}${detailRows(m)}</div>`)}${card('Programación vs Ejecución Física '+state.year,chartMarkup(m))}${card('Avance de la ejecución presupuestal de la meta '+state.year,budgetMarkup(m))}</div><div class="pa-card-row pa-row-mixed">${card('Número de Personas Asistidas / Beneficiadas',peopleMarkup(m))}${card('Territorio de Intervención',locationsMarkup(m))}${card('Producto de la Ejecución de la Meta',productMarkup(m))}</div><div class="pa-card-row pa-row-table">${card('Actividades del Plan de Acción '+state.year,activitiesMarkup(m),'pa-activity-card')}${card('Documentos y soportes destacados',evidenceMarkup(m),'pa-docs-card')}</div>${galleryDialogMarkup(m)}<p class="pa-method-note"><strong>Fuente:</strong> ${html(currentYear()?.source || '')}. <strong>Otras metas:</strong> ${summarize().done} al 100% y ${summarize().empty} sin porcentaje numérico. <strong>Criterios de lectura:</strong> “En ejecución” = avance de 40 a 99%; “En riesgo” = avance mayor a 0 y menor a 40%; “Con retraso*” = 0% reportado (alerta orientativa, no retraso certificado). Son alertas orientativas del tablero, no estados administrativos certificados. Los resultados y avances son los registrados en el archivo aportado.</p></div>`;
+    return `<div class="pa-dashboard-cards"><div class="pa-card-row pa-summary-primary">${card('Avance de la ejecución física de la meta '+state.year,`<div class="pa-progress-card">${dial(m.pct,'Avance físico','#006b3c')}${detailRows(m)}</div><div class="pa-summary-chart"><h4>Ejecución física por actividad · ${state.year}</h4>${chartMarkup(m)}</div>`,'pa-summary-physical')}${card('Avance de la ejecución presupuestal de la meta '+state.year,`<div class="pa-summary-budget-metrics">${budgetMarkup(m)}</div><div class="pa-summary-chart pa-summary-budget-chart"><h4>Trazabilidad presupuestal · ${state.year}</h4>${budgetSummaryChartMarkup(m)}</div>`,'pa-summary-budget')}</div><div class="pa-card-row pa-row-mixed">${card('Número de Personas Asistidas / Beneficiadas',peopleMarkup(m))}${card('Territorio de Intervención',locationsMarkup(m))}${card('Producto de la Ejecución de la Meta',productMarkup(m))}</div><div class="pa-card-row pa-row-table">${card('Actividades del Plan de Acción '+state.year,activitiesMarkup(m),'pa-activity-card')}${card('Documentos y soportes destacados',evidenceMarkup(m),'pa-docs-card')}</div>${galleryDialogMarkup(m)}<p class="pa-method-note"><strong>Fuente:</strong> ${html(currentYear()?.source || '')}. <strong>Otras metas:</strong> ${summarize().done} al 100% y ${summarize().empty} sin porcentaje numérico. <strong>Criterios de lectura:</strong> “En ejecución” = avance de 40 a 99%; “En riesgo” = avance mayor a 0 y menor a 40%; “Con retraso*” = 0% reportado (alerta orientativa, no retraso certificado). Son alertas orientativas del tablero, no estados administrativos certificados. Los resultados y avances son los registrados en el archivo aportado.</p></div>`;
   }
   function listMarkup(){
     const q=normalizeQuery(state.qKeyword), num=(state.qNumber||'').trim();
