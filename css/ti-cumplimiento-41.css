@@ -1,230 +1,220 @@
-/* Territorio Inteligente · 4.1 Conoce la Unidad de Cumplimiento.
-   Todos los selectores se limitan a #cumplimiento-conoce para evitar cambios
-   de ancho, zoom y estilos en otros apartados o en la navegación general. */
+/* 4.1 · Unidad de Cumplimiento — portada de consulta.
+   Referencia visual: presentación del Plan Estadístico Territorial.
+   Los cambios de composición NO afectan 4.2/4.3/4.4 ni Plan de Desarrollo.
+   La navegación oficial permanece en la barra global desplegable. */
+
+.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden]))>.ti34-hero,
+.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden]))>.ti34-video{display:none!important}
+.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden])) .ti34-layout{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ width:100%!important;max-width:none!important;margin:0!important;
+ gap:0!important;padding:0!important;
+}
+.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden])) .ti34-sidebar{display:none!important}
+.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden])) .ti34-content{
+ width:100%!important;max-width:none!important;padding:0!important;min-width:0!important;
+}
+#cumplimiento-conoce:not([hidden])>.ti-section-index,
+#cumplimiento-conoce:not([hidden])>.ti34-content-head,
+#cumplimiento-conoce:not([hidden])>.ti34-content-lead{display:none!important}
+#cumplimiento-conoce:not([hidden]){padding:0!important;margin:0!important;background:#182c3a!important;min-width:0}
 #cumplimiento-conoce .ti41{
-  --ti41-border:#3d6780;
-  --ti41-ink:#e9f5fc;
-  --ti41-muted:#b6cfdf;
-  display:flex;
-  flex-direction:column;
-  gap:clamp(15px,1.3vw,23px);
-  width:100%;
-  max-width:100%;
-  min-width:0;
-  box-sizing:border-box;
-  color:var(--ti41-ink);
+ --ti41-yellow:#ffdf00;--ti41-white:#f6fbff;--ti41-muted:#c4d0db;--ti41-line:#42627a;
+ display:flex;flex-direction:column;gap:20px;
+ max-width:1780px;width:100%;min-width:0;margin:0 auto;
+ padding:clamp(22px,2.8vw,48px) clamp(18px,2.6vw,62px) clamp(35px,3vw,62px);
+ box-sizing:border-box;color:var(--ti41-white);
+ font-family:"Poppins",Arial,Helvetica,sans-serif;
 }
 #cumplimiento-conoce .ti41 *,#cumplimiento-conoce .ti41 *::before,#cumplimiento-conoce .ti41 *::after{box-sizing:border-box}
-#cumplimiento-conoce .ti41-top{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(260px,.9fr);gap:13px;align-items:stretch;min-width:0}
-#cumplimiento-conoce .ti41-hero,
-#cumplimiento-conoce .ti41-route,
-#cumplimiento-conoce .ti41-source-card,
-#cumplimiento-conoce .ti41-caution{
-  border:1px solid var(--ti41-border);
-  border-radius:11px;
-  min-width:0;
+#cumplimiento-conoce .ti41 h1,
+#cumplimiento-conoce .ti41 h2,
+#cumplimiento-conoce .ti41 h3,
+#cumplimiento-conoce .ti41 p{margin:0!important;text-transform:none!important;letter-spacing:normal}
+#cumplimiento-conoce .ti41 button{font-family:inherit;cursor:pointer}
+#cumplimiento-conoce .ti41 button:focus-visible{outline:3px solid var(--ti41-yellow)!important;outline-offset:3px}
+#cumplimiento-conoce .ti41-showcase{
+ display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);
+ gap:clamp(22px,3vw,54px);align-items:center;min-width:0;min-height:430px;
 }
-#cumplimiento-conoce .ti41-hero{
-  background:radial-gradient(circle at 100% 8%,#27976b36,transparent 42%),linear-gradient(135deg,#113f4a,#0b3144 58%,#092c42);
-  padding:clamp(20px,2vw,32px);
-  display:flex;
-  flex-direction:column;
-  gap:13px;
-  border-left:4px solid #ffdf00;
-  min-height:285px;
+#cumplimiento-conoce .ti41-intro{min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+#cumplimiento-conoce .ti41-yellow-rule{width:58px;height:3px;background:var(--ti41-yellow);display:block;margin-bottom:29px}
+#cumplimiento-conoce .ti41-intro h1{
+ color:var(--ti41-yellow)!important;font-weight:900!important;
+ font-size:clamp(42px,4.8vw,81px)!important;line-height:.98!important;letter-spacing:-.047em!important;
+ max-width:730px;overflow-wrap:anywhere;
 }
-#cumplimiento-conoce .ti41-eyebrow{display:inline-flex;align-items:center;gap:6px;letter-spacing:.11em;font-size:10px;line-height:1.4;font-weight:850;color:#d8bf36}
-#cumplimiento-conoce .ti41-hero h3,
-#cumplimiento-conoce .ti41-route h3,
-#cumplimiento-conoce .ti41-source-card h3,
-#cumplimiento-conoce .ti41-caution h3{
-  font-size:clamp(20px,1.7vw,28px)!important;
-  font-weight:850!important;
-  line-height:1.15!important;
-  letter-spacing:-.025em!important;
-  margin:0!important;
-  color:#fff!important;
+#cumplimiento-conoce .ti41-lead{
+ max-width:735px;margin-top:24px!important;
+ color:#fff!important;font-size:clamp(16px,1.35vw,22px)!important;line-height:1.43!important;
+ font-weight:460;
 }
-#cumplimiento-conoce .ti41-hero p,
-#cumplimiento-conoce .ti41-route p,
-#cumplimiento-conoce .ti41-caution p{
-  margin:0;
-  color:#cce0e9;
-  font-size:clamp(12px,.95vw,14px);
-  line-height:1.6;
+#cumplimiento-conoce .ti41-description{
+ max-width:735px;margin-top:26px!important;
+ color:#d3e0ea!important;font-size:clamp(13px,1.09vw,18px)!important;line-height:1.56!important;
 }
-#cumplimiento-conoce .ti41-hero .ti41-hero-lead{font-size:clamp(14px,1.15vw,17px);line-height:1.52;color:#fff}
-#cumplimiento-conoce .ti41-hero strong,#cumplimiento-conoce .ti41-caution strong{color:#fff0ae}
-#cumplimiento-conoce .ti41-hero-source{
-  margin-top:auto;
-  display:block;
-  padding-top:12px;
-  border-top:1px solid #497582;
-  color:#bddee5;
-  font-size:11px;
-  line-height:1.5;
+#cumplimiento-conoce .ti41-document{
+ display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.08fr);
+ gap:clamp(16px,1.5vw,27px);
+ width:100%;min-width:0;align-items:stretch;
+ background:linear-gradient(145deg,#254458,#213d51);
+ border:1px solid #486e86;border-radius:8px;
+ padding:clamp(18px,2vw,31px);
+ box-shadow:0 8px 26px #06162424;
 }
-#cumplimiento-conoce .ti41-route{
-  display:flex;
-  flex-direction:column;
-  gap:11px;
-  padding:clamp(19px,1.65vw,26px);
-  background:linear-gradient(155deg,#164053,#0f3046);
+#cumplimiento-conoce .ti41-cover{
+ position:relative;overflow:hidden;isolation:isolate;
+ display:flex;flex-direction:column;min-width:0;
+ aspect-ratio:.73;min-height:280px;
+ border:1px solid #69849a;border-radius:5px;padding:20px;
+ background:linear-gradient(180deg,#0b2a3d 0%,#132f42 57%,#2d5764 100%);
+ box-shadow:0 10px 22px #031a2b99;
 }
-#cumplimiento-conoce .ti41-route h3{font-size:clamp(18px,1.42vw,23px)!important}
-#cumplimiento-conoce .ti41-steps{
-  margin:7px 0 0;
-  padding:0;
-  list-style:none;
-  display:grid;
-  gap:16px;
+#cumplimiento-conoce .ti41-cover-brand{
+ position:relative;z-index:1;font-size:clamp(10px,.92vw,14px);
+ font-weight:900;line-height:1.02;letter-spacing:-.02em;color:#fff;
 }
-#cumplimiento-conoce .ti41-steps li{display:flex;gap:13px;align-items:start;min-width:0}
-#cumplimiento-conoce .ti41-step-no{
-  display:grid;
-  place-items:center;
-  flex:0 0 34px;
-  width:34px;
-  height:34px;
-  border-radius:8px;
-  background:#f8d632;
-  color:#0c3343;
-  font-weight:900;
-  font-size:13px;
+#cumplimiento-conoce .ti41-cover-rule{
+ position:relative;z-index:1;width:34px;height:3px;background:var(--ti41-yellow);margin:14px 0 17px;
 }
-#cumplimiento-conoce .ti41-steps strong{display:block;margin-bottom:3px;color:#fff;font-size:13px;font-weight:800}
-#cumplimiento-conoce .ti41-steps p{font-size:12px;line-height:1.43}
-#cumplimiento-conoce .ti41-route .ti41-route-note{
-  margin-top:auto;
-  border-top:1px solid #3b6075;
-  padding-top:11px;
-  color:#d0e3e9;
-  font-size:11px;
+#cumplimiento-conoce .ti41-cover>strong{
+ position:relative;z-index:1;font-weight:850;color:#fff;
+ font-size:clamp(16px,1.32vw,23px);line-height:1.15;
 }
-#cumplimiento-conoce .ti41-block{display:flex;flex-direction:column;gap:12px;min-width:0}
-#cumplimiento-conoce .ti41-section-heading{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  padding:1px 2px 2px;
+#cumplimiento-conoce .ti41-cover>strong em{
+ display:block;margin-top:5px;color:var(--ti41-yellow);font-size:.79em;font-style:normal;
 }
-#cumplimiento-conoce .ti41-section-heading h3{
-  margin:0!important;
-  color:#fff!important;
-  font-size:clamp(19px,1.7vw,27px)!important;
-  line-height:1.22!important;
-  font-weight:850!important;
+#cumplimiento-conoce .ti41-cover-note{
+ position:relative;z-index:1;color:#dce8ef;margin-top:19px;
+ font-size:clamp(9px,.8vw,12px);line-height:1.36;
 }
-#cumplimiento-conoce .ti41-section-heading p{margin:0;color:#b9d1e0;font-size:12px;line-height:1.5}
-#cumplimiento-conoce .ti41-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;min-width:0}
-#cumplimiento-conoce .ti41-metric{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:9px;
-  padding:clamp(13px,1.2vw,19px);
-  min-width:0;
-  min-height:205px;
-  border:1px solid #406982;
-  border-top:3px solid #0ca566;
-  border-radius:9px;
-  background:linear-gradient(165deg,#173f55,#0d3046);
+#cumplimiento-conoce .ti41-cover-landscape{
+ position:absolute;inset:64% 0 0;z-index:0;
+ background:linear-gradient(180deg,#102f42a5 0%,#0b24391c 28%,#0e2e40a8 100%),
+ url('../assets/img/editorial/gestion.jpg') center/cover no-repeat;
 }
-#cumplimiento-conoce .ti41-metric-review{border-top-color:#e3aa22}
-#cumplimiento-conoce .ti41-metric-tag{font-size:10px;color:#abd2d7;font-weight:850;letter-spacing:.09em}
-#cumplimiento-conoce .ti41-metric>strong{
-  display:block;
-  max-width:100%;
-  font-size:clamp(34px,3vw,49px);
-  line-height:1.06;
-  font-weight:900;
-  color:#f5de43;
-  overflow-wrap:anywhere;
+#cumplimiento-conoce .ti41-document-info{display:flex;flex-direction:column;gap:12px;min-width:0;align-items:stretch}
+#cumplimiento-conoce .ti41-document-info h2{
+ font-size:clamp(19px,1.56vw,26px)!important;line-height:1.22!important;
+ font-weight:850!important;color:#fff!important;
 }
-#cumplimiento-conoce .ti41-metric>strong.ti41-weekly{font-size:clamp(15px,1.4vw,20px);line-height:1.23;margin:5px 0}
-#cumplimiento-conoce .ti41-metric h4{font-size:13px!important;line-height:1.35!important;color:#fff!important;font-weight:800!important;margin:0!important}
-#cumplimiento-conoce .ti41-metric p{color:#c6dce7;font-size:11px;line-height:1.5;margin:0}
-#cumplimiento-conoce .ti41-metric small{display:block;margin-top:auto;padding-top:10px;border-top:1px solid #3e6377;font-size:10px;line-height:1.45;color:#a9c6d6;overflow-wrap:anywhere}
+#cumplimiento-conoce .ti41-document-info p{
+ color:#f0f5fa!important;font-size:clamp(12px,1.01vw,16px)!important;line-height:1.48!important;
+ margin:2px 0 7px!important;
+}
+#cumplimiento-conoce .ti41-document-action{
+ display:flex;align-items:center;gap:12px;width:100%;
+ min-height:49px;border:1px solid #ffd500;border-radius:5px;
+ padding:10px 13px;color:#052840;background:var(--ti41-yellow);
+ font-size:clamp(11px,1.04vw,15px);font-weight:850;letter-spacing:.015em;
+ text-align:left;
+}
+#cumplimiento-conoce .ti41-document-action svg{width:22px;height:22px;flex:0 0 22px}
+#cumplimiento-conoce .ti41-document-action span{flex:1;min-width:0}
+#cumplimiento-conoce .ti41-document-action b{font-size:23px;font-weight:500}
+#cumplimiento-conoce .ti41-document-open:hover{background:#ffe94b}
+#cumplimiento-conoce .ti41-document-download{
+ color:#d5e1e9;background:#203a4f;border-color:#648199;
+}
+#cumplimiento-conoce .ti41-document-download:disabled{opacity:.7;cursor:not-allowed}
+#cumplimiento-conoce .ti41-document-info small{
+ margin-top:auto;color:#bacede;line-height:1.45;font-size:clamp(10px,.8vw,12px);
+}
+#cumplimiento-conoce .ti41-stats,
+#cumplimiento-conoce .ti41-topics{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;min-width:0;
+}
+#cumplimiento-conoce .ti41-stat,
+#cumplimiento-conoce .ti41-topic{
+ display:flex;flex-direction:column;gap:13px;min-width:0;align-items:flex-start;
+ background:linear-gradient(150deg,#203d51,#162f42);
+ border:1px solid #496c84;border-radius:5px;
+ padding:clamp(17px,1.75vw,29px);
+}
+#cumplimiento-conoce .ti41-stat{min-height:204px}
+#cumplimiento-conoce .ti41-stat-lead{display:flex;align-items:center;gap:16px;min-width:0;width:100%}
+#cumplimiento-conoce .ti41-stat-icon,
+#cumplimiento-conoce .ti41-topic-icon{
+ display:grid;place-items:center;flex:0 0 66px;width:66px;height:66px;
+ border-radius:50%;background:#385d76;border:1px solid #68899d;color:#eaf8ff;
+}
+#cumplimiento-conoce .ti41-stat-icon svg,
+#cumplimiento-conoce .ti41-topic-icon svg{width:31px;height:31px}
+#cumplimiento-conoce .ti41-stat-name{min-width:0}
+#cumplimiento-conoce .ti41-stat-name strong{
+ display:block;font-size:clamp(27px,3.1vw,48px)!important;
+ color:var(--ti41-yellow)!important;font-weight:900;line-height:1.1;
+ overflow-wrap:anywhere;
+}
+#cumplimiento-conoce .ti41-stat-weekly .ti41-stat-name strong{
+ font-size:clamp(14px,1.33vw,22px)!important;line-height:1.28;margin-bottom:5px;
+}
+#cumplimiento-conoce .ti41-stat-name b{
+ display:block;font-size:clamp(12px,1.02vw,16px)!important;
+ font-weight:800;color:#fff;line-height:1.25;
+}
+#cumplimiento-conoce .ti41-stat>p,
+#cumplimiento-conoce .ti41-topic>p{
+ color:#e0ecf3!important;font-size:clamp(12px,.96vw,15px)!important;line-height:1.47!important;
+}
+#cumplimiento-conoce .ti41-stat>small,
+#cumplimiento-conoce .ti41-topic>small{
+ margin-top:auto;color:#a9c9d8;font-size:10px;line-height:1.42;
+ border-top:1px solid #4a6b7e;padding-top:9px;width:100%;
+ overflow-wrap:anywhere;
+}
+#cumplimiento-conoce .ti41-topic{min-height:239px;gap:13px}
+#cumplimiento-conoce .ti41-topic h3{
+ color:#fff!important;font-size:clamp(16px,1.42vw,22px)!important;
+ font-weight:800!important;line-height:1.3!important;
+}
+#cumplimiento-conoce .ti41-topic-icon{margin-bottom:3px}
 #cumplimiento-conoce .ti41-data-status{
-  margin:0;
-  border:1px solid #34657b;
-  border-radius:7px;
-  background:#0c3045;
-  padding:10px 12px;
-  color:#bfd8e5;
-  font-size:11px;
-  line-height:1.46;
+ color:#a8c1d1!important;font-size:11px!important;line-height:1.4!important;
+ padding:3px 0 0;margin:0!important;
 }
-#cumplimiento-conoce .ti41-areas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;min-width:0}
-#cumplimiento-conoce .ti41-area{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:10px;
-  min-width:0;
-  padding:18px 15px;
-  border:1px solid #37677a;
-  border-radius:10px;
-  background:#123a50;
+#cumplimiento-conoce .ti41-dialog{
+ width:min(740px,calc(100vw - 30px));max-height:88vh;
+ border:1px solid #5d8196;border-radius:10px;padding:0;
+ color:#e7f4fc;background:#112f42;box-shadow:0 25px 65px #08131fbb;
 }
-#cumplimiento-conoce .ti41-area-icon{
-  width:37px;
-  height:37px;
-  border-radius:9px;
-  display:grid;
-  place-items:center;
-  border:1px solid #65908e;
-  background:#145b57;
-  color:#f4e574;
-  font-weight:850;
-  font-size:15px;
+#cumplimiento-conoce .ti41-dialog::backdrop{background:#061726ba}
+#cumplimiento-conoce .ti41-dialog-head{
+ display:flex;align-items:start;justify-content:space-between;gap:16px;
+ border-bottom:1px solid #416478;padding:20px 22px;background:#163d50;
 }
-#cumplimiento-conoce .ti41-area h4{margin:0!important;font-size:14px!important;font-weight:800!important;line-height:1.3!important;color:#fff!important}
-#cumplimiento-conoce .ti41-area p{margin:0;color:#c3dce9;font-size:12px;line-height:1.5}
-#cumplimiento-conoce .ti41-area small{margin-top:auto;padding-top:10px;border-top:1px solid #3c6477;width:100%;color:#a8c7d7;font-size:10px;line-height:1.4}
-#cumplimiento-conoce .ti41-bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,.82fr);align-items:stretch;gap:12px;min-width:0}
-#cumplimiento-conoce .ti41-source-card{background:#f8fbfc;padding:clamp(18px,1.55vw,25px);color:#17374a}
-#cumplimiento-conoce .ti41-source-card .ti41-eyebrow{color:#197b54}
-#cumplimiento-conoce .ti41-source-card h3{color:#173a54!important}
-#cumplimiento-conoce .ti41-source-card p{margin:9px 0;color:#3d5765;font-size:12px;line-height:1.6}
-#cumplimiento-conoce .ti41-source-details{margin-top:13px;border:1px solid #cbdeda;border-radius:7px;overflow:hidden}
-#cumplimiento-conoce .ti41-source-details summary{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:12px;
-  background:#e6f4ed;
-  color:#126249;
-  font-size:12px;
-  line-height:1.4;
-  font-weight:850;
-  cursor:pointer;
-  list-style-position:inside;
+#cumplimiento-conoce .ti41-dialog-head span{color:#fbe23c;font-size:10px;letter-spacing:.1em;font-weight:800}
+#cumplimiento-conoce .ti41-dialog-head h2{color:#fff!important;font-size:23px!important;margin:6px 0 0!important;font-weight:850!important}
+#cumplimiento-conoce .ti41-dialog-head button{
+ flex:0 0 34px;width:34px;height:34px;border:1px solid #7491a4;border-radius:6px;
+ color:#fff;background:#294e64;font-size:23px;
 }
-#cumplimiento-conoce .ti41-source-details summary:hover{background:#d9eee4}
-#cumplimiento-conoce .ti41-source-details summary:focus-visible{outline:2px solid #0b845c;outline-offset:-3px}
-#cumplimiento-conoce .ti41-source-details ul{padding:12px 19px 14px 32px;margin:0;display:grid;gap:9px;font-size:12px;line-height:1.5;color:#3b5b6d}
-#cumplimiento-conoce .ti41-source-details li{overflow-wrap:anywhere}
-#cumplimiento-conoce .ti41-source-card .ti41-source-foot{margin-top:13px;font-size:11px;color:#587580;overflow-wrap:anywhere}
-#cumplimiento-conoce .ti41-caution{
-  display:flex;
-  flex-direction:column;
-  gap:11px;
-  padding:clamp(18px,1.55vw,25px);
-  border-color:#967d3f;
-  background:linear-gradient(145deg,#344c4b,#223a47);
+#cumplimiento-conoce .ti41-dialog-body{padding:22px 25px;overflow:auto;max-height:calc(88vh - 100px)}
+#cumplimiento-conoce .ti41-dialog-body p{color:#d4e4ed!important;font-size:14px!important;line-height:1.6!important}
+#cumplimiento-conoce .ti41-dialog-body ol{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 30px;
+ list-style-position:inside;margin:16px 0;padding:0;color:#fff;font-size:13px;
 }
-#cumplimiento-conoce .ti41-caution h3{font-size:clamp(18px,1.38vw,23px)!important}
-#cumplimiento-conoce .ti41-caution p{font-size:12px}
-@media(max-width:1300px){
- #cumplimiento-conoce .ti41-top,#cumplimiento-conoce .ti41-bottom{grid-template-columns:1fr}
- #cumplimiento-conoce .ti41-metrics,#cumplimiento-conoce .ti41-areas{grid-template-columns:repeat(2,minmax(0,1fr))}
- #cumplimiento-conoce .ti41-hero{min-height:0}
+#cumplimiento-conoce .ti41-dialog-body li{padding:9px 11px;border-radius:5px;background:#23495b}
+#cumplimiento-conoce .ti41-dialog-body .ti41-dialog-note{
+ background:#2a4250;border-left:3px solid #ffdf00;padding:12px;margin-top:18px!important;font-size:12px!important;
 }
-@media(max-width:620px){
- #cumplimiento-conoce .ti41-top,#cumplimiento-conoce .ti41-bottom{gap:10px}
- #cumplimiento-conoce .ti41-metrics,#cumplimiento-conoce .ti41-areas{grid-template-columns:1fr}
- #cumplimiento-conoce .ti41-hero,#cumplimiento-conoce .ti41-route,#cumplimiento-conoce .ti41-source-card,#cumplimiento-conoce .ti41-caution{padding:18px}
- #cumplimiento-conoce .ti41-metric{min-height:0}
- #cumplimiento-conoce .ti41-area{min-height:0}
+@media(max-width:1240px){
+ #cumplimiento-conoce .ti41-showcase{grid-template-columns:1fr}
+ #cumplimiento-conoce .ti41-intro{padding:8px 0}
+ #cumplimiento-conoce .ti41-document{max-width:900px}
+ #cumplimiento-conoce .ti41-stats,#cumplimiento-conoce .ti41-topics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+ #cumplimiento-conoce .ti41-showcase{gap:20px;min-height:0}
+ #cumplimiento-conoce .ti41-stats,#cumplimiento-conoce .ti41-topics{grid-template-columns:1fr}
+ #cumplimiento-conoce .ti41-document{grid-template-columns:minmax(0,.75fr) minmax(0,1fr);padding:15px;gap:13px}
+ #cumplimiento-conoce .ti41-cover{padding:12px;min-height:250px}
+ #cumplimiento-conoce .ti41-stat,#cumplimiento-conoce .ti41-topic{min-height:0}
+}
+@media(max-width:480px){
+ #cumplimiento-conoce .ti41-document{grid-template-columns:1fr}
+ #cumplimiento-conoce .ti41-cover{width:min(270px,100%);min-height:310px;margin:0 auto}
+ #cumplimiento-conoce .ti41-dialog-body ol{grid-template-columns:1fr}
+ #cumplimiento-conoce .ti41-intro h1{font-size:clamp(37px,10vw,54px)!important}
 }
