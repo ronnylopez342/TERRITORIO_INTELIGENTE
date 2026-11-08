@@ -1243,13 +1243,22 @@
   }
   function trDownloads(m){
     const link='<a href="https://sigi.igac.gov.co/dip/rest/services/Limites/FeatureServer/0" target="_blank" rel="noopener noreferrer">IGAC · límite municipal ↗</a>';
-    const body=`<div class="pa-tr-download-list">
+    const orientation='<p class="pa-tr-download-intro">Consulta los archivos del Plan de Acción y los mapas de referencia de Subachoque para identificar la información territorial disponible y revisar su procedencia.</p>'+
+      '<div class="pa-tr-download-guide" aria-label="Contenido y fuentes de los recursos">'+
+        '<h4>Qué encontrarás y de dónde viene</h4>'+
+        '<ul>'+
+          '<li><strong>Plan de Acción '+html(state.year)+':</strong> localidades y actividades en CSV.</li>'+
+          '<li><strong>Cartografía local:</strong> límite municipal y veredas en GeoJSON; origen por verificar.</li>'+
+          '<li><strong>Fuentes institucionales:</strong> enlaces al IGAC y al IDEAM (referencia «veredas DANE 2024»).</li>'+
+        '</ul>'+
+      '</div>';
+    const body=`${orientation}<div class="pa-tr-download-list">
       <button type="button" data-pa-tr-csv class="pa-tr-file-item"><span class="pa-tr-file-symbol excel">CSV</span><span><strong>Localidades y actividades</strong><small>CSV generado a partir del Plan de Acción ${state.year}</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
       <button type="button" data-pa-tr-geo="municipio" class="pa-tr-file-item" disabled><span class="pa-tr-file-symbol geo">GEO</span><span><strong>Límite municipal de referencia</strong><small>GeoJSON local · origen por verificar</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
       <button type="button" data-pa-tr-geo="veredas" class="pa-tr-file-item" disabled><span class="pa-tr-file-symbol geo">GEO</span><span><strong>Veredas · referencia local</strong><small>GeoJSON local · origen por verificar</small></span><span class="pa-tr-file-download">${trIcon('download')}</span></button>
       <div class="pa-tr-file-item unavailable"><span class="pa-tr-file-symbol pdf">PDF</span><span><strong>Mapa de intervenciones (PDF)</strong><small>No se recibió un archivo geográfico de obras por meta</small></span><span>—</span></div>
     </div><p class="pa-tr-fineprint">Archivos cartográficos oficiales disponibles según la conectividad del servicio. No se generan shapefiles ni puntos de obra inexistentes.</p><p class="pa-tr-geo-sources">Fuentes: ${link} · <a href="https://visualizador.ideam.gov.co/gisserver/rest/services/Entidades_Territoriales/FeatureServer/5" target="_blank" rel="noopener noreferrer">IDEAM · veredas DANE 2024 ↗</a></p>`;
-    return trCard('Descargas y Capas de Información',body,'pa-tr-downloads');
+    return trCard('Mapas y datos del territorio',body,'pa-tr-downloads');
   }
   function trDashboard(m){
     return `<div class="pa-tr-dashboard"><div class="pa-tr-upper"><div class="pa-tr-map-col">${trMapPanel(m)}</div><div class="pa-tr-data-col">${trCoverageStats(m)}${trDetailTable(m)}</div></div><div class="pa-tr-lower">${trGallery(m)}${trCoverageDonut(m)}${trDownloads(m)}</div><p class="pa-tr-source"><strong>Fuente de actividades y ubicaciones:</strong> ${html(currentYear()?.source||'Excel del Plan de Acción')} · ${state.year==='2026'?'Corte: segundo trimestre de 2026.':'Vigencia 2025.'} La información geográfica oficial sirve como referencia municipal y veredal; no demuestra coordenadas exactas de intervenciones. Las cifras del ejemplo visual no se trasladaron al tablero.</p></div>`;
