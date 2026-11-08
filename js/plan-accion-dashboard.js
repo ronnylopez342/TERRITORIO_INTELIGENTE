@@ -1470,6 +1470,10 @@
      hacen pasar por archivos y las fechas de Drive se etiquetan como modificación. */
   const suYears=[2024,2025,2026,2027];
   const suSvg={
+    grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    filter:'<path d="M4 4h16l-6.5 8v7l-3 2v-9z"/>',
+    info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v.2"/>',
+    link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
     folder:'<path d="M3 6h7l2 2h9v12H3z"/>',
     photo:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m4 18 5-5 3 2 4-5 5 7"/>',
     document:'<path d="M6 2h9l4 4v16H6zM15 2v5h4M9 12h7M9 16h7"/>',
@@ -1499,7 +1503,7 @@
   const suSizeFormat=size=>{const n=Number(size);return !Number.isFinite(n)||n<=0?'Tamaño no disponible':n>=1048576?fmtNum.format(n/1048576)+' MB':Math.round(n/1024)+' KB';};
   function suType(file){
     const mime=String(file.mime||'').toLowerCase(),title=String(file.title||'').toLowerCase();
-    if(file.kind==='folder')return 'folder';
+    if(file.kind==='folder')return String(file.key||'').startsWith('link:')?'link':'folder';
     if(/^image\//.test(mime)||/\.(png|jpe?g|webp|gif)$/i.test(title))return 'photo';
     if(/^video\//.test(mime)||/\.(mp4|webm|mov)$/i.test(title))return 'video';
     if(/(actas?|certificad[oa]s?|constancias?)/i.test(title))return 'certificate';
@@ -1529,7 +1533,7 @@
         }
       }else{
         const k='link:'+url;
-        if(!repoMap.has(k))repoMap.set(k,{key:k,kind:'folder',id:null,title:'Repositorio externo · actividad '+a.n,url,verified:false,complete:false,...base});
+        if(!repoMap.has(k))repoMap.set(k,{key:k,kind:'folder',id:null,title:'Enlace externo · actividad '+a.n,url,verified:false,complete:false,...base});
       }
     }
     for(const repo of repoMap.values()){
@@ -1587,29 +1591,45 @@
     return `<div class="pa-su-summary" aria-label="Indicadores de soportes">${values.map(([icon,title,value,sub])=>`<article class="pa-su-stat pa-su-stat-${icon}"><span class="pa-su-stat-icon">${suIcon(icon)}</span><div><h3>${html(title)}</h3><strong>${html(value)}</strong><small>${html(sub)}</small></div></article>`).join('')}</div><p class="pa-su-accuracy-note">${cat.repos.length} ${cat.repos.length===1?'repositorio enlazado':'repositorios enlazados'} en el Excel para esta meta. ${cat.unknownRepos?'El contenido de '+cat.unknownRepos+' no se ha podido enumerar; los contadores de archivos son parciales.':'Los archivos identificados se muestran sin duplicar enlaces compartidos.'}</p>`;
   }
   function suFilterBar(m){
-    const opts=(arr,value)=>arr.map(([v,t])=>`<option value="${html(v)}"${v===value?' selected':''}>${html(t)}</option>`).join('');
-    const f=state.supportFilters,locs=suPlaceOptions(m);const d=suBuild(m);
-    const actOpts=[['all','Todas'],...(m.activities||[]).map(a=>[String(a.n),a.n+' · '+String(a.name).slice(0,53)])];
-    const typeOpts=[['all','Todos'],['photo','Fotografías'],['document','Documentos'],['video','Videos'],['certificate','Actas / Certificaciones'],['folder','Carpetas / enlaces']];
-    return `<section class="pa-su-filter-panel"><h3>Filtrar soportes</h3><div class="pa-su-filter-grid"><label>Actividad<select id="pa-su-filter-activity">${opts(actOpts,f.activity)}</select></label><label>Tipo de soporte<select id="pa-su-filter-type">${opts(typeOpts,f.type)}</select></label><label>Vereda / Barrio<select id="pa-su-filter-place">${opts([['all','Todos'],...locs.map(x=>[x.key,x.name])],f.place)}</select></label><label>Fecha desde<input type="date" id="pa-su-from" value="${html(f.from)}" aria-label="Fecha inicial de modificación"></label><label>Fecha hasta<input type="date" id="pa-su-to" value="${html(f.to)}" aria-label="Fecha final de modificación"></label></div><div class="pa-su-searchline"><label class="pa-su-searchbox"><span aria-hidden="true">${suIcon('search')}</span><input id="pa-su-search" value="${html(f.q)}" placeholder="Buscar por palabra clave..." autocomplete="off" aria-label="Buscar soportes por palabra clave"><button type="button" data-pa-su-search title="Aplicar búsqueda">${suIcon('search')}</button></label><button class="pa-su-reset" type="button" data-pa-su-reset>${suIcon('clear')}<span>Limpiar</span></button></div><small class="pa-su-filter-note">Las fechas se refieren a última modificación verificada en Drive, no a la fecha de ejecución de la actividad. Enlaces sin fecha quedan fuera del rango seleccionado.</small></section>`;
+   const opts=(arr,value)=>arr.map(([v,t])=>`<option value="${html(v)}"${v===value?' selected':''}>${html(t)}</option>`).join('');
+   const f=state.supportFilters,locs=suPlaceOptions(m);
+   const actOpts=[['all','Todas'],...(m.activities||[]).map(a=>[String(a.n),a.n+' · '+String(a.name).slice(0,53)])];
+   const typeOpts=[
+    ['all','Todos','grid'],
+    ['photo','Fotografías','photo'],
+    ['document','Documentos','document'],
+    ['video','Videos','video'],
+    ['certificate','Actas / Certificaciones','certificate'],
+    ['folder','Carpetas','folder'],
+    ['link','Enlaces','link']
+   ];
+   const visualTypes=typeOpts.map(([key,label,icon])=>{
+    const active=f.type===key;
+    return `<button class="pa-su-type-card ${active?'selected':''} type-${key}" type="button" data-pa-su-type="${html(key)}" aria-pressed="${active}" title="Mostrar ${html(label.toLowerCase())}">${suIcon(icon)}<span>${html(label)}</span>${active?'<span class="pa-su-type-check" aria-hidden="true">✓</span>':''}</button>`;
+   }).join('');
+   const header=`<div class="pa-su-filter-header"><span class="pa-su-filter-header-icon">${suIcon('filter')}</span><div><h3>Filtrar soportes</h3><p>Encuentre y explore los soportes de la meta aplicando los filtros disponibles.</p></div></div>`;
+   const top=`<div class="pa-su-filter-top"><label class="pa-su-filter-field"><span>Actividad</span><select id="pa-su-filter-activity" aria-label="Filtrar por actividad">${opts(actOpts,f.activity)}</select></label><div class="pa-su-type-container"><div class="pa-su-type-label">Tipo de soporte <span title="Puedes seleccionar una categoría a la vez; se combina con los demás filtros." aria-label="Una categoría a la vez; combinable con los otros filtros">${suIcon('info')}</span></div><div class="pa-su-type-grid" role="group" aria-label="Filtrar por tipo de soporte">${visualTypes}</div></div></div>`;
+   const bottom=`<div class="pa-su-filter-bottom"><label class="pa-su-filter-field"><span>Vereda / Barrio</span><select id="pa-su-filter-place" aria-label="Filtrar por vereda o barrio">${opts([['all','Todos'],...locs.map(x=>[x.key,x.name])],f.place)}</select></label><label class="pa-su-filter-field"><span>Fecha desde</span><input id="pa-su-from" type="date" value="${html(f.from)}" aria-label="Fecha inicial de modificación"></label><label class="pa-su-filter-field"><span>Fecha hasta</span><input id="pa-su-to" type="date" value="${html(f.to)}" aria-label="Fecha final de modificación"></label><label class="pa-su-searchbox"><span aria-hidden="true">${suIcon('search')}</span><input id="pa-su-search" type="search" value="${html(f.q)}" placeholder="Buscar por palabra clave..." autocomplete="off" aria-label="Buscar soportes por palabra clave"></label><button type="button" class="pa-su-search-action" data-pa-su-search>${suIcon('search')}<span>Buscar</span></button><button type="button" class="pa-su-reset" data-pa-su-reset>${suIcon('clear')}<span>Limpiar</span></button></div>`;
+   const note=`<div class="pa-su-filter-help" role="note">${suIcon('info')}<span>Los filtros se aplican sobre los soportes de la meta. Puedes combinar actividad, tipo, ubicación, fechas y palabras clave.<small>Las fechas corresponden a última modificación verificada en Drive, no a la ejecución; los enlaces sin fecha se excluyen si seleccionas un rango.</small></span></div>`;
+   return `<section class="pa-su-filter-panel">${header}<div class="pa-su-filter-controls">${top}${bottom}</div>${note}</section>`;
   }
   function suFileBadge(item){
     const type=item.type;
-    const types={photo:'Fotografía',document:'Documento',video:'Video',certificate:'Acta / Certificación',folder:'Carpeta'};
+    const types={photo:'Fotografía',document:'Documento',video:'Video',certificate:'Acta / Certificación',folder:'Carpeta',link:'Enlace'};
     return `<span class="pa-su-badge ${type}">${suIcon(type==='certificate'?'certificate':type)}${html(types[type]||'Archivo')}</span>`;
   }
   function suFileCard(item){
     const kind=item.type,info=item.acts.length>1?'Actividades '+item.acts.join(', '):'Actividad '+(item.acts[0]||'—');
     const heading=html(item.title||'Archivo sin título');
     const visual=kind==='photo'&&item.id?`<img loading="lazy" referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w640" alt="Miniatura del archivo ${heading}">`:`<span class="pa-su-file-pict ${kind}">${suIcon(kind==='folder'?'folder':kind==='certificate'?'certificate':kind)}</span>`;
-    const date=item.modified?`Última modificación: ${suDateFormat(item.modified)}`:(item.type==='folder'?(item.complete?'Repositorio consultado':'Contenido del repositorio sin enumerar'):'Fecha no registrada');
-    const footer=item.verified?`${suSizeFormat(item.size)} · archivo identificado`:(item.type==='folder'?(item.complete?'Carpeta consultada':'Repositorio enlazado; acceso por verificar'):'Archivo individual enlazado');
+    const date=item.modified?`Última modificación: ${suDateFormat(item.modified)}`:(item.type==='folder'?(item.complete?'Repositorio consultado':'Contenido del repositorio sin enumerar'):item.type==='link'?'Enlace registrado sin fecha':'Fecha no registrada');
+    const footer=item.verified?`${suSizeFormat(item.size)} · archivo identificado`:(item.type==='folder'?(item.complete?'Carpeta consultada':'Repositorio enlazado; acceso por verificar'):item.type==='link'?'Enlace externo · acceso por verificar':'Archivo individual enlazado');
     return `<article class="pa-su-file-card ${kind}" data-su-file="${html(item.key)}"><div class="pa-su-file-preview">${visual}${suFileBadge(item)}</div><div class="pa-su-file-body"><strong title="${heading}">${heading}</strong><small title="${html(info)}">${html(info)}</small><div class="pa-su-file-meta"><span>${html(date)}</span><button type="button" data-pa-su-preview="${html(item.key)}" aria-label="Consultar soporte ${heading}" title="Consultar soporte">${suIcon('open')}</button></div><p class="pa-su-file-origin">${html(footer)}</p></div></article>`;
   }
   function suGallery(m){
     const rows=suSelectedItems(m),total=suBuild(m),f=state.supportFilters;
     const cards=rows.slice(0,state.supportShowAll?999:24);
-    const text=rows.length?`${rows.length} entradas encontradas (${rows.filter(x=>x.kind==='file').length} archivos individuales y ${rows.filter(x=>x.kind==='folder').length} enlaces a repositorios).`:'No se encontraron soportes con los filtros seleccionados.';
+    const text=rows.length?`${rows.length} entradas encontradas (${rows.filter(x=>x.kind==='file').length} archivos individuales, ${rows.filter(x=>x.type==='folder').length} carpetas y ${rows.filter(x=>x.type==='link').length} enlaces externos).`:'No se encontraron soportes con los filtros seleccionados.';
     return `<section class="pa-su-gallery"><div class="pa-su-section-head"><h3>Galería de Soportes</h3><span>${html(text)}</span></div>${rows.length?`<div class="pa-su-gallery-grid">${cards.map(suFileCard).join('')}</div>`:`<div class="pa-su-empty"><span>${suIcon('folder')}</span><strong>${html(text)}</strong><small>${total.repos.length?'Prueba con otro filtro o consulta el árbol de carpetas.':'No se encontraron enlaces de soporte registrados para esta meta en el Excel.'}</small></div>`}${rows.length>24&&!state.supportShowAll?`<button type="button" class="pa-su-show-all" data-pa-su-gallery-all>Mostrar todas las ${rows.length} entradas →</button>`:''}</section>`;
   }
   function suTree(m){
@@ -1618,7 +1638,7 @@
       const id=String(a.n),items=cat.entries.filter(x=>x.acts.includes(id));const actual=items.filter(x=>x.kind==='file').length;
       const expanded=state.supportTreeOpen.has(id);
       const header=`<div class="pa-su-tree-row ${f.activity===id?'selected':''}"><button type="button" data-pa-su-tree-toggle="${html(id)}" aria-expanded="${expanded}" aria-label="${expanded?'Contraer':'Expandir'} actividad ${html(id)}">${expanded?'⌄':'›'}</button><button type="button" data-pa-su-tree-activity="${html(id)}" aria-pressed="${f.activity===id}">${suIcon('folder')}<span>${html('Actividad '+id+' - '+String(a.name).slice(0,38))}${actual?` (${actual})`:''}</span></button></div>`;
-      const children=expanded?`<div class="pa-su-tree-children">${items.length?items.map(x=>`<button type="button" data-pa-su-preview="${html(x.key)}">${suIcon(x.kind==='folder'?'folder':x.type)}<span>${html(x.title)}</span></button>`).join(''):'<small>Sin enlace documental en esta actividad.</small>'}</div>`:'';
+      const children=expanded?`<div class="pa-su-tree-children">${items.length?items.map(x=>`<button type="button" data-pa-su-preview="${html(x.key)}">${suIcon(x.type==='link'?'link':x.kind==='folder'?'folder':x.type)}<span>${html(x.title)}</span></button>`).join(''):'<small>Sin enlace documental en esta actividad.</small>'}</div>`:'';
       return `<div class="pa-su-tree-branch">${header}${children}</div>`;
     }).join('');
     const all=f.activity==='all';
@@ -1634,7 +1654,7 @@
   function suDashboard(m){
     const loading=state.supportLoading&&!state.supportExtraLoaded;
     if(loading)return `<div class="pa-su-loading" role="status">Cargando descripciones y enlaces del Excel…</div>`;
-    return `<div class="pa-su-dashboard">${suSummary(m)}<div class="pa-su-main-grid"><div class="pa-su-main-col">${suFilterBar(m)}${suGallery(m)}</div><aside class="pa-su-sidebar">${suTree(m)}${suRecent(m)}</aside></div><p class="pa-su-source"><strong>Fuentes:</strong> Plan de Acción ${state.year} · campos «Soporte de Cumplimiento Actividad» y «Link de soportes de la actividad». ${state.year==='2026'?'Corte: segundo trimestre de 2026.':''} Solo se muestran documentos individualizados cuando se obtuvo su metadato del repositorio. El contenido de las carpetas sin inspeccionar no se contabiliza como archivo.</p>${suPreviewDialog()}</div>`;
+    return `<div class="pa-su-dashboard"><div class="pa-su-main-grid"><div class="pa-su-main-col">${suFilterBar(m)}${suGallery(m)}</div><aside class="pa-su-sidebar">${suTree(m)}${suRecent(m)}</aside></div><p class="pa-su-source"><strong>Fuentes:</strong> Plan de Acción ${state.year} · campos «Soporte de Cumplimiento Actividad» y «Link de soportes de la actividad». ${state.year==='2026'?'Corte: segundo trimestre de 2026.':''} Solo se muestran documentos individualizados cuando se obtuvo su metadato del repositorio. El contenido de las carpetas sin inspeccionar no se contabiliza como archivo.</p>${suPreviewDialog()}</div>`;
   }
   function suResults(){
     if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando Soportes…</h2></div>';
@@ -1676,7 +1696,7 @@
     const link=safeLink(item.url);
     const photo=isImage?`<img class="pa-su-preview-image" loading="lazy" src="https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w1600" alt="Vista del archivo ${html(item.title)}">`:'';
     const video=isVideo&&/\.(mp4|webm)(?:\?|$)/i.test(link||'')?`<video controls playsinline src="${html(link)}"></video>`:'';
-    content.innerHTML=`<div class="pa-su-preview-art ${type}">${photo||video||suIcon(type==='folder'?'folder':type)}</div><dl class="pa-su-preview-details"><div><dt>Tipo</dt><dd>${html(type==='folder'?'Repositorio de archivos':type==='photo'?'Fotografía':type==='video'?'Video':type==='certificate'?'Acta / Certificación':'Documento')}</dd></div><div><dt>Actividad</dt><dd>${html(item.acts.join(', ')||'No indicada')}</dd></div><div><dt>Fecha</dt><dd>${html(suDateFormat(item.modified))}${item.modified?' · última modificación':''}</dd></div><div><dt>Tamaño</dt><dd>${html(item.kind==='file'?suSizeFormat(item.size):'No se conoce número de archivos')}</dd></div><div><dt>Verificación</dt><dd>${html(item.kind==='folder'?(item.complete?'Contenido enumerado en una consulta de Drive':'Enlace del Excel; contenido no enumerado'):item.verified?'Archivo identificado en Drive':'Archivo individual enlazado en Excel; acceso no comprobado')}</dd></div></dl><div class="pa-su-preview-actions">${link?`<a href="${html(link)}" target="_blank" rel="noopener noreferrer">${suIcon('open')} Abrir ${item.kind==='folder'?'repositorio':'archivo'} original</a>`:'<span>Enlace no disponible</span>'}</div><p class="pa-su-preview-warning">Si el proveedor solicita iniciar sesión, el acceso depende de los permisos originales. Esta página no modifica ni publica archivos restringidos.</p>`;
+    content.innerHTML=`<div class="pa-su-preview-art ${type}">${photo||video||suIcon(type==='folder'?'folder':type)}</div><dl class="pa-su-preview-details"><div><dt>Tipo</dt><dd>${html(type==='folder'?'Repositorio de archivos':type==='link'?'Enlace externo':type==='photo'?'Fotografía':type==='video'?'Video':type==='certificate'?'Acta / Certificación':'Documento')}</dd></div><div><dt>Actividad</dt><dd>${html(item.acts.join(', ')||'No indicada')}</dd></div><div><dt>Fecha</dt><dd>${html(suDateFormat(item.modified))}${item.modified?' · última modificación':''}</dd></div><div><dt>Tamaño</dt><dd>${html(item.kind==='file'?suSizeFormat(item.size):item.type==='link'?'No aplica':'No se conoce número de archivos')}</dd></div><div><dt>Verificación</dt><dd>${html(item.type==='link'?'Enlace registrado en Excel; contenido no inspeccionado':item.kind==='folder'?(item.complete?'Contenido enumerado en una consulta de Drive':'Enlace del Excel; contenido no enumerado'):item.verified?'Archivo identificado en Drive':'Archivo individual enlazado en Excel; acceso no comprobado')}</dd></div></dl><div class="pa-su-preview-actions">${link?`<a href="${html(link)}" target="_blank" rel="noopener noreferrer">${suIcon('open')} Abrir ${item.type==='link'?'enlace':item.kind==='folder'?'repositorio':'archivo'} original</a>`:'<span>Enlace no disponible</span>'}</div><p class="pa-su-preview-warning">Si el proveedor solicita iniciar sesión, el acceso depende de los permisos originales. Esta página no modifica ni publica archivos restringidos.</p>`;
     if(typeof dialog.showModal==='function')dialog.showModal();
   }
 
@@ -2166,6 +2186,16 @@
     if(ev.target.closest('[data-pa-su-close]')){ev.target.closest('dialog')?.close();return;}
     const suPreview=ev.target.closest('[data-pa-su-preview]');
     if(suPreview){suOpenPreview(suPreview.dataset.paSuPreview);return;}
+    const supportTypeCard=ev.target.closest('[data-pa-su-type]');
+    if(supportTypeCard){
+      const type=supportTypeCard.dataset.paSuType;
+      if(!['all','photo','document','video','certificate','folder','link'].includes(type))return;
+      state.supportFilters.type=state.supportFilters.type===type&&type!=='all'?'all':type;
+      state.supportShowAll=false;
+      suRefreshPart();
+      panel.querySelector('.pa-su-type-card[data-pa-su-type="'+state.supportFilters.type+'"]')?.focus({preventScroll:true});
+      return;
+    }
     if(ev.target.closest('[data-pa-su-reset]')){suResetFilters();const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
     if(ev.target.closest('[data-pa-su-search]')){const input=panel.querySelector('#pa-su-search');if(input){state.supportFilters.q=input.value;const y=window.scrollY;refresh();window.scrollTo({top:y});}return;}
     if(ev.target.closest('[data-pa-su-gallery-all]')){state.supportShowAll=true;suRefreshPart();return;}
