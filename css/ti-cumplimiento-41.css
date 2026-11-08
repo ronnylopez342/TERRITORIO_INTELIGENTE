@@ -3,8 +3,28 @@
    Los cambios de composición NO afectan 4.2/4.3/4.4 ni Plan de Desarrollo.
    La navegación oficial permanece en la barra global desplegable. */
 
-.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden]))>.ti34-hero,
-.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden]))>.ti34-video{display:none!important}
+/* La secuencia pedagógica de 4.1 replica el Conoce del Plan de Desarrollo:
+   encabezado editorial original → video 16:9 original → documento y cifras.
+   Solo el título cambia en 4.1; en 4.2-4.4 se conserva el título anterior. */
+.app-view[data-view="cumplimiento"].ti34-ready .ti34-hero h1>.ti34-unit-headline{
+ display:block!important;font-size:inherit!important;line-height:inherit!important;
+ letter-spacing:inherit!important;font-weight:inherit!important;color:inherit!important;
+}
+.app-view[data-view="cumplimiento"].ti34-ready .ti34-hero h1>.ti34-unit-headline>span{
+ display:inline-block!important;font-size:.39em!important;line-height:1.15!important;
+ letter-spacing:0!important;color:#fff!important;
+}
+.app-view[data-view="cumplimiento"].ti34-ready .ti34-hero h1>.ti41-hero-headline{
+ display:none!important;
+}
+.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden])) .ti34-hero h1>.ti34-unit-headline{
+ display:none!important;
+}
+.app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden])) .ti34-hero h1>.ti41-hero-headline{
+ display:block!important;font-size:inherit!important;line-height:inherit!important;
+ letter-spacing:inherit!important;font-weight:inherit!important;color:inherit!important;
+}
+
 .app-view[data-view="cumplimiento"].ti34-ready:has(#cumplimiento-conoce:not([hidden])) .ti34-layout{
  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
  width:100%!important;max-width:none!important;margin:0!important;
@@ -39,10 +59,14 @@
 }
 #cumplimiento-conoce .ti41-intro{min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
 #cumplimiento-conoce .ti41-yellow-rule{width:58px;height:3px;background:var(--ti41-yellow);display:block;margin-bottom:29px}
-#cumplimiento-conoce .ti41-intro h1{
- color:var(--ti41-yellow)!important;font-weight:900!important;
- font-size:clamp(42px,4.8vw,81px)!important;line-height:.98!important;letter-spacing:-.047em!important;
- max-width:730px;overflow-wrap:anywhere;
+#cumplimiento-conoce .ti41-intro-kicker{
+ display:block;margin-bottom:12px;color:var(--ti41-yellow);
+ font-size:clamp(10px,.85vw,12px);font-weight:850;letter-spacing:.14em;
+}
+#cumplimiento-conoce .ti41-intro h2{
+ color:var(--ti41-white)!important;font-weight:850!important;
+ font-size:clamp(29px,3vw,47px)!important;line-height:1.12!important;
+ letter-spacing:-.035em!important;max-width:720px;overflow-wrap:break-word;
 }
 #cumplimiento-conoce .ti41-lead{
  max-width:735px;margin-top:24px!important;
@@ -216,5 +240,5 @@
  #cumplimiento-conoce .ti41-document{grid-template-columns:1fr}
  #cumplimiento-conoce .ti41-cover{width:min(270px,100%);min-height:310px;margin:0 auto}
  #cumplimiento-conoce .ti41-dialog-body ol{grid-template-columns:1fr}
- #cumplimiento-conoce .ti41-intro h1{font-size:clamp(37px,10vw,54px)!important}
+ #cumplimiento-conoce .ti41-intro h2{font-size:clamp(27px,8.1vw,38px)!important}
 }

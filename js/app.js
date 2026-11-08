@@ -244,12 +244,16 @@ document.addEventListener('click',event => {
     syncTiPlanSelection(id);
     requestAnimationFrame(()=>{
       const panel=document.getElementById(id);
+      const isConoce=id==='desarrollo-conoce';
       const layout=document.querySelector('[data-view="desarrollo"] .ti34-layout');
+      const hero=isConoce?document.querySelector('[data-view="desarrollo"] .ti34-hero'):null;
+      const target=hero||layout||panel;
       const navHeight=header?.getBoundingClientRect().height||90;
-      const top=window.scrollY+(layout||panel).getBoundingClientRect().top;
+      const top=window.scrollY+target.getBoundingClientRect().top;
       window.scrollTo({top:Math.max(0,top-navHeight-16),behavior:'instant'});
-      panel.setAttribute('tabindex','-1');
-      panel.focus({preventScroll:true});
+      const focusTarget=(isConoce?hero?.querySelector('h1'):null)||panel;
+      focusTarget.setAttribute('tabindex','-1');
+      focusTarget.focus({preventScroll:true});
     });
     return;
   }
@@ -364,12 +368,16 @@ document.addEventListener('click',event=>{
     tab.click(); /* Conserva URL, historial y pestaña elegida con module-structure.js. */
     syncTiUnitSelection(id);
     requestAnimationFrame(()=>{
+      const isConoce=id==='cumplimiento-conoce';
       const layout=document.querySelector('[data-view="cumplimiento"] .ti34-layout');
+      const hero=isConoce?document.querySelector('[data-view="cumplimiento"] .ti34-hero'):null;
+      const target=hero||layout||panel;
       const navHeight=header?.getBoundingClientRect().height||90;
-      const top=window.scrollY+(layout||panel).getBoundingClientRect().top;
+      const top=window.scrollY+target.getBoundingClientRect().top;
       window.scrollTo({top:Math.max(0,top-navHeight-16),behavior:'instant'});
-      panel.setAttribute('tabindex','-1');
-      panel.focus({preventScroll:true});
+      const focusTarget=(isConoce?hero?.querySelector('h1'):null)||panel;
+      focusTarget.setAttribute('tabindex','-1');
+      focusTarget.focus({preventScroll:true});
     });
     return;
   }
