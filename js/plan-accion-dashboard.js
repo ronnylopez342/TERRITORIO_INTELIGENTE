@@ -208,7 +208,9 @@
   }
   function igMetaHeader(m,inf){
     const c=classification(m);
-    return `<div class="pa-ig-meta"><button type="button" class="pa-ig-number" data-pa-list="true" title="Elegir otra meta" aria-label="Cambiar meta ${m.id}"><small>Meta</small><strong>${m.id}</strong></button><div class="pa-ig-meta-text"><h2>${html(m.name)}</h2><p>${html(m.project||'El archivo no registra una descripción complementaria del proyecto.')}</p><button type="button" class="pa-ig-change" data-pa-list="true">← Cambiar meta</button></div><span class="pa-state-chip pa-state-${c.key} pa-ig-state" title="${html(c.hint)}"><span aria-hidden="true">⌁</span>${html(c.label)}</span><div class="pa-ig-meta-fact"><span class="pa-ig-fact-icon" aria-hidden="true">▦</span><div><small>Dependencia responsable</small><strong>${igEsc(inf?.responsible || m.agency)}</strong></div></div><div class="pa-ig-meta-fact"><span class="pa-ig-fact-icon" aria-hidden="true">▣</span><div><small>Periodo del reporte</small><strong>${html(infoPeriod())}</strong></div></div></div>`;
+    // El selector vive DENTRO de la misma ficha, nunca crea una fila nueva.
+    const metaChoices=metas().map(item=>`<button type="button" class="pa-meta-choice" data-pa-meta="${item.id}"><b>${item.id}</b><span>${html(item.name)}</span></button>`).join('');
+    return `<div class="pa-ig-meta"><button type="button" class="pa-ig-number" data-pa-list="true" title="Elegir otra meta" aria-label="Cambiar meta ${m.id}"><small>Meta</small><strong>${m.id}</strong></button><div class="pa-ig-meta-text"><h2>${html(m.name)}</h2><p>${html(m.project||'El archivo no registra una descripción complementaria del proyecto.')}</p><details class="pa-meta-chooser"><summary class="pa-ig-change" aria-label="Cambiar meta">← Cambiar meta</summary><div class="pa-meta-chooser-panel"><label for="pa-meta-chooser-search">Buscar meta</label><input id="pa-meta-chooser-search" type="search" placeholder="Número o palabra clave" autocomplete="off" aria-label="Buscar meta por número o nombre"/><div class="pa-meta-chooser-results">${metaChoices}</div></div></details></div><span class="pa-state-chip pa-state-${c.key} pa-ig-state" title="${html(c.hint)}"><span aria-hidden="true">⌁</span>${html(c.label)}</span><div class="pa-ig-meta-fact"><span class="pa-ig-fact-icon" aria-hidden="true">▦</span><div><small>Dependencia responsable</small><strong>${igEsc(inf?.responsible || m.agency)}</strong></div></div><div class="pa-ig-meta-fact"><span class="pa-ig-fact-icon" aria-hidden="true">▣</span><div><small>Periodo del reporte</small><strong>${html(infoPeriod())}</strong></div></div></div>`;
   }
   function igStrategic(m,inf){
     return igSection('Información Estratégica','strategic',igTable([
@@ -1749,10 +1751,10 @@
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
     if(!currentYear())return tabMarkup(null)+unavailableMarkup();
-    // El Totalizador es el unico catalogo general: no tiene una ficha de meta individual.
-    if(state.activeTab==='overall')return tabMarkup(selected())+overallMarkup(true);
     const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
-    // Resumen usa la misma ficha grande e interaccion «Cambiar meta» de las otras vistas.
+    // Cabecera idéntica en TODAS las pestañas: título -> ficha de meta -> 11 pestañas.
+    // Únicamente cambia el contenido que viene debajo.
+    if(state.activeTab==='overall')return igMetaHeader(m,infoRecord())+tabMarkup(m)+overallMarkup(true);
     return igMetaHeader(m,infoRecord())+tabMarkup(m)+overallMarkup(false)+summaryMarkup(m);
   }
 
@@ -1779,7 +1781,7 @@
     return '<header class="pa-context-heading" aria-label="'+html(info[0])+'">'+
       '<div class="pa-context-heading-main"><span class="pa-context-kicker">PLAN DE ACCIÓN · '+html(state.year)+'</span>'+
       '<h2>'+html(info[0])+'</h2><p>'+html(info[1])+'</p></div>'+
-      (tab==='search'||tab==='overall'?'':'<span class="pa-context-meta">Meta '+html(state.current)+'</span>')+'</header>';
+      (tab==='search'?'':'<span class="pa-context-meta">Meta '+html(state.current)+'</span>')+'</header>';
   }
   function pageMarkup(){
     // La búsqueda y el año pertenecen a topMarkup(), compartido por cada ruta.
@@ -1832,7 +1834,7 @@
     refresh();panel.querySelector('.pa-total-directory')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
   panel.addEventListener('submit',ev=>{if(ev.target.id==='pa-query-form'){ev.preventDefault();searchAction();}});
-  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}if(ev.target.id==='pa-ob-search'){state.obFilters.q=ev.target.value.slice(0,180);state.obPage=0;obRefreshPart(true);}if(ev.target.id==='pa-ct-search'){state.ctFilters.q=ev.target.value.slice(0,180);state.ctPage=0;ctRefreshPart(true);}if(ev.target.id==='pa-overall-search'){state.overallSearch=ev.target.value.slice(0,180);overallRefreshTable();}});
+  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-meta-chooser-search'){const q=normalizeQuery(ev.target.value.trim());panel.querySelectorAll('.pa-meta-chooser-results [data-pa-meta]').forEach(option=>{option.hidden=!!q&&!normalizeQuery(option.textContent).includes(q);});return;}if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}if(ev.target.id==='pa-ob-search'){state.obFilters.q=ev.target.value.slice(0,180);state.obPage=0;obRefreshPart(true);}if(ev.target.id==='pa-ct-search'){state.ctFilters.q=ev.target.value.slice(0,180);state.ctPage=0;ctRefreshPart(true);}if(ev.target.id==='pa-overall-search'){state.overallSearch=ev.target.value.slice(0,180);overallRefreshTable();}});
   panel.addEventListener('change',ev=>{
     if(ev.target.id==='pa-overall-status'){state.overallStatus=ev.target.value;overallRefreshTable();return;}
     if(ev.target.id==='pa-overall-sort'){state.overallSort=ev.target.value;overallRefreshTable();return;}
@@ -1853,6 +1855,8 @@
     state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();
   });
   panel.addEventListener('click',ev=>{
+    const visibleChooser=panel.querySelector('.pa-meta-chooser[open]');
+    if(visibleChooser&&!visibleChooser.contains(ev.target)&&!ev.target.closest('[data-pa-list]'))visibleChooser.open=false;
     if(ev.target.closest('[data-pa-overall-open]')){state.activeTab='overall';state.list=false;refresh();panel.querySelector('.pa-total-page')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
     const overallMeta=ev.target.closest('[data-pa-overall-meta]');
     if(overallMeta){state.activeTab='summary';focusMeta(Number(overallMeta.dataset.paOverallMeta));return;}
@@ -1947,7 +1951,7 @@
     if(ev.target.closest('[data-pa-ig-docs]')){panel.querySelector('#pa-ig-doc-dialog')?.showModal();return;}
     if(ev.target.closest('[data-pa-ig-doc-close]')){panel.querySelector('#pa-ig-doc-dialog')?.close();return;}
     const meta=ev.target.closest('[data-pa-meta]');if(meta){focusMeta(Number(meta.dataset.paMeta));return;}
-    if(ev.target.closest('[data-pa-list]')){state.activeTab='overall';state.list=false;state.listCategory='all';refresh();panel.querySelector('.pa-total-directory')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    if(ev.target.closest('[data-pa-list]')){const chooser=panel.querySelector('.pa-meta-chooser');if(chooser){chooser.open=!chooser.open;if(chooser.open)chooser.querySelector('#pa-meta-chooser-search')?.focus({preventScroll:true});}return;}
     const kpi=ev.target.closest('[data-pa-kpi]');if(kpi){if(!currentYear())return;state.activeTab='overall';state.list=false;state.overallSearch='';state.overallStatus=kpi.dataset.paKpi;refresh();panel.querySelector('.pa-total-directory')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
     const act=ev.target.closest('[data-pa-activity]');if(act){const key=selected()?.id+'-'+act.dataset.paActivity;if(state.activityExpanded.has(key))state.activityExpanded.delete(key);else state.activityExpanded.add(key);const scrollY=window.scrollY;refresh();window.scrollTo({top:scrollY});return;}
     if(ev.target.closest('[data-pa-gallery]')){
