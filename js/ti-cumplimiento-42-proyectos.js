@@ -38,7 +38,7 @@ try{
    for(const key of ['view','vereda','phase','sort','page','pageSize','selectedRow','detailTab'])if(Object.prototype.hasOwnProperty.call(previous,key))state[key]=previous[key];
  }
 }catch{}
-if(!['resumen','proyectos','contratos','financiera','cronograma'].includes(state.view))state.view='resumen';
+if(!['resumen','proyectos','contratos','financiera','cronograma','mapa'].includes(state.view))state.view='resumen';
 if(!['file','name','year','budget'].includes(state.sort))state.sort='file';
 if(!['informacion','localizacion','contratos','ejecucion','evidencias','indicadores'].includes(state.detailTab))state.detailTab='informacion';
 state.pageSize=[10,20,50].includes(Number(state.pageSize))?Number(state.pageSize):10;
@@ -121,21 +121,24 @@ const set=(s,html)=>{const el=q(s);if(el)el.innerHTML=html;};
 const txt=(s,text)=>{const el=q(s);if(el)el.textContent=String(text??'');};
 const keep=()=>{try{localStorage.setItem(STORE,JSON.stringify(state));}catch{}};
 function setView(view){
- state.view=['resumen','proyectos','contratos','financiera','cronograma'].includes(view)?view:'resumen';
- const projects=state.view==='proyectos',contracts=state.view==='contratos',finances=state.view==='financiera',chrono=state.view==='cronograma';
+ state.view=['resumen','proyectos','contratos','financiera','cronograma','mapa'].includes(view)?view:'resumen';
+ const projects=state.view==='proyectos',contracts=state.view==='contratos',finances=state.view==='financiera',chrono=state.view==='cronograma',mapMode=state.view==='mapa';
  const hadSummaryHidden=summary.hidden;
  const contractPanel=shell.querySelector('[data-ti42-contratos-root]');
  const financePanel=shell.querySelector('[data-ti42-financiera-root]');
  const chronoHead=shell.querySelector('[data-ti42g-head]');
  const chronoPanel=shell.querySelector('[data-ti42g-panel]');
+ const mapPanel=shell.querySelector('[data-ti42-mapa-root]');
  panel.hidden=!projects;
- summary.hidden=projects||contracts||finances||chrono;
+ summary.hidden=projects||contracts||finances||chrono||mapMode;
+ if(mapPanel)mapPanel.hidden=!mapMode;
  if(chronoHead)chronoHead.hidden=!chrono;
  if(chronoPanel)chronoPanel.hidden=!chrono;
  shell.classList.toggle('is-chronogram-view',chrono);
+ shell.classList.toggle('is-map-view',mapMode);
  if(contractPanel)contractPanel.hidden=!contracts;
  if(financePanel)financePanel.hidden=!finances;
- shell.classList.toggle('ti42-projects-active',projects||contracts||finances||chrono);
+ shell.classList.toggle('ti42-projects-active',projects||contracts||finances||chrono||mapMode);
  tabs.querySelectorAll('[data-ti42-view]').forEach(tab=>{
    const chosen=tab.dataset.ti42View===state.view;
    tab.classList.toggle('is-active',chosen);
@@ -146,6 +149,7 @@ function setView(view){
  else if(contracts){window.TI42Contratos?.renderIfActive?.();}
  else if(finances){window.TI42Financiera?.renderIfActive?.();}
  else if(chrono){window.TI42Cronograma?.renderIfActive?.();}
+ else if(mapMode){window.TI42Mapa?.renderIfActive?.();}
  else if(hadSummaryHidden)requestAnimationFrame(()=>api.refreshMap?.());
 }
 function baseFilter(r){

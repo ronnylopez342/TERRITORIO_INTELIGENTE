@@ -420,8 +420,21 @@ function renderIfActive(){
  if(ready){if(extraReady)methods();refresh();}
  requestAnimationFrame(()=>{if(!sheet.hidden){startMap();maps?.invalidateSize?.();}});
 }
+function openContract(rowNumber){
+ const id=Number(rowNumber);
+ if(!source.some(r=>Number(r.excelRow)===id))return false;
+ state.presence='all';state.method='all';state.query='';state.sort='file';state.detail='informacion';
+ state.selected=id;state.page=1;syncFilters();
+ projects.setView('contratos');
+ if(ready){
+  if(extraReady)methods();refresh();
+  const at=visible.findIndex(r=>Number(r.excelRow)===id);
+  if(at>=0){state.page=Math.floor(at/state.size)+1;state.selected=id;refresh();}
+ }
+ keep();return true;
+}
 window.TI42Contratos={
- renderIfActive,
+ openContract,renderIfActive,
  get state(){return {...state};},
  get loaded(){return ready;},
  get coreReady(){return coreReady;},
