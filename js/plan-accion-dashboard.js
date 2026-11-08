@@ -1726,13 +1726,36 @@
     const csv=[headers,...vals].map(row=>row.map(v=>'"'+String(v??'').replace(/^[=+@\-\t\r]/,v=>"'"+v).replace(/"/g,'""')+'"').join(';')).join('\r\n');
     const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`Contratacion_Inversion_Meta_${state.current}_${state.year}.csv`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
   }
+  // Totalizador: se consumen los mismos porcentajes que en las fichas por meta.
+  // No se suman unidades físicas distintas ni se inventa una ejecución financiera global.
+  function overallContext(){
+    return {metas:metas(),year:state.year,classify:classification,selectedId:state.current,
+      query:state.overallSearch,status:state.overallStatus,sort:state.overallSort,source:currentYear()?.source||''};
+  }
+  function overallMarkup(full=false){
+    const engine=window.TIPlanTotalizador;
+    if(!engine)return full?'<div class="pa-empty" role="alert"><h2>No se pudo cargar el totalizador</h2><p>El seguimiento individual permanece disponible en las otras pestañas.</p></div>':'';
+    return full?engine.page(overallContext()):engine.ribbon(overallContext(),true);
+  }
+  function overallRefreshTable(){
+    const node=panel.querySelector('.pa-total-table-region');
+    if(node&&window.TIPlanTotalizador)node.innerHTML=window.TIPlanTotalizador.table(overallContext());
+  }
+  function overallExport(){
+    if(!window.TIPlanTotalizador)return;
+    const raw=window.TIPlanTotalizador.csv(overallContext());
+    const url=URL.createObjectURL(new Blob(['\ufeff',raw],{type:'text/csv;charset=utf-8'}));
+    const a=document.createElement('a');a.href=url;a.download='totalizador-metas-'+state.year+'.csv';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
   function resultsMarkup(){
     if(state.loading)return `<div class="pa-empty"><span class="pa-spinner" aria-hidden="true"></span><h2>Cargando registros de los planes de acción...</h2><p>Preparando información de 2025 y 2026.</p></div>`;
     if(state.error)return `<div class="pa-empty"><h2>No fue posible cargar los registros</h2><p>${html(state.error)}</p><button type="button" class="pa-retry" data-pa-reload="1">Reintentar</button></div>`;
     if(!currentYear())return unavailableMarkup();
     if(state.list)return listMarkup();
     const m=selected();if(!m)return unavailableMarkup();
-    return statusBar(m)+tabMarkup(m)+summaryMarkup(m);
+    return statusBar(m)+tabMarkup(m)+(state.activeTab==='overall'?overallMarkup(true):overallMarkup(false)+summaryMarkup(m));
   }
   function pageMarkup(){
     if(state.activeTab==='contracts')return `<div class="pa-shell pa-general-mode pa-activities-mode pa-contract-mode">${ctHero()}<section class="pa-body pa-ig-body" aria-label="Contratación de Inversión para ${state.year}"><div class="pa-content" id="pa-content">${ctResults()}</div></section></div>`;
@@ -1767,8 +1790,10 @@
     state.list=true;state.listCategory='all';refresh();panel.querySelector('.pa-meta-catalog')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
   panel.addEventListener('submit',ev=>{if(ev.target.id==='pa-query-form'){ev.preventDefault();searchAction();}});
-  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}if(ev.target.id==='pa-ob-search'){state.obFilters.q=ev.target.value.slice(0,180);state.obPage=0;obRefreshPart(true);}if(ev.target.id==='pa-ct-search'){state.ctFilters.q=ev.target.value.slice(0,180);state.ctPage=0;ctRefreshPart(true);}});
+  panel.addEventListener('input',ev=>{if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}if(ev.target.id==='pa-ob-search'){state.obFilters.q=ev.target.value.slice(0,180);state.obPage=0;obRefreshPart(true);}if(ev.target.id==='pa-ct-search'){state.ctFilters.q=ev.target.value.slice(0,180);state.ctPage=0;ctRefreshPart(true);}if(ev.target.id==='pa-overall-search'){state.overallSearch=ev.target.value.slice(0,180);overallRefreshTable();}});
   panel.addEventListener('change',ev=>{
+    if(ev.target.id==='pa-overall-status'){state.overallStatus=ev.target.value;overallRefreshTable();return;}
+    if(ev.target.id==='pa-overall-sort'){state.overallSort=ev.target.value;overallRefreshTable();return;}
     const filterMap={'pa-act-filter-state':'status','pa-act-filter-owner':'owner','pa-act-filter-place':'place'};
     if(filterMap[ev.target.id]){state.activityFilters[filterMap[ev.target.id]]=ev.target.value;refresh();return;}
     if(ev.target.id==='pa-act-compare-unit'){state.activityCompareUnit=ev.target.value;const y=window.scrollY;refresh();window.scrollTo({top:y});return;}
@@ -1786,8 +1811,12 @@
     state.year=ev.target.value;state.list=false;state.listCategory='all';state.territoryExpanded=false;state.activityExpanded.clear();state.qNumber='';state.qKeyword='';state.activityFilters={q:'',status:'all',owner:'all',place:'all'};state.physicalFilters={status:'all',activity:'all'};state.activityCompareUnit=null;state.activityCarouselPage=0;state.beneficiaryPlace=null;state.territorySelected=null;state.territoryGalleryPage=0;suResetFilters();obReset();ctReset();refresh();
   });
   panel.addEventListener('click',ev=>{
+    if(ev.target.closest('[data-pa-overall-open]')){state.activeTab='overall';state.list=false;refresh();panel.querySelector('.pa-total-page')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    const overallMeta=ev.target.closest('[data-pa-overall-meta]');
+    if(overallMeta){state.activeTab='summary';focusMeta(Number(overallMeta.dataset.paOverallMeta));return;}
+    if(ev.target.closest('[data-pa-overall-export]')){overallExport();return;}
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(!['general','summary','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!['general','summary','overall','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
     if(ev.target.closest('[data-pa-ct-open]')){state.ctPanelOpen=true;ctRefreshPart();return;}
     if(ev.target.closest('[data-pa-ct-close]')){state.ctPanelOpen=false;ctRefreshPart();return;}
     if(ev.target.closest('[data-pa-ct-retry]')){state.ctError=null;state.ctLoaded=false;ctLoad();return;}
