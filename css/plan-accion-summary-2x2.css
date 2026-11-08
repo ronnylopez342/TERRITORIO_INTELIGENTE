@@ -1,4 +1,4 @@
-/* 3.3 / Resumen: unica variacion de diseno. Las filas inferiores conservan sus
+/* 3.3 / Resumen: dos tarjetas unificadas. Las filas inferiores conservan sus
    clases y dimensiones originales. No modifica las otras diez pestanas. */
 #desarrollo-accion.pa-mounted .pa-summary-analytics {
   display: grid !important;
@@ -12,13 +12,28 @@
   display: flex;
   flex-direction: column;
 }
-#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-summary-physical-metric,
-#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-summary-budget-metric {
-  min-height: 218px !important;
+#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-card > .pa-summary-main-body {
+  min-width: 0;
+  min-height: 184px;
+  display: flex;
+  align-items: center;
 }
-#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-summary-physical-plot,
-#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-summary-budget-trace {
-  min-height: 215px !important;
+#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-card > .pa-summary-main-body > .pa-progress-card,
+#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-card > .pa-summary-main-body > .pa-budget-wrap {
+  width: 100%;
+}
+#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-card > .pa-summary-chart-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 215px;
+  margin-top: 12px;
+  flex: 1 0 auto;
+  border: 0;
+}
+#desarrollo-accion.pa-mounted .pa-summary-analytics > .pa-card > .pa-summary-chart-block > .pa-summary-subtitle {
+  text-align: center !important;
+  width: 100%;
 }
 #desarrollo-accion.pa-mounted .pa-summary-physical-metric .pa-progress-card {
   grid-template-columns: minmax(130px, 38%) minmax(0, 1fr) !important;
