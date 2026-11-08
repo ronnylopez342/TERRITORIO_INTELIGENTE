@@ -137,11 +137,11 @@
       const frame=node('div','ti-ed-frame'),canvas=node('div','ti-ed-canvas');
       frame.append(canvas);host.append(frame);
       const map=L.map(canvas,{zoomControl:false,attributionControl:false,scrollWheelZoom:true,touchZoom:true,
-        minZoom:6,maxZoom:19,zoomSnap:0.25,preferCanvas:false,zoomAnimation:true});
+        minZoom:6,maxZoom:19,zoomSnap:0,preferCanvas:false,zoomAnimation:true});
       const renderer=L.svg({padding:0.35});
       const outline=L.geoJSON(municipio,{renderer,interactive:false,style:{fill:false,weight:5,color:'#ffffff',opacity:1,lineCap:'round',lineJoin:'round'}});
       const boundary=municipio.features[0];
-      let lastName='',disposed=false,ready=false,firstFit=false;
+      let lastName='',disposed=false,ready=false,firstFit=false,userNavigated=false,lastFitWidth=0,lastFitHeight=0;
       let mapLayers={},mapMarkers=L.layerGroup().addTo(map);
       let labelGroup=L.layerGroup().addTo(map);
       const byName=new Map(),labels=[];
@@ -182,7 +182,19 @@
       mapLayers.casco.addTo(map);
       outline.addTo(map);
       const bounds=outline.getBounds();
-      function fit(){if(!bounds.isValid()||!canvas.clientWidth||!canvas.clientHeight)return;map.invalidateSize({pan:false});map.fitBounds(bounds,{padding:[20,20],animate:false});map.setMaxBounds(bounds.pad(.1));firstFit=true;}
+      function fit(){
+        if(!bounds.isValid()||!canvas.clientWidth||!canvas.clientHeight)return;
+        // Automatic fit is repeated after a real container resize until the user
+        // actively pans/zooms. Otherwise an initially small viewport leaves huge
+        // whitespace when the activity map is opened or expanded.
+        map.invalidateSize({pan:false});
+        map.fitBounds(bounds,{padding:[5,5],animate:false});
+        map.setMaxBounds(bounds.pad(.1));
+        lastFitWidth=canvas.clientWidth;
+        lastFitHeight=canvas.clientHeight;
+        userNavigated=false;
+        firstFit=true;
+      }
       if(canvas.clientWidth>10&&canvas.clientHeight>10)fit();
       const lineBreaks={
         'pantano de arce':['Pantano','de Arce'],
@@ -264,7 +276,7 @@
           old.setStyle(basePolygonStyle(f,veredas.features.indexOf(f)));
         }
         lastName=key;target.setStyle({color:'#ffffff',weight:borderWeight()+1.2,fillOpacity:1});
-        if(focus){map.fitBounds(target.getBounds(),{padding:[35,35],maxZoom:15});target.openPopup();}
+        if(focus){userNavigated=true;map.fitBounds(target.getBounds(),{padding:[14,14],maxZoom:15});target.openPopup();}
         if(notify&&typeof options.onSelect==='function')options.onSelect(display(target.feature),target.feature);
         return true;
       }
@@ -274,8 +286,8 @@
         const button=node('button','ti-ed-tool',value);button.type='button';button.title=title;button.setAttribute('aria-label',title);
         button.addEventListener('click',action);shell.append(button);return button;
       };
-      addButton('+','Ampliar mapa',()=>map.zoomIn());
-      addButton('−','Reducir mapa',()=>map.zoomOut());
+      addButton('+','Ampliar mapa',()=>{userNavigated=true;map.zoomIn();});
+      addButton('−','Reducir mapa',()=>{userNavigated=true;map.zoomOut();});
       addButton('⌖','Ver todo Subachoque',()=>fit());
       const panelButton=addButton('▧','Mostrar u ocultar capas',()=>{layerPanel.hidden=!layerPanel.hidden;panelButton.setAttribute('aria-expanded',String(!layerPanel.hidden));});
       panelButton.setAttribute('aria-expanded','false');
@@ -419,12 +431,22 @@
       };
       function reproject(){applyClip();updateLabelVisibility();}
       map.on('zoomend moveend resize',reproject);
+      // ResizeObserver matters for the full-size map (3.3 Territorio):
+      // the host may expand after its initial Leaflet fit. Never keep the
+      // small initial zoom when the canvas becomes taller or wider.
       const resize=new ResizeObserver(()=>{
-        if(disposed||!canvas.clientWidth||!canvas.clientHeight)return;
-        map.invalidateSize({pan:false});
-        if(!firstFit)fit();
+        if(disposed)return;
+        const width=canvas.clientWidth,height=canvas.clientHeight;
+        if(width<10||height<10)return;
+        const changed=!firstFit||Math.abs(width-lastFitWidth)>3||Math.abs(height-lastFitHeight)>3;
+        if(changed&&!userNavigated)fit();
+        else map.invalidateSize({pan:false});
         reproject();
       });
+      // User-initiated navigation is retained across responsive resizes; the
+      // "Ver todo Subachoque" control returns to automatic close framing.
+      canvas.addEventListener('wheel',()=>{userNavigated=true;},{passive:true});
+      map.on('dragstart',()=>{userNavigated=true;});
       resize.observe(canvas);
       if(!firstFit)requestAnimationFrame(fit);
       requestAnimationFrame(()=>{applyClip();updateLabelVisibility();});

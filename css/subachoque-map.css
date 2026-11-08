@@ -44,10 +44,10 @@
 
 /* IDENTIDAD EDITORIAL CANÓNICA — muestras de la referencia aprobada, 08/11/2026.
    El exterior es transparente; las líneas de papel viven dentro del vector SVG. */
-.ti-ed-map{background:transparent!important;color:#17130f;font-family:Georgia,"Times New Roman",serif}
-.ti-ed-map .ti-ed-frame{background:transparent!important;background-image:none!important}
+.ti-ed-map{background:#FBF2E8!important;color:#17130f;font-family:Georgia,"Times New Roman",serif}
+.ti-ed-map .ti-ed-frame{background:#FBF2E8!important;background-image:none!important}
 .ti-ed-map .ti-ed-canvas,
-.ti-ed-map .ti-ed-canvas.leaflet-container{background:transparent!important}
+.ti-ed-map .ti-ed-canvas.leaflet-container{background:#FBF2E8!important}
 .ti-ed-map .ti-ed-label-wrapper{border:0!important;background:transparent!important;pointer-events:none!important}
 .ti-ed-map .ti-ed-label{
   position:relative;left:0;top:0;transform:translate(-50%,-50%);
@@ -65,9 +65,9 @@
 .ti-ed-map .ti-ed-source,.ti-ed-map .ti-ed-georeference{
   background:rgba(255,255,255,.85);color:#53665b
 }
-#data-explorando .ex-map-wrap:has(.ti-ed-map){background:transparent!important;border-color:#3b678057!important}
-#desarrollo-accion.pa-mounted .pa-tr-map-frame:has(.ti-ed-map){background:transparent!important}
-#desarrollo-accion.pa-mounted .pa-tr-map-canvas.ti-ed-map{background:transparent!important}
+#data-explorando .ex-map-wrap:has(.ti-ed-map){background:#FBF2E8!important;border-color:#3b678057!important}
+#desarrollo-accion.pa-mounted .pa-tr-map-frame:has(.ti-ed-map){background:#FBF2E8!important}
+#desarrollo-accion.pa-mounted .pa-tr-map-canvas.ti-ed-map{background:#FBF2E8!important}
 #desarrollo-accion.pa-mounted .pa-tr-map-frame .ti-ed-map .ti-ed-label{
   color:#17130f!important;text-shadow:none!important
 }

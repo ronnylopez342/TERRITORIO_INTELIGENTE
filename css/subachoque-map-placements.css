@@ -3,7 +3,7 @@
 #desarrollo-accion.pa-mounted .pa-ig-map > .ti-ed-map{height:239px;min-height:239px;border:1px solid #c5d9d1;border-radius:5px}
 #desarrollo-accion.pa-mounted .pa-ph-map-view > .ti-ed-map{height:215px;min-height:215px;border:1px solid #c5d8d7;border-radius:5px}
 #desarrollo-accion.pa-mounted .pa-ben-map-area > .ti-ed-map{height:226px;min-height:226px;border-radius:6px}
-#desarrollo-accion.pa-mounted .pa-tr-map-frame:has(.ti-ed-map){background:#f8f5ed;border:1px solid #dedac8}
+#desarrollo-accion.pa-mounted .pa-tr-map-frame:has(.ti-ed-map){background:#FBF2E8;border:1px solid #dedac8}
 #desarrollo-accion.pa-mounted .pa-tr-map-frame > .ti-ed-map{height:100%;min-height:100%;border-radius:4px}
 #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-bottom{pointer-events:none}
 #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-legend{display:none}
@@ -31,3 +31,9 @@
 #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls [data-pa-tr-fullmap]{width:35px;height:35px;padding:0!important;display:flex;align-items:center;justify-content:center;background:#fffefa!important;border:1px solid #e0e2d4!important;border-radius:8px!important;color:#265d41!important;font:700 20px Georgia,serif!important}
 #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls [data-pa-tr-fullmap]:hover{background:#eff5e9!important}
 #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls [data-pa-tr-fullmap]:focus-visible{outline:3px solid #157550;outline-offset:2px}
+
+/* Uniform ivory outside the vector geometry. Map coordinates are unchanged. */
+#desarrollo-accion.pa-mounted .pa-map-view:has(.ti-ed-map),
+#desarrollo-accion.pa-mounted .pa-ig-map:has(> .ti-ed-map),
+#desarrollo-accion.pa-mounted .pa-ph-map-view:has(> .ti-ed-map),
+#desarrollo-accion.pa-mounted .pa-ben-map-area:has(> .ti-ed-map){background:#FBF2E8;}
