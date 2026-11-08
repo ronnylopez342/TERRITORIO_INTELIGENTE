@@ -1,0 +1,124 @@
+/* PLAN 3.3: exclusivamente las dos graficas del primer renglon de Resumen.
+   El resto de la pagina (beneficiarios, territorio, evidencias, tablas y pestañas)
+   no comparte estas clases y conserva su distribucion original. */
+#desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-summary-primary {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  gap:12px!important;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary>.pa-card {
+  min-width:0!important;
+  min-height:584px!important;
+  padding:18px 19px 17px!important;
+  border-radius:8px!important;
+  display:flex;
+  flex-direction:column;
+  background:#fff!important;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary>.pa-card>h3 {
+  font-size:clamp(16px,1.22vw,21px)!important;
+  line-height:1.25!important;
+  font-weight:850!important;
+  margin:0 0 17px!important;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-progress-card,
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-budget-wrap {
+  display:grid!important;
+  grid-template-columns:minmax(160px,37%) minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:18px!important;
+  min-height:211px;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-dial,
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-budget-wrap .pa-dial {
+  width:min(100%,195px)!important;
+  max-width:195px!important;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-dial-inner strong {
+  font-size:clamp(28px,2.65vw,45px)!important;
+  letter-spacing:-.045em;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-dial-inner small {
+  font-size:clamp(10px,.79vw,13px)!important;
+  line-height:1.25!important;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-budget-line {
+  grid-template-columns:minmax(0,1.12fr) minmax(46px,.7fr) minmax(0,1.08fr)!important;
+  gap:8px!important;
+  min-height:26px!important;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-budget-line b {
+  font-weight:760!important;
+  font-variant-numeric:tabular-nums;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart {
+  margin-top:19px;
+  padding-top:17px;
+  border-top:1px solid #d8e3eb;
+  flex:1 1 auto;
+  min-width:0;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart h4 {
+  margin:0 0 10px!important;
+  padding:0!important;
+  font-size:clamp(15px,1.13vw,19px)!important;
+  line-height:1.2!important;
+  font-weight:800!important;
+  color:#173958!important;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart-legend {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  flex-wrap:wrap;
+  font-size:12px;
+  font-weight:650;
+  color:#38536d;
+  padding:5px 0 2px;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart-legend span {
+  display:flex;align-items:center;gap:7px;white-space:nowrap;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart-legend i {
+  width:11px;height:11px;display:inline-block;border-radius:2px;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart-legend .pa-key-bar {background:#91c9ea}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart-legend .pa-key-line {background:#068746}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart-scroll {
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:thin;
+  overscroll-behavior-x:contain;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart-scroll svg {
+  display:block;
+  max-width:none;
+  margin:0 auto;
+  height:auto;
+}
+#desarrollo-accion.pa-mounted .pa-summary-primary .pa-summary-chart-scroll svg text {
+  font-family:Arial,Helvetica,sans-serif;
+}
+@media (max-width:1120px) {
+  #desarrollo-accion.pa-mounted .pa-dashboard-cards .pa-summary-primary {
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  #desarrollo-accion.pa-mounted .pa-summary-primary>.pa-card {
+    min-height:0!important;
+  }
+}
+@media (max-width:610px) {
+  #desarrollo-accion.pa-mounted .pa-summary-primary>.pa-card {
+    padding:13px!important;
+  }
+  #desarrollo-accion.pa-mounted .pa-summary-primary .pa-progress-card,
+  #desarrollo-accion.pa-mounted .pa-summary-primary .pa-budget-wrap {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:13px!important;
+  }
+}
