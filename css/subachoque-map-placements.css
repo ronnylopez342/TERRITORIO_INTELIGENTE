@@ -22,3 +22,12 @@
   #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls{right:52px}
   #desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-bottom{display:none}
 }
+
+
+/* Evita controles duplicados en la tarjeta Territorio:
+   el motor maestro conserva capas y zoom, el control existente conserva pantalla ampliada. */
+#desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls{top:auto!important;right:13px!important;bottom:43px!important;z-index:865!important;display:flex;gap:0}
+#desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls [data-pa-tr-basemap]{display:none!important}
+#desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls [data-pa-tr-fullmap]{width:35px;height:35px;padding:0!important;display:flex;align-items:center;justify-content:center;background:#fffefa!important;border:1px solid #e0e2d4!important;border-radius:8px!important;color:#265d41!important;font:700 20px Georgia,serif!important}
+#desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls [data-pa-tr-fullmap]:hover{background:#eff5e9!important}
+#desarrollo-accion.pa-mounted .pa-tr-map-frame .pa-tr-map-controls [data-pa-tr-fullmap]:focus-visible{outline:3px solid #157550;outline-offset:2px}
