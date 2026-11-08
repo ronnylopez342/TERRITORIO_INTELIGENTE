@@ -197,12 +197,28 @@
       }
       if(canvas.clientWidth>10&&canvas.clientHeight>10)fit();
       const lineBreaks={
+        'altania':['Altania'],
+        'canica alta':['Canica','Alta'],
+        'canica baja':['Canica','Baja'],
+        'cascajal':['Cascajal'],
+        'el centro (llanitos)':['El Centro','(Llanitos)'],
+        'el guamal':['El Guamal'],
+        'el paramo':['El Páramo'],
+        'el tobal':['El Tobal'],
+        'el valle':['El Valle'],
+        'galdamez':['Galdámez'],
+        'la union':['La Unión'],
+        'la yeguera':['La Yegüera'],
         'pantano de arce':['Pantano','de Arce'],
         'rincon santo':['Rincón','Santo'],
-        'el centro (llanitos)':['El Centro','(Llanitos)'],
-        'casco urbano':['Casco','Urbano'],
-        'santuario la cuesta':['Santuario','La Cuesta']
+        'santa rosa':['Santa','Rosa'],
+        'santuario la cuesta':['Santuario','La Cuesta'],
+        'tibagota':['Tibagotá'],
+        'casco urbano':['Casco','Urbano']
       };
+      const labelLeaderLines=L.layerGroup().addTo(map);
+      const labelCanvas=document.createElement('canvas');
+      const labelCtx=labelCanvas.getContext('2d');
       function label(kind,latLng,text,geoLayer){
         const lines=lineBreaks[normal(text)]||[text];
         const content=lines.map(line=>'<span class="ti-ed-label-line">'+safe(line)+'</span>').join('');
@@ -217,55 +233,145 @@
       for(const f of veredas.features)label('vereda',innerLabel(f),display(f),byName.get(normal(name(f))));
       label('casco',innerLabel(casco.features[0]),'Casco Urbano',layerCasco.getLayers()[0]);
       const labelVisible=(e)=>e.kind==='casco'?map.hasLayer(mapLayers.casco):map.hasLayer(mapLayers.veredas);
-      // Tipografía medida en unidades de pantalla, sin alterar anclajes WGS84.
-      // Evita invasión de regiones y colisiones entre textos en tarjetas pequeñas.
+      function labelBox(lines,size,x,y){
+        if(labelCtx)labelCtx.font='800 '+size+'px Georgia';
+        const width=Math.max(...lines.map(line=>labelCtx?labelCtx.measureText(line).width:line.length*size*.64))+8;
+        const height=lines.length*size*1.09+5;
+        return {x:x-width/2,y:y-height/2,w:width,h:height};
+      }
+      function labelOverlap(a,b,pad=2){
+        return a.x<a.x+a.w&&a.x+a.w+pad>b.x&&b.x+b.w+pad>a.x&&
+          a.y+a.h+pad>b.y&&b.y+b.h+pad>a.y;
+      }
+      function labelWithinViewport(box,width,height){
+        return box.x>=4&&box.y>=4&&box.x+box.w<=width-4&&box.y+box.h<=height-4;
+      }
+      function labelAt(entry,point,size,kind,placed,viewW,viewH){
+        const rect=labelBox(entry.lines,size,point.x,point.y);
+        if(!labelWithinViewport(rect,viewW,viewH))return null;
+        if(placed.some(p=>labelOverlap(rect,p.box,2)))return null;
+        return {entry,point,size,box:rect,placement:kind};
+      }
+      // At any display size try all interior text anchors, not just one point.
+      // The smallest geographic polygons are allocated first. If there is no
+      // interior space, reserve a nearby position outside the municipality and
+      // connect it to the original polygon with a thin leader.
       function updateLabelVisibility(){
         if(!map||disposed)return;
-        const ne=map.latLngToContainerPoint(bounds.getNorthEast());
-        const sw=map.latLngToContainerPoint(bounds.getSouthWest());
-        const mapWidth=Math.abs(ne.x-sw.x);
-        const candidates=[];
-        for(const entry of labels){
-          if(!labelVisible(entry))continue;
+        labelLeaderLines.clearLayers();
+        const viewW=canvas.clientWidth,viewH=canvas.clientHeight;
+        if(viewW<10||viewH<10)return;
+        const northEast=map.latLngToContainerPoint(bounds.getNorthEast());
+        const southWest=map.latLngToContainerPoint(bounds.getSouthWest());
+        const fullMapWidth=Math.abs(northEast.x-southWest.x);
+        const visible=labels.filter(labelVisible);
+        const candidates=visible.map(entry=>{
+          const point=map.latLngToContainerPoint(entry.latLng);
           const b=entry.geoLayer?.getBounds();
-          if(!b?.isValid())continue;
-          const topLeft=map.latLngToContainerPoint(b.getNorthWest());
-          const bottomRight=map.latLngToContainerPoint(b.getSouthEast());
-          const regionW=Math.abs(bottomRight.x-topLeft.x);
-          const regionH=Math.abs(bottomRight.y-topLeft.y);
-          const longest=Math.max(...entry.lines.map(line=>line.length));
-          const desired=Math.max(9,Math.min(31,mapWidth*.030));
-          const size=Math.min(desired,regionW*.85/(Math.max(1,longest)*.52),
-            regionH*.78/(entry.lines.length*1.10));
-          const pos=map.latLngToContainerPoint(entry.latLng);
-          const w=size*longest*.58+5,h=size*entry.lines.length*1.10+3;
-          candidates.push({entry,size,pos,box:{x:pos.x-w/2,y:pos.y-h/2,w,h},
-            priority:entry.kind==='casco'?100000:Math.max(1,regionW*regionH)});
-        }
-        candidates.sort((a,b)=>b.priority-a.priority);
+          if(!b?.isValid())return {entry,point,width:0,height:0,area:0,options:[]};
+          const nw=map.latLngToContainerPoint(b.getNorthWest());
+          const se=map.latLngToContainerPoint(b.getSouthEast());
+          const regionW=Math.abs(se.x-nw.x),regionH=Math.abs(se.y-nw.y);
+          const fontMax=Math.min(29,Math.max(8.4,fullMapWidth*.047));
+          // Avoid excessively large type inside very small regions, but never
+          // refuse to display a name merely because it needs a 7px label.
+          const starting=Math.min(fontMax,Math.max(7,regionH*.60));
+          const sizes=[starting,starting*.90,starting*.79,starting*.68,8.4,7.5,7]
+            .filter((n,i,arr)=>n>=7&&arr.findIndex(v=>Math.abs(v-n)<.20)===i);
+          const points=[point];
+          // Sample each feature's actual geographic interior in screen space.
+          // These are label presentation anchors only; no GeoJSON is modified.
+          const feature=entry.geoLayer.feature;
+          for(let row=1;row<=9;row++)for(let col=1;col<=9;col++){
+            const x=Math.min(nw.x,se.x)+regionW*col/10;
+            const y=Math.min(nw.y,se.y)+regionH*row/10;
+            const latlng=map.containerPointToLatLng([x,y]);
+            if(inside(feature,latlng.lng,latlng.lat))points.push({x,y});
+          }
+          points.sort((a,b)=>Math.hypot(a.x-point.x,a.y-point.y)-Math.hypot(b.x-point.x,b.y-point.y));
+          return {entry,point,width:regionW,height:regionH,area:regionW*regionH,
+            sizes,points};
+        }).sort((a,b)=>a.entry.kind==='casco'?-1:b.entry.kind==='casco'?1:a.area-b.area);
         const placed=[];
-        const safeRegion=canvas.getBoundingClientRect();
-        for(const candidate of candidates){
-          const {entry,size,pos,box}=candidate;
-          const overlapped=placed.some(p=>{
-            const iw=Math.max(0,Math.min(box.x+box.w,p.x+p.w)-Math.max(box.x,p.x));
-            const ih=Math.max(0,Math.min(box.y+box.h,p.y+p.h)-Math.max(box.y,p.y));
-            return iw*ih>Math.min(box.w*box.h,p.w*p.h)*.11;
-          });
-          const show=size>=8 && box.x>=-5 && box.y>=-6 &&
-            box.x+box.w<=safeRegion.width+5 && box.y+box.h<=safeRegion.height+6 &&
-            !overlapped;
-          if(!show){
+        // First pass: prioritize every label on its own region without overlap.
+        for(const item of candidates){
+          const {entry,point,points,sizes}=item;
+          let best=null;
+          for(const size of sizes){
+            // A few interior positions are enough for large regions; narrower
+            // regions may need the full grid before we go down a font step.
+            for(const testPoint of points){
+              const trial=labelAt(entry,testPoint,size,'inside',placed,viewW,viewH);
+              if(!trial)continue;
+              best=trial;break;
+            }
+            if(best)break;
+          }
+          if(best)placed.push(best);
+        }
+        // Second pass: every name that did not fit INSIDE gets a nearby callout.
+        for(const item of candidates){
+          const {entry,point}=item;
+          if(placed.some(p=>p.entry===entry))continue;
+          const sizes=[8.5,7.8,7.1];
+          let best=null,bestScore=Infinity;
+          const options=[];
+          // Search the unused margins first, not over other veredas.
+          const step=viewW<360?10:12;
+          for(let y=8;y<=viewH-8;y+=step){
+            for(let x=8;x<=viewW-8;x+=step){
+              const ll=map.containerPointToLatLng([x,y]);
+              if(inside(boundary,ll.lng,ll.lat))continue;
+              const dist=Math.hypot(x-point.x,y-point.y);
+              if(dist>Math.max(viewW,viewH)*.85)continue;
+              options.push({x,y,dist});
+            }
+          }
+          options.sort((a,b)=>a.dist-b.dist);
+          for(const size of sizes){
+            for(const test of options){
+              const trial=labelAt(entry,test,size,'callout',placed,viewW,viewH);
+              if(!trial)continue;
+              const score=test.dist+(8.5-size)*40;
+              if(score<bestScore){best=trial;bestScore=score;}
+              if(test.dist<36)break;
+            }
+            if(best)break;
+          }
+          // Severe zoom/very narrow card: use any free area instead of hiding a
+          // territory name. A line makes its real origin unambiguous.
+          if(!best){
+            for(const size of [7.2,6.6]){
+              for(let y=10;y<viewH-10&&!best;y+=8)for(let x=10;x<viewW-10&&!best;x+=8){
+                best=labelAt(entry,{x,y},size,'callout',placed,viewW,viewH);
+              }
+              if(best)break;
+            }
+          }
+          if(best)placed.push(best);
+        }
+        // Keep the actual geographic anchor unchanged. Only rendered label
+        // markers may be displaced to remove visual collisions.
+        for(const entry of labels){
+          const placement=placed.find(p=>p.entry===entry);
+          if(!placement){
             if(labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
             continue;
           }
           if(!labelGroup.hasLayer(entry.marker))labelGroup.addLayer(entry.marker);
-          const span=entry.marker.getElement()?.querySelector('.ti-ed-label');
-          if(span){span.style.fontSize=size.toFixed(1)+'px';span.style.lineHeight='1.07';}
-          placed.push(box);
-        }
-        for(const entry of labels){
-          if(!labelVisible(entry)&&labelGroup.hasLayer(entry.marker))labelGroup.removeLayer(entry.marker);
+          const ll=map.containerPointToLatLng([placement.point.x,placement.point.y]);
+          entry.marker.setLatLng(ll);
+          const text=entry.marker.getElement()?.querySelector('.ti-ed-label');
+          if(text){
+            text.style.fontSize=placement.size.toFixed(2)+'px';
+            text.style.lineHeight='1.07';
+            text.classList.toggle('ti-ed-label-callout',placement.placement==='callout');
+            text.setAttribute('aria-label',entry.text);
+          }
+          if(placement.placement==='callout'){
+            L.polyline([entry.latLng,ll],{renderer,interactive:false,color:'#625e54',
+              weight:.75,opacity:.65,dashArray:'2 3',lineCap:'round'}).addTo(labelLeaderLines);
+          }
         }
       }
       function select(value,{notify=true,focus=false}={}){
