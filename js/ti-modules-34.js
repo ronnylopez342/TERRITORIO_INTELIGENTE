@@ -71,9 +71,98 @@ function renderPlan(){
 function projectList(legacy){
  return `<label class="ti34-search">⌕ <input type="search" data-ti34-search placeholder="Buscar proyecto estratégico..." aria-label="Buscar proyecto estratégico"></label><div class="ti34-project-list">${oldProjects.map(([id,title])=>`<details class="ti34-project" data-ti34-project="${safe(title.toLowerCase())}"><summary><span>▤</span><strong>${safe(title)}</strong><small>FICHA EN PREPARACIÓN</small><span>⌄</span></summary><div class="ti34-project-details">${legacy[id]||empty('Expediente','No disponible.')}</div></details>`).join('')}<p class="ti34-no-results" hidden>No hay proyectos con ese nombre.</p></div><p class="ti34-disclaimer">Se conservaron los expedientes anteriores. Los campos por documentar no representan avances ejecutados.</p>`;
 }
+function renderUnitOverview41(){
+ return `<div class="ti41" aria-label="Presentación de la Unidad de Cumplimiento">
+ <div class="ti41-top">
+  <article class="ti41-hero">
+   <span class="ti41-eyebrow">● SUBACHOQUE · INFORMACIÓN DE SEGUIMIENTO</span>
+   <h3>¿Para qué sirve este espacio?</h3>
+   <p class="ti41-hero-lead">Aquí puedes conocer cómo se organiza la información disponible de los proyectos estratégicos del municipio, qué se ha registrado y qué documentos permiten consultar su seguimiento.</p>
+   <p>El módulo reúne datos de identificación, planificación, contratación, finanzas, riesgos y evidencias, cuando aparecen en los archivos aportados. <strong>Un registro no demuestra que una obra esté ejecutada.</strong></p>
+   <span class="ti41-hero-source">Origen: libro de la Unidad de Cumplimiento · actualización no acreditada</span>
+  </article>
+  <aside class="ti41-route">
+   <span class="ti41-eyebrow">GUÍA DE CONSULTA</span><h3>Cómo interpretar la información</h3>
+   <ol class="ti41-steps">
+    <li><span class="ti41-step-no">01</span><div><strong>Identifica</strong><p>Ubica el proyecto o vehículo mediante su nombre o identificador disponible.</p></div></li>
+    <li><span class="ti41-step-no">02</span><div><strong>Comprende</strong><p>Revisa vigencia, responsables y campos de avance solo cuando estén documentados.</p></div></li>
+    <li><span class="ti41-step-no">03</span><div><strong>Verifica</strong><p>Contrasta la información con contratos, observaciones y soportes, cuando existan.</p></div></li>
+   </ol>
+   <p class="ti41-route-note">Los apartados especializados se desarrollarán y comprobarán progresivamente.</p>
+  </aside>
+ </div>
+ <section class="ti41-block" aria-labelledby="ti41-metrics-title">
+  <div class="ti41-section-heading"><span class="ti41-eyebrow">LO QUE CONTIENE EL ARCHIVO</span><h3 id="ti41-metrics-title">Información disponible</h3><p>Son recuentos de registros, no porcentajes de cumplimiento ni certificaciones de ejecución.</p></div>
+  <div class="ti41-metrics">
+   <article class="ti41-metric"><span class="ti41-metric-tag">PROYECTOS</span><strong data-ti41-count="namedProjectRows">—</strong><h4>Filas con nombre de proyecto</h4><p>Puede haber nombres repetidos: el recuento no significa proyectos únicos.</p><small>Proyectos DEFINITIVO · Nombre del Proyecto</small></article>
+   <article class="ti41-metric"><span class="ti41-metric-tag">INVENTARIO</span><strong data-ti41-count="uniqueVehicleIds">—</strong><h4>Identificadores de unidades</h4><p>Placas o IDs de vehículos y maquinaria. Su ficha puede estar incompleta.</p><small>Maquinaria · ID/PLACA</small></article>
+   <article class="ti41-metric"><span class="ti41-metric-tag">ESTUDIOS</span><strong data-ti41-count="namedStudies">—</strong><h4>Iniciativas de estudios y diseños</h4><p>Iniciativas listadas sin porcentajes de avance documentados.</p><small>ESTUDIOS Y DISEÑOS · Iniciativas</small></article>
+   <article class="ti41-metric ti41-metric-review"><span class="ti41-metric-tag">SERVICIOS</span><strong class="ti41-weekly" data-ti41-weekly>Por consultar</strong><h4>Informe semanal</h4><p>Un registro incompleto no prueba ausencia de actividades.</p><small>Informe semanal · Registro del servicio</small></article>
+  </div>
+  <p class="ti41-data-status" role="status" aria-live="polite">Consultando el resumen de datos suministrado…</p>
+ </section>
+ <section class="ti41-block" aria-labelledby="ti41-areas-title">
+  <div class="ti41-section-heading"><span class="ti41-eyebrow">ÁREAS DE INFORMACIÓN</span><h3 id="ti41-areas-title">¿Qué puedes encontrar?</h3><p>Los campos disponibles cambian según cada registro del archivo.</p></div>
+  <div class="ti41-areas">
+   <article class="ti41-area"><span class="ti41-area-icon">01</span><h4>Proyectos y planificación</h4><p>Nombre, vigencia, BPIN, línea estratégica, alcance y características registradas.</p><small>Fuente: Proyectos DEFINITIVO</small></article>
+   <article class="ti41-area"><span class="ti41-area-icon">02</span><h4>Contratación y finanzas</h4><p>Número de contrato, contratista, costos y valores financieros si se encuentran documentados.</p><small>Fuente: Proyectos DEFINITIVO</small></article>
+   <article class="ti41-area"><span class="ti41-area-icon">03</span><h4>Riesgos y evidencias</h4><p>Alertas, observaciones, fotografías y anexos cuando el registro los incluye.</p><small>Fuente: Proyectos DEFINITIVO</small></article>
+   <article class="ti41-area"><span class="ti41-area-icon">04</span><h4>Inventario y servicios</h4><p>Identificación y estado de maquinaria; servicios que estén diligenciados.</p><small>Fuentes: Maquinaria e Informe semanal</small></article>
+  </div>
+ </section>
+ <section class="ti41-bottom" aria-label="Fuentes y criterios de lectura">
+  <article class="ti41-source-card">
+   <span class="ti41-eyebrow">TRAZABILIDAD</span><h3>Fuentes y documentos</h3>
+   <p>El Excel suministrado es la base de esta sección. El Word presenta diseños de referencia para las diez vistas de proyectos estratégicos; no es una fuente numérica.</p>
+   <details class="ti41-source-details">
+    <summary>Consultar las cinco hojas del Excel <span aria-hidden="true">⌄</span></summary>
+    <ul>
+     <li><strong>Proyectos DEFINITIVO:</strong> identificación, georreferenciación, gobernanza, alcance, contratación, finanzas, riesgos y evidencias.</li>
+     <li><strong>Desplegables:</strong> catálogos y valores de clasificación; no son proyectos adicionales.</li>
+     <li><strong>Informe semanal:</strong> formato de servicios y seguimiento, sin registros completos.</li>
+     <li><strong>Maquinaria:</strong> identificadores, estado operativo y campos de documentación.</li>
+     <li><strong>ESTUDIOS Y DISEÑOS:</strong> iniciativas registradas sin avances documentados.</li>
+    </ul>
+   </details>
+   <p class="ti41-source-foot">Fuente aportada: <strong>UNIDAD DE CUMPLIMIENTO.xlsx</strong>. Fecha de actualización no acreditada.</p>
+  </article>
+  <aside class="ti41-caution">
+   <span class="ti41-eyebrow">CRITERIOS DE LECTURA</span><h3>¿Qué pasa si falta información?</h3>
+   <p><strong>«Sin información» no significa cero.</strong> Tampoco equivale a un proyecto terminado o sin iniciar.</p>
+   <p>La presencia de un contrato, una meta o un registro de proyecto no constituye por sí sola certificación administrativa, contractual o financiera.</p>
+   <p>Esta distinción se mantendrá en los siguientes apartados.</p>
+  </aside>
+ </section>
+ </div>`;
+}
+async function loadUnitOverview41(){
+ const root=qs('#cumplimiento-conoce',u);
+ if(!root)return;
+ const status=qs('.ti41-data-status',root);
+ try{
+  const response=await fetch('data/unidad-cumplimiento-4-1.json?v=20261108-41-v1',{cache:'no-cache'});
+  if(!response.ok)throw new Error('Archivo de datos no disponible');
+  const data=await response.json();
+  if(data?.schemaVersion!==1||!data.metrics||!data.weekly)throw new Error('Datos no válidos');
+  for(const key of ['namedProjectRows','uniqueVehicleIds','namedStudies']){
+   const value=data.metrics[key]?.value;
+   if(!Number.isInteger(value)||value<0)throw new Error('Falta el dato '+key);
+   const el=qs('[data-ti41-count="'+key+'"]',root);
+   if(el){el.textContent=new Intl.NumberFormat('es-CO').format(value);el.title=String(data.metrics[key].detail||'');}
+  }
+  const weekly=qs('[data-ti41-weekly]',root);
+  if(weekly)weekly.textContent=String(data.weekly.state||'Información no registrada');
+  if(status)status.textContent='Fuente: '+String(data.source?.filename||'archivo suministrado')+' · Cifras derivadas del Excel aportado; no representan indicadores oficiales certificados.';
+ }catch(_error){
+  root.querySelectorAll('[data-ti41-count]').forEach(el=>{el.textContent='—';});
+  const weekly=qs('[data-ti41-weekly]',root);
+  if(weekly)weekly.textContent='Sin datos disponibles';
+  if(status)status.textContent='No fue posible consultar el resumen del Excel. Se conserva la orientación sin presentar cifras no verificadas.';
+ }
+}
 function renderUnit(legacy){
  const nav=button('cumplimiento-conoce','4.1','Conoce la Unidad de Cumplimiento',true)+button('cumplimiento-proyectos','4.2','Así cumplimos – Proyectos estratégicos')+button('cumplimiento-alumbrado','4.3','Alumbrado público')+group('cumplimiento-inventario','4.4','Inventario automotor',inventory.map(i=>['cumplimiento-inventario-'+i[0],i[1],i[2]]));
- const intro=card('¿Qué hace la Unidad de Cumplimiento?',`<p>Articula información, responsables y resultados para el seguimiento de los proyectos estratégicos del municipio.</p>${linkPanel('cumplimiento-proyectos','Ver proyectos estratégicos')}`,'ti34-feature')+indicators(['Proyectos con seguimiento','En ejecución','Finalizados','Por documentar'])+card('Áreas de seguimiento',`<div class="ti34-featured">${[['Proyectos estratégicos','cumplimiento-proyectos','ti34-featured-1'],['Alumbrado público','cumplimiento-alumbrado','ti34-featured-2'],['Inventario automotor','cumplimiento-inventario','ti34-featured-3']].map(([text,id,cls])=>`<button type="button" class="${cls}" data-ti34-go="${id}"><strong>${text}</strong><span>Explorar →</span></button>`).join('')}</div>`);
+ const intro=renderUnitOverview41();
  const light=indicators(['Luminarias registradas','Mantenimiento reportado','Cobertura verificada'])+`<div class="ti34-two">${fakeChart('Cobertura de alumbrado público')}${card('Mapa y localización',empty('Infraestructura georreferenciada','Pendiente de inventario oficial.'))}</div><div class="ti34-three">${card('Inventario de luminarias',empty('Registros','Por incorporar.'))}${card('Operación y mantenimiento',empty('Intervenciones','Por documentar.'))}${card('Documentación contractual',empty('Contratos y actas','Por vincular.'))}</div>`;
  const catalog=`<div class="ti34-inventory-grid">${inventory.map(i=>`<button type="button" class="ti34-inventory-item" data-ti34-go="cumplimiento-inventario-${i[0]}"><span>${i[4]}</span><small>${i[1]}</small><strong>${i[2]}</strong><p>${i[3]}</p><em>Consultar categoría →</em></button>`).join('')}</div>${indicators(['Unidades registradas','Fichas verificadas','Mantenimientos reportados'])}<p class="ti34-disclaimer">La estructura del inventario está habilitada sin introducir unidades ficticias.</p>`;
  const panes=[
@@ -91,6 +180,7 @@ const legacy={};
 oldProjects.forEach(([id])=>{const old=qs('#'+id,u);legacy[id]=old?(qs('.ti-project-fields',old)?.outerHTML||'')+(qs('.ti-project-components',old)?.outerHTML||''):'';});
 d.innerHTML=renderPlan();
 u.innerHTML=renderUnit(legacy);
+loadUnitOverview41();
 [d,u].forEach(root=>{
  root.classList.add('ti34-ready');
  root.addEventListener('click',event=>{

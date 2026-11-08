@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "filename": "UNIDAD DE CUMPLIMIENTO(1).xlsx",
+    "updateDate": null,
+    "note": "Archivo de trabajo suministrado. No se acreditó fecha de actualización ni validación externa de cifras."
+  },
+  "metrics": {
+    "namedProjectRows": {
+      "value": 30,
+      "sheet": "Proyectos DEFINITIVO",
+      "field": "Nombre del Proyecto",
+      "detail": "30 filas con nombre; hay 28 nombres distintos. No representa 30 proyectos únicos ni 30 ejecutados."
+    },
+    "uniqueVehicleIds": {
+      "value": 38,
+      "sheet": "Maquinaria ",
+      "field": "ID/PLACA",
+      "detail": "38 identificadores diferentes con datos de inventario. No acredita documentación completa de cada unidad."
+    },
+    "namedStudies": {
+      "value": 9,
+      "sheet": "ESTUDIOS Y DISEÑOS ",
+      "field": "Columna D: iniciativas",
+      "detail": "9 iniciativas listadas; no tienen avances documentados en la columna de porcentaje."
+    }
+  },
+  "weekly": {
+    "sheet": "Informe semanal",
+    "value": null,
+    "state": "Sin registros completos",
+    "detail": "No se identificaron servicios con los campos operativos completos. No equivale a certificar que no se realizaron actividades."
+  },
+  "sheets": [
+    {
+      "name": "Proyectos DEFINITIVO",
+      "role": "Identificación, georreferenciación, gobernanza, alcance, contratación, finanzas, riesgos, cumplimiento y evidencias."
+    },
+    {
+      "name": "Desplegables ",
+      "role": "Catálogos y opciones de clasificación; no son registros adicionales de proyectos."
+    },
+    {
+      "name": "Informe semanal",
+      "role": "Formato de registro de servicios y avance semanal; información operativa sin diligenciar completamente."
+    },
+    {
+      "name": "Maquinaria ",
+      "role": "Identificación, características, estado operativo y campos de documentación de unidades."
+    },
+    {
+      "name": "ESTUDIOS Y DISEÑOS ",
+      "role": "Listado de iniciativas de estudios y diseños, con avances no documentados."
+    }
+  ],
+  "notes": [
+    "Una fila del Excel no equivale necesariamente a un proyecto único.",
+    "Un dato vacío se distingue de cero y de un avance certificado.",
+    "El Word presenta diseños conceptuales para las diez vistas de 4.2; no constituye fuente numérica."
+  ]
+}

@@ -1,0 +1,230 @@
+/* Territorio Inteligente · 4.1 Conoce la Unidad de Cumplimiento.
+   Todos los selectores se limitan a #cumplimiento-conoce para evitar cambios
+   de ancho, zoom y estilos en otros apartados o en la navegación general. */
+#cumplimiento-conoce .ti41{
+  --ti41-border:#3d6780;
+  --ti41-ink:#e9f5fc;
+  --ti41-muted:#b6cfdf;
+  display:flex;
+  flex-direction:column;
+  gap:clamp(15px,1.3vw,23px);
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  color:var(--ti41-ink);
+}
+#cumplimiento-conoce .ti41 *,#cumplimiento-conoce .ti41 *::before,#cumplimiento-conoce .ti41 *::after{box-sizing:border-box}
+#cumplimiento-conoce .ti41-top{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(260px,.9fr);gap:13px;align-items:stretch;min-width:0}
+#cumplimiento-conoce .ti41-hero,
+#cumplimiento-conoce .ti41-route,
+#cumplimiento-conoce .ti41-source-card,
+#cumplimiento-conoce .ti41-caution{
+  border:1px solid var(--ti41-border);
+  border-radius:11px;
+  min-width:0;
+}
+#cumplimiento-conoce .ti41-hero{
+  background:radial-gradient(circle at 100% 8%,#27976b36,transparent 42%),linear-gradient(135deg,#113f4a,#0b3144 58%,#092c42);
+  padding:clamp(20px,2vw,32px);
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+  border-left:4px solid #ffdf00;
+  min-height:285px;
+}
+#cumplimiento-conoce .ti41-eyebrow{display:inline-flex;align-items:center;gap:6px;letter-spacing:.11em;font-size:10px;line-height:1.4;font-weight:850;color:#d8bf36}
+#cumplimiento-conoce .ti41-hero h3,
+#cumplimiento-conoce .ti41-route h3,
+#cumplimiento-conoce .ti41-source-card h3,
+#cumplimiento-conoce .ti41-caution h3{
+  font-size:clamp(20px,1.7vw,28px)!important;
+  font-weight:850!important;
+  line-height:1.15!important;
+  letter-spacing:-.025em!important;
+  margin:0!important;
+  color:#fff!important;
+}
+#cumplimiento-conoce .ti41-hero p,
+#cumplimiento-conoce .ti41-route p,
+#cumplimiento-conoce .ti41-caution p{
+  margin:0;
+  color:#cce0e9;
+  font-size:clamp(12px,.95vw,14px);
+  line-height:1.6;
+}
+#cumplimiento-conoce .ti41-hero .ti41-hero-lead{font-size:clamp(14px,1.15vw,17px);line-height:1.52;color:#fff}
+#cumplimiento-conoce .ti41-hero strong,#cumplimiento-conoce .ti41-caution strong{color:#fff0ae}
+#cumplimiento-conoce .ti41-hero-source{
+  margin-top:auto;
+  display:block;
+  padding-top:12px;
+  border-top:1px solid #497582;
+  color:#bddee5;
+  font-size:11px;
+  line-height:1.5;
+}
+#cumplimiento-conoce .ti41-route{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+  padding:clamp(19px,1.65vw,26px);
+  background:linear-gradient(155deg,#164053,#0f3046);
+}
+#cumplimiento-conoce .ti41-route h3{font-size:clamp(18px,1.42vw,23px)!important}
+#cumplimiento-conoce .ti41-steps{
+  margin:7px 0 0;
+  padding:0;
+  list-style:none;
+  display:grid;
+  gap:16px;
+}
+#cumplimiento-conoce .ti41-steps li{display:flex;gap:13px;align-items:start;min-width:0}
+#cumplimiento-conoce .ti41-step-no{
+  display:grid;
+  place-items:center;
+  flex:0 0 34px;
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  background:#f8d632;
+  color:#0c3343;
+  font-weight:900;
+  font-size:13px;
+}
+#cumplimiento-conoce .ti41-steps strong{display:block;margin-bottom:3px;color:#fff;font-size:13px;font-weight:800}
+#cumplimiento-conoce .ti41-steps p{font-size:12px;line-height:1.43}
+#cumplimiento-conoce .ti41-route .ti41-route-note{
+  margin-top:auto;
+  border-top:1px solid #3b6075;
+  padding-top:11px;
+  color:#d0e3e9;
+  font-size:11px;
+}
+#cumplimiento-conoce .ti41-block{display:flex;flex-direction:column;gap:12px;min-width:0}
+#cumplimiento-conoce .ti41-section-heading{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  padding:1px 2px 2px;
+}
+#cumplimiento-conoce .ti41-section-heading h3{
+  margin:0!important;
+  color:#fff!important;
+  font-size:clamp(19px,1.7vw,27px)!important;
+  line-height:1.22!important;
+  font-weight:850!important;
+}
+#cumplimiento-conoce .ti41-section-heading p{margin:0;color:#b9d1e0;font-size:12px;line-height:1.5}
+#cumplimiento-conoce .ti41-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;min-width:0}
+#cumplimiento-conoce .ti41-metric{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:9px;
+  padding:clamp(13px,1.2vw,19px);
+  min-width:0;
+  min-height:205px;
+  border:1px solid #406982;
+  border-top:3px solid #0ca566;
+  border-radius:9px;
+  background:linear-gradient(165deg,#173f55,#0d3046);
+}
+#cumplimiento-conoce .ti41-metric-review{border-top-color:#e3aa22}
+#cumplimiento-conoce .ti41-metric-tag{font-size:10px;color:#abd2d7;font-weight:850;letter-spacing:.09em}
+#cumplimiento-conoce .ti41-metric>strong{
+  display:block;
+  max-width:100%;
+  font-size:clamp(34px,3vw,49px);
+  line-height:1.06;
+  font-weight:900;
+  color:#f5de43;
+  overflow-wrap:anywhere;
+}
+#cumplimiento-conoce .ti41-metric>strong.ti41-weekly{font-size:clamp(15px,1.4vw,20px);line-height:1.23;margin:5px 0}
+#cumplimiento-conoce .ti41-metric h4{font-size:13px!important;line-height:1.35!important;color:#fff!important;font-weight:800!important;margin:0!important}
+#cumplimiento-conoce .ti41-metric p{color:#c6dce7;font-size:11px;line-height:1.5;margin:0}
+#cumplimiento-conoce .ti41-metric small{display:block;margin-top:auto;padding-top:10px;border-top:1px solid #3e6377;font-size:10px;line-height:1.45;color:#a9c6d6;overflow-wrap:anywhere}
+#cumplimiento-conoce .ti41-data-status{
+  margin:0;
+  border:1px solid #34657b;
+  border-radius:7px;
+  background:#0c3045;
+  padding:10px 12px;
+  color:#bfd8e5;
+  font-size:11px;
+  line-height:1.46;
+}
+#cumplimiento-conoce .ti41-areas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;min-width:0}
+#cumplimiento-conoce .ti41-area{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+  min-width:0;
+  padding:18px 15px;
+  border:1px solid #37677a;
+  border-radius:10px;
+  background:#123a50;
+}
+#cumplimiento-conoce .ti41-area-icon{
+  width:37px;
+  height:37px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  border:1px solid #65908e;
+  background:#145b57;
+  color:#f4e574;
+  font-weight:850;
+  font-size:15px;
+}
+#cumplimiento-conoce .ti41-area h4{margin:0!important;font-size:14px!important;font-weight:800!important;line-height:1.3!important;color:#fff!important}
+#cumplimiento-conoce .ti41-area p{margin:0;color:#c3dce9;font-size:12px;line-height:1.5}
+#cumplimiento-conoce .ti41-area small{margin-top:auto;padding-top:10px;border-top:1px solid #3c6477;width:100%;color:#a8c7d7;font-size:10px;line-height:1.4}
+#cumplimiento-conoce .ti41-bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,.82fr);align-items:stretch;gap:12px;min-width:0}
+#cumplimiento-conoce .ti41-source-card{background:#f8fbfc;padding:clamp(18px,1.55vw,25px);color:#17374a}
+#cumplimiento-conoce .ti41-source-card .ti41-eyebrow{color:#197b54}
+#cumplimiento-conoce .ti41-source-card h3{color:#173a54!important}
+#cumplimiento-conoce .ti41-source-card p{margin:9px 0;color:#3d5765;font-size:12px;line-height:1.6}
+#cumplimiento-conoce .ti41-source-details{margin-top:13px;border:1px solid #cbdeda;border-radius:7px;overflow:hidden}
+#cumplimiento-conoce .ti41-source-details summary{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px;
+  background:#e6f4ed;
+  color:#126249;
+  font-size:12px;
+  line-height:1.4;
+  font-weight:850;
+  cursor:pointer;
+  list-style-position:inside;
+}
+#cumplimiento-conoce .ti41-source-details summary:hover{background:#d9eee4}
+#cumplimiento-conoce .ti41-source-details summary:focus-visible{outline:2px solid #0b845c;outline-offset:-3px}
+#cumplimiento-conoce .ti41-source-details ul{padding:12px 19px 14px 32px;margin:0;display:grid;gap:9px;font-size:12px;line-height:1.5;color:#3b5b6d}
+#cumplimiento-conoce .ti41-source-details li{overflow-wrap:anywhere}
+#cumplimiento-conoce .ti41-source-card .ti41-source-foot{margin-top:13px;font-size:11px;color:#587580;overflow-wrap:anywhere}
+#cumplimiento-conoce .ti41-caution{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+  padding:clamp(18px,1.55vw,25px);
+  border-color:#967d3f;
+  background:linear-gradient(145deg,#344c4b,#223a47);
+}
+#cumplimiento-conoce .ti41-caution h3{font-size:clamp(18px,1.38vw,23px)!important}
+#cumplimiento-conoce .ti41-caution p{font-size:12px}
+@media(max-width:1300px){
+ #cumplimiento-conoce .ti41-top,#cumplimiento-conoce .ti41-bottom{grid-template-columns:1fr}
+ #cumplimiento-conoce .ti41-metrics,#cumplimiento-conoce .ti41-areas{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #cumplimiento-conoce .ti41-hero{min-height:0}
+}
+@media(max-width:620px){
+ #cumplimiento-conoce .ti41-top,#cumplimiento-conoce .ti41-bottom{gap:10px}
+ #cumplimiento-conoce .ti41-metrics,#cumplimiento-conoce .ti41-areas{grid-template-columns:1fr}
+ #cumplimiento-conoce .ti41-hero,#cumplimiento-conoce .ti41-route,#cumplimiento-conoce .ti41-source-card,#cumplimiento-conoce .ti41-caution{padding:18px}
+ #cumplimiento-conoce .ti41-metric{min-height:0}
+ #cumplimiento-conoce .ti41-area{min-height:0}
+}
