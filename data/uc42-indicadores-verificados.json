@@ -1,0 +1,14 @@
+{
+  "schema": "ti-uc42-indicators-v1",
+  "source": "UNIDAD DE CUMPLIMIENTO(3).xlsx; Proyectos DEFINITIVO only contains metas and projects, not indicator fichas.",
+  "documentation": "No official indicator fichas or historical series received. Do not derive indicators from project physical or financial percentages.",
+  "lastVerifiedAt": null,
+  "aggregateCompliance": null,
+  "aggregateSource": null,
+  "previousPeriodDelta": null,
+  "previousPeriodSource": null,
+  "indicators": [],
+  "measurements": [],
+  "lineAggregates": [],
+  "evolution": []
+}

@@ -50,7 +50,7 @@
       <button type="button" role="tab" aria-selected="false" data-ti42-view="cronograma" class="ti42-tab">Cronograma</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="mapa" class="ti42-tab">Mapa</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="evidencias" class="ti42-tab">Evidencias</button>
-      <span class="ti42-tab is-pending" title="Pendiente de implementación">Indicadores</span>
+      <button type="button" role="tab" aria-selected="false" data-ti42-view="indicadores" class="ti42-tab">Indicadores</button>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Riesgos</span>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Documentos</span>
     </nav>
@@ -309,6 +309,7 @@
       return ()=>listeners.delete(listener);
     },
     setSearch(term){state.q=String(term||'');q('#ti42-search').value=state.q;display();},
+    setMeta(metaId,clearOtherFilters=false){const id=String(metaId||'');if(id!=='all'&&id!=='none'&&!records.some(r=>r.meta===id))return false;state.meta=id;q('#ti42-meta').value=id;if(clearOtherFilters){state.year='all';state.status='all';state.sector='all';state.q='';q('#ti42-year').value='all';q('#ti42-status').value='all';q('#ti42-sector').value='all';q('#ti42-search').value='';}display();return true;},
     refreshMap(){mapInstance?.invalidateSize();}
   };
 })();
