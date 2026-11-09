@@ -210,6 +210,13 @@ function filterLocal(){
 }
 function count(key,val){return filtered.filter(x=>x[key]===val).length;}
 const frac=(value,total)=>total?Math.round(value/total*100):0;
+function exactChartPercentages(groups,total){
+ if(!total)return new Map(groups.map(g=>[g.id,0]));
+ const parts=groups.map((g,i)=>{const precise=g.count/total*100;return {id:g.id,i,whole:Math.floor(precise),remainder:precise-Math.floor(precise)};});
+ const remaining=Math.max(0,100-parts.reduce((s,p)=>s+p.whole,0));
+ parts.slice().sort((a,b)=>b.remainder-a.remainder||a.i-b.i).slice(0,remaining).forEach(p=>p.whole++);
+ return new Map(parts.map(p=>[p.id,p.whole]));
+}
 function kpi(kind,label,value,sub,ic){
  return '<article class="ti42r-kpi '+kind+'"><span class="ti42r-kpi-icon">'+iconEl(ic)+'</span>'+
   '<div><small>'+esc(label)+'</small><strong>'+esc(value)+'</strong><em>'+esc(sub)+'</em></div></article>';
@@ -235,6 +242,7 @@ function renderKpis(){
  ].join(''));
 }
 function donut(groups,key,label,total){
+ const percentages=exactChartPercentages(groups,total);
  let cursor=0;
  const colored=groups.filter(g=>g.count>0).map(g=>{
   const a=cursor;cursor+=g.count/total*100;return g.color+' '+a.toFixed(2)+'% '+cursor.toFixed(2)+'%';
@@ -242,8 +250,8 @@ function donut(groups,key,label,total){
  const circle=colored.length?'conic-gradient('+colored.join(',')+')':'conic-gradient(#dbe5ed 0 100%)';
  return '<div class="ti42r-donut-body"><div class="ti42r-donut" style="background:'+circle+'"><div><strong>'+total+'</strong><span>Total</span></div></div>'+
   '<div class="ti42r-donut-legend">'+groups.map(g=>
-   '<button type="button" data-ti42r-chart-'+key+'="'+g.id+'" aria-pressed="'+(state[key]===g.id)+'" title="'+esc(g.label+' · '+g.count+' ('+frac(g.count,total)+'%)')+'">'+
-   '<i style="background:'+g.color+'"></i><span>'+esc(g.label)+'</span><b>'+frac(g.count,total)+'% ('+g.count+')</b></button>').join('')+
+   '<button type="button" data-ti42r-chart-'+key+'="'+g.id+'" aria-pressed="'+(state[key]===g.id)+'" title="'+esc(g.label+' · '+g.count+' ('+percentages.get(g.id)+'%)')+'">'+
+   '<i style="background:'+g.color+'"></i><span>'+esc(g.label)+'</span><b>'+percentages.get(g.id)+'% ('+g.count+')</b></button>').join('')+
    '</div></div>';
 }
 function drawCategories(){
