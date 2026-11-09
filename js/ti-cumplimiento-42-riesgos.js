@@ -101,7 +101,6 @@ panel.innerHTML=[
  '<p class="ti42r-provenance" data-ti42r-provenance>Fuente: Excel «Proyectos DEFINITIVO». No se consideran riesgos formales las observaciones ni las pólizas.</p>',
  '<dialog class="ti42r-dialog" data-ti42r-dialog aria-label="Ficha e historial del riesgo"><div class="ti42r-dialog-header"><h3 data-ti42r-dialog-title>Historial</h3>'+
  '<button type="button" data-ti42r-dialog-close aria-label="Cerrar">×</button></div><div data-ti42r-dialog-body></div></dialog>',
- '</section>'
 ].join('');
 tabs.after(panel);
 const q=s=>panel.querySelector(s),qa=s=>[...panel.querySelectorAll(s)];
