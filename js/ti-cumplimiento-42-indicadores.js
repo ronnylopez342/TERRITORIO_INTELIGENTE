@@ -61,10 +61,11 @@ panel.innerHTML=[
  '<div class="ti42i-bottom">',
  '<article class="ti42i-card ti42i-list">',
  '<div class="ti42i-list-heading"><h3>▤ <span data-ti42i-list-title>Listado de Indicadores</span> <span data-ti42i-count></span></h3>',
+ '<details class="ti42i-mode-switch"><summary aria-label="Cambiar tipo de consulta" title="Indicadores oficiales o metas relacionadas">⋯</summary>',
  '<div class="ti42i-mode-toggle" role="group" aria-label="Tipo de consulta">',
  '<button type="button" data-ti42i-mode="indicadores">Indicadores oficiales</button>',
- '<button type="button" data-ti42i-mode="metas">Metas relacionadas</button></div></div>',
- '<div class="ti42i-data-note" data-ti42i-note></div>',
+ '<button type="button" data-ti42i-mode="metas">Metas relacionadas</button>',
+ '<div class="ti42i-data-note" data-ti42i-note></div></div></details></div>',
  '<div class="ti42i-table-scroll"><table class="ti42i-table"><thead><tr><th>#</th><th>Indicador / Meta</th><th>Línea Estratégica</th><th>Programa</th><th>Meta 2024–2027</th><th>Avance Actual</th><th>% Cumplimiento</th><th>Estado</th><th>Tendencia</th><th>Acciones</th></tr></thead><tbody data-ti42i-body></tbody></table></div>',
  '<div class="ti42i-pages"><small data-ti42i-range></small><nav data-ti42i-pages aria-label="Paginación"></nav></div>',
  '</article>',
@@ -254,8 +255,10 @@ function renderHistory(){
  const evolution=(verifiedExtra.evolution||[]).filter(p=>/^\d{4}-\d\d-\d\d$/.test(p.date||'')&&valid(p.actual)&&valid(p.programmed)&&str(p.source));
  if(evolution.length<2){
   set('[data-ti42i-history]','<div class="ti42i-history-key"><span><i></i>Cumplimiento real</span><span><i class="green"></i>Meta programada</span></div>'+
-   '<div class="ti42i-history-canvas"><div class="ti42i-yaxis">100%<span>80%</span><span>60%</span><span>40%</span><span>20%</span><span>0%</span></div>'+
-   '<div class="ti42i-empty-hist"><strong>Sin serie mensual verificada</strong><p>No hay mediciones y trayectorias programadas comparables. No se dibujan tendencias artificiales.</p></div></div>');
+   '<div class="ti42i-history-placeholder"><svg viewBox="0 0 345 132" role="img" aria-label="Gráfica mensual sin mediciones disponibles">'+
+   [0,20,40,60,80,100].map(v=>{const y=109-v/100*93;return '<line x1="23" x2="339" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="#dce9f5" stroke-width="0.8"/><text x="20" y="'+(y+3).toFixed(1)+'" text-anchor="end" fill="#597c9e" font-size="8">'+v+'%</text>';}).join('')+
+   ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'].map((m,i)=>'<text x="'+(30+i*27.2).toFixed(1)+'" y="125" fill="#5d7ca0" text-anchor="middle" font-size="8">'+m+'</text>').join('')+
+   '</svg><span class="ti42i-history-no-measure">Sin serie mensual verificada</span></div>');
   return;
  }
  const points=evolution.sort((a,b)=>a.date.localeCompare(b.date)).slice(-12),xs=points.map((_,i)=>18+i*(300/Math.max(1,points.length-1)));
@@ -272,7 +275,7 @@ function renderHistory(){
 function renderCharts(){renderLineChart();renderDonut();renderHistory();}
 function field(name,val){return '<div><dt>'+htmlEsc(name)+'</dt><dd>'+htmlEsc(val===null||val===undefined||val===''?'No registrado':val)+'</dd></div>';}
 function statusBadge(r){
- if(r.type==='meta')return '<span class="ti42i-chip unknown">Sin ficha</span>';
+ if(r.type==='meta')return '<span class="ti42i-chip unknown" title="Meta sin ficha de indicador: consulta los detalles para conocer la fuente.">Sin ficha</span>';
  const s=STATUS.find(x=>x.id===r.status)||STATUS.at(-1);
  return '<span class="ti42i-chip '+s.id+'"><i style="background:'+s.color+'"></i>'+htmlEsc(s.name)+'</span>';
 }
@@ -288,7 +291,7 @@ function details(){
  const prog=present?Math.round(cap(r.compliance)):0;
  set('[data-ti42i-detail]',
  '<div class="ti42i-detail-title"><span class="ti42i-target-glyph">◎</span><div><strong>'+htmlEsc(title)+'</strong><small>Programa: '+htmlEsc(r.program||'No registrado')+'</small></div>'+statusBadge(r)+'</div>'+
- (isMeta?'<p class="ti42i-disclaimer">Esta es una meta del Plan de Desarrollo, no una ficha técnica de indicador. El Excel no proporciona un valor objetivo medible ni una serie de resultados comparable.</p>':'')+
+ ''+
  '<section class="ti42i-detail-block"><small>Línea Estratégica</small><p>'+htmlEsc(r.strategicLine||'No registrada')+'</p></section>'+
  '<section class="ti42i-detail-block"><small>Descripción</small><p>'+htmlEsc(r.description||'Sin descripción oficial vinculada')+'</p></section>'+
  '<section class="ti42i-detail-block"><div class="ti42i-goal-values"><span><small>Meta 2024–2027</small><strong>'+htmlEsc(target)+'</strong></span>'+
@@ -316,7 +319,7 @@ function buildTable(){
   const go='<button type="button" data-ti42i-row="'+htmlEsc(r.key)+'" title="Ver detalle" aria-label="Ver detalle">◉</button>';
   const chart=r.type==='indicator'&&valid(r.compliance)?'<button type="button" data-ti42i-history-row="'+htmlEsc(r.key)+'" title="Consultar evolución">▥</button>':'';
   return '<tr'+(on?' class="selected"':'')+'><td>'+(start+i+1)+'</td>'+
-   '<td><button class="ti42i-row-name" type="button" data-ti42i-row="'+htmlEsc(r.key)+'">'+
+   '<td><button class="ti42i-row-name" type="button" title="'+htmlEsc(r.name)+'" data-ti42i-row="'+htmlEsc(r.key)+'">'+
     (isMeta?'<b>Meta '+htmlEsc(r.metaId)+'</b> ':'')+brief(r.name,63)+'</button></td>'+
    '<td>'+brief(r.strategicLine||'Sin línea',32)+'</td>'+
    '<td>'+brief(r.program||'Sin programa',35)+'</td>'+
@@ -394,7 +397,7 @@ function selectRow(key){
 }
 panel.addEventListener('click',e=>{
  const mode=e.target.closest('[data-ti42i-mode]');
- if(mode){state.mode=mode.dataset.ti42iMode;state.page=1;state.selectedKey=null;Object.assign(state,{search:'',line:'all',program:'all',status:'all',period:'all'});refreshChoices();render();return;}
+ if(mode){state.mode=mode.dataset.ti42iMode;state.page=1;state.selectedKey=null;Object.assign(state,{search:'',line:'all',program:'all',status:'all',period:'all'});q('.ti42i-mode-switch').open=false;refreshChoices();render();return;}
  const bar=e.target.closest('[data-ti42i-line-chart]');
  if(bar){state.line=state.line===bar.dataset.ti42iLineChart?'all':bar.dataset.ti42iLineChart;state.page=1;refreshChoices();render();return;}
  const stat=e.target.closest('[data-ti42i-status-chart]');
