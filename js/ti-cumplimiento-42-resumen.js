@@ -29,7 +29,7 @@
   const html=`
   <div class="ti42-frame">
     <header class="ti42-masthead"><div class="ti42-brand"><span aria-hidden="true">❧</span><div><b>ALCALDÍA DE SUBACHOQUE</b><small>Subachoque · Cundinamarca</small></div></div><div><h1>Unidad de Cumplimiento de Proyectos Estratégicos</h1><p>Plan de Desarrollo 2024–2027 · Seguimiento de proyectos</p></div><div class="ti42-panorama"><strong>Nuestro territorio,<br>nuestro futuro.</strong></div></header>
-    <aside class="ti42-rail" aria-label="Navegación de la Unidad de Cumplimiento"><a href="#home">⌂ <span>Inicio</span></a><a href="#plan">▤ <span>Plan de Desarrollo</span></a><nav data-ti42-side-nav aria-label="Vistas de seguimiento"></nav><div class="ti42-rail-landscape"><span>Nuestro territorio,<br>nuestro futuro.</span></div></aside>
+    <aside class="ti42-rail" aria-label="Navegación de la Unidad de Cumplimiento"><a href="#home">⌂ <span>Inicio</span></a><a href="#desarrollo">▤ <span>Plan de Desarrollo</span></a><nav data-ti42-side-nav aria-label="Vistas de seguimiento"></nav><div class="ti42-rail-landscape"><span>Nuestro territorio,<br>nuestro futuro.</span></div></aside>
     <div class="ti42" aria-label="Resumen de proyectos estratégicos">
     <section class="ti42-toolbar" aria-label="Filtros generales">
       <div class="ti42-chooser">

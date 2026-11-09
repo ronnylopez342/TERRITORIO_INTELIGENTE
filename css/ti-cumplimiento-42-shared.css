@@ -1,6 +1,6 @@
 /* Common frame owns navigation, filters and scale. View styles own panel contents only. */
-body:has(#cumplimiento-proyectos:not([hidden])){background:#edf3fa}
-body:has(#cumplimiento-proyectos:not([hidden])) main{min-width:0}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])){background:#edf3fa}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) main{min-width:0}
 #cumplimiento-proyectos{--uc-blue:#075ca9;--uc-ink:#133a66;--uc-line:#d5e3f1;--uc-green:#0a9a6b;font-family:Poppins,Arial,sans-serif}
 #cumplimiento-proyectos .ti42-frame{display:grid;grid-template-columns:142px minmax(0,1fr);grid-template-rows:auto 1fr;width:100%;min-width:0;max-width:1800px;margin:auto;background:#edf4fb}
 #cumplimiento-proyectos .ti42-masthead{grid-column:1/-1;display:grid;grid-template-columns:230px minmax(0,1fr) 230px;align-items:center;gap:18px;min-height:76px;background:white;border-bottom:1px solid var(--uc-line);padding:0 16px;color:var(--uc-ink)}
@@ -33,8 +33,8 @@ body:has(#cumplimiento-proyectos:not([hidden])) main{min-width:0}
 #cumplimiento-proyectos .ti42-kpi small{font-size:10px;min-height:25px;color:#285d92}
 #cumplimiento-proyectos .ti42-kpi strong{font-size:17px;color:#075aab;line-height:1.25}
 #cumplimiento-proyectos .ti42-kpi span{font-size:10px}
-#cumplimiento-proyectos .ti42-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(150px,1.6fr) repeat(6,minmax(0,1fr));gap:0;width:100%;min-width:0;min-height:40px;height:40px;max-height:40px;border:1px solid #d3e2f2;background:#edf4fc;border-radius:4px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;margin:0}
-#cumplimiento-proyectos .ti42-tabs .ti42-tab{display:flex;justify-content:center;align-items:center;box-sizing:border-box;appearance:none;flex:none;width:100%;min-width:0;height:38px;min-height:38px;padding:8px 6px;white-space:nowrap;border:0;border-right:1px solid #dae5f3;border-radius:0;background:transparent;color:#1b568d;font:700 11px/1.2 Poppins,Arial,sans-serif;cursor:pointer;letter-spacing:0;transform:none;transition:background-color .15s}
+#cumplimiento-proyectos .ti42-tabs{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:0;width:100%;min-width:0;min-height:40px;height:40px;max-height:40px;border:1px solid #d3e2f2;background:#edf4fc;border-radius:4px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;margin:0}
+#cumplimiento-proyectos .ti42-tabs .ti42-tab{display:flex;justify-content:center;align-items:center;box-sizing:border-box;appearance:none;flex:none;width:100%;min-width:0;height:38px;min-height:38px;padding:6px;white-space:normal;border:0;border-right:1px solid #dae5f3;border-radius:0;background:transparent;color:#1b568d;font:700 11px/1.2 Poppins,Arial,sans-serif;cursor:pointer;letter-spacing:0;transform:none;transition:background-color .15s}
 #cumplimiento-proyectos .ti42-tabs .ti42-tab:last-child{border-right:0}
 #cumplimiento-proyectos .ti42-tabs .ti42-tab.is-active{background:#075fae;color:white;font-weight:700;min-width:0;border-radius:3px}
 #cumplimiento-proyectos .ti42-tabs .ti42-tab:hover:not(.is-active){background:#d8eafa;color:#0b4a84}
@@ -77,14 +77,14 @@ body:has(#cumplimiento-proyectos:not([hidden])) main{min-width:0}
 #cumplimiento-proyectos :is(button,input,select,a):focus-visible{outline:3px solid #e19f19!important;outline-offset:2px}
 #cumplimiento-proyectos .ti42g-project-subtabs button{font:inherit;background:transparent;color:#225e99;border:0;cursor:pointer;padding:6px}
 /* Only the open module compacts the site footer and removes the hidden assistant's shadow. */
-body:has(#cumplimiento-proyectos:not([hidden]))>footer{padding:20px 24px;background:#e4edf7;color:#345878;min-height:0}
-body:has(#cumplimiento-proyectos:not([hidden]))>footer .footer-grid{display:none}
-body:has(#cumplimiento-proyectos:not([hidden]))>footer .credits{margin:0 auto;padding:0;border:0;color:#45647f}
-body:has(#cumplimiento-proyectos:not([hidden])) .assistant-panel:not(.open){box-shadow:none;visibility:hidden}
-body:has(#cumplimiento-proyectos:not([hidden])) .assistant-launch{bottom:10px;right:12px;background:#075fae;color:white;border-radius:22px;padding:10px 14px;font-size:10px}
-body:has(#cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu{background:#fff!important;color:#1b4672!important;padding:5px!important;box-shadow:0 8px 20px #14385724!important;border:1px solid #d5e2ef!important;border-radius:5px!important}
-body:has(#cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu button{background:white!important;color:#1b4672!important;padding:12px!important;font-size:12px!important;line-height:1.4!important;min-height:0!important}
-body:has(#cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu button:hover{background:#eaf3fb!important}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden]))>footer{padding:20px 24px;background:#e4edf7;color:#345878;min-height:0}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden]))>footer .footer-grid{display:none}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden]))>footer .credits{margin:0 auto;padding:0;border:0;color:#45647f}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .assistant-panel:not(.open){box-shadow:none;visibility:hidden}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .assistant-launch{bottom:10px;right:12px;background:#075fae;color:white;border-radius:22px;padding:10px 14px;font-size:10px}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu{background:#fff!important;color:#1b4672!important;padding:5px!important;box-shadow:0 8px 20px #14385724!important;border:1px solid #d5e2ef!important;border-radius:5px!important}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu button{background:white!important;color:#1b4672!important;padding:12px!important;font-size:12px!important;line-height:1.4!important;min-height:0!important}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu button:hover{background:#eaf3fb!important}
 @media(max-width:1199px){
  #cumplimiento-proyectos .ti42-frame{grid-template-columns:116px minmax(0,1fr)}
  #cumplimiento-proyectos .ti42-overview{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -95,7 +95,6 @@ body:has(#cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu button:hov
  #cumplimiento-proyectos .ti42-toolbar .ti42-global-search{grid-column:1/6}
  #cumplimiento-proyectos .ti42-tabs{display:flex}
  #cumplimiento-proyectos .ti42-tabs .ti42-tab{flex:0 0 110px;min-width:110px;width:110px}
- #cumplimiento-proyectos .ti42-tabs .ti42-tab[data-ti42-view=financiera]{flex-basis:165px;min-width:165px;width:165px}
 }
 @media(max-width:760px){
  #cumplimiento-proyectos .ti42-frame{display:block}
@@ -125,5 +124,5 @@ body:has(#cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu button:hov
  #cumplimiento-proyectos .ti42p-refine,#cumplimiento-proyectos .ti42c-filters,#cumplimiento-proyectos .ti42f-filters{grid-template-columns:minmax(0,1fr)}
  #cumplimiento-proyectos .ti42p-refine>*,#cumplimiento-proyectos .ti42c-filters>*,#cumplimiento-proyectos .ti42f-filters>*{grid-column:auto}
  #cumplimiento-proyectos .ti42 :is(.ti42p-intro,.ti42c-intro,.ti42f-intro){flex-wrap:wrap}
- body:has(#cumplimiento-proyectos:not([hidden])) .assistant-launch{position:static;display:block;width:max-content;margin:12px 12px 12px auto;box-shadow:none}
+ body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .assistant-launch{position:static;display:block;width:max-content;margin:12px 12px 12px auto;box-shadow:none}
 }
