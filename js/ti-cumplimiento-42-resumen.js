@@ -15,19 +15,23 @@
   const clean=(v,missing='Sin información registrada')=>v===null||v===undefined||v===''?missing:escape(v);
   const short=(v,max=85)=>{const str=String(v||'');return escape(str.length>max?str.slice(0,max-1).trimEnd()+'…':str);};
   const validUrl=s=>{try{const u=new URL(s);return u.protocol==='https:'&&u.hostname.length>3?u.href:null;}catch{return null;}};
+  let selectedRow=null;
   let records=[],mapInstance=null,filterCount=0,activeGroup=[],loadError=null,dataLoaded=false;
   const listeners=new Set();
   function notify(){
     for(const listener of listeners){
-      try{listener({rows:records.slice(),state:{...state},loaded:dataLoaded,error:loadError?.message||null});}
+      try{listener({rows:records.slice(),state:{...state},selectedRow,loaded:dataLoaded,error:loadError?.message||null});}
       catch(e){console.error('No se pudo sincronizar la vista de Proyectos',e);}
     }
   }
   let state={meta:'101',year:'all',status:'all',sector:'all',q:''};
   try{const saved=JSON.parse(localStorage.getItem(storageKey)||'null');if(saved&&typeof saved==='object'){for(const k of Object.keys(state))if(typeof saved[k]==='string')state[k]=saved[k];}}catch{}
   const html=`
-  <div class="ti42" aria-label="Resumen de proyectos estratégicos">
-    <section class="ti42-toolbar">
+  <div class="ti42-frame">
+    <header class="ti42-masthead"><div class="ti42-brand"><span aria-hidden="true">❧</span><div><b>ALCALDÍA DE SUBACHOQUE</b><small>Subachoque · Cundinamarca</small></div></div><div><h1>Unidad de Cumplimiento de Proyectos Estratégicos</h1><p>Plan de Desarrollo 2024–2027 · Seguimiento de proyectos</p></div><div class="ti42-panorama"><strong>Nuestro territorio,<br>nuestro futuro.</strong></div></header>
+    <aside class="ti42-rail" aria-label="Navegación de la Unidad de Cumplimiento"><a href="#home">⌂ <span>Inicio</span></a><a href="#plan">▤ <span>Plan de Desarrollo</span></a><nav data-ti42-side-nav aria-label="Vistas de seguimiento"></nav><div class="ti42-rail-landscape"><span>Nuestro territorio,<br>nuestro futuro.</span></div></aside>
+    <div class="ti42" aria-label="Resumen de proyectos estratégicos">
+    <section class="ti42-toolbar" aria-label="Filtros generales">
       <div class="ti42-chooser">
         <label for="ti42-meta">Selecciona una meta del Plan de Desarrollo</label>
         <select id="ti42-meta" data-ti42-filter="meta" aria-label="Meta del Plan de Desarrollo"><option value="101">Cargando metas…</option></select>
@@ -39,6 +43,8 @@
       <div class="ti42-filter ti42-year"><label for="ti42-year">Vigencia</label><select id="ti42-year" data-ti42-filter="year"><option value="all">Todas</option></select></div>
       <div class="ti42-filter"><label for="ti42-status">Estado contractual registrado</label><select id="ti42-status" data-ti42-filter="status"><option value="all">Todos</option></select></div>
       <div class="ti42-filter"><label for="ti42-sector">Sector MGA</label><select id="ti42-sector" data-ti42-filter="sector"><option value="all">Todos</option></select></div>
+      <div class="ti42-global-search"><label for="ti42-global-search">Buscar en todas las vistas</label><input id="ti42-global-search" data-ti42-filter="q" type="search" placeholder="Proyecto, BPIN, contrato…" autocomplete="off"></div>
+      <button class="ti42-clear-all" data-ti42-clear-all type="button">Limpiar filtros generales</button>
     </section>
     <div class="ti42-source" role="status" aria-live="polite" data-ti42-source>Consultando el Excel de la Unidad de Cumplimiento…</div>
     <section class="ti42-kpis" aria-label="Indicadores del conjunto seleccionado" data-ti42-kpis></section>
@@ -82,7 +88,7 @@
       <article class="ti42-card"><h3>Riesgos y observaciones</h3><div data-ti42-risks></div></article>
       <article class="ti42-card"><h3>Lectura y límites de la información</h3><div data-ti42-analysis></div></article>
     </section>
-    <footer class="ti42-footer">Fuente: <strong>UNIDAD DE CUMPLIMIENTO(1).xlsx</strong> · Hoja «Proyectos DEFINITIVO», encabezados de la fila 3. No se acredita fecha de actualización. Los recuentos corresponden a filas identificadas, no a ejecuciones certificadas.</footer>
+    <footer class="ti42-footer">Fuente: <strong>UNIDAD DE CUMPLIMIENTO.xlsx</strong> · Hoja «Proyectos DEFINITIVO», encabezados de la fila 3. No se acredita fecha de actualización. Los recuentos corresponden a filas identificadas, no a ejecuciones certificadas.</footer>
     </div>
     <dialog class="ti42-dialog" data-ti42-dialog aria-labelledby="ti42-detail-title"><header><h3 id="ti42-detail-title" data-ti42-detail-title>Detalle de registro</h3><button type="button" data-ti42-close aria-label="Cerrar detalle">×</button></header><div class="ti42-dialog-body" data-ti42-detail-body></div></dialog>
   </div>`;
@@ -111,16 +117,9 @@
     q('#ti42-status').value=state.status;
     q('#ti42-sector').innerHTML=optionList([...sectors,...(records.some(r=>!r.sectorMGA)?['none']:[])],state.sector,'Todos los sectores');
     q('#ti42-sector').value=state.sector;
-    q('#ti42-search').value=state.q;
+    q('#ti42-search').value=state.q;q('#ti42-global-search').value=state.q;
   }
-  function matches(r){
-    if(state.meta!=='all' && (state.meta==='none'?!!r.meta:r.meta!==state.meta))return false;
-    if(state.year!=='all' && (state.year==='none'?!!r.year:r.year!==state.year))return false;
-    if(state.status!=='all' && (state.status==='none'?!!r.contractStatus:r.contractStatus!==state.status))return false;
-    if(state.sector!=='all' && (state.sector==='none'?!!r.sectorMGA:r.sectorMGA!==state.sector))return false;
-    if(state.q&&!normal([r.name,r.bpin,r.contract,r.vereda,r.sectorMGA,r.phase,r.item].join(' ')).includes(normal(state.q)))return false;
-    return true;
-  }
+  function matches(r){return window.TI42Core.matches(r,state);}
   function numberKpi(value,label,detail,kind=''){
     return '<article class="ti42-kpi '+kind+'"><small>'+escape(label)+'</small><strong>'+escape(value)+'</strong><span>'+escape(detail)+'</span></article>';
   }
@@ -231,6 +230,7 @@
   }
   function display(){
     activeGroup=records.filter(matches);
+    if(!activeGroup.some(r=>r.excelRow===selectedRow))selectedRow=activeGroup[0]?.excelRow||null;
     filterCount++;
     const metrics=renderMetrics(activeGroup);
     renderGeneral(activeGroup);
@@ -263,9 +263,10 @@
     set('[data-ti42-detail-body]','<dl class="ti42-detail-grid">'+pairs.map(([k,v])=>'<div><dt>'+escape(k)+'</dt><dd>'+clean(v)+'</dd></div>').join('')+'</dl>'+(validUrl(r.secopUrl)?'<a href="'+escape(validUrl(r.secopUrl))+'" target="_blank" rel="noopener noreferrer" class="ti42-external">Consultar enlace SECOP registrado ↗</a>':'')+'<p class="ti42-small">Fuente: Proyectos DEFINITIVO · fila '+r.excelRow+'. No equivale a validación contractual.</p>');
     const dialog=q('[data-ti42-dialog]');if(dialog&&!dialog.open)dialog.showModal();
   }
-  mount.addEventListener('input',ev=>{const fld=ev.target.closest('[data-ti42-filter="q"]');if(fld){state.q=fld.value;display();}});
+  mount.addEventListener('input',ev=>{const fld=ev.target.closest('[data-ti42-filter="q"]');if(fld){state.q=fld.value;mount.querySelectorAll('[data-ti42-filter="q"]').forEach(input=>{if(input!==fld)input.value=state.q;});display();}});
   mount.addEventListener('change',ev=>{const fld=ev.target.closest('[data-ti42-filter]');if(!fld||fld.dataset.ti42Filter==='q')return;state[fld.dataset.ti42Filter]=fld.value;display();});
   mount.addEventListener('click',ev=>{
+    if(ev.target.closest('[data-ti42-clear-all]')){state={meta:'all',year:'all',status:'all',sector:'all',q:''};populateFilters();display();return;}
     const detailBtn=ev.target.closest('[data-ti42-detail]');if(detailBtn){detail(detailBtn.dataset.ti42Detail);return;}
     const close=ev.target.closest('[data-ti42-close]');if(close){q('[data-ti42-dialog]')?.close();return;}
     const place=ev.target.closest('[data-ti42-vereda]');if(place&&mapInstance)mapInstance.focus(place.dataset.ti42Vereda,true);
@@ -289,7 +290,7 @@
     const plain=await new Response(new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
     const obj=JSON.parse(plain);
     if(obj.schema!==1||obj.sheet!=='Proyectos DEFINITIVO'||!Array.isArray(obj.rows)||!Array.isArray(obj.fields)||obj.fields.join('|')!==fieldOrder.join('|')||!obj.rows.every(row=>Array.isArray(row)&&row.length===fieldOrder.length))throw Error('Archivo de datos no cumple el esquema esperado');
-    return obj.rows.map(row=>Object.fromEntries(obj.fields.map((field,i)=>[field,row[i]])));
+    return obj.rows.map(row=>window.TI42Core.prepare({...Object.fromEntries(obj.fields.map((field,i)=>[field,row[i]])),sourceDateNotes:obj.sourceNotes?.[row[0]]||null}));
   }
   getData().then(rows=>{records=rows;dataLoaded=true;populateFilters();display();startMap();}).catch(err=>{
     loadError=err;setText('[data-ti42-source]','No se pudo cargar el Excel de la Unidad de Cumplimiento: '+err.message+'. No se mostrarán cifras de ejemplo.');
@@ -298,6 +299,10 @@
   });
   window.TI42Summary={
     get state(){return {...state};},
+    matches,
+    get selectedRow(){return selectedRow;},
+    selectRow(id){const row=records.find(r=>r.excelRow===Number(id)&&matches(r));if(!row)return false;if(selectedRow!==row.excelRow){selectedRow=row.excelRow;notify();}return true;},
+    get filteredRows(){return records.filter(matches);},
     get totalRows(){return records.length;},
     get lastFilterCount(){return filterCount;},
     get error(){return loadError?.message||null;},
@@ -305,10 +310,10 @@
     onChange(listener){
       if(typeof listener!=='function')return ()=>{};
       listeners.add(listener);
-      listener({rows:records.slice(),state:{...state},loaded:dataLoaded,error:loadError?.message||null});
+      listener({rows:records.slice(),state:{...state},selectedRow,loaded:dataLoaded,error:loadError?.message||null});
       return ()=>listeners.delete(listener);
     },
-    setSearch(term){state.q=String(term||'');q('#ti42-search').value=state.q;display();},
+    setSearch(term){state.q=String(term||'');q('#ti42-search').value=state.q;q('#ti42-global-search').value=state.q;display();},
     setMeta(metaId,clearOtherFilters=false){const id=String(metaId||'');if(id!=='all'&&id!=='none'&&!records.some(r=>r.meta===id))return false;state.meta=id;q('#ti42-meta').value=id;if(clearOtherFilters){state.year='all';state.status='all';state.sector='all';state.q='';q('#ti42-year').value='all';q('#ti42-status').value='all';q('#ti42-sector').value='all';q('#ti42-search').value='';}display();return true;},
     refreshMap(){mapInstance?.invalidateSize();}
   };

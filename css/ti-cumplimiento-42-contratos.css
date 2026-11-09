@@ -28,7 +28,7 @@
 #cumplimiento-proyectos .ti42c-kpi.amber{border-top-color:#e6b442}
 #cumplimiento-proyectos .ti42c-kpi span{font-weight:800;font-size:10px;line-height:1.4;color:#476e86}
 #cumplimiento-proyectos .ti42c-kpi strong{font-size:clamp(15px,1.5vw,23px);line-height:1.15;color:#0a3d60;font-weight:900;overflow-wrap:anywhere}
-#cumplimiento-proyectos .ti42c-kpi small{color:#6a8799;font-size:9px;line-height:1.45;margin-top:auto}
+#cumplimiento-proyectos .ti42c-kpi small{color:#6a8799;font-size:10px;line-height:1.45;margin-top:auto}
 #cumplimiento-proyectos .ti42c-kpi.is-clickable{cursor:pointer}
 #cumplimiento-proyectos .ti42c-kpi.is-clickable:hover{border-color:#58b896;box-shadow:0 3px 14px #0a71431a;background:#f9fffb}
 #cumplimiento-proyectos .ti42c-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(340px,.94fr);align-items:start;gap:13px;min-width:0}
@@ -51,13 +51,13 @@
 #cumplimiento-proyectos .ti42c-table-wrap tbody tr:nth-child(even){background:#f9fbfd}
 #cumplimiento-proyectos .ti42c-table-wrap tbody tr.is-selected{background:#e9f7f1;box-shadow:inset 3px 0 #048450}
 #cumplimiento-proyectos .ti42c-table-wrap td strong{font-weight:800;font-size:10px;color:#163d5a;display:block}
-#cumplimiento-proyectos .ti42c-table-wrap td small{font-size:9px;color:#69859a;display:block;margin-top:5px}
+#cumplimiento-proyectos .ti42c-table-wrap td small{font-size:10px;color:#69859a;display:block;margin-top:5px}
 #cumplimiento-proyectos .ti42c-contract-number{color:#086598!important;white-space:normal;word-break:break-word}
 #cumplimiento-proyectos .ti42c-table-wrap td em{color:#7d94a4;font-size:10px}
 #cumplimiento-proyectos .ti42c-table-wrap td button{border:1px solid #adccde;background:#eff7fc;color:#12618a;font-weight:800;border-radius:5px;cursor:pointer;font-size:10px;padding:8px 7px;width:100%}
 #cumplimiento-proyectos .ti42c-table-wrap td button:hover,#cumplimiento-proyectos .ti42c-table-wrap td button[aria-pressed="true"]{background:#d9f2e6;color:#056544;border-color:#9dd7c1}
 #cumplimiento-proyectos .ti42c-money{white-space:nowrap;color:#124964}
-#cumplimiento-proyectos .ti42c-badge{display:inline-block;font-weight:800;font-size:9px;border-radius:5px;padding:4px 8px;line-height:1.55;max-width:100%;overflow-wrap:anywhere;color:#637d91;background:#eaf0f4}
+#cumplimiento-proyectos .ti42c-badge{display:inline-block;font-weight:800;font-size:10px;border-radius:5px;padding:4px 8px;line-height:1.55;max-width:100%;overflow-wrap:anywhere;color:#637d91;background:#eaf0f4}
 #cumplimiento-proyectos .ti42c-badge.success{color:#066743;background:#dcf5e8}
 #cumplimiento-proyectos .ti42c-badge.info{color:#115d9a;background:#e3f0fb}
 #cumplimiento-proyectos .ti42c-badge.warning{color:#935c0d;background:#fff1d8}
@@ -83,7 +83,7 @@
 #cumplimiento-proyectos .ti42c-finance-stacks i{height:9px;min-height:9px;border-radius:3px;max-width:100%}
 #cumplimiento-proyectos .ti42c-finance-stacks i.blue{background:#2382d8}
 #cumplimiento-proyectos .ti42c-finance-stacks i.green{background:#24a969}
-#cumplimiento-proyectos .ti42c-finance-stacks em{font-size:9px;color:#8194a1}
+#cumplimiento-proyectos .ti42c-finance-stacks em{font-size:10px;color:#8194a1}
 #cumplimiento-proyectos .ti42c-legend{display:inline-block;width:10px;height:10px;border-radius:3px;margin:0 5px 0 10px;vertical-align:middle}
 #cumplimiento-proyectos .ti42c-legend.blue{background:#2382d8}
 #cumplimiento-proyectos .ti42c-legend.green{background:#24a969}
@@ -126,7 +126,7 @@
 #cumplimiento-proyectos .ti42c-policy-mark.yes{background:#dff5e6;color:#0c7146}
 #cumplimiento-proyectos .ti42c-policy-mark.no{background:#ffeedb;color:#a8671b}
 #cumplimiento-proyectos .ti42c-policy>span:nth-child(2){font-size:11px;color:#43657e}
-#cumplimiento-proyectos .ti42c-policy strong{font-size:9px;color:#315b74;text-align:right}
+#cumplimiento-proyectos .ti42c-policy strong{font-size:10px;color:#315b74;text-align:right}
 #cumplimiento-proyectos .ti42c-document-text{white-space:pre-line;font-size:11px;line-height:1.65;overflow-wrap:anywhere;background:#f8fbfd;color:#385b72;border:1px solid #e4edf2;border-radius:6px;padding:12px;max-height:280px;overflow:auto}
 #cumplimiento-proyectos .ti42c-evidence-blank{display:flex;align-items:center;flex-direction:column;gap:8px;padding:22px 15px;text-align:center;background:#f7fafd;border:1px dashed #d0dfea;border-radius:6px}
 #cumplimiento-proyectos .ti42c-evidence-blank span{font-size:35px;color:#75a2ba}

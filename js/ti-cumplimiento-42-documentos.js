@@ -53,12 +53,7 @@ const keep=()=>{try{localStorage.setItem(KEY,JSON.stringify({row:state.row,tab:s
 const rowNo=r=>Number(r?.excelRow);
 const extra=r=>projects.getExtraRow?.(rowNo(r))||{};
 function isProjectVisible(row){
- if(shared.meta&&shared.meta!=='all'&&(shared.meta==='none'?!!row.meta:row.meta!==shared.meta))return false;
- if(shared.year&&shared.year!=='all'&&(shared.year==='none'?!!row.year:row.year!==shared.year))return false;
- if(shared.status&&shared.status!=='all'&&(shared.status==='none'?!!row.contractStatus:row.contractStatus!==shared.status))return false;
- if(shared.sector&&shared.sector!=='all'&&(shared.sector==='none'?!!row.sectorMGA:row.sectorMGA!==shared.sector))return false;
- if(shared.q&&!normalized([row.name,row.bpin,row.contract,row.item,row.vereda,row.sectorMGA,row.meta].join(' ')).includes(normalized(shared.q)))return false;
- return true;
+ return window.TI42Summary.matches(row);
 }
 const header=document.createElement('header');
 header.dataset.ti42dHead='1';header.className='ti42d-heading';header.hidden=true;
@@ -145,16 +140,8 @@ async function loadCatalogue(){
 }
 function pick(){
  scopedRows=source.filter(isProjectVisible);
- const current=source.find(r=>rowNo(r)===state.row);
- if(!current){
-  const desired=projects.selectedRow;
-  selected=scopedRows.find(r=>rowNo(r)===Number(desired))||scopedRows[0]||null;
-  state.row=selected?rowNo(selected):null;projectPinned=false;
- }else if(!projectPinned&&scopedRows.length&&!scopedRows.some(r=>rowNo(r)===state.row)){
-  selected=scopedRows.find(r=>rowNo(r)===Number(projects.selectedRow))||scopedRows[0];
-  state.row=rowNo(selected);
- }else selected=current;
- if(!selected&&source.length&&scopedRows.length===0){state.row=null;}
+ selected=scopedRows.find(r=>rowNo(r)===state.row)||scopedRows.find(r=>rowNo(r)===Number(projects.selectedRow))||scopedRows[0]||null;
+ state.row=selected?rowNo(selected):null;projectPinned=false;
 }
 function projectDocs(){return files.filter(doc=>doc.row===state.row);}
 function photos(stage){return projectDocs().filter(doc=>doc.type==='foto'&&doc.stage===stage).sort((a,b)=>{
@@ -176,7 +163,7 @@ const srcKnown=(doc)=>doc?.fileUrl||doc?.sourceUrl||null;
 function selectProject(value){
  const id=Number(value),row=source.find(r=>rowNo(r)===id);
  if(!row)return false;
- state.row=id;projectPinned=true;state.indexes={antes:0,durante:0,despues:0};state.focused='antes';
+ state.row=id;summary.selectRow(id);projectPinned=true;state.indexes={antes:0,durante:0,despues:0};state.focused='antes';
  q('[data-ti42d-project-popover]').hidden=true;
  render();return true;
 }
@@ -195,10 +182,10 @@ function changeHeader(){
  q('[data-ti42d-progress-bar]').style.width=(numeric(progress)?Math.max(0,Math.min(100,progress)):0)+'%';
  const badge=q('[data-ti42d-outofscope]');if(badge)badge.hidden=!selected||scopedRows.some(r=>rowNo(r)===rowNo(selected));
  const picker=q('[data-ti42d-project-select]');
- picker.innerHTML=(scopedRows.length?scopedRows:source).map(row=>
+ picker.innerHTML=scopedRows.map(row=>
   '<option value="'+rowNo(row)+'">'+short(row.name,80)+' · fila '+rowNo(row)+'</option>').join('');
  if(selected)picker.value=String(rowNo(selected));
- q('[data-ti42d-project-menu]').disabled=!source.length;
+ q('[data-ti42d-project-menu]').disabled=!scopedRows.length;
  q('[data-ti42d-project-menu]').title='Cambiar proyecto sin abandonar Documentos';
 }
 function displayTabs(){
@@ -336,12 +323,12 @@ function render(){
 function mountMap(){
  const host=q('[data-ti42d-map]');
  if(panel.hidden||section.hidden||!host?.isConnected)return;
- if(mapInstance){mapInstance.invalidateSize?.();return;}
+ if(mapInstance){mapInstance.invalidateSize?.();mapInstance.fit?.();return;}
  if(mapPending||!window.TISubachoqueMap)return;
  mapPending=true;
  window.TISubachoqueMap.mount(host,{onSelect:()=>{}}).then(api=>{
-  mapInstance=api;mapPending=false;mapInstance.invalidateSize?.();
-  if(selected?.vereda)try{mapInstance.focus?.(selected.vereda,false);}catch{}
+  mapInstance=api;mapPending=false;mapInstance.invalidateSize?.();mapInstance.fit?.();
+  if(selected?.vereda)try{mapInstance.select?.(selected.vereda);}catch{}
  }).catch(()=>{mapPending=false;host.textContent='Mapa territorial no disponible';});
 }
 function selectTab(id){
@@ -490,6 +477,7 @@ panel.addEventListener('keydown',event=>{
  if(event.key==='ArrowLeft'){event.preventDefault();viewerIndex=Math.max(0,viewerIndex-1);renderViewer();}
 });
 summary.onChange(snapshot=>{
+ state.row=snapshot.selectedRow;
  const prior=loaded;
  source=snapshot.rows||[];shared=snapshot.state||{};loaded=!!snapshot.loaded;sourceError=snapshot.error||null;
  if(!prior&&!state.row&&projects.selectedRow)state.row=Number(projects.selectedRow);
@@ -506,7 +494,7 @@ function renderIfActive(){
 function openProject(rowId){
  const row=source.find(r=>rowNo(r)===Number(rowId));
  if(!row)return false;
- state.row=rowNo(row);projectPinned=true;state.tab='fotos';state.focused='antes';state.indexes={antes:0,durante:0,despues:0};
+ state.row=rowNo(row);summary.selectRow(state.row);projectPinned=true;state.tab='fotos';state.focused='antes';state.indexes={antes:0,durante:0,despues:0};
  projects.setView('documentos');render();return true;
 }
 window.TI42Documentos={

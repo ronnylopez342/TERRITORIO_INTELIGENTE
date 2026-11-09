@@ -167,11 +167,7 @@ async function loadCatalogue(){
  if(!panel.hidden)render();
 }
 function projectMatchesGlobal(r){
- if(shared.meta&&shared.meta!=='all'&&(shared.meta==='none'?!!r.meta:r.meta!==shared.meta))return false;
- if(shared.year&&shared.year!=='all'&&(shared.year==='none'?!!r.year:r.year!==shared.year))return false;
- if(shared.status&&shared.status!=='all'&&(shared.status==='none'?!!r.contractStatus:r.contractStatus!==shared.status))return false;
- if(shared.sector&&shared.sector!=='all'&&(shared.sector==='none'?!!r.sectorMGA:r.sectorMGA!==shared.sector))return false;
- return true;
+ return window.TI42Summary.matches(r);
 }
 function filterScope(){
  const constraint=['meta','year','status','sector'].some(k=>shared[k]&&shared[k]!=='all');
@@ -221,8 +217,8 @@ function kpi(kind,label,value,sub,ic){
   '<div><small>'+esc(label)+'</small><strong>'+esc(value)+'</strong><em>'+esc(sub)+'</em></div></article>';
 }
 function renderKpis(){
- if(loadState!=='ready'){
-  const message=loadState==='error'?'Fuente no disponible':'Cargando catálogo';
+ if(loadState!=='ready'||!register.length){
+  const message=loadState==='error'?'Fuente no disponible':loadState==='ready'?'Sin información registrada':'Cargando catálogo';
   set('[data-ti42r-kpis]',[
    kpi('blue','Total de Riesgos','—',message,'shield'),kpi('red','Riesgos Altos','—',message,'warning'),
    kpi('amber','Riesgos Medios','—',message,'warning'),kpi('green','Riesgos Bajos','—',message,'check'),
@@ -275,7 +271,7 @@ function drawSeverity(){
     '<small>'+esc(lv.label)+'</small></button>';
   }).join('')+'</div></div><span class="ti42r-axis-caption">Número de riesgos</span></div>');
 }
-function renderCharts(){drawCategories();drawSeverity();drawStatus();}
+function renderCharts(){if(!register.length){for(const key of ['category','severity','status'])set('[data-ti42r-by-'+key+']','<p class="ti42r-empty-row">Sin información registrada. El catálogo está pendiente de diligenciar.</p>');return;}drawCategories();drawSeverity();drawStatus();}
 function choices(){
  const allProjects=new Map();
  for(const row of source){if(clean(row.name))allProjects.set(String(row.excelRow),row.name);}
@@ -373,7 +369,7 @@ function render(){
  if(!ready&&loadState==='loading')return;
  if(loadState==='ready')filterLocal();else {scope=[];filtered=[];selected=null;}
  renderCount++;renderKpis();renderCharts();choices();table();detail();
- const label='Fuente: UNIDAD DE CUMPLIMIENTO(3).xlsx · Proyectos DEFINITIVO · columnas «Riesgos identificados», «Probabilidad», «Impacto», «Nivel de Riesgo», «Alertas Tempranas» y «Semaforización» sin registros. ';
+ const label='Fuente: UNIDAD DE CUMPLIMIENTO.xlsx · Proyectos DEFINITIVO · columnas «Riesgos identificados», «Probabilidad», «Impacto», «Nivel de Riesgo», «Alertas Tempranas» y «Semaforización» sin registros. ';
  put('[data-ti42r-provenance]',label+(loadState==='error'?'ERROR: '+loadError+'.':register.length+' fichas verificadas en catálogo. ')+(ignored?' Se excluyeron '+ignored+' registros sin identidad o fuente verificable. ':'')+'Observaciones, pólizas y referencias SECOP no acreditan un riesgo formal.');
  keep();
 }

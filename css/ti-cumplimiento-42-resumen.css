@@ -77,19 +77,8 @@
  overflow-wrap:anywhere;line-height:1.15;letter-spacing:-.025em;
 }
 #cumplimiento-proyectos .ti42-kpi span{
- font-size:9px;line-height:1.35;color:#638096;margin-top:auto;overflow-wrap:anywhere;
+ font-size:10px;line-height:1.35;color:#638096;margin-top:auto;overflow-wrap:anywhere;
 }
-#cumplimiento-proyectos .ti42-tabs{
- display:flex;gap:0;min-height:42px;max-width:100%;overflow-x:auto;scrollbar-width:thin;
- border-radius:7px;border:1px solid #d4e0e7;background:#f9fbfe;
-}
-#cumplimiento-proyectos .ti42-tab{
- display:flex;align-items:center;justify-content:center;white-space:nowrap;
- min-width:92px;padding:10px 15px;font-size:11px;font-weight:650;
- border-right:1px solid #e0e9ef;color:#516d82;
-}
-#cumplimiento-proyectos .ti42-tab.is-active{background:#047149;color:#fff;font-weight:850;min-width:115px}
-#cumplimiento-proyectos .ti42-tab.is-pending{opacity:.63;cursor:default}
 #cumplimiento-proyectos .ti42-card{
  border:1px solid #d5e3eb;border-radius:9px;
  background:#fff;padding:clamp(12px,1vw,18px);
@@ -131,7 +120,7 @@
  position:relative;text-align:center;padding:5px;
 }
 #cumplimiento-proyectos .ti42-ring strong{font-size:clamp(15px,1.8vw,26px);color:#076343;font-weight:900}
-#cumplimiento-proyectos .ti42-ring span{font-size:9px;color:#476982}
+#cumplimiento-proyectos .ti42-ring span{font-size:10px;color:#476982}
 #cumplimiento-proyectos .ti42-ring-copy{min-width:0;max-width:180px}
 #cumplimiento-proyectos .ti42-ring-copy strong{color:#0d5678;font-size:11px}
 #cumplimiento-proyectos .ti42-ring-copy p{margin-top:7px!important;font-size:10px;line-height:1.48;color:#648095}
@@ -224,7 +213,7 @@
 }
 #cumplimiento-proyectos .ti42-data-table tr:nth-child(even){background:#f7fafc}
 #cumplimiento-proyectos .ti42-data-table td strong{display:block;font-size:11px;color:#153a59;font-weight:750}
-#cumplimiento-proyectos .ti42-data-table td small{display:block;margin-top:4px;color:#6d8395;font-size:9px}
+#cumplimiento-proyectos .ti42-data-table td small{display:block;margin-top:4px;color:#6d8395;font-size:10px}
 #cumplimiento-proyectos .ti42-data-table td button,
 #cumplimiento-proyectos .ti42-evidence-button{
  border:1px solid #9cc7d1;border-radius:5px;background:#edf7f6;

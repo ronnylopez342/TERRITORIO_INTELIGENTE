@@ -65,9 +65,9 @@ panel.innerHTML=[
  '<div class="ti42e">',
  '<section class="ti42e-kpis" data-ti42e-kpis aria-label="Indicadores documentales"></section>',
  '<div class="ti42e-charts">',
- '<article class="ti42e-box"><h3>▧ Evidencias por Tipo de Documento</h3><div data-ti42e-donut></div></article>',
- '<article class="ti42e-box"><h3>♧ Evidencias por Estado</h3><div data-ti42e-states></div></article>',
- '<article class="ti42e-box"><h3>✧ Evidencias por Proyecto (Top 5)</h3><div data-ti42e-top></div></article>',
+ '<article class="ti42e-box"><h3>▧ Referencias por tipo de fuente</h3><div data-ti42e-donut></div></article>',
+ '<article class="ti42e-box"><h3>♧ Estado de las referencias</h3><div data-ti42e-states></div></article>',
+ '<article class="ti42e-box"><h3>✧ Referencias por proyecto (Top 5)</h3><div data-ti42e-top></div></article>',
  '</div>',
  '<section class="ti42e-filters" aria-label="Filtros del centro documental">',
  '<label class="ti42e-query"><span class="ti42e-search-icon" aria-hidden="true">⌕</span><input type="search" data-ti42e-search placeholder="Buscar evidencia por nombre, proyecto, contrato…" aria-label="Buscar evidencia" autocomplete="off"></label>',
@@ -80,7 +80,7 @@ panel.innerHTML=[
  '</section>',
  '<section class="ti42e-table-layout">',
  '<article class="ti42e-box ti42e-list">',
- '<div class="ti42e-list-head"><h3>▤ Listado de Evidencias <span data-ti42e-list-total></span></h3><small data-ti42e-list-note></small></div>',
+ '<div class="ti42e-list-head"><h3>▤ Listado de archivos y referencias <span data-ti42e-list-total></span></h3><small data-ti42e-list-note></small></div>',
  '<div class="ti42e-table-scroll"><table class="ti42e-table"><thead><tr><th>#</th><th>Nombre de la Evidencia / Fuente</th><th>Proyecto</th><th>Tipo</th><th>Fecha de carga</th><th>Estado</th><th>Acciones</th></tr></thead><tbody data-ti42e-rows></tbody></table></div>',
  '<div class="ti42e-pages"><small data-ti42e-range></small><nav data-ti42e-pages aria-label="Paginación de evidencias"></nav></div>',
  '</article>',
@@ -91,7 +91,7 @@ panel.innerHTML=[
  '<div class="ti42e-preview-actions" data-ti42e-preview-actions></div>',
  '<div class="ti42e-described-docs" data-ti42e-declared></div>',
  '</aside></section>',
- '<footer data-ti42e-source class="ti42e-footer">Fuente: UNIDAD DE CUMPLIMIENTO(3).xlsx · Hoja Proyectos DEFINITIVO. Los enlaces SECOP remiten a procesos, no a PDFs certificados.</footer>',
+ '<footer data-ti42e-source class="ti42e-footer">Fuente: UNIDAD DE CUMPLIMIENTO.xlsx · Hoja Proyectos DEFINITIVO. Los enlaces SECOP remiten a procesos, no a PDFs certificados.</footer>',
  '<dialog class="ti42e-dialog" data-ti42e-image-dialog aria-label="Imagen de evidencia"><button type="button" data-ti42e-close-dialog aria-label="Cerrar">×</button><div data-ti42e-full-image></div></dialog>',
  '</div>'
 ].join('');
@@ -122,12 +122,7 @@ function build(){
 }
 function matchScope(rec){
  const row=source.find(r=>Number(r.excelRow)===rec.excelRow);if(!row)return false;
- if(shared.meta!=='all'&&shared.meta!==undefined&&(shared.meta==='none'?Boolean(row.meta):row.meta!==shared.meta))return false;
- if(shared.year!=='all'&&shared.year!==undefined&&(shared.year==='none'?Boolean(row.year):row.year!==shared.year))return false;
- if(shared.status!=='all'&&shared.status!==undefined&&(shared.status==='none'?Boolean(row.contractStatus):row.contractStatus!==shared.status))return false;
- if(shared.sector!=='all'&&shared.sector!==undefined&&(shared.sector==='none'?Boolean(row.sectorMGA):row.sectorMGA!==shared.sector))return false;
- if(shared.q&&!norm([row.name,row.bpin,row.contract,row.vereda,row.sectorMGA,row.item].join(' ')).includes(norm(shared.q)))return false;
- return true;
+ return window.TI42Summary.matches(row);
 }
 function filterData(){
  base=records.filter(matchScope);
@@ -171,7 +166,7 @@ function drawKpis(){
  const actualFiles=filtered.filter(r=>r.mode==='file'),refs=filtered.filter(r=>r.mode==='reference');
  const count=k=>filtered.filter(r=>r.status===k&&r.mode==='file').length;
  set('[data-ti42e-kpis]',[
- KPI('Total de Evidencias',actualFiles.length,'Archivos vinculados · '+refs.length+' fuentes SECOP','blue','▤'),
+ KPI('Archivos de evidencia',actualFiles.length,'Archivos vinculados · '+refs.length+' fuentes SECOP','blue','▤'),
  KPI('Evidencias Validadas',count('validada'),'Sin certificados de validación','green','✓'),
  KPI('En Revisión',count('revision'),'Sin estados de revisión registrados','orange','◷'),
  KPI('Observaciones',count('observaciones'),'Sin observaciones de evidencias','red','!')
@@ -305,7 +300,7 @@ function render(){
   return;
  }
  filterData();drawKpis();drawGraphs();table();preview();keep();
- put('[data-ti42e-source]','Fuente: Excel UNIDAD DE CUMPLIMIENTO(3).xlsx · Proyectos DEFINITIVO. '+records.filter(r=>r.mode==='reference').length+
+ put('[data-ti42e-source]','Fuente: Excel UNIDAD DE CUMPLIMIENTO.xlsx · Proyectos DEFINITIVO. '+records.filter(r=>r.mode==='reference').length+
   ' enlaces SECOP y '+records.filter(r=>r.mode==='file').length+' enlaces fotográficos en el conjunto completo. No se acreditan fechas de carga ni estados de validación. Las referencias SECOP no equivalen a documentos descargables.');
 }
 function update(){

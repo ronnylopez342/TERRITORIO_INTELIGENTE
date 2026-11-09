@@ -108,7 +108,7 @@ sheet.innerHTML=`
   </article>
  </div>
 </div>
-<footer class="ti42c-footer">Fuente: UNIDAD DE CUMPLIMIENTO(1).xlsx · columnas de contratos, costos, documentos y pólizas, hoja «Proyectos DEFINITIVO». Cada fila es un registro de proyecto; algunas contienen más de una referencia contractual. Los importes de la fuente son «Costo total del proyecto» y «Costo ejecutado», no necesariamente valor adjudicado o pagos certificados.</footer>
+<footer class="ti42c-footer">Fuente: UNIDAD DE CUMPLIMIENTO.xlsx · columnas de contratos, costos, documentos y pólizas, hoja «Proyectos DEFINITIVO». Cada fila es un registro de proyecto; algunas contienen más de una referencia contractual. Los importes de la fuente son «Costo total del proyecto» y «Costo ejecutado», no necesariamente valor adjudicado o pagos certificados.</footer>
 `;
 tabs.insertAdjacentElement('afterend',sheet);
 const q=s=>sheet.querySelector(s);
@@ -117,15 +117,7 @@ const set=(s,markup)=>{const el=q(s);if(el)el.innerHTML=markup;};
 const label=(s,value)=>{const el=q(s);if(el)el.textContent=value==null?'':String(value);};
 const keep=()=>{try{localStorage.setItem(K,JSON.stringify(state));}catch{}};
 const joined=r=>({...r,...(core.get(Number(r?.excelRow))||{}),extra:projects.getExtraRow?.(r?.excelRow)||{}});
-const parent=r=>{
- const f=globalFilters||{};
- if(f.meta&&f.meta!=='all'&&(f.meta==='none'?!!r.meta:r.meta!==f.meta))return false;
- if(f.year&&f.year!=='all'&&(f.year==='none'?!!r.year:r.year!==f.year))return false;
- if(f.status&&f.status!=='all'&&(f.status==='none'?!!r.contractStatus:r.contractStatus!==f.status))return false;
- if(f.sector&&f.sector!=='all'&&(f.sector==='none'?!!r.sectorMGA:r.sectorMGA!==f.sector))return false;
- if(f.q&&!normalize([r.name,r.bpin,r.contract,r.vereda,r.sectorMGA,r.phase,r.item].join(' ')).includes(normalize(f.q)))return false;
- return true;
-};
+const parent=r=>summary.matches(r);
 const local=r=>{
  const x=projects.getExtraRow?.(r.excelRow)||{};
  if(state.presence==='yes'&&!have(r.contract))return false;
@@ -359,7 +351,7 @@ function changePage(delta){
 }
 sheet.addEventListener('click',event=>{
  const choose=event.target.closest('[data-ti42c-select]');
- if(choose){state.selected=Number(choose.dataset.ti42cSelect);state.detail='informacion';renderTable();renderDetail();keep();return;}
+ if(choose){state.selected=Number(choose.dataset.ti42cSelect);summary.selectRow(state.selected);state.detail='informacion';refresh();return;}
  const detail=event.target.closest('[data-ti42c-detail]');
  if(detail){state.detail=detail.dataset.ti42cDetail;renderDetail();keep();return;}
  const p=event.target.closest('[data-ti42c-presence]');
@@ -409,6 +401,7 @@ function exportCSV(){
 }
 syncFilters();
 summary.onChange(snapshot=>{
+ state.selected=snapshot.selectedRow;
  source=snapshot.rows||[];globalFilters=snapshot.state||{};ready=!!snapshot.loaded;sourceError=snapshot.error||null;updateCount++;
  if(ready&&extraReady)methods();
  if(!sheet.hidden)refresh();
@@ -424,7 +417,7 @@ function openContract(rowNumber){
  const id=Number(rowNumber);
  if(!source.some(r=>Number(r.excelRow)===id))return false;
  state.presence='all';state.method='all';state.query='';state.sort='file';state.detail='informacion';
- state.selected=id;state.page=1;syncFilters();
+ state.selected=id;summary.selectRow(id);state.page=1;syncFilters();
  projects.setView('contratos');
  if(ready){
   if(extraReady)methods();refresh();

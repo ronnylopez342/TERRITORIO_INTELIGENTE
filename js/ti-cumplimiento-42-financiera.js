@@ -63,7 +63,7 @@ panel.innerHTML=`
 </header>
 <div class="ti42f-context" role="note">
  <span data-ti42f-parent>Aplicando los filtros generales…</span>
- <span>Fuente: UNIDAD DE CUMPLIMIENTO(1).xlsx · «Proyectos DEFINITIVO»</span>
+ <span>Fuente: UNIDAD DE CUMPLIMIENTO.xlsx · «Proyectos DEFINITIVO»</span>
 </div>
 <section class="ti42f-filters" aria-label="Filtros financieros">
  <div class="ti42f-query"><label for="ti42f-query">Buscar proyecto o referencia</label><input id="ti42f-query" data-ti42f-query type="search" autocomplete="off" placeholder="Proyecto, BPIN, contrato o vereda…"></div>
@@ -139,22 +139,14 @@ panel.innerHTML=`
  </div>
 </div>
 <footer class="ti42f-footer">
- Fuente: UNIDAD DE CUMPLIMIENTO(1).xlsx, hoja «Proyectos DEFINITIVO». Se conservan la vigencia, el sector y las cifras de origen. La relación costo ejecutado / costo total es un cálculo aritmético, no equivale automáticamente al porcentaje oficial de ejecución presupuestal, a desembolsos, ni a contratos únicos. No se atribuye fecha de actualización ni se rellenan valores ausentes con ceros.
+ Fuente: UNIDAD DE CUMPLIMIENTO.xlsx, hoja «Proyectos DEFINITIVO». Se conservan la vigencia, el sector y las cifras de origen. La relación costo ejecutado / costo total es un cálculo aritmético, no equivale automáticamente al porcentaje oficial de ejecución presupuestal, a desembolsos, ni a contratos únicos. No se atribuye fecha de actualización ni se rellenan valores ausentes con ceros.
 </footer>`;
 tabs.insertAdjacentElement('afterend',panel);
 const q=s=>panel.querySelector(s),all=s=>[...panel.querySelectorAll(s)];
 const set=(s,html)=>{const x=q(s);if(x)x.innerHTML=html;};
 const text=(s,value)=>{const x=q(s);if(x)x.textContent=String(value??'');};
 const keep=()=>{try{localStorage.setItem(KEY,JSON.stringify(state));}catch{}};
-const parent=r=>{
- const f=globalState||{};
- if(f.meta&&f.meta!=='all'&&(f.meta==='none'?!!r.meta:r.meta!==f.meta))return false;
- if(f.year&&f.year!=='all'&&(f.year==='none'?!!r.year:r.year!==f.year))return false;
- if(f.status&&f.status!=='all'&&(f.status==='none'?!!r.contractStatus:r.contractStatus!==f.status))return false;
- if(f.sector&&f.sector!=='all'&&(f.sector==='none'?!!r.sectorMGA:r.sectorMGA!==f.sector))return false;
- if(f.q&&!norm([r.name,r.bpin,r.contract,r.vereda,r.sectorMGA,r.phase,r.item].join(' ')).includes(norm(f.q)))return false;
- return true;
-};
+const parent=r=>summary.matches(r);
 function local(r){
  if(state.quality==='paired'&&!hasPair(r))return false;
  if(state.quality==='partial'&&quality(r)!=='partial')return false;
@@ -368,7 +360,7 @@ function exportCSV(){
 }
 panel.addEventListener('click',event=>{
  const choose=event.target.closest('[data-ti42f-select]');
- if(choose){state.selectedRow=Number(choose.dataset.ti42fSelect);selected=filtered.find(r=>Number(r.excelRow)===state.selectedRow)||null;state.detail='resumen';drawChart();drawTable();drawDetail();keep();return;}
+ if(choose){state.selectedRow=Number(choose.dataset.ti42fSelect);summary.selectRow(state.selectedRow);selected=filtered.find(r=>Number(r.excelRow)===state.selectedRow)||null;state.detail='resumen';drawChart();drawTable();drawDetail();keep();return;}
  const detail=event.target.closest('[data-ti42f-detail]');
  if(detail){state.detail=detail.dataset.ti42fDetail;drawDetail();keep();return;}
  const chart=event.target.closest('[data-ti42f-chart-mode]');
@@ -391,6 +383,7 @@ panel.addEventListener('change',event=>{
 });
 syncControls();
 summary.onChange(snapshot=>{
+ state.selectedRow=snapshot.selectedRow;
  rows=snapshot.rows||[];globalState=snapshot.state||{};loaded=!!snapshot.loaded;error=snapshot.error||null;
  if(!panel.hidden)refresh();
 });
@@ -400,6 +393,12 @@ function renderIfActive(){
 }
 window.TI42Financiera={
  renderIfActive,
+ openProject(rowNumber){
+  const id=Number(rowNumber);
+  if(!rows.some(r=>r.excelRow===id&&summary.matches(r)))return false;
+  Object.assign(state,{quality:'all',ratio:'all',query:'',selectedRow:id,page:1,detail:'resumen'});
+  summary.selectRow(id);syncControls();projects.setView('financiera');refresh();return true;
+ },
  get state(){return {...state};},
  get loaded(){return loaded;},
  get filteredCount(){return filtered.length;},

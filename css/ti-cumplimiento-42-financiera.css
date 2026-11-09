@@ -29,7 +29,7 @@
 #cumplimiento-proyectos .ti42f-kpi.amber{border-top-color:#ebb035}
 #cumplimiento-proyectos .ti42f-kpi span{font-size:10px;line-height:1.45;color:#4d7189;font-weight:850}
 #cumplimiento-proyectos .ti42f-kpi strong{font-size:clamp(17px,1.58vw,25px);line-height:1.14;color:#0e3c5c;font-weight:900;overflow-wrap:anywhere}
-#cumplimiento-proyectos .ti42f-kpi small{font-size:9px;line-height:1.5;color:#718a99;margin-top:auto}
+#cumplimiento-proyectos .ti42f-kpi small{font-size:10px;line-height:1.5;color:#718a99;margin-top:auto}
 #cumplimiento-proyectos .ti42f-layout{display:grid;grid-template-columns:minmax(0,1.60fr) minmax(340px,.91fr);align-items:start;gap:13px}
 #cumplimiento-proyectos .ti42f-left,#cumplimiento-proyectos .ti42f-right{display:flex;flex-direction:column;gap:13px;min-width:0}
 #cumplimiento-proyectos .ti42f-card{background:#fff;border:1px solid #d3e3eb;border-radius:9px;box-shadow:0 2px 8px #0f35520c;padding:clamp(12px,1.1vw,19px);min-width:0}
@@ -59,7 +59,7 @@
 #cumplimiento-proyectos .ti42f-track i{display:block;height:100%;max-width:100%;border-radius:99px;min-width:0}
 #cumplimiento-proyectos .ti42f-track i.blue{background:linear-gradient(90deg,#1479d2,#54b2e9)}
 #cumplimiento-proyectos .ti42f-track i.green{background:linear-gradient(90deg,#058d59,#34bd82)}
-#cumplimiento-proyectos .ti42f-chart-warning{display:block;color:#a86615;font-size:9px}
+#cumplimiento-proyectos .ti42f-chart-warning{display:block;color:#a86615;font-size:10px}
 #cumplimiento-proyectos .ti42f-note{font-size:10px!important;line-height:1.65!important;color:#658396;margin-top:12px!important}
 #cumplimiento-proyectos .ti42f-count{font-size:10px;font-weight:850;color:#0b7452;background:#e7f6ee;padding:4px 9px;border-radius:15px}
 #cumplimiento-proyectos .ti42f-table-scroll{overflow:auto;max-height:530px;scrollbar-width:thin;border:1px solid #dbe7ee;border-radius:6px}
@@ -76,10 +76,10 @@
 #cumplimiento-proyectos .ti42f-table-scroll tbody tr:nth-child(even){background:#f8fbfd}
 #cumplimiento-proyectos .ti42f-table-scroll tbody tr.is-selected{background:#eaf8f0;box-shadow:inset 3px 0 #078f5d}
 #cumplimiento-proyectos .ti42f-table-scroll td strong{display:block;font-size:10px;color:#183e5d}
-#cumplimiento-proyectos .ti42f-table-scroll td small{display:block;margin-top:4px;color:#71889a;font-size:9px}
+#cumplimiento-proyectos .ti42f-table-scroll td small{display:block;margin-top:4px;color:#71889a;font-size:10px}
 #cumplimiento-proyectos .ti42f-number{white-space:nowrap;color:#18506c;font-variant-numeric:tabular-nums}
 #cumplimiento-proyectos .ti42f-over{color:#aa6d17!important}
-#cumplimiento-proyectos .ti42f-badge{display:inline-block;max-width:100%;overflow-wrap:anywhere;border-radius:5px;background:#edf2f5;color:#627a8c;font-weight:850;font-size:9px;line-height:1.55;padding:5px 8px}
+#cumplimiento-proyectos .ti42f-badge{display:inline-block;max-width:100%;overflow-wrap:anywhere;border-radius:5px;background:#edf2f5;color:#627a8c;font-weight:850;font-size:10px;line-height:1.55;padding:5px 8px}
 #cumplimiento-proyectos .ti42f-badge.success{background:#dcf5e7;color:#086d49}
 #cumplimiento-proyectos .ti42f-badge.partial{background:#fff3dc;color:#906117}
 #cumplimiento-proyectos .ti42f-badge.missing{background:#ecf0f4;color:#5a7384}
@@ -148,7 +148,7 @@
 #cumplimiento-proyectos .ti42f-sector{padding:11px 0;border-bottom:1px solid #ebf1f5}
 #cumplimiento-proyectos .ti42f-sector>div:first-child{display:flex;justify-content:space-between;gap:8px;align-items:center}
 #cumplimiento-proyectos .ti42f-sector>div:first-child span{font-size:10px;color:#315f7b;overflow-wrap:anywhere;font-weight:750}
-#cumplimiento-proyectos .ti42f-sector>div:first-child small{font-size:9px;white-space:nowrap;color:#728d9c}
+#cumplimiento-proyectos .ti42f-sector>div:first-child small{font-size:10px;white-space:nowrap;color:#728d9c}
 #cumplimiento-proyectos .ti42f-sector-tracks{display:flex;flex-direction:column;gap:5px;margin:9px 0 5px}
 #cumplimiento-proyectos .ti42f-sector>strong{display:block;color:#437086;font-size:10px;line-height:1.5;font-weight:850}
 #cumplimiento-proyectos .ti42f-footer{border-top:1px solid #d7e6ec;margin-top:14px;padding:11px 2px;color:#628095;font-size:10px;line-height:1.7}
@@ -175,7 +175,7 @@
  #cumplimiento-proyectos .ti42f-chart-row{grid-template-columns:minmax(93px,.75fr) minmax(195px,1.6fr);gap:8px;padding:9px 8px}
  #cumplimiento-proyectos .ti42f-chart-scroll{overflow:auto}
  #cumplimiento-proyectos .ti42f-plotline{grid-template-columns:minmax(0,1fr) minmax(89px,112px);gap:4px}
- #cumplimiento-proyectos .ti42f-plotline>span{font-size:9px}
+ #cumplimiento-proyectos .ti42f-plotline>span{font-size:10px}
  #cumplimiento-proyectos .ti42f-detail-amounts{grid-template-columns:minmax(0,1fr)}
  #cumplimiento-proyectos .ti42f-field{grid-template-columns:minmax(0,1fr);gap:2px}
  #cumplimiento-proyectos .ti42f-card{padding:12px}

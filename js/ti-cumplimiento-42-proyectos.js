@@ -65,7 +65,7 @@ panel.innerHTML=`
    <div><label for="ti42p-sort">Ordenar por</label><select id="ti42p-sort" data-ti42p-filter="sort">
      <option value="file">Orden del Excel</option><option value="name">Nombre A–Z</option><option value="year">Vigencia más reciente</option><option value="budget">Costo mayor primero</option>
    </select></div>
-   <button type="button" data-ti42p-clear class="ti42p-clear" title="Restablece únicamente búsqueda, vereda y fase">Limpiar filtros</button>
+   <button type="button" data-ti42p-clear class="ti42p-clear" title="Restablece búsqueda, vereda, fase y orden">Limpiar filtros</button>
  </div>
  <p class="ti42p-source" data-ti42p-source role="status" aria-live="polite">Cargando los registros del Excel…</p>
  <div class="ti42p-main">
@@ -113,7 +113,7 @@ panel.innerHTML=`
     <div class="ti42p-detail-note">Información procedente del archivo aportado. «Fase del proyecto» y «Estado del contrato» son campos diferentes.</div>
   </aside>
  </div>
- <footer class="ti42p-footer">Fuente: UNIDAD DE CUMPLIMIENTO(1).xlsx · «Proyectos DEFINITIVO» · filas originales identificadas. Sin fecha de actualización acreditada. No se presentan fotos, cantidades de beneficiarios ni coordenadas puntuales que no estén verificadas.</footer>
+ <footer class="ti42p-footer">Fuente: UNIDAD DE CUMPLIMIENTO.xlsx · «Proyectos DEFINITIVO» · filas originales identificadas. Sin fecha de actualización acreditada. No se presentan fotos, cantidades de beneficiarios ni coordenadas puntuales que no estén verificadas.</footer>
 `;
 tabs.insertAdjacentElement('afterend',panel);
 const q=s=>panel.querySelector(s);
@@ -124,6 +124,7 @@ function setView(view){
  state.view=['resumen','proyectos','contratos','financiera','cronograma','mapa','evidencias','indicadores','riesgos','documentos'].includes(view)?view:'resumen';
  const projects=state.view==='proyectos',contracts=state.view==='contratos',finances=state.view==='financiera',chrono=state.view==='cronograma',mapMode=state.view==='mapa',evidenceMode=state.view==='evidencias',indicatorsMode=state.view==='indicadores',risksMode=state.view==='riesgos',documentsMode=state.view==='documentos';
  const hadSummaryHidden=summary.hidden;
+ shell.dataset.view=state.view;
  const contractPanel=shell.querySelector('[data-ti42-contratos-root]');
  const financePanel=shell.querySelector('[data-ti42-financiera-root]');
  const chronoHead=shell.querySelector('[data-ti42g-head]');
@@ -162,7 +163,7 @@ function setView(view){
  tabs.querySelectorAll('[data-ti42-view]').forEach(tab=>{
    const chosen=tab.dataset.ti42View===state.view;
    tab.classList.toggle('is-active',chosen);
-   tab.setAttribute('aria-selected',String(chosen));
+   tab.setAttribute('aria-selected',String(chosen));tab.tabIndex=chosen?0:-1;
  });
  keep();
  if(projects){render();if(state.detailTab==='localizacion')requestAnimationFrame(startMap);}
@@ -177,12 +178,7 @@ function setView(view){
  else if(hadSummaryHidden)requestAnimationFrame(()=>api.refreshMap?.());
 }
 function baseFilter(r){
- if(shared.meta!=='all'&&(shared.meta==='none'?!!r.meta:r.meta!==shared.meta))return false;
- if(shared.year!=='all'&&(shared.year==='none'?!!r.year:r.year!==shared.year))return false;
- if(shared.status!=='all'&&(shared.status==='none'?!!r.contractStatus:r.contractStatus!==shared.status))return false;
- if(shared.sector!=='all'&&(shared.sector==='none'?!!r.sectorMGA:r.sectorMGA!==shared.sector))return false;
- if(shared.q&&!normalize([r.name,r.bpin,r.contract,r.vereda,r.sectorMGA,r.phase,r.item].join(' ')).includes(normalize(shared.q)))return false;
- return true;
+ return window.TI42Summary.matches(r);
 }
 function filteredRows(){
  const list=source.filter(r=>baseFilter(r)
@@ -273,7 +269,7 @@ function renderDetail(){
   ].map(([a,b])=>detailField(a,b)).join('')+'</dl>'
   +'<h4>Descripción del proyecto</h4><p class="ti42p-excerpt">'+known(x.description)+'</p>'
   +'<h4>Alcance consignado</h4><p class="ti42p-excerpt">'+known(x.scope)+'</p>'
-  +'<div class="ti42p-note">'+safe(extraStatus)+' Los textos extensos se muestran abreviados; consulta el libro original para su contenido completo.</div>'
+  +'<div class="ti42p-note">'+safe(extraStatus)+' Los textos se conservan íntegros desde el libro original.</div>'
   +'<button type="button" class="ti42p-evidence-link" data-ti42p-open-risks>Consultar riesgos registrados de este proyecto ↗</button>'
   +'<button type="button" class="ti42p-evidence-link" data-ti42p-open-documents>Ver documentos del proyecto ↗</button>'
  );
@@ -410,11 +406,11 @@ tabs.addEventListener('keydown',ev=>{
  ev.preventDefault();target.focus();setView(target.dataset.ti42View);
 });
 panel.addEventListener('click',ev=>{
- const select=ev.target.closest('[data-ti42p-select]');if(select){state.selectedRow=Number(select.dataset.ti42pSelect);state.detailTab='informacion';renderTable(filtered);renderDetail();showDetail('informacion');keep();return;}
+ const select=ev.target.closest('[data-ti42p-select]');if(select){state.selectedRow=Number(select.dataset.ti42pSelect);api.selectRow(state.selectedRow);state.detailTab='informacion';draw();showDetail('informacion');keep();return;}
  const detail=ev.target.closest('[data-ti42p-detail-tab]');if(detail){showDetail(detail.dataset.ti42pDetailTab);return;}
  if(ev.target.closest('[data-ti42p-previous]')){state.page--;renderTable(filtered);keep();return;}
  if(ev.target.closest('[data-ti42p-next]')){state.page++;renderTable(filtered);keep();return;}
- if(ev.target.closest('[data-ti42p-clear]')){state.vereda='all';state.phase='all';state.page=1;choices();api.setSearch('');return;}
+ if(ev.target.closest('[data-ti42p-clear]')){state.vereda='all';state.phase='all';state.sort='file';state.page=1;choices();api.setSearch('');return;}
  if(ev.target.closest('[data-ti42p-export]')){exportCSV();return;}
  if(ev.target.closest('[data-ti42p-focus]')&&selected?.vereda){projectMap?.focus(selected.vereda,true);return;}
 });
@@ -452,6 +448,7 @@ async function loadExtraData(){
 }
 loadExtraData();
 api.onChange(snapshot=>{
+ state.selectedRow=snapshot.selectedRow;
  const prev=JSON.stringify(source.map(r=>r.excelRow));
  source=snapshot.rows||[];
  shared=snapshot.state||{};
@@ -467,7 +464,7 @@ setView(state.view);
 function openProject(rowNumber,detailTab='contratos'){
  const target=Number(rowNumber),r=source.find(x=>x.excelRow===target);
  if(!r)return false;
- state.vereda='all';state.phase='all';state.sort='file';state.selectedRow=target;
+ state.vereda='all';state.phase='all';state.sort='file';state.selectedRow=target;api.selectRow(target);
  state.detailTab=['informacion','localizacion','contratos','ejecucion','evidencias','indicadores'].includes(detailTab)?detailTab:'informacion';
  const list=source.filter(baseFilter).sort((a,b)=>a.excelRow-b.excelRow);
  const index=list.findIndex(x=>x.excelRow===target);

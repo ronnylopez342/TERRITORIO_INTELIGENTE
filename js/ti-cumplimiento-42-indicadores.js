@@ -71,7 +71,7 @@ panel.innerHTML=[
  '</article>',
  '<aside class="ti42i-card ti42i-detail"><h3>▣ Detalle del Indicador</h3><div data-ti42i-detail></div></aside>',
  '</div>',
- '<footer class="ti42i-footer" data-ti42i-footer>Fuente: UNIDAD DE CUMPLIMIENTO(3).xlsx, hoja Proyectos DEFINITIVO. Las metas y los avances de obra no sustituyen indicadores certificados.</footer>',
+ '<footer class="ti42i-footer" data-ti42i-footer>Fuente: UNIDAD DE CUMPLIMIENTO.xlsx, hoja Proyectos DEFINITIVO. Las metas y los avances de obra no sustituyen indicadores certificados.</footer>',
  '<dialog class="ti42i-dialog" data-ti42i-dialog aria-label="Detalle ampliado de indicador o meta">',
  '<div class="ti42i-dialog-head"><h3 data-ti42i-dialog-title>Ficha ampliada</h3><button type="button" data-ti42i-dialog-close aria-label="Cerrar">×</button></div>',
  '<div data-ti42i-dialog-body></div></dialog>'
@@ -87,12 +87,7 @@ function commonValue(rs,k){
  return [...frequencies].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'es'))[0]?.[0]||'';
 }
 function globalMatch(r){
- if(shared.meta&&shared.meta!=='all'&&(shared.meta==='none'?!!r.meta:r.meta!==shared.meta))return false;
- if(shared.year&&shared.year!=='all'&&(shared.year==='none'?!!r.year:r.year!==shared.year))return false;
- if(shared.status&&shared.status!=='all'&&(shared.status==='none'?!!r.contractStatus:r.contractStatus!==shared.status))return false;
- if(shared.sector&&shared.sector!=='all'&&(shared.sector==='none'?!!r.sectorMGA:r.sectorMGA!==shared.sector))return false;
- if(shared.q&&!norm([r.name,r.bpin,r.contract,r.vereda,r.sectorMGA,r.item,r.meta,r.metaTitle].join(' ')).includes(norm(shared.q)))return false;
- return true;
+ return window.TI42Summary.matches(r);
 }
 function groupMetas(source){
  const groups=new Map();
@@ -224,9 +219,9 @@ function renderKpis(){
  const delta=valid(officialMeta?.previousPeriodDelta)&&str(officialMeta?.previousPeriodSource)?(officialMeta.previousPeriodDelta>0?'↑ ':'↓ ')+pct(Math.abs(officialMeta.previousPeriodDelta)):'Sin comparación disponible';
  set('[data-ti42i-kpis]',[
  kpi('Total de Indicadores',String(n),'Con ficha y procedencia verificadas','blue','▦'),
- kpi('Cumplimiento Satisfactorio',String(count('cumplido')),num('cumplido'),'green','✓'),
- kpi('En Riesgo',String(count('riesgo')),num('riesgo'),'amber','▨'),
- kpi('Críticos',String(count('critico')),num('critico'),'red','!'),
+ kpi('Cumplimiento Satisfactorio',n?String(count('cumplido')):'—',num('cumplido'),'green','✓'),
+ kpi('En Riesgo',n?String(count('riesgo')):'—',num('riesgo'),'amber','▨'),
+ kpi('Críticos',n?String(count('critico')):'—',num('critico'),'red','!'),
  '<article class="ti42i-kpi target"><span class="ti42i-icon">◎</span><div><small>Avance Promedio</small><strong>'+htmlEsc(agg)+'</strong><em>Solo agregado con metodología acreditada</em></div><span class="ti42i-delta">'+htmlEsc(delta)+'</span></article>'
  ].join(''));
 }
@@ -272,7 +267,7 @@ function renderHistory(){
   '<polyline points="'+line('programmed')+'" fill="none" stroke="#10a675" stroke-width="2.4" stroke-dasharray="5 3"/><g fill="#10a675">'+circles('programmed')+'</g>'+
   points.map((p,i)=>'<text x="'+xs[i]+'" y="128" font-size="7" text-anchor="middle" fill="#4e7195">'+htmlEsc(p.date.slice(5,7))+'</text>').join('')+'</svg>');
 }
-function renderCharts(){renderLineChart();renderDonut();renderHistory();}
+function renderCharts(){if(!scopedOfficial().length){for(const key of ['lines','donut','history'])set('[data-ti42i-'+key+']','<p class="ti42i-no-data">Sin medición. No hay fichas de indicadores ni series acreditadas para esta selección.</p>');return;}renderLineChart();renderDonut();renderHistory();}
 function field(name,val){return '<div><dt>'+htmlEsc(name)+'</dt><dd>'+htmlEsc(val===null||val===undefined||val===''?'No registrado':val)+'</dd></div>';}
 function statusBadge(r){
  if(r.type==='meta')return '<span class="ti42i-chip unknown" title="Meta sin ficha de indicador: consulta los detalles para conocer la fuente.">Sin ficha</span>';
@@ -342,7 +337,7 @@ function buildTable(){
  set('[data-ti42i-pages]',pagination);
 }
 function renderFooter(){
- label('[data-ti42i-footer]','Fuente de metas: UNIDAD DE CUMPLIMIENTO(3).xlsx, hoja «Proyectos DEFINITIVO». Metas y proyectos son entidades distintas de indicadores. Fichas de indicadores acreditadas: '+official.length+'. '+(verifiedError?'Catálogo de fichas: '+verifiedError+'. ':'')+'El avance físico y financiero de proyectos NO se utiliza como medida del Plan de Desarrollo.');
+ label('[data-ti42i-footer]','Fuente de metas: UNIDAD DE CUMPLIMIENTO.xlsx, hoja «Proyectos DEFINITIVO». Metas y proyectos son entidades distintas de indicadores. Fichas de indicadores acreditadas: '+official.length+'. '+(verifiedError?'Catálogo de fichas: '+verifiedError+'. ':'')+'El avance físico y financiero de proyectos NO se utiliza como medida del Plan de Desarrollo.');
 }
 function render(){
  if(!loaded){

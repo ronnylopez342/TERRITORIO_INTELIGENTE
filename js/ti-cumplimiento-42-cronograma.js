@@ -85,7 +85,7 @@ panel.innerHTML=[
  '<article class="ti42g-card ti42g-project">',
  '<header class="ti42g-project-head"><div><h3 data-ti42g-project-name>Selecciona un proyecto</h3>',
  '<div class="ti42g-project-identity" data-ti42g-project-id></div></div><button type="button" data-ti42g-clear-select aria-label="Seleccionar primer proyecto">×</button></header>',
- '<div class="ti42g-project-subtabs"><span>General</span><strong>Cronograma</strong><span>Financiero</span><span>Contratos</span><span>Evidencias</span></div>',
+ '<nav class="ti42g-project-subtabs" aria-label="Apartados del proyecto"><button data-ti42g-link="informacion" type="button">General</button><strong>Cronograma</strong><button data-ti42g-link="financiera" type="button">Financiero</button><button data-ti42g-link="contratos" type="button">Contratos</button><button data-ti42g-link="evidencias" type="button">Evidencias</button></nav>',
  '<div class="ti42g-aside-section"><h4>♧ Hitos documentados del proyecto</h4><div data-ti42g-steps></div></div>',
  '<div class="ti42g-aside-section"><h4>▣ Avance y tiempo del proyecto</h4><div data-ti42g-project-progress></div></div>',
  '<div class="ti42g-aside-section"><h4>▦ Fechas clave</h4><div data-ti42g-dates></div></div>',
@@ -97,7 +97,7 @@ panel.innerHTML=[
  '<article class="ti42g-card ti42g-upcoming"><h3>▤ Próximas fechas (30 días)</h3>',
  '<div data-ti42g-upcoming></div></article>',
  '</aside></div>',
- '<footer class="ti42g-footer" data-ti42g-source>Fuente: UNIDAD DE CUMPLIMIENTO(3).xlsx, hoja «Proyectos DEFINITIVO». No se atribuye estado de finalización ni retraso sin actas o fechas verificadas.</footer>'
+ '<footer class="ti42g-footer" data-ti42g-source>Fuente: UNIDAD DE CUMPLIMIENTO.xlsx, hoja «Proyectos DEFINITIVO». No se atribuye estado de finalización ni retraso sin actas o fechas verificadas.</footer>'
 ].join('');
 tabs.after(panel);
 const h=s=>heading.querySelector(s),q=s=>panel.querySelector(s),all=s=>[...panel.querySelectorAll(s)];
@@ -107,6 +107,7 @@ const keep=()=>{try{localStorage.setItem(STORAGE,JSON.stringify(state));}catch{}
 const ratio=(n,d)=>d>0?n/d*100:null;
 function filter(){
  visible=source.filter(r=>{
+  if(!window.TI42Summary.matches(r))return false;
   if(state.sector!=='all'&&r.sectorMGA!==state.sector)return false;
   if(state.phase!=='all'&&r.phase!==state.phase)return false;
   if(state.search&&!norm([r.name,r.bpin,r.contractor,r.vereda,r.year,r.item,r.meta].join(' ')).includes(norm(state.search)))return false;
@@ -328,8 +329,9 @@ function csv(){
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 panel.addEventListener('click',event=>{
+ const link=event.target.closest('[data-ti42g-link]');if(link&&selected){const target=link.dataset.ti42gLink;if(target==='informacion')projects.openProject(selected.excelRow,'informacion');else if(target==='contratos')window.TI42Contratos?.openContract?.(selected.excelRow);else if(target==='financiera')window.TI42Financiera?.openProject?.(selected.excelRow);else window.TI42Evidencias?.openProject?.(selected.excelRow);return;}
  const row=event.target.closest('[data-ti42g-select]');
- if(row){state.selectedRow=Number(row.dataset.ti42gSelect);refresh();return;}
+ if(row){state.selectedRow=Number(row.dataset.ti42gSelect);window.TI42Summary.selectRow(state.selectedRow);refresh();return;}
  const mode=event.target.closest('[data-ti42g-mode]');
  if(mode){state.view=mode.dataset.ti42gMode;refresh();return;}
  if(event.target.closest('[data-ti42g-export]')){csv();return;}
@@ -354,13 +356,14 @@ async function load(){
   const json=await new Response(new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
   const data=JSON.parse(json);
   if(data.schema!==1||data.sheet!=='Proyectos DEFINITIVO'||data.fields.join('|')!==FIELDS.join('|')||!Array.isArray(data.rows)||!data.rows.every(r=>Array.isArray(r)&&r.length===FIELDS.length))throw Error('esquema del cronograma no coincide');
-  source=data.rows.map(row=>Object.fromEntries(FIELDS.map((k,i)=>[k,row[i]])));
+  source=data.rows.map(row=>window.TI42Core.prepare(Object.fromEntries(FIELDS.map((k,i)=>[k,row[i]]))));
   ready=true;loadError=null;choices();refresh();
  }catch(e){
   ready=false;loadError=e.message;text('[data-ti42g-count]','No se pudieron consultar las fechas del Excel: '+e.message);
   h('[data-ti42g-kpis]').innerHTML='<div class="ti42g-empty">Cronograma no disponible. No se muestran proyectos ni fechas de ejemplo.</div>';
  }
 }
+window.TI42Summary.onChange(snapshot=>{state.selectedRow=snapshot.selectedRow;if(ready)refresh();});
 load();
 function renderIfActive(){
  if(panel.hidden||section.hidden)return;

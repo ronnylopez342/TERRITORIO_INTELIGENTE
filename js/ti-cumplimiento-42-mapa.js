@@ -117,14 +117,7 @@ function keep(){
  try{localStorage.setItem(KEY,JSON.stringify({search:state.search,vereda:state.vereda,category:state.category,projectLayers:state.projectLayers,selectedRow:state.selectedRow,withProjectAreas:state.withProjectAreas}));}catch{}
 }
 const dateMs=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)?Date.parse(v+'T00:00:00Z'):null;
-const baseMatches=r=>{
- if(shared.meta&&shared.meta!=='all'&&(shared.meta==='none'?have(r.meta):r.meta!==shared.meta))return false;
- if(shared.year&&shared.year!=='all'&&(shared.year==='none'?have(r.year):r.year!==shared.year))return false;
- if(shared.status&&shared.status!=='all'&&(shared.status==='none'?have(r.contractStatus):r.contractStatus!==shared.status))return false;
- if(shared.sector&&shared.sector!=='all'&&(shared.sector==='none'?have(r.sectorMGA):r.sectorMGA!==shared.sector))return false;
- if(shared.q&&!norm([r.name,r.bpin,r.contract,r.vereda,r.sectorMGA,r.phase,r.item].join(' ')).includes(norm(shared.q)))return false;
- return true;
-};
+const baseMatches=r=>window.TI42Summary.matches(r);
 function applyFilters(){
  base=rows.filter(baseMatches);
  const categories=state.projectLayers;
@@ -159,7 +152,7 @@ function renderKpis(){
  makeKpi('●','Proyectos georreferenciados',geocoded,'Sin puntos de obra validados','blue'),
  makeKpi('▤','Inversión total',budgets.length?millions(total):'Sin dato','Suma de '+budgets.length+' filas; puede duplicar','green'),
  makeKpi('◧','Cobertura territorial',ratio===null?'—':ratio+' %','Veredas mencionadas / '+count,'green'),
- makeKpi('♣','Veredas intervenidas',recognized.size,'Mencionadas, no verificadas','green'),
+ makeKpi('♣','Veredas mencionadas',recognized.size,'Mencionadas, no verificadas','green'),
  makeKpi('▣','Contratos activos',current,'Con estado textual «en ejecución»','blue'),
  makeKpi('▧','Evidencias geolocalizadas',0,'Fotos sin ubicación verificada'+(photos?'; '+photos+' enlaces':'') ,'blue')
  ].join(''));
@@ -259,7 +252,7 @@ function selectVereda(name){
 function selectRecord(id,focus=true){
  const chosen=visible.find(r=>Number(r.excelRow)===Number(id))||base.find(r=>Number(r.excelRow)===Number(id));
  if(!chosen)return;
- state.selectedRow=Number(chosen.excelRow);state.photo=0;
+ state.selectedRow=Number(chosen.excelRow);summary.selectRow(state.selectedRow);state.photo=0;
  if(state.vereda!=='all'&&!placeKeys(chosen).includes(state.vereda))state.vereda='all';
  if(state.category!=='all'&&category(chosen)!==state.category)state.category='all';
  state.search='';q('[data-ti42m-search]').value='';
@@ -518,6 +511,7 @@ panel.addEventListener('click',event=>{
  if(!event.target.closest('.ti42m-map-search'))q('[data-ti42m-suggestions]').hidden=true;
 });
 summary.onChange(snapshot=>{
+ state.selectedRow=snapshot.selectedRow;
  rows=snapshot.rows||[];shared=snapshot.state||{};loaded=!!snapshot.loaded;loadError=snapshot.error||null;
  if(loaded){refresh();if(!panel.hidden)viewIfActive();}else if(!panel.hidden)refresh();
 });
