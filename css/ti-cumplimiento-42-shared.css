@@ -1,6 +1,7 @@
 /* Common frame owns navigation, filters and scale. View styles own panel contents only. */
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])){background:#edf3fa}
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) main{min-width:0}
+.app-view[data-view="cumplimiento"]:has(#cumplimiento-proyectos:not([hidden])){padding-bottom:0!important;background:#edf3fa!important}
 #cumplimiento-proyectos{--uc-blue:#075ca9;--uc-ink:#133a66;--uc-line:#d5e3f1;--uc-green:#0a9a6b;font-family:Poppins,Arial,sans-serif}
 #cumplimiento-proyectos .ti42-frame{display:grid;grid-template-columns:142px minmax(0,1fr);grid-template-rows:auto 1fr;width:100%;min-width:0;max-width:1800px;margin:auto;background:#edf4fb}
 #cumplimiento-proyectos .ti42-masthead{grid-column:1/-1;display:grid;grid-template-columns:230px minmax(0,1fr) 230px;align-items:center;gap:18px;min-height:76px;background:white;border-bottom:1px solid var(--uc-line);padding:0 16px;color:var(--uc-ink)}
@@ -81,7 +82,7 @@ body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not(
 /* Only the open module compacts the site footer and removes the hidden assistant's shadow. */
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden]))>footer{padding:20px 24px!important;background:#e4edf7!important;color:#345878!important;min-height:0}
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden]))>footer .footer-grid{display:none}
-body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden]))>footer .credits{margin:0 auto;padding:0;border:0;color:#45647f}
+body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden]))>footer .credits{margin:0 auto;padding:0;border:0;color:#45647f!important}
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .assistant-panel:not(.open){box-shadow:none;visibility:hidden}
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .assistant-launch{position:static;display:block;width:max-content;margin:10px 12px 12px auto;background:#075fae!important;color:white!important;border-radius:22px;padding:10px 14px;font-size:10px;box-shadow:none}
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu{background:#fff!important;color:#1b4672!important;padding:5px!important;box-shadow:0 8px 20px #14385724!important;border:1px solid #d5e2ef!important;border-radius:5px!important}
