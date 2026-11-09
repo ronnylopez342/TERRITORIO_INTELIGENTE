@@ -74,6 +74,8 @@ body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not(
 #cumplimiento-proyectos .ti42 footer{background:transparent;color:#526f8c;min-height:0;padding:8px 0;margin:0;border-top:1px solid var(--uc-line);font-size:10px;line-height:1.5}
 #cumplimiento-proyectos .ti42-source-warning{padding:10px;margin-top:8px;background:#fff7e8;border:1px solid #efd5a5;border-radius:4px;color:#82550d;font-size:11px;line-height:1.55}
 #cumplimiento-proyectos .ti42-source-note{font-size:11px;line-height:1.55;color:#4e6e8b}
+#cumplimiento-proyectos .ti42r-charts:has(.ti42r-empty-row)>.ti42r-card{height:auto;min-height:110px}
+#cumplimiento-proyectos .ti42i-charts:has(.ti42i-no-data)>.ti42i-card{height:auto;min-height:110px}
 #cumplimiento-proyectos :is(button,input,select,a):focus-visible{outline:3px solid #e19f19!important;outline-offset:2px}
 #cumplimiento-proyectos .ti42g-project-subtabs button{font:inherit;background:transparent;color:#225e99;border:0;cursor:pointer;padding:6px}
 /* Only the open module compacts the site footer and removes the hidden assistant's shadow. */

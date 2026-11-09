@@ -29,6 +29,8 @@
     const view=projects.state.view;
     const title=tabs.find(tab=>tab.dataset.ti42View===view)?.textContent||'Resumen';
     if(viewTitle.textContent!==title)viewTitle.textContent=title;
+    const hideTitle=['proyectos','contratos','financiera'].includes(view);
+    if(viewTitle.hidden!==hideTitle)viewTitle.hidden=hideTitle;
     for(const button of side.querySelectorAll('button')){
       const current=button.dataset.ti42Side===view;
       if(current&&button.getAttribute('aria-current')!=='page')button.setAttribute('aria-current','page');
