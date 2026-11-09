@@ -51,7 +51,7 @@
       <button type="button" role="tab" aria-selected="false" data-ti42-view="mapa" class="ti42-tab">Mapa</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="evidencias" class="ti42-tab">Evidencias</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="indicadores" class="ti42-tab">Indicadores</button>
-      <span class="ti42-tab is-pending" title="Pendiente de implementación">Riesgos</span>
+      <button type="button" role="tab" aria-selected="false" data-ti42-view="riesgos" class="ti42-tab">Riesgos</button>
       <span class="ti42-tab is-pending" title="Pendiente de implementación">Documentos</span>
     </nav>
     <div data-ti42-resumen-content>

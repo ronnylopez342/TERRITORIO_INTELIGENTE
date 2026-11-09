@@ -38,7 +38,7 @@ try{
    for(const key of ['view','vereda','phase','sort','page','pageSize','selectedRow','detailTab'])if(Object.prototype.hasOwnProperty.call(previous,key))state[key]=previous[key];
  }
 }catch{}
-if(!['resumen','proyectos','contratos','financiera','cronograma','mapa','evidencias','indicadores'].includes(state.view))state.view='resumen';
+if(!['resumen','proyectos','contratos','financiera','cronograma','mapa','evidencias','indicadores','riesgos'].includes(state.view))state.view='resumen';
 if(!['file','name','year','budget'].includes(state.sort))state.sort='file';
 if(!['informacion','localizacion','contratos','ejecucion','evidencias','indicadores'].includes(state.detailTab))state.detailTab='informacion';
 state.pageSize=[10,20,50].includes(Number(state.pageSize))?Number(state.pageSize):10;
@@ -121,8 +121,8 @@ const set=(s,html)=>{const el=q(s);if(el)el.innerHTML=html;};
 const txt=(s,text)=>{const el=q(s);if(el)el.textContent=String(text??'');};
 const keep=()=>{try{localStorage.setItem(STORE,JSON.stringify(state));}catch{}};
 function setView(view){
- state.view=['resumen','proyectos','contratos','financiera','cronograma','mapa','evidencias','indicadores'].includes(view)?view:'resumen';
- const projects=state.view==='proyectos',contracts=state.view==='contratos',finances=state.view==='financiera',chrono=state.view==='cronograma',mapMode=state.view==='mapa',evidenceMode=state.view==='evidencias',indicatorsMode=state.view==='indicadores';
+ state.view=['resumen','proyectos','contratos','financiera','cronograma','mapa','evidencias','indicadores','riesgos'].includes(view)?view:'resumen';
+ const projects=state.view==='proyectos',contracts=state.view==='contratos',finances=state.view==='financiera',chrono=state.view==='cronograma',mapMode=state.view==='mapa',evidenceMode=state.view==='evidencias',indicatorsMode=state.view==='indicadores',risksMode=state.view==='riesgos';
  const hadSummaryHidden=summary.hidden;
  const contractPanel=shell.querySelector('[data-ti42-contratos-root]');
  const financePanel=shell.querySelector('[data-ti42-financiera-root]');
@@ -133,8 +133,12 @@ function setView(view){
  const evidencePanel=shell.querySelector('[data-ti42-evidencias-root]');
  const indicatorsHead=shell.querySelector('[data-ti42i-head]');
  const indicatorsPanel=shell.querySelector('[data-ti42i-root]');
+ const risksHead=shell.querySelector('[data-ti42r-header]');
+ const risksPanel=shell.querySelector('[data-ti42r-root]');
  panel.hidden=!projects;
- summary.hidden=projects||contracts||finances||chrono||mapMode||evidenceMode||indicatorsMode;
+ summary.hidden=projects||contracts||finances||chrono||mapMode||evidenceMode||indicatorsMode||risksMode;
+ if(risksHead)risksHead.hidden=!risksMode;
+ if(risksPanel)risksPanel.hidden=!risksMode;
  if(indicatorsHead)indicatorsHead.hidden=!indicatorsMode;
  if(indicatorsPanel)indicatorsPanel.hidden=!indicatorsMode;
  if(evidenceHead)evidenceHead.hidden=!evidenceMode;
@@ -146,9 +150,10 @@ function setView(view){
  shell.classList.toggle('is-map-view',mapMode);
  shell.classList.toggle('is-evidence-view',evidenceMode);
  shell.classList.toggle('is-indicators-view',indicatorsMode);
+ shell.classList.toggle('is-risks-view',risksMode);
  if(contractPanel)contractPanel.hidden=!contracts;
  if(financePanel)financePanel.hidden=!finances;
- shell.classList.toggle('ti42-projects-active',projects||contracts||finances||chrono||mapMode||evidenceMode||indicatorsMode);
+ shell.classList.toggle('ti42-projects-active',projects||contracts||finances||chrono||mapMode||evidenceMode||indicatorsMode||risksMode);
  tabs.querySelectorAll('[data-ti42-view]').forEach(tab=>{
    const chosen=tab.dataset.ti42View===state.view;
    tab.classList.toggle('is-active',chosen);
@@ -162,6 +167,7 @@ function setView(view){
  else if(mapMode){window.TI42Mapa?.renderIfActive?.();}
  else if(evidenceMode){window.TI42Evidencias?.renderIfActive?.();}
  else if(indicatorsMode){window.TI42Indicadores?.renderIfActive?.();}
+ else if(risksMode){window.TI42Riesgos?.renderIfActive?.();}
  else if(hadSummaryHidden)requestAnimationFrame(()=>api.refreshMap?.());
 }
 function baseFilter(r){
@@ -262,6 +268,7 @@ function renderDetail(){
   +'<h4>Descripción del proyecto</h4><p class="ti42p-excerpt">'+known(x.description)+'</p>'
   +'<h4>Alcance consignado</h4><p class="ti42p-excerpt">'+known(x.scope)+'</p>'
   +'<div class="ti42p-note">'+safe(extraStatus)+' Los textos extensos se muestran abreviados; consulta el libro original para su contenido completo.</div>'
+  +'<button type="button" class="ti42p-evidence-link" data-ti42p-open-risks>Consultar riesgos registrados de este proyecto ↗</button>'
  );
  set('[data-ti42p-map-meta]','<dl class="ti42p-facts">'+[
  ['Localidad registrada',r.vereda],['Zona del municipio',x.zone],['Sector o dirección',x.address],
@@ -463,6 +470,7 @@ function openProject(rowNumber,detailTab='contratos'){
 panel.addEventListener('click',event=>{
  if(event.target.closest('[data-ti42p-open-global-evidences]')&&selected)window.TI42Evidencias?.openProject?.(selected.excelRow);
  if(event.target.closest('[data-ti42p-open-plan-indicators]')&&selected?.meta)window.TI42Indicadores?.openMeta?.(selected.meta);
+ if(event.target.closest('[data-ti42p-open-risks]')&&selected)window.TI42Riesgos?.openProject?.(selected.excelRow);
 });
 window.TI42Proyectos={
  openProject,

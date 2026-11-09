@@ -1,0 +1,34 @@
+{
+  "schema": "ti-uc42-risks-v1",
+  "source": "UNIDAD DE CUMPLIMIENTO(3).xlsx — hoja «Proyectos DEFINITIVO», dimensión 7: Riesgos y Alertas Tempranas",
+  "auditedDate": "2026-11-09",
+  "sourceUpdatedAt": null,
+  "auditedFields": {
+    "identifiedRisks": {
+      "column": 47,
+      "rowsWithValues": 0
+    },
+    "probability": {
+      "column": 48,
+      "rowsWithValues": 0
+    },
+    "impact": {
+      "column": 49,
+      "rowsWithValues": 0
+    },
+    "riskLevel": {
+      "column": 50,
+      "rowsWithValues": 0
+    },
+    "earlyAlerts": {
+      "column": 55,
+      "rowsWithValues": 0
+    },
+    "trafficLight": {
+      "column": 56,
+      "rowsWithValues": 0
+    }
+  },
+  "notes": "Los campos formales están vacíos. Observaciones, pólizas, anexos, atrasos contractuales y menciones de matrices no son riesgos identificados. No se cargan riesgos demostrativos. Nuevos registros requieren riskId, title, source, verified=true y relaciones exactas por projectExcelRow o projectExcelRows.",
+  "risks": []
+}
