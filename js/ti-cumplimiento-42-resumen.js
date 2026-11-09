@@ -52,7 +52,7 @@
       <button type="button" role="tab" aria-selected="false" data-ti42-view="evidencias" class="ti42-tab">Evidencias</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="indicadores" class="ti42-tab">Indicadores</button>
       <button type="button" role="tab" aria-selected="false" data-ti42-view="riesgos" class="ti42-tab">Riesgos</button>
-      <span class="ti42-tab is-pending" title="Pendiente de implementación">Documentos</span>
+      <button type="button" role="tab" aria-selected="false" data-ti42-view="documentos" class="ti42-tab">Documentos</button>
     </nav>
     <div data-ti42-resumen-content>
     <section class="ti42-overview" aria-label="Información y seguimiento de la meta">

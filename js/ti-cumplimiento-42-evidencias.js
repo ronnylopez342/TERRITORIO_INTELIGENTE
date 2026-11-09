@@ -294,7 +294,8 @@ function preview(){
  set('[data-ti42e-preview-actions]','<a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">↗ '+(r.mode==='reference'?'Abrir proceso SECOP':'Abrir archivo')+'</a>'+
  '<button type="button" data-ti42e-go-project="'+r.excelRow+'">Ver proyecto</button>'+
  (r.contract?'<button type="button" data-ti42e-go-contract="'+r.excelRow+'">Ver contrato</button>':'')+
- (r.vereda?'<button type="button" data-ti42e-go-map="'+r.excelRow+'">Ver referencia territorial</button>':''));
+ (r.vereda?'<button type="button" data-ti42e-go-map="'+r.excelRow+'">Ver referencia territorial</button>':'')+
+ '<button type="button" data-ti42e-go-documents="'+r.excelRow+'">Expediente del proyecto</button>');
  set('[data-ti42e-declared]',inspectDeclared(r.excelRow));
 }
 function render(){
@@ -344,6 +345,7 @@ panel.addEventListener('click',e=>{
  const pg=e.target.closest('[data-ti42e-page]');if(pg){state.page=Number(pg.dataset.ti42ePage);table();keep();return;}
  if(e.target.closest('[data-ti42e-apply]')){update();return;}
  if(e.target.closest('[data-ti42e-reset]')){reset();return;}
+ const documents=e.target.closest('[data-ti42e-go-documents]');if(documents){window.TI42Documentos?.openProject?.(Number(documents.dataset.ti42eGoDocuments));return;}
  const go=e.target.closest('[data-ti42e-go-project]');if(go){projects.openProject?.(go.dataset.ti42eGoProject,'evidencias');return;}
  const co=e.target.closest('[data-ti42e-go-contract]');if(co){window.TI42Contratos?.openContract?.(co.dataset.ti42eGoContract);return;}
  const map=e.target.closest('[data-ti42e-go-map]');if(map){projects.setView('mapa');window.TI42Mapa?.selectRecord?.(Number(map.dataset.ti42eGoMap),true);return;}
