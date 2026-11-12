@@ -65,6 +65,56 @@
 <link rel="stylesheet" href="css/ti-territory-evidence.css?v=20261108-layers-v1"/>
 <link rel="stylesheet" href="css/ti-header-nav-restore.css?v=20261108-nav-hotfix-v1"/>
 <link rel="stylesheet" href="css/ti-cumplimiento-42-shared.css?v=20261109-word-r3">
+<!-- Data Territorio embedded mode: opt-in only for Práctica País; ordinary portal unchanged. -->
+<script>
+(function () {
+  if (new URLSearchParams(window.location.search).get('embed') !== 'data') return;
+  document.documentElement.classList.add('ti-data-embed');
+  if (window.location.hash !== '#data') {
+    window.history.replaceState(null, '', window.location.pathname + window.location.search + '#data');
+  }
+})();
+</script>
+<style>
+html.ti-data-embed, html.ti-data-embed body { min-height:100%; }
+html.ti-data-embed .site-header,
+html.ti-data-embed #mobileMenu,
+html.ti-data-embed .skip-link,
+html.ti-data-embed body > footer,
+html.ti-data-embed .assistant-launch,
+html.ti-data-embed .assistant-panel,
+html.ti-data-embed .editor-panel,
+html.ti-data-embed .toast,
+html.ti-data-embed .app-view[data-view]:not([data-view="data"]) {
+  display:none !important;
+}
+html.ti-data-embed #mainContent {
+  padding-top:0 !important;
+  margin-top:0 !important;
+  min-height:0 !important;
+}
+html.ti-data-embed .app-view[data-view="data"] {
+  display:block !important;
+  margin:0 !important;
+  min-height:100vh;
+}
+html.ti-data-embed #dataSubnav {
+  display:flex !important;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:0 0 20px;
+  position:relative;
+  top:auto;
+  visibility:visible !important;
+}
+html.ti-data-embed #dataSubnav .module-tab {
+  cursor:pointer;
+}
+@media(max-width:720px) {
+  html.ti-data-embed #dataSubnav { display:grid !important; grid-template-columns:1fr 1fr; }
+  html.ti-data-embed #dataSubnav .module-tab { min-width:0; font-size:12px; }
+}
+</style>
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
