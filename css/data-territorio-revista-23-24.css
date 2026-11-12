@@ -49,9 +49,30 @@ html.ti-data-embed #data-encuesta .k23-hero{
 html.ti-data-embed #data-encuesta .k23-breadcrumb,
 html.ti-data-embed #data-encuesta .k23-tag{color:#344927!important}
 html.ti-data-embed #data-encuesta .k23-breadcrumb span{color:#b75032!important}
+html.ti-data-embed #data-encuesta .k23-hero-top {display:flex!important;gap:20px!important;align-items:flex-start!important;}
+html.ti-data-embed #data-encuesta .k23-hero-top > div:first-child {
+ flex:1 1 auto!important;min-width:0!important;width:100%!important;
+}
 html.ti-data-embed #data-encuesta #k23-main-title{
- color:#183b29!important;font:700 clamp(48px,5.4vw,87px)/.9 'Cormorant Garamond',Georgia,serif!important;
- max-width:850px!important;letter-spacing:-.04em!important;
+ color:#183b29!important;
+ font:700 clamp(32px,4.1vw,64px)/1.03 'Cormorant Garamond',Georgia,serif!important;
+ max-width:100%!important;letter-spacing:-.035em!important;
+ overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important;
+ text-wrap:balance!important;white-space:normal!important;
+}
+html.ti-data-embed #data-encuesta #k23-main-title .k23-title-line {
+ display:block!important;white-space:nowrap!important;overflow-wrap:normal!important;
+}
+@media(max-width:900px) {
+ html.ti-data-embed #data-encuesta .k23-emblem {display:none!important}
+}
+@media(max-width:600px) {
+ html.ti-data-embed #data-encuesta #k23-main-title {
+  font-size:clamp(27px,7.4vw,42px)!important;letter-spacing:-.04em!important;
+ }
+ html.ti-data-embed #data-encuesta #k23-main-title .k23-title-line {
+  white-space:normal!important;word-break:normal!important;overflow-wrap:normal!important;
+ }
 }
 html.ti-data-embed #data-encuesta .k23-hero-lead{
  color:#263a2b!important;font-size:clamp(16px,1.35vw,21px)!important;max-width:830px!important;
