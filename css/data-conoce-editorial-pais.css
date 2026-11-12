@@ -1,0 +1,261 @@
+/*
+ * Práctica País / revista editorial de Data Territorio 2.1
+ * Scope: exclusivamente ?embed=data, #data-conoce.
+ * Las demás vistas y el portal independiente conservan su apariencia.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+html.ti-data-embed #data-conoce.ti-conoce{
+  --editorial-cream:#f6f0e4;--editorial-ink:#172419;
+  --editorial-green:#344927;--editorial-forest:#183b29;
+  --editorial-rust:#b75032;--editorial-gold:#e8af25;
+  --editorial-line:#c8b89c;
+  background:var(--editorial-cream)!important;
+  color:var(--editorial-ink)!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:clamp(15px,1.14vw,18px)!important;
+  line-height:1.55!important;
+  overflow:visible!important;
+}
+html.ti-data-embed #data-conoce :is(h1,h2,h3){
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  color:var(--editorial-ink)!important;
+  letter-spacing:-.035em!important;
+  line-height:1.01!important;
+  font-weight:700!important;
+}
+html.ti-data-embed #data-conoce p {line-height:1.55!important}
+html.ti-data-embed .app-view[data-view="data"]:has(#data-conoce:not([hidden]))>.view-body {background:var(--editorial-cream)!important}
+html.ti-data-embed #data-conoce .cn-hero{
+  display:grid!important;grid-template-columns:46% 54%!important;
+  min-height:clamp(650px,77vh,900px)!important;height:auto!important;
+  background:var(--editorial-cream)!important;
+  border:0!important;overflow:visible!important;isolation:isolate;
+}
+html.ti-data-embed #data-conoce .cn-photo{
+  position:relative!important;inset:auto!important;grid-column:2;grid-row:1;
+  background:linear-gradient(90deg,rgba(246,240,228,.15),transparent 20%),
+    url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+  min-height:580px!important;
+  clip-path:polygon(8% 0,100% 0,100% 100%,0 100%,5% 68%,0 38%)!important;
+}
+html.ti-data-embed #data-conoce .cn-hero-copy{
+  position:relative!important;grid-column:1;grid-row:1;z-index:1;
+  padding:clamp(56px,6vw,112px) clamp(25px,4.4vw,90px)!important;
+  width:100%!important;height:auto!important;
+  background:transparent!important;
+  display:flex;flex-direction:column;justify-content:center;gap:clamp(16px,1.7vw,26px);
+}
+html.ti-data-embed #data-conoce .cn-breadcrumb{
+  font-family:'DM Sans',sans-serif!important;font-size:clamp(11px,.85vw,14px)!important;
+  letter-spacing:.24em!important;font-weight:700!important;text-transform:uppercase!important;
+  color:var(--editorial-green)!important;margin:0!important;
+}
+html.ti-data-embed #data-conoce #cn-title{
+  font-size:clamp(76px,9vw,160px)!important;line-height:.82!important;
+  font-weight:600!important;letter-spacing:-.065em!important;
+  margin:0!important;color:var(--editorial-ink)!important;
+  text-wrap:balance;overflow-wrap:normal;
+}
+html.ti-data-embed #data-conoce #cn-title em{display:block;color:var(--editorial-green);font-weight:600}
+html.ti-data-embed #data-conoce #dataDefinition{
+  max-width:600px!important;color:var(--editorial-ink)!important;
+  font-size:clamp(19px,1.7vw,27px)!important;line-height:1.42!important;margin:0!important;
+}
+html.ti-data-embed #data-conoce .cn-scope{font-size:clamp(12px,1vw,16px)!important;color:var(--editorial-green)!important;white-space:normal!important;letter-spacing:.08em!important;margin:0!important}
+html.ti-data-embed #data-conoce .cn-rule{background:var(--editorial-rust)!important;width:90px!important;height:4px!important;margin:2px 0!important}
+html.ti-data-embed #data-conoce .cn-importance{font:italic 600 clamp(19px,1.7vw,26px)/1.3 'Cormorant Garamond',Georgia,serif!important;max-width:600px!important;color:var(--editorial-green)!important}
+html.ti-data-embed #data-conoce .cn-photo-caption{color:#f7f2e7!important;text-shadow:0 2px 5px #000!important;font-size:12px!important}
+html.ti-data-embed #data-conoce .cn-video-section{
+  display:grid!important;grid-template-columns:minmax(260px,37%) minmax(0,1fr)!important;
+  grid-template-rows:auto 1fr;column-gap:clamp(32px,5.5vw,100px);
+  align-items:center;padding:clamp(82px,8vw,142px) clamp(28px,5.2vw,104px)!important;
+  background:var(--editorial-cream)!important;
+  border:0!important;border-top:1px solid var(--editorial-line)!important;
+  min-height:clamp(650px,85vh,990px)!important;
+}
+html.ti-data-embed #data-conoce .cn-video-section h2{
+  grid-column:1!important;grid-row:1!important;
+  font-size:clamp(52px,5.65vw,110px)!important;max-width:570px;
+}
+html.ti-data-embed #data-conoce .cn-video-section>p{
+  grid-column:1!important;grid-row:2!important;align-self:start;
+  font-size:clamp(18px,1.6vw,25px)!important;line-height:1.5!important;
+  margin:26px 0!important;max-width:460px!important;
+}
+html.ti-data-embed #data-conoce .cn-video-placeholder{
+  grid-column:2!important;grid-row:1/3!important;
+  width:100%!important;min-height:420px!important;aspect-ratio:16/9!important;
+  background:linear-gradient(0deg,rgba(20,42,24,.5),rgba(20,42,24,.04)),
+    url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+  border:0!important;border-radius:24px!important;box-shadow:0 17px 38px #362d1b36!important;
+  color:#fff!important;padding:24px;text-align:center;
+}
+html.ti-data-embed #data-conoce .cn-video-placeholder .cn-play{
+  background:rgba(246,240,228,.93)!important;color:var(--editorial-green)!important;
+  width:clamp(70px,7vw,116px)!important;height:clamp(70px,7vw,116px)!important;
+  font-size:clamp(28px,3vw,46px)!important;
+}
+html.ti-data-embed #data-conoce .cn-video-placeholder :is(strong,span:last-child){
+  color:white!important;font-size:clamp(13px,1.1vw,18px)!important;
+  text-shadow:0 2px 4px #000!important;
+}
+html.ti-data-embed #data-conoce .cn-process{
+  display:block!important;min-height:500px!important;
+  padding:clamp(80px,8vw,140px) clamp(28px,5.2vw,104px)!important;
+  background:var(--editorial-cream)!important;
+  border-block:1px solid var(--editorial-line)!important;
+}
+html.ti-data-embed #data-conoce .cn-process h2{font-size:clamp(56px,6.3vw,112px)!important;font-style:italic!important}
+html.ti-data-embed #data-conoce .cn-process>div>p{font-size:clamp(18px,1.55vw,24px)!important;max-width:780px!important;margin:20px 0 48px!important}
+html.ti-data-embed #data-conoce .cn-process ol{gap:clamp(12px,2vw,32px)!important}
+html.ti-data-embed #data-conoce .cn-process li{font-size:clamp(12px,1.35vw,21px)!important;gap:16px!important}
+html.ti-data-embed #data-conoce .cn-step-icon{
+  width:clamp(65px,6.5vw,112px)!important;height:clamp(65px,6.5vw,112px)!important;
+  background:#899775!important;border:0!important;color:var(--editorial-ink)!important;
+}
+html.ti-data-embed #data-conoce .cn-process li:nth-child(3n) .cn-step-icon{background:var(--editorial-rust)!important}
+html.ti-data-embed #data-conoce .cn-process li:nth-child(2n) .cn-step-icon{background:#e7d5b5!important}
+html.ti-data-embed #data-conoce .cn-step-icon svg{width:48%!important;height:48%!important;color:#1d3428!important}
+html.ti-data-embed #data-conoce .cn-process li:nth-child(3n) .cn-step-icon svg{color:#fff!important}
+html.ti-data-embed #data-conoce .cn-process li+li::before{top:clamp(25px,2.2vw,43px)!important;color:var(--editorial-green)!important;left:-24px!important;font-size:clamp(24px,2.5vw,38px)!important}
+html.ti-data-embed #data-conoce .cn-process .cn-levels{
+  margin:48px auto 0!important;max-width:890px!important;
+  background:#dde0c8!important;color:var(--editorial-green)!important;
+  padding:20px!important;font:600 clamp(18px,2vw,29px)/1.2 'Cormorant Garamond',serif!important;
+}
+html.ti-data-embed #data-conoce .cn-pet{
+  --cn-pet-yellow:#e8af25;--cn-pet-line:#c8b89c;
+  padding:clamp(90px,8vw,150px) clamp(28px,5.2vw,104px)!important;
+  color:var(--editorial-ink)!important;background:var(--editorial-cream)!important;
+  font-family:'DM Sans',Arial,sans-serif!important;border-color:var(--editorial-line)!important;
+}
+html.ti-data-embed #data-conoce .cn-pet-top{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)!important;gap:clamp(40px,5vw,85px)!important;align-items:center!important}
+html.ti-data-embed #data-conoce #cn-pet-title{
+  color:var(--editorial-ink)!important;font-size:clamp(54px,5.8vw,104px)!important;
+  line-height:.98!important;font-weight:700!important;
+}
+html.ti-data-embed #data-conoce .cn-pet-lead{font-size:clamp(19px,1.55vw,24px)!important;line-height:1.5!important;margin:30px 0!important}
+html.ti-data-embed #data-conoce .cn-pet-description{color:#5a554b!important;font-size:clamp(16px,1.2vw,19px)!important;line-height:1.55!important}
+html.ti-data-embed #data-conoce .cn-pet-document{
+  background:transparent!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;grid-template-columns:41% 59%!important;
+  min-height:460px!important;align-items:center!important;padding:10px!important;
+  gap:clamp(20px,2.5vw,44px)!important;
+}
+html.ti-data-embed #data-conoce .cn-pet-cover{
+  min-height:clamp(350px,33vw,520px)!important;max-height:none!important;
+  transform:rotate(-4deg);box-shadow:10px 15px 24px #34271945!important;
+}
+html.ti-data-embed #data-conoce .cn-pet-document-info :is(h3,p,small){color:var(--editorial-ink)!important}
+html.ti-data-embed #data-conoce .cn-pet-document-info h3{font:700 clamp(30px,2.8vw,48px)/1.05 'Cormorant Garamond',serif!important}
+html.ti-data-embed #data-conoce .cn-pet-document-info p{font-size:clamp(15px,1.12vw,19px)!important;line-height:1.55!important}
+html.ti-data-embed #data-conoce .cn-pet-document-button{
+  min-height:52px!important;font-size:clamp(13px,1.02vw,17px)!important;
+  border-radius:7px!important;gap:16px!important;padding:13px 16px!important;
+}
+html.ti-data-embed #data-conoce .cn-pet-document-open{background:var(--editorial-gold)!important;color:var(--editorial-ink)!important;border-color:var(--editorial-gold)!important}
+html.ti-data-embed #data-conoce .cn-pet-document-download{color:var(--editorial-ink)!important;border-color:var(--editorial-green)!important}
+html.ti-data-embed #data-conoce .cn-pet-document-button svg{width:21px!important;height:21px!important}
+html.ti-data-embed #data-conoce .cn-pet-stats{margin-top:clamp(65px,6vw,110px)!important}
+html.ti-data-embed #data-conoce .cn-pet-stats,
+html.ti-data-embed #data-conoce .cn-pet-cards{gap:clamp(14px,1.4vw,26px)!important}
+html.ti-data-embed #data-conoce .cn-pet-stat,
+html.ti-data-embed #data-conoce .cn-pet-card{
+  border:1px solid #d2bea0!important;background:#f9f4e9!important;
+  border-radius:18px!important;color:var(--editorial-ink)!important;
+  box-shadow:none!important;
+}
+html.ti-data-embed #data-conoce .cn-pet-stat{padding:clamp(22px,2vw,36px)!important;min-height:230px!important;grid-template-columns:70px 1fr!important}
+html.ti-data-embed #data-conoce .cn-pet-icon{
+  width:64px!important;height:64px!important;background:#8b9b79!important;
+  border-color:#8b9b79!important;color:white!important;
+}
+html.ti-data-embed #data-conoce .cn-pet-stat:nth-child(even) .cn-pet-icon{background:var(--editorial-rust)!important}
+html.ti-data-embed #data-conoce .cn-pet-stat-title strong{color:var(--editorial-green)!important;font:700 clamp(49px,4vw,73px)/.9 'Cormorant Garamond',serif!important}
+html.ti-data-embed #data-conoce .cn-pet-stat-title b{font-size:clamp(15px,1.2vw,19px)!important}
+html.ti-data-embed #data-conoce .cn-pet-stat>p,
+html.ti-data-embed #data-conoce .cn-pet-card p{color:#554f45!important;line-height:1.5!important}
+html.ti-data-embed #data-conoce .cn-pet-card{min-height:280px!important;padding:clamp(24px,2.1vw,36px)!important}
+html.ti-data-embed #data-conoce .cn-pet-card h3{font-size:clamp(30px,2.4vw,42px)!important;margin:18px 0!important}
+html.ti-data-embed #data-conoce .cn-pet-more{color:var(--editorial-green)!important;font-weight:700!important}
+html.ti-data-embed #data-conoce .cn-pet-more-arrow{border-color:var(--editorial-green)!important}
+html.ti-data-embed #data-conoce .cn-pubs{
+  --pb-bg:#f6f0e4;--pb-panel:#f9f4e9;--pb-line:#c8b89c;--pb-yellow:#e8af25;--pb-soft:#5a554b;
+  padding:clamp(90px,8vw,144px) clamp(28px,5.2vw,104px)!important;
+  background:var(--editorial-cream)!important;border-top:1px solid var(--editorial-line)!important;
+  color:var(--editorial-ink)!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+}
+html.ti-data-embed #data-conoce .cn-pubs-intro::before{opacity:.13!important}
+html.ti-data-embed #data-conoce .cn-pubs-intro::after{background:transparent!important}
+html.ti-data-embed #data-conoce .cn-pubs-intro{min-height:220px!important}
+html.ti-data-embed #data-conoce .cn-pubs-eyebrow,
+html.ti-data-embed #data-conoce .cn-pubs-eyebrow span{color:var(--editorial-green)!important}
+html.ti-data-embed #data-conoce #cn-pubs-title{
+  font:700 clamp(62px,6vw,116px)/.96 'Cormorant Garamond',serif!important;
+  color:var(--editorial-green)!important;
+}
+html.ti-data-embed #data-conoce .cn-pubs-lead{font-size:clamp(17px,1.5vw,24px)!important;color:var(--editorial-ink)!important;max-width:800px}
+html.ti-data-embed #data-conoce .cn-pubs-filter{
+  color:var(--editorial-green)!important;border-color:#7a8a6e!important;
+  background:#f9f4e9!important;font-size:clamp(12px,.9vw,15px)!important;
+}
+html.ti-data-embed #data-conoce .cn-pubs-filter[aria-pressed="true"]{background:var(--editorial-green)!important;color:white!important}
+html.ti-data-embed #data-conoce .cn-pubs-search{background:#fffaf1!important;border-color:#c1ae8e!important}
+html.ti-data-embed #data-conoce .cn-pubs-search input{color:var(--editorial-ink)!important}
+html.ti-data-embed #data-conoce .cn-pubs-search input::placeholder{color:#736d5f!important}
+html.ti-data-embed #data-conoce .cn-pubs-search svg{stroke:var(--editorial-green)!important}
+html.ti-data-embed #data-conoce .cn-pubs-feature,
+html.ti-data-embed #data-conoce .cn-pubs-stat,
+html.ti-data-embed #data-conoce .cn-pubs-card{
+  background:#fbf5e9!important;color:var(--editorial-ink)!important;
+  border-color:#d1bda0!important;box-shadow:none!important;
+}
+html.ti-data-embed #data-conoce .cn-pubs-feature::after{display:none!important}
+html.ti-data-embed #data-conoce .cn-pubs-feature{min-height:405px!important;padding:clamp(20px,2.6vw,43px)!important;gap:clamp(16px,2.4vw,40px)!important}
+html.ti-data-embed #data-conoce .cn-pubs-feature-copy :is(h3,h4){color:var(--editorial-ink)!important;font-family:'Cormorant Garamond',Georgia,serif!important}
+html.ti-data-embed #data-conoce .cn-pubs-feature-copy :is(p,span,small){color:#403c32!important}
+html.ti-data-embed #data-conoce .cn-pubs-stat :is(strong,span,p){color:var(--editorial-ink)!important}
+html.ti-data-embed #data-conoce .cn-pubs-stat strong{font-family:'Cormorant Garamond',serif!important;font-size:clamp(44px,3vw,65px)!important}
+html.ti-data-embed #data-conoce .cn-pubs-stat-icon{background:#738967!important;color:#fff!important}
+html.ti-data-embed #data-conoce .cn-pubs-section-heading h3{font:700 clamp(40px,3.4vw,66px)/1 'Cormorant Garamond',serif!important;color:var(--editorial-ink)!important}
+html.ti-data-embed #data-conoce .cn-pubs-card :is(h3,p,span){color:var(--editorial-ink)!important}
+html.ti-data-embed #data-conoce .cn-pubs-section-heading button,
+html.ti-data-embed #data-conoce .cn-pubs-bottom button{color:var(--editorial-green)!important}
+html.ti-data-embed #data-conoce .cn-pubs-bottom p{color:#615c50!important}
+@media (max-width:1050px){
+ html.ti-data-embed #data-conoce .cn-hero{grid-template-columns:1fr 1fr!important;min-height:650px!important}
+ html.ti-data-embed #data-conoce #cn-title{font-size:clamp(65px,8.5vw,110px)!important}
+ html.ti-data-embed #data-conoce .cn-pet-top{grid-template-columns:1fr!important}
+ html.ti-data-embed #data-conoce .cn-pet-document{max-width:900px!important}
+ html.ti-data-embed #data-conoce .cn-pet-stats,
+ html.ti-data-embed #data-conoce .cn-pet-cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:720px){
+ html.ti-data-embed #data-conoce .cn-hero{display:flex!important;flex-direction:column!important;min-height:0!important}
+ html.ti-data-embed #data-conoce .cn-hero-copy{order:1;padding:56px 24px!important}
+ html.ti-data-embed #data-conoce .cn-photo{order:2;width:100%!important;min-height:330px!important;clip-path:none!important}
+ html.ti-data-embed #data-conoce #cn-title{font-size:clamp(62px,14vw,110px)!important}
+ html.ti-data-embed #data-conoce .cn-photo-caption{bottom:14px!important;right:14px!important}
+ html.ti-data-embed #data-conoce .cn-video-section{display:block!important;min-height:0!important;padding:72px 24px!important}
+ html.ti-data-embed #data-conoce .cn-video-section h2{font-size:clamp(46px,10vw,70px)!important}
+ html.ti-data-embed #data-conoce .cn-video-section>p{margin:22px 0 28px!important}
+ html.ti-data-embed #data-conoce .cn-video-placeholder{min-height:260px!important;aspect-ratio:16/9!important}
+ html.ti-data-embed #data-conoce .cn-process{padding:76px 24px!important}
+ html.ti-data-embed #data-conoce .cn-process h2{font-size:clamp(47px,9vw,75px)!important}
+ html.ti-data-embed #data-conoce .cn-process ol{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px!important}
+ html.ti-data-embed #data-conoce .cn-process li+li::before{display:none!important}
+ html.ti-data-embed #data-conoce .cn-process .cn-levels{margin-top:35px!important}
+ html.ti-data-embed #data-conoce .cn-pet{padding:75px 24px!important}
+ html.ti-data-embed #data-conoce #cn-pet-title{font-size:clamp(46px,10vw,75px)!important}
+ html.ti-data-embed #data-conoce .cn-pet-document{grid-template-columns:1fr!important;gap:30px!important}
+ html.ti-data-embed #data-conoce .cn-pet-cover{max-width:290px!important;margin:15px auto!important;min-height:390px!important}
+ html.ti-data-embed #data-conoce .cn-pet-stats,
+ html.ti-data-embed #data-conoce .cn-pet-cards{grid-template-columns:1fr!important}
+ html.ti-data-embed #data-conoce .cn-pet-stat{min-height:175px!important}
+ html.ti-data-embed #data-conoce .cn-pubs{padding:75px 24px!important}
+ html.ti-data-embed #data-conoce #cn-pubs-title{font-size:clamp(53px,11vw,79px)!important}
+ html.ti-data-embed #data-conoce .cn-pubs-main{grid-template-columns:1fr!important}
+ html.ti-data-embed #data-conoce .cn-pubs-feature{min-height:370px!important}
+}
