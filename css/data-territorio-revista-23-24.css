@@ -1,0 +1,256 @@
+/* Revista Práctica País: navegación 2.1–2.4 y secciones 2.3 / 2.4.
+ * Solo para ?embed=data. No modifica datos, callbacks, el portal normal ni la API.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+html.ti-data-embed{--rev-paper:#f6f0e4;--rev-card:#fbf6ed;--rev-ink:#1a291e;--rev-forest:#183b29;--rev-olive:#344927;--rev-rust:#b75032;--rev-gold:#e8af25;--rev-line:#cabb9e}
+html.ti-data-embed #tiEmbedTabs{
+ background:#f6f0e4!important;border-bottom:1px solid #cabb9e!important;
+ box-shadow:none!important;gap:0!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+html.ti-data-embed #tiEmbedTabs button{
+ font:700 clamp(12px,1.35vw,21px)/1.1 'Cormorant Garamond',Georgia,serif!important;
+ color:#183b29!important;background:transparent!important;
+ border:0!important;border-right:1px solid #cabb9e!important;border-bottom:5px solid transparent!important;
+ padding:clamp(12px,1.5vw,23px) 9px!important;min-height:62px!important;
+ white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html.ti-data-embed #tiEmbedTabs button:last-child{border-right:0!important}
+html.ti-data-embed #tiEmbedTabs button[aria-selected="true"]{
+ background:linear-gradient(#344927,#183b29)!important;color:#fffaf0!important;
+ border-bottom:5px solid #e8af25!important;border-radius:7px 7px 0 0!important;
+}
+html.ti-data-embed #tiEmbedTabs button:focus-visible{outline:3px solid #b75032!important;outline-offset:-4px!important}
+html.ti-data-embed .app-view[data-view="data"]:has(#data-encuesta:not([hidden]))>.view-body,
+html.ti-data-embed .app-view[data-view="data"]:has(#data-explorando:not([hidden]))>.view-body{
+ background:#f6f0e4!important;color:#1a291e!important;padding:0!important;
+}
+html.ti-data-embed .app-view[data-view="data"]:has(#data-encuesta:not([hidden]))>.view-body>.inner,
+html.ti-data-embed .app-view[data-view="data"]:has(#data-explorando:not([hidden]))>.view-body>.inner{
+ max-width:none!important;width:100%!important;padding:0!important;margin:0!important;
+}
+/* 2.3 – KoBo: conservar todos los IDs y el comportamiento existente. */
+html.ti-data-embed #data-encuesta{
+ --k23-deep:#183b29;--k23-mid:#344927;--k23-gold:#e8af25;
+ --k23-ink:#1a291e;--k23-line:#cabb9e;--k23-muted:#5c6254;
+ --k23-sky:#889776;--k23-paper:#f6f0e4;
+ background:#f6f0e4!important;color:#1a291e!important;
+ font:400 15px/1.5 'DM Sans',Arial,sans-serif!important;overflow:visible!important;
+}
+html.ti-data-embed #data-encuesta :is(h1,h2,h3,h4),
+html.ti-data-embed #data-explorando :is(h1,h2,h3,h4){
+ font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:700!important;
+ color:#183b29!important;letter-spacing:-.025em!important;line-height:1.05!important;
+}
+html.ti-data-embed #data-encuesta .k23-hero{
+ background:#f6f0e4!important;color:#1a291e!important;
+ border-bottom:1px solid #cabb9e!important;
+ padding:clamp(26px,3.4vw,55px) 0 25px!important;
+}
+html.ti-data-embed #data-encuesta .k23-breadcrumb,
+html.ti-data-embed #data-encuesta .k23-tag{color:#344927!important}
+html.ti-data-embed #data-encuesta .k23-breadcrumb span{color:#b75032!important}
+html.ti-data-embed #data-encuesta #k23-main-title{
+ color:#183b29!important;font:700 clamp(48px,5.4vw,87px)/.9 'Cormorant Garamond',Georgia,serif!important;
+ max-width:850px!important;letter-spacing:-.04em!important;
+}
+html.ti-data-embed #data-encuesta .k23-hero-lead{
+ color:#263a2b!important;font-size:clamp(16px,1.35vw,21px)!important;max-width:830px!important;
+}
+html.ti-data-embed #data-encuesta .k23-count-note{color:#455a49!important}
+html.ti-data-embed #data-encuesta .k23-count-note strong{color:#183b29!important}
+html.ti-data-embed #data-encuesta .k23-count-note i{background:#b75032!important}
+html.ti-data-embed #data-encuesta .k23-emblem{
+ border-color:#9aa887!important;background:#e0e4d2!important;
+ box-shadow:inset 0 0 0 12px #cbd5bb!important;color:#344927!important;
+}
+html.ti-data-embed #data-encuesta .k23-emblem span{color:#b75032!important}
+html.ti-data-embed #data-encuesta .ti-intro-video{
+ display:grid!important;grid-template-columns:35% minmax(0,1fr)!important;
+ align-items:center!important;gap:clamp(18px,3vw,50px)!important;
+ padding:clamp(20px,3vw,42px) 0!important;margin:12px 0!important;
+ background:transparent!important;border:0!important;border-top:1px solid #cabb9e!important;
+}
+html.ti-data-embed #data-encuesta .ti-video-copy :is(h2,p){color:#1a291e!important}
+html.ti-data-embed #data-encuesta .ti-video-copy h2{
+ font:700 clamp(40px,3.5vw,62px)/.95 'Cormorant Garamond',Georgia,serif!important;
+}
+html.ti-data-embed #data-encuesta .ti-video-placeholder{
+ min-height:0!important;aspect-ratio:16/9!important;border-radius:14px!important;
+ background:linear-gradient(#183b2922,#183b2966),url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+}
+html.ti-data-embed #data-encuesta .ti-video-placeholder .ti-video-play{display:none!important}
+html.ti-data-embed #data-encuesta .ti-video-status{
+ color:white!important;background:#183b29c9!important;padding:8px 14px!important;
+ border-radius:5px!important;text-shadow:none!important;
+}
+html.ti-data-embed #data-encuesta .k23-dim-section{margin-top:18px!important}
+html.ti-data-embed #data-encuesta .k23-overline{color:#344927!important}
+html.ti-data-embed #data-encuesta .k23-dims{gap:10px!important}
+html.ti-data-embed #data-encuesta .k23-dim{
+ background:#fbf6ed!important;color:#183b29!important;border:1px solid #cabb9e!important;
+ border-radius:12px!important;min-height:85px!important;box-shadow:none!important;
+}
+html.ti-data-embed #data-encuesta .k23-dim:hover{background:#f2e8d5!important}
+html.ti-data-embed #data-encuesta .k23-dim.active{background:#f1cf79!important;color:#183b29!important;border-color:#e8af25!important}
+html.ti-data-embed #data-encuesta .k23-dim-index,
+html.ti-data-embed #data-encuesta .k23-dim.active .k23-dim-index{color:#b75032!important}
+html.ti-data-embed #data-encuesta .k23-dim-copy :is(strong,small),
+html.ti-data-embed #data-encuesta .k23-dim.active .k23-dim-copy small{color:#183b29!important}
+html.ti-data-embed #data-encuesta .k23-dim-copy strong{font:700 clamp(18px,1.5vw,25px)/1 'Cormorant Garamond',Georgia,serif!important}
+html.ti-data-embed #data-encuesta .k23-dim-arrow{color:#344927!important}
+html.ti-data-embed #data-encuesta .k23-body{background:#f6f0e4!important;padding:25px 0 40px!important}
+html.ti-data-embed #data-encuesta #k23-heading{
+ font:italic 700 clamp(38px,3.5vw,60px)/1 'Cormorant Garamond',Georgia,serif!important;color:#183b29!important;
+}
+html.ti-data-embed #data-encuesta #k23-description,
+html.ti-data-embed #data-encuesta #k23-areas-label{color:#344927!important}
+html.ti-data-embed #data-encuesta .k23-areas{border-color:#cabb9e!important}
+html.ti-data-embed #data-encuesta .k23-area{
+ color:#344927!important;border:1px solid #cabb9e!important;background:#fbf6ed!important;
+}
+html.ti-data-embed #data-encuesta .k23-area.active{background:#f1cf79!important;border-color:#e8af25!important;color:#183b29!important}
+html.ti-data-embed #data-encuesta .k23-area:hover{background:#f7e5b8!important}
+html.ti-data-embed #data-encuesta .k23-workspace{
+ grid-template-columns:minmax(200px,.9fr) minmax(0,1.7fr) minmax(250px,1fr)!important;gap:12px!important;
+}
+html.ti-data-embed #data-encuesta :is(.k23-topics-panel,.k23-chart-panel,.k23-insight-panel){
+ background:#fbf6ed!important;color:#183b29!important;border:1px solid #cabb9e!important;
+ box-shadow:none!important;border-radius:13px!important;min-width:0!important;
+}
+html.ti-data-embed #data-encuesta #k23-topics-heading,
+html.ti-data-embed #data-encuesta #k23-topic-title,
+html.ti-data-embed #data-encuesta #k23-insight-heading{
+ color:#183b29!important;font:700 clamp(29px,2.6vw,44px)/1 'Cormorant Garamond',Georgia,serif!important;
+}
+html.ti-data-embed #data-encuesta :is(.k23-search-label,.k23-topic-breadcrumb,.k23-topics-panel p,.k23-insight-panel p){
+ color:#344927!important;
+}
+html.ti-data-embed #data-encuesta #k23-search{
+ background:#fffaf1!important;color:#183b29!important;border:1px solid #cabb9e!important;
+}
+html.ti-data-embed #data-encuesta #k23-search::placeholder{color:#67705f!important}
+html.ti-data-embed #data-encuesta .k23-topic{
+ background:transparent!important;color:#183b29!important;border:0!important;border-bottom:1px solid #e0d5c3!important;
+}
+html.ti-data-embed #data-encuesta .k23-topic.active{
+ background:#f1cf79!important;color:#183b29!important;border:1px solid #e8af25!important;
+}
+html.ti-data-embed #data-encuesta .k23-topic:hover:not(.active){background:#efe4d0!important}
+html.ti-data-embed #data-encuesta .k23-search-results{background:#fffaf1!important;border-color:#cabb9e!important}
+html.ti-data-embed #data-encuesta .k23-result{color:#183b29!important}
+html.ti-data-embed #data-encuesta .k23-result:hover{background:#eee4d5!important}
+html.ti-data-embed #data-encuesta .k23-result small{color:#626c59!important}
+html.ti-data-embed #data-encuesta #k23-metric-title,
+html.ti-data-embed #data-encuesta #k23-n{color:#183b29!important}
+html.ti-data-embed #data-encuesta :is(#k23-scope,.k23-bar-top,.k23-bar-top strong,.k23-insight,.k23-insight p){color:#344927!important}
+html.ti-data-embed #data-encuesta .k23-valid{
+ background:#e5e8d7!important;color:#183b29!important;
+}
+html.ti-data-embed #data-encuesta .k23-bar-track{background:#e9dfcc!important}
+html.ti-data-embed #data-encuesta .k23-data-badge{
+ background:#183b29!important;color:#fff!important;border-color:#183b29!important;
+}
+html.ti-data-embed #data-encuesta .k23-important{
+ background:#f8e6bd!important;color:#183b29!important;border-color:#e8af25!important;
+}
+html.ti-data-embed #data-encuesta :is(.k23-meta,.k23-disclaimer,.k23-gaps-details,.k23-gap-group,.k23-metric-selector){
+ color:#344927!important;background:#fbf6ed!important;border-color:#cabb9e!important;
+}
+html.ti-data-embed #data-encuesta .k23-tools{background:#f6f0e4!important}
+html.ti-data-embed #data-encuesta .k23-chart-note{color:#344927!important}
+/* 2.4 – exploración y mapa: no se alteran datos GeoJSON ni controles de zoom. */
+html.ti-data-embed #data-explorando{
+ --ex-bg:#f6f0e4;--ex-deep:#183b29;--ex-soft:#56604f;--ex-yellow:#e8af25;--ex-line:#cabb9e;
+ background:#f6f0e4!important;color:#183b29!important;
+ font:400 15px/1.5 'DM Sans',Arial,sans-serif!important;min-height:0!important;
+}
+html.ti-data-embed #data-explorando .ex-hero{
+ background:linear-gradient(90deg,#f6f0e4 0%,#f6f0e4 38%,#f6f0e4c9 58%,#f6f0e460 100%),
+ url('../assets/img/editorial/territorio-aereo.jpg') right center/55% auto no-repeat!important;
+ color:#183b29!important;border-color:#cabb9e!important;
+ padding:clamp(35px,4vw,60px) clamp(25px,5vw,76px)!important;
+}
+html.ti-data-embed #data-explorando .ex-breadcrumb{color:#344927!important}
+html.ti-data-embed #data-explorando .ex-rule{background:#b75032!important}
+html.ti-data-embed #data-explorando #ex-title{
+ color:#183b29!important;font:700 clamp(50px,5.4vw,92px)/.9 'Cormorant Garamond',Georgia,serif!important;
+ max-width:880px!important;
+}
+html.ti-data-embed #data-explorando :is(.ex-lead,.ex-subtitle){color:#263c2b!important;max-width:750px!important}
+html.ti-data-embed #data-explorando .ti-intro-video{
+ background:#f6f0e4!important;display:grid!important;grid-template-columns:35% minmax(0,1fr)!important;
+ gap:clamp(20px,3vw,50px)!important;align-items:center!important;
+ padding:clamp(25px,3vw,48px) clamp(25px,5vw,76px)!important;
+ border:0!important;border-bottom:1px solid #cabb9e!important;
+}
+html.ti-data-embed #data-explorando .ti-video-copy :is(h2,p){color:#183b29!important}
+html.ti-data-embed #data-explorando .ti-video-copy h2{
+ font:700 clamp(40px,3.6vw,65px)/.95 'Cormorant Garamond',Georgia,serif!important;
+}
+html.ti-data-embed #data-explorando .ti-video-placeholder{
+ min-height:0!important;aspect-ratio:16/9!important;border-radius:14px!important;
+ background:linear-gradient(#183b291c,#183b2966),url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+}
+html.ti-data-embed #data-explorando .ti-video-placeholder .ti-video-play{display:none!important}
+html.ti-data-embed #data-explorando .ti-video-status{
+ background:#183b29c9!important;color:white!important;padding:9px 14px!important;border-radius:5px!important;
+}
+html.ti-data-embed #data-explorando .ex-layout{
+ gap:16px!important;padding:clamp(24px,3vw,44px) clamp(22px,4vw,67px)!important;
+ grid-template-columns:minmax(0,1.7fr) minmax(270px,.85fr)!important;
+}
+html.ti-data-embed #data-explorando :is(.ex-map-panel,.ex-sidebar){
+ background:#fbf6ed!important;color:#183b29!important;border:1px solid #cabb9e!important;border-radius:13px!important;
+}
+html.ti-data-embed #data-explorando :is(.ex-map-head h2,.ex-sidebar-heading,#ex-selected-name){
+ color:#183b29!important;font:700 clamp(27px,2.7vw,44px)/1 'Cormorant Garamond',Georgia,serif!important;
+}
+html.ti-data-embed #data-explorando :is(.ex-map-head p,.ex-sidebar p,.ex-label,.ex-map-foot,.ex-source-note,.ex-status,#ex-selected-description){
+ color:#344927!important;
+}
+html.ti-data-embed #data-explorando .ex-count{
+ border-color:#91a183!important;color:#183b29!important;background:#e6e9d9!important;
+}
+html.ti-data-embed #data-explorando .ex-map-wrap{
+ background:linear-gradient(135deg,#f2efdf,#dde7d8)!important;border-color:#b7c4a6!important;
+}
+html.ti-data-embed #data-explorando .ex-vereda{stroke:#344927!important;fill:#879e7e!important}
+html.ti-data-embed #data-explorando .ex-vereda:nth-child(3n){fill:#b9b47a!important}
+html.ti-data-embed #data-explorando .ex-vereda:nth-child(3n+1){fill:#a5bba2!important}
+html.ti-data-embed #data-explorando .ex-vereda:hover,
+html.ti-data-embed #data-explorando .ex-vereda.is-selected,
+html.ti-data-embed #data-explorando .ex-vereda:focus-visible{
+ fill:#e8af25!important;stroke:#183b29!important;filter:drop-shadow(0 0 4px #98680d55)!important;
+}
+html.ti-data-embed #data-explorando .ex-map-controls button{
+ background:#fbf6ed!important;color:#183b29!important;border-color:#cabb9e!important;
+}
+html.ti-data-embed #data-explorando .ex-map-controls button:hover{background:#e8af25!important}
+html.ti-data-embed #data-explorando :is(.ex-input,.ex-select){
+ background:#fffaf1!important;color:#183b29!important;border:1px solid #cabb9e!important;
+}
+html.ti-data-embed #data-explorando .ex-spotlight{
+ background:#e8eadb!important;border-color:#a5b498!important;
+}
+html.ti-data-embed #data-explorando .ex-spotlight-kicker{color:#344927!important}
+html.ti-data-embed #data-explorando .ex-source-note{border-color:#cabb9e!important}
+html.ti-data-embed #data-explorando .ex-side-action{
+ background:#e8af25!important;color:#183b29!important;border-color:#e8af25!important;
+}
+@media(max-width:1100px){
+ html.ti-data-embed #data-encuesta .k23-workspace{grid-template-columns:minmax(200px,.72fr) minmax(0,1.28fr)!important}
+ html.ti-data-embed #data-encuesta .k23-insight-panel{grid-column:2!important}
+ html.ti-data-embed #data-explorando .ex-layout{grid-template-columns:1fr!important}
+}
+@media(max-width:720px){
+ html.ti-data-embed #tiEmbedTabs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html.ti-data-embed #tiEmbedTabs button{min-height:55px!important;font-size:14px!important;padding:10px 6px!important}
+ html.ti-data-embed #data-encuesta .k23-emblem{display:none!important}
+ html.ti-data-embed #data-encuesta .k23-dims{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html.ti-data-embed #data-encuesta .ti-intro-video,
+ html.ti-data-embed #data-explorando .ti-intro-video{grid-template-columns:1fr!important}
+ html.ti-data-embed #data-encuesta .k23-workspace{grid-template-columns:1fr!important}
+ html.ti-data-embed #data-encuesta .k23-insight-panel{grid-column:auto!important}
+ html.ti-data-embed #data-explorando .ex-hero{background:#f6f0e4!important}
+ html.ti-data-embed #data-explorando .ex-map-wrap{min-height:350px!important}
+}
