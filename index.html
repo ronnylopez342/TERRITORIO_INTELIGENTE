@@ -813,8 +813,18 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
     b.dataset.embedDestination=id;b.setAttribute('aria-selected',String(id==='data-conoce'));
     b.addEventListener('click',function(){
       if(typeof selectDataPanel==='function') selectDataPanel(id);
+      // Fallback explícito: no depender del enrutador del portal externo.
+      // Los paneles inactivos no deben ocupar altura ni renderizar fondo.
+      const active=document.getElementById(id);
+      if(active) {
+        document.querySelectorAll('[data-panel-group="data"]').forEach(el=>{
+          const selected=el===active;
+          el.hidden=!selected;
+          el.classList.toggle('active',selected);
+        });
+      }
       nav.querySelectorAll('button').forEach(el=>el.setAttribute('aria-selected',String(el===b)));
-      setTimeout(notifyHeight,100);
+      requestAnimationFrame(()=>requestAnimationFrame(notifyHeight));
     });
     nav.appendChild(b);
   }
@@ -829,7 +839,14 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
   if(root)root.parentNode.insertBefore(nav,root);
   function notifyHeight(){
     if(window.parent===window)return;
-    const height=Math.ceil(Math.max(document.documentElement.scrollHeight,document.body.scrollHeight));
+    // No usar documentElement.scrollHeight: incluye la altura del viewport
+    // que impone el iframe padre y causa una retroalimentación imposible
+    // de reducir tras cambiar de un panel largo a otro corto.
+    const visible=document.querySelector('[data-panel-group="data"]:not([hidden])');
+    if(!visible)return;
+    const panelBottom=visible.getBoundingClientRect().bottom+window.scrollY;
+    const navBottom=nav.getBoundingClientRect().bottom+window.scrollY;
+    const height=Math.max(540,Math.ceil(Math.max(panelBottom,navBottom)+12));
     window.parent.postMessage({type:'TI_DATA_EMBED_HEIGHT',height},'https://subachoque-platform.vercel.app');
   }
   document.addEventListener('click',function(e){
@@ -838,7 +855,10 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
   },true);
   window.addEventListener('load',notifyHeight);
   window.addEventListener('resize',notifyHeight);
-  if(window.ResizeObserver)new ResizeObserver(notifyHeight).observe(document.body);
+  if(window.ResizeObserver) {
+    const observer=new ResizeObserver(()=>requestAnimationFrame(notifyHeight));
+    document.querySelectorAll('[data-panel-group="data"]').forEach(panel=>observer.observe(panel));
+  }
   requestAnimationFrame(notifyHeight);
 })();
 </script>
