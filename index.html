@@ -74,7 +74,23 @@
 })();
 </script>
 <style>
-html.ti-data-embed, html.ti-data-embed body { width:100%; min-height:100%; margin:0 !important; overflow-x:hidden; }
+html.ti-data-embed, html.ti-data-embed body { width:100%; min-height:100%; margin:0 !important; overflow-x:hidden; background:#f6f0e4 !important; }
+html.ti-data-embed #mainContent,
+html.ti-data-embed .app-view[data-view="data"],
+html.ti-data-embed .app-view[data-view="data"] > .view-body,
+html.ti-data-embed .app-view[data-view="data"] > .view-body > .inner {
+  background:#f6f0e4 !important;
+  padding-bottom:0 !important;
+  margin-bottom:0 !important;
+}
+html.ti-data-embed .app-view[data-view="data"] [data-panel-group="data"][hidden] { display:none !important; }
+html.ti-data-embed #data-explorando:not([hidden]) {
+  display:block !important;
+  background:#f6f0e4 !important;
+  min-height:0 !important;
+  margin-bottom:0 !important;
+  padding-bottom:0 !important;
+}
 html.ti-data-embed .site-header,
 html.ti-data-embed #mobileMenu,
 html.ti-data-embed .skip-link,
