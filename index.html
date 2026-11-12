@@ -125,6 +125,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
   html.ti-data-embed #tiEmbedTabs button { padding:12px 6px; font-size:11px; }
 }
 </style>
+<link rel="stylesheet" href="css/data-conoce-editorial-pais.css?v=20261112-editorial-01" />
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -812,6 +813,13 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
       setTimeout(notifyHeight,100);
     });
     nav.appendChild(b);
+  }
+  // Only the embedded editorial page receives a new visual title.
+  // Text and records in the other three sections remain unchanged.
+  const magazineTitle=document.getElementById('cn-title');
+  if(magazineTitle) {
+    magazineTitle.dataset.originalTitle=magazineTitle.textContent.trim();
+    magazineTitle.innerHTML='Data <em>Subachoque</em>';
   }
   const root=document.getElementById('mainContent');
   if(root)root.parentNode.insertBefore(nav,root);
