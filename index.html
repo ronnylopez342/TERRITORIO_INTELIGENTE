@@ -65,18 +65,16 @@
 <link rel="stylesheet" href="css/ti-territory-evidence.css?v=20261108-layers-v1"/>
 <link rel="stylesheet" href="css/ti-header-nav-restore.css?v=20261108-nav-hotfix-v1"/>
 <link rel="stylesheet" href="css/ti-cumplimiento-42-shared.css?v=20261109-word-r3">
-<!-- Data Territorio embedded mode: opt-in only for Práctica País; ordinary portal unchanged. -->
+<!-- Embedded Data Territorio only; the ordinary portal remains unchanged. -->
 <script>
 (function () {
-  if (new URLSearchParams(window.location.search).get('embed') !== 'data') return;
+  if (new URLSearchParams(location.search).get('embed') !== 'data') return;
   document.documentElement.classList.add('ti-data-embed');
-  if (window.location.hash !== '#data') {
-    window.history.replaceState(null, '', window.location.pathname + window.location.search + '#data');
-  }
+  if (location.hash !== '#data') history.replaceState(null, '', location.pathname + location.search + '#data');
 })();
 </script>
 <style>
-html.ti-data-embed, html.ti-data-embed body { min-height:100%; }
+html.ti-data-embed, html.ti-data-embed body { width:100%; min-height:100%; margin:0 !important; overflow-x:hidden; }
 html.ti-data-embed .site-header,
 html.ti-data-embed #mobileMenu,
 html.ti-data-embed .skip-link,
@@ -85,34 +83,46 @@ html.ti-data-embed .assistant-launch,
 html.ti-data-embed .assistant-panel,
 html.ti-data-embed .editor-panel,
 html.ti-data-embed .toast,
-html.ti-data-embed .app-view[data-view]:not([data-view="data"]) {
+html.ti-data-embed .app-view[data-view]:not([data-view="data"]),
+html.ti-data-embed #dataSubnav,
+html.ti-data-embed .app-view[data-view="data"] > .view-hero,
+html.ti-data-embed .app-view[data-view="data"] .module-heading-row {
   display:none !important;
 }
-html.ti-data-embed #mainContent {
-  padding-top:0 !important;
-  margin-top:0 !important;
-  min-height:0 !important;
-}
-html.ti-data-embed .app-view[data-view="data"] {
+html.ti-data-embed #mainContent,
+html.ti-data-embed .app-view[data-view="data"],
+html.ti-data-embed .app-view[data-view="data"] > .view-body {
   display:block !important;
+  width:100% !important;
+  max-width:none !important;
+  min-height:0 !important;
   margin:0 !important;
-  min-height:100vh;
+  padding-top:0 !important;
 }
-html.ti-data-embed #dataSubnav {
-  display:flex !important;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:0 0 20px;
-  position:relative;
-  top:auto;
-  visibility:visible !important;
+html.ti-data-embed #tiEmbedTabs {
+  position:sticky; top:0; z-index:10000;
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  align-items:stretch; width:100%; margin:0;
+  background:#10191f; border-bottom:2px solid #ffe000;
+  box-shadow:0 2px 8px rgba(0,0,0,.17);
 }
-html.ti-data-embed #dataSubnav .module-tab {
-  cursor:pointer;
+html.ti-data-embed #tiEmbedTabs button {
+  min-width:0; border:0; border-right:1px solid #39454c;
+  border-bottom:4px solid transparent; border-radius:0;
+  background:transparent; color:#f8fafb;
+  font:700 clamp(11px,1.3vw,17px)/1.3 Arial,Helvetica,sans-serif;
+  padding:18px 10px; cursor:pointer; text-align:center;
+}
+html.ti-data-embed #tiEmbedTabs button[aria-selected="true"] {
+  color:#ffe000; border-bottom-color:#ffe000; background:#1e2a30;
+}
+html.ti-data-embed #tiEmbedTabs button:focus-visible { outline:3px solid #ffe000; outline-offset:-3px; }
+html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
+  max-width:100% !important; width:100% !important;
 }
 @media(max-width:720px) {
-  html.ti-data-embed #dataSubnav { display:grid !important; grid-template-columns:1fr 1fr; }
-  html.ti-data-embed #dataSubnav .module-tab { min-width:0; font-size:12px; }
+  html.ti-data-embed #tiEmbedTabs { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  html.ti-data-embed #tiEmbedTabs button { padding:12px 6px; font-size:11px; }
 }
 </style>
 </head>
@@ -782,5 +792,43 @@ html.ti-data-embed #dataSubnav .module-tab {
 <script defer src="js/explorando-territorio.js?v=20261108-ed-map-v1"></script>
 <script defer src="js/ti-master-heroes.js?v=20261023-01"></script>
 <script defer src="js/ti-cumplimiento-42-shared.js?v=20261109-word-r2"></script>
+<script>
+(function(){
+  if (!document.documentElement.classList.contains('ti-data-embed')) return;
+  const entries = [
+    ['data-conoce','2.1 CONOCE DATA TERRITORIO'],
+    ['data-subachoque','2.2 DATA SUBACHOQUE'],
+    ['data-encuesta','2.3 CARACTERIZACIÓN DIAGNÓSTICA MUNICIPAL'],
+    ['data-explorando','2.4 EXPLORANDO MI TERRITORIO']
+  ];
+  const nav=document.createElement('nav');
+  nav.id='tiEmbedTabs';nav.setAttribute('aria-label','Secciones de Data Territorio');
+  for(const [id,label] of entries){
+    const b=document.createElement('button');b.type='button';b.textContent=label;
+    b.dataset.embedDestination=id;b.setAttribute('aria-selected',String(id==='data-conoce'));
+    b.addEventListener('click',function(){
+      if(typeof selectDataPanel==='function') selectDataPanel(id);
+      nav.querySelectorAll('button').forEach(el=>el.setAttribute('aria-selected',String(el===b)));
+      setTimeout(notifyHeight,100);
+    });
+    nav.appendChild(b);
+  }
+  const root=document.getElementById('mainContent');
+  if(root)root.parentNode.insertBefore(nav,root);
+  function notifyHeight(){
+    if(window.parent===window)return;
+    const height=Math.ceil(Math.max(document.documentElement.scrollHeight,document.body.scrollHeight));
+    window.parent.postMessage({type:'TI_DATA_EMBED_HEIGHT',height},'https://subachoque-platform.vercel.app');
+  }
+  document.addEventListener('click',function(e){
+    const route=e.target.closest('.route-link[data-route]');
+    if(route&&route.dataset.route!=='data'){ e.preventDefault();e.stopImmediatePropagation(); }
+  },true);
+  window.addEventListener('load',notifyHeight);
+  window.addEventListener('resize',notifyHeight);
+  if(window.ResizeObserver)new ResizeObserver(notifyHeight).observe(document.body);
+  requestAnimationFrame(notifyHeight);
+})();
+</script>
 </body>
 </html>
