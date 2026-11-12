@@ -1,0 +1,213 @@
+/* Editorial Práctica País — exclusivo ?embed=data / 2.2. La lógica original sigue intacta. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+html.ti-data-embed #data-subachoque{
+ --ds3-ink:#1a291e;--ds3-navy:#183b29;--ds3-blue:#344927;--ds3-yellow:#e8af25;
+ --ds3-muted:#514c40;--ds3-line:#cabb9e;--ds3-ice:#f6f0e4;--ds3-light:#fbf6ed;
+ --ed-cream:#f6f0e4;--ed-paper:#fbf6ed;--ed-green:#183b29;--ed-olive:#344927;
+ --ed-gold:#e8af25;--ed-rust:#b75032;
+ background:var(--ed-cream)!important;color:var(--ed-green)!important;
+ font:400 15px/1.48 'DM Sans',Arial,sans-serif!important;
+ min-height:0!important;overflow:visible!important;
+}
+html.ti-data-embed .app-view[data-view="data"]:has(#data-subachoque:not([hidden]))>.view-body{background:#f6f0e4!important;color:#1a291e!important}
+html.ti-data-embed #data-subachoque :is(h1,h2,h3,h4){font-family:'Cormorant Garamond',Georgia,serif!important;color:#183b29!important;line-height:1.02!important;letter-spacing:-.028em!important;font-weight:700!important}
+html.ti-data-embed #data-subachoque :is(button,input,select){font-family:'DM Sans',Arial,sans-serif!important}
+html.ti-data-embed #data-subachoque .ds3-shell{max-width:none!important;padding:0 0 40px!important}
+html.ti-data-embed #data-subachoque .ds3-head{
+ min-height:clamp(320px,30vw,455px)!important;position:relative!important;
+ margin:0 0 28px!important;overflow:hidden!important;
+ background:linear-gradient(90deg,#f6f0e4 0%,#f6f0e4 37%,#f6f0e4cc 47%,transparent 57%),
+ url('../assets/img/editorial/territorio-aereo.jpg') right center/57% 100% no-repeat,#f6f0e4!important;
+ padding:clamp(35px,4vw,60px) clamp(30px,6vw,96px)!important;
+}
+html.ti-data-embed #data-subachoque .ds3-head:after{
+ content:'';position:absolute;right:0;bottom:0;width:25%;height:7px;background:#e8af25;transform:skewX(-25deg);
+}
+html.ti-data-embed #data-subachoque .ds3-breadcrumb{
+ color:#344927!important;letter-spacing:.04em!important;font-size:12px!important;margin:0 0 16px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-breadcrumb>span:last-child{color:#183b29!important}
+html.ti-data-embed #data-subachoque .ds3-title-row{align-items:flex-start!important;gap:0!important}
+html.ti-data-embed #data-subachoque .ds3-title-icon{display:none!important}
+html.ti-data-embed #data-subachoque .ds3-title-copy{width:45%!important;max-width:650px!important}
+html.ti-data-embed #data-subachoque #ds3-title{
+ font:600 clamp(66px,7.2vw,118px)/.8 'Cormorant Garamond',Georgia,serif!important;
+ letter-spacing:-.055em!important;color:#183b29!important;
+ margin:8px 0 20px!important;text-wrap:balance!important;
+}
+html.ti-data-embed #data-subachoque #ds3-title em{color:#344927!important}
+html.ti-data-embed #data-subachoque #ds3-description{
+ color:#1a291e!important;font-size:clamp(16px,1.34vw,22px)!important;
+ max-width:490px!important;line-height:1.42!important;
+}
+html.ti-data-embed #data-subachoque .ds3-video{
+ background:#f6f0e4!important;color:#1a291e!important;border:0!important;border-bottom:1px solid #cabb9e!important;
+ margin:0!important;padding:clamp(30px,3vw,50px) clamp(30px,6vw,96px)!important;
+ display:grid!important;grid-template-columns:32% minmax(0,1fr)!important;
+ align-items:center!important;gap:clamp(24px,4vw,72px)!important;min-height:0!important;
+}
+html.ti-data-embed #data-subachoque .ds3-video .ti-video-copy{width:100%!important;padding:0!important}
+html.ti-data-embed #data-subachoque #ds3-video-title{
+ font:700 clamp(46px,4.5vw,75px)/.92 'Cormorant Garamond',Georgia,serif!important;
+ color:#183b29!important;margin:0 0 20px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-video .ti-video-copy p{
+ color:#1a291e!important;font-size:clamp(15px,1.25vw,20px)!important;line-height:1.45!important;margin:0!important;
+}
+html.ti-data-embed #data-subachoque .ds3-video .ti-video-placeholder{
+ width:100%!important;min-height:0!important;height:auto!important;aspect-ratio:16/9!important;
+ background:linear-gradient(#183b291c,#183b2966),url('../assets/img/editorial/territorio-aereo.jpg') center/cover no-repeat!important;
+ border:0!important;border-radius:16px!important;box-shadow:0 10px 24px #22352625!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+}
+html.ti-data-embed #data-subachoque .ds3-video .ti-video-play{
+ display:none!important;
+}
+html.ti-data-embed #data-subachoque .ds3-video .ti-video-status{
+ font:700 clamp(12px,1.15vw,17px)/1.3 'DM Sans',Arial,sans-serif!important;
+ color:#fff!important;text-shadow:0 1px 5px #0009!important;
+ background:#183b29b8!important;border-radius:5px!important;padding:10px 16px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-editorial-intro{
+ display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:20px;
+ margin:0!important;padding:32px clamp(30px,6vw,96px) 12px!important;
+ background:#f6f0e4!important;
+}
+html.ti-data-embed #data-subachoque .ds3-editorial-intro h2{
+ font:italic 700 clamp(38px,3.8vw,65px)/.98 'Cormorant Garamond',Georgia,serif!important;
+ color:#183b29!important;margin:0!important;
+}
+html.ti-data-embed #data-subachoque .ds3-editorial-intro p{
+ border-left:1px solid #aa9b7d;padding-left:20px!important;color:#27372a!important;font-size:14px!important;margin:0!important;
+}
+html.ti-data-embed #data-subachoque .ds3-dimensions,
+html.ti-data-embed #data-subachoque .ds3-areas-section,
+html.ti-data-embed #data-subachoque .ds3-territory,
+html.ti-data-embed #data-subachoque .ds3-workspace,
+html.ti-data-embed #data-subachoque .ds3-data-policy{
+ margin-left:clamp(20px,3vw,55px)!important;margin-right:clamp(20px,3vw,55px)!important;
+}
+html.ti-data-embed #data-subachoque .ds3-dimensions{gap:9px!important;margin-bottom:17px!important}
+html.ti-data-embed #data-subachoque .ds3-dimension{
+ background:#fbf6ed!important;color:#183b29!important;border:1px solid #cabb9e!important;
+ min-height:76px!important;padding:12px!important;border-radius:12px!important;box-shadow:none!important;
+}
+html.ti-data-embed #data-subachoque .ds3-dimension.is-active{
+ background:#f4d078!important;border:1px solid #e8af25!important;color:#183b29!important;
+ padding:12px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-dimension-copy strong{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(18px,1.5vw,25px)!important;line-height:1!important;color:#183b29!important}
+html.ti-data-embed #data-subachoque .ds3-dimension-copy small,
+html.ti-data-embed #data-subachoque .ds3-dimension.is-active .ds3-dimension-copy small{color:#4e503f!important;font-size:11px!important}
+html.ti-data-embed #data-subachoque .ds3-dimension-icon{color:#183b29!important}
+html.ti-data-embed #data-subachoque #ds3-areas-title{
+ color:#183b29!important;font:italic 700 clamp(25px,2.4vw,38px)/1 'Cormorant Garamond',Georgia,serif!important;
+ margin:0 0 10px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-areas,
+html.ti-data-embed #data-subachoque .ds3-territory{
+ background:#fbf6ed!important;border:1px solid #cabb9e!important;box-shadow:none!important;
+ border-radius:11px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-area-tab{
+ color:#183b29!important;background:transparent!important;border-bottom-color:transparent!important;
+ font-weight:600!important;min-height:48px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-area-tab.is-active{
+ background:#f4d078!important;color:#183b29!important;border-bottom-color:#e8af25!important;
+}
+html.ti-data-embed #data-subachoque .ds3-area-tab:hover{background:#f8e5b8!important}
+html.ti-data-embed #data-subachoque .ds3-territory{gap:5px!important;padding:5px!important;margin-bottom:13px!important}
+html.ti-data-embed #data-subachoque .ds3-territory-button{
+ background:#fbf6ed!important;color:#183b29!important;border:1px solid #e0d3bf!important;
+ min-height:43px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-territory-button.is-active{
+ background:#f2ca6c!important;color:#183b29!important;border-color:#e8af25!important;box-shadow:none!important;
+}
+html.ti-data-embed #data-subachoque .ds3-workspace{
+ grid-template-columns:minmax(205px,.95fr) minmax(350px,1.8fr) minmax(245px,1.1fr)!important;
+ gap:12px!important;
+}
+html.ti-data-embed #data-subachoque :is(.ds3-topic-pane,.ds3-chart-pane,.ds3-analysis-pane){
+ background:#fbf6ed!important;border:1px solid #cabb9e!important;box-shadow:none!important;
+ border-radius:13px!important;min-height:385px!important;color:#183b29!important;
+}
+html.ti-data-embed #data-subachoque #ds3-topic-heading,
+html.ti-data-embed #data-subachoque #ds3-analysis-heading{
+ color:#183b29!important;font:700 clamp(26px,2.5vw,40px)/1 'Cormorant Garamond',Georgia,serif!important;
+ margin:0 0 14px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-search-wrap{
+ background:#fffaf2!important;border-color:#cabb9e!important;
+}
+html.ti-data-embed #data-subachoque #ds3-search,
+html.ti-data-embed #data-subachoque #ds3-search::placeholder{color:#4f5a49!important}
+html.ti-data-embed #data-subachoque .ds3-topic{
+ background:transparent!important;color:#26392a!important;border-bottom-color:#dfd4c1!important;
+ font-size:13px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-topic:hover{background:#f3e9d9!important}
+html.ti-data-embed #data-subachoque .ds3-topic.is-active{
+ background:#f4d078!important;color:#183b29!important;border-left-color:#e8af25!important;
+}
+html.ti-data-embed #data-subachoque .ds3-topic-verified,
+html.ti-data-embed #data-subachoque .ds3-topic.is-active .ds3-topic-verified{color:#183b29!important}
+html.ti-data-embed #data-subachoque .ds3-context,
+html.ti-data-embed #data-subachoque .ds3-indicator-description{color:#555c4b!important}
+html.ti-data-embed #data-subachoque #ds3-topic-title{
+ color:#183b29!important;font:italic 700 clamp(30px,3vw,47px)/1 'Cormorant Garamond',Georgia,serif!important;
+ margin:0 0 10px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-indicator-title{
+ color:#183b29!important;font-size:clamp(15px,1.2vw,20px)!important;
+}
+html.ti-data-embed #data-subachoque .ds3-chart-area{min-height:230px!important}
+html.ti-data-embed #data-subachoque .ds3-grid-line{stroke:#ded5c5!important}
+html.ti-data-embed #data-subachoque .ds3-tick,
+html.ti-data-embed #data-subachoque .ds3-legend-label,
+html.ti-data-embed #data-subachoque .ds3-graph-kicker{fill:#485848!important;font-family:'DM Sans',Arial,sans-serif!important}
+html.ti-data-embed #data-subachoque .ds3-chart-footer,
+html.ti-data-embed #data-subachoque .ds3-source{border-color:#dcd0bc!important;color:#53614e!important}
+html.ti-data-embed #data-subachoque #ds3-source :is(p,small,span),
+html.ti-data-embed #data-subachoque .ds3-analysis-body p,
+html.ti-data-embed #data-subachoque .ds3-analysis-body strong{color:#2d3e30!important}
+html.ti-data-embed #data-subachoque .ds3-state{
+ color:#fff!important;border-color:#183b29!important;background:#183b29!important;border-radius:18px!important;
+}
+html.ti-data-embed #data-subachoque .ds3-explainer{
+ background:#fae6b7!important;border-color:#e8af25!important;color:#183b29!important;
+}
+html.ti-data-embed #data-subachoque .ds3-explainer :is(strong,p){color:#183b29!important}
+html.ti-data-embed #data-subachoque .ds3-indicator-nav :is(label,select),
+html.ti-data-embed #data-subachoque .ds3-no-data :is(h3,p){color:#183b29!important}
+html.ti-data-embed #data-subachoque .ds3-indicator-nav select{
+ background:#fffaf2!important;border:1px solid #cabb9e!important;
+}
+html.ti-data-embed #data-subachoque .ds3-data-policy{color:#646b59!important;font-size:11px!important}
+@media(max-width:1120px){
+ html.ti-data-embed #data-subachoque .ds3-head{background-size:auto,60% 100%!important}
+ html.ti-data-embed #data-subachoque .ds3-workspace{grid-template-columns:minmax(200px,1fr) minmax(0,1.7fr)!important}
+ html.ti-data-embed #data-subachoque .ds3-analysis-pane{grid-column:2!important}
+ html.ti-data-embed #data-subachoque .ds3-dimensions{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:730px){
+ html.ti-data-embed #data-subachoque .ds3-head{
+  min-height:0!important;padding:30px 22px 260px!important;
+  background:linear-gradient(#f6f0e4 0%,#f6f0e4 51%,transparent 80%),
+  url('../assets/img/editorial/territorio-aereo.jpg') center bottom/100% 55% no-repeat,#f6f0e4!important;
+ }
+ html.ti-data-embed #data-subachoque .ds3-title-copy{width:100%!important}
+ html.ti-data-embed #data-subachoque #ds3-title{font-size:clamp(57px,12vw,94px)!important}
+ html.ti-data-embed #data-subachoque .ds3-video{grid-template-columns:1fr!important;padding:35px 20px!important}
+ html.ti-data-embed #data-subachoque .ds3-video .ti-video-copy{margin:0 0 20px!important}
+ html.ti-data-embed #data-subachoque #ds3-video-title{font-size:clamp(46px,10vw,65px)!important}
+ html.ti-data-embed #data-subachoque .ds3-editorial-intro{grid-template-columns:1fr!important;padding:25px 20px 12px!important}
+ html.ti-data-embed #data-subachoque .ds3-editorial-intro p{padding:0!important;border:0!important}
+ html.ti-data-embed #data-subachoque .ds3-dimensions{grid-template-columns:1fr 1fr!important}
+ html.ti-data-embed #data-subachoque .ds3-areas{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html.ti-data-embed #data-subachoque .ds3-workspace{grid-template-columns:1fr!important}
+ html.ti-data-embed #data-subachoque .ds3-analysis-pane{grid-column:auto!important}
+ html.ti-data-embed #data-subachoque :is(.ds3-topic-pane,.ds3-chart-pane,.ds3-analysis-pane){min-height:0!important}
+ html.ti-data-embed #data-subachoque .ds3-chart-pane{min-height:330px!important}
+}
