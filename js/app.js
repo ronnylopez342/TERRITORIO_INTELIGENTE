@@ -106,9 +106,19 @@ function selectDataPanel(panelId) {
   });
   /* La barra secundaria ya no es visible: dirigir la vista al contenido real. */
   requestAnimationFrame(() => {
-    const headerHeight = header?.getBoundingClientRect().height || 98;
-    const panelTop = window.scrollY + panel.getBoundingClientRect().top;
-    window.scrollTo({ top: Math.max(0, panelTop - headerHeight - 18), behavior: 'instant' });
+    if (document.documentElement.classList.contains('ti-data-embed')) {
+      // Embebido en Práctica País: el scroll previo de 2.1/2.2 NO debe
+      // conservarse al entrar a 2.3/2.4 o se ve una zona vacía.
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      window.parent.postMessage({
+        type: 'TI_DATA_EMBED_PANEL_CHANGE',
+        panelId
+      }, 'https://subachoque-platform.vercel.app');
+    } else {
+      const headerHeight = header?.getBoundingClientRect().height || 98;
+      const panelTop = window.scrollY + panel.getBoundingClientRect().top;
+      window.scrollTo({ top: Math.max(0, panelTop - headerHeight - 18), behavior: 'instant' });
+    }
     panel.setAttribute('tabindex', '-1');
     panel.focus({ preventScroll: true });
   });
