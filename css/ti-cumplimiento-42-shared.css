@@ -3,7 +3,7 @@ body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not(
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) main{min-width:0}
 .app-view[data-view="cumplimiento"]:has(#cumplimiento-proyectos:not([hidden])){padding-bottom:0!important;background:#edf3fa!important}
 #cumplimiento-proyectos{--uc-blue:#075ca9;--uc-ink:#133a66;--uc-line:#d5e3f1;--uc-green:#0a9a6b;font-family:Poppins,Arial,sans-serif}
-#cumplimiento-proyectos .ti42-frame{display:grid;grid-template-columns:142px minmax(0,1fr);grid-template-rows:auto 1fr;width:100%;min-width:0;max-width:1800px;margin:auto;background:#edf4fb}
+#cumplimiento-proyectos .ti42-frame{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;width:100%;min-width:0;max-width:1800px;margin:auto;background:#edf4fb}
 #cumplimiento-proyectos .ti42-masthead{grid-column:1/-1;display:grid;grid-template-columns:230px minmax(0,1fr) 230px;align-items:center;gap:18px;min-height:76px;background:white;border-bottom:1px solid var(--uc-line);padding:0 16px;color:var(--uc-ink)}
 #cumplimiento-proyectos .ti42-masthead h1{font-size:19px;line-height:1.25;letter-spacing:0;margin:0;font-weight:800;color:var(--uc-ink)}
 #cumplimiento-proyectos .ti42-masthead p{font-size:11px;margin:4px 0;color:#547597}
@@ -11,11 +11,6 @@ body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not(
 #cumplimiento-proyectos .ti42-brand>span{font-size:42px;color:#07885f}
 #cumplimiento-proyectos .ti42-brand small{display:block;color:#547597;font-size:10px;margin-top:4px}
 #cumplimiento-proyectos .ti42-panorama{align-self:stretch;display:flex;align-items:center;justify-content:flex-end;padding:12px 18px;background:linear-gradient(90deg,#ffffff00,#065e46cc),url('../assets/img/editorial/territorio-aereo.jpg') center/cover;clip-path:polygon(12% 0,100% 0,100% 100%,0 100%);color:white;font-size:12px;font-style:italic}
-#cumplimiento-proyectos .ti42-rail{display:flex;flex-direction:column;background:#083c60;color:white;min-width:0;padding-top:10px;align-self:stretch}
-#cumplimiento-proyectos .ti42-rail a,#cumplimiento-proyectos .ti42-rail button{display:flex;gap:8px;align-items:center;width:100%;padding:12px 10px;font:600 11px/1.35 Poppins,Arial,sans-serif;text-align:left;color:#e6effb;background:transparent;border:0;border-left:3px solid transparent;text-decoration:none;cursor:pointer}
-#cumplimiento-proyectos .ti42-rail button[aria-current=page]{background:#078a61;color:white;border-left-color:#73e1b9}
-#cumplimiento-proyectos .ti42-rail button:hover,#cumplimiento-proyectos .ti42-rail a:hover{background:#155578}
-#cumplimiento-proyectos .ti42-rail-landscape{margin-top:auto;min-height:180px;background:linear-gradient(0deg,#064d41ed,#064d4130),url('../assets/img/editorial/territorio-aereo.jpg') center/cover;display:flex;align-items:flex-end;padding:16px 12px;font-style:italic;font-size:14px}
 #cumplimiento-proyectos .ti42{padding:12px;gap:10px;max-width:none;min-width:0;margin:0;color:var(--uc-ink);font-family:Poppins,Arial,sans-serif}
 #cumplimiento-proyectos .ti42>[hidden]{display:none!important}
 #cumplimiento-proyectos .ti42-toolbar{display:grid;grid-template-columns:minmax(180px,1.2fr) minmax(200px,1.6fr) repeat(3,minmax(95px,.7fr));gap:7px;align-items:stretch}
@@ -89,7 +84,6 @@ body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not(
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu button{background:white!important;color:#1b4672!important;padding:12px!important;font-size:12px!important;line-height:1.4!important;min-height:0!important}
 body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not([hidden])) .ti-nav-dropdown-menu button:hover{background:#eaf3fb!important}
 @media(max-width:1199px){
- #cumplimiento-proyectos .ti42-frame{grid-template-columns:116px minmax(0,1fr)}
  #cumplimiento-proyectos .ti42-overview{grid-template-columns:repeat(2,minmax(0,1fr))}
  #cumplimiento-proyectos .ti42-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
  #cumplimiento-proyectos .ti42-toolbar{grid-template-columns:repeat(6,minmax(0,1fr))}
@@ -101,7 +95,6 @@ body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not(
 }
 @media(max-width:760px){
  #cumplimiento-proyectos .ti42-frame{display:block}
- #cumplimiento-proyectos .ti42-rail{display:none}
  #cumplimiento-proyectos .ti42-masthead{grid-template-columns:1fr;padding:12px;gap:8px}
  #cumplimiento-proyectos .ti42-brand,#cumplimiento-proyectos .ti42-panorama{display:none}
  #cumplimiento-proyectos .ti42-masthead h1{font-size:18px}

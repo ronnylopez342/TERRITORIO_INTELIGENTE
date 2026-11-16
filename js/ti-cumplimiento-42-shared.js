@@ -4,8 +4,6 @@
   const projects=window.TI42Proyectos,summary=window.TI42Summary;
   if(!shell||!projects||!summary)return;
   const tabs=[...shell.querySelectorAll('.ti42-tabs [role=tab]')];
-  const side=root.querySelector('[data-ti42-side-nav]');
-  const icons=['▦','▣','▤','▥','▦','⌖','▧','◴','⚑','▱'];
   const viewTitle=document.createElement('h2');viewTitle.className='ti42-view-title';
   shell.querySelector('.ti42-tabs').after(viewTitle);
   const panelSelectors={resumen:'[data-ti42-resumen-content]',proyectos:'[data-ti42-proyectos-root]',contratos:'[data-ti42-contratos-root]',financiera:'[data-ti42-financiera-root]',cronograma:'[data-ti42g-panel]',mapa:'[data-ti42-mapa-root]',evidencias:'[data-ti42-evidencias-root]',indicadores:'[data-ti42i-root]',riesgos:'[data-ti42r-root]',documentos:'[data-ti42d-root]'};
@@ -21,8 +19,6 @@
     const next=event.key==='Home'?buttons[0]:event.key==='End'?buttons.at(-1):buttons[(i+(event.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length];
     event.preventDefault();next.focus();next.click();
   });
-  side.innerHTML=tabs.map((tab,i)=>'<button type="button" data-ti42-side="'+tab.dataset.ti42View+'"><span aria-hidden="true">'+icons[i]+'</span><span>'+tab.textContent+'</span></button>').join('');
-  side.addEventListener('click',event=>{const button=event.target.closest('[data-ti42-side]');if(button)projects.setView(button.dataset.ti42Side);});
   let scheduled=false;
   function sync(){
     scheduled=false;
@@ -31,11 +27,6 @@
     if(viewTitle.textContent!==title)viewTitle.textContent=title;
     const hideTitle=['proyectos','contratos','financiera'].includes(view);
     if(viewTitle.hidden!==hideTitle)viewTitle.hidden=hideTitle;
-    for(const button of side.querySelectorAll('button')){
-      const current=button.dataset.ti42Side===view;
-      if(current&&button.getAttribute('aria-current')!=='page')button.setAttribute('aria-current','page');
-      if(!current&&button.hasAttribute('aria-current'))button.removeAttribute('aria-current');
-    }
     // One active tab is in the keyboard sequence, with stable control/panel associations.
     for(const tab of tabs){
       const id=tab.dataset.ti42View;
