@@ -29,7 +29,7 @@ const server=http.createServer((req,res)=>{
 async function run(){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
- const page=await browser.newPage({viewport:{width:1420,height:900}});
+ const page=await browser.newPage({viewport:{width:1420,height:900},acceptDownloads:true});
  const ids=['data-conoce','data-subachoque','data-encuesta','data-explorando'];
  try{
    await page.goto('http://127.0.0.1:'+server.address().port+'/#data',{waitUntil:'domcontentloaded',timeout:45000});
@@ -56,6 +56,76 @@ async function run(){
    );
    assert.equal(await page.locator('#k23-dims [data-k23-dim]').count(),4,
      'Seccion KoBo: faltan dimensiones reales');
+   // R-01: visor historico de doce capitulos, ahora accesible desde Conoce.
+   await page.evaluate(()=>selectDataPanel('data-conoce'));
+   assert.equal(await page.locator('#cn-tools [data-cn-tool]').count(),3);
+   await page.locator('#cn-tools [data-cn-tool="chapters"]').click();
+   await page.locator('#cn-tools-dialog[open]').waitFor({timeout:10000});
+   const frame=page.frameLocator('#cn-tools-dialog iframe.cn-tools__iframe');
+   await frame.locator('#currentChapter').waitFor({state:'visible',timeout:45000});
+   await page.waitForFunction(()=>{
+     const doc=document.querySelector('#cn-tools-dialog iframe')?.contentDocument;
+     return doc?.querySelectorAll('#chapterList .chapter').length===12 &&
+       doc?.getElementById('currentChapter')?.textContent.includes('01 / 12');
+   },null,{timeout:45000});
+   await frame.locator('#chapterToggle').click();
+   await frame.locator('#chapterList [data-chapter="12"]').click();
+   await page.waitForFunction(()=>{
+     const doc=document.querySelector('#cn-tools-dialog iframe')?.contentDocument;
+     return doc?.getElementById('currentChapter')?.textContent.includes('12 / 12');
+   },null,{timeout:25000});
+   await page.locator('[data-cn-tools-close]').click();
+   assert.equal(await page.locator('#cn-tools-dialog[open]').count(),0);
+
+   // R-02: las cifras censales deben coincidir con la fuente, sin falsa proyeccion.
+   await page.locator('#cn-tools [data-cn-tool="dane"]').click();
+   await page.waitForFunction(()=>document.querySelectorAll('#cn-tools-body .cn-tools__metric').length===3,{timeout:20000});
+   const dane=await page.locator('#cn-tools-body').innerText();
+   for(const figure of ['12.972','14.874','7.217','7.657','4.839'])assert.ok(dane.includes(figure),'DANE missing: '+figure);
+   assert.ok((await page.locator('#cn-tools-body .cn-tools__source').getAttribute('href')).includes('25769.pdf'));
+   await page.locator('[data-cn-tools-close]').click();
+
+   // R-03: CRUD local compatible con el esquema de datos historico.
+   await page.locator('#cn-tools [data-cn-tool="indicators"]').click();
+   await page.locator('[data-cn-tool-action="add"]').click();
+   await page.locator('#cn-tools-form [name="nombre"]').fill('Cobertura de prueba');
+   await page.locator('#cn-tools-form [name="variable"]').fill('Prueba controlada');
+   await page.locator('#cn-tools-form [name="fuente"]').fill('Fuente de prueba, no oficial');
+   await page.locator('#cn-tools-form [name="metodologia"]').fill('1 entre 4 multiplicado por 100');
+   await page.locator('#cn-tools-form [name="formula"]').selectOption('porcentaje');
+   await page.locator('#cn-tools-form [name="numerador"]').fill('1');
+   await page.locator('#cn-tools-form [name="denominador"]').fill('4');
+   assert.match(await page.locator('[data-cn-tools-preview]').innerText(),/25/);
+   await page.locator('#cn-tools-form button[type="submit"]').click();
+   assert.match(await page.locator('[data-cn-tools-list]').innerText(),/Cobertura de prueba/);
+   assert.match(await page.locator('[data-cn-tools-list]').innerText(),/25/);
+   await page.locator('[data-cn-tool-action="edit"]').click();
+   await page.locator('#cn-tools-form [name="numerador"]').fill('2');
+   assert.match(await page.locator('[data-cn-tools-preview]').innerText(),/50/);
+   await page.locator('#cn-tools-form button[type="submit"]').click();
+   assert.match(await page.locator('[data-cn-tools-list]').innerText(),/50/);
+   const download=page.waitForEvent('download',{timeout:15000});
+   await page.locator('[data-cn-tool-action="export-json"]').click();
+   assert.match((await download).suggestedFilename(),/indicadores-locales-\d{4}-\d{2}-\d{2}\.json/);
+   await page.locator('[data-cn-tools-close]').click();
+   await page.locator('#cn-tools [data-cn-tool="indicators"]').click();
+   assert.match(await page.locator('[data-cn-tools-list]').innerText(),/Cobertura de prueba/);
+   page.once('dialog',dlg=>dlg.accept());
+   await page.locator('[data-cn-tool-action="delete"]').click();
+   assert.equal(await page.locator('[data-cn-tools-list] tr').count(),0);
+   await page.locator('[data-cn-tools-import]').setInputFiles({
+     name:'indicadores-test.json',mimeType:'application/json',
+     buffer:Buffer.from(JSON.stringify({records:[{
+       nombre:'Importado de prueba',codigo:'TEST-001',sector:'Salud',variable:'Cobertura',
+       fuente:'Fuente de test',metodologia:'Suma directa',periodicidad:'anual',
+       formula:'valor',numerador:'12',denominador:'',factor:'1000',unidad:'personas'
+     }]}))
+   });
+   assert.match(await page.locator('[data-cn-tools-list]').innerText(),/Importado de prueba/);
+   assert.match(await page.locator('[data-cn-tools-list]').innerText(),/12/);
+   await page.locator('[data-cn-tools-close]').click();
+   // No se ejecutan cambios persistentes en el backend; la prueba es local al navegador.
+   console.log('RECUPERACION 2.1: capítulos 01-12, DANE verificado, gestor local CRUD/importe/exporte PASS.');
    console.log('SMOKE DATA ACTUAL: 4 vistas con navegacion funcional, 4 dimensiones y panel KoBo disponibles.');
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 }
