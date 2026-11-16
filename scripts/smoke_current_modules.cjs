@@ -64,7 +64,7 @@ async function run(){
      'Seccion KoBo: faltan dimensiones reales');
    // R-01: visor historico de doce capitulos, ahora accesible desde Conoce.
    await page.evaluate(()=>selectDataPanel('data-conoce'));
-   assert.equal(await page.locator('#cn-tools [data-cn-tool]').count(),3);
+   assert.equal(await page.locator('#cn-tools [data-cn-tool]').count(),4);
    await page.locator('#cn-tools [data-cn-tool="chapters"]').click();
    await page.locator('#cn-tools-dialog[open]').waitFor({timeout:10000});
    const frame=page.frameLocator('#cn-tools-dialog iframe.cn-tools__iframe');
