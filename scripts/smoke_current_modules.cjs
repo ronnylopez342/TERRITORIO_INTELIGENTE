@@ -35,6 +35,12 @@ async function run(){
    await page.goto('http://127.0.0.1:'+server.address().port+'/#data',{waitUntil:'domcontentloaded',timeout:45000});
    await page.waitForFunction(()=>!!document.querySelector('.app-view.active[data-view="data"]'),{timeout:25000});
    assert.equal(await page.locator('#dataSubnav [data-module-panel]').count(),4);
+   // M2: cada localizador editorial reconstruido debe existir una sola vez en el DOM real.
+   const registry=JSON.parse(fs.readFileSync(path.join(root,'editor/registry.json'),'utf8'));
+   const located=await page.evaluate(entries=>entries.map(entry=>({
+     id:entry.tiId,found:document.querySelectorAll(entry.selector).length
+   })),registry.entries);
+   assert.ok(located.every(row=>row.found===1),'Registro editorial no univoco: '+JSON.stringify(located.filter(row=>row.found!==1)));
    for(const id of ids){
      const switched=await page.evaluate(id=>selectDataPanel(id),id);
      assert.equal(switched,true,'No se puede activar '+id);
