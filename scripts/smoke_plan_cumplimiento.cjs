@@ -49,6 +49,21 @@ async function test(){
   await page.waitForFunction(()=>document.querySelector('#desarrollo-accion .pa-empty')?.textContent.includes('2024'),null,{timeout:18000});
   await page.locator('#pa-year-select').selectOption('2025');
   await page.waitForFunction(()=>document.querySelector('.pa-summary-analytics')?.textContent.includes('2025'),null,{timeout:20000});
+  // Vista mobile: graficas dentro de tarjeta, nunca salen del ancho de la pantalla.
+  await page.setViewportSize({width:390,height:844});
+  await page.waitForTimeout(100);
+  const mobilePlan=await page.evaluate(()=>{
+    const card=document.querySelector('#desarrollo-accion .pa-summary-analytics');
+    const root=document.getElementById('desarrollo-accion');
+    return {screen:innerWidth,scroll:document.documentElement.scrollWidth,
+      cards:card?.querySelectorAll(':scope>.pa-card').length||0,
+      cardWidth:card?.getBoundingClientRect().width||0,
+      rootWidth:root?.getBoundingClientRect().width||0};
+  });
+  assert.equal(mobilePlan.cards,2);
+  assert.ok(mobilePlan.cardWidth<=mobilePlan.screen+10,'Tarjetas de Resumen desbordan mobile: '+JSON.stringify(mobilePlan));
+  await page.screenshot({path:path.join(out,'auditoria-plan33-movil.png'),fullPage:false});
+  await page.setViewportSize({width:1440,height:900});
   console.log('PLAN 3.3: dos paneles compuestos, dos trazados, 109 metas, 2025/2026 y sin datos 2024: PASS');
 
   await page.goto(host+'/#cumplimiento?seccion=cumplimiento-proyectos',{waitUntil:'domcontentloaded',timeout:45000});
@@ -80,7 +95,30 @@ async function test(){
   assert.ok(!visual.hasOldText,'Texto de cartografia obsoleto');
   assert.ok(visual.pins>0,'El mapa no muestra marcadores de proyectos: '+JSON.stringify(visual));
   await page.screenshot({path:path.join(out,'auditoria-cumplimiento42-mapa.png'),fullPage:false});
+  await page.setViewportSize({width:390,height:844});
+  await page.waitForTimeout(100);
+  const mobileMap=await page.evaluate(()=>{
+    const map=document.querySelector('#cumplimiento-proyectos .ti42-map-stage');
+    const host=document.querySelector('#cumplimiento-proyectos .ti42-map-host');
+    const labels=[...host.querySelectorAll('.ti-ed-label-wrapper')];
+    return {screen:innerWidth,width:map?.getBoundingClientRect().width,
+      height:map?.getBoundingClientRect().height,
+      visibleLabels:labels.filter(e=>getComputedStyle(e).display!=='none').length};
+  });
+  assert.ok(mobileMap.width<=mobileMap.screen+10,'Mapa desborda el movil: '+JSON.stringify(mobileMap));
+  assert.ok(mobileMap.height>=370,'Mapa demasiado pequeno en movil: '+JSON.stringify(mobileMap));
+  assert.ok(mobileMap.visibleLabels>=17,'Nombres de veredas ocultos en movil: '+JSON.stringify(mobileMap));
+  await page.screenshot({path:path.join(out,'auditoria-cumplimiento42-movil.png'),fullPage:false});
+  await page.locator('[data-ti42-view="indicadores"]').click();
+  await page.waitForFunction(()=>document.querySelector('[data-ti42i-root]')?.hidden===false,null,{timeout:20000});
+  const indicador=await page.evaluate(()=>{
+    const panel=document.querySelector('[data-ti42i-root]');
+    return {isVisible:!panel.hidden,informative:panel.textContent.includes('Sin medición'),
+      hasOfficial:!!panel.querySelector('[data-ti42i-lines] .ti42i-no-data')};
+  });
+  assert.ok(indicador.isVisible&&indicador.informative,'Indicadores 4.2: estado sin medicion inconsistente '+JSON.stringify(indicador));
   console.log('CUMPLIMIENTO 4.2: 30 registros, 10 vistas, mapa expandido, etiquetas y pines referenciales: PASS');
+  console.log('RESPONSIVE/INDICADORES: Plan y mapa mobile + estado sin medicion: PASS');
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 }
 test().catch(err=>{console.error(err);server.close();process.exitCode=1;});
