@@ -73,3 +73,23 @@
 @media(max-width:620px){
   #data-conoce .cn-pubs-bottom .cn-tools__archive-link{width:100%}
 }
+
+#data-conoce .cn-tools__open--secondary{margin-top:0;border-color:#8cb6a0;color:#17654a;background:#f4faf5}
+#data-conoce .cn-tools__open--secondary:hover{background:#e4f4e8}
+#data-conoce .cn-tools__dataset-label{display:flex;flex-wrap:wrap;gap:12px;align-items:center;font:700 13px/1.4 Arial,sans-serif;margin:10px 0 19px}
+#data-conoce .cn-tools__dataset-label select{border:1px solid #b6c9bc;background:white;color:#123b2c;padding:10px;min-width:170px;font:600 12px/1.35 Arial,sans-serif}
+#data-conoce .cn-tools__datasets{background:#f5f8f6;border:1px solid #d0ded4;padding:clamp(12px,2vw,24px);color:#264437}
+#data-conoce .cn-tools__datasets .dataset-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+#data-conoce .cn-tools__datasets .dataset-controls label{display:flex;flex-direction:column;gap:5px;cursor:pointer}
+#data-conoce .cn-tools__datasets .dataset-controls select,#data-conoce .cn-tools__datasets .dataset-controls button,#data-conoce .cn-tools__datasets .dataset-controls .action-button{min-height:36px;border:1px solid #99baa5;border-radius:3px;padding:8px 12px;font:700 12px/1.4 Arial,sans-serif}
+#data-conoce .cn-tools__datasets .dataset-controls .action-button{background:#136647;color:white;cursor:pointer}
+#data-conoce .cn-tools__datasets .dataset-summary{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:16px}
+#data-conoce .cn-tools__datasets .data-table-wrap{overflow:auto;max-height:330px}
+#data-conoce .cn-tools__datasets .data-table{border-collapse:collapse;width:100%;min-width:570px;font:400 12px/1.5 Arial,sans-serif}
+#data-conoce .cn-tools__datasets .data-table th,#data-conoce .cn-tools__datasets .data-table td{text-align:left;border-bottom:1px solid #d2ddd6;padding:7px 9px}
+#data-conoce .cn-tools__datasets .data-table th{position:sticky;top:0;background:#dfeee5}
+#data-conoce .cn-tools__datasets .ti-indicator-chart .bar-row{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:9px;margin:8px 0;align-items:center}
+#data-conoce .cn-tools__datasets .ti-indicator-chart .bar-track{height:13px;background:#d3dfd6}
+#data-conoce .cn-tools__datasets .ti-indicator-chart .bar-fill{height:100%;background:#137a55}
+#data-conoce .cn-tools__datasets .ti-indicator-chart strong{font-size:12px}
+#data-conoce .cn-tools__datasets .prototype-caption,#data-conoce .cn-tools__datasets .local-only-note,#data-conoce .cn-tools__datasets .ti-storage-note{font:400 11px/1.5 Arial,sans-serif;color:#476458;margin:10px 0}
