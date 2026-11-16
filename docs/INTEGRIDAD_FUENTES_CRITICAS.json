@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "baselineDate": "2026-11-16",
+  "policy": "Los cambios intencionales a archivos fuente requieren actualizar esta huella con procedencia y revisión. No restaurar contenido anterior automáticamente.",
+  "resources": [
+    {
+      "path": "assets/docs/plan-estadistico-territorial-original.pdf",
+      "blobSha": "4cdef14d2c4d70c9cc31bba38c9cda5cc0a269cc",
+      "bytes": 1699788,
+      "reason": "PDF original y paginación verificada; no sustituir por transcripción"
+    },
+    {
+      "path": "assets/video/asi-cumplimos-v1.mp4",
+      "blobSha": "4395a18eb0adfe0b30f068bcee4567ca03da52c6",
+      "bytes": 28508423,
+      "reason": "Video original del hero; evitar reemplazo silencioso"
+    },
+    {
+      "path": "assets/interactive/data-fuentes-visual.html",
+      "blobSha": "c0efde93dad6a3eeeff8861dff99fb3eb67e017f",
+      "bytes": 3879824,
+      "reason": "Visuales originales de los doce capítulos"
+    },
+    {
+      "path": "assets/interactive/data-fuentes-capitulos.json",
+      "blobSha": "bfd0ffd16f60f4cf4cbe76b3dc15be2bd08c32e8",
+      "bytes": 31468,
+      "reason": "Metadatos y fuentes de los doce capítulos"
+    },
+    {
+      "path": "data/dane-subachoque-cnpv.json",
+      "blobSha": "82ae3b0f991554dc386fcdbd486bb6af71c22e9f",
+      "bytes": 4939,
+      "reason": "Serie censal 2005/2018 base de comparación"
+    },
+    {
+      "path": "data/uc42-summary.gz.b64.txt",
+      "blobSha": "4e7ed63eeabdd80e4101549eadc769625a31b69a",
+      "bytes": 6032,
+      "reason": "30 registros originales documentales de proyectos estratégicos"
+    },
+    {
+      "path": "data/plan-accion-2025-2026.b64.txt",
+      "blobSha": "53c7bf3f61e8229997e51b25e54e5fcbd9c8fcba",
+      "bytes": 131620,
+      "reason": "Planes de Acción de 2025 y 2026 con 109 metas cada uno"
+    },
+    {
+      "path": "data/caracterizacion-kobo-2026-agregados.gz.b64",
+      "blobSha": "9b9b000528f4c95013fed82fc6fb177849e6de30",
+      "bytes": 9805,
+      "reason": "Resultados agregados KoBo de 324 encuestas"
+    },
+    {
+      "path": "data/cartografia-subachoque/veredas-subachoque.geojson",
+      "blobSha": "02a31eb3c5bd0e8f35196327e0667234484b5a37",
+      "bytes": 214939,
+      "reason": "Polígonos territoriales 17 veredas; posición de referencia"
+    }
+  ]
+}
