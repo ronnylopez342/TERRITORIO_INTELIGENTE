@@ -1,10 +1,12 @@
-name: Static check
+name: Validacion actual de Territorio Inteligente
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   verify:
@@ -14,43 +16,29 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - name: Verify static structure
-        run: |
-          python scripts/verify_static.py
-          python scripts/verify_structure.py
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Verify data parsing
+      - name: Verificar estructura vigente y recursos
+        run: |
+          python scripts/verify_static.py
+          python scripts/verify_structure.py
+      - name: Verificar sintaxis JavaScript de todos los modulos
+        run: find js -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Verificar importaciones Data
         run: node scripts/test_data_core.cjs
-      - name: Verify Unidad de Cumplimiento 4.2
+      - name: Verificar Unidad de Cumplimiento 4.2 con datos reales
         run: node scripts/test_uc42.cjs
-      - name: Verify Plan Estadistico 2.2
+      - name: Verificar Plan Estadistico integrado en 2.1
         run: node scripts/test_plan_estadistico.cjs
-      - name: Verify DANE Subachoque 2.3
-        run: node scripts/test_dane_subachoque.cjs
-      - name: Verify Memoria de la Alcaldia
-        run: node scripts/test_memoria_alcaldia.cjs
-      - name: Verify Encuesta Municipal 2.4
-        run: node scripts/test_encuesta_municipal.cjs
-      - name: Verify Publicaciones 2.5 editorial
-        run: node scripts/test_publicaciones_editorial.cjs
-      - name: Prepare browser smoke
+      - name: Verificar vistas 2.1-2.4 y sus fuentes
+        run: node scripts/test_current_modules.cjs
+      # Las pruebas antiguas Dane/Memoria/Encuesta/Publicaciones se conservan
+      # como evidencia para evaluar su recuperacion. Exigen pantallas 2.3-2.6
+      # retiradas y no deben confundirse con pruebas de las cuatro actuales.
+      - name: Preparar navegador para prueba actual
         run: |
           npm install --no-save --no-package-lock playwright
           npx playwright install chromium --with-deps
-      - name: Smoke test DANE UI
-        run: node scripts/smoke_dane_subachoque.cjs
-      - name: Smoke test Memoria de la Alcaldia
-        run: node scripts/smoke_memoria_alcaldia.cjs
-      - name: Smoke test Encuesta Municipal 2.4
-        run: node scripts/smoke_encuesta_municipal.cjs
-      - name: Smoke test Publicaciones 2.5 editorial
-        run: node scripts/smoke_publicaciones_editorial.cjs
-      - name: Upload DANE UI screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dane23-browser-screenshots
-          path: screenshots/*.png
-          if-no-files-found: ignore
+      - name: Smoke de las cuatro vistas Data actuales
+        run: node scripts/smoke_current_modules.cjs
