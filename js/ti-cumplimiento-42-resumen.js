@@ -15,7 +15,10 @@
   const clean=(v,missing='Sin información registrada')=>v===null||v===undefined||v===''?missing:escape(v);
   const short=(v,max=85)=>{const str=String(v||'');return escape(str.length>max?str.slice(0,max-1).trimEnd()+'…':str);};
   const validUrl=s=>{try{const u=new URL(s);return u.protocol==='https:'&&u.hostname.length>3?u.href:null;}catch{return null;}};
+  const model=window.TI42ResumenModel;
   let selectedRow=null;
+  let extras=new Map(),extraError=null;
+  const summaryPages={projects:1,contracts:1};
   let records=[],mapInstance=null,filterCount=0,activeGroup=[],loadError=null,dataLoaded=false;
   const listeners=new Set();
   function notify(){
@@ -60,6 +63,7 @@
       <button type="button" role="tab" aria-selected="false" data-ti42-view="documentos" class="ti42-tab">Documentos</button>
     </nav>
     <div data-ti42-resumen-content>
+    <div class="ti42-summary-actions"><p>Lectura documental de la selección · porcentajes y costos con cobertura explícita</p><button type="button" data-ti42-export>Descargar resumen CSV</button></div>
     <section class="ti42-overview" aria-label="Información y seguimiento de la meta">
       <article class="ti42-card ti42-info"><h3>Información general de la meta</h3><div data-ti42-info></div></article>
       <div class="ti42-insights">
@@ -83,10 +87,10 @@
       </div>
     </section>
     <section class="ti42-bottom-tables">
-      <article class="ti42-card"><div class="ti42-card-head"><h3>Proyectos y registros asociados</h3><div class="ti42-search"><label for="ti42-search">Buscar</label><input id="ti42-search" data-ti42-filter="q" placeholder="Nombre, BPIN o contrato…" autocomplete="off"/></div></div>
+      <article class="ti42-card"><div class="ti42-card-head"><h3>Proyectos y registros asociados</h3><button type="button" data-ti42-open-view="proyectos">Ver todos en Proyectos</button><div class="ti42-search"><label for="ti42-search">Buscar</label><input id="ti42-search" data-ti42-filter="q" placeholder="Nombre, BPIN o contrato…" autocomplete="off"/></div></div>
         <div class="ti42-table-scroll" data-ti42-projects></div><p class="ti42-small" data-ti42-projects-count></p>
       </article>
-      <article class="ti42-card"><h3>Contratos identificados</h3><div class="ti42-table-scroll" data-ti42-contracts></div><p class="ti42-small" data-ti42-contract-count></p></article>
+      <article class="ti42-card"><div class="ti42-card-head"><h3>Contratos identificados</h3><button type="button" data-ti42-open-view="contratos">Abrir Contratos</button></div><div class="ti42-table-scroll" data-ti42-contracts></div><p class="ti42-small" data-ti42-contract-count></p></article>
     </section>
     <section class="ti42-foot-grid">
       <article class="ti42-card"><h3>Evidencias fotográficas</h3><div data-ti42-evidence></div></article>
@@ -130,16 +134,8 @@
   }
   const total=rs=>rs.reduce((sum,r)=>sum+r,0);
   function renderMetrics(rows){
-    const physical=rows.filter(r=>Number.isFinite(r.physicalPercent));
-    const phys=physical.length?total(physical.map(r=>r.physicalPercent))/physical.length:null;
-    const pairs=rows.filter(r=>Number.isFinite(r.budget)&&r.budget>0&&Number.isFinite(r.executedCost));
-    const base=total(pairs.map(r=>r.budget));
-    const spent=total(pairs.map(r=>r.executedCost));
-    const rate=base>0?spent/base*100:null;
-    const budgets=rows.filter(r=>Number.isFinite(r.budget));
-    const executions=rows.filter(r=>Number.isFinite(r.executedCost));
-    const locations=[...new Set(rows.map(r=>r.vereda).filter(Boolean))];
-    const contracts=rows.filter(r=>r.contract);
+    const computed=model.metrics(rows);
+    const {physical,phys,pairs,base,spent,rate,budgets,executions,locations,contracts}=computed;
     const metrics=[
       numberKpi(String(rows.length),'Registros asociados','Filas del Excel, no proyectos únicos'),
       numberKpi(pct(phys),'Avance físico informado','Promedio de '+physical.length+' con dato'),
@@ -151,7 +147,7 @@
       numberKpi(String(rows.filter(r=>r.contractStatus).length),'Con estado contractual','Estado textual del Excel')
     ];
     set('[data-ti42-kpis]',metrics.join(''));
-    return {phys,physical,rate,pairs,base,spent,budgets,executions,contracts,locations};
+    return computed;
   }
   function renderGeneral(rows){
     const metaRows=state.meta==='all'?rows:records.filter(r=>r.meta===state.meta);
@@ -159,77 +155,100 @@
     const metaTitle=state.meta==='all'?'Consulta de todas las metas y registros':state.meta==='none'?'Registros sin meta asignada':sample?.metaTitle||'Descripción de meta no registrada';
     setText('[data-ti42-meta-number]',state.meta==='all'?'TODAS':state.meta==='none'?'S/N':state.meta);
     setText('[data-ti42-meta-title]',metaTitle);
-    const unique=(key)=>[...new Set(rows.map(r=>r[key]).filter(Boolean))];
+    const unique=(key)=>[...new Set(rows.map(r=>r[key]??extras.get(r.excelRow)?.[key]).filter(Boolean))];
+    const allValues=key=>unique(key).join(' · ')||'Sin dato';
     const detail=(label,value)=>'<div class="ti42-info-line"><dt>'+escape(label)+'</dt><dd title="'+escape(value)+'">'+escape(value)+'</dd></div>';
     const vals=[
       detail('Meta consultada',state.meta==='all'?'Todas las metas':state.meta==='none'?'Sin registro':state.meta),
       detail('Descripción',metaTitle),
-      detail('Códigos BPIN',unique('bpin').length===1?unique('bpin')[0]:unique('bpin').length?unique('bpin').length+' códigos identificados':'Sin código registrado'),
-      detail('Línea estratégica',unique('strategicLine').length===1?unique('strategicLine')[0]:unique('strategicLine').length?unique('strategicLine').length+' líneas identificadas':'Sin dato'),
-      detail('Sector MGA',unique('sectorMGA').length===1?unique('sectorMGA')[0]:unique('sectorMGA').length?unique('sectorMGA').length+' sectores identificados':'Sin dato'),
-      detail('Responsable técnico',unique('technicalResponsible').length===1?unique('technicalResponsible')[0]:unique('technicalResponsible').length?unique('technicalResponsible').length+' responsables identificados':'Sin dato'),
+      detail('Códigos BPIN',unique('bpin').length===1?unique('bpin')[0]:unique('bpin').length?allValues('bpin'):'Sin código registrado'),
+      detail('Línea estratégica',unique('strategicLine').length===1?unique('strategicLine')[0]:unique('strategicLine').length?allValues('strategicLine'):'Sin dato'),
+      detail('Sector MGA',unique('sectorMGA').length===1?unique('sectorMGA')[0]:unique('sectorMGA').length?allValues('sectorMGA'):'Sin dato'),
+      detail('Responsable técnico',unique('technicalResponsible').length===1?unique('technicalResponsible')[0]:unique('technicalResponsible').length?allValues('technicalResponsible'):'Sin dato'),
+      detail('Programa del Plan de Desarrollo',allValues('program')),
+      detail('Población objetivo registrada',allValues('population')),
+      detail('Fase registrada',allValues('phase')),
+      detail('Responsabilidad de ejecución',allValues('executionResponsibility')),
       detail('Vigencias',unique('year').sort().join(', ')||'Sin vigencia registrada'),
+      detail('Indicador de producto / meta cuatrienal','Sin ficha de indicador ni objetivo numérico acreditados'),
+      detail('Inicio documental más temprano',rows.filter(model.interval).length?date(rows.filter(model.interval).map(r=>r.start).sort()[0]):'Sin fecha válida'),
+      detail('Final documental más tardío',rows.filter(model.interval).length?date(rows.filter(model.interval).map(r=>r.end).sort().at(-1)):'Sin fecha válida'),
       detail('Base',rows.length+' registros seleccionados')
     ];
-    set('[data-ti42-info]','<dl class="ti42-info-list">'+vals.join('')+'</dl>');
+    set('[data-ti42-info]',(extraError?'<p class="ti42-summary-warning">No fue posible consultar la fuente complementaria de programa y población. Vuelve a cargar la página.</p>':'')+'<dl class="ti42-info-list">'+vals.join('')+'</dl>');
   }
   function ring(value,title,note){
     const bounded=Number.isFinite(value)?Math.max(0,Math.min(100,value)):0;
     return '<div class="ti42-ring-row"><div class="ti42-ring" style="--fill:'+bounded.toFixed(2)+'%"><div><strong>'+pct(value)+'</strong><span>'+escape(title)+'</span></div></div><div class="ti42-ring-copy"><strong>'+escape(note)+'</strong><p>El dato representa únicamente registros con porcentaje válido. No certifica el cumplimiento total de la meta.</p></div></div>';
   }
   function renderPhysical(metrics){
-    set('[data-ti42-physical]',ring(metrics.phys,'Promedio físico',metrics.physical.length+' de '+activeGroup.length+' registros con avance informado'));
+    const labels=['100 % informado','Entre 0 y 100 %','0 % informado','Sin porcentaje válido'];
+    const tones=['#07865e','#2388c5','#d6971d','#a7b6c6'];
+    const distribution='<div class="ti42-distribution" role="img" aria-label="Distribución de avance físico: '+labels.map((v,i)=>v+': '+metrics.distribution[i]).join(', ')+'">'+metrics.distribution.map((n,i)=>n?'<span style="width:'+(n/activeGroup.length*100).toFixed(3)+'%;background:'+tones[i]+'"></span>':'').join('')+'</div><ul class="ti42-series-legend">'+labels.map((v,i)=>'<li><i style="background:'+tones[i]+'"></i>'+v+' <b>'+metrics.distribution[i]+'</b></li>').join('')+'</ul>';
+    const comparison=(label,value,n,tone)=>'<div class="ti42-summary-series"><span>'+label+' <small>'+n+' registros con dato</small></span><strong>'+pct(value)+'</strong><div><i style="width:'+(Number.isFinite(value)?Math.min(100,Math.max(0,value)):0)+'%;background:'+tone+'"></i></div></div>';
+    const rows=activeGroup.map(r=>'<li><button type="button" data-ti42-detail="'+r.excelRow+'">Ítem '+escape(r.item)+' · '+escape(r.name)+'</button><strong>'+pct(r.physicalPercent)+'</strong></li>').join('');
+    set('[data-ti42-physical]',ring(metrics.phys,'Promedio físico',metrics.physical.length+' de '+activeGroup.length+' registros con avance informado')+distribution+
+      comparison('Avance físico',metrics.phys,metrics.physical.length,'#07865e')+comparison('Gestión financiera',metrics.managementMean,metrics.management.length,'#2388c5')+
+      '<p class="ti42-small">Escala de porcentajes: 0–100 %. Cada promedio usa su propia cobertura; gestión financiera no equivale a pagos ni a relación de costos.</p>'+
+      (metrics.invalidPhysical?'<p class="ti42-summary-warning">'+metrics.invalidPhysical+' valores fuera de 0–100 % excluidos del promedio.</p>':'')+
+      '<details><summary>Consultar los '+activeGroup.length+' registros y su avance</summary><ul class="ti42-summary-records">'+rows+'</ul></details>'+
+      '<p class="ti42-small">Meta programada, unidades intervenidas y cumplimiento certificado: sin una ficha de indicador y mediciones compatibles. No se suman metros, viviendas y otras unidades.</p>');
   }
   function renderFinance(metrics){
     if(!metrics.pairs.length){
       set('[data-ti42-finance]','<p class="ti42-empty">Sin registros con costos total y ejecutado numéricos comparables.</p>');return;
     }
     const max=Math.max(metrics.base,metrics.spent,1);
-    const bar=(label,v,tone)=>'<div class="ti42-finance-col"><span>'+money(v)+'</span><div class="ti42-finance-track"><i class="'+tone+'" style="height:'+Math.max(1,(v/max*100)).toFixed(2)+'%"></i></div><b>'+escape(label)+'</b></div>';
-    set('[data-ti42-finance]','<div class="ti42-finance-bars">'+bar('Costo total',metrics.base,'ti42-blue')+bar('Costo ejecutado',metrics.spent,'ti42-green')+'</div><p class="ti42-small">Comparación solo entre '+metrics.pairs.length+' filas con ambos importes. El costo ejecutado no equivale necesariamente a pagos.</p>');
+    const bar=(label,v,tone)=>'<div class="ti42-finance-col"><span>'+money(v)+'</span><div class="ti42-finance-track"><i class="'+tone+'" style="height:'+Math.max(0,(v/max*100)).toFixed(2)+'%"></i></div><b>'+escape(label)+'</b></div>';
+    set('[data-ti42-finance]','<p class="ti42-small">Escala común en COP · 0 a '+money(max)+'</p><div class="ti42-finance-bars">'+bar('Costo total comparable',metrics.base,'ti42-blue')+bar('Costo ejecutado comparable',metrics.spent,'ti42-green')+'</div><p class="ti42-summary-ratio"><strong>'+pct(metrics.rate)+'</strong> relación ejecutado / total</p><p class="ti42-small">Diferencia ejecutado − total: '+money(metrics.spent-metrics.base)+'. Comparación solo entre '+metrics.pairs.length+' de '+activeGroup.length+' filas con ambos importes válidos. Los indicadores superiores suman por separado todas las filas con valor.</p><p class="ti42-small">El costo ejecutado no equivale necesariamente a pagos. Apropiado, comprometido, obligado y pagado: sin desglose en el Excel.</p>'+ (metrics.excess.length?'<details class="ti42-summary-warning"><summary>'+metrics.excess.length+' registros con ejecutado superior al total</summary><p>Revisar adiciones y bases del costo antes de concluir sobrecostos.</p><ul>'+metrics.excess.map(r=>'<li><button type="button" data-ti42-detail="'+r.excelRow+'">Ítem '+escape(r.item)+' · '+escape(r.contract)+'</button>: '+money(r.executedCost-r.budget)+'</li>').join('')+'</ul></details>':''));
   }
   function renderYears(rows){
     const years=[...new Set(rows.map(r=>r.year).filter(Boolean))].sort();
     if(!years.length){set('[data-ti42-years]','<p class="ti42-empty">Sin vigencias declaradas en este conjunto.</p>');return;}
-    set('[data-ti42-years]','<div class="ti42-year-dots">'+years.map(y=>'<div class="ti42-year"><span>'+escape(y)+'</span><i></i><small>'+rows.filter(r=>r.year===y).length+' filas</small></div>').join('')+'</div><p class="ti42-small">Vigencia del registro; no es un calendario de ejecución certificado.</p>');
+    set('[data-ti42-years]','<div class="ti42-year-dots">'+years.map(y=>'<div class="ti42-year"><span>'+escape(y)+'</span><i></i><small>'+rows.filter(r=>r.year===y).length+' filas</small></div>').join('')+'</div><p class="ti42-small">'+rows.filter(r=>!r.year).length+' filas sin vigencia. Vigencia administrativa del registro; no es un calendario de ejecución certificado.</p>');
   }
   function renderGantt(rows){
-    const withDate=rows.filter(r=>/^\d{4}-\d\d-\d\d$/.test(r.start||'')&&/^\d{4}-\d\d-\d\d$/.test(r.end||'')&&r.end>=r.start);
+    const withDate=rows.filter(model.interval);
     if(!withDate.length){set('[data-ti42-gantt]','<p class="ti42-empty">No se registraron pares de fechas de inicio y finalización válidos.</p>');return;}
-    const ordered=withDate.slice().sort((a,b)=>a.start.localeCompare(b.start)).slice(0,5);
+    const ordered=withDate.slice().sort((a,b)=>a.start.localeCompare(b.start));
     const values=withDate.flatMap(r=>[Date.parse(r.start+'T00:00:00Z'),Date.parse(r.end+'T00:00:00Z')]);
-    const min=Math.min(...values),max=Math.max(...values);
-    const duration=Math.max(86400000,max-min);
-    const content=ordered.map(r=>{
-      const start=Math.max(0,Math.min(100,(Date.parse(r.start+'T00:00:00Z')-min)/duration*100));
-      const width=Math.max(2,Math.min(100-start,(Date.parse(r.end+'T00:00:00Z')-Date.parse(r.start+'T00:00:00Z'))/duration*100));
-      return '<div class="ti42-gantt-row"><span title="'+escape(r.name)+'">'+short(r.name,35)+'</span><div class="ti42-gantt-track"><i style="left:'+start.toFixed(2)+'%;width:'+width.toFixed(2)+'%"></i></div></div>';
-    }).join('');
-    set('[data-ti42-gantt]','<div class="ti42-gantt-years"><span>'+new Date(min).getUTCFullYear()+'</span><span>'+new Date(max).getUTCFullYear()+'</span></div>'+content+'<p class="ti42-small">Fechas registradas de inicio y finalización; '+withDate.length+' filas con ambos campos válidos.</p>');
+    const min=Math.min(...values),max=Math.max(...values),duration=Math.max(86400000,max-min);
+    const rowMarkup=r=>{
+      const start=(Date.parse(r.start+'T00:00:00Z')-min)/duration*100;
+      const width=Math.max(.5,Math.min(100-start,(Date.parse(r.end+'T00:00:00Z')-Date.parse(r.start+'T00:00:00Z'))/duration*100));
+      return '<div class="ti42-gantt-row"><button type="button" data-ti42-detail="'+r.excelRow+'">Ítem '+escape(r.item)+' · '+escape(r.name)+'<small>'+date(r.start)+' – '+date(r.end)+(r.sourceDateNotes?' · Fechas de proceso: revisar texto original':'')+'</small></button><div class="ti42-gantt-track" role="img" aria-label="Desde '+date(r.start)+' hasta '+date(r.end)+'"><i style="left:'+start.toFixed(2)+'%;width:'+width.toFixed(2)+'%"></i></div></div>';
+    };
+    set('[data-ti42-gantt]','<div class="ti42-gantt-years"><span>'+date(new Date(min).toISOString().slice(0,10))+'</span><span>'+date(new Date(max).toISOString().slice(0,10))+'</span></div>'+ordered.slice(0,5).map(rowMarkup).join('')+
+      (ordered.length>5?'<details><summary>Ver los '+(ordered.length-5)+' intervalos adicionales</summary>'+ordered.slice(5).map(rowMarkup).join('')+'</details>':'')+
+      '<p class="ti42-small">'+withDate.length+' de '+rows.length+' filas con pares válidos. No se infieren hitos de planeación, obra, seguimiento ni entrega. '+withDate.filter(r=>r.sourceDateNotes).length+' registros contienen fechas de proceso que requieren revisión; no acreditan ejecución de la obra.</p>');
   }
   function table(headers,rows,emptyMessage){
     if(!rows.length)return '<p class="ti42-empty">'+escape(emptyMessage)+'</p>';
     return '<table class="ti42-data-table"><thead><tr>'+headers.map(h=>'<th scope="col">'+escape(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table>';
   }
   function renderTables(rows,metrics){
-    const projects=rows.map(r=>'<tr><td title="'+escape(r.name)+'"><strong>'+short(r.name,74)+'</strong><small>Excel · ítem '+escape(r.item||r.excelRow)+'</small></td><td>'+clean(r.year,'—')+'</td><td>'+clean(r.vereda,'Sin ubicación')+'</td><td>'+ (Number.isFinite(r.physicalPercent)?pct(r.physicalPercent):'No informado')+'</td><td><button type="button" data-ti42-detail="'+r.excelRow+'" aria-label="Detalle del registro '+r.excelRow+'">Ver</button></td></tr>');
-    set('[data-ti42-projects]',table(['Proyecto / registro','Vigencia','Vereda','Avance físico','Detalle'],projects,'No hay registros para los filtros seleccionados.'));
-    setText('[data-ti42-projects-count]','Mostrando '+rows.length+' de '+rows.length+' registros. Desplázate dentro de la tabla para consultar todos.');
-    const contracts=metrics.contracts.map(r=>'<tr><td>'+short(r.contract,32)+'</td><td>'+short(r.contractor||'Sin dato',39)+'</td><td>'+ (Number.isFinite(r.budget)?money(r.budget):'Sin dato')+'</td><td><button type="button" data-ti42-detail="'+r.excelRow+'">Ver</button></td></tr>');
-    set('[data-ti42-contracts]',table(['Contrato','Contratista','Costo total','Detalle'],contracts,'No se identificaron contratos en los registros filtrados.'));
-    setText('[data-ti42-contract-count]','Mostrando '+metrics.contracts.length+' de '+metrics.contracts.length+' filas con contrato. Desplázate dentro de la tabla para consultar todos.');
+    const pageSize=5;
+    const range=(key,items)=>{summaryPages[key]=Math.min(summaryPages[key],Math.max(1,Math.ceil(items.length/pageSize)));return items.slice((summaryPages[key]-1)*pageSize,summaryPages[key]*pageSize);};
+    const paging=(key,n)=>'<div class="ti42-summary-paging"><span>'+ (n?((summaryPages[key]-1)*pageSize+1)+'–'+Math.min(n,summaryPages[key]*pageSize):'0')+' de '+n+' registros</span><button type="button" data-ti42-page="'+key+'" data-step="-1" '+(summaryPages[key]===1?'disabled':'')+' aria-label="Página anterior de '+key+'">Anterior</button><button type="button" data-ti42-page="'+key+'" data-step="1" '+(summaryPages[key]*pageSize>=n?'disabled':'')+' aria-label="Página siguiente de '+key+'">Siguiente</button></div>';
+    const projects=range('projects',rows).map(r=>'<tr><td><strong>'+escape(r.name)+'</strong><small>Excel · ítem '+escape(r.item||r.excelRow)+'</small></td><td>'+clean(r.bpin,'Sin BPIN')+'</td><td>'+clean(r.year,'—')+'</td><td>'+clean(r.vereda,'Sin ubicación')+'</td><td>'+clean(r.contractStatus,'Sin estado')+'</td><td>'+pct(r.physicalPercent)+'</td><td>'+pct(r.managementPercent)+'</td><td>'+money(r.budget)+'</td><td>'+clean(extras.get(r.excelRow)?.population,'Sin dato')+'</td><td><button type="button" data-ti42-detail="'+r.excelRow+'" aria-label="Detalle del registro '+r.excelRow+'">Ver</button></td></tr>');
+    set('[data-ti42-projects]',table(['Proyecto / registro','BPIN','Vigencia','Vereda','Estado contractual','Avance físico','Gestión financiera','Costo total (COP)','Población objetivo','Detalle'],projects,'No hay registros para los filtros seleccionados.')+paging('projects',rows.length));
+    setText('[data-ti42-projects-count]','Hay '+rows.length+' registros en la selección. Un nombre o BPIN repetido no certifica un proyecto único.');
+    const contracts=range('contracts',metrics.contracts).map(r=>'<tr><td>'+escape(r.contract)+'</td><td>'+clean(r.contractor,'Sin dato')+'</td><td>'+money(r.budget)+'</td><td>'+clean(r.contractStatus,'Sin estado')+'</td><td>'+pct(r.physicalPercent)+'</td><td><button type="button" data-ti42-detail="'+r.excelRow+'">Ver</button></td></tr>');
+    set('[data-ti42-contracts]',table(['Contrato consignado','Contratista','Costo total (COP)','Estado contractual','Avance físico','Detalle'],contracts,'No se identificaron contratos en los registros filtrados.')+paging('contracts',metrics.contracts.length));
+    setText('[data-ti42-contract-count]',metrics.contracts.length+' filas con contrato. Una celda puede incluir varios identificadores y un contrato puede repetirse; no es un conteo de contratos únicos.');
   }
   function renderFoot(rows,metrics){
     const imgs=rows.filter(r=>[r.photoBefore,r.photoFollow,r.photoAfter].some(v=>validUrl(v)));
     const observations=rows.filter(r=>r.observations);
-    set('[data-ti42-evidence]',imgs.length?'<p>Enlaces fotográficos en '+imgs.length+' registros.</p>'+imgs.slice(0,4).map(r=>'<button class="ti42-evidence-button" type="button" data-ti42-detail="'+r.excelRow+'">'+short(r.name,68)+' ↗</button>').join(''):'<div class="ti42-empty-visual"><span aria-hidden="true">▧</span><strong>Sin enlaces fotográficos registrados</strong><p>Las columnas de fotografías no contienen URL verificables para esta selección. No se sustituyen por imágenes ilustrativas.</p></div>');
-    set('[data-ti42-risks]','<div class="ti42-observation"><strong>Riesgos clasificados: sin datos disponibles</strong><p>Las columnas de identificación, probabilidad, impacto y nivel de riesgo no traen información estructurada en el archivo.</p></div><strong class="ti42-subtitle">Observaciones: '+observations.length+' registros</strong>'+(observations.length?'<ul class="ti42-observations">'+observations.slice(0,3).map(r=>'<li>'+short(r.observations,170)+'</li>').join('')+'</ul>':'<p class="ti42-small">No hay observaciones textuales en este conjunto.</p>'));
+    set('[data-ti42-evidence]',imgs.length?'<p>Enlaces fotográficos en '+imgs.length+' registros.</p>'+imgs.map(r=>'<button class="ti42-evidence-button" type="button" data-ti42-detail="'+r.excelRow+'">'+escape(r.name)+' ↗</button>').join(''):'<div class="ti42-empty-visual"><span aria-hidden="true">▧</span><strong>Sin enlaces fotográficos registrados</strong><p>Las columnas de fotografías no contienen URL verificables para esta selección. No se sustituyen por imágenes ilustrativas.</p></div>');
+    set('[data-ti42-risks]','<div class="ti42-observation"><strong>Riesgos clasificados: sin datos disponibles</strong><p>Las columnas de identificación, probabilidad, impacto y nivel de riesgo no traen información estructurada en el archivo.</p></div><strong class="ti42-subtitle">Observaciones: '+observations.length+' registros</strong>'+(observations.length?'<details><summary>Consultar todas las observaciones</summary><ul class="ti42-observations">'+observations.map(r=>'<li><button type="button" data-ti42-detail="'+r.excelRow+'">Ítem '+escape(r.item)+' · '+escape(r.name)+'</button><p>'+escape(r.observations)+'</p></li>').join('')+'</ul></details>':'<p class="ti42-small">No hay observaciones textuales en este conjunto.</p>'));
     const missing=rows.length-metrics.physical.length;
     const budgetMissing=rows.length-metrics.budgets.length;
     const mapMissing=rows.length-rows.filter(r=>r.vereda).length;
-    set('[data-ti42-analysis]','<ul class="ti42-analysis-list"><li><strong>'+missing+'</strong> filas sin porcentaje físico numérico.</li><li><strong>'+budgetMissing+'</strong> filas sin costo total numérico.</li><li><strong>'+mapMissing+'</strong> filas sin vereda identificada.</li><li><strong>'+rows.filter(r=>!r.year).length+'</strong> filas sin vigencia.</li></ul><p class="ti42-small">Los porcentajes se calculan solo a partir de campos válidos; «sin dato» no se reemplaza por cero. Los valores reflejan el archivo suministrado, no una certificación municipal.</p>');
+    set('[data-ti42-analysis]','<ul class="ti42-analysis-list"><li><strong>'+missing+'</strong> filas sin porcentaje físico válido.</li><li><strong>'+budgetMissing+'</strong> filas sin costo total numérico.</li><li><strong>'+mapMissing+'</strong> filas sin vereda identificada.</li><li><strong>'+rows.filter(r=>!r.year).length+'</strong> filas sin vigencia.</li></ul><p class="ti42-small">Los porcentajes se calculan solo a partir de campos válidos; «sin dato» no se reemplaza por cero. Los valores reflejan el archivo suministrado, no una certificación municipal.</p>');
   }
   function display(){
+    summaryPages.projects=1;summaryPages.contracts=1;
     activeGroup=records.filter(matches);
     if(!activeGroup.some(r=>r.excelRow===selectedRow))selectedRow=activeGroup[0]?.excelRow||null;
     filterCount++;
@@ -258,15 +277,23 @@
       ['Costo ejecutado registrado',Number.isFinite(r.executedCost)?money(r.executedCost):null],
       ['Avance físico reportado',Number.isFinite(r.physicalPercent)?pct(r.physicalPercent):null],
       ['Avance financiero de gestión',Number.isFinite(r.managementPercent)?pct(r.managementPercent):null],
-      ['Responsable técnico',r.technicalResponsible],['Observaciones',r.observations]
+      ['Responsable técnico',r.technicalResponsible],['Programa',extras.get(r.excelRow)?.program],['Población objetivo (texto fuente)',extras.get(r.excelRow)?.population],['Observaciones',r.observations],['Fecha inicio original (proceso)',r.sourceDateNotes?.start],['Fecha final original (proceso)',r.sourceDateNotes?.end]
     ];
     setText('[data-ti42-detail-title]','Registro · '+(r.item||r.excelRow));
-    set('[data-ti42-detail-body]','<dl class="ti42-detail-grid">'+pairs.map(([k,v])=>'<div><dt>'+escape(k)+'</dt><dd>'+clean(v)+'</dd></div>').join('')+'</dl>'+(validUrl(r.secopUrl)?'<a href="'+escape(validUrl(r.secopUrl))+'" target="_blank" rel="noopener noreferrer" class="ti42-external">Consultar enlace SECOP registrado ↗</a>':'')+'<p class="ti42-small">Fuente: Proyectos DEFINITIVO · fila '+r.excelRow+'. No equivale a validación contractual.</p>');
+    set('[data-ti42-detail-body]','<dl class="ti42-detail-grid">'+pairs.map(([k,v])=>'<div><dt>'+escape(k)+'</dt><dd>'+clean(v)+'</dd></div>').join('')+'</dl>'+(validUrl(r.secopUrl)?'<a href="'+escape(validUrl(r.secopUrl))+'" target="_blank" rel="noopener noreferrer" class="ti42-external">Consultar enlace SECOP registrado ↗</a>':'')+[ ['Antes',r.photoBefore],['Seguimiento',r.photoFollow],['Después',r.photoAfter] ].filter(([,v])=>validUrl(v)).map(([label,v])=>'<a class="ti42-external" href="'+escape(validUrl(v))+'" target="_blank" rel="noopener noreferrer">Fotografías · '+label+' ↗</a>').join('')+'<p class="ti42-small">Fuente: Proyectos DEFINITIVO · fila '+r.excelRow+'. No equivale a validación contractual.</p>');
     const dialog=q('[data-ti42-dialog]');if(dialog&&!dialog.open)dialog.showModal();
   }
   mount.addEventListener('input',ev=>{const fld=ev.target.closest('[data-ti42-filter="q"]');if(fld){state.q=fld.value;mount.querySelectorAll('[data-ti42-filter="q"]').forEach(input=>{if(input!==fld)input.value=state.q;});display();}});
   mount.addEventListener('change',ev=>{const fld=ev.target.closest('[data-ti42-filter]');if(!fld||fld.dataset.ti42Filter==='q')return;state[fld.dataset.ti42Filter]=fld.value;display();});
   mount.addEventListener('click',ev=>{
+    const page=ev.target.closest('[data-ti42-page]');if(page){summaryPages[page.dataset.ti42Page]+=Number(page.dataset.step);renderTables(activeGroup,model.metrics(activeGroup));return;}
+    const openView=ev.target.closest('[data-ti42-open-view]');if(openView){q('[data-ti42-view="'+openView.dataset.ti42OpenView+'"]')?.click();return;}
+    if(ev.target.closest('[data-ti42-export]')){
+      const fields=['excelRow','item','name','bpin','meta','year','vereda','contract','contractStatus','physicalPercent','managementPercent','budget','executedCost','start','end','observations'];
+      const labels=['Fila Excel','Ítem','Nombre','BPIN','Meta','Vigencia','Vereda','Contrato consignado','Estado contractual','Avance físico reportado (%)','Gestión financiera (%)','Costo total (COP)','Costo ejecutado (COP)','Inicio documental','Final documental','Observaciones'];
+      const csv='\ufeff'+[labels,...activeGroup.map(r=>fields.map(k=>r[k]))].map(row=>row.map(model.csvCell).join(';')).join('\r\n');
+      const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='resumen-unidad-cumplimiento.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);return;
+    }
     if(ev.target.closest('[data-ti42-clear-all]')){state={meta:'all',year:'all',status:'all',sector:'all',q:''};populateFilters();display();return;}
     const detailBtn=ev.target.closest('[data-ti42-detail]');if(detailBtn){detail(detailBtn.dataset.ti42Detail);return;}
     const close=ev.target.closest('[data-ti42-close]');if(close){q('[data-ti42-dialog]')?.close();return;}
@@ -412,6 +439,14 @@
     const plain=await new Response(new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
     const obj=JSON.parse(plain);
     if(obj.schema!==1||obj.sheet!=='Proyectos DEFINITIVO'||!Array.isArray(obj.rows)||!Array.isArray(obj.fields)||obj.fields.join('|')!==fieldOrder.join('|')||!obj.rows.every(row=>Array.isArray(row)&&row.length===fieldOrder.length))throw Error('Archivo de datos no cumple el esquema esperado');
+    try{
+      const responseExtra=await fetch('data/uc42-proyectos-extra.b64.txt',{cache:'no-cache'});
+      if(!responseExtra.ok)throw Error('Fuente complementaria no disponible');
+      const bytes=Uint8Array.from(atob((await responseExtra.text()).trim()),c=>c.charCodeAt(0));
+      const extra=JSON.parse(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text());
+      if(extra.sourceSha256!==obj.sourceSha256||!Array.isArray(extra.fields)||!extra.fields.includes('excelRow')||!Array.isArray(extra.rows))throw Error('Fuente complementaria distinta del libro original');
+      extras=new Map(extra.rows.map(row=>{const r=Object.fromEntries(extra.fields.map((k,i)=>[k,row[i]]));return [r.excelRow,r];}));
+    }catch(error){extraError=error.message;console.warn('Resumen: no se pudo ampliar la información general',error);}
     return obj.rows.map(row=>window.TI42Core.prepare({...Object.fromEntries(obj.fields.map((field,i)=>[field,row[i]])),sourceDateNotes:obj.sourceNotes?.[row[0]]||null}));
   }
   getData().then(rows=>{records=rows;dataLoaded=true;populateFilters();display();startMap();}).catch(err=>{

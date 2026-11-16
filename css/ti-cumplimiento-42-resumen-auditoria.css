@@ -1,0 +1,60 @@
+/* Mejoras acotadas al contenido de Resumen; no modifica cartografía ni otras vistas. */
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-card{padding:18px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-card>h3{font-size:15px!important;margin-bottom:14px!important}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-info-line{grid-template-columns:minmax(100px,.65fr) minmax(0,1fr);padding:10px 0;gap:14px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-info-line :is(dt,dd){font-size:12px;line-height:1.55;max-height:none;overflow:visible}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-small{font-size:11px;line-height:1.6;margin-top:9px!important}
+#cumplimiento-proyectos [data-ti42-resumen-content] :is(button,summary){font:600 12px/1.5 Poppins,Arial,sans-serif;cursor:pointer;color:#125c94}
+#cumplimiento-proyectos [data-ti42-resumen-content] button{border:1px solid #c2d9e6;background:#f3f9fd;border-radius:6px;padding:7px 10px;white-space:normal;overflow-wrap:anywhere}
+#cumplimiento-proyectos [data-ti42-resumen-content] button:disabled{opacity:.5;cursor:default}
+#cumplimiento-proyectos [data-ti42-resumen-content] details{margin-top:12px;border-top:1px solid #dce7ef;padding-top:10px}
+#cumplimiento-proyectos [data-ti42-resumen-content] summary{padding:4px 0}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-ring-row{flex-wrap:nowrap;gap:20px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-ring{width:125px;height:125px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-ring strong{font-size:23px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-ring-copy{flex:1;max-width:none}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-ring-copy :is(strong,p){font-size:12px;line-height:1.55}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-distribution{display:flex;height:14px;border-radius:5px;overflow:hidden;background:#edf2f6;margin-top:17px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-series-legend{display:grid;grid-template-columns:1fr 1fr;gap:9px 15px;list-style:none;padding:0;margin:12px 0 18px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-series-legend li{display:flex;gap:7px;align-items:center;font-size:11px;color:#43627c}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-series-legend i{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-series-legend b{margin-left:auto;color:#143b5f}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-series{display:grid;grid-template-columns:1fr auto;gap:5px 10px;margin-top:12px;font-size:12px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-series small{display:block;color:#5c758a;font-size:10px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-series>div{grid-column:1/-1;height:7px;background:#e7eef5;border-radius:4px;overflow:hidden}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-series i{display:block;height:100%}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-records{list-style:none;padding:0;margin:5px 0}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-records li{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid #e5edf3;font-size:12px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-records button{text-align:left}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-finance-col{max-width:210px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-finance-col>span{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;font-size:12px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-finance-col b{font-size:11px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-finance-track{height:110px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-ratio{margin-top:12px!important;font-size:12px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-ratio strong{color:#075eac;font-size:24px;margin-right:6px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-warning{background:#fff7e7;border:1px solid #ebd09f;border-radius:6px;padding:10px;color:#6c511d;font-size:11px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-warning p{font-size:11px;line-height:1.6}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-gantt-years{padding-left:50%;font-size:11px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-gantt-row{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);padding:9px 0;gap:12px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-gantt-row button{font-size:10px;text-align:left;background:transparent;border:0;padding:0;color:#234b70}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-gantt-row small{display:block;color:#627b8d;margin-top:4px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-bottom-tables{grid-template-columns:minmax(0,1fr);margin-top:14px;gap:14px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-table-scroll{max-height:none;overflow-x:auto;overflow-y:visible}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-data-table{min-width:1000px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-data-table :is(td,th){font-size:11px;padding:12px 10px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-data-table td:first-child{min-width:240px;max-width:320px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-data-table td strong{font-size:11px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-paging{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:10px;font-size:12px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-paging>span{margin-right:auto}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-actions{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:4px 0 14px}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-actions p{font-size:12px;color:#4a6d88}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-actions button{flex-shrink:0;background:#075fae;color:white}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-observations p{white-space:pre-wrap;font-size:11px;line-height:1.6}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-observations button{text-align:left;margin:8px 0}
+@media(min-width:1700px){#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-overview{grid-template-columns:minmax(0,.95fr) minmax(0,1.1fr) minmax(0,1.2fr)}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-schedules{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr)}}
+@media(max-width:760px){#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-overview{grid-template-columns:minmax(0,1fr)}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-card{padding:14px}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-insights,#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-schedules{display:flex;flex-direction:column}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-actions{align-items:stretch;flex-direction:column}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-info-line{grid-template-columns:minmax(0,.7fr) minmax(0,1fr)}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-ring{width:104px;height:104px}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-ring strong{font-size:19px}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-ring-row{gap:12px}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-series-legend{grid-template-columns:1fr}#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-summary-paging{flex-wrap:wrap}}
+#cumplimiento-proyectos [data-ti42-resumen-content] .ti42-data-table th{overflow-wrap:normal;word-break:normal}
+#cumplimiento-proyectos [data-ti42-resumen-content] [data-ti42-projects] :is(th,td):nth-child(2),
+#cumplimiento-proyectos [data-ti42-resumen-content] [data-ti42-projects] :is(th,td):nth-child(3),
+#cumplimiento-proyectos [data-ti42-resumen-content] [data-ti42-projects] :is(th,td):nth-child(8){white-space:nowrap}
