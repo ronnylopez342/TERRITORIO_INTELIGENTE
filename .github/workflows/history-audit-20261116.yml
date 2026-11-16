@@ -1,0 +1,29 @@
+name: Auditoria exhaustiva de eliminaciones historicas
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/history-audit-20261116.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Auditar commits y archivos eliminados de main y etiquetas
+        run: python scripts/audit_historical_git.py
+      - name: Publicar evidencia de auditoria
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-git-perdidas
+          path: audit_output/AUDITORIA_GIT_PERDIDAS.md
+          if-no-files-found: warn
