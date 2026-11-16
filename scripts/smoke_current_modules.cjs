@@ -124,6 +124,46 @@ async function run(){
    assert.match(await page.locator('[data-cn-tools-list]').innerText(),/Importado de prueba/);
    assert.match(await page.locator('[data-cn-tools-list]').innerText(),/12/);
    await page.locator('[data-cn-tools-close]').click();
+   // Archivo histórico municipal: recuperar registros locales previos sin demos.
+   await page.evaluate(()=>TIData.write('municipal-archive:v1',{version:1,records:[{
+     id:'archivo-prueba-1',title:'Acta de prueba histórica',type:'Acta',
+     dependency:'Secretaría de Planeación',dated:'2024-08-17',
+     summary:'Ejemplo local no institucional',source:'Prueba automatizada',
+     status:'physical',historic:true,createdAt:'2024-08-17T12:00:00.000Z'
+   }]}));
+   await page.locator('[data-cn-tool="archive"]').click();
+   await page.waitForFunction(()=>document.querySelector('[data-cn-archive-results]')?.textContent.includes('Acta de prueba histórica'),null,{timeout:20000});
+   assert.equal(await page.locator('[data-cn-archive-results] tbody tr').count(),1);
+   await page.locator('[data-cn-archive-year]').selectOption('2024');
+   assert.equal(await page.locator('[data-cn-archive-results] tbody tr').count(),1);
+   await page.locator('[data-cn-archive-dep]').selectOption('Secretaría de Planeación');
+   await page.locator('[data-cn-archive-q]').fill('Acta de prueba');
+   assert.equal(await page.locator('[data-cn-archive-results] tbody tr').count(),1);
+   await page.locator('[data-cn-archive-q]').fill('Inexistente');
+   assert.equal(await page.locator('[data-cn-archive-results] tbody tr').count(),0);
+   await page.locator('[data-cn-archive-q]').fill('');
+   await page.locator('[data-cn-archive-action="new"]').click();
+   await page.locator('#cn-archive-form [name="title"]').fill('Resolución local de prueba');
+   await page.locator('#cn-archive-form [name="dependency"]').fill('Secretaría de Gobierno');
+   await page.locator('#cn-archive-form [name="dated"]').fill('2024-11-11');
+   await page.locator('#cn-archive-form [name="status"]').selectOption('digital');
+   await page.locator('#cn-archive-form [name="file"]').setInputFiles({
+     name:'archivo-prueba.txt',mimeType:'text/plain',buffer:Buffer.from('Contenido de ensayo local')
+   });
+   await page.locator('#cn-archive-form button[type="submit"]').click();
+   await page.waitForFunction(()=>document.querySelector('#cn-tools-body .cn-tools__metric strong')?.textContent==='2',null,{timeout:20000});
+   await page.locator('[data-cn-archive-year]').selectOption('');
+   await page.locator('[data-cn-archive-dep]').selectOption('');
+   assert.match(await page.locator('[data-cn-archive-results]').innerText(),/Resolución local de prueba/);
+   assert.equal(await page.locator('[data-cn-archive-action="download"]').count(),1);
+   const backup=page.waitForEvent('download',{timeout:15000});
+   await page.locator('[data-cn-archive-action="download"]').click();
+   assert.equal((await backup).suggestedFilename(),'archivo-prueba.txt');
+   const archived=page.waitForEvent('download',{timeout:15000});
+   await page.locator('[data-cn-archive-action="csv"]').click();
+   assert.match((await archived).suggestedFilename(),/memoria-local-\d{4}-\d{2}-\d{2}\.csv/);
+   await page.locator('[data-cn-tools-close]').click();
+   console.log('MEMORIA LOCAL: antiguos registros, filtros, nuevo archivo, adjunto y exportacion: PASS.');
    // No se ejecutan cambios persistentes en el backend; la prueba es local al navegador.
    console.log('RECUPERACION 2.1: capítulos 01-12, DANE verificado, gestor local CRUD/importe/exporte PASS.');
    console.log('SMOKE DATA ACTUAL: 4 vistas con navegacion funcional, 4 dimensiones y panel KoBo disponibles.');
