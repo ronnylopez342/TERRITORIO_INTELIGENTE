@@ -67,9 +67,15 @@
         <article class="ti42-card"><h3>Costos registrados (COP)</h3><div data-ti42-finance></div></article>
       </div>
       <article class="ti42-card ti42-map"><h3>Referencia territorial de los proyectos</h3>
-        <div class="ti42-map-stage"><div data-ti-map data-ti-map-manual="1" data-ti42-map class="ti42-map-host" aria-label="Mapa vectorial de Subachoque"></div></div>
-        <p class="ti42-small">Cartografía local de referencia. Una vereda mencionada no representa la ubicación exacta de una obra.</p>
-        <div data-ti42-place-list class="ti42-places"></div>
+        <div class="ti42-map-stage">
+          <div data-ti-map data-ti-map-manual="1" data-ti42-map class="ti42-map-host" aria-label="Mapa completo de Subachoque con referencias de proyectos estratégicos"></div>
+          <div class="ti42-project-legend" aria-label="Estados consignados para los proyectos">
+            <span><i style="--pin-tone:#169b50"></i>Ejecutado</span>
+            <span><i style="--pin-tone:#1976cf"></i>En ejecución</span>
+            <span><i style="--pin-tone:#f2af1d"></i>Por iniciar</span>
+            <span><i style="--pin-tone:#8996a3"></i>Sin estado</span>
+          </div>
+        </div>
       </article>
       <div class="ti42-schedules">
         <article class="ti42-card"><h3>Vigencias registradas</h3><div data-ti42-years></div></article>
@@ -182,10 +188,6 @@
     const bar=(label,v,tone)=>'<div class="ti42-finance-col"><span>'+money(v)+'</span><div class="ti42-finance-track"><i class="'+tone+'" style="height:'+Math.max(1,(v/max*100)).toFixed(2)+'%"></i></div><b>'+escape(label)+'</b></div>';
     set('[data-ti42-finance]','<div class="ti42-finance-bars">'+bar('Costo total',metrics.base,'ti42-blue')+bar('Costo ejecutado',metrics.spent,'ti42-green')+'</div><p class="ti42-small">Comparación solo entre '+metrics.pairs.length+' filas con ambos importes. El costo ejecutado no equivale necesariamente a pagos.</p>');
   }
-  function renderPlaces(rows,metrics){
-    const links=metrics.locations.slice(0,9).map(v=>'<button type="button" data-ti42-vereda="'+escape(v)+'">'+escape(v)+'</button>').join('');
-    set('[data-ti42-place-list]',links||'<p class="ti42-empty">Sin veredas identificables para el filtro actual.</p>');
-  }
   function renderYears(rows){
     const years=[...new Set(rows.map(r=>r.year).filter(Boolean))].sort();
     if(!years.length){set('[data-ti42-years]','<p class="ti42-empty">Sin vigencias declaradas en este conjunto.</p>');return;}
@@ -235,7 +237,7 @@
     renderGeneral(activeGroup);
     renderPhysical(metrics);
     renderFinance(metrics);
-    renderPlaces(activeGroup,metrics);
+    refreshProjectPins();
     renderYears(activeGroup);
     renderGantt(activeGroup);
     renderTables(activeGroup,metrics);
@@ -268,14 +270,133 @@
     if(ev.target.closest('[data-ti42-clear-all]')){state={meta:'all',year:'all',status:'all',sector:'all',q:''};populateFilters();display();return;}
     const detailBtn=ev.target.closest('[data-ti42-detail]');if(detailBtn){detail(detailBtn.dataset.ti42Detail);return;}
     const close=ev.target.closest('[data-ti42-close]');if(close){q('[data-ti42-dialog]')?.close();return;}
-    const place=ev.target.closest('[data-ti42-vereda]');if(place&&mapInstance)mapInstance.focus(place.dataset.ti42Vereda,true);
   });
+  // Pins de referencia por vereda: nunca presentan el centroide como coordenada real de obra.
+  // La fuente distingue registros de proyectos de sus posibles ubicaciones documentales.
+  const pinTones={ejecutado:'#169b50',ejecucion:'#1976cf',iniciar:'#f2af1d',desconocido:'#8996a3'};
+  let projectPinLayer=null,projectPinGeometries=null,projectPinGeoPromise=null;
+  const placeKey=v=>normal(v).replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();
+  function pinStatus(row){
+    const status=normal(row.contractStatus||row.phase||'');
+    if(/finalizad|terminad|ejecutad|liquidad|completad|entregad/.test(status))return 'ejecutado';
+    if(/no se ha iniciado|sin iniciar|por iniciar|pendiente de inicio/.test(status))return 'iniciar';
+    if(/en ejecucion|en desarrollo|en curso|iniciad|en obra/.test(status))return 'ejecucion';
+    return 'desconocido';
+  }
+  function pointInRing(x,y,ring){
+    let inside=false;
+    for(let i=0,j=ring.length-1;i<ring.length;j=i++){
+      const a=ring[i],b=ring[j];
+      if((a[1]>y)!==(b[1]>y) && x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])inside=!inside;
+    }
+    return inside;
+  }
+  function referenceAnchor(feature){
+    const geometry=feature?.geometry;
+    const polygons=geometry?.type==='Polygon'?[geometry.coordinates]:
+      geometry?.type==='MultiPolygon'?geometry.coordinates:[];
+    let best=null,bestScore=-1;
+    for(const polygon of polygons){
+      const outer=polygon[0];
+      if(!Array.isArray(outer)||outer.length<4)continue;
+      const xs=outer.map(p=>p[0]),ys=outer.map(p=>p[1]);
+      const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+      for(let i=0;i<17;i++)for(let j=0;j<17;j++){
+        const x=minX+(maxX-minX)*(i+.5)/17,y=minY+(maxY-minY)*(j+.5)/17;
+        if(!pointInRing(x,y,outer)||polygon.slice(1).some(hole=>pointInRing(x,y,hole)))continue;
+        const score=Math.min((x-minX)/(maxX-minX||1),(maxX-x)/(maxX-minX||1),
+          (y-minY)/(maxY-minY||1),(maxY-y)/(maxY-minY||1));
+        if(score>bestScore){bestScore=score;best=[y,x];}
+      }
+    }
+    return best;
+  }
+  function pinGradient(rows){
+    const counts=new Map();
+    rows.forEach(r=>{const key=pinStatus(r);counts.set(key,(counts.get(key)||0)+1);});
+    let at=0;const stops=[];
+    for(const key of ['ejecutado','ejecucion','iniciar','desconocido']){
+      const n=counts.get(key)||0;if(!n)continue;
+      const next=at+n/rows.length*100;
+      stops.push(pinTones[key]+' '+at.toFixed(2)+'% '+next.toFixed(2)+'%');
+      at=next;
+    }
+    return 'conic-gradient('+stops.join(',')+')';
+  }
+  function renderProjectPins(){
+    if(!mapInstance||!projectPinGeometries||!window.L)return;
+    if(!projectPinLayer)projectPinLayer=window.L.layerGroup().addTo(mapInstance.map);
+    projectPinLayer.clearLayers();
+    const evidence=window.TITerritoryEvidence;
+    if(!evidence?.matchPlaces)return;
+    const features=new Map();
+    for(const item of projectPinGeometries){
+      for(const feature of item.features||[]){
+        const key=item.kind==='casco'?'casco urbano':placeKey(window.TISubachoqueMap.featureName(feature));
+        if(key&&!features.has(key))features.set(key,{feature,label:item.kind==='casco'?'Casco urbano':window.TISubachoqueMap.featureName(feature)});
+      }
+    }
+    const groups=new Map();
+    for(const row of activeGroup){
+      const names=evidence.matchPlaces(row.vereda);
+      // Si el Excel cita varios lugares o ninguno, no asignar un punto arbitrario.
+      if(names.length!==1||!features.has(names[0]))continue;
+      if(!groups.has(names[0]))groups.set(names[0],[]);
+      groups.get(names[0]).push(row);
+    }
+    for(const [key,rows] of groups){
+      const location=features.get(key),anchor=referenceAnchor(location.feature);
+      if(!anchor)continue;
+      const count=rows.length;
+      const marker=window.L.marker(anchor,{
+        title:count+' registro(s) de proyectos en '+location.label+' (referencia por vereda)',
+        keyboard:true,
+        icon:window.L.divIcon({
+          className:'ti42-pin-icon',
+          html:'<span class="ti42-project-pin" style="background:'+pinGradient(rows)+'"><b>'+count+'</b></span>',
+          iconSize:[36,36],iconAnchor:[18,18],popupAnchor:[0,-19]
+        })
+      });
+      const cards=rows.map(row=>
+        '<li><span class="ti42-pin-status" style="--pin-tone:'+pinTones[pinStatus(row)]+'"></span>'+
+        '<div><strong>'+short(row.name,75)+'</strong><small>'+escape(row.contractStatus||row.phase||'Sin estado registrado')+'</small></div>'+
+        '<button type="button" data-ti42-pin-detail="'+row.excelRow+'">Ver</button></li>'
+      ).join('');
+      marker.bindPopup(
+        '<div class="ti42-pin-popup"><strong>'+escape(location.label)+' · '+count+' registro(s)</strong>'+
+        '<small>Referencias documentales por vereda. El pin no representa el punto exacto de una obra.</small>'+
+        '<ul>'+cards+'</ul></div>',{maxWidth:340,minWidth:220}
+      );
+      marker.on('popupopen',event=>{
+        event.popup.getElement()?.querySelectorAll('[data-ti42-pin-detail]').forEach(button=>{
+          button.addEventListener('click',ev=>{
+            ev.preventDefault();ev.stopPropagation();
+            detail(button.dataset.ti42PinDetail);
+          });
+        });
+      });
+      marker.addTo(projectPinLayer);
+    }
+  }
+  function refreshProjectPins(){
+    if(!mapInstance||!window.TISubachoqueMap)return;
+    if(projectPinGeometries){renderProjectPins();return;}
+    if(!projectPinGeoPromise){
+      projectPinGeoPromise=Promise.all([
+        window.TISubachoqueMap.getGeo('veredas'),
+        window.TISubachoqueMap.getGeo('casco')
+      ]).then(([veredas,casco])=>{
+        projectPinGeometries=[{kind:'veredas',features:veredas.features},{kind:'casco',features:casco.features}];
+        renderProjectPins();
+      }).catch(err=>{projectPinGeoPromise=null;console.warn('No se pudieron cargar las referencias de los pines',err);});
+    }
+  }
   let mapStarted=false;
   function startMap(){
     const host=q('[data-ti42-map]');
     if(mapStarted||!host||root.hidden||!root.isConnected||!window.TISubachoqueMap)return;
     mapStarted=true;
-    window.TISubachoqueMap.mount(host,{onSelect:()=>{}}).then(map=>{mapInstance=map;map?.invalidateSize();}).catch(()=>{mapStarted=false;host.textContent='No fue posible cargar el mapa de referencia.';});
+    window.TISubachoqueMap.mount(host,{onSelect:()=>{}}).then(map=>{mapInstance=map;map?.invalidateSize();refreshProjectPins();}).catch(()=>{mapStarted=false;host.textContent='No fue posible cargar el mapa de referencia.';});
   }
   const observer=new MutationObserver(()=>{if(!root.hidden){requestAnimationFrame(startMap);}});
   observer.observe(root,{attributes:true,attributeFilter:['hidden']});
