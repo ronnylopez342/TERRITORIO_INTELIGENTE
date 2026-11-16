@@ -53,8 +53,13 @@ const TIWorkspace = (() => {
         await TIData.write(`dataset:${name}`, record);
         TI_STATE.imported[name] = record;
         root.tiRefresh();
-        openDetail('Base guardada', `<p>${record.rows.length} registros de ${html(file.name)}.</p><p>${savedNote}</p>`);
-      } catch (error) { report(error); }
+        if (!root.closest('#cn-tools-dialog')) openDetail('Base guardada', `<p>${record.rows.length} registros de ${html(file.name)}.</p><p>${savedNote}</p>`);
+        // En el recuperador de Data 2.1, el estado ya se muestra dentro del diálogo,
+        // para no abrir un segundo modal sobre la importación y bloquear su cierre.
+      } catch (error) {
+        if (root.closest('#cn-tools-dialog')) root.querySelector('.ti-storage-note').textContent='No se pudo importar: '+error.message;
+        else report(error);
+      }
       finally { upload.disabled = false; upload.value = ''; }
     };
     root.querySelector('[data-export-dataset]').onclick = () => {
