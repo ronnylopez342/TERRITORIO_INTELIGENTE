@@ -33,6 +33,10 @@ jobs:
         run: node scripts/test_plan_estadistico.cjs
       - name: Verificar vistas 2.1-2.4 y sus fuentes
         run: node scripts/test_current_modules.cjs
+      - name: Proteger fuentes originales y verificar registro editorial M2
+        run: |
+          node scripts/verify_critical_assets.cjs
+          node scripts/verify_editor_registry.cjs
       # Las pruebas antiguas Dane/Memoria/Encuesta/Publicaciones se conservan
       # como evidencia para evaluar su recuperacion. Exigen pantallas 2.3-2.6
       # retiradas y no deben confundirse con pruebas de las cuatro actuales.
