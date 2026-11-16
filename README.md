@@ -2,7 +2,7 @@
 
 **Fuente oficial del proyecto (16/11/2026):** rama única [`main`](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/tree/main). **Producción:** https://territorio-inteligente.vercel.app. Los despliegues de Vercel deben comprobarse contra el SHA exacto de `main`, además de verificar las pruebas GitHub Actions.
 
-**Auditoría histórica:** [informe maestro de 63 ramas](docs/AUDITORIA_MAESTRA_RAMAS_20261116.md) · [matriz CSV de ramas y estados](docs/MATRIZ_RAMAS_20261116.csv) · [auditoría inicial y decisiones](docs/AUDITORIA_UNIFICACION_HISTORICA_20261116.md).
+**Auditoría histórica:** [informe maestro de 63 ramas](docs/AUDITORIA_MAESTRA_RAMAS_20261116.md) · [matriz CSV de ramas y estados](docs/MATRIZ_RAMAS_20261116.csv) · [checklist vivo de recuperación](docs/CHECKLIST_RECUPERACION_FUNCIONAL_20261116.md) · [auditoría inicial y decisiones](docs/AUDITORIA_UNIFICACION_HISTORICA_20261116.md).
 
 La limpieza del 16/11/2026 eliminó 63 ramas secundarias; 9 que tenían commits exclusivos se conservaron como etiquetas `archivo-20261116/...`. La historia completa permanece accesible en Git. **No está certificado que el 100 % de las capacidades históricas esté recuperado**: consultar los estados de la auditoría antes de reincorporar código antiguo.
 
