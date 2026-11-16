@@ -9,7 +9,7 @@
   const heading = document.getElementById('cn-tools-dialog-title');
   const close = root.querySelector('[data-cn-tools-close]');
   const storageKey = 'ti-plan-estadistico-indicadores-v1';
-  const titles = { chapters:'Capítulos del territorio', dane:'Comparación DANE: Subachoque', indicators:'Indicadores del Plan Estadístico (local)' };
+  const titles = { chapters:'Capítulos del territorio', dane:'Comparación DANE: Subachoque', indicators:'Indicadores del Plan Estadístico (local)', archive:'Memoria documental municipal (archivo local)' };
   const periodicities = ['mensual','trimestral','semestral','anual','quinquenal','eventual'];
   const sectors = ['Demografía y población','Salud','Educación','Economía','Convivencia y seguridad','Acceso a servicios públicos','Vivienda','Vías','Ordenamiento territorial','Medición institucional'];
   const formulas = [['valor','Valor directo (A)'],['porcentaje','Porcentaje (A/B × 100)'],['tasa','Tasa (A/B × factor)'],['diferencia','Diferencia (A−B)'],['promedio','Promedio (A/B)']];
@@ -29,9 +29,9 @@
   dialog.addEventListener('close',()=>{body.replaceChildren();body.classList.remove('cn-tools__content--chapters');active='';if(opener?.isConnected)opener.focus();opener=null;});
   close.addEventListener('click',closeDialog);
   dialog.addEventListener('click',event=>{if(event.target===dialog)closeDialog();});
-  root.addEventListener('click',event=>{
+  document.addEventListener('click',event=>{
     const trigger=event.target.closest('[data-cn-tool]');
-    if(!trigger||!root.contains(trigger))return;
+    if(!trigger||!Object.hasOwn(titles,trigger.dataset.cnTool))return;
     if(dialog.open)closeDialog();
     opener=trigger;active=trigger.dataset.cnTool;heading.textContent=titles[active]||'Herramientas territoriales';
     body.classList.toggle('cn-tools__content--chapters',active==='chapters');
@@ -41,9 +41,12 @@
       body.innerHTML='<p role="status" class="cn-tools__notice">Comprobando la fuente censal de Subachoque…</p>';
     } else if(active==='indicators') {
       readLocal();renderManager();
+    } else if(active==='archive') {
+      body.innerHTML='<p class="cn-tools__notice" role="status">Consultando archivo histórico de este navegador…</p>';
     } else return;
     dialog.showModal();
     if(active==='dane')renderDane();
+    if(active==='archive')loadArchive();
   });
   async function renderDane() {
     try {
@@ -290,4 +293,155 @@
     if(action==='export-json')exportData('json');
     if(action==='export-csv')exportData('csv');
   });
+  // Memoria de la Alcaldia: compatibilidad con la clave y esquema IndexedDB originales.
+  // Nunca se reintroducen documentos ficticios como expedientes reales.
+  const archiveKey='municipal-archive:v1';
+  let archiveRows=[],archiveEdit=null,archiveQuery='',archiveYear='',archiveDependency='',archiveFeedback='';
+  const archiveTypes=['Decreto','Resolución','Acuerdo','Informe','Plan','Acta','Contrato','Manual','Correspondencia','Otro'];
+  const archiveSafeURL=raw=>{try{const u=new URL(raw);return u.protocol==='https:'?u.href:'';}catch{return '';}};
+  async function loadArchive(){
+    try {
+      if(typeof TIData==='undefined'||typeof TIData.read!=='function')throw Error('No está disponible el repositorio local.');
+      const stored=await TIData.read(archiveKey);
+      archiveRows=(Array.isArray(stored?.records)?stored.records:[])
+        .filter(r=>r&&typeof r.id==='string'&&typeof r.title==='string'&&typeof r.dependency==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(r.dated||''));
+      archiveFeedback='';
+      if(active==='archive'&&dialog.open)renderArchive();
+    }catch(error){
+      if(active==='archive'&&dialog.open)body.innerHTML='<p role="alert" class="cn-tools__notice">No se pudo leer la memoria local: '+esc(error.message)+'. No se ha perdido ni sustituido ningún archivo.</p>';
+    }
+  }
+  function archiveFiltered(){
+    const q=archiveQuery.toLocaleLowerCase('es').trim();
+    return archiveRows.filter(r=>
+      (!archiveYear||r.dated.slice(0,4)===archiveYear)&&
+      (!archiveDependency||r.dependency===archiveDependency)&&
+      (!q||[r.title,r.type,r.dependency,r.summary,r.source,r.fileName].join(' ').toLocaleLowerCase('es').includes(q))
+    ).sort((a,b)=>String(b.dated||'').localeCompare(String(a.dated||'')));
+  }
+  function renderArchive(){
+    const years=[...new Set(archiveRows.map(r=>r.dated.slice(0,4)))].sort((a,b)=>b.localeCompare(a));
+    const deps=[...new Set(archiveRows.map(r=>r.dependency))].sort((a,b)=>a.localeCompare(b,'es'));
+    body.innerHTML=
+      '<p class="cn-tools__notice"><strong>Memoria local recuperada.</strong> Este panel lee los registros que la herramienta histórica guardó en este navegador. No es el archivo institucional público; ninguna ficha se comparte automáticamente. No incluye documentos demostrativos.</p>'+
+      '<div class="cn-tools__datagrid"><div class="cn-tools__metric"><strong>'+archiveRows.length+'</strong><small>Documentos de este navegador</small></div>'+
+        '<div class="cn-tools__metric"><strong>'+deps.length+'</strong><small>Dependencias identificadas</small></div>'+
+        '<div class="cn-tools__metric"><strong>'+years.length+'</strong><small>Años documentados</small></div></div>'+
+      '<p role="status" class="cn-tools__status" data-cn-archive-status>'+esc(archiveFeedback)+'</p>'+
+      '<div class="cn-tools__toolbar">'+
+        '<button class="cn-tools__action" type="button" data-cn-archive-action="new">+ Registrar documento</button>'+
+        '<button class="cn-tools__action cn-tools__action--light" type="button" data-cn-archive-action="csv">Exportar índice CSV</button>'+
+        '<input type="search" data-cn-archive-q aria-label="Buscar documentos en memoria local" placeholder="Documento, dependencia, asunto..." value="'+esc(archiveQuery)+'">'+
+        '<select data-cn-archive-year aria-label="Año del documento"><option value="">Todos los años</option>'+years.map(y=>option(y,y,archiveYear)).join('')+'</select>'+
+        '<select data-cn-archive-dep aria-label="Dependencia responsable"><option value="">Todas las dependencias</option>'+deps.map(d=>option(d,d,archiveDependency)).join('')+'</select>'+
+      '</div><div data-cn-archive-results></div>';
+    renderArchiveRows();
+  }
+  function renderArchiveRows(){
+    const target=body.querySelector('[data-cn-archive-results]');if(!target)return;
+    const list=archiveFiltered();
+    if(!list.length){target.innerHTML='<p class="cn-tools__empty">No hay documentos locales para los filtros seleccionados.</p>';return;}
+    target.innerHTML='<div class="cn-tools__table-wrap"><table class="cn-tools__table"><thead><tr><th>Documento</th><th>Tipo</th><th>Dependencia</th><th>Fecha</th><th>Soporte</th><th>Acciones</th></tr></thead><tbody>'+
+      list.map(r=>{
+        const link=archiveSafeURL(r.url||''),attachment=!!r.fileBlob;
+        const fileAction=attachment?'<button type="button" data-cn-archive-action="download" data-id="'+esc(r.id)+'">Descargar original</button>':
+          link?'<a class="cn-tools__source" href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Consultar fuente ↗</a>':'No adjunto';
+        return '<tr><td><strong>'+esc(r.title)+'</strong><br><small>'+esc(r.summary||'Sin descripción')+'</small></td><td>'+esc(r.type||'Sin clasificar')+
+          '</td><td>'+esc(r.dependency)+'</td><td>'+esc(r.dated)+'</td><td>'+fileAction+
+          '</td><td><button type="button" data-cn-archive-action="edit" data-id="'+esc(r.id)+'">Editar</button> '+
+          '<button type="button" data-cn-archive-action="delete" data-id="'+esc(r.id)+'">Eliminar</button></td></tr>';
+      }).join('')+'</tbody></table></div>';
+  }
+  function renderArchiveForm(id){
+    const prior=archiveRows.find(x=>x.id===id)||{};
+    archiveEdit=id||null;
+    body.innerHTML='<button type="button" class="cn-tools__action cn-tools__action--light" data-cn-archive-action="back">← Volver al archivo</button>'+
+      '<h3 class="cn-tools__section-title" style="margin-top:15px">'+(id?'Editar registro local':'Nuevo documento en memoria local')+'</h3>'+
+      '<p class="cn-tools__notice">La información se guarda solamente en este navegador. Un documento físico se registra sin fingir su digitalización.</p>'+
+      '<p role="status" class="cn-tools__status" data-cn-archive-status></p>'+
+      '<form id="cn-archive-form" class="cn-tools__form">'+
+      input('title','Título del documento *',prior.title,'required maxlength="180"')+
+      '<label>Tipo<select name="type" required>'+archiveTypes.concat(prior.type&&!archiveTypes.includes(prior.type)?[prior.type]:[]).map(t=>option(t,t,prior.type||'Informe')).join('')+'</select></label>'+
+      input('dependency','Dependencia responsable *',prior.dependency,'required maxlength="130"')+
+      input('dated','Fecha del documento *',prior.dated,'type="date" required max="'+today()+'"')+
+      '<label>Estado del soporte<select name="status">'+option('digital','Digitalizado (archivo o enlace)',prior.status||'digital')+option('physical','Físico / pendiente de digitalizar',prior.status||'digital')+'</select></label>'+
+      input('source','Fuente o referencia',prior.source,'maxlength="300"')+
+      input('url','Enlace HTTPS al original, opcional',prior.url,'type="url" maxlength="500" placeholder="https://..."')+
+      '<label>Archivo original (máximo 25 MB)<input type="file" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.json,.txt,.png,.jpg,.jpeg,.webp"></label>'+
+      '<label class="cn-tools__wide">Resumen o anotaciones<textarea name="summary" maxlength="1200">'+esc(prior.summary||'')+'</textarea></label>'+
+      '<label class="cn-tools__check cn-tools__wide"><input type="checkbox" name="historic" '+(prior.historic?'checked':'')+'> Documento histórico (etiqueta local, no oficial)</label>'+
+      '<div class="cn-tools__toolbar cn-tools__wide"><button type="submit" class="cn-tools__action">'+(id?'Guardar cambios':'Guardar documento')+'</button>'+
+      '<button type="button" class="cn-tools__action cn-tools__action--light" data-cn-archive-action="back">Cancelar</button></div></form>';
+    body.querySelector('[name="title"]')?.focus({preventScroll:true});
+  }
+  async function saveArchive(event){
+    event.preventDefault();
+    const form=event.target,data=new FormData(form);
+    const clean=name=>String(data.get(name)||'').trim();
+    const old=archiveRows.find(x=>x.id===archiveEdit);
+    const title=clean('title'),dep=clean('dependency'),dated=clean('dated'),status=clean('status');
+    const url=clean('url'),file=form.elements.namedItem('file').files[0];
+    const statusNode=body.querySelector('[data-cn-archive-status]');
+    const fail=message=>{if(statusNode)statusNode.textContent=message;};
+    if(!title||!dep||!/^\d{4}-\d{2}-\d{2}$/.test(dated)||dated>today())return fail('Completa título, dependencia y fecha válida.');
+    if(url&&!archiveSafeURL(url))return fail('Solo se admiten enlaces HTTPS.');
+    if(file&&(file.size>25*1024*1024||!/\.(pdf|docx?|xlsx?|csv|json|txt|png|jpe?g|webp)$/i.test(file.name)))return fail('Formato no compatible o archivo mayor de 25 MB.');
+    if(status==='digital'&&!file&&!old?.fileBlob&&!archiveSafeURL(url))return fail('Para digitalizado, adjunta un archivo o enlace HTTPS.');
+    const now=new Date().toISOString();
+    const record={...old,id:old?.id||((window.crypto&&crypto.randomUUID)?crypto.randomUUID():'memoria-'+Date.now()),
+      title,type:clean('type'),dependency:dep,dated,status,source:clean('source'),
+      summary:clean('summary'),url,historic:form.elements.namedItem('historic').checked,
+      fileBlob:status==='digital'?(file||old?.fileBlob||null):null,
+      fileName:status==='digital'?(file?.name||old?.fileName||''):'',
+      createdAt:old?.createdAt||now,updatedAt:now};
+    const next=old?archiveRows.map(r=>r.id===old.id?record:r):[...archiveRows,record];
+    try{
+      await TIData.write(archiveKey,{version:1,records:next});
+      archiveRows=next;archiveEdit=null;archiveFeedback='Documento guardado solo en este navegador.';
+      if(active==='archive')renderArchive();
+    }catch(error){fail('No se pudo guardar. El registro anterior se conserva: '+error.message);}
+  }
+  function archiveDownload(id){
+    const row=archiveRows.find(r=>r.id===id);
+    if(!row?.fileBlob)return;
+    const url=URL.createObjectURL(row.fileBlob);
+    const link=document.createElement('a');link.href=url;link.download=row.fileName||'documento-original';
+    document.body.appendChild(link);link.click();link.remove();
+    window.setTimeout(()=>URL.revokeObjectURL(url),1500);
+  }
+  function archiveExport(){
+    if(!archiveRows.length){const node=body.querySelector('[data-cn-archive-status]');if(node)node.textContent='No hay documentos para exportar.';return;}
+    const heads=['title','type','dependency','dated','status','historic','source','summary','url','fileName'];
+    const rows=archiveFiltered().map(r=>heads.map(h=>csvCell(r[h])).join(','));
+    download('memoria-local-'+today()+'.csv',[heads.join(','),...rows].join('\r\n'),'text/csv;charset=utf-8');
+  }
+  body.addEventListener('input',event=>{
+    if(active==='archive'&&event.target.matches('[data-cn-archive-q]')){archiveQuery=event.target.value;renderArchiveRows();}
+  });
+  body.addEventListener('change',event=>{
+    if(active!=='archive')return;
+    if(event.target.matches('[data-cn-archive-year]')){archiveYear=event.target.value;renderArchiveRows();}
+    if(event.target.matches('[data-cn-archive-dep]')){archiveDependency=event.target.value;renderArchiveRows();}
+  });
+  body.addEventListener('submit',event=>{
+    if(active==='archive'&&event.target.id==='cn-archive-form')void saveArchive(event);
+  });
+  body.addEventListener('click',event=>{
+    const trigger=event.target.closest('[data-cn-archive-action]');
+    if(active!=='archive'||!trigger)return;
+    const action=trigger.dataset.cnArchiveAction,id=trigger.dataset.id;
+    if(action==='back'){archiveEdit=null;renderArchive();}
+    if(action==='new')renderArchiveForm(null);
+    if(action==='edit')renderArchiveForm(id);
+    if(action==='download')archiveDownload(id);
+    if(action==='csv')archiveExport();
+    if(action==='delete'){
+      const r=archiveRows.find(x=>x.id===id);if(!r||!window.confirm('¿Eliminar de este navegador "'+r.title+'"?'))return;
+      const next=archiveRows.filter(x=>x.id!==id);
+      TIData.write(archiveKey,{version:1,records:next}).then(()=>{
+        archiveRows=next;archiveFeedback='Documento eliminado del repositorio local.';renderArchive();
+      }).catch(error=>{const node=body.querySelector('[data-cn-archive-status]');if(node)node.textContent='No se pudo eliminar: '+error.message;});
+    }
+  });
+
 })();
