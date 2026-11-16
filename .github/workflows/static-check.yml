@@ -3,9 +3,7 @@ name: Static check
 on:
   push:
     branches:
-      - production/v2.6-canonical
-      - fix/data-imports-20261009
-      - delivery/01-structure
+      - main
   pull_request:
 
 jobs:
@@ -25,6 +23,8 @@ jobs:
           node-version: '24'
       - name: Verify data parsing
         run: node scripts/test_data_core.cjs
+      - name: Verify Unidad de Cumplimiento 4.2
+        run: node scripts/test_uc42.cjs
       - name: Verify Plan Estadistico 2.2
         run: node scripts/test_plan_estadistico.cjs
       - name: Verify DANE Subachoque 2.3
