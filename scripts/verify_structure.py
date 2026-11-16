@@ -61,7 +61,9 @@ assert 'id="geoPointUpload"' in data, "Herramienta de puntos geograficos ausente
 assert 'id="dataDefinition"' in data, "Definicion editorial Data ausente"
 assert 'data-dataset-workspace="encuesta"' in data, "Espacio de encuesta ausente"
 assert "data-plan-bump" not in modules and "complianceDashboard" not in modules, "Panel ilustrativo heredado"
-assert 'id="cumplimiento-proyectos"' in modules, "Modulo 4.2 de proyectos ausente"
+# La vista 4.2 es una seccion dinamica creada por ti-modules-34.js, no un ID estatico.
+module_js = (ROOT / "js/ti-modules-34.js").read_text(encoding="utf-8")
+assert "pane('cumplimiento','cumplimiento-proyectos'" in module_js, "Modulo dinamico 4.2 ausente"
 
 # El modulo completo de Unidad de Cumplimiento se comprueba tambien con el test
 # de datos reales y filtros, que no debe reemplazarse por simples textos demostrativos.
