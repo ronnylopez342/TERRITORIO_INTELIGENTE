@@ -40,6 +40,6 @@ La marca **[x]** acredita una decisión o implementación concreta respaldada po
 
 ## E. Cierre de producción
 
-- [ ] **PR-23 · Alinear último commit, CI y dominio de producción.** Al terminar este checklist, confirmar `main` como única rama, último workflow **SUCCESS** y Vercel `READY` en el **mismo SHA**. Registrar SHA final y enlaces de comprobación.
+- [x] **PR-23 · Alinear `main`, CI y producción.** Verificado inicialmente en commit `5b39857554b192757627211badd3f503d460031a`: GitHub Actions **SUCCESS** y Vercel **READY** apuntando al mismo SHA desde `main` ([ejecución de CI](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/43910005641)). La actualización documental de este estado genera otro commit: debe verificarse igualmente antes de concluir la entrega.
 
 **Regla de cierre:** `RECUPERADA`, `SUSTITUIDA_CON_MEJORA` y `DESCARTADA_CON_MOTIVO` exigen referencia técnica y prueba. Lo que no está demostrado conserva estado `PENDIENTE`; no anunciar `PERFECTO` ni `100 % UNIFICADO FUNCIONALMENTE` hasta cerrar P-18–P-22 con evidencias.
