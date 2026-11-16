@@ -145,6 +145,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 
 <link rel="stylesheet" href="css/data-subachoque-editorial-pais.css?v=20261112-revista-01" />
 <link rel="stylesheet" href="css/data-territorio-revista-23-24.css?v=20261112-revista-unificada-01" />
+<link rel="stylesheet" href="css/conoce-recursos.css?v=20261116-rc1" />
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -399,6 +400,41 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
       <span>Lectura integrada · Se conserva el documento original sin modificaciones</span>
       <a id="cn-pet-viewer-download" class="cn-pet-viewer-save is-unavailable" aria-disabled="true" href="assets/docs/plan-estadistico-territorial-original.pdf" download="plan-estadistico-territorial-original.pdf">↓ Descargar PDF original</a>
     </div>
+  </dialog>
+</section>
+
+<section class="cn-tools" id="cn-tools" aria-labelledby="cn-tools-title">
+  <header class="cn-tools__header">
+    <span class="cn-tools__kicker">2.1 · Fuentes y herramientas recuperadas</span>
+    <h2 id="cn-tools-title">Explorar, comparar y documentar la información</h2>
+    <p>Tres herramientas complementarias al Plan Estadístico Territorial. Las cifras censales conservan su fuente; los indicadores que registres se guardan únicamente en este navegador.</p>
+  </header>
+  <div class="cn-tools__cards">
+    <article class="cn-tools__card">
+      <small>01 / CONTENIDO INTERACTIVO</small>
+      <h3>12 capítulos del territorio</h3>
+      <p>Consulta el visor de capítulos, sus conceptos y enlaces a fuentes. Las ilustraciones se muestran como referencias, no como valores estadísticos certificados.</p>
+      <button class="cn-tools__open" type="button" data-cn-tool="chapters" aria-haspopup="dialog" aria-controls="cn-tools-dialog">Abrir explorador de capítulos</button>
+    </article>
+    <article class="cn-tools__card">
+      <small>02 / FUENTE CENSAL</small>
+      <h3>Datos históricos del DANE</h3>
+      <p>Compara habitantes, zonas urbana y rural y hogares en los censos municipales 2005 y 2018, con cifras conciliadas y acceso a su fuente.</p>
+      <button class="cn-tools__open" type="button" data-cn-tool="dane" aria-haspopup="dialog" aria-controls="cn-tools-dialog">Comparar los dos censos</button>
+    </article>
+    <article class="cn-tools__card">
+      <small>03 / HERRAMIENTA LOCAL</small>
+      <h3>Indicadores del Plan Estadístico</h3>
+      <p>Recupera tus indicadores guardados, agrega fichas y metodologías, calcula valores, revisa actualizaciones e importa o exporta tus registros locales.</p>
+      <button class="cn-tools__open" type="button" data-cn-tool="indicators" aria-haspopup="dialog" aria-controls="cn-tools-dialog">Gestionar indicadores locales</button>
+    </article>
+  </div>
+  <dialog id="cn-tools-dialog" class="cn-tools__dialog" aria-labelledby="cn-tools-dialog-title">
+    <div class="cn-tools__dialog-head">
+      <h2 id="cn-tools-dialog-title">Fuentes territoriales</h2>
+      <button class="cn-tools__close" type="button" data-cn-tools-close aria-label="Cerrar herramienta y volver a Conoce">Cerrar ×</button>
+    </div>
+    <div id="cn-tools-body" class="cn-tools__content"></div>
   </dialog>
 </section>
 
@@ -802,6 +838,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 <script defer src="js/plan-accion-dashboard.js?v=20261108-observaciones-horizontal-v2"></script>
 <script defer src="js/data-conoce.js?v=conoce-04"></script>
 <script defer src="js/conoce-plan.js?v=20261017-original-01"></script>
+<script defer src="js/conoce-recursos.js?v=20261116-rc1"></script>
 
 
 
