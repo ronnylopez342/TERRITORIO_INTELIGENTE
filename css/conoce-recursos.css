@@ -58,3 +58,18 @@
 #data-conoce .cn-tools__link{display:inline-block;color:#116b50;font:700 12px/1.4 Arial,sans-serif;margin-top:9px}
 @media(max-width:850px){#data-conoce .cn-tools__cards{grid-template-columns:1fr}#data-conoce .cn-tools__datagrid{grid-template-columns:1fr}}
 @media(max-width:620px){#data-conoce .cn-tools__form{grid-template-columns:1fr}#data-conoce .cn-tools__dialog-head{padding:12px 13px}#data-conoce .cn-tools__content{padding:12px}#data-conoce .cn-tools__content--chapters{padding:0}#data-conoce .cn-tools__bar{grid-template-columns:85px 1fr 49px;font-size:10px}}
+
+#data-conoce .cn-pubs-bottom .cn-tools__archive-link{
+  background:#ffffff;color:#146b4c;border:1px solid #278060;white-space:normal;text-align:center;
+}
+#data-conoce .cn-pubs-bottom .cn-tools__archive-link:hover{background:#e7f5ec}
+#data-conoce .cn-tools__toolbar select,
+#data-conoce .cn-tools__toolbar input[type="search"]{
+  border:1px solid #acc3b4;background:white;color:#183c2f;padding:9px 10px;
+  min-height:37px;max-width:100%;font:500 12px/1.3 Arial,sans-serif;
+}
+#data-conoce .cn-tools__table td small{color:#48665b;font-size:11px}
+#data-conoce .cn-tools__table a{display:inline-block;margin:0}
+@media(max-width:620px){
+  #data-conoce .cn-pubs-bottom .cn-tools__archive-link{width:100%}
+}
