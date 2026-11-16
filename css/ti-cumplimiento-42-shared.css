@@ -49,7 +49,8 @@ body:has(.app-view.active[data-view="cumplimiento"] #cumplimiento-proyectos:not(
 #cumplimiento-proyectos .ti42-finance-bars{min-height:120px;padding:5px 0 0;gap:8px}
 #cumplimiento-proyectos .ti42-finance-track{height:80px}
 #cumplimiento-proyectos .ti42-finance-col>span{font-size:10px}
-#cumplimiento-proyectos .ti42-map-stage{height:270px}
+/* La altura del mapa de proyectos se define en ti-cumplimiento-42-resumen.css;
+   no sobrescribirla con la regla antigua de 270px. */
 #cumplimiento-proyectos .ti42-map .ti42-small{font-size:10px}
 #cumplimiento-proyectos .ti42-places{max-height:60px}
 #cumplimiento-proyectos .ti42-table-scroll{max-height:230px}
