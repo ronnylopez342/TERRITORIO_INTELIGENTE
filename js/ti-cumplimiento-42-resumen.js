@@ -350,6 +350,8 @@
       const count=rows.length;
       const marker=window.L.marker(anchor,{
         title:count+' registro(s) de proyectos en '+location.label+' (referencia por vereda)',
+        // Nombres de veredas sobre los pines si coinciden visualmente.
+        zIndexOffset:-1200,
         keyboard:true,
         icon:window.L.divIcon({
           className:'ti42-pin-icon',
