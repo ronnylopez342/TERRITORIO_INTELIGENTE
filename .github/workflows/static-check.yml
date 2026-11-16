@@ -42,3 +42,14 @@ jobs:
           npx playwright install chromium --with-deps
       - name: Smoke de las cuatro vistas Data actuales
         run: node scripts/smoke_current_modules.cjs
+      - name: Smoke de Plan de Accion 3.3 y Cumplimiento 4.2
+        run: node scripts/smoke_plan_cumplimiento.cjs
+      - name: Conservar evidencia visual del mapa y Planes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencia-visual-plan33-cumplimiento42
+          path: |
+            screenshots/auditoria-plan33-2025.png
+            screenshots/auditoria-cumplimiento42-mapa.png
+          if-no-files-found: warn
