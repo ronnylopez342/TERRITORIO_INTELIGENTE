@@ -130,6 +130,31 @@ async function run(){
    assert.match(await page.locator('[data-cn-tools-list]').innerText(),/Importado de prueba/);
    assert.match(await page.locator('[data-cn-tools-list]').innerText(),/12/);
    await page.locator('[data-cn-tools-close]').click();
+   // Data Territorio: conservar importaciones estadísticas de pantalla antigua.
+   await page.locator('#cn-tools [data-cn-tool="datasets"]').click();
+   await page.locator('#cn-tools-dataset-source').waitFor();
+   const dataset=page.locator('#cn-tools-body [data-dataset-workspace="externas"]');
+   assert.ok(await dataset.locator('input[type="file"]').count(),'Importador estadístico ausente');
+   await page.locator('#cn-tools-dataset-source').selectOption('municipales');
+   await dataset.locator('input[type="file"]').setInputFiles({
+     name:'indicadores-locales.csv',mimeType:'text/csv',
+     buffer:Buffer.from('sector,indicador,valor,periodo,fuente,unidad,vereda\nSalud,Cobertura de prueba,25,2025,Prueba local,%,Centro\n')
+   });
+   await page.waitForFunction(()=>document.querySelector('#cn-tools-body .data-table tbody')?.textContent.includes('Cobertura de prueba'),null,{timeout:25000});
+   assert.match(await dataset.locator('.data-table').innerText(),/Salud/);
+   await page.locator('[data-cn-tools-close]').click();
+   await page.locator('[data-cn-tool="datasets"]').click();
+   await page.locator('#cn-tools-dataset-source').selectOption('municipales');
+   await page.waitForFunction(()=>document.querySelector('#cn-tools-body .data-table tbody')?.textContent.includes('Cobertura de prueba'),null,{timeout:20000});
+   const saved=await page.evaluate(()=>TIData.read('dataset:municipales'));
+   assert.equal(saved.rows.length,1);
+   assert.equal(saved.rows[0].fuente,'Prueba local');
+   const csvDataset=page.waitForEvent('download',{timeout:15000});
+   await dataset.locator('[data-export-dataset]').click();
+   assert.equal((await csvDataset).suggestedFilename(),'municipales.csv');
+   await page.locator('[data-cn-tools-close]').click();
+   console.log('BASES LOCALES: importacion CSV, persistencia municipal y exportacion sin publicar: PASS.');
+
    // Archivo histórico municipal: recuperar registros locales previos sin demos.
    await page.evaluate(()=>TIData.write('municipal-archive:v1',{version:1,records:[{
      id:'archivo-prueba-1',title:'Acta de prueba histórica',type:'Acta',
