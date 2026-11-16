@@ -1,0 +1,60 @@
+/* Recuperación contextual de herramientas en 2.1; no modifica 2.2, 3.3 ni 4.2. */
+#data-conoce .cn-tools{margin:0 auto;padding:clamp(32px,4.2vw,62px) clamp(18px,4vw,60px);background:#f4f2eb;border-top:1px solid #ced4d0;border-bottom:1px solid #d7dbd6;color:#142c30}
+#data-conoce .cn-tools__header{max-width:1000px;margin:0 auto 26px}
+#data-conoce .cn-tools__kicker{display:block;color:#006d50;font:800 11px/1.3 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+#data-conoce .cn-tools__header h2{font:800 clamp(26px,3.4vw,43px)/1.13 Arial,sans-serif;letter-spacing:-.035em;margin:9px 0 12px;color:#14382f}
+#data-conoce .cn-tools__header p{font:400 15px/1.6 Arial,sans-serif;max-width:760px;margin:0;color:#3a5554}
+#data-conoce .cn-tools__cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;max-width:1100px;margin:auto}
+#data-conoce .cn-tools__card{background:#fff;border:1px solid #d3dbd4;display:flex;flex-direction:column;align-items:flex-start;gap:11px;padding:clamp(17px,2.2vw,26px);min-width:0}
+#data-conoce .cn-tools__card small{font:800 11px/1.4 Arial,sans-serif;color:#16845b;letter-spacing:.08em}
+#data-conoce .cn-tools__card h3{font:800 clamp(18px,1.7vw,23px)/1.25 Arial,sans-serif;margin:0;color:#17372f}
+#data-conoce .cn-tools__card p{font:400 13px/1.5 Arial,sans-serif;margin:0;color:#4c6363;flex:1}
+#data-conoce .cn-tools__open,#data-conoce .cn-tools__action,#data-conoce .cn-tools__close{
+ border:1px solid #146d4d;color:#fff;background:#116647;padding:10px 13px;
+ font:700 12px/1.3 Arial,sans-serif;cursor:pointer;border-radius:3px;
+}
+#data-conoce .cn-tools__open:hover,#data-conoce .cn-tools__action:hover{background:#0d5037}
+#data-conoce .cn-tools__open:focus-visible,#data-conoce .cn-tools__action:focus-visible,#data-conoce .cn-tools__close:focus-visible{outline:3px solid #e8b829;outline-offset:2px}
+#data-conoce .cn-tools__dialog{width:min(1110px,calc(100vw - 28px));max-width:1110px;max-height:calc(100dvh - 36px);height:min(800px,calc(100dvh - 36px));padding:0;color:#17332c;background:#fff;border:1px solid #a5b9ad;box-shadow:0 22px 70px #0b211e70;overflow:hidden}
+#data-conoce .cn-tools__dialog::backdrop{background:#0c222ab5}
+#data-conoce .cn-tools__dialog[open]{display:flex;flex-direction:column}
+#data-conoce .cn-tools__dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 22px;border-bottom:3px solid #d6b129;background:#173a36;color:white;flex:0 0 auto}
+#data-conoce .cn-tools__dialog-head h2{margin:0;font:800 clamp(18px,2vw,26px)/1.25 Arial,sans-serif;color:#fff}
+#data-conoce .cn-tools__close{background:transparent;border-color:#aac6bc;min-width:42px;min-height:40px}
+#data-conoce .cn-tools__content{min-height:0;overflow:auto;overscroll-behavior:contain;flex:1;padding:clamp(12px,2vw,22px)}
+#data-conoce .cn-tools__content--chapters{padding:0;overflow:hidden}
+#data-conoce .cn-tools__iframe{display:block;width:100%;height:100%;border:0;background:#f6f5f2}
+#data-conoce .cn-tools__notice{font:400 12px/1.5 Arial,sans-serif;color:#4c5c61;padding:10px 12px;background:#f2f7f4;border-left:3px solid #14784f;margin:0 0 16px}
+#data-conoce .cn-tools__section-title{font:800 clamp(20px,2.1vw,28px)/1.2 Arial,sans-serif;margin:0 0 10px}
+#data-conoce .cn-tools__datagrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+#data-conoce .cn-tools__metric{padding:14px;background:#e7f1ec;border-left:3px solid #128052}
+#data-conoce .cn-tools__metric strong{display:block;font:800 clamp(19px,2vw,27px)/1.2 Arial,sans-serif;color:#134936}
+#data-conoce .cn-tools__metric small{display:block;font:600 11px/1.4 Arial,sans-serif;color:#4c625b;margin-top:4px}
+#data-conoce .cn-tools__table-wrap{width:100%;overflow-x:auto;margin:14px 0}
+#data-conoce .cn-tools__table{border-collapse:collapse;width:100%;min-width:610px;font:400 13px/1.5 Arial,sans-serif}
+#data-conoce .cn-tools__table th,#data-conoce .cn-tools__table td{border-bottom:1px solid #d8e4db;padding:11px 9px;text-align:left;vertical-align:top}
+#data-conoce .cn-tools__table th{background:#e6f0e9;color:#194c37;font-weight:800}
+#data-conoce .cn-tools__table button{border:1px solid #abcbb8;background:#edf5ef;color:#145239;padding:7px 9px;font:700 11px Arial,sans-serif;cursor:pointer}
+#data-conoce .cn-tools__bar{display:grid;grid-template-columns:140px 1fr 60px;align-items:center;gap:10px;margin:10px 0;font:600 12px/1.3 Arial,sans-serif}
+#data-conoce .cn-tools__track{background:#d6e2db;height:16px;overflow:hidden}
+#data-conoce .cn-tools__fill{background:#16754e;height:100%;display:block}
+#data-conoce .cn-tools__bar strong{text-align:right}
+#data-conoce .cn-tools__source{color:#0e6448;text-decoration:underline;font-weight:700;overflow-wrap:anywhere}
+#data-conoce .cn-tools__toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}
+#data-conoce .cn-tools__toolbar input[type="search"]{flex:1 1 180px;min-width:0;padding:10px;border:1px solid #b7cac0;font-size:13px}
+#data-conoce .cn-tools__action{font-size:11px;padding:9px 11px}
+#data-conoce .cn-tools__action--light{background:white;color:#165d42}
+#data-conoce .cn-tools__action--light:hover{background:#e6f5ec}
+#data-conoce .cn-tools__action--danger{border-color:#a84343;color:#9a2727;background:#fff}
+#data-conoce .cn-tools__action--danger:hover{background:#fff0f0}
+#data-conoce .cn-tools__form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:14px}
+#data-conoce .cn-tools__form label{display:flex;flex-direction:column;gap:6px;font:700 12px/1.5 Arial,sans-serif}
+#data-conoce .cn-tools__form input:not([type="checkbox"]),#data-conoce .cn-tools__form select,#data-conoce .cn-tools__form textarea{width:100%;box-sizing:border-box;background:#fff;color:#243936;border:1px solid #acc3b4;border-radius:2px;padding:10px;min-height:39px;font:400 13px/1.3 Arial,sans-serif}
+#data-conoce .cn-tools__form textarea{min-height:80px;resize:vertical}
+#data-conoce .cn-tools__form .cn-tools__wide{grid-column:1/-1}
+#data-conoce .cn-tools__form .cn-tools__check{display:flex;flex-direction:row;align-items:center}
+#data-conoce .cn-tools__status{font:600 12px/1.4 Arial,sans-serif;color:#19563f;margin:8px 0}
+#data-conoce .cn-tools__empty{padding:24px;background:#f0f4f1;color:#435750}
+#data-conoce .cn-tools__link{display:inline-block;color:#116b50;font:700 12px/1.4 Arial,sans-serif;margin-top:9px}
+@media(max-width:850px){#data-conoce .cn-tools__cards{grid-template-columns:1fr}#data-conoce .cn-tools__datagrid{grid-template-columns:1fr}}
+@media(max-width:620px){#data-conoce .cn-tools__form{grid-template-columns:1fr}#data-conoce .cn-tools__dialog-head{padding:12px 13px}#data-conoce .cn-tools__content{padding:12px}#data-conoce .cn-tools__content--chapters{padding:0}#data-conoce .cn-tools__bar{grid-template-columns:85px 1fr 49px;font-size:10px}}
