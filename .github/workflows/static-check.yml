@@ -55,5 +55,7 @@ jobs:
           name: evidencia-visual-plan33-cumplimiento42
           path: |
             screenshots/auditoria-plan33-2025.png
+            screenshots/auditoria-plan33-movil.png
             screenshots/auditoria-cumplimiento42-mapa.png
+            screenshots/auditoria-cumplimiento42-movil.png
           if-no-files-found: warn
