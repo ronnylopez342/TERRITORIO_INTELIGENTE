@@ -1,0 +1,141 @@
+{
+  "schema": 2,
+  "baseline": "main",
+  "historicalReference": "archivo-20261116/m2/editorial-identity",
+  "policy": "Registro de localizadores actuales. No autoriza escribir en DOM ni activar editor. Cualquier selector debe resolver a exactamente un nodo en el portal actual.",
+  "entries": [
+    {
+      "tiId": "global.header",
+      "selector": "#siteHeader",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "global.main",
+      "selector": "#mainContent",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "global.navigation.mobile",
+      "selector": "#mobileMenu",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "home.video",
+      "selector": "#heroLocalVideo",
+      "mode": "advanced",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "data.2.1",
+      "selector": "#data-conoce",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "data.2.1.plan",
+      "selector": "#cn-plan-territorial",
+      "mode": "editable",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "data.2.1.pdf",
+      "selector": "#cn-pet-viewer",
+      "mode": "advanced",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "data.2.1.publications",
+      "selector": "#cn-publicaciones",
+      "mode": "editable",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "data.2.1.tools",
+      "selector": "#cn-tools",
+      "mode": "advanced",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "data.2.2",
+      "selector": "#data-subachoque",
+      "mode": "advanced",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "data.2.3",
+      "selector": "#data-encuesta",
+      "mode": "advanced",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "data.2.4",
+      "selector": "#data-explorando",
+      "mode": "advanced",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "plan.3.3",
+      "selector": "#desarrollo-accion",
+      "mode": "advanced",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "compliance.4.2",
+      "selector": "#cumplimiento-proyectos",
+      "mode": "advanced",
+      "location": "generated",
+      "source": "js/ti-modules-34.js"
+    },
+    {
+      "tiId": "global.login",
+      "selector": "#loginForm",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "global.assistant",
+      "selector": "#assistantPanel",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "global.editor",
+      "selector": "#editorPanel",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "global.dialog",
+      "selector": "#detailDialog",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    },
+    {
+      "tiId": "global.toast",
+      "selector": "#toast",
+      "mode": "protected",
+      "location": "static",
+      "source": "index.html"
+    }
+  ]
+}
