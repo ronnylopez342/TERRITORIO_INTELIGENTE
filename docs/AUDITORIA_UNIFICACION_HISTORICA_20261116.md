@@ -99,3 +99,29 @@ El objetivo `100 % recuperado` solo podrá declararse si cada candidato históri
 - Comparación Git: `git log main..archivo-20261116/<nombre> --oneline` y `git diff main archivo-20261116/<nombre> -- <ruta>`.
 - Catálogo y funcionamiento real: `index.html`, `js/data-subachoque.js`, `js/caracterizacion-kobo.js`, `js/plan-accion-dashboard.js`, `js/ti-cumplimiento-42-*` y `data/uc42-source.json`.
 - Limpieza de ramas: GitHub Actions, ejecución `43893816267`; pruebas de control: workflows de `main`.
+
+
+## 9. Barrido adicional de los 455 commits de Git (eliminación de rutas)
+
+Se ejecutó [la auditoría de historia completa](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/43899881522) con `git log --all` y todas las etiquetas. Resultado: **455 commits alcanzables, 14 rutas que alguna vez se eliminaron, 12 rutas actualmente ausentes y 2 recuperadas**. El informe completo está disponible como artefacto de esa ejecución (archivo `AUDITORIA_GIT_PERDIDAS.md`).
+
+Clasificación de las doce rutas ausentes:
+
+| Ruta | Evidencia histórica | Decisión preliminar |
+|---|---|---|
+| `.github/workflows/one-time-consolidate-main-20261116.yml` | Herramienta temporal que eliminó 63 ramas | **No recuperar**: se retiró después de terminar su función |
+| `assets/docs/plan-estadistico-territorial-2025-2029-consulta.pdf` | Commit `2003f5b9`: «eliminar PDF transcrito y evitar confundirlo con el original» | **No recuperar**. Existe `assets/docs/plan-estadistico-territorial-original.pdf` |
+| `assets/img/territorio-inteligente-logo.png` | Commit `eb03becc`: «retirar logotipo de cabecera, menú móvil y pies de página» | **No recuperar automáticamente**: retirada de marca deliberada |
+| `css/data-conoce-editorial-publicaciones-fix.css` | Commit `2e01fed3`: «remove obsolete extra publications override file» | **Sustituido/obsoleto**; validar función y contraste en CSS vigente |
+| `css/estilos.css` | Eliminado con la transición a V5 editorial | **Sustituido** por hojas modulares; no reutilizar CSS global |
+| `css/plan-accion-azul.css` | Commit `8c926a18`: «restaurar apariencia anterior y eliminar paleta azul temporal» | **No recuperar**: reversión intencional |
+| `data-territorio.html` | Seis páginas antiguas unificadas por V5 | **Sustituido** por `index.html` con navegación interna |
+| `js/principal.js` | Script del portal previo a V5 | **Sustituido** por módulos JS actuales |
+| `login.html` | Página independiente antigua | **Sustituido** por ruta interna `login`; autenticación institucional real sigue fuera del portal público |
+| `plan-desarrollo.html` | Página independiente antigua | **Sustituido** por ruta interna `desarrollo` |
+| `politicas-publicas.html` | Página independiente antigua | **Sustituido** por ruta interna `politicas` |
+| `unidad-cumplimiento.html` | Página independiente antigua | **Sustituido** por ruta interna `cumplimiento` |
+
+**Conclusión del barrido de archivos:** ninguna de estas doce rutas, por sí sola, acredita una función que deba restaurarse copiando su archivo. La deuda principal pendiente es **a nivel de comportamiento dentro de los JS y de acceso a módulos que siguen guardados pero no se cargan desde la interfaz**. Esa auditoría se trata por fases, con pruebas de navegador y comparación semántica.
+
+**Limitación expresa:** `git log --diff-filter=D` registra eliminaciones completas de archivos, no detecta líneas o funciones suprimidas dentro de archivos que siguen existiendo. Las nueve etiquetas y las revisiones de módulos siguen siendo esenciales.
