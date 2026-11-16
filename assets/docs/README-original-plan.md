@@ -11,10 +11,10 @@ Esta es la **única ruta** que utiliza el botón «Ver documento» y el visor in
 ## Incorporación inicial, una sola vez
 
 1. Abrir el repositorio `ronnylopez342/TERRITORIO_INTELIGENTE` en GitHub.
-2. Seleccionar la rama `production/v2.6-canonical`.
+2. Seleccionar la única rama operativa: `main`.
 3. Abrir la carpeta `assets/docs` y usar **Add file → Upload files**.
 4. Adjuntar el PDF original, nombrado exactamente `plan-estadistico-territorial-original.pdf`. Confirmar el commit.
-5. Publicar en Vercel la nueva revisión de esa rama en producción. La página detectará el PDF original por su tipo de archivo.
+5. Verificar que el despliegue automático de `main` termine en estado `READY` en Vercel y que el dominio público sirva el PDF original. No confundir un despliegue de prueba con producción.
 
 A partir de esa publicación, el documento estará disponible permanentemente para todas las visitas, en la misma ruta y para futuros despliegues. El usuario no tiene que cargarlo de nuevo ni en su tableta ni en su celular. Git mantiene el historial del archivo.
 
@@ -31,4 +31,4 @@ Documento recibido en la conversación: `Plan Territorial Estadistico.pdf`, 45 p
 
 ## Respaldo
 
-Rama antes de implementar este visor: `backup/antes-visor-original-conoce-20261017`.
+Referencia histórica anterior al visor: `backup/antes-visor-original-conoce-20261017` (rama eliminada durante la consolidación de noviembre de 2026; recuperar su commit desde el historial Git si fuera necesario).
