@@ -50,9 +50,12 @@ async function run(){
    await page.evaluate(()=>selectDataPanel('data-subachoque'));
    await page.waitForFunction(()=>document.querySelectorAll('#ds3-dimensions [data-ds3-dimension]').length===4,{timeout:25000});
    await page.evaluate(()=>selectDataPanel('data-encuesta'));
-   await page.waitForFunction(()=>document.querySelector('#k23-app')&&
-     !document.getElementById('k23-load').hidden===false || document.querySelector('#k23-app [data-k23-dimension]'),{timeout:25000}).catch(()=>{});
-   assert.ok(await page.locator('#k23-app').count(),'Seccion KoBo ausente');
+   await page.waitForFunction(
+     ()=>document.querySelectorAll('#k23-dims [data-k23-dim]').length===4,
+     null,{timeout:25000}
+   );
+   assert.equal(await page.locator('#k23-dims [data-k23-dim]').count(),4,
+     'Seccion KoBo: faltan dimensiones reales');
    console.log('SMOKE DATA ACTUAL: 4 vistas con navegacion funcional, 4 dimensiones y panel KoBo disponibles.');
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 }
