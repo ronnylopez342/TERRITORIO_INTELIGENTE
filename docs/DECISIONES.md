@@ -1,4 +1,6 @@
-# Decisiones vigentes — Territorio Inteligente Web
+# Decisiones de diseño e historial — Territorio Inteligente Web
+
+> **Vigencia operativa actualizada (16/11/2026):** este documento conserva decisiones de versiones anteriores (incluida V5.1). Para código y publicación la única rama oficial es `main`; las ramas V5 mencionadas abajo fueron eliminadas. Véanse [README](../README.md) y [auditoría maestra de 63 ramas](AUDITORIA_MAESTRA_RAMAS_20261116.md). Las instrucciones históricas de ramas no se deben ejecutar como si estuvieran vigentes.
 
 ## Referencia visual
 
@@ -51,9 +53,11 @@ El Home debe conservar como base de contenido:
 
 No inventar capacidades funcionales que aún no estén definidas. Políticas Públicas puede tener estructura visual provisional, pero su contenido funcional debe esperar definición formal.
 
-## Regla de estabilidad V5.1
+## Regla histórica de estabilidad V5.1 (ya no vigente para ramas)
 
 - `main` no se modifica durante la estabilización.
 - `web-v5-delivery-baseline` se conserva intacta como rollback.
 - Los cambios V5.1 se trabajan en `web-v5.1-stabilization`.
 - Autenticación y Supabase quedan fuera de V5.1 para no mezclar estabilización de frontend con backend.
+
+**Decisión posterior (16/11/2026):** el repositorio usa solo `main` en producción; `web-v5-delivery-baseline` y `web-v5.1-stabilization` no son ramas operativas. Toda recuperación se compara primero contra la versión actual y las nueve etiquetas históricas preservadas.
