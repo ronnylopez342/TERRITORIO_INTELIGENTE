@@ -5,6 +5,29 @@
 
 **Fuente única del código:** [`main`](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/tree/main). **Línea base funcional auditada:** `fb5de4ae8395ba233c6eb42280b8a70cc0dad32a`. Este documento y su [matriz CSV de 63 ramas](./MATRIZ_RAMAS_20261116.csv) son evidencia y planificación; **no constituyen por sí mismos una migración de funcionalidades**.
 
+## Actualización posterior: recuperación implementada y probada
+
+**Este apartado prevalece sobre los estados «pendiente» de las tablas de inventario originales, que se conservan como fotografía del diagnóstico inicial.** Para consultar los estados operativos actualizados y los pendientes reales, utilizar el [CHECKLIST VIVO DE RECUPERACIÓN](CHECKLIST_RECUPERACION_FUNCIONAL_20261116.md).
+
+| Hallazgo de la primera auditoría | Acción posterior comprobada | Estado |
+|---|---|---|
+| Doce capítulos históricos sin entrada | Visor integrado y navegable desde 2.1, sin reinstalar antiguas pestañas | **RECUPERADA** |
+| DANE 2005/2018 desacoplado | Comparación censal con fuentes y conciliación urbana/rural | **RECUPERADA** |
+| Gestor local del Plan Estadístico desconectado | Nuevo gestor compatible con antigua clave, CRUD/fórmulas/import/export | **RECUPERADA** |
+| Memoria municipal local histórica no accesible | Consultar, filtrar, crear, editar, adjuntar y descargar en Publicaciones | **RECUPERADA** |
+| Importaciones estadísticas Data por fuente ocultas | Reutilizado TIWorkspace para DANE/nacional/departamental/municipal | **RECUPERADA** |
+| Incongruencia de altura del mapa 4.2 | Retirada una regla posterior que forzaba el mapa a 270px en móvil | **CORREGIDA** |
+| M1 sin verificadores de integridad actuales | Nuevo control de nueve fuentes críticas originales | **RECONSTRUIDA** |
+| M2 registry antiguo incompatible | Registro de 19 localizadores del DOM actual con prueba de unicidad | **RECONSTRUIDA** |
+| Cambios anteriores 3.3/4.2 | Se conserva la implementación posterior; nuevos smokes en escritorio/móvil | **SUSTITUIDA CON MEJORA EN CASOS PROBADOS** |
+| Demos antiguas de encuesta, PDFs reconstruidos y CSS azul | Rechazadas para no perder procedencia ni reintroducir regresiones | **DESCARTADAS CON MOTIVO** |
+
+**Pruebas:** [GitHub Actions tras recuperación](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/43909553297) (SUCCESS); [pruebas iniciales y capturas 3.3/4.2](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/43906381954).
+
+**Límites que continúan abiertos:** comparación semántica de cada modificación histórica de 455 commits, QA manual de todas las vistas/tamaños, fuentes institucionales faltantes, permisos multiusuario y protección de `main`. Estas no son condiciones resueltas por el despliegue automático.
+
+---
+
 ### 1. Resumen ejecutivo
 
 | Indicador | Comprobado | Interpretación |
