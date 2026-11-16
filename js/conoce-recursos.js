@@ -9,7 +9,7 @@
   const heading = document.getElementById('cn-tools-dialog-title');
   const close = root.querySelector('[data-cn-tools-close]');
   const storageKey = 'ti-plan-estadistico-indicadores-v1';
-  const titles = { chapters:'Capítulos del territorio', dane:'Comparación DANE: Subachoque', indicators:'Indicadores del Plan Estadístico (local)', archive:'Memoria documental municipal (archivo local)' };
+  const titles = { chapters:'Capítulos del territorio', dane:'Comparación DANE: Subachoque', indicators:'Indicadores del Plan Estadístico (local)', archive:'Memoria documental municipal (archivo local)', datasets:'Bases estadísticas locales por fuente' };
   const periodicities = ['mensual','trimestral','semestral','anual','quinquenal','eventual'];
   const sectors = ['Demografía y población','Salud','Educación','Economía','Convivencia y seguridad','Acceso a servicios públicos','Vivienda','Vías','Ordenamiento territorial','Medición institucional'];
   const formulas = [['valor','Valor directo (A)'],['porcentaje','Porcentaje (A/B × 100)'],['tasa','Tasa (A/B × factor)'],['diferencia','Diferencia (A−B)'],['promedio','Promedio (A/B)']];
@@ -43,10 +43,13 @@
       readLocal();renderManager();
     } else if(active==='archive') {
       body.innerHTML='<p class="cn-tools__notice" role="status">Consultando archivo histórico de este navegador…</p>';
+    } else if(active==='datasets') {
+      body.innerHTML='<p class="cn-tools__notice" role="status">Preparando bases estadísticas guardadas en este dispositivo…</p>';
     } else return;
     dialog.showModal();
     if(active==='dane')renderDane();
     if(active==='archive')loadArchive();
+    if(active==='datasets')void renderDatasets();
   });
   async function renderDane() {
     try {
@@ -293,6 +296,32 @@
     if(action==='export-json')exportData('json');
     if(action==='export-csv')exportData('csv');
   });
+  // Compatibilidad de bases importadas desde las pantallas Data históricas.
+  // No se duplican los parsers ni se modifica IndexedDB: se reutiliza TIWorkspace.
+  async function renderDatasets(){
+    try{
+      if(typeof TIData==='undefined'||typeof TIWorkspace==='undefined'||typeof TI_STATE==='undefined')
+        throw Error('El motor de importación todavía no está disponible.');
+      await TIWorkspace.restore();
+      if(active!=='datasets'||!dialog.open)return;
+      body.innerHTML=
+        '<p class="cn-tools__notice"><strong>Archivos en este navegador.</strong> Solo se muestran datos que tú importes o hayas guardado antes. El portal no los publica. Cada fuente conserva su propio espacio y procedencia, sin mezclar unidades.</p>'+
+        '<label class="cn-tools__dataset-label">Origen de la base local <select id="cn-tools-dataset-source" aria-label="Seleccionar origen de datos locales">'+
+        '<option value="dane">DANE</option><option value="nacional">Nacional</option>'+
+        '<option value="departamental">Departamental</option><option value="municipales">Municipal</option>'+
+        '</select></label>'+
+        '<div class="cn-tools__datasets" data-dataset-workspace="externas"></div>';
+      TI_STATE.sourceLevel='dane';
+      TIWorkspace.workspace('externas');
+      body.querySelector('#cn-tools-dataset-source')?.addEventListener('change',event=>{
+        if(!['dane','nacional','departamental','municipales'].includes(event.target.value))return;
+        TI_STATE.sourceLevel=event.target.value;
+        body.querySelector('[data-dataset-workspace="externas"]')?.tiRefresh?.();
+      });
+    }catch(error){
+      if(active==='datasets'&&dialog.open)body.innerHTML='<p role="alert" class="cn-tools__notice">No se pudieron consultar las bases locales: '+esc(error.message)+'</p>';
+    }
+  }
   // Memoria de la Alcaldia: compatibilidad con la clave y esquema IndexedDB originales.
   // Nunca se reintroducen documentos ficticios como expedientes reales.
   const archiveKey='municipal-archive:v1';
