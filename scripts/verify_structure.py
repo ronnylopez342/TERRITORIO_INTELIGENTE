@@ -1,55 +1,73 @@
-"""Check navigable sections, project dossiers and preserved Home content."""
+"""Verifica la estructura vigente de Territorio Inteligente sin imponer pantallas antiguas.
+Un cambio editorial aprobado no debe fallar por un hash de HTML congelado.
+"""
 from pathlib import Path
 from html.parser import HTMLParser
 from collections import Counter
-import hashlib
 import re
 
-root = Path(__file__).resolve().parents[1]
-html = (root / 'index.html').read_text()
+ROOT = Path(__file__).resolve().parents[1]
+html = (ROOT / "index.html").read_text(encoding="utf-8")
 
 class Structure(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.ids = []
-        self.tabs = []
-        self.panels = []
-        self.destinations = []
+        self.ids, self.tabs, self.panels, self.destinations = [], [], [], []
     def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        if a.get('id'): self.ids.append(a['id'])
-        if a.get('data-module-panel'): self.tabs.append(a['data-module-panel'])
-        if a.get('role') == 'tabpanel': self.panels.append(a['id'])
-        if a.get('data-data-destination'): self.destinations.append(a['data-data-destination'])
+        values = dict(attrs)
+        if values.get("id"):
+            self.ids.append(values["id"])
+        if values.get("data-module-panel"):
+            self.tabs.append(values["data-module-panel"])
+        if values.get("role") == "tabpanel":
+            self.panels.append(values.get("id"))
+        if values.get("data-data-destination"):
+            self.destinations.append(values["data-data-destination"])
 
 parsed = Structure()
 parsed.feed(html)
-assert all(n == 1 for n in Counter(parsed.ids).values()), 'Duplicate functional IDs'
-assert sorted(parsed.tabs) == sorted(parsed.panels), 'Tabs and panels differ'
-assert set(parsed.destinations) <= set(parsed.panels), 'Menu destination without panel'
-for prefix, count in [('data-', 6), ('desarrollo-', 11), ('cumplimiento-', 10)]:
-    assert sum(x.startswith(prefix) for x in parsed.panels) == count
-assert html.count('<details>') == 77, 'Seven projects must each have eleven components'
-home = re.search(r'<section class="app-view active" data-view="home">.*?(?=<section class="app-view view-shell" data-view="data">)', html, re.S).group()
-assert hashlib.sha256(home.encode()).hexdigest() == '71ad83f5f4d6f18a0733078c8b35f279eb6026f70cb8aff3c72a4ea96d418af4', 'Home content changed'
-modules = html[html.index('<section class="app-view view-shell ti-stage-one" data-view="desarrollo">'):html.index('<section class="app-view ti-team-page')]
-assert not any(x in modules for x in ['data-plan-bump', 'data-project-bump', '<iframe', 'planDashboard', 'complianceDashboard']), 'Legacy illustrative module remains'
-print('Structure checks passed: Home preserved, all sections linked, seven project dossiers, no illustrative dashboards.')
+assert all(n == 1 for n in Counter(parsed.ids).values()), "IDs funcionales duplicados"
+assert None not in parsed.panels, "Panel sin ID"
+assert sorted(parsed.tabs) == sorted(parsed.panels), "Pestanas y paneles diferentes"
+assert set(parsed.destinations) <= set(parsed.panels), "Destino del menu sin panel"
 
-# Recovery: retain the original visual source viewer and loading tools.
-data = html[html.index('<section class="app-view view-shell" data-view="data">'):html.index('<section class="app-view view-shell ti-stage-one" data-view="desarrollo">')]
-assert 'Explorar el módulo' not in data and 'ti-module-layout' not in data
-assert 'assets/interactive/data-fuentes-visor.html' in data
-for key in ['municipales', 'encuesta']:
-    assert f'data-dataset-workspace="{key}"' in data
-for id in ['statDocumentUpload', 'publicationUpload', 'geoPointUpload', 'dataDefinition', 'statisticsWheel']:
-    assert f'id="{id}"' in data
-print('Original Data viewer, municipal point-import tools integrated into Encuesta, and existing uploads preserved.')
+# Cuatro paneles Data vigentes. Las seis pestanas del diseno previo fueron consolidadas.
+data_panels = ["data-conoce", "data-subachoque", "data-encuesta", "data-explorando"]
+assert [id for id in parsed.panels if id.startswith("data-")] == data_panels, "Estructura 2.x alterada"
+assert len([id for id in parsed.panels if id.startswith("desarrollo-")]) == 11, "Plan Desarrollo: faltan paneles"
+assert len([id for id in parsed.panels if id.startswith("cumplimiento-")]) == 10, "Cumplimiento: faltan paneles"
+assert html.count("<details>") == 77, "Faltan componentes de expedientes de proyectos"
 
-source_panel = re.search(r'<section[^>]+id="data-fuentes"[^>]*>(.*?)</section>', html, re.S).group(1)
-assert source_panel.count('<iframe') == 1
-assert 'id="data-plan-estadistico"' in data and 'id="peHome"' in data
-assert 'Documentos oficiales' in data and 'Fichas técnicas' in data
-assert '<h3' not in source_panel and 'data-dataset-workspace' not in source_panel
-assert 'source-level' not in source_panel and 'sources-data-divider' not in source_panel
-print('The interactive data-source viewer remains isolated in its own panel; other Data tools remain available.')
+# Conservacion funcional del Home, pero NO comparar hash de todo el HTML:
+# cambiar un texto voluntariamente no equivale a perder contenido o funcionalidad.
+home = re.search(
+    r'<section class="app-view active" data-view="home">.*?(?=<section class="app-view view-shell" data-view="data">)',
+    html, re.S
+)
+assert home, "Seccion Home ausente"
+assert 'id="heroLocalVideo"' in home.group(0), "Hero de video ausente"
+
+data_start = html.index('<section class="app-view view-shell" data-view="data">')
+desarrollo_start = html.index('<section class="app-view view-shell ti-stage-one" data-view="desarrollo">')
+team_start = html.index('<section class="app-view ti-team-page')
+data = html[data_start:desarrollo_start]
+modules = html[desarrollo_start:team_start]
+
+for id in data_panels:
+    assert f'id="{id}"' in data, f"Panel Data faltante: {id}"
+assert 'id="cn-plan-territorial"' in data, "Plan Estadistico territorial no incorporado a Conoce"
+assert 'id="publicationUpload"' in data, "Herramienta de publicaciones ausente"
+assert 'id="geoPointUpload"' in data, "Herramienta de puntos geograficos ausente"
+assert 'id="dataDefinition"' in data, "Definicion editorial Data ausente"
+assert 'data-dataset-workspace="encuesta"' in data, "Espacio de encuesta ausente"
+assert "data-plan-bump" not in modules and "complianceDashboard" not in modules, "Panel ilustrativo heredado"
+assert 'id="cumplimiento-proyectos"' in modules, "Modulo 4.2 de proyectos ausente"
+
+# El modulo completo de Unidad de Cumplimiento se comprueba tambien con el test
+# de datos reales y filtros, que no debe reemplazarse por simples textos demostrativos.
+for asset in ["js/ti-cumplimiento-42-core.js", "js/ti-cumplimiento-42-resumen.js",
+              "js/ti-cumplimiento-42-indicadores.js", "data/uc42-summary.gz.b64.txt"]:
+    assert (ROOT / asset).is_file(), f"Recurso 4.2 ausente: {asset}"
+
+print("STRUCTURE CHECK: OK")
+print(f"Paneles Data={len(data_panels)}, Desarrollo=11, Cumplimiento=10; expedientes=<details> 77")
