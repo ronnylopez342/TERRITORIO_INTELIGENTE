@@ -490,3 +490,11 @@
 #desarrollo-accion .pa-su-inventory .pa-su-accuracy-note{margin:0;font-size:12px;line-height:1.65;color:#425e4d}
 #desarrollo-accion .pa-su-inventory .pa-su-stat{min-width:0;overflow-wrap:anywhere}
 @media(max-width:660px){#desarrollo-accion .pa-su-inventory{padding:12px}}
+
+
+#desarrollo-accion .pa-su-missing-detail{margin:12px 0 0;padding:10px 12px;background:#fff;border:1px solid #d4e3d9;border-radius:6px}
+#desarrollo-accion .pa-su-missing-detail summary{font-size:12px;font-weight:800;color:#185d41;cursor:pointer}
+#desarrollo-accion .pa-su-missing-table-scroll{margin:10px 0 0;max-width:100%;overflow-x:auto}
+#desarrollo-accion .pa-su-missing-detail table{width:100%;min-width:480px;border-collapse:collapse;font-size:12px}
+#desarrollo-accion .pa-su-missing-detail th,#desarrollo-accion .pa-su-missing-detail td{padding:9px 12px;border-bottom:1px solid #e5eee7;text-align:left;line-height:1.4;color:#345145}
+#desarrollo-accion .pa-su-missing-detail th{background:#eff7f1;font-weight:800;color:#174a35}
