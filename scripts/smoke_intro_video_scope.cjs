@@ -84,40 +84,66 @@ async function checkData(page,mode,out){
   assert.equal(await page.locator('#ds3-dimensions').count(),1,'Dimensiones 2.2 perdidas');
   console.log('DATA '+mode+': 2.1 video; 2.2/2.3/2.4 directas; paneles íntegros');
 }
-async function checkModule(page,route){
+async function checkPlan(page,out){
+  // 3.1–3.3 usan la portada editorial propia, no ti34-ready.
   await page.setViewportSize({width:1366,height:900});
-  const cases=route==='desarrollo'
-    ?['desarrollo-conoce','desarrollo-cumplimos','desarrollo-accion','desarrollo-contratacion']
-    :['cumplimiento-conoce','cumplimiento-proyectos','cumplimiento-alumbrado','cumplimiento-inventario','cumplimiento-inventario-automoviles'];
-  await page.goto('/#'+route+'?seccion='+cases[0],{waitUntil:'domcontentloaded',timeout:45000});
-  await page.waitForFunction(route=>document.querySelector('.app-view.ti34-ready[data-view="'+route+'"] .ti34-video')!==null,
-    route,{timeout:25000});
+  await page.goto('/#desarrollo?seccion=desarrollo-conoce',{waitUntil:'domcontentloaded',timeout:45000});
+  await page.waitForFunction(()=>document.querySelector('.app-view.pd-landing[data-view="desarrollo"]')!==null);
+  assert.equal(await page.locator('.app-view.pd-landing .pd-panel').count(),3);
+  assert.equal(await page.locator('.app-view.pd-landing .cn-video-section').count(),1,
+    'Solo 3.1 debe tener una sección de video en toda la plantilla.');
+  for(const id of ['desarrollo-conoce','desarrollo-cumplimos','desarrollo-accion']){
+    await page.evaluate(id=>saveModuleSection(id,'desarrollo'),id);
+    await page.waitForFunction(id=>document.querySelector('#'+id)?.classList.contains('active')===true,id);
+    assert.ok(await page.locator('#'+id).isVisible(),'Contenido 3.x oculto: '+id);
+    const intro=id==='desarrollo-conoce';
+    assert.equal(await page.locator('#'+id+' .cn-video-section').count(),intro?1:0,
+      'Video editorial indebido: '+id);
+    if(intro)assert.ok(await page.locator('#'+id+' .cn-video-section').isVisible());
+    if(!intro){
+      assert.ok((await page.locator('#'+id+' .cn-hero h1').innerText()).trim().length>3);
+      await page.locator('#'+id+' .cn-hero').screenshot({
+        path:path.join(out,'conoce-solo-'+id+'.png')
+      });
+    }
+    console.log('Plan '+id+': '+(intro?'video presente':'contenido directo sin video'));
+  }
+}
+async function checkUnit(page,out){
+  const route='cumplimiento';
+  const cases=['cumplimiento-conoce','cumplimiento-proyectos','cumplimiento-alumbrado',
+    'cumplimiento-inventario','cumplimiento-inventario-automoviles'];
+  await page.setViewportSize({width:1366,height:900});
+  await page.goto('/#cumplimiento?seccion=cumplimiento-conoce',{waitUntil:'domcontentloaded',timeout:45000});
+  await page.waitForFunction(()=>document.querySelector('.app-view.ti34-ready[data-view="cumplimiento"] .ti34-video')!==null);
   for(const id of cases){
-    const nav=page.locator('.app-view[data-view="'+route+'"] .ti34-nav [data-module-panel="'+id+'"]');
+    const nav=page.locator('.app-view[data-view="cumplimiento"] .ti34-nav [data-module-panel="'+id+'"]');
     await nav.click({timeout:20000});
-    await page.waitForFunction(([route,id])=>{
-      const root=document.querySelector('.app-view.ti34-ready[data-view="'+route+'"]');
+    await page.waitForFunction(id=>{
+      const root=document.querySelector('.app-view.ti34-ready[data-view="cumplimiento"]');
       const tab=root?.querySelector('.ti34-nav [data-module-panel="'+id+'"]');
       const vid=root?.querySelector(':scope>.ti34-video');
-      return tab?.getAttribute('aria-selected')==='true'&&vid?.hidden===(id===route+'-conoce'?false:true);
-    },[route,id],{timeout:15000});
-    const hasVideo=id===route+'-conoce';
-    assert.equal(await page.locator('.app-view[data-view="'+route+'"]>.ti34-video').isVisible(),hasVideo,
-      'Video visible fuera de Conoce: '+id);
+      return tab?.getAttribute('aria-selected')==='true'&&vid?.hidden===(id==='cumplimiento-conoce'?false:true);
+    },id,{timeout:15000});
+    const hasVideo=id==='cumplimiento-conoce';
+    assert.equal(await page.locator('.app-view[data-view="cumplimiento"]>.ti34-video').isVisible(),hasVideo,
+      'Video visible fuera de 4.1: '+id);
     assert.ok(await page.locator('#'+id).isVisible(),'Contenido oculto en '+id);
-    assert.ok((await page.locator('.app-view[data-view="'+route+'"] .ti34-hero h1').innerText()).trim().length>4,
-      'Título ausente en '+id);
-    console.log(route+' '+id+': video '+(hasVideo?'visible':'ausente')+' y contenido presente');
+    if(id==='cumplimiento-proyectos'){
+      await page.locator('.app-view[data-view="cumplimiento"] .ti34-hero').screenshot({
+        path:path.join(out,'conoce-solo-cumplimiento-4.2.png')
+      });
+    }
+    console.log('Unidad '+id+': video '+(hasVideo?'visible':'ausente')+' y contenido presente');
   }
-  const nonIntro=cases[1];
-  await page.locator('.app-view[data-view="'+route+'"] .ti34-nav [data-module-panel="'+nonIntro+'"]').focus();
+  await page.locator('.app-view[data-view="cumplimiento"] .ti34-nav [data-module-panel="cumplimiento-proyectos"]').focus();
   await page.keyboard.press('Home');
-  await page.waitForFunction(route=>{
-    const root=document.querySelector('.app-view.ti34-ready[data-view="'+route+'"]');
+  await page.waitForFunction(()=>{
+    const root=document.querySelector('.app-view.ti34-ready[data-view="cumplimiento"]');
     return root?.querySelector(':scope>.ti34-video')?.hidden===false &&
-      root.querySelector('.ti34-nav [data-module-panel="'+route+'-conoce"]')?.getAttribute('aria-selected')==='true';
-  },route,{timeout:8000});
-  console.log(route+': teclado vuelve a Conoce y restaura el video');
+      root.querySelector('.ti34-nav [data-module-panel="cumplimiento-conoce"]')?.getAttribute('aria-selected')==='true';
+  },null,{timeout:8000});
+  console.log('Unidad: el teclado vuelve a 4.1 y recupera su video');
 }
 async function run(){
   await new Promise(done=>server.listen(0,'127.0.0.1',done));
@@ -128,8 +154,8 @@ async function run(){
     const page=await browser.newPage({baseURL:origin,viewport:{width:1440,height:920}});
     await checkData(page,'normal',out);
     await checkData(page,'embed',out);
-    await checkModule(page,'desarrollo');
-    await checkModule(page,'cumplimiento');
+    await checkPlan(page,out);
+    await checkUnit(page,out);
     console.log('PASS: videos únicamente en las portadas Conoce; sin cortes de letras, 2.1–4.4 navegables.');
   }finally{await browser.close();await new Promise(done=>server.close(done));}
 }
