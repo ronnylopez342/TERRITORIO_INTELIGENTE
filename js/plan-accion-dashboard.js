@@ -26,7 +26,7 @@
     navSvg("<path d=\"M4 4h16c1.1 0 2 .9 2 2v11c0 1.1-.9 2-2 2H9l-6 3V6c0-1.1.9-2 2-2Z\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"8\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/><circle cx=\"13\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/><circle cx=\"18\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/>")
   ];
   categoryIcons.splice(1,1); // Totalizador eliminado de la navegación 3.3.
-  const state = { year:'2026', current:101, overallSearch:'', overallStatus:'all', overallSort:'id', data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, territoryThemeActive:new Set(), supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, q3Data:null, obData:null, obLoading:false, obLoaded:false, obError:null, obFilters:{type:'all',status:'all',issuer:'all',from:'',to:'',q:''}, obPage:0, obSort:'source', obSortAsc:true, loading:true, error:null };
+  const state = { year:'2026', current:101, overallSearch:'', overallStatus:'all', overallSort:'id', data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, territoryThemeActive:new Set(), supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportManifest:null, supportDriveAudit:null, supportExtraLoaded:false, supportLoading:false, supportError:null, q3Data:null, obData:null, obLoading:false, obLoaded:false, obError:null, obFilters:{type:'all',status:'all',issuer:'all',from:'',to:'',q:''}, obPage:0, obSort:'source', obSortAsc:true, loading:true, error:null };
   // Persist only public navigation state. Never persist sensitive, fetched data,
   // filters, authentication, coordinates, or open modal content here.
   const PLAN_NAV_KEY='ti:plan33:navigation:v1';
@@ -1543,30 +1543,42 @@
   }
   function suExtras(m){return state.supportExtra?.periods?.[state.year]?.[String(m.id)]||{};}
   function suBuild(m){
-    const metaExtras=suExtras(m),verifiedFolders=state.supportVerified?.folders||{};
+    const metaExtras=suExtras(m),verifiedFolders=state.year==='2026'?{}:(state.supportVerified?.folders||{});
+    const q3meta=state.year==='2026'?(state.supportManifest?.metas?.[String(m.id)]||{}):null;
     const repoMap=new Map(),fileMap=new Map();
     for(const a of m.activities||[]){
-      const extra=metaExtras[String(a.n)]||{},url=safeLink(a.evidence)||safeLink(extra.url);
+      const extra=metaExtras[String(a.n)]||{},source=q3meta?.[String(a.n)];
+      const recovered=source?.refs?.length?source.refs:[];
+      const previous=safeLink(a.evidence)||safeLink(extra.url);
+      const candidates=state.year==='2026'&&state.supportManifest?recovered:
+        (previous?[{url:previous,id:suFolderId(previous)||suFileId(previous),kind:suFolderId(previous)?'folder':'file'}]:[]);
+      for(const ref of candidates){
+      const url=safeLink(ref.url);
       if(!url)continue;
-      const folderId=suFolderId(url),fileId=suFileId(url);
-      const base={acts:[String(a.n)],actNames:[String(a.name||'')],territories:[String(extra.territory||a.territory||'')],expected:[String(extra.expected||'')]};
+      const folderId=ref.kind==='folder'?(ref.id||suFolderId(url)):suFolderId(url),fileId=ref.kind==='file'?(ref.id||suFileId(url)):suFileId(url);
+      const known=state.year==='2026'?state.supportDriveAudit?.items?.[ref.id||folderId||fileId]:null;
+      const base={acts:[String(a.n)],actNames:[String(a.name||'')],territories:[String(source?.territory||extra.territory||a.territory||'')],expected:[String(source?.supportExpected||extra.expected||'')],sourceRows:[source?.row||null]};
       if(folderId){
         const k='folder:'+folderId;
         if(repoMap.has(k)){
           const v=repoMap.get(k);v.acts.push(...base.acts);v.actNames.push(...base.actNames);v.territories.push(...base.territories);v.expected.push(...base.expected);
-        }else repoMap.set(k,{key:k,kind:'folder',id:folderId,title:'Repositorio de la actividad '+a.n,url,verified:false,complete:!!verifiedFolders[folderId]?.complete,...base});
+        }else repoMap.set(k,{key:k,kind:'folder',id:folderId,title:known?.name||'Repositorio de la actividad '+a.n,url,verified:false,complete:!!verifiedFolders[folderId]?.complete,accessNote:known?.status==='unavailable'?'Metadatos no disponibles; acceso por comprobar':null,visibility:known?.visibility||'not_verified',modified:suValidDate(known?.modified),...base});
       }else if(fileId){
         const k='file:'+fileId;
         if(fileMap.has(k)){
           const v=fileMap.get(k);v.acts.push(...base.acts);v.actNames.push(...base.actNames);v.territories.push(...base.territories);v.expected.push(...base.expected);
         }else{
-          const known=state.supportVerified?.direct?.[fileId]||{};
-          fileMap.set(k,{key:k,id:fileId,kind:'file',mime:known.mime||'application/vnd.google-apps.document',title:known.title||'Documento enlazado · actividad '+a.n,url:safeLink(known.url)||url,size:known.size||null,modified:suValidDate(known.modified),verified:!!known.title,complete:!!known.title,...base});
+          const fileInfo=state.year==='2026'?(state.supportDriveAudit?.items?.[fileId]||{}):(state.supportVerified?.direct?.[fileId]||{});
+          fileMap.set(k,{key:k,id:fileId,kind:'file',mime:fileInfo.mime||'application/octet-stream',
+             title:fileInfo.name||fileInfo.title||'Documento enlazado · actividad '+a.n,
+             url:safeLink(fileInfo.url)||url,size:fileInfo.size||null,modified:suValidDate(fileInfo.modified),
+             verified:!!(fileInfo.name||fileInfo.title),complete:false,visibility:fileInfo.visibility||'not_verified',...base});
         }
       }else{
         const k='link:'+url;
         if(!repoMap.has(k))repoMap.set(k,{key:k,kind:'folder',id:null,title:'Enlace externo · actividad '+a.n,url,verified:false,complete:false,...base});
       }
+    }
     }
     for(const repo of repoMap.values()){
       const folder=verifiedFolders[repo.id]||{};
@@ -1655,7 +1667,7 @@
     const heading=html(item.title||'Archivo sin título');
     const visual=kind==='photo'&&item.id?`<img loading="lazy" referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w640" alt="Miniatura del archivo ${heading}">`:`<span class="pa-su-file-pict ${kind}">${suIcon(kind==='folder'?'folder':kind==='certificate'?'certificate':kind)}</span>`;
     const date=item.modified?`Última modificación: ${suDateFormat(item.modified)}`:(item.type==='folder'?(item.complete?'Repositorio consultado':'Contenido del repositorio sin enumerar'):item.type==='link'?'Enlace registrado sin fecha':'Fecha no registrada');
-    const footer=item.verified?`${suSizeFormat(item.size)} · archivo identificado`:(item.type==='folder'?(item.complete?'Carpeta consultada':'Repositorio enlazado; acceso por verificar'):item.type==='link'?'Enlace externo · acceso por verificar':'Archivo individual enlazado');
+    const footer=item.verified?`${suSizeFormat(item.size)} · metadatos identificados`:(item.type==='folder'?(item.complete?'Carpeta consultada':(item.accessNote||'Repositorio enlazado; contenidos sin comprobar')):item.type==='link'?'Enlace externo · acceso por verificar':'Archivo individual enlazado');
     return `<article class="pa-su-file-card ${kind}" data-su-file="${html(item.key)}"><div class="pa-su-file-preview">${visual}${suFileBadge(item)}</div><div class="pa-su-file-body"><strong title="${heading}">${heading}</strong><small title="${html(info)}">${html(info)}</small><div class="pa-su-file-meta"><span>${html(date)}</span><button type="button" data-pa-su-preview="${html(item.key)}" aria-label="Consultar soporte ${heading}" title="Consultar soporte">${suIcon('open')}</button></div><p class="pa-su-file-origin">${html(footer)}</p></div></article>`;
   }
   function suGallery(m){
@@ -1686,7 +1698,8 @@
   function suDashboard(m){
     const loading=state.supportLoading&&!state.supportExtraLoaded;
     if(loading)return `<div class="pa-su-loading" role="status">Cargando descripciones y enlaces del Excel…</div>`;
-    return `<div class="pa-su-dashboard"><div class="pa-su-main-grid"><div class="pa-su-main-col">${suFilterBar(m)}${suGallery(m)}</div><aside class="pa-su-sidebar">${suTree(m)}${suRecent(m)}</aside></div><p class="pa-su-source"><strong>Fuentes:</strong> Plan de Acción ${state.year} · campos «Soporte de Cumplimiento Actividad» y «Link de soportes de la actividad». ${state.year==='2026'?'Corte: tercer trimestre de 2026.':''} Solo se muestran documentos individualizados cuando se obtuvo su metadato del repositorio. El contenido de las carpetas sin inspeccionar no se contabiliza como archivo.</p>${suPreviewDialog()}</div>`;
+    if(state.year==='2026'&&(!state.supportManifest||!state.supportDriveAudit))return `<div class="pa-su-empty" role="alert"><strong>Auditoría documental no disponible</strong><p>${html(state.supportError||'No se cargaron los enlaces originales del Excel.')} No se muestran soportes incompletos como si fueran el inventario definitivo.</p></div>`;
+    return `<div class="pa-su-dashboard">${suSummary(m)}<div class="pa-su-main-grid"><div class="pa-su-main-col">${suFilterBar(m)}${suGallery(m)}</div><aside class="pa-su-sidebar">${suTree(m)}${suRecent(m)}</aside></div><p class="pa-su-source"><strong>Fuentes:</strong> Plan de Acción ${state.year} · campos «Soporte de Cumplimiento Actividad» y «Link de soportes de la actividad». ${state.year==='2026'?'Corte: tercer trimestre de 2026.':''} Solo se muestran documentos individualizados cuando se obtuvo su metadato del repositorio. El contenido de las carpetas sin inspeccionar no se contabiliza como archivo.</p>${suPreviewDialog()}</div>`;
   }
   function suResults(){
     if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando Soportes…</h2></div>';
@@ -1706,7 +1719,7 @@
     if(state.supportLoading||state.supportExtraLoaded)return;
     state.supportLoading=true;
     try{
-      const [extraRes,verifiedRes]=await Promise.all([fetch('/data/plan-accion-soportes-extra.b64.txt',{cache:'no-cache'}),fetch('/data/plan-accion-soportes-verificados.json',{cache:'no-cache'})]);
+      const [extraRes,verifiedRes,manifestRes,auditRes]=await Promise.all([fetch('/data/plan-accion-soportes-extra.b64.txt',{cache:'no-cache'}),fetch('/data/plan-accion-soportes-verificados.json',{cache:'no-cache'}),fetch('/data/plan-accion-2026-3t-soportes-enlaces.json',{cache:'no-cache'}),fetch('/data/plan-accion-2026-3t-drive-audit.json',{cache:'no-cache'})]);
       if(!extraRes.ok)throw Error('No se pudo abrir el inventario de soportes ('+extraRes.status+').');
       const b64=(await extraRes.text()).trim(),binary=atob(b64),bytes=new Uint8Array(binary.length);
       for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
@@ -1715,6 +1728,10 @@
       if(!obj?.periods?.['2025']||!obj?.periods?.['2026'])throw Error('Faltan los dos periodos de soportes.');
       obj.periods['2026']={}; // Soportes 2026 provienen de actividades del nuevo Excel 3T.
       state.supportExtra=obj;
+      if(!manifestRes.ok||!auditRes.ok)throw Error('No se puede cargar la auditoría de enlaces de Soportes 2026 T3.');
+      const manifest=await manifestRes.json(),audit=await auditRes.json();
+      if(manifest.schema!=='ti-plan-3t-support-links-v1'||manifest.stats?.totalActivities!==379||manifest.stats?.linkReferences!==227||manifest.stats?.activitiesWithLink!==222||audit.summary?.total!==160||audit.summary?.accessible+audit.summary?.inaccessible!==160)throw Error('Los inventarios documentales del 3T no concilian.');
+      state.supportManifest=manifest;state.supportDriveAudit=audit;
       if(verifiedRes.ok){const meta=await verifiedRes.json();if(meta?.folders)state.supportVerified=meta;}
       state.supportError=null;
     }catch(error){state.supportError=String(error.message||error);console.warn('Soportes:',error);}
