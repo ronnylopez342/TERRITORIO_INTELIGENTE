@@ -270,3 +270,14 @@ body:has(#desarrollo-cumplimos:not([hidden])) .ti34-sidebar,body:has(#desarrollo
   #desarrollo-cumplimos .asi32-owner-legend{font-size:10px;gap:7px 12px}
   #desarrollo-cumplimos .asi32-owner-shortcut{margin-left:0;width:100%}
 }
+
+
+/* Ajustes de QA visual: títulos nunca blancos sobre tarjetas claras;
+   los anclajes no quedan tapados por la barra superior institucional. */
+#desarrollo-cumplimos{scroll-margin-top:112px}
+#desarrollo-cumplimos .asi32-block,
+#desarrollo-cumplimos .asi32-owner-section{scroll-margin-top:112px}
+#desarrollo-cumplimos .asi32 .asi32-blockhead h2,
+#desarrollo-cumplimos .asi32 .asi32-blockhead h3{color:#153f2f!important;text-shadow:none!important}
+#desarrollo-cumplimos .asi32 .asi32-blockhead p{color:#61776a!important;text-shadow:none!important}
+#desarrollo-cumplimos .asi32 .asi32-blockhead .asi32-eyebrow{color:#0b7852!important;text-shadow:none!important}
