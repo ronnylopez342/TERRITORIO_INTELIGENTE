@@ -62,7 +62,7 @@
     return '<div class="asi32-kpis" aria-label="Indicadores generales del filtro">'+
       kpi('Metas producto',s.metas,'Registros únicos, '+selection)+kpi('Líneas estratégicas',s.lines,'Presentes en la selección')+
       kpi('Sectores MGA',s.sectors,'Clasificación del Excel')+kpi('Programas',s.programs,'Programas identificados')+
-      kpi('Dependencias',s.owners,'Entidades responsables')+kpi('Programación',compact(s.indicative),'Plan Indicativo · COP')+'</div>';
+      kpi('Dependencias',s.owners,'Responsables en la selección')+kpi('Presupuesto programado',fmt.format(s.indicative/1e9)+' mil millones','COP · Plan Indicativo · '+selection)+'</div>';
   }
   function pageTitle(title,desc,kicker){return '<div class="asi32-blockhead"><div><span class="asi32-eyebrow">'+esc(kicker||'Así cumplimos · 3.2')+'</span><h2>'+esc(title)+'</h2>'+(desc?'<p>'+esc(desc)+'</p>':'')+'</div></div>';}
   function bar(value,tone){return '<span class="asi32-track"><span class="asi32-fill" style="width:'+Math.max(0,Math.min(100,(value||0)*100)).toFixed(2)+'%;background:'+esc(tone||'#0b8653')+'"></span></span>';}
@@ -118,18 +118,76 @@
     return '<section class="asi32-block">'+pageTitle('Territorio, acciones y seguimiento','Imágenes de contexto para una lectura más cercana del Plan; las cifras de ejecución proceden del Excel.','Rendición de cuentas')+
       '<div class="asi32-photo-cards">'+content.map(x=>'<article class="asi32-photo-card"><img src="'+x[1]+'" alt="'+esc(x[0])+'" loading="lazy"><div><h3>'+esc(x[0])+'</h3><p>'+esc(x[2])+'</p></div></article>').join('')+'</div></section>';
   }
+  function homeProgress(rows){
+    const subset=yearsToDisplay(),all=subset.length===4;
+    const items=years.map((y,i)=>({year:y,index:i,avg:physical(rows,i),count:rows.filter(r=>Number.isFinite(r.physical[i])).length})).filter(x=>subset.includes(x.index));
+    return '<article class="asi32-card asi32-home-progress" aria-labelledby="asi32-progress-title">'+
+      '<div class="asi32-home-cardhead"><div><span class="asi32-eyebrow">Seguimiento físico · Matriz de Control</span><h3 id="asi32-progress-title">Avances del Plan de Desarrollo</h3>'+
+      '<p>Porcentaje promedio de metas con avance documentado, por vigencia.</p></div><span class="asi32-home-tag">Escala de referencia: 100 %</span></div>'+
+      '<div class="asi32-home-progress-main"><div class="asi32-home-target" aria-label="Referencia de escala: 100 por ciento">'+
+      '<strong>100 %</strong><span class="asi32-home-targetbar"></span><small>Referencia para cada vigencia, no avance acumulado</small></div>'+
+      '<div class="asi32-home-annual" aria-label="Avance físico por año">'+
+      items.map(item=>'<div class="asi32-home-annual-item"><div class="asi32-home-annual-head"><strong>'+item.year+'</strong>'+
+        '<span class="'+(item.avg===null?'asi32-home-no-data':'asi32-home-annual-value')+'">'+pct(item.avg)+'</span></div>'+
+        (item.avg===null?'<div class="asi32-home-missing"><span>Sin datos de ejecución en la matriz</span></div>':bar(item.avg,colorYear[item.index]))+
+        '<small>'+(item.avg===null?'Hoja de ejecución no diligenciada':item.count+' de '+rows.length+' metas con avance informado')+'</small></div>').join('')+
+      '</div></div>'+
+      '<div class="asi32-home-method"><strong>Cómo interpretar este gráfico</strong><p>Los porcentajes son promedios simples de las metas que tienen dato; no representan el cumplimiento ponderado u oficial de todo el cuatrienio. '+(all?'2026 y 2027 están programados, pero no registran ejecución.':'El filtro muestra únicamente la vigencia seleccionada.')+'</p></div>'+
+      '<p class="asi32-source">'+esc(sourceNote)+'</p></article>';
+  }
+  function homeFinance(rows){
+    const subset=yearsToDisplay(),amounts=years.map((y,i)=>sum(rows.map(r=>r.indicative[i]))),max=Math.max(1,...amounts);
+    return '<article class="asi32-card asi32-home-finance" aria-labelledby="asi32-finance-title">'+
+      '<div class="asi32-home-cardhead"><div><span class="asi32-eyebrow">Recursos y ejecución financiera</span><h3 id="asi32-finance-title">Programación y pagos</h3>'+
+      '<p>Plan Indicativo frente a pagos informados en el Plan de Acción.</p></div></div>'+
+      '<div class="asi32-home-finance-rows">'+years.map((year,i)=>{
+        if(!subset.includes(i))return '';
+        const b=budget(rows,i),has=b.n>0,planned=amounts[i];
+        return '<div class="asi32-home-finance-row"><div class="asi32-home-finance-label"><strong>'+year+'</strong><span>Programado: '+compact(planned)+'</span></div>'+
+          '<div class="asi32-home-finance-bars"><div title="Programado: '+money.format(planned)+'">'+bar(planned/max,'#128258')+'</div>'+
+          (has?'<div title="Pagos informados: '+money.format(b.p)+'">'+bar(b.p/max,'#d7a619')+'</div>':
+          '<small class="asi32-home-no-data">Pagos: sin reporte</small>')+'</div></div>';
+      }).join('')+'</div>'+
+      '<div class="asi32-legend"><span><i class="asi32-dot" style="background:#128258"></i>Presupuesto programado</span>'+
+      '<span><i class="asi32-dot" style="background:#d7a619"></i>Pagos reportados</span></div>'+
+      '<p class="asi32-source">Programación del Plan Indicativo y pagos del Plan de Acción son conceptos distintos. 2026 y 2027 no tienen reportes de pagos en sus hojas.</p>'+
+      goPlanButton()+'</article>';
+  }
+  function homeStructure(rows){
+    const items=catalog.lines.map((label,index)=>({label,index,rows:rows.filter(r=>r.line===index)})).filter(x=>x.rows.length);
+    return '<article class="asi32-card asi32-home-lines"><div class="asi32-home-cardhead"><div><span class="asi32-eyebrow">Organización del Plan</span>'+
+      '<h3>Líneas estratégicas</h3><p>Distribución de metas producto en la selección actual.</p></div></div>'+
+      '<div class="asi32-home-lines-list">'+items.map(x=>
+        '<button type="button" class="asi32-home-line" data-asi-home-line="'+x.index+'"><span class="asi32-home-line-name">'+esc(x.label)+'</span>'+
+        '<span class="asi32-home-line-bar">'+bar(x.rows.length/Math.max(1,rows.length),'#248866')+'</span>'+
+        '<strong>'+x.rows.length+' metas</strong><span aria-hidden="true">›</span></button>').join('')+'</div>'+
+      '<p class="asi32-source">El número de metas representa registros de la matriz, no un porcentaje de ejecución. Selecciona una línea para explorar sus metas.</p></article>';
+  }
+  function homeCoverage(rows){
+    const subset=yearsToDisplay();
+    return '<article class="asi32-card asi32-home-coverage"><div class="asi32-home-cardhead"><div><span class="asi32-eyebrow">Calidad y cobertura de la fuente</span>'+
+      '<h3>¿Qué información está disponible?</h3><p>Antes de interpretar las gráficas, comprueba cuántas metas tienen reporte.</p></div></div>'+
+      '<div class="asi32-home-coverage-grid">'+years.map((year,i)=>{
+        if(!subset.includes(i))return '';
+        const count=rows.filter(r=>Number.isFinite(r.physical[i])).length;
+        return '<div class="asi32-home-coverage-item"><span>'+year+'</span><strong>'+(count?count+' / '+rows.length:'Sin reporte')+'</strong>'+
+          '<small>'+(count?'Metas con porcentaje físico':'Hoja anual no diligenciada')+'</small></div>';
+      }).join('')+'</div>'+
+      '<div class="asi32-home-method"><strong>Sobre los datos</strong><p>Los cuatro años están contemplados en la programación; únicamente 2024 y 2025 registran ejecución física en las hojas anuales de la matriz compartida. La ausencia de datos no se interpreta como cero.</p></div></article>';
+  }
   function start(rows){
-    const s=stat(rows);const selected=yearsToDisplay();const reportCount=rows.flatMap(r=>selected.map(i=>r.physical[i])).filter(Number.isFinite).length;
-    return '<section class="asi32-block">'+pageTitle('Avances del Plan de Desarrollo','Visor del cuatrienio 2024–2027: programación, ejecución física, presupuesto y responsables.','Subachoque · El Mejor Plan')+
-      topCards(rows)+'<div class="asi32-grid">'+fullChart(rows)+annualCards(rows)+'</div></section>'+
-      '<section class="asi32-block">'+pageTitle('De la planeación a los resultados','Los pagos y porcentajes de avance se comparan únicamente cuando existen en el Excel.','Seguimiento verificable')+
-      '<div class="asi32-grid">'+budgetChart(rows)+'<article class="asi32-card"><h3>Lectura ejecutiva</h3><div class="asi32-kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:15px 0">'+
-      kpi('Reportes físicos',reportCount,'Metas-año con valor disponible')+kpi('Pagos informados',compact(s.paid),'Registros 2024–2025')+'</div>'+
-      '<div class="asi32-highlight">Las cifras del Word funcionan como referencia de diseño. Los valores de este visor se calculan a partir de la matriz que suministraste.</div><p class="asi32-source">'+esc(sourceNote)+'</p>'+goPlanButton()+'</article></div></section>'+ownerBar(rows)+photoCards();
+    return '<section class="asi32-block asi32-home-intro">'+
+      pageTitle('Inicio · Seguimiento del cuatrienio 2024–2027',
+        'Una lectura clara de las 109 metas producto, con información física y financiera exclusivamente de la Matriz de Control.',
+        'Así cumplimos · 3.2')+
+      '<div class="asi32-home-lead"><strong>Vista general</strong><span>Elige vigencia, línea, sector, programa o dependencia para actualizar todas las cifras de esta página.</span></div>'+
+      '<div class="asi32-home-main-grid">'+homeProgress(rows)+homeFinance(rows)+'</div></section>'+
+      '<section class="asi32-block asi32-home-bottom">'+
+      '<div class="asi32-home-bottom-grid">'+homeStructure(rows)+homeCoverage(rows)+'</div></section>';
   }
   function executive(rows){
     const s=stat(rows);return '<section class="asi32-block">'+pageTitle('Dashboard ejecutivo','109 metas en el conjunto completo, con filtros cruzados por vigencia, línea, sector, programa y dependencia.','Lectura transversal')+
-      topCards(rows)+'<div class="asi32-grid">'+annualCards(rows)+budgetChart(rows)+'</div></section>'+ownerBar(rows)+
+      '<div class="asi32-grid">'+annualCards(rows)+budgetChart(rows)+'</div></section>'+ownerBar(rows)+
       '<section class="asi32-block">'+pageTitle('Financiación del seguimiento','Presupuesto y pagos responden a hojas y definiciones diferentes.','Transparencia')+
       '<div class="asi32-grid-3">'+
       kpi('Plan Indicativo',compact(s.indicative),'Programado '+(state.year==='all'?'2024–2027':state.year))+
@@ -176,7 +234,7 @@
     const label=catalog.owners[idx],sub=rows.filter(r=>r.owner===idx);
     const s=stat(sub),yy=latestReported(),av=physical(sub,yy),fin=budget(sub,yy);
     return '<section class="asi32-block"><button type="button" class="asi32-action asi32-action--ghost" data-asi-back>← Todas las dependencias</button>'+
-      '<header class="asi32-detail-banner"><span class="asi32-eyebrow" style="color:#bdecd3">Detalle institucional · '+years[yy]+'</span><h2>'+esc(label)+'</h2><p>Fuente: matriz consolidada. Imágenes institucionales de contexto, sin atribución de obras específicas.</p></header>'+topCards(sub)+
+      '<header class="asi32-detail-banner"><span class="asi32-eyebrow" style="color:#bdecd3">Detalle institucional · '+years[yy]+'</span><h2>'+esc(label)+'</h2><p>Fuente: matriz consolidada. Imágenes institucionales de contexto, sin atribución de obras específicas.</p></header>'+
       '<div class="asi32-grid-3"><article class="asi32-card"><h3>Información estratégica</h3><p class="asi32-sub">Estructura de la entidad dentro del plan</p>'+[
         [unique(sub.map(r=>r.line)),'Líneas estratégicas'],[unique(sub.map(r=>r.sector)),'Sectores MGA'],[unique(sub.map(r=>r.program)),'Programas'],[sub.length,'Metas producto']].map(x=>'<div class="asi32-finance" style="grid-template-columns:55px 1fr"><strong style="font-size:24px;color:#0b8653">'+x[0]+'</strong><span>'+x[1]+'</span></div>').join('')+'</article>'+
       '<article class="asi32-card"><h3>Ejecución física y presupuestal</h3><p class="asi32-sub">Vigencia de referencia '+years[yy]+'</p><div class="asi32-finance"><span>Física</span>'+bar(av,'#0a854e')+'<strong>'+pct(av)+'</strong></div><div class="asi32-finance"><span>Pagos</span>'+bar(fin.b>0?fin.p/fin.b:null,'#f1b72d')+'<strong>'+(fin.b>0?pct(fin.p/fin.b):'Sin reporte')+'</strong></div><p class="asi32-source">Porcentaje de metas con reporte y pagos respecto al saldo definitivo; no son indicadores oficiales de cumplimiento global.</p></article>'+
@@ -215,13 +273,14 @@
       '<label class="asi32-filter"><span>Buscar en metas</span><input type="search" data-asi-search placeholder="Meta, sector, BPIN…" value="'+esc(state.q)+'"></label>'+
       '<button type="button" class="asi32-clear" data-asi-clear>Limpiar filtros</button>';
   }
+  function renderTopCards(){const node=root.querySelector('[data-asi-kpis]');if(node)node.innerHTML=topCards(selectedRows());}
   function renderNav(){
     const nav=root.querySelector('[data-asi-tabs]');if(!nav)return;
     const all=state.detailOwner!==null?[...sections,['detalle','Ficha de entidad']]:sections;
     nav.innerHTML=all.map(x=>'<button type="button" role="tab" data-asi-tab="'+x[0]+'" aria-selected="'+(state.tab===x[0])+'" tabindex="'+(state.tab===x[0]?'0':'-1')+'">'+esc(x[1])+'</button>').join('');
   }
   function renderContent(){const dest=root.querySelector('[data-asi-body]');if(dest)dest.innerHTML=content(selectedRows());}
-  function render(){renderFilters();renderNav();renderContent();}
+  function render(){renderFilters();renderTopCards();renderNav();renderContent();}
   root.addEventListener('change',event=>{
     const filter=event.target.closest('[data-asi-filter]');if(!filter)return;
     state[filter.dataset.asiFilter]=filter.value;
@@ -230,11 +289,13 @@
   });
   root.addEventListener('input',event=>{
     if(!event.target.matches('[data-asi-search]'))return;
-    state.q=event.target.value;renderContent();
+    state.q=event.target.value;renderTopCards();renderContent();
   });
   root.addEventListener('click',event=>{
     const tab=event.target.closest('[data-asi-tab]');
     if(tab){state.tab=tab.dataset.asiTab;renderNav();renderContent();return;}
+    const homeLine=event.target.closest('[data-asi-home-line]');
+    if(homeLine){state.line=homeLine.dataset.asiHomeLine;state.tab='lineas';render();return;}
     const clear=event.target.closest('[data-asi-clear]');
     if(clear){Object.assign(state,{year:'all',line:'all',sector:'all',program:'all',owner:'all',q:'',detailOwner:null,tab:'inicio'});render();return;}
     const owner=event.target.closest('[data-asi-owner]');
@@ -252,9 +313,14 @@
       return;
     }
   });
-  root.innerHTML='<div class="asi32-hero"><div class="asi32-hero-content"><span class="asi32-kicker">ALCALDÍA DE SUBACHOQUE · SEGUIMIENTO 2024–2027</span><h1>ASÍ <em>CUMPLIMOS</em></h1><span class="asi32-hero-rule"></span><p>Conoce cómo avanzan las metas, la ejecución física y los recursos previstos para el municipio. Información trazable a la Matriz de Control del Cuatrienio.</p></div></div>'+
-    '<div class="asi32-photo-strip" aria-label="Imágenes contextuales del municipio"><img src="assets/img/editorial/alcaldia.jpg" alt="Alcaldía de Subachoque" loading="lazy"><img src="assets/img/editorial/gestion.jpg" alt="Gestión municipal" loading="lazy"><img src="assets/img/editorial/comunidad.jpg" alt="Comunidad de Subachoque" loading="lazy"><img src="assets/img/editorial/participacion.jpg" alt="Participación ciudadana" loading="lazy"><img src="assets/img/editorial/servicio.jpg" alt="Servicios municipales" loading="lazy"></div>'+
-    '<div class="asi32-filters" data-asi-filters aria-label="Filtros del visor"></div><nav class="asi32-nav" role="tablist" aria-label="Secciones de Así cumplimos" data-asi-tabs></nav><main class="asi32-body" data-asi-body><p class="asi32-loading">Consultando la matriz consolidada del cuatrienio…</p></main>';
+  root.innerHTML='<header class="asi32-hero asi32-hero--compact" aria-label="Así cumplimos, visor del Plan de Desarrollo">'+
+    '<div class="asi32-hero-content"><span class="asi32-kicker">SUBACHOQUE · EL MEJOR PLAN · 2024–2027</span>'+
+    '<h1>Así cumplimos</h1><p>Seguimiento del Plan de Desarrollo con datos trazables de la matriz municipal.</p></div>'+
+    '<div class="asi32-hero-aside"><strong>109 metas producto</strong><span>Programación 2024–2027 · Reportes disponibles 2024 y 2025</span></div></header>'+
+    '<div class="asi32-filters" data-asi-filters aria-label="Filtros del visor"></div>'+
+    '<div class="asi32-topmetrics" data-asi-kpis aria-label="Indicadores generales de la selección"></div>'+
+    '<nav class="asi32-nav" role="tablist" aria-label="Secciones de Así cumplimos" data-asi-tabs></nav>'+
+    '<div class="asi32-body" data-asi-body aria-live="polite"><p class="asi32-loading">Consultando la matriz consolidada del cuatrienio…</p></div>';
   async function load(){
     try {
       const response=await fetch('data/asi-cumplimos-32.gz.b64.txt',{cache:'no-store'});
