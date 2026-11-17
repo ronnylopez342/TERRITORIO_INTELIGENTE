@@ -66,7 +66,7 @@
   }
   function pageTitle(title,desc,kicker){return '<div class="asi32-blockhead"><div><span class="asi32-eyebrow">'+esc(kicker||'Así cumplimos · 3.2')+'</span><h2>'+esc(title)+'</h2>'+(desc?'<p>'+esc(desc)+'</p>':'')+'</div></div>';}
   function bar(value,tone){return '<span class="asi32-track"><span class="asi32-fill" style="width:'+Math.max(0,Math.min(100,(value||0)*100)).toFixed(2)+'%;background:'+esc(tone||'#0b8653')+'"></span></span>';}
-  function mini(value,year){return '<span class="asi32-mini">'+bar(value,colorYear[years.indexOf(Number(year))]||'#0c8554')+'<strong>'+pct(value)+'</strong></span>';}
+  function mini(value,year,tone){return '<span class="asi32-mini">'+bar(value,tone||colorYear[years.indexOf(Number(year))]||'#0c8554')+'<strong>'+pct(value)+'</strong></span>';}
   function goPlanButton(){return '<button class="asi32-action asi32-action--ghost" type="button" data-asi-go-plan>Consultar Planes de Acción 3.3 ↗</button>';}
   function fullChart(rows){
     const reported=years.map((y,i)=>physical(rows,i));
@@ -106,7 +106,7 @@
       '<div class="asi32-chart-list">'+catalog.owners.map((name,idx)=>{
         const subset=rows.filter(r=>r.owner===idx);if(!subset.length)return '';
         const av=physical(subset,i),bud=budget(subset,i),pay=bud.b>0?bud.p/bud.b:null;
-        return '<button class="asi32-chart-item" data-asi-owner="'+idx+'" type="button" aria-label="Ver ficha de '+esc(name)+'"><span class="asi32-label"><strong>'+esc(name)+'</strong><small>'+subset.length+' metas · '+(bud.n?'Con datos presupuestales':'Sin datos presupuestales')+'</small></span>'+mini(av,year)+mini(pay,2024)+'<span aria-hidden="true">↗</span></button>';
+        return '<button class="asi32-chart-item" data-asi-owner="'+idx+'" type="button" aria-label="Ver ficha de '+esc(name)+'"><span class="asi32-label"><strong>'+esc(name)+'</strong><small>'+subset.length+' metas · '+(bud.n?'Con datos presupuestales':'Sin datos presupuestales')+'</small></span>'+mini(av,year)+mini(pay,year,'#f1b72d')+'<span aria-hidden="true">↗</span></button>';
       }).join('')+'</div><p class="asi32-source">Primera barra: ejecución física de metas. Segunda: pagos / saldo definitivo de la misma vigencia. Valores agregados por responsable; no comparan unidades físicas heterogéneas.</p></section>';
   }
   function photoCards(){
