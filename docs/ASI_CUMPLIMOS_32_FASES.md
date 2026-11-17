@@ -127,6 +127,8 @@ Hallazgos adicionales: la meta 63 tiene descripción y meta ODS pero no tiene di
 - [x] Articulación ODS por meta y catálogo original accesibles.
 - [x] Las 60.948 celdas con valor conciliadas contra el archivo original.
 - [x] Quince consultas, paginación hasta la fila 584, descarga CSV y móvil verificados localmente.
-- [ ] Ampliación de cobertura verificada en Actions y dominio público; actualizar tras la publicación.
+- [x] Ampliación de cobertura verificada en Actions y dominio público: integración `79ef37915f48a31b410dc683a961252e6bd0a7af`, Vercel READY y smoke completo aprobado sobre el dominio público.
+
+La [PR 10](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/pull/10) pasó [Actions del candidato](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44021005504), revisión del preview protegido y [Actions de main](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44021221954). El smoke de producción comprobó las quince hojas, las descargas, el acceso por meta, POAI, paginación hasta la última fila y móvil, junto con las comprobaciones anteriores del visor. El acceso temporal al preview fue revocado tras la revisión. Las capturas adicionales de cobertura, POAI y consulta de fuentes quedan en el artefacto de Actions y en `screenshots/asi32-*.png`.
 
 La integración del contenido del Excel puede cerrarse sin afirmar que los datos vacíos estén completos o que se hayan certificado resultados. Continúan las limitaciones documentales ya identificadas sobre acumulados oficiales, estados de riesgo, noticias y logros certificados.
