@@ -126,6 +126,12 @@ async function run(){
   }
   await page.locator(rootSel+'[data-asi-tab="lineas"]').click();
   await page.locator(rootSel+'.asi32-section-grid').screenshot({path:path.join(dest,'asi32-lineas-desktop.png')});
+  await page.locator(rootSel+'[data-asi-tab="indicadores"]').click();
+  assert.equal(await page.locator(rootSel+'.asi32-indicator-table tbody tr').count(),109);
+  assert.match(await page.locator(rootSel+'.asi32-indicator-table tbody tr').first().innerText(),/Documentos de planeación elaborados/);
+  await page.locator(rootSel+'[data-asi-open-meta="1"]').click();
+  assert.equal(await page.locator(rootSel+'[data-asi-tab="metas"]').getAttribute('aria-selected'),'true');
+  assert.match(await page.locator(rootSel+'#asi32-meta-1').innerText(),/0,25 Número/);
   await page.locator(rootSel+'[data-asi-tab="metas"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-goal').count(),109);
   await page.locator(rootSel+'[data-asi-search]').fill('zzzz-no-match');

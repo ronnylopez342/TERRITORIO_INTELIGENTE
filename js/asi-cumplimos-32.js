@@ -17,6 +17,7 @@
   let catalog = null, goals = [], details = {}, returnTab = 'ejecutivo';
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const fmt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
+  const quantity = new Intl.NumberFormat('es-CO',{maximumFractionDigits:10});
   const money = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
   const sum = numbers => numbers.reduce((a,b)=>a+(Number.isFinite(b)?b:0),0);
   const mean = numbers => {const valid=numbers.filter(Number.isFinite);return valid.length?sum(valid)/valid.length:null;};
@@ -247,23 +248,27 @@
     }).join('')+'</div></section>';
   }
   function goalCard(r){
+    const meta=details[r.id];
     const which=yearsToDisplay();const annual=which.map(i=>{
       const p=r.physical[i],b=r.action[i],paid=r.paid[i];
       return '<div class="asi32-finance"><strong>'+years[i]+'</strong>'+bar(p,colorYear[i])+'<strong>'+pct(p)+'</strong></div>'+
-        '<small>Programado en Plan Indicativo: '+compact(r.indicative[i])+'. '+(Number.isFinite(b)?'Saldo definitivo: '+compact(b)+' · Pagos: '+compact(paid):'Sin ejecución presupuestal registrada')+'</small>';
+        '<small>Programación física: '+esc(Number.isFinite(meta?.targets[i])?quantity.format(meta.targets[i])+' '+meta.unit:'Sin dato')+' · Programación presupuestal: '+compact(r.indicative[i])+'. '+(Number.isFinite(b)?'Saldo definitivo: '+compact(b)+' · Pagos: '+compact(paid):'Sin ejecución presupuestal registrada')+'</small>';
     }).join('');
     return '<article class="asi32-goal" id="asi32-meta-'+r.id+'" tabindex="-1"><div class="asi32-goal-meta"><span class="asi32-goal-number">META '+r.id+'</span><small>BPIN '+esc(r.bpin||'no informado')+'</small></div>'+
       '<h3>'+esc(r.name)+'</h3><div class="asi32-pills"><span class="asi32-pill">'+esc(catalog.owners[r.owner])+'</span><span class="asi32-pill">'+esc(catalog.lines[r.line])+'</span></div>'+
-      '<small><strong>Sector:</strong> '+esc(catalog.sectors[r.sector])+'</small><small><strong>Programa:</strong> '+esc(catalog.programs[r.program])+'</small>'+annual+'</article>';
+      '<small><strong>Sector:</strong> '+esc(catalog.sectors[r.sector])+'</small><small><strong>Programa:</strong> '+esc(catalog.programs[r.program])+'</small>'+
+      '<small><strong>Indicador '+esc(meta?.code)+':</strong> '+esc(meta?.indicator)+' · Unidad: '+esc(meta?.unit)+'</small>'+annual+
+      '<details class="asi32-source"><summary>Fuente y metodología de la meta</summary><p>Plan Indicativo, fila '+meta?.row+'. Línea base: '+esc(meta?.base??'Sin dato')+'; valor esperado del cuatrienio: '+esc(meta?.expected??'Sin dato')+' '+esc(meta?.unit)+'. Tipo: '+esc(meta?.type)+'; acumulación: '+esc(meta?.accumulation)+'. Fuente de línea base: '+esc(meta?.source||'No informada')+'.</p><p>Porcentajes físicos reportados en Acción 2024 AG'+meta?.actionRows[0]+' y Acción 2025 AP'+meta?.actionRows[1]+'. Finanzas: AI:AM / AR:AV en las mismas filas resumen. Los porcentajes físicos no se suman entre vigencias. La programación física y el porcentaje de actividades ejecutadas son medidas distintas.</p></details></article>';
   }
   function metas(rows){
     return '<section class="asi32-block">'+pageTitle('Metas producto','Cada meta conserva su redacción del Excel, sector, programa, responsable, programación y ejecución por año.','Seguimiento desde la matriz')+
       '<p class="asi32-filter-count">'+rows.length+' metas visibles con los filtros actuales</p><div class="asi32-goals">'+(rows.length?rows.map(goalCard).join(''):'<div class="asi32-empty">No hay metas con estos filtros.</div>')+'</div></section>';
   }
   function indicatorPage(rows){
-    return '<section class="asi32-block">'+pageTitle('Indicadores de metas producto','Lectura física anual y financiera de las 109 metas del Plan Indicativo.','Seguimiento reportado')+
-      '<p class="asi32-alert">Los porcentajes de ejecución 2024–2025 proceden de los resúmenes de cada meta; 2026–2027 no están reportados. No es correcto presentar un cero por ausencia de datos.</p>'+annualCards(rows)+
-      '<div class="asi32-goals" style="margin-top:17px">'+rows.map(goalCard).join('')+'</div></section>';
+    return '<section class="asi32-block">'+pageTitle('Indicadores de metas producto','Catálogo de indicadores del Plan Indicativo asociado a cada meta, con unidad, programación y procedencia.','Variables de la fuente')+
+      '<p class="asi32-sub">'+rows.length+' asociaciones meta–indicador. Un código puede aparecer en varias metas; no se presenta este conteo como indicadores únicos.</p>'+
+      '<div class="asi32-table-scroll" tabindex="0" role="region" aria-label="Indicadores y programación física"><table class="asi32-table asi32-indicator-table"><thead><tr><th>Meta / código</th><th>Indicador</th><th>Unidad</th><th>Línea base</th><th>Esperado cuatrienio</th>'+yearsToDisplay().map(i=>'<th>'+years[i]+' · Programación / reporte físico</th>').join('')+'<th>Tipo y acumulación</th><th>Procedencia</th></tr></thead><tbody>'+
+      rows.map(r=>{const d=details[r.id];return '<tr><th scope="row"><button type="button" class="asi32-meta-link" data-asi-open-meta="'+r.id+'">Meta '+r.id+'</button><br>'+esc(d.code)+'</th><td>'+esc(d.indicator)+'</td><td>'+esc(d.unit)+'</td><td>'+esc(d.base??'Sin dato')+'</td><td>'+esc(d.expected??'Sin dato')+'</td>'+yearsToDisplay().map(i=>'<td>'+esc(d.targets[i]??'Sin dato')+' '+esc(d.unit)+'<br>Reporte físico: '+pct(r.physical[i])+'</td>').join('')+'<td>'+esc(d.type)+' · '+esc(d.accumulation)+'</td><td>Plan Indicativo K'+d.row+':AA'+d.row+'<br>Fuente de línea base: '+esc(d.source||'Sin dato')+'</td></tr>';}).join('')+'</tbody></table></div><p class="asi32-source">Los valores esperados conservan la unidad del Excel. El reporte físico es el porcentaje de seguimiento del Plan de Acción; no se transforma en una cantidad ejecutada del indicador. Se requiere validación institucional para certificar resultados, ponderaciones o acumulados.</p></section>';
   }
   function detailOwner(rows){
     const idx=state.detailOwner;if(idx===null)return grouping(rows,'owner');
@@ -330,6 +335,8 @@
     state.q=event.target.value;renderTopCards();renderContent();
   });
   root.addEventListener('click',event=>{
+    const openMeta=event.target.closest('[data-asi-open-meta]');
+    if(openMeta){state.tab='metas';renderNav();renderContent();const node=root.querySelector('#asi32-meta-'+openMeta.dataset.asiOpenMeta);node?.focus({preventScroll:true});node?.scrollIntoView({block:'start'});return;}
     const goal=event.target.closest('[data-asi-goal]');
     if(goal){const node=root.querySelector('#asi32-meta-'+goal.dataset.asiGoal);node?.focus({preventScroll:true});node?.scrollIntoView({block:'start',behavior:'smooth'});return;}
     const tab=event.target.closest('[data-asi-tab]');
@@ -376,7 +383,7 @@
       if(!base64||typeof DecompressionStream!=='function')throw new Error('No fue posible descomprimir los registros en este navegador.');
       const bytes=Uint8Array.from(atob(base64),ch=>ch.charCodeAt(0));
       const data=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).json();
-      if(data.s!==1||data.g.length!==109||data.o.length!==8||data.l.length!==6||data.sct.length!==19||data.pr.length!==29)throw new Error('La fuente no superó la verificación estructural.');
+      if(data.s!==1||data.g.length!==109||data.o.length!==8||data.l.length!==6||data.sct.length!==19||data.pr.length!==29||Object.keys(data.details||{}).length!==109)throw new Error('La fuente no superó la verificación estructural.');
       catalog={lines:data.l,sectors:data.sct,programs:data.pr,owners:data.o};
       details=data.details||{};
       goals=data.g.map(row);
