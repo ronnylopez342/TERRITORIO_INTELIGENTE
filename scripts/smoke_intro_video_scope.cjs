@@ -119,8 +119,9 @@ async function checkUnit(page,out){
   await page.goto('/#cumplimiento?seccion=cumplimiento-conoce',{waitUntil:'domcontentloaded',timeout:45000});
   await page.waitForFunction(()=>document.querySelector('.app-view.ti34-ready[data-view="cumplimiento"] .ti34-video')!==null);
   for(const id of cases){
-    const nav=page.locator('.app-view[data-view="cumplimiento"] .ti34-nav [data-module-panel="'+id+'"]');
-    await nav.click({timeout:20000});
+    // El lateral se oculta en 4.1 por diseño; cambiar mediante la misma
+    // función de navegación que utiliza el desplegable global.
+    await page.evaluate(id=>saveModuleSection(id,'cumplimiento'),id);
     await page.waitForFunction(id=>{
       const root=document.querySelector('.app-view.ti34-ready[data-view="cumplimiento"]');
       const tab=root?.querySelector('.ti34-nav [data-module-panel="'+id+'"]');
