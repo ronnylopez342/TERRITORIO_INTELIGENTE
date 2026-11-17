@@ -20,7 +20,7 @@ async function run(){
   await page.goto('http://127.0.0.1:'+server.address().port+'/#desarrollo?seccion=desarrollo-cumplimos',{waitUntil:'domcontentloaded',timeout:45000});
   await page.waitForSelector('#desarrollo-cumplimos [data-asi32-root]',{timeout:30000});
   if(await page.locator('#desarrollo-cumplimos').isHidden())await page.evaluate(()=>document.getElementById('tab-desarrollo-cumplimos')?.click());
-  try { await page.waitForFunction(()=>document.querySelectorAll('#desarrollo-cumplimos .asi32-kpi').length===6,null,{timeout:25000}); }
+  try { await page.waitForFunction(()=>document.querySelectorAll('#desarrollo-cumplimos .asi32-kpis').length>=1 && document.querySelector('#desarrollo-cumplimos .asi32-kpis')?.querySelectorAll('.asi32-kpi').length===6,null,{timeout:25000}); }
   catch(error) {
     const debug=await page.evaluate(()=>({
       section:document.querySelector('#desarrollo-cumplimos')?.outerHTML.slice(0,2400),
