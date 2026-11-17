@@ -1,0 +1,62 @@
+/* Territorio Inteligente — el video de introducción pertenece exclusivamente a Conoce.
+   2.1 mantiene su presentación; 2.2/2.3/2.4 comienzan con los datos y herramientas.
+   3.1 y 4.1 conservan video, pero 3.2–3.4 y 4.2–4.4 van directamente al contenido.
+   No se cambian gráficos, navegación, fuentes o paneles funcionales. */
+.ti-stage-one.ti34-ready > .ti34-video[hidden]{
+  display:none!important;
+}
+
+/* 2.3: las palabras del encabezado nunca se cortan entre letras. */
+#data-encuesta .k23-hero-top > div:first-child{
+  min-width:0!important;
+}
+#data-encuesta #k23-main-title{
+  font-size:clamp(34px,4.15vw,66px)!important;
+  line-height:1.04!important;
+  letter-spacing:-.025em!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+}
+#data-encuesta #k23-main-title .k23-title-line{
+  display:block!important;
+  white-space:nowrap!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+  text-wrap:nowrap!important;
+}
+/* En el visor editorial se conserva la tipografía de la revista. */
+html.ti-data-embed #data-encuesta #k23-main-title{
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(35px,4.25vw,68px)!important;
+  letter-spacing:-.027em!important;
+}
+html.ti-data-embed #data-encuesta #k23-main-title .k23-title-line{
+  white-space:nowrap!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+}
+/* En las pestañas de la revista se permite saltar de línea SOLO entre palabras. */
+html.ti-data-embed #tiEmbedTabs button{
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+}
+@media(max-width:700px){
+  #data-encuesta #k23-main-title{
+    font-size:clamp(25px,7.5vw,48px)!important;
+    line-height:1.08!important;
+    letter-spacing:-.025em!important;
+  }
+  html.ti-data-embed #data-encuesta #k23-main-title{
+    font-size:clamp(26px,8vw,46px)!important;
+    line-height:1.06!important;
+  }
+  /* Usar el ancho disponible en móvil, sin modificar la composición de escritorio. */
+  #data-encuesta .k23-hero-top > div:first-child{
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
