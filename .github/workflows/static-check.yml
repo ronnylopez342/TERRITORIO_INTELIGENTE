@@ -52,6 +52,8 @@ jobs:
         run: node scripts/smoke_current_modules.cjs
       - name: Smoke de Plan de Accion 3.3 y Cumplimiento 4.2
         run: node scripts/smoke_plan_cumplimiento.cjs
+      - name: Verificar barra completa y contenido de las diez pestañas de Plan 3.3
+        run: node scripts/smoke_plan33_full_tabs.cjs
       - name: Smoke interactivo de Asi cumplimos 3.2
         run: node scripts/smoke_asi_cumplimos32.cjs
       - name: Conservar capturas de Asi cumplimos
@@ -90,6 +92,8 @@ jobs:
             screenshots/auditoria-plan33-2025.png
             screenshots/auditoria-plan33-2026-3t.png
             screenshots/auditoria-plan33-movil.png
+            screenshots/auditoria-plan33-tabs-2026-desktop.png
+            screenshots/auditoria-plan33-tabs-2026-mobile.png
             screenshots/auditoria-cumplimiento42-mapa.png
             screenshots/auditoria-cumplimiento42-movil.png
           if-no-files-found: warn
