@@ -66,9 +66,6 @@
       {title:'KM - INTERVENIDOS - HASTA JUN 2025.pdf',url:'https://drive.google.com/file/d/1KYqwpuzIoZbJW1c29-o4tN0MuG843dgj/view',kind:'pdf',act:'101.1–101.2'},
       {title:'META 101 - INFORME DATAVISOR JUN 2025.pdf',url:'https://drive.google.com/file/d/1PscOVLUmCcRpTlUHzwUFU58NYtJLCwiu/view',kind:'pdf',act:'101.1–101.2'}
     ],
-    '2026:101':[
-      {title:'INFORME DE AVANCE META 101 - 2026.pdf',url:'https://drive.google.com/file/d/1aGcMVH-1XXhOyJaYcPhD_AXWWFSk_k3i/view',kind:'pdf',act:'101.1'}
-    ]
   };
   const mediaIcons={
     people:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3c0-3 2.5-5 6-5s6 2 6 5v3M17 4a3 3 0 0 1 0 6M17 13c2.8 0 4 2 4 5v3"/></svg>',
@@ -243,14 +240,14 @@
   };
   const igYears=[2024,2025,2026,2027];
   const infoRecord = () => state.infoData?.periods?.[state.year]?.metas?.[String(state.current)] || null;
-  const infoPeriod = () => state.infoData?.periods?.[state.year]?.reportingPeriod || (state.year==='2026'?'Segundo trimestre de 2026':`Vigencia ${state.year}`);
+  const infoPeriod = () => state.infoData?.periods?.[state.year]?.reportingPeriod || (state.year==='2026'?'Tercer trimestre de 2026 (enero–septiembre)':`Vigencia ${state.year}`);
   const igValue = value => {
     if(Array.isArray(value)) return value.filter(x=>x!==null&&x!==undefined&&String(x).trim()).join(' · ') || 'Sin dato registrado';
     return value===null || value===undefined || String(value).trim()==='' ? 'Sin dato registrado' : String(value);
   };
   const igEsc = value => html(igValue(value));
   const igSimple = value => value===null || value===undefined || String(value).trim()==='' ? '—' : html(String(value));
-  const igSourceNote = () => `Fuente: ${html(currentYear()?.source || 'Archivo de Plan de Acción')}. ${state.year==='2026'?'Corte del segundo trimestre de 2026.':'Periodo del archivo: vigencia 2025; el Excel no informa fecha de actualización por meta.'} Los campos vacíos se muestran como «Sin dato registrado».`;
+  const igSourceNote = () => `Fuente: ${html(currentYear()?.source || 'Archivo de Plan de Acción')}. ${state.year==='2026'?'Corte del tercer trimestre (enero–septiembre de 2026). El archivo recibido conserva algunos encabezados internos que dicen 2025; requiere confirmación institucional de vigencia.':'Periodo del archivo: vigencia 2025; el Excel no informa fecha de actualización por meta.'} Los campos vacíos se muestran como «Sin dato registrado».`;
   function igSection(title,symbol,body,extra=''){
     return `<section class="pa-ig-card ${extra}"><h3><span class="pa-ig-headicon" aria-hidden="true">${igIcon[symbol]||'▣'}</span>${html(title)}</h3>${body}</section>`;
   }
@@ -344,7 +341,7 @@
     const val=isNumeric(m.expected)?fmtNum.format(m.expected)+suffix:igValue(exp)+(suffix||'');
     const props=[
       ['flag',val,'Valor esperado cuatrienio','Valor oficial de la meta, no avance ejecutado'],
-      ['avance',isNumeric(m.pct)?pctLabel(m.pct):'—','Avance acumulado','Porcentaje de ejecución de meta reportado en el Excel'],
+      ['avance',isNumeric(m.pct)?pctLabel(m.pct):'—','Avance al corte','Porcentaje de ejecución de meta reportado en el Excel'],
       ['saldo','—','Saldo por ejecutar','No se calcula sin magnitudes físicas acumuladas compatibles'],
       ['actividades',fmtInt.format((m.activities||[]).length),'Actividades asociadas','Número de actividades del año seleccionado'],
       ['beneficiarios',people.value,'Beneficiarios registrados',people.detail]
@@ -650,7 +647,7 @@
   }
   function actDashboard(m){
     const filtered=actFiltered(m);
-    const content=`<div class="pa-act-dashboard">${actKeyStats(m)}${actFiltersMarkup(m)}${actTable(m,filtered)}<div class="pa-act-bottom-grid"><section class="pa-act-card"><h3>Programación vs ejecución por actividad · ${state.year}</h3>${actComparison(m,filtered)}</section><section class="pa-act-card"><h3>Registro mensual de ejecuci\u00f3n ${state.year}</h3>${actTimeline(m,filtered)}</section><section class="pa-act-card"><h3>Soportes y Evidencias Destacadas</h3>${actCarousel(m)}</section></div><p class="pa-act-source"><strong>Fuente:</strong> ${html(currentYear()?.source||'Excel de plan de acci\u00f3n')} \u00b7 ${state.year==='2026'?'Segundo trimestre de 2026.':'Vigencia 2025.'} Los colores de avance son indicadores de lectura; los retrasos solo se mencionan cuando el texto original los especifica.</p></div>${actDetailDialog()}${actRepositoryDialog(m)}`;
+    const content=`<div class="pa-act-dashboard">${actKeyStats(m)}${actFiltersMarkup(m)}${actTable(m,filtered)}<div class="pa-act-bottom-grid"><section class="pa-act-card"><h3>Programación vs ejecución por actividad · ${state.year}</h3>${actComparison(m,filtered)}</section><section class="pa-act-card"><h3>Registro mensual de ejecuci\u00f3n ${state.year}</h3>${actTimeline(m,filtered)}</section><section class="pa-act-card"><h3>Soportes y Evidencias Destacadas</h3>${actCarousel(m)}</section></div><p class="pa-act-source"><strong>Fuente:</strong> ${html(currentYear()?.source||'Excel de plan de acci\u00f3n')} \u00b7 ${state.year==='2026'?'Tercer trimestre de 2026.':'Vigencia 2025.'} Los colores de avance son indicadores de lectura; los retrasos solo se mencionan cuando el texto original los especifica.</p></div>${actDetailDialog()}${actRepositoryDialog(m)}`;
     return content;
   }
   function actResults(){
@@ -698,7 +695,7 @@
     return `<div class="pa-ph-overview">${dial(m.pct,'Avance f\u00edsico de la meta','#087946')}<div class="pa-ph-fields">${detail}</div></div><p class="pa-ph-caption">Porcentaje de ejecuci\u00f3n de la meta reportado en el Excel. No se infiere un avance absoluto en ${phFmtUnit(m)} desde ese porcentaje.</p>`;
   }
   function phMonthlyKind(a){
-    const obs=state.year==='2026'?6:12;
+    const obs=state.year==='2026'?9:12;
     const vals=(a.months||[]).slice(0,obs);
     if(!isNumeric(a.progress)||!isNumeric(a.target)||a.target<=0||!isNumeric(a.weight)||a.weight<0||!vals.some(isNumeric))return null;
     const numerical=vals.filter(isNumeric);
@@ -715,7 +712,7 @@
     return null;
   }
   function phMonthlyTrend(m){
-    const observed=state.year==='2026'?6:12;
+    const observed=state.year==='2026'?9:12;
     const accepted=m.activities.map(a=>({activity:a,reconciled:phMonthlyKind(a)})).filter(x=>x.reconciled);
     const increments=Array(12).fill(null),cumul=Array(12).fill(null);
     let accumulated=0;
@@ -749,7 +746,7 @@
     const linePts=stats.cumul.slice(0,stats.observed).map((v,i)=>`${x(i)},${y(v)}`).join(' ');
     const circles=stats.cumul.slice(0,stats.observed).map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="4.6" fill="#087a43" stroke="#fff" stroke-width="1.5"><title>${fullMonths[i]} ${state.year}: ${fmtNum.format(v)}% ponderado acumulado (calculado, no porcentaje oficial)</title></circle>`).join('');
     const labels=months.map((name,i)=>`<text x="${x(i)}" y="${H-10}" text-anchor="middle" font-size="11" fill="${i>=stats.observed?'#acbcc9':'#4b6380'}">${name}</text>`).join('');
-    return `<div class="pa-ph-trend-key"><span><i></i>Aporte mensual ponderado</span><span><i></i>Acumulado ponderado</span></div><div class="pa-ph-trend-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Evoluci\u00f3n mensual calculada para ${stats.accepted} de ${m.activities.length} actividades" preserveAspectRatio="xMidYMid meet">${rules}${bars}<polyline points="${linePts}" stroke="#067b41" stroke-width="3" fill="none"/>${circles}${labels}</svg></div><p class="pa-ph-caption">\u00cdndice normalizado por unidad y ponderado por peso: ${stats.accepted} de ${m.activities.length} actividades con meses conciliados. <strong>No equivale al avance oficial de la meta.</strong> ${stats.excluded?`${stats.excluded} actividad(es) no tienen una serie conciliable.`:''} ${state.year==='2026'?'Julio a diciembre: sin reporte.':''}</p>`;
+    return `<div class="pa-ph-trend-key"><span><i></i>Aporte mensual ponderado</span><span><i></i>Acumulado ponderado</span></div><div class="pa-ph-trend-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Evoluci\u00f3n mensual calculada para ${stats.accepted} de ${m.activities.length} actividades" preserveAspectRatio="xMidYMid meet">${rules}${bars}<polyline points="${linePts}" stroke="#067b41" stroke-width="3" fill="none"/>${circles}${labels}</svg></div><p class="pa-ph-caption">\u00cdndice normalizado por unidad y ponderado por peso: ${stats.accepted} de ${m.activities.length} actividades con meses conciliados. <strong>No equivale al avance oficial de la meta.</strong> ${stats.excluded?`${stats.excluded} actividad(es) no tienen una serie conciliable.`:''} ${state.year==='2026'?'Octubre a diciembre: sin reporte.':''}</p>`;
   }
   function phActivityProgress(m){
     const acts=m.activities||[];
@@ -776,7 +773,7 @@
       }).join('');
       return `<tr><td>${html(a.n)}</td><td class="pa-ph-name">${html(a.name)}</td><td>${html(a.indicator||'Sin dato')}</td><td>${html(a.unit||'\u2014')}</td><td>${phShown(a.target)}</td>${reportCells}<td class="pa-ph-total">${phShown(a.progress)}</td><td>${ratio===null?'\u2014':fmtNum.format(ratio*100)+'%'}</td><td>${actStatePill(status)}</td><td><button type="button" class="pa-ph-eye" data-pa-act-detail="${i}" aria-label="Ver detalle de la actividad ${html(a.n)}">${actIcon('eye')}</button></td></tr>`;
     }).join('');
-    return `<section class="pa-ph-table-card">${phToolbar(m)}<div class="pa-ph-table-scroller" tabindex="0" aria-label="Matriz mensual desplazable por actividad"><table class="pa-ph-matrix"><thead><tr><th>N\u00ba</th><th>Actividad</th><th>Indicador</th><th>Unidad de medida</th><th>Valor programado ${state.year}</th>${header}<th>Total avance</th><th>% avance</th><th>Estado</th><th>Ver detalle</th></tr></thead><tbody>${body||'<tr><td colspan="21" class="pa-ph-no-results">No hay actividades para los filtros seleccionados.</td></tr>'}</tbody></table></div><div class="pa-ph-legend"><span><i class="pa-ph-month-positive"></i>Valor positivo reportado</span><span><i class="pa-ph-month-zero"></i>Cero informado</span><span><i class="pa-ph-month-none"></i>Sin dato</span><span><i class="pa-ph-month-delay"></i>Retrasos mensuales: sin fechas verificables</span></div><p class="pa-ph-caption">Cada celda presenta el valor mensual original del Excel. El total mostrado es el campo de avance reportado, <strong>no la suma autom\u00e1tica de los meses</strong>. La coincidencia entre total y suma mensual puede variar por actividad. Los estados son orientativos. ${state.year==='2026'?'Corte: segundo trimestre; julio a diciembre no reportados.':''}</p></section>`;
+    return `<section class="pa-ph-table-card">${phToolbar(m)}<div class="pa-ph-table-scroller" tabindex="0" aria-label="Matriz mensual desplazable por actividad"><table class="pa-ph-matrix"><thead><tr><th>N\u00ba</th><th>Actividad</th><th>Indicador</th><th>Unidad de medida</th><th>Valor programado ${state.year}</th>${header}<th>Total avance</th><th>% avance</th><th>Estado</th><th>Ver detalle</th></tr></thead><tbody>${body||'<tr><td colspan="21" class="pa-ph-no-results">No hay actividades para los filtros seleccionados.</td></tr>'}</tbody></table></div><div class="pa-ph-legend"><span><i class="pa-ph-month-positive"></i>Valor positivo reportado</span><span><i class="pa-ph-month-zero"></i>Cero informado</span><span><i class="pa-ph-month-none"></i>Sin dato</span><span><i class="pa-ph-month-delay"></i>Retrasos mensuales: sin fechas verificables</span></div><p class="pa-ph-caption">Cada celda presenta el valor mensual original del Excel. El total mostrado es el campo de avance reportado, <strong>no la suma autom\u00e1tica de los meses</strong>. La coincidencia entre total y suma mensual puede variar por actividad. Los estados son orientativos. ${state.year==='2026'?'Corte: tercer trimestre; octubre a diciembre no reportados.':''}</p></section>`;
   }
   function phTypeCard(m){
     return `${dial(m.pct,'Cumplimiento f\u00edsico reportado','#078146')}<div class="pa-ph-legend-details"><div><i class="pa-ph-legend-run"></i><span>Avance reportado por la meta</span><strong>${pctLabel(m.pct)}</strong></div><div><i class="pa-ph-legend-wait"></i><span>Saldo porcentual pendiente</span><strong>${isNumeric(m.pct)?fmtNum.format(Math.max(0,100-m.pct*100))+'%':'\u2014'}</strong></div><p>Valor esperado: ${isNumeric(m.expected)?phShown(m.expected)+' '+phFmtUnit(m):'sin dato'}. El Excel no certifica una cantidad acumulada en la unidad de la meta para cada mes.</p></div>`;
@@ -791,7 +788,7 @@
     return `<div class="pa-ph-evidence-top"><p>Documentos, enlaces y fotograf\u00edas verificadas asociados a esta meta.</p><button type="button" data-pa-act-show-docs ${n?'':'disabled'}>Ver todas \u2192</button></div>${actCarousel(m)}`;
   }
   function physicalDashboard(m){
-    return `<div class="pa-ph-dashboard"><div class="pa-ph-top-grid">${physCard('Avance f\u00edsico de la meta',phMainProgress(m),'pa-ph-overview-card')}${physCard('Evoluci\u00f3n del Avance F\u00edsico de la Meta',phChart(m),'pa-ph-trend-card')}${physCard('Cumplimiento por Actividad',phActivityProgress(m),'pa-ph-activity-card')}</div>${phMatrix(m)}<div class="pa-ph-bottom-grid">${physCard('Tipo de Meta - Avance F\u00edsico',phTypeCard(m),'pa-ph-type-card')}${physCard('Mapa de Intervenciones Ejecutadas',phMap(m),'pa-ph-map-card')}${physCard('Evidencias de Avance F\u00edsico',phEvidence(m),'pa-ph-evidence-card')}</div><p class="pa-ph-method"><strong>Fuente:</strong> ${html(currentYear()?.source||'Archivo de Plan de Acci\u00f3n')} \u00b7 ${state.year==='2026'?'Segundo trimestre de 2026.':'Vigencia 2025.'} El porcentaje de cumplimiento de la meta se toma directamente del Excel. Las gr\u00e1ficas derivadas se identifican como calculadas y no se extrapolan a periodos no reportados.</p></div>${actDetailDialog()}${actRepositoryDialog(m)}`;
+    return `<div class="pa-ph-dashboard"><div class="pa-ph-top-grid">${physCard('Avance f\u00edsico de la meta',phMainProgress(m),'pa-ph-overview-card')}${physCard('Evoluci\u00f3n del Avance F\u00edsico de la Meta',phChart(m),'pa-ph-trend-card')}${physCard('Cumplimiento por Actividad',phActivityProgress(m),'pa-ph-activity-card')}</div>${phMatrix(m)}<div class="pa-ph-bottom-grid">${physCard('Tipo de Meta - Avance F\u00edsico',phTypeCard(m),'pa-ph-type-card')}${physCard('Mapa de Intervenciones Ejecutadas',phMap(m),'pa-ph-map-card')}${physCard('Evidencias de Avance F\u00edsico',phEvidence(m),'pa-ph-evidence-card')}</div><p class="pa-ph-method"><strong>Fuente:</strong> ${html(currentYear()?.source||'Archivo de Plan de Acci\u00f3n')} \u00b7 ${state.year==='2026'?'Tercer trimestre de 2026.':'Vigencia 2025.'} El porcentaje de cumplimiento de la meta se toma directamente del Excel. Las gr\u00e1ficas derivadas se identifican como calculadas y no se extrapolan a periodos no reportados.</p></div>${actDetailDialog()}${actRepositoryDialog(m)}`;
   }
   function physicalResults(){
     if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando avances f\u00edsicos...</h2></div>';
@@ -920,7 +917,7 @@
     return benPanel('Testimonios de la comunidad',`<button class="pa-ben-view-all" type="button" data-pa-ben-testimony-all aria-haspopup="dialog" aria-controls="pa-ben-testimonials-dialog">Ver todos →</button><div class="pa-ben-testimonial-cards">${[1,2,3].map(()=>`<div class="pa-ben-testimony"><div class="pa-ben-testimony-image" aria-label="Fotografía de participante pendiente de incorporar">${benIcon('people')}</div><p>Testimonio pendiente de incorporar</p><small>No existe cita verificada y autorizada para esta meta.</small></div>`).join('')}</div><div class="pa-ben-pagination"><button type="button" disabled aria-label="Testimonio anterior no disponible">‹</button><span aria-label="Sin testimonios incorporados">○ ○ ○</span><button type="button" disabled aria-label="Testimonio siguiente no disponible">›</button></div><dialog id="pa-ben-testimonials-dialog" class="pa-ben-dialog" aria-labelledby="pa-ben-dialog-title"><div class="pa-ben-modal-top"><h3 id="pa-ben-dialog-title">Testimonios de la comunidad · Meta ${state.current}</h3><button type="button" data-pa-ben-testimony-close aria-label="Cerrar">×</button></div>${benEmpty('Testimonios pendientes de verificación','Los Excel de Plan de Acción no contienen testimonios consentidos ni retratos atribuibles a esta meta. No se muestran citas ni fotografías ficticias.')}</dialog>`,'pa-ben-testimonials-card');
   }
   function benDashboard(m){
-    return `<div class="pa-ben-dashboard">${benStats(m)}<div class="pa-ben-mid-grid">${benMonthly()}${benDistribution(m)}${benPopulation()}</div><div class="pa-ben-bottom-grid">${benTerritoryTable(m)}${benMap(m)}${benTestimonies()}</div><p class="pa-ben-source"><strong>Fuente:</strong> ${html(currentYear()?.source||'Plan de Acción')} · ${state.year==='2026'?'Información reportada al segundo trimestre de 2026.':'Vigencia 2025.'} Los valores numéricos son los registrados por actividad, sin deduplicación; el desglose poblacional y los testimonios no figuran en los archivos aportados. No se confunden avances físicos mensuales con personas beneficiadas.</p></div>`;
+    return `<div class="pa-ben-dashboard">${benStats(m)}<div class="pa-ben-mid-grid">${benMonthly()}${benDistribution(m)}${benPopulation()}</div><div class="pa-ben-bottom-grid">${benTerritoryTable(m)}${benMap(m)}${benTestimonies()}</div><p class="pa-ben-source"><strong>Fuente:</strong> ${html(currentYear()?.source||'Plan de Acción')} · ${state.year==='2026'?'Información reportada al tercer trimestre de 2026.':'Vigencia 2025.'} Los valores numéricos son los registrados por actividad, sin deduplicación; el desglose poblacional y los testimonios no figuran en los archivos aportados. No se confunden avances físicos mensuales con personas beneficiadas.</p></div>`;
   }
   function benResults(){
     if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando beneficiarios…</h2></div>';
@@ -991,7 +988,7 @@
     const percent=hasValue?Math.max(0,Math.min(100,value*100)):0;
     const remaining=isNumeric(r.values[0])&&isNumeric(r.values[2])?Math.max(0,r.values[0]-r.values[2]):null;
     const method=r.diff!==null&&r.diff>.005?`El porcentaje consignado en el archivo no coincide con RP / saldo definitivo. Diferencia: ${fmtNum.format(r.diff*100)} puntos porcentuales.`:'Porcentaje registrado en el Excel: compromisos RP / saldo definitivo. No equivale al porcentaje pagado.';
-    return buPanel('Porcentaje de Ejecución Presupuestal',`<div class="pa-bu-donut-layout"><div class="pa-bu-ring" role="img" aria-label="${hasValue?buRatioLabel(value):'No disponible'} de ejecución presupuestal reportada" style="--bu-progress:${percent}%"><div class="pa-bu-ring-label"><strong>${hasValue?buRatioLabel(value):'—'}</strong><span>Ejecución<br>presupuestal</span></div></div><div class="pa-bu-donut-key"><div><i class="pa-bu-key-dot green"></i>Comprometido (RP)</div><div><i class="pa-bu-key-dot gray"></i>Sin comprometer</div></div><div class="pa-bu-donut-amounts"><div><strong>${buCurrency(r.values[2])}</strong><small>Compromisos (RP)</small></div><div><strong>${buCurrency(remaining)}</strong><small>Diferencia saldo definitivo − RP</small></div></div></div><p class="pa-bu-clarification">${html(method)} ${state.year==='2026'?'Corte: segundo trimestre de 2026.':''}</p>`,'pa-bu-budget-percent');
+    return buPanel('Porcentaje de Ejecución Presupuestal',`<div class="pa-bu-donut-layout"><div class="pa-bu-ring" role="img" aria-label="${hasValue?buRatioLabel(value):'No disponible'} de ejecución presupuestal reportada" style="--bu-progress:${percent}%"><div class="pa-bu-ring-label"><strong>${hasValue?buRatioLabel(value):'—'}</strong><span>Ejecución<br>presupuestal</span></div></div><div class="pa-bu-donut-key"><div><i class="pa-bu-key-dot green"></i>Comprometido (RP)</div><div><i class="pa-bu-key-dot gray"></i>Sin comprometer</div></div><div class="pa-bu-donut-amounts"><div><strong>${buCurrency(r.values[2])}</strong><small>Compromisos (RP)</small></div><div><strong>${buCurrency(remaining)}</strong><small>Diferencia saldo definitivo − RP</small></div></div></div><p class="pa-bu-clarification">${html(method)} ${state.year==='2026'?'Corte: tercer trimestre de 2026.':''}</p>`,'pa-bu-budget-percent');
   }
   function buExpenses(m,r){
     const def=r.values[0],rp=r.values[2];
@@ -1008,7 +1005,7 @@
   function buMonthly(m,r){
     const data=[{label:'CDP',amount:r.values[1],class:'blue'},{label:'Compromisos (RP)',amount:r.values[2],class:'green'},{label:'Obligaciones',amount:r.values[3],class:'amber'},{label:'Pagos',amount:r.values[4],class:'purple'}];
     const scale=Math.max(1,...data.map(a=>a.amount||0));
-    return buPanel('Evolución de la Ejecución Presupuestal '+state.year,`<div class="pa-bu-month-legend">${data.map(s=>`<span><i class="${s.class}"></i>${html(s.label)}</span>`).join('')}</div><div class="pa-bu-month-axis" aria-hidden="true">${months.map((m,i)=>`<span${state.year==='2026'&&i>=6?' class="future"':''}>${m}</span>`).join('')}</div><div class="pa-bu-reported"><div class="pa-bu-reported-title">Valores registrados al corte · ${state.year}</div>${data.map(s=>`<div class="pa-bu-reported-row" title="${html(s.label)}: ${buCurrency(s.amount)}"><span>${html(s.label)}</span><div class="pa-bu-reported-track"><i class="${s.class}" style="width:${isNumeric(s.amount)?Math.max(0,100*s.amount/scale):0}%"></i></div><strong>${buMillions(s.amount)}</strong></div>`).join('')}</div><p class="pa-bu-clarification">No existe serie financiera mensual de CDP, RP, obligaciones y pagos en los archivos. Estas barras representan <strong>totales del corte</strong>, no importes por mes. ${state.year==='2026'?'Solo se dispone del segundo trimestre.':''}</p>`,'pa-bu-monthly');
+    return buPanel('Evolución de la Ejecución Presupuestal '+state.year,`<div class="pa-bu-month-legend">${data.map(s=>`<span><i class="${s.class}"></i>${html(s.label)}</span>`).join('')}</div><div class="pa-bu-month-axis" aria-hidden="true">${months.map((m,i)=>`<span${state.year==='2026'&&i>=9?' class="future"':''}>${m}</span>`).join('')}</div><div class="pa-bu-reported"><div class="pa-bu-reported-title">Valores registrados al corte · ${state.year}</div>${data.map(s=>`<div class="pa-bu-reported-row" title="${html(s.label)}: ${buCurrency(s.amount)}"><span>${html(s.label)}</span><div class="pa-bu-reported-track"><i class="${s.class}" style="width:${isNumeric(s.amount)?Math.max(0,100*s.amount/scale):0}%"></i></div><strong>${buMillions(s.amount)}</strong></div>`).join('')}</div><p class="pa-bu-clarification">No existe serie financiera mensual de CDP, RP, obligaciones y pagos en los archivos. Estas barras representan <strong>totales del corte</strong>, no importes por mes. ${state.year==='2026'?'Se dispone del tercer trimestre (enero–septiembre). No existe una serie financiera mensual verificable.':''}</p>`,'pa-bu-monthly');
   }
   function buTable(m,r){
     const table=`<div class="pa-bu-table-scroll"><table class="pa-bu-table"><thead><tr><th>Concepto</th><th>Valor</th><th>% del saldo definitivo</th><th>Estado del dato</th></tr></thead><tbody>${buEntries.map((e,i)=>{
@@ -1061,11 +1058,11 @@
   }
   function buMethodDialog(m,r){
     const ratio=isNumeric(r.values[0])&&r.values[0]>0&&isNumeric(r.values[2])?buRatioLabel(r.values[2]/r.values[0]):'No calculable';
-    return `<dialog class="pa-bu-dialog" id="pa-bu-method-dialog" aria-labelledby="pa-bu-method-title"><header><h3 id="pa-bu-method-title">Metodología y procedencia · Meta ${m.id} · ${state.year}</h3><button type="button" data-pa-bu-method-close aria-label="Cerrar">×</button></header><p><strong>Fuente:</strong> ${html(currentYear()?.source||'Plan de Acción')}. Se utilizan una sola vez los seis valores de presupuesto registrados por meta, sin repetir los importes de cada actividad.</p><p><strong>Porcentaje:</strong> en estos archivos coincide con Compromisos (RP) / Saldo definitivo. Cálculo de contraste: ${ratio}. Porcentaje reportado: ${buRatioLabel(r.official)}.</p><p><strong>CDP, RP, obligaciones y pagos:</strong> etapas financieras distintas. El saldo disponible se toma del campo oficial; no se obtiene restando pagos.</p><p><strong>Desagregaciones:</strong> no se registran series mensuales de ejecución, composición por tipo de gasto ni participaciones por fuentes de financiación a nivel de meta.</p><p><strong>Corte:</strong> ${state.year==='2026'?'segundo trimestre de 2026':'archivo de vigencia 2025, sin fecha individual de actualización por meta'}.</p></dialog>`;
+    return `<dialog class="pa-bu-dialog" id="pa-bu-method-dialog" aria-labelledby="pa-bu-method-title"><header><h3 id="pa-bu-method-title">Metodología y procedencia · Meta ${m.id} · ${state.year}</h3><button type="button" data-pa-bu-method-close aria-label="Cerrar">×</button></header><p><strong>Fuente:</strong> ${html(currentYear()?.source||'Plan de Acción')}. Se utilizan una sola vez los seis valores de presupuesto registrados por meta, sin repetir los importes de cada actividad.</p><p><strong>Porcentaje:</strong> en estos archivos coincide con Compromisos (RP) / Saldo definitivo. Cálculo de contraste: ${ratio}. Porcentaje reportado: ${buRatioLabel(r.official)}.</p><p><strong>CDP, RP, obligaciones y pagos:</strong> etapas financieras distintas. El saldo disponible se toma del campo oficial; no se obtiene restando pagos.</p><p><strong>Desagregaciones:</strong> no se registran series mensuales de ejecución, composición por tipo de gasto ni participaciones por fuentes de financiación a nivel de meta.</p><p><strong>Corte:</strong> ${state.year==='2026'?'tercer trimestre de 2026':'archivo de vigencia 2025, sin fecha individual de actualización por meta'}.</p></dialog>`;
   }
   function buDashboard(m){
     const r=buRecord(m);
-    return `<div class="pa-bu-dashboard">${buCards(m,r)}<div class="pa-bu-top-grid">${buDonut(m,r)}${buExpenses(m,r)}${buMonthly(m,r)}</div><div class="pa-bu-middle-grid">${buTable(m,r)}${buWaterfall(m,r)}${buFunding(m,r)}</div><div class="pa-bu-bottom-grid">${buDocs(m)}${buObservations(m)}</div><div class="pa-bu-source"><span>Datos presupuestales reportados en el Plan de Acción ${state.year}${state.year==='2026'?' · Segundo trimestre':''}.</span><button type="button" data-pa-bu-method aria-haspopup="dialog" aria-controls="pa-bu-method-dialog">${buIcon('info')} Consultar metodología de los cálculos</button></div>${buMethodDialog(m,r)}</div>`;
+    return `<div class="pa-bu-dashboard">${buCards(m,r)}<div class="pa-bu-top-grid">${buDonut(m,r)}${buExpenses(m,r)}${buMonthly(m,r)}</div><div class="pa-bu-middle-grid">${buTable(m,r)}${buWaterfall(m,r)}${buFunding(m,r)}</div><div class="pa-bu-bottom-grid">${buDocs(m)}${buObservations(m)}</div><div class="pa-bu-source"><span>Datos presupuestales reportados en el Plan de Acción ${state.year}${state.year==='2026'?' · Tercer trimestre':''}.</span><button type="button" data-pa-bu-method aria-haspopup="dialog" aria-controls="pa-bu-method-dialog">${buIcon('info')} Consultar metodología de los cálculos</button></div>${buMethodDialog(m,r)}</div>`;
   }
   function buResults(){
     if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando Ejecución Presupuestal…</h2></div>';
@@ -1318,7 +1315,7 @@
     return trCard('Mapas y datos del territorio',body,'pa-tr-downloads');
   }
   function trDashboard(m){
-    return `<div class="pa-tr-dashboard"><div class="pa-tr-upper"><div class="pa-tr-map-col">${trMapPanel(m)}</div><div class="pa-tr-data-col">${trCoverageStats(m)}${trDetailTable(m)}</div></div><div class="pa-tr-lower">${trGallery(m)}${trCoverageDonut(m)}${trDownloads(m)}</div><p class="pa-tr-source"><strong>Fuente de actividades y ubicaciones:</strong> ${html(currentYear()?.source||'Excel del Plan de Acción')} · ${state.year==='2026'?'Corte: segundo trimestre de 2026.':'Vigencia 2025.'} La información geográfica oficial sirve como referencia municipal y veredal; no demuestra coordenadas exactas de intervenciones. Las cifras del ejemplo visual no se trasladaron al tablero.</p></div>`;
+    return `<div class="pa-tr-dashboard"><div class="pa-tr-upper"><div class="pa-tr-map-col">${trMapPanel(m)}</div><div class="pa-tr-data-col">${trCoverageStats(m)}${trDetailTable(m)}</div></div><div class="pa-tr-lower">${trGallery(m)}${trCoverageDonut(m)}${trDownloads(m)}</div><p class="pa-tr-source"><strong>Fuente de actividades y ubicaciones:</strong> ${html(currentYear()?.source||'Excel del Plan de Acción')} · ${state.year==='2026'?'Corte: tercer trimestre de 2026.':'Vigencia 2025.'} La información geográfica oficial sirve como referencia municipal y veredal; no demuestra coordenadas exactas de intervenciones. Las cifras del ejemplo visual no se trasladaron al tablero.</p></div>`;
   }
   function trResults(){
     if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando Territorio…</h2></div>';
@@ -1459,6 +1456,7 @@
       const content=await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
       const v=JSON.parse(content);
       if(!v?.periods?.['2025']||!v?.periods?.['2026'])throw Error('Catálogo territorial incompleto');
+      v.periods['2026']={}; // No mezclar la ficha complementaria de 2026 2T con 3T.
       state.territoryExtra=v;state.territoryExtraLoaded=true;
       if(['summary','general','physical','beneficiaries','territory'].includes(state.activeTab)&&currentYear()){
         const y=window.scrollY;refresh();window.scrollTo({top:y});
@@ -1656,7 +1654,7 @@
   function suDashboard(m){
     const loading=state.supportLoading&&!state.supportExtraLoaded;
     if(loading)return `<div class="pa-su-loading" role="status">Cargando descripciones y enlaces del Excel…</div>`;
-    return `<div class="pa-su-dashboard"><div class="pa-su-main-grid"><div class="pa-su-main-col">${suFilterBar(m)}${suGallery(m)}</div><aside class="pa-su-sidebar">${suTree(m)}${suRecent(m)}</aside></div><p class="pa-su-source"><strong>Fuentes:</strong> Plan de Acción ${state.year} · campos «Soporte de Cumplimiento Actividad» y «Link de soportes de la actividad». ${state.year==='2026'?'Corte: segundo trimestre de 2026.':''} Solo se muestran documentos individualizados cuando se obtuvo su metadato del repositorio. El contenido de las carpetas sin inspeccionar no se contabiliza como archivo.</p>${suPreviewDialog()}</div>`;
+    return `<div class="pa-su-dashboard"><div class="pa-su-main-grid"><div class="pa-su-main-col">${suFilterBar(m)}${suGallery(m)}</div><aside class="pa-su-sidebar">${suTree(m)}${suRecent(m)}</aside></div><p class="pa-su-source"><strong>Fuentes:</strong> Plan de Acción ${state.year} · campos «Soporte de Cumplimiento Actividad» y «Link de soportes de la actividad». ${state.year==='2026'?'Corte: tercer trimestre de 2026.':''} Solo se muestran documentos individualizados cuando se obtuvo su metadato del repositorio. El contenido de las carpetas sin inspeccionar no se contabiliza como archivo.</p>${suPreviewDialog()}</div>`;
   }
   function suResults(){
     if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando Soportes…</h2></div>';
@@ -1683,6 +1681,7 @@
       const decoded=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
       const obj=JSON.parse(decoded);
       if(!obj?.periods?.['2025']||!obj?.periods?.['2026'])throw Error('Faltan los dos periodos de soportes.');
+      obj.periods['2026']={}; // Soportes 2026 provienen de actividades del nuevo Excel 3T.
       state.supportExtra=obj;
       if(verifiedRes.ok){const meta=await verifiedRes.json();if(meta?.folders)state.supportVerified=meta;}
       state.supportError=null;
@@ -1824,12 +1823,12 @@
   }
   function obExportPanel(){return `<section class="pa-ob-panel pa-ob-export"><h3>Descargar reporte de observaciones</h3><p>Consulta y descarga las observaciones documentadas en formato Excel o PDF.</p><label for="pa-ob-export-scope">Alcance del reporte<select id="pa-ob-export-scope"><option value="filtered">Resultados filtrados</option><option value="all">Todas las observaciones de la meta</option></select></label><div class="pa-ob-export-buttons"><button type="button" data-pa-ob-export="xlsx">${obIcon('xl')} Descargar Excel</button><button type="button" data-pa-ob-export="pdf">${obIcon('pdf')} Descargar PDF</button></div><small>Generado por Territorio Inteligente a partir del Excel original; no es certificación municipal.</small></section>`;}
   function obDetailDialog(){return `<dialog class="pa-ob-dialog" id="pa-ob-dialog" aria-labelledby="pa-ob-dialog-title"><header><div><small>Seguimiento al Plan de Acción · ${state.year}</small><h2 id="pa-ob-dialog-title">Detalle de la observación</h2></div><button type="button" data-pa-ob-close aria-label="Cerrar detalle">×</button></header><div id="pa-ob-dialog-content"></div></dialog>`;}
-  function obDashboard(m){return `<div class="pa-ob-dashboard" id="pa-ob-dashboard"><div class="pa-ob-grid"><div class="pa-ob-left-zone">${obStats()}<div class="pa-ob-work-area">${obFilters()}${obTable()}</div></div><div class="pa-ob-right-zone">${obByAgency()}${obStateDonut()}${obExportPanel()}</div></div><div class="pa-ob-dataline">${state.obLoading?'Leyendo observaciones originales…':state.obError?`No fue posible consultar el inventario completo: ${html(state.obError)}`:`Registros de ${state.year} · ${html(state.year==='2026'?'Segundo trimestre':'Vigencia 2025')} · Observaciones sin clasificación oficial preservadas.`}</div>${obDetailDialog()}</div>`;}
+  function obDashboard(m){return `<div class="pa-ob-dashboard" id="pa-ob-dashboard"><div class="pa-ob-grid"><div class="pa-ob-left-zone">${obStats()}<div class="pa-ob-work-area">${obFilters()}${obTable()}</div></div><div class="pa-ob-right-zone">${obByAgency()}${obStateDonut()}${obExportPanel()}</div></div><div class="pa-ob-dataline">${state.obLoading?'Leyendo observaciones originales…':state.obError?`No fue posible consultar el inventario completo: ${html(state.obError)}`:`Registros de ${state.year} · ${html(state.year==='2026'?'Tercer trimestre':'Vigencia 2025')} · Observaciones sin clasificación oficial preservadas.`}</div>${obDetailDialog()}</div>`;}
   function obResults(){
     if(state.loading)return tabMarkup(null)+'<div class="pa-empty"><h2>Cargando registros…</h2></div>';
     if(state.error)return tabMarkup(null)+`<div class="pa-empty"><h2>Datos no disponibles</h2><p>${html(state.error)}</p></div>`;
     if(state.list)return listMarkup();
-    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty" role="status"><h2>Información de observaciones no disponible para ${state.year}</h2><p>La navegación y selección de vigencia se conservan. Los archivos disponibles corresponden a 2025 y al segundo trimestre de 2026.</p></div>`;
+    if(!currentYear())return tabMarkup(null)+`<div class="pa-empty" role="status"><h2>Información de observaciones no disponible para ${state.year}</h2><p>La navegación y selección de vigencia se conservan. Los archivos disponibles corresponden a 2025 y al tercer trimestre de 2026.</p></div>`;
     const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
     return igMetaHeader(m,infoRecord())+tabMarkup(m)+(state.obLoading?'<div class="pa-ob-loading" role="status">Cargando las observaciones documentadas…</div>':state.obError?`<div class="pa-empty"><h2>No fue posible cargar las observaciones</h2><p>${html(state.obError)}</p><button type="button" data-pa-ob-retry>Reintentar</button></div>`:obDashboard(m));
   }
@@ -1848,9 +1847,14 @@
       if(!res.ok)throw Error('Inventario de observaciones: HTTP '+res.status);
       const bin=atob((await res.text()).trim()),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
       const decoded=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
-      const obj=JSON.parse(decoded);if(!obj?.periods?.['2025']||!obj?.periods?.['2026']||obj.schema!=='ti-plan-observaciones-v1')throw Error('La fuente de observaciones está incompleta.');
+      const obj=JSON.parse(decoded);if(!obj?.periods?.['2025']||obj.schema!=='ti-plan-observaciones-v1')throw Error('La fuente de observaciones está incompleta.');
+      obj.periods['2026']=state.q3Data?.observations||{};
       state.obData=obj;state.obLoaded=true;state.obError=null;
-    }catch(err){state.obError=String(err?.message||err);console.warn('Observaciones:',err);}
+    }catch(err){
+      if(state.q3Data){state.obData={periods:{'2025':{},'2026':state.q3Data.observations||{}}};state.obLoaded=true;state.obError=null;}
+      else state.obError=String(err?.message||err);
+      console.warn('Observaciones anteriores:',err);
+    }
     finally{state.obLoading=false;if(state.activeTab==='observations')refresh();}
   }
   function obOpenDetail(id){const item=obList().find(x=>x.id===id);if(!item)return;const dialog=panel.querySelector('#pa-ob-dialog');if(!dialog)return;
@@ -2344,11 +2348,25 @@
       const decoded=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
       const payload=JSON.parse(decoded);
       if(!payload?.periods?.['2025']||!payload?.periods?.['2026'])throw Error('No se encuentran ambos periodos en el archivo de responsables.');
+      payload.periods['2026']=state.q3Data?.responsibles||{};
       state.activityData=payload;state.activityError=null;
-    }catch(err){state.activityError=err?.message||'Faltan los responsables por actividad';console.warn('Responsables de actividades:',err);}
+    }catch(err){
+      if(state.q3Data){state.activityData={periods:{'2026':state.q3Data.responsibles||{}}};state.activityError=null;}
+      else state.activityError=err?.message||'Faltan los responsables por actividad';
+      console.warn('Responsables anteriores:',err);
+    }
     finally{state.activityLoading=false;if(state.activeTab==='activities')refresh();}
   }
 
+  async function readPlanCompressed(path){
+    const res=await fetch(path,{cache:'no-store'});
+    if(!res.ok)throw Error('Fuente '+path+': HTTP '+res.status);
+    if(typeof DecompressionStream==='undefined')throw Error('Este navegador requiere descompresión gzip.');
+    const b64=(await res.text()).trim(),bin=atob(b64),bytes=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+    const decoded=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+    return JSON.parse(decoded);
+  }
   async function load(){
     state.loading=true;state.error=null;refresh();
     try{
@@ -2362,6 +2380,13 @@
       const parsed=JSON.parse(decoded);
       if(!parsed?.periods?.['2025']?.metas || !parsed?.periods?.['2026']?.metas)throw Error('No están completos los años 2025 y 2026.');
       if(parsed.periods['2025'].metas.length!==109 || parsed.periods['2026'].metas.length!==109)throw Error('El número de metas no coincide con los Excel.');
+      const q3=await readPlanCompressed('/data/plan-accion-2026-3t.gz.b64.txt');
+      if(q3.schema!=='ti-plan-accion-2026-trimestre-v1'||q3.year!==2026||q3.quarter!==3||
+         q3.cutoff!=='2026-09-30'||q3.period?.metas?.length!==109||
+         q3.period.metas.reduce((a,m)=>a+(m.activities||[]).length,0)!==379)
+        throw Error('Paquete de Plan de Acción 2026 3T incompleto o con corte incorrecto.');
+      state.q3Data=q3;
+      parsed.periods['2026']=q3.period;
       state.data=parsed;
       trLoadFullTexts().catch(e=>console.warn('Textos territoriales:',e));
       if(metas().length&&!metas().some(m=>m.id===state.current))state.current=metas()[0].id;
@@ -2376,8 +2401,12 @@
         const infoText=await new Response(new Blob([infoBytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
         const infoParsed=JSON.parse(infoText);
         if(Object.keys(infoParsed?.periods?.['2025']?.metas||{}).length!==109 || Object.keys(infoParsed?.periods?.['2026']?.metas||{}).length!==109)throw Error('Faltan fichas por meta.');
+        infoParsed.periods['2026']=state.q3Data.info;
         state.infoData=infoParsed;state.infoError=null;
-      }catch(e){state.infoError=e.message||'No se pudieron leer fichas adicionales.';console.warn('Información General:',e);}
+      }catch(e){
+        state.infoData={periods:{'2026':state.q3Data?.info||{reportingPeriod:'Tercer trimestre de 2026',metas:{}}}};
+        state.infoError=e.message||'No se pudieron leer fichas de 2025';console.warn('Información General anterior:',e);
+      }
       finally{state.infoLoading=false;refresh();}
       await loadActivityExtras();
     }catch(err){state.loading=false;state.error=err?.message||'Error de lectura';refresh();console.error('Planes de Acción:',err);}
