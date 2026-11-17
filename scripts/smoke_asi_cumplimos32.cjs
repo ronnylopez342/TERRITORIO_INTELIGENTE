@@ -4,6 +4,7 @@ const {chromium}=require('playwright');
 const zlib=require('node:zlib');
 const root=path.resolve(__dirname,'..'),dest=path.join(root,'screenshots');
 const data=JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(path.join(root,'data/asi-cumplimos-32.gz.b64.txt'),'utf8').trim(),'base64')));
+const archive=JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(path.join(root,'data/asi-cumplimos-32-fuentes.gz.b64.txt'),'utf8').trim(),'base64')));
 const server=http.createServer((req,res)=>{
  const rel=decodeURIComponent((req.url||'/').split('?')[0]).replace(/^\/+/, '')||'index.html';
  const file=path.resolve(root,rel);
@@ -144,7 +145,15 @@ async function run(){
   await page.locator(rootSel+'[data-asi-tab="plan"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-plan-table tbody tr').count(),24);
   assert.equal(await page.locator(rootSel+'.asi32-home-progress').count(),0);
-  await page.locator(rootSel+'.asi32-plan-table').screenshot({path:path.join(dest,'asi32-plan-desktop.png')});
+  await page.locator(rootSel+'.asi32-plan-table').screenshot({path:path.join(dest,'asi32-plan-desktop.png'),style:'#siteHeader{visibility:hidden!important}'});
+  assert.equal(await page.locator(rootSel+'.asi32-poai tbody tr').count(),109);
+  const independents=page.locator(rootSel+'.asi32-independent .asi32-source-expand');
+  assert.deepEqual(await independents.locator('tbody').evaluateAll(nodes=>nodes.map(n=>n.querySelectorAll('tr').length)),[17,64,12]);
+  await page.locator(rootSel+'.asi32-poai summary').click();
+  await page.locator(rootSel+'.asi32-poai [data-ti32-row="3"]').click();
+  assert.equal(await page.locator(rootSel+'.asi32-original-fields[open] dt').count(),Object.keys(archive.sheets[1].rows.find(r=>r.row===3).cells).length);
+  await page.keyboard.press('Escape');
+  await page.locator(rootSel+'.asi32-poai').screenshot({path:path.join(dest,'asi32-poai-desktop.png'),style:'#siteHeader{visibility:hidden!important}'});
   for(const [tab,n] of [['lineas',6],['sectores',19],['programas',29]]){
     await page.locator(rootSel+'[data-asi-tab="'+tab+'"]').click();
     assert.equal(await page.locator(rootSel+'.asi32-group').count(),n);
@@ -154,10 +163,46 @@ async function run(){
   await page.locator(rootSel+'.asi32-section-grid').screenshot({path:path.join(dest,'asi32-lineas-desktop.png')});
   await page.locator(rootSel+'[data-asi-tab="indicadores"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-indicator-table tbody tr').count(),109);
+  assert.equal(await page.locator(rootSel+'.asi32-source-coverage tbody tr').count(),15);
+  assert.equal(await page.locator(rootSel+'.asi32-ods-row').count(),16,'ODS consignados y categoría sin ODS, sin inferir la meta 63');
+  assert.ok((await page.locator(rootSel+'.asi32-ods').innerText()).includes('ODS no informado'));
+  await page.locator(rootSel+'.asi32-source-coverage').screenshot({path:path.join(dest,'asi32-cobertura-excel-desktop.png'),style:'#siteHeader{visibility:hidden!important}'});
+  for(const s of archive.sheets){
+    await page.locator(rootSel+'.asi32-source-coverage [data-ti32-sheet="'+s.id+'"]').click();
+    assert.equal(await page.locator(rootSel+'.asi32-source-dialog').isVisible(),true);
+    assert.equal(await page.locator(rootSel+'#asi32-source-title').innerText(),s.name.trim());
+    const expected=Math.min(20,s.rows.length);
+    if(expected)assert.equal(await page.locator(rootSel+'.asi32-source-dialog tbody tr').count(),expected);
+    else assert.match(await page.locator(rootSel+'.asi32-source-dialog').innerText(),/no contiene registros/);
+    if(s.rows.length>20){
+      await page.locator(rootSel+'[data-ti32-page="1"]').click();
+      assert.equal(await page.locator(rootSel+'.asi32-source-dialog tbody tr').first().locator('td').first().innerText(),String(s.rows[20].row));
+    }
+    if(s.id===1){
+      await page.locator(rootSel+'[data-ti32-page="-1"]').click();
+      const [download]=await Promise.all([page.waitForEvent('download'),page.locator(rootSel+'[data-ti32-download]').click()]);
+      const csv=fs.readFileSync(await download.path(),'utf8');
+      assert.ok(csv.includes('"BP3"')&&csv.includes('"625560655"')&&csv.includes('"EJ111"'),'Descarga conserva campos de la primera y última meta del POAI');
+      await page.locator(rootSel+'.asi32-source-dialog').screenshot({path:path.join(dest,'asi32-fuentes-desktop.png')});
+    }
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator(rootSel+'.asi32-source-dialog').isVisible(),false);
+  }
+  // La última página de actividades 2024 no puede perder la fila 584.
+  await page.locator(rootSel+'.asi32-source-coverage [data-ti32-sheet="3"]').click();
+  for(let i=1;i<Math.ceil(archive.sheets[3].rows.length/20);i++)await page.locator(rootSel+'[data-ti32-page="1"]').click();
+  assert.equal(await page.locator(rootSel+'.asi32-source-dialog tbody tr').last().locator('td').first().innerText(),'584');
+  await page.keyboard.press('Escape');
   assert.match(await page.locator(rootSel+'.asi32-indicator-table tbody tr').first().innerText(),/Documentos de planeación elaborados/);
   await page.locator(rootSel+'[data-asi-open-meta="1"]').click();
   assert.equal(await page.locator(rootSel+'[data-asi-tab="metas"]').getAttribute('aria-selected'),'true');
   assert.match(await page.locator(rootSel+'#asi32-meta-1').innerText(),/0,25 Número/);
+  await page.locator(rootSel+'#asi32-meta-1 [data-ti32-sheet="3"]').click();
+  assert.equal(await page.locator(rootSel+'.asi32-source-dialog tbody tr').count(),archive.sheets[3].rows.filter(r=>r.goal===1).length);
+  await page.keyboard.press('Escape');
+  await page.locator(rootSel+'#asi32-meta-1 [data-ti32-sheet="5"]').click();
+  assert.match(await page.locator(rootSel+'.asi32-source-dialog').innerText(),/Hoja vacía/);
+  await page.keyboard.press('Escape');
   await page.locator(rootSel+'[data-asi-tab="metas"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-goal').count(),109);
   await page.locator(rootSel+'[data-asi-search]').fill('zzzz-no-match');
@@ -169,6 +214,9 @@ async function run(){
     await page.locator(rootSel+'[data-asi-filter="'+filter+'"]').selectOption(value);
     await page.locator(rootSel+'[data-asi-tab="metas"]').click();
     assert.equal(await page.locator(rootSel+'.asi32-goal').count(),data.g.filter(g=>String(g[col])===value).length);
+    await page.locator(rootSel+'[data-asi-tab="plan"]').click();
+    assert.equal(await page.locator(rootSel+'.asi32-poai tbody tr').count(),data.g.filter(g=>String(g[col])===value).length);
+    assert.equal(await page.locator(rootSel+'.asi32-source-limit').count(),3,'No asignar registros independientes a las metas filtradas');
     await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').click();
     assert.equal(await page.locator(rootSel+'[data-asi-filter="'+filter+'"]').inputValue(),value);
     assert.equal(await page.locator(rootSel+'.asi32-hero').count(),1);
@@ -205,6 +253,12 @@ async function run(){
     const widths=await page.evaluate(()=>({body:document.documentElement.scrollWidth,viewport:innerWidth}));
     assert.ok(widths.body<=widths.viewport+2,tab+' desborda el documento móvil: '+JSON.stringify(widths));
   }
+  await page.locator(rootSel+'[data-asi-tab="indicadores"]').click();
+  await page.locator(rootSel+'.asi32-source-coverage [data-ti32-sheet="1"]').click();
+  const modal=await page.locator(rootSel+'.asi32-source-dialog').boundingBox();
+  assert.ok(modal.width<=390&&modal.height<=844,'Consulta móvil fuera de ventana');
+  await page.screenshot({path:path.join(dest,'asi32-fuentes-mobile.png')});
+  await page.keyboard.press('Escape');
   await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').click();
   await page.locator(rootSel+'.asi32-owner-group').nth(1).click();
   await page.locator(rootSel+'.asi32-goal-chart').screenshot({path:path.join(dest,'asi32-metas-entidad-mobile.png')});
