@@ -63,6 +63,12 @@ jobs:
             screenshots/asi32-consolidado-desktop.png
             screenshots/asi32-consolidado-mobile.png
             screenshots/asi32-inicio-mobile.png
+            screenshots/asi32-finanzas-desktop.png
+            screenshots/asi32-plan-desktop.png
+            screenshots/asi32-lineas-desktop.png
+            screenshots/asi32-metas-entidad-desktop.png
+            screenshots/asi32-ejecucion-entidad-desktop.png
+            screenshots/asi32-metas-entidad-mobile.png
           if-no-files-found: warn
       - name: Conservar evidencia visual del mapa y Planes
         if: always()

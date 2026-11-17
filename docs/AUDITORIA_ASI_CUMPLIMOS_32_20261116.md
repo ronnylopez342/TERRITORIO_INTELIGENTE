@@ -1,5 +1,7 @@
 # Auditoría e implementación — 3.2 Así cumplimos
 
+> Informe inicial sustituido por [ASI_CUMPLIMOS_32_FASES.md](ASI_CUMPLIMOS_32_FASES.md). Sus estados iniciales no certifican la versión actual. La revisión posterior recupera las gráficas faltantes, elimina el acumulado artificial y excluye intencionalmente la página 6.
+
 **Fecha:** 16 de noviembre de 2026 (Colombia). **Fuente real:** `Matriz de Control Cuatrienio 2024-2027 (1).xlsx`, adjuntada por el usuario. **Referencia visual:** `ASI CUMPLIMOS (1).docx`, seis páginas ilustradas. **Código de producción:** rama `main`, sección `#desarrollo-cumplimos` de Plan de Desarrollo.
 
 ## Fuente y reglas de cálculo
@@ -34,7 +36,7 @@ La denominación 2024–2027 proviene del Excel adjunto. Otras fuentes oficiales
 | 3 | Programado 100% contra avance anual acumulado en columnas | Gráfico vertical: referente 100% y segmentos 2024–2025 documentados; 2026–2027 sin reporte. Leyendas, fuente y limitación visibles | **Implementado sin reproducir porcentajes ilustrativos** |
 | 4 | Comparación física y presupuestal por secretarías | Gráficas de barras agrupadas por las ocho entidades, cada fila abre ficha de responsable; se comparan promedio físico y pagos/saldo definitivo | **Implementado; muestra 2025 por defecto en cuatrienio** |
 | 5 | Ficha de Secretaría General/Gobierno con presupuesto, números de metas y gráfica | Detalle por entidad con métricas estratégicas, saldo definitivo y pagos, porcentajes y **tarjetas grandes de metas** | **Implementado de forma navegable** |
-| 6 | Distribución territorial e inversión vial | Sección Territorio con fotografías de contexto, remisión a cartografía 4.2 y advertencia: la matriz de metas no tiene coordenadas de obra verificadas. | **Parcial por falta de fuente geoespacial exacta** |
+| 6 | Distribución territorial e inversión vial | Excluida por instrucción del usuario. Se retiró Territorio de 3.2. | **Exclusión intencional; no es una tarea pendiente** |
 
 ## Arquitectura del visor
 
@@ -56,7 +58,7 @@ La denominación 2024–2027 proviene del Excel adjunto. Otras fuentes oficiales
 - [x] Mantener código y datos propios de 3.3 Planes de Acción y 4.2 Proyectos Estratégicos intactos.
 - [ ] Obtener series de avance oficialmente ponderadas por cada meta para reemplazar comparativas orientativas por un indicador institucional de cuatrienio.
 - [ ] Documentos oficiales de ejecución y evidencias fotográficas de obras por entidad, con atribución y fecha verificable.
-- [ ] Datos territoriales con geometría de proyectos/obras, si se desea mostrar directamente los puntos de la página 6.
+- [x] Página 6 excluida intencionalmente del alcance de 3.2.
 - [ ] Evaluación editorial individual de todas las fotografías de la página 1 y sus permisos de publicación.
 - [ ] Validación visual humana en varios navegadores y dispositivos más allá de los smokes automáticos.
 
