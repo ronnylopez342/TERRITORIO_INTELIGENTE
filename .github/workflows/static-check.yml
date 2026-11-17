@@ -60,6 +60,8 @@ jobs:
           path: |
             screenshots/asi32-inicio-desktop.png
             screenshots/asi32-secretaria-desktop.png
+            screenshots/asi32-consolidado-desktop.png
+            screenshots/asi32-consolidado-mobile.png
             screenshots/asi32-inicio-mobile.png
           if-no-files-found: warn
       - name: Conservar evidencia visual del mapa y Planes
