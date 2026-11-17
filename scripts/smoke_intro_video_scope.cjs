@@ -133,9 +133,10 @@ async function checkUnit(page,out){
       'Video visible fuera de 4.1: '+id);
     assert.ok(await page.locator('#'+id).isVisible(),'Contenido oculto en '+id);
     if(id==='cumplimiento-proyectos'){
-      await page.locator('.app-view[data-view="cumplimiento"] .ti34-hero').screenshot({
-        path:path.join(out,'conoce-solo-cumplimiento-4.2.png')
-      });
+      // 4.2 tiene encabezado y dashboard propios; la portada de Conoce
+      // está oculta por diseño, así que se fotografía la pantalla visible.
+      await page.evaluate(()=>window.scrollTo({top:0,left:0,behavior:'instant'}));
+      await page.screenshot({path:path.join(out,'conoce-solo-cumplimiento-4.2.png')});
     }
     console.log('Unidad '+id+': video '+(hasVideo?'visible':'ausente')+' y contenido presente');
   }
