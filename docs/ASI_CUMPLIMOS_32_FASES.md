@@ -149,11 +149,21 @@ La auditoría reproducible de metodología (`scripts/audit_asi32_methodology.py`
 - [x] Regresión de Data 2.1–2.4, Plan de Acción 3.3 y Cumplimiento4.2: PASS local.
 - [x] Sintaxis, estructura, integridad de nueve fuentes críticas y registro editorial: PASS local.
 - [x] Capturas de Inicio, Dashboard, Plan, Líneas, ficha, gráfico completo de metas, metodología, resultados, noticia, fuentes pendientes y móvil conservadas; workflow ampliado para adjuntar las nuevas.
-- [ ] Candidato: Actions SUCCESS y Vercel READY, verificados antes de integrar.
-- [ ] Publicación: SHA de main igual al dominio público y smoke completo de producción aprobado.
+- [x] Candidato: Actions SUCCESS y Vercel READY, verificados antes de integrar.
+- [x] Publicación: SHA de main igual al dominio público y smoke completo de producción aprobado.
 - [ ] Acumulado oficial y corte certificado: fuente pendiente; no activados.
 - [ ] Estados de riesgo/retraso: criterio oficial pendiente; circular no activada.
 - [ ] Facturación independiente: registro y definición pendientes; obligaciones conservadas.
 - [ ] Fotos atribuibles, certificación de logros globales y distintivo fiscal: soportes pendientes.
 
 El mapa de la página6 y su acceso rápido están excluidos, sin anotarlos como un pendiente. La recuperación con fuentes disponibles puede publicarse; **el Word no se declara completo al100 %** mientras falten los soportes anteriores. El informe identifica exactamente qué fuente activa cada componente y distingue las adaptaciones de las gráficas todavía no implementadas.
+
+### Publicación de este cierre, comprobada el 17/11/2026
+
+La [PR11](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/pull/11) integró el cambio funcional `246ad01d6ddfece5d99f6e7cae204215eccc044d` después de [Actions SUCCESS del candidato](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44028956641) y prueba del preview Vercel READY. La prueba comprobó además los cinco documentos, la publicación con su fecha, el destino ciudadano, el contraste de metodología y la ausencia de documentos/noticias al seleccionar2026. El acceso temporal se revocó al terminar.
+
+La integración `6df7e21e3f7dc493a75d6474545bfed9716d9a28` pasó [Actions de main](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44029153095). El dominio [territorio-inteligente.vercel.app](https://territorio-inteligente.vercel.app/#desarrollo?seccion=desarrollo-cumplimos) apuntó a ese mismo SHA en Vercel READY, sin error de alias, despliegue `dpl_H9k9yBscYtQXz7B5pptXZvT37jVE`. El smoke completo se repitió contra ese dominio y terminó en PASS: navegación, filtros, fechas/alcance editorial, ocho entidades y metas exactas, comparativos, cobertura de las quince hojas, última fila, CSV y nueve vistas móviles. Esta actualización posterior solo documenta la evidencia observada, sin modificar la aplicación.
+
+Capturas reales del smoke de producción: `screenshots/asi32-inicio-desktop.png`, `asi32-consolidado-desktop.png`, `asi32-plan-desktop.png`, `asi32-lineas-desktop.png`, `asi32-secretaria-desktop.png`, `asi32-metas-entidad-desktop.png`, `asi32-metas-entidad-mobile.png`, `asi32-metodologia-desktop.png`, `asi32-resultados-desktop.png`, `asi32-resultados-mobile.png`, `asi32-publicaciones-desktop.png`, `asi32-fuentes-pendientes-desktop.png`, `asi32-cobertura-excel-desktop.png`, `asi32-poai-desktop.png` y `asi32-fuentes-mobile.png`. Actions adjunta las capturas al artefacto de esta sección. Los componentes nuevos se revisaron visualmente en escritorio y móvil; los desplegables quedaron legibles, sin texto blanco sobre fondo blanco.
+
+Durante las pruebas de este equipo no resolvió el host del video remoto global de Supabase; existe el respaldo MP4 local y su integridad se comprobó. También se registraron cancelaciones de precargas al navegar. No se observaron excepciones de ejecución de 3.2 ni errores de carga de sus nuevos datos o módulos. Esta limitación externa preexistente no se presenta como un resultado documental pendiente del Word.
