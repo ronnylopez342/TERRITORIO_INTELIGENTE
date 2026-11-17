@@ -39,6 +39,8 @@ Avance físico: AG de Acción 2024 y AP de Acción 2025. Faltan metas 6, 7, 12, 
 
 Inconsistencias a conciliar: POAI y Plan Indicativo contienen importes diferentes (meta 1, 2024: POAI BP3 = 625.560.655; Indicativo AV3 = 0). Se conserva la fuente elegida y se identifica su procedencia. El Word usa 2024–2028 y ejemplos de 2026, mientras que este Excel programa 2024–2027 y no reporta ejecución 2026. No se trasladan cifras del Word. Los resúmenes almacenados se muestran como reportados, sin afirmar que se hayan certificado o recalculado las fórmulas originales.
 
+Conciliación de catálogos: los códigos de indicador de las filas resumen de metas 2–14 y 19 difieren del Plan Indicativo en 2024 y 2025 (14 metas). El catálogo de indicadores usa explícitamente Plan Indicativo K:L, y el seguimiento se une por número de meta, no por esos códigos discrepantes. En 2025 hay 22 diferencias textuales de responsable: todas corresponden al alias «Secretaría de Gobierno» / «Secretaría General y de Gobierno»; los identificadores de metas y su pertenencia institucional coinciden. No se crean entidades adicionales por ese alias. El catálogo del visor conserva el nombre del Plan Indicativo.
+
 | Página | Elemento | Estado inicial comprobado en código | Tratamiento |
 |---|---|---|---|
 | 1 | Portada y fotos | Encabezado compacto ya existente; quedan fotos genéricas en otras vistas | Conservar encabezado; retirar relleno fotográfico sin atribución a logros |
@@ -61,13 +63,21 @@ Inconsistencias a conciliar: POAI y Plan Indicativo contienen importes diferente
 ## Fases y comprobaciones
 
 - [x] Fase 0: auditoría completa de fuentes y referencias; importación reproducible conciliada con las 109 filas publicadas (tolerancia de precisión, sin diferencias sustantivas).
-- [ ] Fase 1: navegación única, sin Territorio ni pestaña adicional al abrir ficha; filtros persistentes.
-- [ ] Fase 2: Inicio con columnas anuales verificables y cobertura complementaria.
-- [ ] Fase 3: Dashboard con entidades, dos columnas generales y cinco etapas financieras.
-- [ ] Fase 4: Plan de Desarrollo analítico sin repetir gráfica de Inicio.
-- [ ] Fase 5: ficha por entidad con dos columnas y comparativo completo de metas.
-- [ ] Fase 6: barras y desgloses por líneas, sectores y programas.
-- [ ] Fase 7: metas e indicadores con campos, unidades y procedencia reales.
+- [x] Fase 1: navegación única, sin Territorio ni pestaña adicional al abrir ficha; filtros persistentes.
+- [x] Fase 2: Inicio con columnas anuales verificables y cobertura complementaria.
+- [x] Fase 3: Dashboard con entidades, dos columnas generales y cinco etapas financieras.
+- [x] Fase 4: Plan de Desarrollo analítico sin repetir gráfica de Inicio.
+- [x] Fase 5: ficha por entidad con dos columnas y comparativo completo de metas.
+- [x] Fase 6: barras y desgloses por líneas, sectores y programas.
+- [x] Fase 7: metas e indicadores con campos, unidades y procedencia reales.
 - [ ] Fase 8: regresión, capturas, Actions y SHA de Vercel iguales a main.
 
 Pendientes documentales: metodología oficial de acumulado; reglas oficiales para estados de riesgo/retraso; certificación y fecha de corte de los avances; facturación si se desea mostrarla como etapa independiente; logros/noticias y fotos atribuibles. Estos faltantes no se resuelven con cifras o textos ilustrativos.
+
+## Evidencia de verificación local
+
+Pruebas de datos: 109 filas conciliadas, 15 hojas, cinco sumas financieras por año, ausencias 2026–2027, unidades y procedencia de todos los indicadores. Pruebas en Chromium: nueve pestañas, cinco filtros y búsqueda, navegación por teclado, persistencia entre vistas, las ocho entidades con sus listas exactas de metas, acceso desde gráfica a tarjeta, tablas analíticas, cinco etapas, campos vacíos y cero informado. Se revisaron capturas de Inicio, consolidado, finanzas, Plan, líneas, ficha de entidad y su comparativo de metas, incluyendo móvil de 390 px y las secciones inferiores. Las nueve vistas no desbordan el documento móvil; las gráficas y tablas amplias se desplazan dentro de su contenedor.
+
+Regresión local aprobada: verificación estática y de estructura; sintaxis de todos los JS; datos Data, UC42, Plan Estadístico, módulos actuales y registro editorial; nueve recursos originales protegidos; smokes de 2.1–2.4, 3.3 y 4.2. El control de huellas detectó inicialmente conversión local de saltos de línea de Windows; se restauraron los bytes exactos de Git en este checkout sin modificar los recursos versionados ni sus huellas. Red: el video remoto global de Supabase no resolvió en este equipo; el portal dispone del respaldo MP4 local verificado. La precarga de un PDF externo a 3.2 puede cancelarse al navegar. No se observaron errores de ejecución del navegador ni fallos de carga de los recursos propios de 3.2.
+
+Las capturas se conservan en `screenshots/asi32-*.png` localmente y el workflow las adjunta al resultado de Actions. La verificación de publicación se registrará una vez el candidato haya superado CI y Vercel.

@@ -88,13 +88,17 @@ def build(path):
             'indicator': r.get('L'), 'code': str(r.get('K', '')), 'unit': r.get('M'),
             'base': r.get('Q'), 'source': r.get('R'), 'type': r.get('P'),
             'accumulation': r.get('V'), 'expected': r.get('W'),
-            'targets': [r.get(c) for c in ['X','Y','Z','AA']], 'financial': financial,
-            'reportedResults': [annual[0].get('AH'), annual[1].get('AQ'), None, None]}
+            'targets': [r.get(c) for c in ['X','Y','Z','AA']], 'financial': financial}
     audit = {'source': path.name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
              'sheets': {name: {'nonemptyRows': len(rows), 'lastValueRow': max(rows, default=0)} for name, rows in sheets.items()},
              'summaryRows': [len(s) for s in summaries], 'duplicateGoalIds': [],
              'missingPhysical': [[g[0] for g in goals if g[7][i] is None] for i in range(4)],
              'financialStages': ['Saldo definitivo', 'CDP', 'Registro presupuestal', 'Obligaciones', 'Pagos']}
+    audit['catalogConflicts'] = {}
+    for i, year in enumerate([2024, 2025]):
+        audit['catalogConflicts'][str(year)] = {
+            'indicatorCode': [r['N'] for _, r in records if str(r.get('K','')).strip() != str(summaries[i][r['N']][1].get('D','')).strip()],
+            'owner': [r['N'] for _, r in records if str(r.get('H','')).strip() != str(summaries[i][r['N']][1].get('A','')).strip()]}
     return {'s':1, 'y':[2024,2025,2026,2027], 'l':dictionaries[0], 'sct':dictionaries[1],
             'pr':dictionaries[2], 'o':dictionaries[3], 'g':goals, 'details':details, 'audit':audit}
 

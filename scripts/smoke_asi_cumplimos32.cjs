@@ -1,7 +1,9 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {chromium}=require('playwright');
+const zlib=require('node:zlib');
 const root=path.resolve(__dirname,'..'),dest=path.join(root,'screenshots');
+const data=JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(path.join(root,'data/asi-cumplimos-32.gz.b64.txt'),'utf8').trim(),'base64')));
 const server=http.createServer((req,res)=>{
  const rel=decodeURIComponent((req.url||'/').split('?')[0]).replace(/^\/+/, '')||'index.html';
  const file=path.resolve(root,rel);
@@ -13,11 +15,15 @@ async function run(){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const browser=await chromium.launch({headless:true,channel:process.env.ASI_BROWSER_CHANNEL||undefined,args:['--no-sandbox']});
  const page=await browser.newPage({viewport:{width:1440,height:900}});
- page.on('pageerror',e=>console.log('[BROWSER PAGEERROR]',e.message));
+ const pageErrors=[];
+ page.on('pageerror',e=>pageErrors.push(e.message));
+ page.on('requestfailed',r=>console.log('[NETWORK]',new URL(r.url()).origin+new URL(r.url()).pathname));
+ page.on('response',r=>{if(r.status()>=400)console.log('[HTTP '+r.status()+']',new URL(r.url()).pathname);});
  page.on('console',msg=>{if(msg.type()==='error')console.log('[BROWSER CONSOLE]',msg.text());});
  fs.mkdirSync(dest,{recursive:true});
  try{
-  await page.goto('http://127.0.0.1:'+server.address().port+'/#desarrollo?seccion=desarrollo-cumplimos',{waitUntil:'domcontentloaded',timeout:45000});
+  const base=process.env.ASI_BASE_URL||'http://127.0.0.1:'+server.address().port;
+  await page.goto(base.replace(/\/$/,'')+'/#desarrollo?seccion=desarrollo-cumplimos',{waitUntil:'domcontentloaded',timeout:45000});
   await page.waitForSelector('#desarrollo-cumplimos [data-asi32-root]',{timeout:30000});
   if(await page.locator('#desarrollo-cumplimos').isHidden())await page.evaluate(()=>document.getElementById('tab-desarrollo-cumplimos')?.click());
   try { await page.waitForFunction(()=>document.querySelectorAll('#desarrollo-cumplimos .asi32-kpis').length>=1 && document.querySelector('#desarrollo-cumplimos .asi32-kpis')?.querySelectorAll('.asi32-kpi').length===6,null,{timeout:25000}); }
@@ -115,6 +121,20 @@ async function run(){
   await page.screenshot({path:path.join(dest,'asi32-secretaria-desktop.png')});
   await page.locator(rootSel+'[data-asi-back]').click();
   assert.equal(await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').getAttribute('aria-selected'),'true');
+  // Cada una de las ocho fichas debe corresponder exactamente a sus metas de la fuente.
+  for(let owner=0;owner<data.o.length;owner++){
+    await page.locator(rootSel+'.asi32-owner-group[data-asi-owner="'+owner+'"]').click();
+    const expected=data.g.filter(g=>g[4]===owner).map(g=>g[0]);
+    const actual=await page.locator(rootSel+'.asi32-goal').evaluateAll(nodes=>nodes.map(n=>Number(n.id.replace('asi32-meta-',''))));
+    assert.deepEqual(actual,expected,'Metas incorrectas de '+data.o[owner]);
+    assert.match(await page.locator(rootSel+'.asi32-detail-banner h2').innerText(),new RegExp(data.o[owner].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
+    assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),9);
+    if(owner===1){
+      await page.locator(rootSel+'.asi32-goal-chart').screenshot({path:path.join(dest,'asi32-metas-entidad-desktop.png')});
+      await page.locator(rootSel+'.asi32-paired').screenshot({path:path.join(dest,'asi32-ejecucion-entidad-desktop.png')});
+    }
+    await page.locator(rootSel+'[data-asi-back]').click();
+  }
   await page.locator(rootSel+'[data-asi-tab="plan"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-plan-table tbody tr').count(),24);
   assert.equal(await page.locator(rootSel+'.asi32-home-progress').count(),0);
@@ -137,6 +157,24 @@ async function run(){
   await page.locator(rootSel+'[data-asi-search]').fill('zzzz-no-match');
   assert.equal(await page.locator(rootSel+'.asi32-goal').count(),0);
   await page.locator(rootSel+'[data-asi-clear]').click();
+  // Todos los filtros se contrastan contra las filas reales y persisten entre pestañas.
+  for(const [filter,col] of [['line',1],['sector',2],['program',3],['owner',4]]){
+    const value=String(data.g[0][col]);
+    await page.locator(rootSel+'[data-asi-filter="'+filter+'"]').selectOption(value);
+    await page.locator(rootSel+'[data-asi-tab="metas"]').click();
+    assert.equal(await page.locator(rootSel+'.asi32-goal').count(),data.g.filter(g=>String(g[col])===value).length);
+    await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').click();
+    assert.equal(await page.locator(rootSel+'[data-asi-filter="'+filter+'"]').inputValue(),value);
+    assert.equal(await page.locator(rootSel+'.asi32-hero').count(),1);
+    assert.equal(await page.locator(rootSel+'.asi32-nav').count(),1);
+    assert.equal(await page.locator(rootSel+'.asi32-kpis').count(),1);
+    await page.locator(rootSel+'[data-asi-clear]').click();
+  }
+  await page.locator(rootSel+'[data-asi-tab="inicio"]').focus();
+  await page.keyboard.press('End');
+  assert.equal(await page.locator(rootSel+'[data-asi-tab="indicadores"]').getAttribute('aria-selected'),'true');
+  await page.keyboard.press('Home');
+  assert.equal(await page.locator(rootSel+'[data-asi-tab="inicio"]').getAttribute('aria-selected'),'true');
   await page.setViewportSize({width:390,height:844});
   const rect=await page.locator(rootSel+'.asi32').boundingBox();
   assert.ok(rect.width<=400,'Mobile overflow '+JSON.stringify(rect));
@@ -156,6 +194,15 @@ async function run(){
   assert.ok(viewport.scrollWidth>viewport.clientWidth,'El móvil debe permitir desplazamiento horizontal dentro de la gráfica');
   await page.locator(rootSel+'[data-asi-owner-section]').scrollIntoViewIfNeeded();
   await page.screenshot({path:path.join(dest,'asi32-consolidado-mobile.png')});
+  for(const tab of ['inicio','ejecutivo','plan','lineas','sectores','programas','dependencias','metas','indicadores']){
+    await page.locator(rootSel+'[data-asi-tab="'+tab+'"]').click();
+    const widths=await page.evaluate(()=>({body:document.documentElement.scrollWidth,viewport:innerWidth}));
+    assert.ok(widths.body<=widths.viewport+2,tab+' desborda el documento móvil: '+JSON.stringify(widths));
+  }
+  await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').click();
+  await page.locator(rootSel+'.asi32-owner-group').nth(1).click();
+  await page.locator(rootSel+'.asi32-goal-chart').screenshot({path:path.join(dest,'asi32-metas-entidad-mobile.png')});
+  assert.deepEqual(pageErrors,[],'Errores de ejecución del navegador');
   console.log('ASÍ CUMPLIMOS 3.2: INICIO EN ORDEN, KPI ÚNICO, 109 METAS, 2024/2025 REALES, 2026/2027 SIN REPORTE Y MÓVIL: PASS.');
  }finally{await browser.close();await new Promise(ok=>server.close(ok));}
 }

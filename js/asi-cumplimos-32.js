@@ -69,11 +69,6 @@
   function bar(value,tone){return '<span class="asi32-track"><span class="asi32-fill" style="width:'+Math.max(0,Math.min(100,(value||0)*100)).toFixed(2)+'%;background:'+esc(tone||'#0b8653')+'"></span></span>';}
   function mini(value,year,tone){return '<span class="asi32-mini">'+bar(value,tone||colorYear[years.indexOf(Number(year))]||'#0c8554')+'<strong>'+pct(value)+'</strong></span>';}
   function goPlanButton(){return '<button class="asi32-action asi32-action--ghost" type="button" data-asi-go-plan>Consultar Planes de Acción 3.3 ↗</button>';}
-  function annualCards(rows){
-    return '<article class="asi32-card"><h3>Ejecución física por vigencia</h3><p class="asi32-sub">Promedio simple de las metas con porcentaje disponible</p><div class="asi32-year-list">'+
-      years.map((year,i)=>'<div class="asi32-year-row"><span>'+year+'</span>'+bar(physical(rows,i),colorYear[i])+'<strong>'+pct(physical(rows,i))+'</strong></div>').join('')+
-      '</div><div class="asi32-highlight">'+esc('Los años 2026 y 2027 están programados, pero sus hojas de ejecución anual no contienen registros. Un campo vacío nunca se interpreta como 0 %.')+'</div></article>';
-  }
   function ownerBar(rows){
     const yi=latestReported(),year=years[yi],items=catalog.owners.map((name,idx)=>{
       const subset=rows.filter(r=>r.owner===idx);
@@ -238,7 +233,6 @@
     const desc='Explora '+title.toLowerCase()+' y profundiza hasta la ficha de cada meta.';
     return '<section class="asi32-block">'+pageTitle(title,desc,'Visor por clasificación')+'<div class="asi32-section-grid">'+dict.map((value,index)=>{
       const sub=rows.filter(r=>r[kind]===index);if(!sub.length)return '';
-      const y=latestReported(),av=physical(sub,y),bud=budget(sub,y);
       return '<article class="asi32-group"><span class="asi32-eyebrow">'+sub.length+' metas asociadas</span><h3>'+esc(value)+'</h3><div class="asi32-pills"><span class="asi32-pill">'+unique(sub.map(r=>r.sector))+' sectores</span><span class="asi32-pill">'+unique(sub.map(r=>r.program))+' programas</span></div>'+
         '<div class="asi32-class-chart" aria-label="Avance físico por vigencia">'+yearsToDisplay().map(i=>{
           const v=physical(sub,i),count=sub.filter(r=>Number.isFinite(r.physical[i])).length;
@@ -273,7 +267,7 @@
   function detailOwner(rows){
     const idx=state.detailOwner;if(idx===null)return grouping(rows,'owner');
     const label=catalog.owners[idx],sub=rows.filter(r=>r.owner===idx);
-    const s=stat(sub),yy=latestReported(),av=physical(sub,yy),fin=budget(sub,yy);
+    const s=stat(sub),yy=latestReported(),fin=budget(sub,yy);
     return '<section class="asi32-block"><button type="button" class="asi32-action asi32-action--ghost" data-asi-back>← Regresar al '+(returnTab==='ejecutivo'?'consolidado':'listado de dependencias')+'</button>'+
       '<header class="asi32-detail-banner"><span class="asi32-eyebrow" style="color:#bdecd3">Detalle institucional · '+(state.year==='all'?'Cuatrienio 2024–2027':years[yy])+'</span><h2>'+esc(label)+'</h2><p>Información de la entidad y sus metas, según los filtros generales.</p></header>'+
       '<div class="asi32-grid-3"><article class="asi32-card"><h3>Información estratégica</h3><p class="asi32-sub">Estructura de la entidad dentro del plan</p>'+[
