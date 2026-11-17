@@ -98,6 +98,7 @@
   document.querySelectorAll('.app-view.ti34-ready[data-view="desarrollo"],.app-view.ti34-ready[data-view="cumplimiento"]').forEach(updateModule);
  }
  document.addEventListener("click",e=>{if(e.target.closest(".ti34-nav [data-module-panel], [data-ti34-go]"))queueMicrotask(sync);});
+ document.addEventListener("keydown",e=>{if(e.target.closest(".ti34-nav [role=tab]"))queueMicrotask(sync);});
  window.addEventListener("popstate",()=>requestAnimationFrame(sync));
  window.addEventListener("hashchange",()=>requestAnimationFrame(sync));
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",sync);
