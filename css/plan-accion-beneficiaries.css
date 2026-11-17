@@ -137,3 +137,15 @@
  #desarrollo-accion.pa-mounted .pa-ben-testimony small{font-size:9px;margin:5px 6px}
  #desarrollo-accion.pa-mounted .pa-ben-testimonials-card .pa-ben-view-all{font-size:11px}
 }
+
+/* Plan 3.3 — comparación documental de registros sin porcentajes inventados. */
+#desarrollo-accion.pa-mounted .pa-ben-reports{display:flex;flex-direction:column;gap:10px;padding:6px 1px 4px;}
+#desarrollo-accion.pa-mounted .pa-ben-reports-row{display:grid;grid-template-columns:minmax(115px,1.5fr) minmax(75px,1fr) minmax(40px,.25fr);gap:10px;align-items:center;color:#264b69;font-size:12px;line-height:1.4;}
+#desarrollo-accion.pa-mounted .pa-ben-reports-row>span:first-child{overflow-wrap:anywhere;font-weight:650;}
+#desarrollo-accion.pa-mounted .pa-ben-reports-row strong{text-align:right;font-variant-numeric:tabular-nums;color:#143b53;font-size:13px;}
+#desarrollo-accion.pa-mounted .pa-ben-reports-track{display:block;background:#e7eff4;border-radius:8px;height:17px;overflow:hidden;min-width:0;}
+#desarrollo-accion.pa-mounted .pa-ben-reports-track i{display:block;height:100%;border-radius:8px;min-width:0;}
+#desarrollo-accion.pa-mounted .pa-ben-reports-bar--petrol{background:#167a86;}
+#desarrollo-accion.pa-mounted .pa-ben-reports-bar--blue{background:#3183cf;}
+#desarrollo-accion.pa-mounted .pa-ben-reports-bar--amber{background:#d9a524;}
+@media(max-width:560px){#desarrollo-accion.pa-mounted .pa-ben-reports-row{grid-template-columns:minmax(0,1fr) minmax(55px,.8fr) 45px;gap:7px;font-size:11px;}}
