@@ -10,7 +10,7 @@
 
   const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const fullMonths = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const categories = ['Resumen','Totalizador del Plan','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Contratación de Inversión','Soportes','Observaciones'];
+  const categories = ['Resumen','Información General','Actividades','Avance Físico','Beneficiarios','Ejecución Presupuestal','Territorio','Contratación de Inversión','Soportes','Observaciones'];
   const navSvg = inner => `<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${inner}</svg>`;
   const categoryIcons = [
     navSvg("<rect x=\"3\" y=\"3.5\" width=\"18\" height=\"17\" rx=\"1.5\"/><rect x=\"7\" y=\"8\" width=\"10\" height=\"8\" rx=\".5\"/><path d=\"M9 11h6\"/>"),
@@ -25,16 +25,18 @@
     navSvg("<path d=\"M6 2h8l5 5v15H6z\" fill=\"currentColor\" stroke=\"none\"/><path d=\"M14 2v5h5M9 12h7M9 16h7\" stroke=\"var(--pa-icon-cutout,#f4f7fa)\" stroke-width=\"1.6\"/>"),
     navSvg("<path d=\"M4 4h16c1.1 0 2 .9 2 2v11c0 1.1-.9 2-2 2H9l-6 3V6c0-1.1.9-2 2-2Z\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"8\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/><circle cx=\"13\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/><circle cx=\"18\" cy=\"11.5\" r=\"1.3\" fill=\"var(--pa-icon-cutout,#f4f7fa)\" stroke=\"none\"/>")
   ];
-  const state = { year:'2025', current:101, overallSearch:'', overallStatus:'all', overallSort:'id', data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, territoryThemeActive:new Set(), supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, obData:null, obLoading:false, obLoaded:false, obError:null, obFilters:{type:'all',status:'all',issuer:'all',from:'',to:'',q:''}, obPage:0, obSort:'source', obSortAsc:true, loading:true, error:null };
+  categoryIcons.splice(1,1); // Totalizador eliminado de la navegación 3.3.
+  const state = { year:'2026', current:101, overallSearch:'', overallStatus:'all', overallSort:'id', data:null, list:false, listCategory:'all', qNumber:'', qKeyword:'', activityExpanded:new Set(), activeTab:'summary', physicalFilters:{status:'all',activity:'all'}, activityFilters:{q:'',status:'all',owner:'all',place:'all'}, activityCompareUnit:null, activityCarouselPage:0, beneficiaryPlace:null, activityData:null, activityLoading:true, activityError:null, infoData:null, infoLoading:true, infoError:null, territoryKind:'veredas', territoryExpanded:false, territorySelected:null, territoryGalleryPage:0, territoryExtra:null, territoryExtraLoaded:false, territoryExtraLoading:false, territoryThemeActive:new Set(), supportFilters:{activity:'all',type:'all',place:'all',from:'',to:'',q:''}, supportTreeOpen:new Set(), supportRecentAll:false, supportShowAll:false, supportExtra:null, supportVerified:null, supportExtraLoaded:false, supportLoading:false, supportError:null, q3Data:null, obData:null, obLoading:false, obLoaded:false, obError:null, obFilters:{type:'all',status:'all',issuer:'all',from:'',to:'',q:''}, obPage:0, obSort:'source', obSortAsc:true, loading:true, error:null };
   // Persist only public navigation state. Never persist sensitive, fetched data,
   // filters, authentication, coordinates, or open modal content here.
   const PLAN_NAV_KEY='ti:plan33:navigation:v1';
-  const planNavTabs=['summary','overall','general','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'];
+  const planNavTabs=['summary','general','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'];
   function restorePlanNavigation(){
     try {
       const saved=JSON.parse(localStorage.getItem(PLAN_NAV_KEY)||'null');
       if(!saved||typeof saved!=='object')return;
       if(planNavTabs.includes(saved.tab))state.activeTab=saved.tab;
+      else if(saved.tab==='overall')state.activeTab='summary';
       const year=String(saved.year||'');
       if(['2025','2026'].includes(year)||
          (state.activeTab==='contracts'&&['2024','2027'].includes(year)))state.year=year;
@@ -111,7 +113,7 @@
   const topMarkup = () => {
     const stats=summarize(),available=!!currentYear(), fixed = available ? metas().length : null;
     return `<div class="pa-top">
-      <div class="pa-hero-row"><div><p class="pa-overline">PLAN DE DESARROLLO MUNICIPAL · SUBACHOQUE</p><h1>Subachoque el mejor plan 2024-2027</h1><p>Seguimiento al Plan de Acción</p></div><div class="pa-hero-motto"><strong>Transparencia</strong><span>Gestión</span><span>Resultados</span><strong>para la gente</strong></div></div>
+      <div class="pa-hero-row"><div><p class="pa-overline">PLAN DE DESARROLLO MUNICIPAL · SUBACHOQUE</p><h1>Subachoque el mejor plan 2024-2027</h1><p>Seguimiento al Plan de Acción${state.year==='2026'?' · Corte tercer trimestre (enero–septiembre 2026)':''}</p></div><div class="pa-hero-motto"><strong>Transparencia</strong><span>Gestión</span><span>Resultados</span><strong>para la gente</strong></div></div>
       <div class="pa-control-row">
         <form class="pa-query" id="pa-query-form" autocomplete="off" role="search"><div class="pa-search-field"><label for="pa-query-num">Consultar por número de meta</label><div class="pa-field-inline"><input id="pa-query-num" inputmode="numeric" placeholder="Ej. 1, 25, 109..." value="${html(state.qNumber)}"/><button type="submit" aria-label="Buscar por número de meta">${searchIcon}</button></div></div><div class="pa-search-field"><label for="pa-query-key">o busca por palabra clave</label><div class="pa-field-inline"><input id="pa-query-key" placeholder="Ej. educación, vías, adulto mayor..." value="${html(state.qKeyword)}"/><button type="submit" aria-label="Buscar por palabra clave">${searchIcon}</button></div></div><div class="pa-select-wrap"><label for="pa-year-select">Filtrar por año</label><div class="pa-select-shell">${clockIcon}<select id="pa-year-select" aria-label="Filtrar los registros por año">${[2024,2025,2026,2027].map(y=>`<option value="${y}"${String(y)===state.year?' selected':''}>${y}</option>`).join('')}</select><span aria-hidden="true">⌄</span></div></div></form>
         <div class="pa-kpis">${kpiMarkup('all',available?fmtInt.format(fixed):'—','Metas del Plan','Metas numeradas registradas en los archivos del Plan de Acción')}${kpiMarkup('running',available?fmtInt.format(stats.running):'—','En ejecución','Avance del 40% al 99%: criterio visual')}${kpiMarkup('risk',available?fmtInt.format(stats.risk):'—','En riesgo*','Avance del 1% al 39%: alerta calculada')}${kpiMarkup('delay',available?fmtInt.format(stats.delay):'—','Con retraso*','Avance del 0%: alerta calculada; no es retraso acreditado')}</div>
@@ -2068,8 +2070,8 @@
     const m=selected();if(!m)return tabMarkup(null)+unavailableMarkup();
     // Cabecera idéntica en TODAS las pestañas: título -> ficha de meta -> 11 pestañas.
     // Únicamente cambia el contenido que viene debajo.
-    if(state.activeTab==='overall')return igMetaHeader(m,infoRecord())+tabMarkup(m)+overallMarkup(true);
-    return igMetaHeader(m,infoRecord())+tabMarkup(m)+overallMarkup(false)+summaryMarkup(m);
+    if(state.list)return tabMarkup(null)+listMarkup();
+    return igMetaHeader(m,infoRecord())+tabMarkup(m)+summaryMarkup(m);
   }
 
   // Encabezado global único para todas las secciones 3.3: búsqueda, año y
@@ -2123,7 +2125,7 @@
   }
   function refresh({preserveFocus=false}={}){
     // Las selecciones antiguas del listado de tarjetas se redirigen al unico directorio.
-    if(state.list){state.list=false;state.activeTab='overall';}
+    if(state.activeTab==='overall')state.activeTab='summary';
     rememberPlanNavigation();
     const node=preserveFocus?document.activeElement:null;const id=node?.id,sel= node?.selectionStart, selEnd=node?.selectionEnd;
     window.TISubachoqueMap?.destroyWithin(panel);
@@ -2150,12 +2152,10 @@
   function searchAction(){
     if(!currentYear()){state.list=false;refresh();return;}
     const rawNum=state.qNumber.trim(),rawWord=normalizeQuery(state.qKeyword);
-    if(/^\d+$/.test(rawNum)&&!rawWord){const exact=metas().find(x=>x.id===Number(rawNum));if(exact){if(state.activeTab==='overall')state.activeTab='summary';focusMeta(exact.id);return;}}
+    if(/^\d+$/.test(rawNum)&&!rawWord){const exact=metas().find(x=>x.id===Number(rawNum));if(exact){focusMeta(exact.id);return;}}
     // Una sola vista para consultar metas: el directorio del Totalizador.
-    state.overallSearch=rawWord?state.qKeyword.trim():rawNum;
-    state.overallStatus='all';state.overallSort='id';
-    state.activeTab='overall';state.list=false;state.listCategory='all';
-    refresh();panel.querySelector('.pa-total-directory')?.scrollIntoView({behavior:'smooth',block:'start'});
+    state.activeTab='summary';state.list=true;state.listCategory='all';
+    refresh();panel.querySelector('.pa-meta-catalog')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
   panel.addEventListener('submit',ev=>{if(ev.target.id==='pa-query-form'){ev.preventDefault();searchAction();}});
   panel.addEventListener('input',ev=>{if(ev.target.id==='pa-meta-chooser-search'){const q=normalizeQuery(ev.target.value.trim());panel.querySelectorAll('.pa-meta-chooser-results [data-pa-meta]').forEach(option=>{option.hidden=!!q&&!normalizeQuery(option.textContent).includes(q);});return;}if(ev.target.id==='pa-query-num')state.qNumber=ev.target.value.replace(/[^\d]/g,'').slice(0,3);if(ev.target.id==='pa-query-key')state.qKeyword=ev.target.value.slice(0,140);if(ev.target.id==='pa-act-search'){state.activityFilters.q=ev.target.value.slice(0,140);refresh({preserveFocus:true});}if(ev.target.id==='pa-su-search'){state.supportFilters.q=ev.target.value.slice(0,160);state.supportShowAll=false;refresh({preserveFocus:true});}if(ev.target.id==='pa-ob-search'){state.obFilters.q=ev.target.value.slice(0,180);state.obPage=0;obRefreshPart(true);}if(ev.target.id==='pa-ct-search'){state.ctFilters.q=ev.target.value.slice(0,180);state.ctPage=0;ctRefreshPart(true);}if(ev.target.id==='pa-overall-search'){state.overallSearch=ev.target.value.slice(0,180);overallRefreshTable();}});
@@ -2192,7 +2192,7 @@
   panel.addEventListener('click',ev=>{
     const visibleChooser=panel.querySelector('.pa-meta-chooser[open]');
     if(visibleChooser&&!visibleChooser.contains(ev.target)&&!ev.target.closest('[data-pa-list]'))visibleChooser.open=false;
-    if(ev.target.closest('[data-pa-overall-open]')){state.activeTab='overall';state.list=false;refresh();panel.querySelector('.pa-total-page')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    /* Totalizador eliminado: sin acceso a pagina global desde Plan de Acción. */
     const overallMeta=ev.target.closest('[data-pa-overall-meta]');
     if(overallMeta){state.activeTab='summary';focusMeta(Number(overallMeta.dataset.paOverallMeta));return;}
     if(ev.target.closest('[data-pa-overall-export]')){overallExport();return;}
@@ -2209,7 +2209,7 @@
       return;
     }
     const tab=ev.target.closest('[data-pa-tab]');
-    if(tab){const next=tab.dataset.paTab;if(!['general','summary','overall','activities','physical','beneficiaries','budget','territory','contracts','supports','observations'].includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(tab){const next=tab.dataset.paTab;if(!planNavTabs.includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
     if(ev.target.closest('[data-pa-ct-open]')){state.ctPanelOpen=true;ctRefreshPart();return;}
     if(ev.target.closest('[data-pa-ct-close]')){state.ctPanelOpen=false;ctRefreshPart();return;}
     if(ev.target.closest('[data-pa-ct-retry]')){state.ctError=null;state.ctLoaded=false;ctLoad();return;}
@@ -2327,7 +2327,7 @@
     if(ev.target.closest('[data-pa-ig-doc-close]')){panel.querySelector('#pa-ig-doc-dialog')?.close();return;}
     const meta=ev.target.closest('[data-pa-meta]');if(meta){focusMeta(Number(meta.dataset.paMeta));return;}
     if(ev.target.closest('[data-pa-list]')){const chooser=panel.querySelector('.pa-meta-chooser');if(chooser){chooser.open=!chooser.open;if(chooser.open)chooser.querySelector('#pa-meta-chooser-search')?.focus({preventScroll:true});}return;}
-    const kpi=ev.target.closest('[data-pa-kpi]');if(kpi){if(!currentYear())return;state.activeTab='overall';state.list=false;state.overallSearch='';state.overallStatus=kpi.dataset.paKpi;refresh();panel.querySelector('.pa-total-directory')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    const kpi=ev.target.closest('[data-pa-kpi]');if(kpi){if(!currentYear())return;state.activeTab='summary';state.list=true;state.listCategory=kpi.dataset.paKpi==='all'?'all':kpi.dataset.paKpi;refresh();panel.querySelector('.pa-meta-catalog')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
     const act=ev.target.closest('[data-pa-activity]');if(act){const key=selected()?.id+'-'+act.dataset.paActivity;if(state.activityExpanded.has(key))state.activityExpanded.delete(key);else state.activityExpanded.add(key);const scrollY=window.scrollY;refresh();window.scrollTo({top:scrollY});return;}
     if(ev.target.closest('[data-pa-gallery]')){
       const dialog=panel.querySelector('#pa-gallery-dialog');if(dialog && typeof dialog.showModal==='function')dialog.showModal();return;
