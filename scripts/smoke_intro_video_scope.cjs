@@ -101,7 +101,8 @@ async function checkPlan(page,out){
       'Video editorial indebido: '+id);
     if(intro)assert.ok(await page.locator('#'+id+' .cn-video-section').isVisible());
     if(!intro){
-      assert.ok((await page.locator('#'+id+' .cn-hero h1').innerText()).trim().length>3);
+      assert.ok((await page.locator('#'+id).innerText()).trim().length>80,
+        'No hay contenido funcional en '+id);
       // En 3.2 la portada de la maqueta está oculta a propósito: manda el
       // encabezado propio de Así cumplimos; capturar la vista real del usuario.
       await page.evaluate(()=>window.scrollTo({top:0,left:0,behavior:'instant'}));
