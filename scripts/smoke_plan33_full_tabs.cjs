@@ -127,6 +127,16 @@ async function run(){
       await measureNavigation(page,1440);
       console.log('SECCIÓN '+key+': panel, encabezado, datos y navegación accesibles');
     }
+    // Caso sin URL en Excel: deben verse las actividades concretas, no un panel vacío.
+    await page.locator('#desarrollo-accion [data-pa-tab="contracts"]').click();
+    await page.locator('#pa-ct-meta-select').selectOption('109');
+    await page.locator('#desarrollo-accion [data-pa-contract-supports]').click();
+    await page.waitForSelector('#desarrollo-accion [data-pa-su-missing-list]',{timeout:25000});
+    const missing=await page.locator('#desarrollo-accion [data-pa-su-missing-list]').innerText();
+    assert.match(missing,/2 actividad/);
+    await page.locator('#desarrollo-accion [data-pa-su-missing-list] summary').click();
+    assert.equal(await page.locator('#desarrollo-accion [data-pa-su-missing-list] tbody tr').count(),2);
+    await page.screenshot({path:path.join(out,'auditoria-plan33-soportes-faltantes-2026-3t.png')});
     await page.setViewportSize({width:390,height:844});
     await page.locator('#desarrollo-accion [data-pa-tab="contracts"]').click();
     await measureNavigation(page,390);
