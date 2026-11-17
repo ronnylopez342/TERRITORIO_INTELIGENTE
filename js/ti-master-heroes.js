@@ -31,12 +31,10 @@
  if(characterization){
   const hero=characterization.querySelector(".k23-hero");
   const wrap=hero?.querySelector(".k23-wrap");
-  const vid=wrap?.querySelector(".ti-intro-video--kobo");
   const dims=wrap?.querySelector(".k23-dim-section");
-  if(hero&&vid&&dims){
-   hero.after(vid);
-   vid.after(dims);
-  }
+  // La selección de dimensiones va inmediatamente después de la portada.
+  // No queda atrapada dentro del héroe con altura limitada al retirar el video.
+  if(hero&&dims)hero.after(dims);
  }
  Object.keys(videoRoutes).forEach(route=>{
   const view=document.querySelector('.app-view[data-view="'+route+'"]');
@@ -74,6 +72,10 @@
   const videoTitle=root.querySelector(".ti34-video .ti-video-copy h2");
   const videoText=root.querySelector(".ti34-video .ti-video-copy p");
   const route=root.dataset.view;
+  const isConoce=id===route+"-conoce";
+  // El video introductorio solo pertenece a 3.1 o 4.1; nunca a los demás contenidos.
+  const video=root.querySelector(":scope > .ti34-video");
+  if(video){video.hidden=!isConoce;video.setAttribute("aria-hidden",String(!isConoce));}
   const base=route==="desarrollo"?"Plan de Desarrollo":"Unidad de Cumplimiento";
   const displayTitle=name.replace(/^Año /i,"Vigencia ");
   if(heading){
@@ -83,8 +85,8 @@
   }
   if(intro&&description)intro.textContent=description;
   if(crumb)crumb.textContent=base+" / "+(number&&number!=="•"?number+" ":"")+name;
-  if(videoTitle)videoTitle.textContent=displayTitle+" en video";
-  if(videoText)videoText.textContent="Presentación audiovisual de esta sección: "+(description||"contenido institucional por incorporar.");
+  if(isConoce&&videoTitle)videoTitle.textContent=displayTitle+" en video";
+  if(isConoce&&videoText)videoText.textContent="Presentación audiovisual introductoria: "+(description||"contenido institucional por incorporar.");
   const key=route==="desarrollo"?(id.includes("-contratacion")?"contratacion":id.includes("-accion")?"accion":id.endsWith("-gestion")?"gestion":id.endsWith("-cumplimos")?"cumplimos":"conoce"):
    (id.includes("-inventario")?"inventario":id.endsWith("-alumbrado")?"alumbrado":id.endsWith("-proyectos")?"proyectos":"conoce");
   const image=images[route]?.[key]||"territorio-aereo";
