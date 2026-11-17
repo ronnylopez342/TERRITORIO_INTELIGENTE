@@ -40,6 +40,12 @@ async function run(){
     throw error;
   }
   const rootSel='#desarrollo-cumplimos ';
+  const headingClear=await page.evaluate(()=>{
+    const kicker=document.querySelector('#desarrollo-cumplimos .asi32-kicker');
+    const header=document.querySelector('#siteHeader');
+    return kicker.getBoundingClientRect().top>=header.getBoundingClientRect().bottom;
+  });
+  assert.ok(headingClear,'La identificación institucional queda oculta bajo la barra fija');
   assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),9);
   assert.equal(await page.locator(rootSel+'[data-asi-tab="territorio"]').count(),0);
   assert.equal(await page.locator(rootSel+'[data-asi-filter]').count(),5);

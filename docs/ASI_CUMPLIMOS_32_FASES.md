@@ -70,7 +70,7 @@ Conciliación de catálogos: los códigos de indicador de las filas resumen de m
 - [x] Fase 5: ficha por entidad con dos columnas y comparativo completo de metas.
 - [x] Fase 6: barras y desgloses por líneas, sectores y programas.
 - [x] Fase 7: metas e indicadores con campos, unidades y procedencia reales.
-- [ ] Fase 8: regresión, capturas, Actions y SHA de Vercel iguales a main.
+- [x] Fase 8: regresión, capturas, Actions y SHA de Vercel iguales a main; publicación verificada de la integración `68d5c25746c717771fe81f91c76e8412e4fac6e3`.
 
 Pendientes documentales: metodología oficial de acumulado; reglas oficiales para estados de riesgo/retraso; certificación y fecha de corte de los avances; facturación si se desea mostrarla como etapa independiente; logros/noticias y fotos atribuibles. Estos faltantes no se resuelven con cifras o textos ilustrativos.
 
@@ -80,4 +80,14 @@ Pruebas de datos: 109 filas conciliadas, 15 hojas, cinco sumas financieras por a
 
 Regresión local aprobada: verificación estática y de estructura; sintaxis de todos los JS; datos Data, UC42, Plan Estadístico, módulos actuales y registro editorial; nueve recursos originales protegidos; smokes de 2.1–2.4, 3.3 y 4.2. El control de huellas detectó inicialmente conversión local de saltos de línea de Windows; se restauraron los bytes exactos de Git en este checkout sin modificar los recursos versionados ni sus huellas. Red: el video remoto global de Supabase no resolvió en este equipo; el portal dispone del respaldo MP4 local verificado. La precarga de un PDF externo a 3.2 puede cancelarse al navegar. No se observaron errores de ejecución del navegador ni fallos de carga de los recursos propios de 3.2.
 
-Las capturas se conservan en `screenshots/asi32-*.png` localmente y el workflow las adjunta al resultado de Actions. La verificación de publicación se registrará una vez el candidato haya superado CI y Vercel.
+Las capturas se conservan en `screenshots/asi32-*.png` localmente y el workflow las adjunta al resultado de Actions.
+
+## Publicación comprobada
+
+La [PR 9](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/pull/9) pasó [Actions del candidato](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44018485234) y pruebas sobre el preview de Vercel `READY` antes de integrarse. El acceso temporal creado para revisar el preview protegido fue revocado después de la prueba.
+
+La integración `68d5c25746c717771fe81f91c76e8412e4fac6e3` quedó en main y en producción con Vercel `READY`, sin error de alias. [Actions de main](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44018894351) terminó en SUCCESS. Se ejecutó el smoke completo contra [el dominio público](https://territorio-inteligente.vercel.app/#desarrollo?seccion=desarrollo-cumplimos), incluyendo las ocho entidades, filtros, tablas y las nueve vistas móviles: PASS. El ajuste final reserva espacio al encabezado institucional para que la barra fija no oculte su identificación, con una aserción específica y el smoke nuevamente aprobado.
+
+Gráficas disponibles: columnas físicas anuales y cobertura en Inicio; consolidado de entidades, dos medidas de ejecución por vigencia y cinco etapas financieras en Dashboard; matriz de programación y ejecución por línea/año en Plan; barras anuales con desglose en Líneas, Sectores y Programas; dos medidas de ejecución y comparación completa por meta en cada ficha institucional. Las tarjetas grandes y el catálogo de indicadores añaden programación física, unidad y fuente. Una sola estructura global permanece durante toda la navegación.
+
+Las circulares de acumulado y de estados no se activaron sin metodología oficial. Las noticias, logros certificados, fotos atribuibles y la etapa independiente de facturación requieren fuentes adicionales. La página 6 está excluida; no es un faltante. No se publican porcentajes de ejemplo del Word ni ejecución de 2026/2027.
