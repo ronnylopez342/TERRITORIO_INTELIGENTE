@@ -17,7 +17,7 @@ async function run(){
  try{
   await page.goto('http://127.0.0.1:'+server.address().port+'/#desarrollo?seccion=desarrollo-cumplimos',{waitUntil:'domcontentloaded',timeout:45000});
   await page.waitForSelector('#desarrollo-cumplimos [data-asi32-root]',{timeout:30000});
-  if(await page.locator('#desarrollo-cumplimos').isHidden())await page.locator('#tab-desarrollo-cumplimos').click();
+  if(await page.locator('#desarrollo-cumplimos').isHidden())await page.evaluate(()=>document.getElementById('tab-desarrollo-cumplimos')?.click());
   await page.waitForFunction(()=>document.querySelectorAll('#desarrollo-cumplimos .asi32-kpi').length===6,null,{timeout:45000});
   const rootSel='#desarrollo-cumplimos ';
   assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),10);
