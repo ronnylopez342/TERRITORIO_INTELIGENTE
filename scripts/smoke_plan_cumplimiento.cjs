@@ -34,20 +34,28 @@ async function test(){
    return p?.classList.contains('pa-mounted') &&
      p.querySelectorAll('.pa-summary-analytics>.pa-card').length===2;
   },null,{timeout:35000});
-  assert.equal(await page.locator('#desarrollo-accion [data-pa-tab]').count(),11);
+  assert.equal(await page.locator('#desarrollo-accion [data-pa-tab]').count(),10);
+  assert.equal(await page.locator('#desarrollo-accion [data-pa-tab="overall"]').count(),0,'El Totalizador debe estar eliminado');
   assert.equal(await page.locator('#desarrollo-accion .pa-summary-physical-plot').count(),1);
   assert.equal(await page.locator('#desarrollo-accion .pa-summary-budget-trace').count(),1);
   assert.match(await page.locator('#desarrollo-accion .pa-kpi--all').innerText(),/109/);
-  assert.match(await page.locator('#desarrollo-accion .pa-summary-analytics').innerText(),/2025/);
+  assert.equal(await page.locator('#pa-year-select').inputValue(),'2026');
+  assert.match(await page.locator('#desarrollo-accion .pa-summary-analytics').innerText(),/2026/);
+  assert.match(await page.locator('#desarrollo-accion .pa-top').innerText(),/tercer trimestre/i);
   const chart=await page.locator('#desarrollo-accion .pa-summary-physical-plot').innerText();
-  assert.ok(chart.trim().length>20,'Ejecucion fisica debe tener contenido');
-  await page.screenshot({path:path.join(out,'auditoria-plan33-2025.png'),fullPage:false});
-  await page.locator('#pa-year-select').selectOption('2026');
-  await page.waitForFunction(()=>document.querySelector('.pa-summary-analytics')?.textContent.includes('2026'),null,{timeout:20000});
-  assert.match(await page.locator('.pa-kpi--all').innerText(),/109/);
+  assert.ok(chart.trim().length>20,'Ejecución física debe tener contenido');
+  await page.screenshot({path:path.join(out,'auditoria-plan33-2026-3t.png'),fullPage:false});
+  await page.locator('#desarrollo-accion [data-pa-tab="physical"]').click();
+  await page.waitForFunction(()=>document.querySelector('#desarrollo-accion .pa-ph-table-scroller'),null,{timeout:20000});
+  assert.match(await page.locator('#desarrollo-accion .pa-ph-table-card').innerText(),/Oct|Octubre/i);
+  assert.match(await page.locator('#desarrollo-accion .pa-ph-table-card').innerText(),/tercer trimestre/i);
+  await page.locator('#desarrollo-accion [data-pa-tab="budget"]').click();
+  await page.waitForFunction(()=>document.querySelector('#desarrollo-accion .pa-bu-six'),null,{timeout:20000});
+  assert.match(await page.locator('#desarrollo-accion .pa-bu-source').innerText(),/Tercer trimestre/i);
   await page.locator('#pa-year-select').selectOption('2024');
   await page.waitForFunction(()=>document.querySelector('#desarrollo-accion .pa-empty')?.textContent.includes('2024'),null,{timeout:18000});
   await page.locator('#pa-year-select').selectOption('2025');
+  await page.locator('#desarrollo-accion [data-pa-tab="summary"]').click();
   await page.waitForFunction(()=>document.querySelector('.pa-summary-analytics')?.textContent.includes('2025'),null,{timeout:20000});
   // Vista mobile: graficas dentro de tarjeta, nunca salen del ancho de la pantalla.
   await page.setViewportSize({width:390,height:844});
@@ -64,7 +72,7 @@ async function test(){
   assert.ok(mobilePlan.cardWidth<=mobilePlan.screen+10,'Tarjetas de Resumen desbordan mobile: '+JSON.stringify(mobilePlan));
   await page.screenshot({path:path.join(out,'auditoria-plan33-movil.png'),fullPage:false});
   await page.setViewportSize({width:1440,height:900});
-  console.log('PLAN 3.3: dos paneles compuestos, dos trazados, 109 metas, 2025/2026 y sin datos 2024: PASS');
+  console.log('PLAN 3.3: 10 tabs sin totalizador, 109 metas 2026 3T, 9 meses, presupuesto y 2025/2024: PASS');
 
   await page.goto(host+'/#cumplimiento?seccion=cumplimiento-proyectos',{waitUntil:'domcontentloaded',timeout:45000});
   await page.waitForFunction(()=>window.TI42Summary?.loaded===true,null,{timeout:35000});
