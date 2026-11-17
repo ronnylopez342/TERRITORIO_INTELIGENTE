@@ -52,12 +52,21 @@ jobs:
           npx playwright install chromium --with-deps
       - name: Smoke de las cuatro vistas Data actuales
         run: node scripts/smoke_current_modules.cjs
+      - name: Video solo en Conoce y titulares completos en la portada 2.3
+        run: node scripts/smoke_intro_video_scope.cjs
       - name: Smoke de Plan de Accion 3.3 y Cumplimiento 4.2
         run: node scripts/smoke_plan_cumplimiento.cjs
       - name: Verificar barra completa y contenido de las diez pestañas de Plan 3.3
         run: node scripts/smoke_plan33_full_tabs.cjs
       - name: Smoke interactivo de Asi cumplimos 3.2
         run: node scripts/smoke_asi_cumplimos32.cjs
+      - name: Guardar capturas de portada 2.3 sin letras partidas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencia-conoce-solo-videos
+          path: screenshots/conoce-solo-23-*.png
+          if-no-files-found: warn
       - name: Conservar capturas de Asi cumplimos
         if: always()
         uses: actions/upload-artifact@v4
