@@ -481,3 +481,12 @@
     width:100%;
   }
 }
+
+
+/* Inventario 2026 T3: estado real de enlace, metadatos y documentos no verificados. */
+#desarrollo-accion .pa-su-inventory{margin:0 0 18px;padding:16px;border:1px solid #cbded3;border-left:4px solid #117b54;border-radius:10px;background:#f4faf6;color:#24493a}
+#desarrollo-accion .pa-su-inventory>h3{margin:0 0 12px;color:#13583e;font-size:15px}
+#desarrollo-accion .pa-su-inventory .pa-su-summary{margin:0 0 12px}
+#desarrollo-accion .pa-su-inventory .pa-su-accuracy-note{margin:0;font-size:12px;line-height:1.65;color:#425e4d}
+#desarrollo-accion .pa-su-inventory .pa-su-stat{min-width:0;overflow-wrap:anywhere}
+@media(max-width:660px){#desarrollo-accion .pa-su-inventory{padding:12px}}
