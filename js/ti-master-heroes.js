@@ -97,6 +97,13 @@
  function sync(){
   document.querySelectorAll('.app-view.ti34-ready[data-view="desarrollo"],.app-view.ti34-ready[data-view="cumplimiento"]').forEach(updateModule);
  }
+ // La vista 4.1 oculta el menú lateral; la navegación también ocurre desde
+ // los menús globales y mediante saveModuleSection, no solo con un clic interno.
+ // Observar la selección real evita que 4.2–4.4 conserven el video de 4.1.
+ document.querySelectorAll('.app-view.ti34-ready .ti34-nav').forEach(nav=>{
+  const watcher=new MutationObserver(sync);
+  watcher.observe(nav,{subtree:true,attributes:true,attributeFilter:['class','aria-selected']});
+ });
  document.addEventListener("click",e=>{if(e.target.closest(".ti34-nav [data-module-panel], [data-ti34-go]"))queueMicrotask(sync);});
  document.addEventListener("keydown",e=>{if(e.target.closest(".ti34-nav [role=tab]"))queueMicrotask(sync);});
  window.addEventListener("popstate",()=>requestAnimationFrame(sync));
