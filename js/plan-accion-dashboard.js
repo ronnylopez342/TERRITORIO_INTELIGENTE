@@ -1759,7 +1759,7 @@
       if(verifiedRes.ok){const meta=await verifiedRes.json();if(meta?.folders)state.supportVerified=meta;}
       state.supportError=null;
     }catch(error){state.supportError=String(error.message||error);console.warn('Soportes:',error);}
-    finally{state.supportLoading=false;state.supportExtraLoaded=true;if(state.activeTab==='supports')refresh();}
+    finally{state.supportLoading=false;state.supportExtraLoaded=true;if(['supports','contracts'].includes(state.activeTab))refresh();}
   }
   function suOpenPreview(key){
     const m=selected(),item=m?suBuild(m).entries.find(f=>f.key===key):null;
@@ -2097,7 +2097,21 @@
   }
   function ctDetailPanel(){const c=ctCurrent(),visible=state.ctPanelOpen;return `<aside class="pa-ct-detail ${visible?'':'is-collapsed'}" aria-label="Detalle del contrato"><header><strong>Detalle del contrato</strong><button type="button" data-pa-ct-close title="Cerrar detalle" aria-label="Cerrar detalle">×</button></header><div class="pa-ct-detail-inner"><div class="pa-ct-detail-heading"><h3>${html(c?.contract||c?.process||'Sin contrato seleccionado')}</h3>${c?`<span class="pa-ct-badge ${html(c.statusKey)}">${html(ctStatusLabel(c.statusKey))}</span>`:''}</div><nav class="pa-ct-detail-tabs" aria-label="Secciones del detalle">${[['info','Información'],['finance','Financiera'],['additions','Adiciones'],['secop','SECOP']].map(([k,l])=>`<button type="button" class="${state.ctDetailTab===k?'active':''}" data-pa-ct-detail-tab="${k}">${l}</button>`).join('')}</nav><div class="pa-ct-detail-content">${ctDetailContent(c)}</div><footer><button type="button" data-pa-ct-docs ${c&&(c.reports||c.expensesLink)?'':'disabled'}>${ctIcons.file} Ver documentos</button>${c&&ctSafeUrl(c.secop)?`<a target="_blank" rel="noopener noreferrer" href="${html(ctSafeUrl(c.secop))}">${ctIcons.open} Abrir en SECOP</a>`:'<span class="pa-ct-detail-no-link">SECOP sin enlace verificable</span>'}</footer></div></aside>`;}
   function ctDocsDialog(){const c=ctCurrent();const links=c?[['Informes',c.reports],['Egresos',c.expensesLink]].filter(x=>safeLink(x[1])):[];return `<dialog id="pa-ct-doc-dialog" class="pa-ct-dialog"><header><h2>Documentos del contrato</h2><button type="button" data-pa-ct-doc-close aria-label="Cerrar">×</button></header><p>Archivos o repositorios enlazados desde la matriz de contratación. El acceso depende del proveedor.</p>${links.map(([t,u])=>`<a href="${html(safeLink(u))}" target="_blank" rel="noopener noreferrer">${ctIcons.open} ${t} · abrir enlace original</a>`).join('')||'<p>No hay documentos enlazados desde el archivo para este contrato.</p>'}</dialog>`;}
-  function ctDashboard(){return `<div class="pa-ct-dashboard">${state.year==='2026'?'<p class="pa-ct-method" role="note"><strong>Alcance contractual:</strong> los contratos de esta vista proceden de la base documental de contratación separada y no del Plan de Acción 2026 3T. El archivo 3T no incluye contratos individualizados; por ello, el corte de los contratos puede ser distinto de septiembre de 2026. Las cifras financieras de una meta sí deben consultarse en Ejecución Presupuestal.</p>':''}${ctSwitchMeta()}<div class="pa-ct-layout ${state.ctPanelOpen?'':'full'}"><div class="pa-ct-main">${ctStats()}${ctBarCharts()}${ctTable()}<div class="pa-ct-bottom">${ctFinancialTracking()}${ctFunding()}${ctRubros()}</div><p class="pa-ct-method">Fuente: bases de contratación de Subachoque 2024, 2025 y 2026. Contratos asociados a la meta por número explícito; los contratos compartidos se muestran con su valor total (no necesariamente imputable a una sola meta). El estado contractual corresponde al Excel y puede no reflejar cambios posteriores en SECOP.</p></div>${ctDetailPanel()}</div>${ctDocsDialog()}</div>`;}
+  function ctEvidenceCrosscheck(){
+    if(state.year!=='2026')return '';
+    const data=state.supportManifest?.metas?.[String(state.current)];
+    if(!data)return '<section class="pa-ct-method" role="note">Los soportes contractuales del Plan de Acción 2026 3T se verifican por separado. Consulta la pestaña Soportes.</section>';
+    const activities=Object.values(data).filter(a=>/contrat|convenio|p[oó]liz|actas?|estudios?\s+y\s+diseñ|resoluci[oó]n/i.test(String(a.supportExpected||'')));
+    const linked=activities.filter(a=>a.refs?.length).length;
+    const missing=activities.length-linked;
+    return '<section class="pa-ct-method pa-ct-evidence-crosscheck" data-pa-ct-evidence-audit role="note">'+
+      '<strong>Conciliación documental con el Plan de Acción 2026 · 3T</strong>'+
+      '<p>'+activities.length+' actividad(es) mencionan soportes potencialmente contractuales (actas, convenios, pólizas, procesos, estudios o resoluciones). '+
+      linked+' tienen al menos un enlace de soporte y '+missing+' no lo tienen registrado en la columna AC. '+
+      'Un soporte de actividad NO acredita por sí solo un contrato, su estado, cuantía, número SECOP ni pagos.</p>'+
+      '<button type="button" data-pa-contract-supports>Consultar soportes de la meta '+state.current+'</button></section>';
+  }
+  function ctDashboard(){return `<div class="pa-ct-dashboard">${state.year==='2026'?'<p class="pa-ct-method" role="note"><strong>Alcance contractual:</strong> los contratos de esta vista proceden de la base documental de contratación separada y no del Plan de Acción 2026 3T. El archivo 3T no incluye contratos individualizados; por ello, el corte de los contratos puede ser distinto de septiembre de 2026. Las cifras financieras de una meta sí deben consultarse en Ejecución Presupuestal.</p>':''}${ctEvidenceCrosscheck()}${ctSwitchMeta()}<div class="pa-ct-layout ${state.ctPanelOpen?'':'full'}"><div class="pa-ct-main">${ctStats()}${ctBarCharts()}${ctTable()}<div class="pa-ct-bottom">${ctFinancialTracking()}${ctFunding()}${ctRubros()}</div><p class="pa-ct-method">Fuente: bases de contratación de Subachoque 2024, 2025 y 2026. Contratos asociados a la meta por número explícito; los contratos compartidos se muestran con su valor total (no necesariamente imputable a una sola meta). El estado contractual corresponde al Excel y puede no reflejar cambios posteriores en SECOP.</p></div>${ctDetailPanel()}</div>${ctDocsDialog()}</div>`;}
   function ctResults(){
     if(state.loading)return '<div class="pa-ct-placeholder">Cargando metas…</div>';
     const m=ctMeta();if(!m)return '<div class="pa-ct-placeholder">No se ha podido obtener una referencia para la meta seleccionada.</div>';
@@ -2220,7 +2234,7 @@
       requestAnimationFrame(()=>trInitMap());
       if(!state.territoryExtraLoaded)trLoadFullTexts();
     }
-    if(state.activeTab==='supports'&&currentYear()&&!state.list&&!state.supportExtraLoaded&&!state.supportLoading)suLoadCatalog();
+    if(['supports','contracts'].includes(state.activeTab)&&currentYear()&&!state.list&&!state.supportExtraLoaded&&!state.supportLoading)suLoadCatalog();
     if(state.activeTab==='contracts'&&!state.ctLoaded&&!state.ctLoading&&!state.ctError)ctLoad();
     if(state.activeTab==='observations'&&currentYear()&&!state.list&&!state.obLoaded&&!state.obLoading&&!state.obError)obLoad();
     if(preserveFocus&&id){const replacement=panel.querySelector('#'+id);if(replacement){replacement.focus({preventScroll:true});try{replacement.setSelectionRange(sel,selEnd)}catch{}}}
@@ -2289,6 +2303,7 @@
     if(tab){const next=tab.dataset.paTab;if(!planNavTabs.includes(next))return;state.activeTab=next;state.list=false;state.territoryExpanded=false;refresh();panel.scrollIntoView({behavior:'instant',block:'start'});return;}
     if(ev.target.closest('[data-pa-ct-open]')){state.ctPanelOpen=true;ctRefreshPart();return;}
     if(ev.target.closest('[data-pa-ct-close]')){state.ctPanelOpen=false;ctRefreshPart();return;}
+    if(ev.target.closest('[data-pa-contract-supports]')){state.activeTab='supports';refresh();return;}
     if(ev.target.closest('[data-pa-ct-retry]')){state.ctError=null;state.ctLoaded=false;ctLoad();return;}
     if(ev.target.closest('[data-pa-ct-doc-close]')){panel.querySelector('#pa-ct-doc-dialog')?.close();return;}
     if(ev.target.closest('[data-pa-ct-docs]')){panel.querySelector('#pa-ct-doc-dialog')?.showModal();return;}
