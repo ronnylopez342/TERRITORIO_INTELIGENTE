@@ -48,8 +48,8 @@
 - [x] Conservar anomalías originales y visibilizar discrepancias al consultar meta.
 - [x] Incorporar 89 observaciones y responsables por actividad desde el nuevo libro.
 - [x] Eliminar Totalizador en 3.3 sin borrar navegación por metas.
-- [ ] Comprobar GitHub Actions en verde para el SHA final.
-- [ ] Comprobar Vercel `READY` apuntando al SHA final.
+- [x] Comprobar GitHub Actions en verde para la versión funcional: [ejecución 44034387431](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44034387431) → **SUCCESS**.
+- [x] Comprobar Vercel `READY` con la versión funcional: commit `052d35d366cfd60c6462811282b8be9f16c7cab3`, rama `main` y dominio oficial en **READY**. Al modificar este informe, verificar el nuevo SHA antes del cierre.
 - [ ] Confirmación municipal de la discrepancia `2025`/2026 en los encabezados del libro.
 - [ ] Auditoría de vigencia del catálogo de contratación, dado que este XLSX no contiene contratos individualizados.
 
