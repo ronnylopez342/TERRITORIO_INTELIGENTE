@@ -1629,10 +1629,34 @@
     return `<header class="pa-ig-hero pa-act-hero pa-su-hero"><div class="pa-ig-hero-main"><nav class="pa-act-breadcrumb" aria-label="Ruta del módulo"><span>Inicio</span><span>Metas</span><span>Meta ${state.current}</span><strong>Soportes</strong></nav><h1>Soportes de la Meta</h1><p>Consulta las evidencias, documentos y soportes que respaldan la ejecución de las actividades.</p></div><div class="pa-ig-hero-actions"><div class="pa-ig-quote">“La transparencia<br>también construye<br>desarrollo”</div><label class="pa-ig-select-year">Año de seguimiento<select id="pa-su-year-select" aria-label="Año de seguimiento">${suYears.map(y=>`<option value="${y}" ${String(y)===state.year?'selected':''}>${y}</option>`).join('')}</select></label></div></header>`;
   }
   function suSummary(m){
-    const cat=suBuild(m),len=cat.files.length;
+    const cat=suBuild(m);
+    if(state.year==='2026'&&state.supportManifest){
+      const source=state.supportManifest.metas?.[String(m.id)]||{};
+      const registered=Object.values(source),withLink=registered.filter(a=>a.refs?.length).length;
+      const pending=registered.length-withLink;
+      const references=registered.reduce((n,a)=>n+(a.refs||[]).length,0);
+      const missing=cat.entries.filter(x=>x.accessNote||x.visibility==='not_verified').length;
+      const values=[
+        ['folder','Actividades con enlace',withLink,'De '+registered.length+' actividades de esta meta'],
+        ['document','Sin enlace registrado',pending,'Pendientes de documentación en columna AC'],
+        ['photo','Archivos individuales',cat.files.length,'No incluye contenido de carpetas'],
+        ['certificate','Carpetas enlazadas',cat.repos.length,'Archivos internos no totalizados'],
+        ['video','Referencias documentales',references,'Enlaces originales sin duplicar archivos']
+      ];
+      return '<section class="pa-su-inventory" data-pa-su-audit-summary aria-label="Auditoría de enlaces al tercer trimestre">'+
+      '<h3>Inventario verificable del tercer trimestre · Meta '+m.id+'</h3>'+
+      '<div class="pa-su-summary">'+values.map(([icon,title,value,sub])=>
+        '<article class="pa-su-stat pa-su-stat-'+icon+'"><span class="pa-su-stat-icon">'+suIcon(icon)+'</span>'+
+        '<div><h3>'+html(title)+'</h3><strong>'+html(String(value))+'</strong><small>'+html(sub)+'</small></div></article>').join('')+'</div>'+
+      '<p class="pa-su-accuracy-note">Auditoría integral de 2026: 379 actividades; 222 con algún enlace; 157 sin URL; 227 referencias (160 identificadores únicos). Se recuperaron hipervínculos de celdas que no aparecían como texto. Metadatos de 150 identificadores consultables en Drive y 10 sin verificación; la existencia de una carpeta no certifica sus documentos ni su contenido. '+
+      (missing?'<strong>'+missing+' enlaces de esta meta requieren revisión de acceso.</strong>':'')+
+      ' Los enlaces externos pueden requerir permisos y sus fechas de modificación no equivalen a la fecha de ejecución.</p></section>';
+    }
     const suffix=cat.unknownRepos?'identificados · hay carpetas sin enumerar':'individuales identificados';
-    const values=[['folder','Total de soportes',len||(!cat.unknownRepos?'0':'—'),'Archivos '+suffix],['photo','Fotografías',cat.types.photo||(cat.unknownRepos?'—':'0'),cat.unknownRepos?'Archivos no clasificados en otras carpetas':'Imágenes identificadas'],['document','Documentos',cat.types.document||(cat.unknownRepos?'—':'0'),'Archivos documentales'],['video','Videos',cat.types.video||(cat.unknownRepos?'—':'0'),'Videos identificados'],['certificate','Actas / Certificaciones',cat.types.certificate||(cat.unknownRepos?'—':'0'),'Sin duplicar documentos']];
-    return `<div class="pa-su-summary" aria-label="Indicadores de soportes">${values.map(([icon,title,value,sub])=>`<article class="pa-su-stat pa-su-stat-${icon}"><span class="pa-su-stat-icon">${suIcon(icon)}</span><div><h3>${html(title)}</h3><strong>${html(value)}</strong><small>${html(sub)}</small></div></article>`).join('')}</div><p class="pa-su-accuracy-note">${cat.repos.length} ${cat.repos.length===1?'repositorio enlazado':'repositorios enlazados'} en el Excel para esta meta. ${cat.unknownRepos?'El contenido de '+cat.unknownRepos+' no se ha podido enumerar; los contadores de archivos son parciales.':'Los archivos identificados se muestran sin duplicar enlaces compartidos.'}</p>`;
+    const values=[['folder','Archivos individuales',cat.files.length,'Archivos '+suffix],['photo','Fotografías',cat.types.photo||(cat.unknownRepos?'—':'0'),'Imágenes identificadas'],['document','Documentos',cat.types.document||(cat.unknownRepos?'—':'0'),'Archivos documentales'],['video','Videos',cat.types.video||(cat.unknownRepos?'—':'0'),'Videos identificados'],['certificate','Actas / Certificaciones',cat.types.certificate||(cat.unknownRepos?'—':'0'),'Sin duplicar documentos']];
+    return '<div class="pa-su-summary" aria-label="Indicadores de soportes">'+values.map(([icon,title,value,sub])=>
+       '<article class="pa-su-stat pa-su-stat-'+icon+'"><span class="pa-su-stat-icon">'+suIcon(icon)+'</span><div><h3>'+html(title)+'</h3><strong>'+html(String(value))+'</strong><small>'+html(sub)+'</small></div></article>').join('')+
+       '</div><p class="pa-su-accuracy-note">'+cat.repos.length+' repositorios enlazados. '+(cat.unknownRepos?'Existen carpetas sin enumerar; cifras de archivos parciales.':'Archivos identificados por sus enlaces.')+'</p>';
   }
   function suFilterBar(m){
    const opts=(arr,value)=>arr.map(([v,t])=>`<option value="${html(v)}"${v===value?' selected':''}>${html(t)}</option>`).join('');
