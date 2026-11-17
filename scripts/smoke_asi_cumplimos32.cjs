@@ -39,14 +39,39 @@ async function run(){
   assert.equal(await page.locator(rootSel+'[data-asi-filter="year"]').inputValue(),'all');
   const kpis=await page.locator(rootSel+'.asi32-kpis').first().innerText();
   for(const k of ['109','6','19','29','8'])assert.ok(kpis.includes(k),'Missing KPI '+k);
-  assert.equal(await page.locator(rootSel+'[data-asi-owner]').count(),8);
-  await page.screenshot({path:path.join(dest,'asi32-inicio-desktop.png')});
+  // Inicio debe tener UN único encabezado compacto, filtros, KPIs, y botones, en ese orden.
+  assert.equal(await page.locator(rootSel+'.asi32-hero').count(),1);
+  assert.equal(await page.locator(rootSel+'.asi32-photo-strip').count(),0,'Se reintrodujo el collage antiguo');
+  assert.equal(await page.locator(rootSel+'[data-asi-kpis]').count(),1);
+  assert.equal(await page.locator(rootSel+'[data-asi-kpis] .asi32-kpi').count(),6);
+  assert.equal(await page.locator(rootSel+'[data-asi-body] .asi32-kpi').count(),0,'KPIs duplicados dentro de Inicio');
+  assert.equal(await page.locator(rootSel+'.asi32-nav').count(),1);
+  const order=await page.evaluate(()=>{
+    const items=['.asi32-hero','.asi32-filters','.asi32-topmetrics','.asi32-nav','.asi32-body'];
+    return items.map(sel=>[sel,document.querySelector('#desarrollo-cumplimos '+sel)?.getBoundingClientRect().top]);
+  });
+  assert.ok(order.every(x=>Number.isFinite(x[1]))&&order.every((x,i)=>i===0||x[1]>=order[i-1][1]),
+    'Orden de filtros, KPIs, navegación o contenido incorrecto: '+JSON.stringify(order));
+  assert.ok((await page.locator(rootSel+'.asi32-hero').boundingBox()).height<175,'Portada desproporcionada');
+  assert.equal(await page.locator(rootSel+'.asi32-home-progress').count(),1);
+  assert.equal(await page.locator(rootSel+'.asi32-home-finance').count(),1);
+  const inicio=await page.locator(rootSel+'[data-asi-body]').innerText();
+  for(const value of ['96,9','17,5','103 de 109','108 de 109','2026','2027','Sin reporte'])
+    assert.ok(inicio.includes(value),'Falta dato real en Inicio: '+value);
+  const kpiText=await page.locator(rootSel+'[data-asi-kpis]').innerText();
+  assert.ok(kpiText.includes('97,6')&&kpiText.includes('mil millones'),'No se cargó presupuesto real del cuatrienio');
+  assert.ok(!inicio.includes('71,20 %')&&!inicio.includes('3,91 billones'),'No reutilizar porcentajes o presupuestos ficticios del diseño');
+  await page.screenshot({path:path.join(dest,'asi32-inicio-desktop.png'),fullPage:true});
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2026');
-  await page.waitForFunction(()=>document.querySelector('#desarrollo-cumplimos .asi32-compare')?.textContent.includes('Sin reporte'),null,{timeout:12000});
-  assert.equal(await page.locator(rootSel+'.asi32-segment').count(),0);
+  await page.waitForFunction(()=>document.querySelector('#desarrollo-cumplimos .asi32-home-annual')?.textContent.includes('Sin reporte'),null,{timeout:12000});
+  assert.equal(await page.locator(rootSel+'.asi32-home-annual-value').count(),0);
+  assert.equal(await page.locator(rootSel+'.asi32-home-missing').count(),1);
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2024');
-  assert.match(await page.locator(rootSel+'.asi32-compare').innerText(),/96,9/);
+  assert.match(await page.locator(rootSel+'.asi32-home-annual').innerText(),/96,9/);
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('all');
+  // La navegación a otras vistas sigue funcionando sin rediseñarlas.
+  await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').click();
+  assert.equal(await page.locator(rootSel+'[data-asi-owner]').count(),8);
   await page.locator(rootSel+'[data-asi-owner]').first().click();
   assert.equal(await page.locator(rootSel+'.asi32-detail-banner').count(),1);
   assert.ok(await page.locator(rootSel+'.asi32-goal').count()>0);
@@ -60,8 +85,12 @@ async function run(){
   await page.setViewportSize({width:390,height:844});
   const rect=await page.locator(rootSel+'.asi32').boundingBox();
   assert.ok(rect.width<=400,'Mobile overflow '+JSON.stringify(rect));
-  await page.screenshot({path:path.join(dest,'asi32-inicio-mobile.png')});
-  console.log('ASI CUMPLIMOS 3.2 SMOKE: PASS; charts, 8 departments, 109 goals, 2024 progress, 2026 no data, mobile.');
+  assert.equal(await page.locator(rootSel+'[data-asi-kpis] .asi32-kpi').count(),6);
+  assert.equal(await page.locator(rootSel+'[data-asi-body] .asi32-kpi').count(),0);
+  const compactHeader=await page.locator(rootSel+'.asi32-hero').boundingBox();
+  assert.ok(compactHeader.height<260,'Encabezado móvil demasiado grande: '+JSON.stringify(compactHeader));
+  await page.screenshot({path:path.join(dest,'asi32-inicio-mobile.png'),fullPage:true});
+  console.log('ASÍ CUMPLIMOS 3.2: INICIO EN ORDEN, KPI ÚNICO, 109 METAS, 2024/2025 REALES, 2026/2027 SIN REPORTE Y MÓVIL: PASS.');
  }finally{await browser.close();await new Promise(ok=>server.close(ok));}
 }
 run().catch(error=>{console.error(error);server.close();process.exitCode=1;});
