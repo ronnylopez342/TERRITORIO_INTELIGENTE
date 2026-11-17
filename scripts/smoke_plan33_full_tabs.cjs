@@ -105,6 +105,23 @@ async function run(){
       assert.ok(text.length>80,'Panel vacío o incompleto: '+key+' longitud '+text.length);
       assert.ok(!/No fue posible cargar|No se pudieron cargar los datos|Error de lectura/i.test(text),
         'Error de carga en '+key+': '+text.slice(0,350));
+      if(key==='supports'){
+        await page.waitForSelector('#desarrollo-accion [data-pa-su-audit-summary]',{timeout:25000});
+        const audit=await page.locator('#desarrollo-accion [data-pa-su-audit-summary]').innerText();
+        assert.match(audit,/379 actividades/);
+        assert.match(audit,/227 referencias/);
+        assert.match(audit,/157 sin URL/);
+        assert.equal(await page.locator('#desarrollo-accion .pa-su-file-card').count(),7,
+          'Meta 101 debe tener 7 carpetas de origen, aunque 6 no tienen metadatos consultables');
+        await page.screenshot({path:path.join(out,'auditoria-plan33-soportes-2026-3t.png')});
+      }
+      if(key==='contracts'){
+        await page.waitForSelector('#desarrollo-accion [data-pa-ct-evidence-audit]',{timeout:25000});
+        const cross=await page.locator('#desarrollo-accion [data-pa-ct-evidence-audit]').innerText();
+        assert.match(cross,/no acredita por sí solo un contrato/i);
+        assert.equal(await page.locator('#desarrollo-accion [data-pa-contract-supports]').count(),1);
+        await page.screenshot({path:path.join(out,'auditoria-plan33-contratos-2026-3t.png')});
+      }
       const year=await page.locator('#pa-year-select').inputValue();
       assert.equal(year,'2026','Vigencia se perdió al cambiar a '+key);
       await measureNavigation(page,1440);
