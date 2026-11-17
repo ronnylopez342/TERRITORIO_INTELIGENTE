@@ -319,3 +319,39 @@ body:has(#desarrollo-cumplimos:not([hidden])) .ti34-sidebar,body:has(#desarrollo
 #desarrollo-cumplimos .asi32 .asi32-class-row strong{text-align:right;color:#145e3e}
 #desarrollo-cumplimos .asi32 .asi32-class-row small{grid-column:2/-1;color:#587463;font-size:10px}
 @media(min-width:960px){#desarrollo-cumplimos .asi32{padding-top:18px}}
+
+/* Consulta documental del Excel: mantiene las nueve vistas existentes. */
+#desarrollo-cumplimos .asi32 .asi32-source-link{display:inline-block;border:1px solid #accbb7;border-radius:5px;background:#f5faf6;color:#075c3e;padding:7px 10px;line-height:1.45;text-align:left;font-size:12px}
+#desarrollo-cumplimos .asi32 .asi32-source-expand{margin-top:16px}
+#desarrollo-cumplimos .asi32 .asi32-source-expand>summary{padding:14px 0;font-weight:750;color:#0c6543;cursor:pointer}
+#desarrollo-cumplimos .asi32 .asi32-independent{display:grid;gap:18px}
+#desarrollo-cumplimos .asi32 .asi32-goal-sources{display:flex;gap:7px;flex-wrap:wrap}
+#desarrollo-cumplimos .asi32 .asi32-ods-row{display:grid;grid-template-columns:minmax(140px,1fr) minmax(80px,1fr) 80px;gap:14px;align-items:center;border-bottom:1px solid #e6eee8;padding:13px 0;font-size:12px}
+#desarrollo-cumplimos .asi32 .asi32-source-coverage{margin-top:30px;padding-top:12px;scroll-margin-top:120px}
+#desarrollo-cumplimos .asi32 .asi32-source-limit{padding:12px;background:#f2f6f1;font-size:12px;line-height:1.6}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog{position:fixed;inset:0;margin:auto;width:min(1300px,94vw);max-width:94vw;max-height:88vh;border:1px solid #a4c7b2;border-radius:12px;background:white;color:#244a37;padding:0;overflow:hidden;font:400 13px/1.5 Arial,sans-serif;box-shadow:0 18px 80px #09231d66}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog[open]{display:flex;flex-direction:column}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog::backdrop{background:#102b26aa}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog-head{display:flex;gap:20px;justify-content:space-between;align-items:flex-start;background:#eff6f0;padding:20px;flex-shrink:0;border-bottom:1px solid #d6e5da}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog-head h2{color:#154732!important;font-size:22px;line-height:1.25}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog-head p{font-size:12px;margin-top:8px}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog-body{padding:18px;overflow:auto;min-height:0}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog-body>p{margin-bottom:14px}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog .asi32-table{min-width:1000px}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog .asi32-table td{max-width:280px;overflow-wrap:anywhere;white-space:pre-wrap}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog button{background:white;color:#0a6441;border:1px solid #abcbb7;border-radius:5px;padding:8px 12px;font:inherit;cursor:pointer}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog button:disabled{opacity:.45;cursor:default}
+#desarrollo-cumplimos .asi32 .asi32-source-dialog-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:15px 20px;border-top:1px solid #d6e5da;flex-shrink:0;background:#eff6f0!important;color:#244a37!important;min-height:0!important;margin:0!important}
+#desarrollo-cumplimos .asi32 .asi32-original-fields{min-width:170px}
+#desarrollo-cumplimos .asi32 .asi32-original-fields summary{cursor:pointer;font-weight:700}
+#desarrollo-cumplimos .asi32 .asi32-original-fields dl{margin:14px 0;width:260px;max-width:100%;white-space:normal}
+#desarrollo-cumplimos .asi32 .asi32-original-fields dt{font-weight:700;padding:8px 0 3px;border-top:1px solid #e2eae4}
+#desarrollo-cumplimos .asi32 .asi32-original-fields dd{margin:0 0 10px;overflow-wrap:anywhere;white-space:pre-wrap}
+@media(max-width:650px){
+ #desarrollo-cumplimos .asi32 .asi32-ods-row{grid-template-columns:minmax(0,1fr) 75px;gap:7px}
+ #desarrollo-cumplimos .asi32 .asi32-ods-row .asi32-track{grid-column:1;grid-row:2}
+ #desarrollo-cumplimos .asi32 .asi32-ods-row strong{grid-column:2;grid-row:1/3}
+ #desarrollo-cumplimos .asi32 .asi32-source-dialog{width:96vw;max-width:96vw;max-height:92dvh}
+ #desarrollo-cumplimos .asi32 .asi32-source-dialog-head{padding:14px;gap:10px}
+ #desarrollo-cumplimos .asi32 .asi32-source-dialog-head h2{font-size:18px}
+}

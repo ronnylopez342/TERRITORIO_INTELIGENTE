@@ -8,6 +8,7 @@ import gzip
 import hashlib
 import json
 import math
+import re
 import sys
 import zipfile
 from pathlib import Path
@@ -88,7 +89,8 @@ def build(path):
             'indicator': r.get('L'), 'code': str(r.get('K', '')), 'unit': r.get('M'),
             'base': r.get('Q'), 'source': r.get('R'), 'type': r.get('P'),
             'accumulation': r.get('V'), 'expected': r.get('W'),
-            'targets': [r.get(c) for c in ['X','Y','Z','AA']], 'financial': financial}
+            'targets': [r.get(c) for c in ['X','Y','Z','AA']], 'financial': financial,
+            'ods': {'name': r.get('S'), 'description': r.get('T'), 'target': r.get('U')}}
     audit = {'source': path.name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
              'sheets': {name: {'nonemptyRows': len(rows), 'lastValueRow': max(rows, default=0)} for name, rows in sheets.items()},
              'summaryRows': [len(s) for s in summaries], 'duplicateGoalIds': [],
@@ -101,6 +103,51 @@ def build(path):
             'owner': [r['N'] for _, r in records if str(r.get('H','')).strip() != str(summaries[i][r['N']][1].get('A','')).strip()]}
     return {'s':1, 'y':[2024,2025,2026,2027], 'l':dictionaries[0], 'sct':dictionaries[1],
             'pr':dictionaries[2], 'o':dictionaries[3], 'g':goals, 'details':details, 'audit':audit}
+
+
+def build_archive(path):
+    """Conserva todas las celdas con valor, no las filas vacías ni el formato visual.
+
+    El archivo es consultable, no una segunda fuente para calcular avances.
+    Encabezados, totales y actividades no se convierten en metas o contratos.
+    """
+    book = read_book(path)
+    configs = [
+        (0, None, None, 'Etiquetas del resumen; sin cifras almacenadas.'),
+        (2, 'S', None, 'POAI e indicadores de resultado; presupuesto independiente del Plan Indicativo.'),
+        (2, 'N', None, 'Catálogo y programación de las metas producto.'),
+        (2, 'G', 2024, 'Resúmenes y actividades 2024, con sus soportes y campos originales.'),
+        (2, 'G', 2025, 'Resúmenes y actividades 2025; reporte mensual incompleto.'),
+        (0, None, 2026, 'Hoja vacía; no hay ejecución 2026 en este archivo.'),
+        (0, None, 2027, 'Hoja vacía; no hay ejecución 2027 en este archivo.'),
+        (2, 'B', None, 'Registros contractuales por meta. Un importe o una meta no equivale a un contrato.'),
+        (0, None, None, 'Hoja vacía; sin proyectos registrados aquí.'),
+        (2, None, None, 'Gestión de recursos; no son pagos ni logros certificados.'),
+        (1, None, None, 'Inventario vial sin mapa. Valor estimado y campo de metros según la fuente.'),
+        (1, None, None, 'Iniciativas de proyectos; no se presentan como ejecución.'),
+        (0, None, None, 'Lista auxiliar de tipos de compromiso.'),
+        (0, None, None, 'Catálogos ODS y opciones de aplicabilidad, sin asociarlas por posición de fila.'),
+        (3, None, None, 'Catálogos auxiliares originales; no se convierten en indicadores de ejecución.')]
+    sheets = []
+    for index, ((name, rows), config) in enumerate(zip(book.items(), configs)):
+        header, goal_col, year, note = config
+        records = []
+        for row_num, cells in rows.items():
+            record = {'row': row_num, 'cells': cells}
+            if goal_col and row_num > header:
+                goal = cells.get(goal_col)
+                if isinstance(goal, str):
+                    match = re.fullmatch(r'\s*Meta\s+(\d+)\s*', goal, flags=re.I)
+                    goal = int(match[1]) if match else None
+                if isinstance(goal, int) and 1 <= goal <= 109:
+                    record['goal'] = goal
+            records.append(record)
+        sheets.append({'id': index, 'name': name, 'headerRow': header,
+                       'goalColumn': goal_col, 'year': year, 'note': note,
+                       'headers': rows.get(header, {}), 'rows': records})
+    assert len(sheets) == 15
+    return {'schema': 1, 'source': path.name,
+            'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'sheets': sheets}
 
 
 if __name__ == '__main__':
@@ -117,4 +164,7 @@ if __name__ == '__main__':
         raise ValueError('La nueva importación difiere de los registros publicados; conciliar antes de sobrescribir')
     payload = json.dumps(data, ensure_ascii=False, separators=(',', ':')).encode()
     dest.write_text(base64.b64encode(gzip.compress(payload, mtime=0)).decode()+'\n', encoding='ascii')
+    archive = build_archive(Path(sys.argv[1]))
+    archive_dest = dest.with_name('asi-cumplimos-32-fuentes.gz.b64.txt')
+    archive_dest.write_text(base64.b64encode(gzip.compress(json.dumps(archive, ensure_ascii=False, separators=(',', ':')).encode(), mtime=0)).decode()+'\n', encoding='ascii')
     print(json.dumps(data['audit'], ensure_ascii=False, indent=2))

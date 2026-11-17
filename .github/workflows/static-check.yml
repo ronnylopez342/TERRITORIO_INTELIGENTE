@@ -69,6 +69,10 @@ jobs:
             screenshots/asi32-metas-entidad-desktop.png
             screenshots/asi32-ejecucion-entidad-desktop.png
             screenshots/asi32-metas-entidad-mobile.png
+            screenshots/asi32-cobertura-excel-desktop.png
+            screenshots/asi32-poai-desktop.png
+            screenshots/asi32-fuentes-desktop.png
+            screenshots/asi32-fuentes-mobile.png
           if-no-files-found: warn
       - name: Conservar evidencia visual del mapa y Planes
         if: always()

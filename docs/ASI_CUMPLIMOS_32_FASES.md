@@ -20,7 +20,7 @@ Fuente: `Matriz de Control Cuatrienio 2024-2027 (1)(2).xlsx`, SHA256 `09a2cf3a3d
 | 4. Contratos Cuatrienio | 111 | Fuente contractual distinta; no sumar como pagos del plan |
 | 5. Proyectos Estrategicos | 0 | Sin registros |
 | 6. Gestión | 19 | Gestión de recursos; no equivale a ejecución certificada por meta |
-| Hoja6 | 65 | Proyectos viales; fuera del visor 3.2 y del mapa excluido |
+| Hoja6 | 65 | Registros viales y otros conceptos; consulta en tabla sin mapa |
 | Lista | 13 | Iniciativas; no resultados ejecutados |
 | Despegable | 13 | Catálogo auxiliar |
 | ODS | 17 | Catálogo auxiliar |
@@ -91,3 +91,42 @@ La integración `68d5c25746c717771fe81f91c76e8412e4fac6e3` quedó en main y en p
 Gráficas disponibles: columnas físicas anuales y cobertura en Inicio; consolidado de entidades, dos medidas de ejecución por vigencia y cinco etapas financieras en Dashboard; matriz de programación y ejecución por línea/año en Plan; barras anuales con desglose en Líneas, Sectores y Programas; dos medidas de ejecución y comparación completa por meta en cada ficha institucional. Las tarjetas grandes y el catálogo de indicadores añaden programación física, unidad y fuente. Una sola estructura global permanece durante toda la navegación.
 
 Las circulares de acumulado y de estados no se activaron sin metodología oficial. Las noticias, logros certificados, fotos atribuibles y la etapa independiente de facturación requieren fuentes adicionales. La página 6 está excluida; no es un faltante. No se publican porcentajes de ejemplo del Word ni ejecución de 2026/2027.
+
+## Cierre de cobertura de todas las hojas
+
+La publicación inicial auditó las 15 hojas, pero solo integró el núcleo de seguimiento de Plan Indicativo y los resúmenes de Acción 2024/2025. Eso no equivalía a tener todo el Excel consultable. La ampliación de cobertura incorpora los contenidos restantes sin crear nuevas pestañas de navegación.
+
+Se preservaron las **60.948 celdas con valor almacenado** de las 15 hojas, incluidos encabezados, filas resumen, actividades, totales y campos auxiliares. Una prueba compara cada hoja, fila, columna y valor del archivo original con la consulta publicada. No hay un límite de filas que descarte contenido: la interfaz pagina de 20 en 20 y permite desplegar todos los campos de cada fila, con su referencia original. El CSV descarga todas las celdas del ámbito consultado, no únicamente la página visible. Los textos que podrían interpretarse como fórmulas en un CSV se escapan al exportar; el valor almacenado permanece visible sin cambios en la consulta.
+
+| Hoja | Dónde se consulta y qué se preserva |
+|---|---|
+| 1. Resumen | Indicadores → Cobertura: cinco etiquetas originales sin cifras almacenadas; no se rellenan con resultados de otra fuente |
+| 2. POAI | Plan de desarrollo: 109 asociaciones meta producto–resultado, indicadores de resultado, línea base y presupuesto por vigencia; todos los campos de la fila quedan accesibles |
+| 3. Plan Indicativo | Vistas existentes y consulta completa: programación, financiación por origen, indicadores, articulación ODS, unidades, fuentes y fila de totales |
+| 3.1 Plan de Acción 2024 | Cada tarjeta de meta abre sus actividades y soportes; la consulta completa conserva las 584 filas con contenido |
+| 3.2 Plan de Acción 2025 | Cada tarjeta abre sus actividades, meses, soportes, población y finanzas; consulta completa de 501 filas con contenido |
+| 3.3 Plan de Acción 2026 | Estado explícito de hoja vacía; sin avances inventados |
+| 3.4 Plan de Acción 2027 | Estado explícito de hoja vacía; sin avances inventados |
+| 4. Contratos Cuatrienio | Metas: consulta contractual específica de este archivo y acceso a sus 109 filas de meta. No hay números de contrato diligenciados en ninguna vigencia; no se cuentan esos espacios como contratos |
+| 5. Proyectos Estrategicos | Estado explícito de hoja vacía |
+| 6. Gestión | Plan de desarrollo: 17 registros con vigencia y valores de gestión; el total original se conserva en fuente, pero no se suma otra vez a los registros |
+| Hoja6 | Plan de desarrollo: 64 filas de contenido posterior al encabezado, con nombres, vigencia, valor estimado, vereda, metros, cooperantes y observaciones. No se afirma que sean 64 proyectos únicos; hay conceptos complementarios e información incompleta. Sin mapa |
+| Lista | Plan de desarrollo: las 12 iniciativas originales, sin presentarlas como ejecución o logros certificados |
+| Despegable | Indicadores → Cobertura: catálogo original de tipos de compromiso |
+| ODS | Indicadores: distribución de metas según ODS consignado y tabla de objetivo/meta ODS; consulta del catálogo original y sus listas auxiliares, sin relacionarlas por posición |
+| Formula | Indicadores → Cobertura: catálogos originales de ejes, sectores, programas, organigrama, ODS y financiación; no se interpretan como avance |
+
+El botón «Consultar las 15 hojas y su cobertura» está en Inicio. Las consultas documentales completas conservan el archivo original sin filtros del visor y lo explican en su encabezado. Los listados analíticos POAI/contratos y ODS sí responden a las metas filtradas. Gestión, Hoja6 e iniciativas carecen de número de meta: no se vinculan por inferencia a una línea o responsable. Con filtros de clasificación o búsqueda activos se explica la falta de relación y se ofrece la fuente; con una vigencia seleccionada solo se muestran registros que la identifican. Las iniciativas no tienen vigencia. Los encabezados, totales y registros sin fecha siguen accesibles en la consulta completa.
+
+Hallazgos adicionales: la meta 63 tiene descripción y meta ODS pero no tiene diligenciado el nombre del ODS en Plan Indicativo S; se muestra «ODS no informado», sin completar el campo por inferencia. Los códigos contractuales están vacíos; las hojas de ejecución 2026/2027 y Proyectos Estrategicos están vacías. Esto es ausencia en la fuente, no funcionalidad pendiente de construir.
+
+- [x] Todas las hojas tienen ubicación, tratamiento y consulta completa.
+- [x] POAI, Gestión, registros complementarios e iniciativas incorporados a las vistas existentes.
+- [x] Actividades y campos originales consultables por meta.
+- [x] Contratos del archivo diferenciados de los de otras fuentes de 3.3.
+- [x] Articulación ODS por meta y catálogo original accesibles.
+- [x] Las 60.948 celdas con valor conciliadas contra el archivo original.
+- [x] Quince consultas, paginación hasta la fila 584, descarga CSV y móvil verificados localmente.
+- [ ] Ampliación de cobertura verificada en Actions y dominio público; actualizar tras la publicación.
+
+La integración del contenido del Excel puede cerrarse sin afirmar que los datos vacíos estén completos o que se hayan certificado resultados. Continúan las limitaciones documentales ya identificadas sobre acumulados oficiales, estados de riesgo, noticias y logros certificados.
