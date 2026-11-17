@@ -37,6 +37,8 @@ jobs:
         run: node scripts/test_asi_cumplimos32.cjs
       - name: Verificar Plan de Acción 2026 tercer trimestre sin doble totalización
         run: node scripts/test_plan_accion_2026_3t.cjs
+      - name: Auditar 227 enlaces documentales, 160 metadatos y 157 faltantes
+        run: node scripts/test_plan33_evidencias_2026_3t.cjs
       - name: Proteger fuentes originales y verificar registro editorial M2
         run: |
           node scripts/verify_critical_assets.cjs
@@ -94,6 +96,8 @@ jobs:
             screenshots/auditoria-plan33-movil.png
             screenshots/auditoria-plan33-tabs-2026-desktop.png
             screenshots/auditoria-plan33-tabs-2026-mobile.png
+            screenshots/auditoria-plan33-soportes-2026-3t.png
+            screenshots/auditoria-plan33-contratos-2026-3t.png
             screenshots/auditoria-cumplimiento42-mapa.png
             screenshots/auditoria-cumplimiento42-movil.png
           if-no-files-found: warn
