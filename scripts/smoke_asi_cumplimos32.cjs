@@ -112,6 +112,10 @@ async function run(){
   await page.screenshot({path:path.join(dest,'asi32-secretaria-desktop.png')});
   await page.locator(rootSel+'[data-asi-back]').click();
   assert.equal(await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').getAttribute('aria-selected'),'true');
+  await page.locator(rootSel+'[data-asi-tab="plan"]').click();
+  assert.equal(await page.locator(rootSel+'.asi32-plan-table tbody tr').count(),24);
+  assert.equal(await page.locator(rootSel+'.asi32-home-progress').count(),0);
+  await page.locator(rootSel+'.asi32-plan-table').screenshot({path:path.join(dest,'asi32-plan-desktop.png')});
   await page.locator(rootSel+'[data-asi-tab="metas"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-goal').count(),109);
   await page.locator(rootSel+'[data-asi-search]').fill('zzzz-no-match');

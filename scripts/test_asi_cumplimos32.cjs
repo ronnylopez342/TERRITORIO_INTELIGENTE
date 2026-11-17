@@ -65,5 +65,6 @@ assert.ok(index.includes('js/asi-cumplimos-32.js')&&index.includes('css/asi-cump
 assert.ok(landing.includes('data-asi32-root'));
 assert.ok(css.includes('asi32-nav'));
 assert.ok(source.includes('Cuatrienio completo (2024–2027)'));
-assert.ok(source.includes('2026–2027 no hay ejecución registrada'));
+assert.ok(!source.includes('reported[i]/4'),'No acumular promedios con pesos inventados');
+assert.ok(!source.includes("['territorio', 'Territorio']"),'Mapa y pestaña territorial excluidos');
 console.log('ASI 3.2 DATA: PASS · 109 metas, 6 líneas, 19 sectores, 29 programas, 8 entidades, pagos conciliados, sin avances ficticios 2026–2027.');

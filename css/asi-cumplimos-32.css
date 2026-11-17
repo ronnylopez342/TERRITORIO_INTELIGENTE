@@ -305,3 +305,10 @@ body:has(#desarrollo-cumplimos:not([hidden])) .ti34-sidebar,body:has(#desarrollo
 #desarrollo-cumplimos .asi32 .asi32-data-columns .asi32-vcolumn>b{min-height:38px;max-width:130px}
 #desarrollo-cumplimos .asi32 .asi32-data-columns .asi32-vcolumn>small{max-width:125px}
 #desarrollo-cumplimos .asi32 .asi32-pending p{margin-top:12px;line-height:1.7}
+#desarrollo-cumplimos .asi32 .asi32-table-scroll{overflow-x:auto;max-width:100%;border:1px solid #d3e0d8;border-radius:9px;background:#fff}
+#desarrollo-cumplimos .asi32 .asi32-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5}
+#desarrollo-cumplimos .asi32 .asi32-table th,#desarrollo-cumplimos .asi32 .asi32-table td{border-bottom:1px solid #dce7df;padding:14px 16px;text-align:left;vertical-align:middle;color:#244a37}
+#desarrollo-cumplimos .asi32 .asi32-table thead th{background:#e9f2ec;color:#174b33;white-space:nowrap}
+#desarrollo-cumplimos .asi32 .asi32-table tbody tr:nth-child(even){background:#f5f8f5}
+#desarrollo-cumplimos .asi32 .asi32-table tbody th{min-width:230px;font-weight:700}
+#desarrollo-cumplimos .asi32 .asi32-table td{min-width:95px}

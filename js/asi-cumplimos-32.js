@@ -68,39 +68,11 @@
   function bar(value,tone){return '<span class="asi32-track"><span class="asi32-fill" style="width:'+Math.max(0,Math.min(100,(value||0)*100)).toFixed(2)+'%;background:'+esc(tone||'#0b8653')+'"></span></span>';}
   function mini(value,year,tone){return '<span class="asi32-mini">'+bar(value,tone||colorYear[years.indexOf(Number(year))]||'#0c8554')+'<strong>'+pct(value)+'</strong></span>';}
   function goPlanButton(){return '<button class="asi32-action asi32-action--ghost" type="button" data-asi-go-plan>Consultar Planes de Acción 3.3 ↗</button>';}
-  function fullChart(rows){
-    const reported=years.map((y,i)=>physical(rows,i));
-    const ysel=yearsToDisplay();
-    const yearlyShares=years.map((year,i)=>ysel.includes(i)&&reported[i]!==null?(state.year==='all'?reported[i]/4:reported[i]):0);
-    const total=sum(yearlyShares),available=years.map((y,i)=>ysel.includes(i)&&reported[i]!==null);
-    const bars=years.map((y,i)=>available[i]?'<span class="asi32-segment" style="height:'+((yearlyShares[i]*100).toFixed(2))+'%;background:'+colorYear[i]+'" title="'+y+' · '+pct(reported[i])+' promedio de metas informadas"></span>':'').join('');
-    const headline=state.year==='all'?'Lectura orientativa del cuatrienio':'Avance promedio informado en '+state.year;
-    const foot=state.year==='all'?'Las porciones 2024–2025 usan un peso visual uniforme de 25 % por vigencia. No equivale al indicador oficial de avance del plan. Para 2026–2027 no hay ejecución registrada.':'Promedio simple de metas con dato en la vigencia elegida; no ponderado por presupuesto ni por tamaño de meta.';
-    return '<article class="asi32-card"><h3>Avances del Plan de Desarrollo</h3><p class="asi32-sub">Programación física frente a los reportes de ejecución</p>'+
-      '<div class="asi32-compare"><div class="asi32-column"><strong>100 %</strong><div class="asi32-vertical asi32-vertical--full"></div><label>Referente programado</label></div>'+
-      '<div class="asi32-column"><strong>'+(available.some(Boolean)?fmt.format(total*100)+' %':'Sin reporte')+'</strong><div class="asi32-vertical">'+bars+'</div><label>'+esc(headline)+'</label></div></div>'+
-      '<div class="asi32-legend">'+years.map((y,i)=>'<span><i class="asi32-dot" style="background:'+colorYear[i]+'"></i>'+y+': '+(ysel.includes(i)?pct(reported[i]):'Fuera del filtro')+'</span>').join('')+'</div>'+
-      '<div class="asi32-alert">'+esc(foot)+'</div><p class="asi32-source">'+esc(sourceNote)+'</p></article>';
-  }
   function annualCards(rows){
     return '<article class="asi32-card"><h3>Ejecución física por vigencia</h3><p class="asi32-sub">Promedio simple de las metas con porcentaje disponible</p><div class="asi32-year-list">'+
       years.map((year,i)=>'<div class="asi32-year-row"><span>'+year+'</span>'+bar(physical(rows,i),colorYear[i])+'<strong>'+pct(physical(rows,i))+'</strong></div>').join('')+
       '</div><div class="asi32-highlight">'+esc('Los años 2026 y 2027 están programados, pero sus hojas de ejecución anual no contienen registros. Un campo vacío nunca se interpreta como 0 %.')+'</div></article>';
   }
-  function budgetChart(rows){
-    const ys=yearsToDisplay();
-    const numbers=years.map((y,i)=>sum(rows.map(r=>r.indicative[i])));
-    const max=Math.max(1,...numbers);
-    return '<article class="asi32-card"><h3>Gestión financiera del cuatrienio</h3><p class="asi32-sub">Programación del Plan Indicativo y pagos informados en los planes de acción</p>'+
-      years.filter((y,i)=>ys.includes(i)).map(y=>{
-        const i=years.indexOf(y),bud=budget(rows,i),v=numbers[i];
-        return '<div class="asi32-finance"><strong>'+y+'</strong><div>'+bar(v/max,'#14774f')+'<div style="height:7px"></div>'+bar(bud.n?bud.p/max:null,'#efb327')+'</div><span style="font-size:11px">'+compact(v)+'<br>'+(bud.n?'Pagos '+compact(bud.p):'Pagos sin reporte')+'</span></div>';
-      }).join('')+
-      '<div class="asi32-legend"><span><i class="asi32-dot" style="background:#14774f"></i>Plan Indicativo</span><span><i class="asi32-dot" style="background:#efb327"></i>Pagos de Plan de Acción</span></div>'+
-      '<p class="asi32-source">No sumar el saldo definitivo del Plan de Acción con la programación del Plan Indicativo: son conceptos diferentes. 2026/2027 no cuentan con pagos registrados.</p></article>';
-  }
-  // Grafica de barras AGRUPADAS de la referencia. Cifras exclusivamente
-  // de la matriz; 2026 y 2027 nunca se rellenan con valores de ejemplo.
   function ownerBar(rows){
     const yi=latestReported(),year=years[yi],items=catalog.owners.map((name,idx)=>{
       const subset=rows.filter(r=>r.owner===idx);
@@ -150,15 +122,6 @@
       (!isEmpty?'<details class="asi32-owner-table"><summary>Ver comparación numérica detallada por secretaría</summary>'+
         '<div class="asi32-chart-list">'+list+'</div></details>':'')+
       '</section>';
-  }
-  function photoCards(){
-    const content=[
-      ['Infraestructura y gestión','assets/img/editorial/gestion.jpg','Imagen editorial del portal; las metas y sus presupuestos se consultan en la matriz.'],
-      ['Comunidad y participación','assets/img/editorial/comunidad.jpg','Referencia visual institucional, no fotografía atribuida a una obra específica.'],
-      ['Territorio y sostenibilidad','assets/img/editorial/territorio-aereo.jpg','Panorama contextual de Subachoque; no implica una georreferenciación de metas.']
-    ];
-    return '<section class="asi32-block">'+pageTitle('Territorio, acciones y seguimiento','Imágenes de contexto para una lectura más cercana del Plan; las cifras de ejecución proceden del Excel.','Rendición de cuentas')+
-      '<div class="asi32-photo-cards">'+content.map(x=>'<article class="asi32-photo-card"><img src="'+x[1]+'" alt="'+esc(x[0])+'" loading="lazy"><div><h3>'+esc(x[0])+'</h3><p>'+esc(x[2])+'</p></div></article>').join('')+'</div></section>';
   }
   function homeProgress(rows){
     const subset=yearsToDisplay(),all=subset.length===4;
@@ -262,9 +225,12 @@
       '<section class="asi32-block">'+pairedExecution(rows)+'</section><section class="asi32-block">'+financialStages(rows)+'</section>'+pendingSources();
   }
   function plan(rows){
-    return '<section class="asi32-block">'+pageTitle('Plan de Desarrollo: el cuatrienio completo','Del referente de programación a la evidencia de ejecución por vigencia.','Plan 2024–2027')+
-      '<div class="asi32-grid">'+fullChart(rows)+budgetChart(rows)+'</div><div class="asi32-highlight" style="margin-top:18px">'+
-      esc('El periodo del Excel es 2024–2027. El Plan de Desarrollo adoptado puede usar una denominación 2024–2028 en sus documentos oficiales; no se trasladan cifras de un periodo al otro sin conciliación.')+'</div>'+goPlanButton()+'</section>'+photoCards();
+    const lines=catalog.lines.map((name,id)=>({name,id,rows:rows.filter(r=>r.line===id)})).filter(x=>x.rows.length);
+    return '<section class="asi32-block">'+pageTitle('Plan de Desarrollo · Programación y seguimiento por línea','Comparación por línea y vigencia. Desplázate dentro de la tabla para consultar todos los campos.','Plan 2024–2027')+
+      '<div class="asi32-table-scroll" tabindex="0" role="region" aria-label="Matriz anual por línea estratégica"><table class="asi32-table asi32-plan-table"><thead><tr><th>Línea estratégica</th><th>Año</th><th>Reportes físicos</th><th>Promedio físico</th><th>Programación Indicativo COP</th><th>Saldo definitivo COP</th><th>Pagos COP</th><th>Pagos / saldo</th><th>Explorar</th></tr></thead><tbody>'+
+      lines.map(x=>yearsToDisplay().map(i=>{const b=budget(x.rows,i),n=x.rows.filter(r=>Number.isFinite(r.physical[i])).length;
+        return '<tr><th scope="row">'+esc(x.name)+'</th><td>'+years[i]+'</td><td>'+n+' / '+x.rows.length+'</td><td>'+pct(physical(x.rows,i))+'</td><td>'+money.format(sum(x.rows.map(r=>r.indicative[i])))+'</td><td>'+esc(b.n?money.format(b.b):'Sin reporte')+'</td><td>'+esc(b.n?money.format(b.p):'Sin reporte')+'</td><td>'+pct(financialRatio(x.rows,i))+'</td><td><button type="button" class="asi32-action" data-asi-drill="line" data-index="'+x.id+'">Ver metas</button></td></tr>';
+      }).join('')).join('')+'</tbody></table></div><p class="asi32-source">Programación: Plan Indicativo AV, CI, DU y FG. Ejecución: resúmenes de los planes de acción; blancos excluidos del promedio, nunca tratados como cero. La programación no equivale al saldo definitivo. Las cifras de cada línea respetan los filtros; el botón permite consultar sus metas.</p>'+goPlanButton()+'</section>';
   }
   function grouping(rows,kind){
     const dict=catalog[ids(kind)];const title=kind==='line'?'Líneas estratégicas':kind==='sector'?'Sectores MGA':kind==='program'?'Programas':'Dependencias responsables';
@@ -306,10 +272,6 @@
         [unique(sub.map(r=>r.line)),'Líneas estratégicas'],[unique(sub.map(r=>r.sector)),'Sectores MGA'],[unique(sub.map(r=>r.program)),'Programas'],[sub.length,'Metas producto']].map(x=>'<div class="asi32-finance" style="grid-template-columns:55px 1fr"><strong style="font-size:24px;color:#0b8653">'+x[0]+'</strong><span>'+x[1]+'</span></div>').join('')+'</article>'+
       '<article class="asi32-card"><h3>Ejecución física y presupuestal</h3><p class="asi32-sub">Vigencia de referencia '+years[yy]+'</p><div class="asi32-finance"><span>Física</span>'+bar(av,'#0a854e')+'<strong>'+pct(av)+'</strong></div><div class="asi32-finance"><span>Pagos</span>'+bar(fin.b>0?fin.p/fin.b:null,'#f1b72d')+'<strong>'+(fin.b>0?pct(fin.p/fin.b):'Sin reporte')+'</strong></div><p class="asi32-source">Porcentaje de metas con reporte y pagos respecto al saldo definitivo; no son indicadores oficiales de cumplimiento global.</p></article>'+
       '<article class="asi32-card"><h3>Presupuesto asignado</h3><p class="asi32-sub">Saldo definitivo del Plan de Acción '+years[yy]+'</p><strong style="font-size:clamp(22px,2.5vw,34px);color:#106a47">'+compact(fin.n?fin.b:null)+'</strong><p>Pagos informados: <strong>'+compact(fin.n?fin.p:null)+'</strong></p><p class="asi32-source">Plan Indicativo 2024–2027: '+compact(s.indicative)+' programados, sujeto a validación de fuente y vigencia.</p></article></div></section>'+metas(sub);
-  }
-  function territory(rows){
-    return '<section class="asi32-block">'+pageTitle('El Plan en el territorio','La matriz clasifica metas por sector y dependencia, pero no asigna coordenadas verificadas de obra a cada meta.','Territorio y evidencias')+
-      '<div class="asi32-grid"><article class="asi32-card"><h3>Lectura territorial responsable</h3><p>La cartografía de veredas y los expedientes de proyectos estratégicos se consultan en la Unidad de Cumplimiento. El visor 3.2 no coloca pines que el Excel no soporta.</p>'+goPlanButton()+'<p class="asi32-source">Para ver los proyectos estratégicos y su referencia territorial, abre Unidad de Cumplimiento → 4.2.</p></article>'+annualCards(rows)+'</div></section>'+photoCards();
   }
   function content(rows){
     switch(state.tab){
