@@ -41,6 +41,7 @@ async function run(){
   for(const k of ['109','6','19','29','8'])assert.ok(kpis.includes(k),'Missing KPI '+k);
   // Inicio debe tener UN único encabezado compacto, filtros, KPIs, y botones, en ese orden.
   assert.equal(await page.locator(rootSel+'.asi32-hero').count(),1);
+  assert.ok(!(await page.locator(rootSel+'.asi32-hero').innerText()).includes('109 metas'),'No repetir un KPI en el encabezado');
   assert.equal(await page.locator(rootSel+'.asi32-photo-strip').count(),0,'Se reintrodujo el collage antiguo');
   assert.equal(await page.locator(rootSel+'[data-asi-kpis]').count(),1);
   assert.equal(await page.locator(rootSel+'[data-asi-kpis] .asi32-kpi').count(),6);
