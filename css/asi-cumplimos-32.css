@@ -106,3 +106,121 @@ body:has(#desarrollo-cumplimos:not([hidden])) .ti34-sidebar,body:has(#desarrollo
 @media(max-width:1330px){#desarrollo-cumplimos .asi32-filters{grid-template-columns:repeat(3,minmax(0,1fr))}#desarrollo-cumplimos .asi32-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:920px){#desarrollo-cumplimos .asi32-grid{grid-template-columns:1fr}#desarrollo-cumplimos .asi32-grid-3{grid-template-columns:1fr 1fr}#desarrollo-cumplimos .asi32-photo-strip{height:90px}#desarrollo-cumplimos .asi32-section-grid{grid-template-columns:1fr}#desarrollo-cumplimos .asi32-chart-item{grid-template-columns:minmax(145px,1.4fr) minmax(120px,1fr) minmax(120px,1fr)}#desarrollo-cumplimos .asi32-chart-item>span:last-child{display:none}}
 @media(max-width:650px){#desarrollo-cumplimos .asi32-hero{padding:28px 18px;min-height:260px}#desarrollo-cumplimos .asi32-hero:after{width:100%;opacity:.28}#desarrollo-cumplimos .asi32-photo-strip{height:66px}#desarrollo-cumplimos .asi32-filters{grid-template-columns:repeat(2,minmax(0,1fr))}#desarrollo-cumplimos .asi32-nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin}#desarrollo-cumplimos .asi32-nav button{padding:10px 9px}#desarrollo-cumplimos .asi32-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}#desarrollo-cumplimos .asi32-grid-3{grid-template-columns:1fr}#desarrollo-cumplimos .asi32-goals{grid-template-columns:1fr}#desarrollo-cumplimos .asi32-chart-item{grid-template-columns:1fr 1fr;gap:9px}#desarrollo-cumplimos .asi32-chart-item .asi32-label{grid-column:1/-1}#desarrollo-cumplimos .asi32-compare{gap:12px}#desarrollo-cumplimos .asi32-vertical{height:190px}#desarrollo-cumplimos .asi32-finance{grid-template-columns:70px minmax(0,1fr) 90px}#desarrollo-cumplimos .asi32-filters .asi32-filter:nth-child(6){grid-column:1/-1}}
+
+
+/* ===============================
+   INICIO 3.2 — AUDITORÍA DEL EXCEL
+   Orden único: encabezado → filtros → KPIs → botones → Inicio.
+   No imágenes del video, KPIs repetidos ni progreso acumulado simulado.
+   =============================== */
+#desarrollo-cumplimos .asi32-hero--compact{
+  min-height:0;padding:20px clamp(17px,2.7vw,44px);
+  display:flex;align-items:center;justify-content:space-between;gap:22px;
+  background:linear-gradient(105deg,#073c30 0%,#0b6246 74%,#147655 100%);border-bottom:4px solid #e9bc3a;
+}
+#desarrollo-cumplimos .asi32-hero--compact:after{content:none!important;background:none!important}
+#desarrollo-cumplimos .asi32-hero--compact .asi32-hero-content{max-width:none;flex:1 1 auto;min-width:0}
+#desarrollo-cumplimos .asi32-hero--compact .asi32-kicker{font-size:10px;color:#dcefe6;letter-spacing:.12em}
+#desarrollo-cumplimos .asi32-hero--compact h1{color:#fff;font-size:clamp(24px,2.8vw,37px);line-height:1.06;letter-spacing:-.035em;margin:6px 0 4px;font-weight:850;max-width:none;text-transform:none}
+#desarrollo-cumplimos .asi32-hero--compact p{max-width:770px;font-size:12px;line-height:1.5;color:#e6f5ea}
+#desarrollo-cumplimos .asi32-hero-aside{flex:0 1 315px;text-align:right;display:grid;gap:3px;border-left:1px solid #8bc0a47a;padding-left:21px;min-width:0}
+#desarrollo-cumplimos .asi32-hero-aside strong{display:block;font-size:15px;color:#fff;line-height:1.25}
+#desarrollo-cumplimos .asi32-hero-aside span{font-size:10px;line-height:1.45;color:#d9eee4}
+#desarrollo-cumplimos .asi32-filters{display:grid;grid-template-columns:1.05fr 1fr 1fr 1fr 1fr 1.25fr auto;gap:10px;padding:14px clamp(17px,2.7vw,44px);border-bottom:1px solid #dce8df;background:#fff}
+#desarrollo-cumplimos .asi32-filter>span{font-size:10px;letter-spacing:0;font-weight:800;color:#395f50}
+#desarrollo-cumplimos .asi32-filter select,#desarrollo-cumplimos .asi32-filter input{border:1px solid #c8dacd;border-radius:7px;height:39px;background:#f9fcfa;color:#173e2d;padding:7px 9px;font-size:12px}
+#desarrollo-cumplimos .asi32-topmetrics{background:#f0f7f2;padding:13px clamp(17px,2.7vw,44px);border-bottom:1px solid #d6e6dc}
+#desarrollo-cumplimos .asi32-topmetrics .asi32-kpis{margin:0;gap:10px;grid-template-columns:repeat(6,minmax(0,1fr))}
+#desarrollo-cumplimos .asi32-topmetrics .asi32-kpi{
+  border:1px solid #d3e5d7;border-left:3px solid #20845e;background:white;box-shadow:0 3px 8px #1d3a2810;
+  padding:13px 14px;border-radius:9px;min-width:0;
+}
+#desarrollo-cumplimos .asi32-topmetrics .asi32-kpi .asi32-kpi-val{font-size:clamp(18px,1.9vw,28px);margin:5px 0;overflow-wrap:anywhere;line-height:1.18;letter-spacing:-.025em}
+#desarrollo-cumplimos .asi32-topmetrics .asi32-kpi>span:first-child{font-size:10px;line-height:1.3;color:#5b7064}
+#desarrollo-cumplimos .asi32-topmetrics .asi32-kpi small{font-size:10px;color:#698074}
+#desarrollo-cumplimos .asi32-nav{display:flex;flex-wrap:nowrap;white-space:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;gap:4px;scrollbar-width:thin;background:#fff;padding:5px clamp(17px,2.7vw,44px);box-shadow:0 3px 9px #1c3e2710}
+#desarrollo-cumplimos .asi32-nav button{flex:0 0 auto;font-size:12px;font-weight:800;padding:12px 13px;min-height:43px;border-radius:5px 5px 0 0}
+#desarrollo-cumplimos .asi32-nav button[aria-selected="true"]{background:#e2f2e8;color:#0a6549;border-bottom:3px solid #15865b}
+#desarrollo-cumplimos .asi32-body{padding:clamp(22px,2.4vw,34px) clamp(17px,2.7vw,44px) 56px}
+#desarrollo-cumplimos .asi32-home-intro .asi32-blockhead{margin:0 0 14px}
+#desarrollo-cumplimos .asi32-home-lead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#eaf5ee;color:#446556;border-left:3px solid #159664;border-radius:4px;padding:11px 14px;margin-bottom:17px;font-size:12px}
+#desarrollo-cumplimos .asi32-home-lead strong{color:#146348;font-size:12px}
+#desarrollo-cumplimos .asi32-home-main-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px}
+#desarrollo-cumplimos .asi32-home-bottom-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:16px}
+#desarrollo-cumplimos .asi32-home-main-grid .asi32-card,#desarrollo-cumplimos .asi32-home-bottom-grid .asi32-card{padding:clamp(18px,1.9vw,27px);box-shadow:0 4px 15px #163c2810;border:1px solid #d4e3d7;border-radius:11px}
+#desarrollo-cumplimos .asi32-home-cardhead{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:18px}
+#desarrollo-cumplimos .asi32-home-cardhead h3{color:#153f30;font-size:clamp(18px,1.45vw,22px);font-weight:800;margin:0 0 5px}
+#desarrollo-cumplimos .asi32-home-cardhead p{font-size:12px;color:#638074;line-height:1.5}
+#desarrollo-cumplimos .asi32-home-tag{font-size:10px;font-weight:800;color:#16724f;padding:7px 9px;border-radius:99px;border:1px solid #bce0c7;background:#eff9f1;text-align:center;flex:0 1 155px}
+#desarrollo-cumplimos .asi32-home-progress-main{display:grid;grid-template-columns:minmax(100px,145px) minmax(0,1fr);gap:22px;align-items:stretch;margin:8px 0 18px}
+#desarrollo-cumplimos .asi32-home-target{display:flex;flex-direction:column;align-items:center;gap:9px;justify-content:end;background:#f3f9f4;border-radius:9px;padding:13px 13px 11px}
+#desarrollo-cumplimos .asi32-home-target strong{font-size:24px;color:#09663c;line-height:1;font-weight:850}
+#desarrollo-cumplimos .asi32-home-targetbar{display:block;width:70px;max-width:85%;height:155px;border-radius:15px 15px 2px 2px;background:linear-gradient(180deg,#12a363,#087347)}
+#desarrollo-cumplimos .asi32-home-target small{font-size:10px;color:#4e7161;text-align:center;line-height:1.35}
+#desarrollo-cumplimos .asi32-home-annual{display:grid;gap:13px;align-content:center;min-width:0}
+#desarrollo-cumplimos .asi32-home-annual-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;gap:10px}
+#desarrollo-cumplimos .asi32-home-annual-head strong{font-size:13px;color:#173d2f}
+#desarrollo-cumplimos .asi32-home-annual-value{font-weight:800;color:#126743;font-size:13px;white-space:nowrap}
+#desarrollo-cumplimos .asi32-home-annual-item>.asi32-track{height:14px;background:#eaf0eb}
+#desarrollo-cumplimos .asi32-home-annual-item>small{display:block;font-size:10px;color:#6c7f72;margin-top:5px}
+#desarrollo-cumplimos .asi32-home-no-data{color:#7d785e;font-size:11px;font-weight:650}
+#desarrollo-cumplimos .asi32-home-missing{background:repeating-linear-gradient(-45deg,#f4f6f1 0 8px,#ebeee9 8px 15px);border:1px dashed #d4dccc;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center}
+#desarrollo-cumplimos .asi32-home-missing span{font-size:9px;color:#777c6e;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px}
+#desarrollo-cumplimos .asi32-home-method{background:#f2f8f3;border-left:3px solid #24906c;border-radius:3px;padding:10px 14px;margin-top:12px}
+#desarrollo-cumplimos .asi32-home-method strong{font-size:11px;color:#185c41}
+#desarrollo-cumplimos .asi32-home-method p{font-size:11px;line-height:1.5;color:#587363;margin-top:3px}
+#desarrollo-cumplimos .asi32-home-finance-rows{display:grid;gap:18px;margin:18px 0 20px}
+#desarrollo-cumplimos .asi32-home-finance-label{display:flex;justify-content:space-between;gap:9px;margin-bottom:7px;font-size:11px;flex-wrap:wrap}
+#desarrollo-cumplimos .asi32-home-finance-label strong{font-size:12px}
+#desarrollo-cumplimos .asi32-home-finance-label span{font-weight:700;color:#426b51}
+#desarrollo-cumplimos .asi32-home-finance-bars{display:grid;gap:5px}
+#desarrollo-cumplimos .asi32-home-finance-bars .asi32-track{height:11px}
+#desarrollo-cumplimos .asi32-home-finance-bars .asi32-home-no-data{font-size:10px;color:#8d8473}
+#desarrollo-cumplimos .asi32-home-finance .asi32-legend{margin:18px 0 10px}
+#desarrollo-cumplimos .asi32-home-finance .asi32-action{margin-top:13px;font-size:11px}
+#desarrollo-cumplimos .asi32-home-lines-list{display:grid;gap:7px}
+#desarrollo-cumplimos .asi32-home-line{display:grid;grid-template-columns:minmax(0,2fr) minmax(40px,1fr) auto 15px;gap:12px;align-items:center;border:1px solid #e4eee5;background:#fbfdfb;color:#173d32;border-radius:7px;padding:10px 13px;text-align:left;min-width:0}
+#desarrollo-cumplimos .asi32-home-line:hover{background:#edf7ee;border-color:#83bfa0}
+#desarrollo-cumplimos .asi32-home-line-name{font-size:11px;font-weight:750;line-height:1.35}
+#desarrollo-cumplimos .asi32-home-line-bar{min-width:0}
+#desarrollo-cumplimos .asi32-home-line .asi32-track{height:8px}
+#desarrollo-cumplimos .asi32-home-line strong{color:#0f6e4b;font-size:11px;white-space:nowrap}
+#desarrollo-cumplimos .asi32-home-coverage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}
+#desarrollo-cumplimos .asi32-home-coverage-item{background:#f7faf7;border:1px solid #e0e9e0;border-radius:8px;padding:14px}
+#desarrollo-cumplimos .asi32-home-coverage-item>span{font-size:11px;color:#5b8066}
+#desarrollo-cumplimos .asi32-home-coverage-item strong{display:block;font-size:clamp(16px,1.8vw,22px);font-weight:850;color:#176145;margin:5px 0}
+#desarrollo-cumplimos .asi32-home-coverage-item small{font-size:10px;color:#6b8274;line-height:1.45}
+#desarrollo-cumplimos .asi32-home-progress .asi32-source,#desarrollo-cumplimos .asi32-home-finance .asi32-source{margin-top:15px}
+@media(max-width:1300px){
+  #desarrollo-cumplimos .asi32-filters{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #desarrollo-cumplimos .asi32-topmetrics .asi32-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:980px){
+  #desarrollo-cumplimos .asi32-home-main-grid,#desarrollo-cumplimos .asi32-home-bottom-grid{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+  #desarrollo-cumplimos .asi32-hero--compact{padding:17px;align-items:start;gap:9px;flex-direction:column}
+  #desarrollo-cumplimos .asi32-hero--compact h1{font-size:27px;margin:5px 0}
+  #desarrollo-cumplimos .asi32-hero-aside{text-align:left;border-left:none;padding-left:0;flex:auto;display:block}
+  #desarrollo-cumplimos .asi32-hero-aside strong{font-size:12px}
+  #desarrollo-cumplimos .asi32-hero-aside span{display:none}
+  #desarrollo-cumplimos .asi32-filters{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px 16px;gap:8px}
+  #desarrollo-cumplimos .asi32-filters .asi32-filter:nth-child(6){grid-column:1/-1}
+  #desarrollo-cumplimos .asi32-topmetrics{padding:11px 16px}
+  #desarrollo-cumplimos .asi32-topmetrics .asi32-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  #desarrollo-cumplimos .asi32-topmetrics .asi32-kpi{padding:10px 12px}
+  #desarrollo-cumplimos .asi32-topmetrics .asi32-kpi .asi32-kpi-val{font-size:19px}
+  #desarrollo-cumplimos .asi32-nav{padding:5px 16px}
+  #desarrollo-cumplimos .asi32-nav button{font-size:11px}
+  #desarrollo-cumplimos .asi32-body{padding:20px 16px 34px}
+  #desarrollo-cumplimos .asi32-home-cardhead{flex-direction:column;gap:9px}
+  #desarrollo-cumplimos .asi32-home-progress-main{grid-template-columns:90px minmax(0,1fr);gap:11px}
+  #desarrollo-cumplimos .asi32-home-target{padding:10px 7px}
+  #desarrollo-cumplimos .asi32-home-target strong{font-size:19px}
+  #desarrollo-cumplimos .asi32-home-targetbar{height:130px;width:45px}
+  #desarrollo-cumplimos .asi32-home-annual{gap:8px}
+  #desarrollo-cumplimos .asi32-home-line{grid-template-columns:minmax(0,1fr) auto 12px}
+  #desarrollo-cumplimos .asi32-home-line-bar{display:none}
+  #desarrollo-cumplimos .asi32-home-coverage-grid{gap:8px}
+  #desarrollo-cumplimos .asi32-home-coverage-item{padding:10px}
+}
