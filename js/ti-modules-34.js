@@ -211,6 +211,9 @@ function sync(){
  [d,u].forEach(root=>{
   const active=qs('.ti34-nav .module-tab.active',root);
   if(!active)return;
+  // El video es exclusivo de la primera pestana Conoce de cada modulo.
+  const intro=qs('.ti34-video',root);
+  if(intro)intro.hidden=active.id!==(root===d?'tab-desarrollo-conoce':'tab-cumplimiento-conoce');
   const n=qs('.ti34-nav-number',active)?.textContent||'';
   const l=qs('.ti34-nav-label',active)?.textContent||'';
   const crumb=qs('#ti34-breadcrumb-'+root.dataset.view,root);
