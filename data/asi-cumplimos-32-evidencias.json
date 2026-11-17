@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-11-17",
+  "matrixSha256": "09a2cf3a3d2f9527c88b74511a8920ef492fce493e9c8d6186202bb3efbeeac2",
+  "records": [
+    {
+      "id": "meta3-actividad31-abril2025",
+      "goal": 3,
+      "activity": "3.1",
+      "year": 2025,
+      "documentDate": "2025-04-30",
+      "period": "1 al 30 de abril de 2025",
+      "institution": "Secretaría General y de Gobierno",
+      "title": "Instrumentos y programas de gestión documental",
+      "summary": "El informe describe el diseño de cinco programas específicos del Programa de Gestión Documental y presenta resultados sobre sus instrumentos archivísticos.",
+      "sourceTitle": "3.1 PLAN DE DESARROLLO - ABRIL.pdf",
+      "sourceUrl": "https://drive.google.com/file/d/1rEJpTKhgP_twMdGIrshjy4MYCqcv-O7D/view?usp=drivesdk",
+      "sourceSections": "4. Desarrollo; 5. Resultados; 6. Conclusiones",
+      "matrixReference": "3.2 Plan de Acción 2025 · X13 · meta 3, actividad 3.1",
+      "matrixFolderUrl": "https://drive.google.com/drive/folders/1xLUy29w2bo311VMCCougVHfLsMv0rkC0",
+      "activityFolderUrl": "https://drive.google.com/drive/folders/1jFyIdSSkyBN9atkVxegBdArAfpAwcbgb",
+      "verification": "document_read_and_public_link_permission_checked",
+      "certifiedOverallAchievement": false,
+      "photograph": null
+    },
+    {
+      "id": "meta3-actividad32-abril2025",
+      "goal": 3,
+      "activity": "3.2",
+      "year": 2025,
+      "documentDate": "2025-04-30",
+      "period": "1 al 30 de abril de 2025",
+      "institution": "Secretaría General y de Gobierno",
+      "title": "Capacitación en gestión documental",
+      "summary": "En sus conclusiones, el informe reporta la capacitación de 20 funcionarios y la elaboración de documentos de apoyo a los procesos archivísticos durante abril de 2025.",
+      "sourceTitle": "3.2 INFORME ABRIL.pdf",
+      "sourceUrl": "https://drive.google.com/file/d/1UWMKdqTzLquBl5vmi904jiXeeoBdOxp9/view?usp=drivesdk",
+      "sourceSections": "4. Desarrollo; 5. Resultados; 6. Conclusiones",
+      "matrixReference": "3.2 Plan de Acción 2025 · X13 (carpeta de meta 3) y O14 (actividad 3.2)",
+      "matrixFolderUrl": "https://drive.google.com/drive/folders/1xLUy29w2bo311VMCCougVHfLsMv0rkC0",
+      "activityFolderUrl": "https://drive.google.com/drive/folders/1v2YBarU75FnsNjNt44v-gjdtz4U6XyVW",
+      "verification": "document_read_and_public_link_permission_checked",
+      "certifiedOverallAchievement": false,
+      "photograph": null
+    },
+    {
+      "id": "meta24-actividad242-noviembre2025",
+      "goal": 24,
+      "activity": "24.2",
+      "year": 2025,
+      "documentDate": null,
+      "documentMonth": "2025-11",
+      "period": "Noviembre de 2025; la fecha de emisión del formato no es la fecha de la actividad",
+      "institution": "Secretaría de Desarrollo Social",
+      "title": "Reporte mensual de atención de la Comisaría de Familia",
+      "summary": "El informe de noviembre consigna 42 en el campo de beneficiarios o asistentes. Se conserva como un registro del periodo, sin interpretarlo como personas únicas ni divulgar detalles de los casos.",
+      "sourceTitle": "2.6INFORME PLAN DE ACCION NOVIEMBRE.pdf",
+      "sourceUrl": "https://drive.google.com/file/d/1JJWz_e5SbWLkyjMFjMD3dKkjwUTWiRZI/view?usp=drivesdk",
+      "sourceSections": "Página 1: actividad, dependencia, periodo y campo 5 de beneficiarios o asistentes",
+      "matrixReference": "3.2 Plan de Acción 2025 · X135 · meta 24, actividad 24.2",
+      "matrixFolderUrl": "https://drive.google.com/drive/folders/1-iAU2YvFmOfpmdQR1kuMIIDx2zwPzmut",
+      "activityFolderUrl": "https://drive.google.com/drive/folders/1Ocs9bES9tIzkWs-AeZWUuH6aGeyaQE7h",
+      "verification": "document_read_and_public_link_permission_checked",
+      "certifiedOverallAchievement": false,
+      "photograph": null
+    },
+    {
+      "id": "meta42-actividad422-resolucion107-2025",
+      "goal": 42,
+      "activity": "42.2",
+      "year": 2025,
+      "documentDate": "2025-11-21",
+      "period": "Acto de apertura del 21 de noviembre de 2025",
+      "institution": "Instituto de Deporte, Cultura y Turismo de Subachoque (IDCTS)",
+      "title": "Apertura documentada de un estímulo cultural",
+      "summary": "La Resolución 107 de 2025 documenta la apertura de una convocatoria para un proyecto editorial de memoria cultural. Este acto no acredita la entrega del estímulo ni la ejecución del proyecto.",
+      "sourceTitle": "Resolución 107 de 2025 · apertura de estímulo cultural",
+      "sourceUrl": "https://drive.google.com/file/d/13bkK17dBDZeTzaseuRx-CDeiJI_eIWiS/view?usp=drivesdk",
+      "sourceSections": "Encabezado; identificación de MP42; artículo primero; fecha del acto",
+      "matrixReference": "3.2 Plan de Acción 2025 · X215 · meta 42, actividad 42.2",
+      "matrixFolderUrl": "https://drive.google.com/drive/folders/1LZ8uMALg3IX9Ttj2un_YRUOXomG4ngDt",
+      "activityFolderUrl": "https://drive.google.com/drive/folders/1LZ8uMALg3IX9Ttj2un_YRUOXomG4ngDt",
+      "verification": "document_read_and_public_link_permission_checked",
+      "certifiedOverallAchievement": false,
+      "photograph": null
+    },
+    {
+      "id": "meta105-actividad1051-informe-marzo2025",
+      "goal": 105,
+      "activity": "105.1",
+      "year": 2025,
+      "documentDate": "2025-03-07",
+      "period": "Informe del 7 de marzo de 2025 que refiere una radicación del 20 de junio de 2024",
+      "institution": "Empresa de Aguas y Aseo de Subachoque (AAS S.A. E.S.P.)",
+      "title": "Gestión y radicación de un proyecto de recursos",
+      "summary": "El informe refiere la radicación de un proyecto ante el Ministerio de Vivienda el 20 de junio de 2024 y describe gestiones posteriores de viabilización. No acredita financiación aprobada ni una obra terminada.",
+      "sourceTitle": "Meta 105.1.pdf · informe del 7 de marzo de 2025",
+      "sourceUrl": "https://drive.google.com/file/d/1OQAL_snIiZcnly0XxJQQFrwJrehhaTFT/view?usp=drivesdk",
+      "sourceSections": "Página 1: fecha, referencia Meta 105.1 y gestión para la viabilización de recursos",
+      "matrixReference": "3.2 Plan de Acción 2025 · X488 · meta 105, actividad 105.1",
+      "matrixFolderUrl": "https://drive.google.com/drive/folders/1P51pMQielJIrJyBt3rT5IeYgKXkXDGi1",
+      "activityFolderUrl": "https://drive.google.com/drive/folders/1P51pMQielJIrJyBt3rT5IeYgKXkXDGi1",
+      "verification": "document_read_and_public_link_permission_checked",
+      "certifiedOverallAchievement": false,
+      "photograph": null
+    }
+  ],
+  "publications": [
+    {
+      "id": "ventanilla-virtual-20250828",
+      "publishedAt": "2025-08-28",
+      "year": 2025,
+      "institution": "Alcaldía Municipal de Subachoque · Ventanilla Única Virtual",
+      "title": "Subachoque lanza su Ventanilla Única Virtual",
+      "summary": "La publicación municipal informa sobre un canal digital para presentar solicitudes ciudadanas, consultar trámites y hacer seguimiento con número de radicado.",
+      "sourceUrl": "https://subachoque.101tramites.com/noticias/Paginas/Subachoque-lanza-su-Ventanilla-%C3%9Anica-Virtual-.aspx",
+      "goal": null,
+      "photograph": null,
+      "verification": "publisher_publication_date_and_content_read"
+    }
+  ],
+  "citizenChannel": {
+    "title": "Canales de atención ciudadana ↗",
+    "url": "https://subachoque.101tramites.com/Paginas/canales-de-atencion.aspx",
+    "institution": "Alcaldía Municipal de Subachoque · Ventanilla Única Virtual",
+    "reviewedAt": "2026-11-17",
+    "scope": "Directorio de atención institucional; no es un foro ni un formulario propio de Territorio Inteligente."
+  },
+  "sourceRequirements": [
+    {
+      "id": "acumulado",
+      "title": "Avance acumulado del cuatrienio",
+      "missing": "Metodología institucional aprobada: fórmula de agregación, pesos, tratamiento de metas acumulativas y no acumulativas, cantidades ejecutadas de los indicadores, fecha de corte y tratamiento de blancos.",
+      "enables": "Indicador global, circular de avance y columna apilada de acumulado de las páginas 2 y 3.",
+      "current": "Se muestran porcentajes anuales de actividades, sin sumarlos ni asignar pesos iguales entre vigencias."
+    },
+    {
+      "id": "estados",
+      "title": "Metas en avance, riesgo o retraso",
+      "missing": "Regla oficial con umbrales, avance esperado a la fecha de corte, cronograma por meta y tratamiento de metas sin reporte, futuras o no aplicables; o clasificación validada por meta y vigencia.",
+      "enables": "Distribución circular por estado, leyenda, conteos y acceso a las metas de cada categoría de la página 2.",
+      "current": "No se asignan estados ni colores de riesgo a partir de porcentajes aislados."
+    },
+    {
+      "id": "facturacion",
+      "title": "Facturación como etapa independiente",
+      "missing": "Registro de facturas por meta y vigencia, con identificador, fecha, valor y vínculo con registro presupuestal, obligación y pago, más su definición institucional.",
+      "enables": "Columna de facturación diferenciada de las obligaciones de la página 2.",
+      "current": "Las cinco etapas disponibles mantienen sus nombres reales: saldo definitivo, CDP, registros presupuestales, obligaciones y pagos."
+    },
+    {
+      "id": "reconocimiento",
+      "title": "Reconocimiento fiscal de la portada",
+      "missing": "Tabla oficial de resultados del Índice de Desempeño Fiscal 2024 del DNP, con el puntaje de Subachoque, universo y criterio de comparación departamental; o certificación institucional del puesto mostrado en el Word.",
+      "enables": "Distintivo de posición fiscal de la página 1, con su vigencia y alcance verificables.",
+      "current": "El distintivo del diseño no se publica como un resultado acreditado. La imagen del Word no constituye una certificación."
+    },
+    {
+      "id": "fotografias",
+      "title": "Fotografías y logros por entidad",
+      "missing": "Para cada imagen: archivo original, autor o autorización de uso, fecha, lugar y vínculo con la meta o actividad. Para logros certificados: soporte institucional que acredite el resultado y su alcance.",
+      "enables": "Fotografías atribuibles y logros certificados de las páginas 1, 2 y 5.",
+      "current": "Cinco documentos de cuatro responsables cuentan con revisión de contenido y procedencia. No se publican fotos genéricas ni se certifica el cumplimiento total de una meta a partir de esos documentos."
+    }
+  ]
+}
