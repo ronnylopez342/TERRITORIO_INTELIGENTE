@@ -143,7 +143,7 @@
       '<div class="asi32-home-finance-rows">'+years.map((year,i)=>{
         if(!subset.includes(i))return '';
         const b=budget(rows,i),has=b.n>0,planned=amounts[i];
-        return '<div class="asi32-home-finance-row"><div class="asi32-home-finance-label"><strong>'+year+'</strong><span>Programado: $ '+fmt.format(planned/1e6)+' millones COP+'</span></div>'+
+        return '<div class="asi32-home-finance-row"><div class="asi32-home-finance-label"><strong>'+year+'</strong><span>Programado: $ '+fmt.format(planned/1e6)+' millones COP</span></div>'+
           '<div class="asi32-home-finance-bars"><div title="Programado: '+money.format(planned)+'">'+bar(planned/max,'#128258')+'</div>'+
           (has?'<div title="Pagos informados: '+money.format(b.p)+'">'+bar(b.p/max,'#d7a619')+'</div><small class="asi32-home-paid">Pagos informados: $ '+fmt.format(b.p/1e6)+' millones COP</small>':
           '<small class="asi32-home-no-data">Pagos: sin reporte</small>')+'</div></div>';
