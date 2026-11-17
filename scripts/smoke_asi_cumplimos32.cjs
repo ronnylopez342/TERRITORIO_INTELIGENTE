@@ -109,6 +109,9 @@ async function run(){
   assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),9,'La ficha no agrega otra navegación');
   assert.equal(await page.locator(rootSel+'.asi32-detail-banner').count(),1);
   assert.ok(await page.locator(rootSel+'.asi32-goal').count()>0);
+  assert.equal(await page.locator(rootSel+'.asi32-goal-chart .asi32-vcolumn').count(),2*await page.locator(rootSel+'.asi32-goal').count());
+  await page.locator(rootSel+'.asi32-goal-chart [data-asi-goal]').first().click();
+  await page.locator(rootSel+'.asi32-detail-banner').scrollIntoViewIfNeeded();
   await page.screenshot({path:path.join(dest,'asi32-secretaria-desktop.png')});
   await page.locator(rootSel+'[data-asi-back]').click();
   assert.equal(await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').getAttribute('aria-selected'),'true');

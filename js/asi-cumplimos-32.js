@@ -184,7 +184,7 @@
     return '<div class="asi32-plot-scroll" tabindex="0" role="region" aria-label="'+esc(label)+'"><div class="asi32-data-columns" style="--columns:'+Math.max(1,items.length)+'">'+items.map(x=>
       '<div class="asi32-vcolumn"><strong>'+esc(formatValue(x.value))+'</strong><div class="asi32-vtrack">'+
       (Number.isFinite(x.value)?'<span style="height:'+(Math.max(0,x.value)/max*100).toFixed(4)+'%;background:'+esc(x.color||'#087d50')+'"></span>':'<div class="asi32-home-missing">Sin reporte</div>')+
-      '</div><b>'+esc(x.label)+'</b><small>'+esc(x.note||'')+'</small></div>').join('')+'</div></div>';
+      '</div><b>'+(x.goal?'<button type="button" class="asi32-meta-link" data-asi-goal="'+x.goal+'">'+esc(x.label)+'</button>':esc(x.label))+'</b><small>'+esc(x.note||'')+'</small></div>').join('')+'</div></div>';
   }
   function pairedExecution(rows){
     const items=yearsToDisplay().flatMap(i=>{
@@ -249,7 +249,7 @@
       return '<div class="asi32-finance"><strong>'+years[i]+'</strong>'+bar(p,colorYear[i])+'<strong>'+pct(p)+'</strong></div>'+
         '<small>Programado en Plan Indicativo: '+compact(r.indicative[i])+'. '+(Number.isFinite(b)?'Saldo definitivo: '+compact(b)+' · Pagos: '+compact(paid):'Sin ejecución presupuestal registrada')+'</small>';
     }).join('');
-    return '<article class="asi32-goal"><div class="asi32-goal-meta"><span class="asi32-goal-number">META '+r.id+'</span><small>BPIN '+esc(r.bpin||'no informado')+'</small></div>'+
+    return '<article class="asi32-goal" id="asi32-meta-'+r.id+'" tabindex="-1"><div class="asi32-goal-meta"><span class="asi32-goal-number">META '+r.id+'</span><small>BPIN '+esc(r.bpin||'no informado')+'</small></div>'+
       '<h3>'+esc(r.name)+'</h3><div class="asi32-pills"><span class="asi32-pill">'+esc(catalog.owners[r.owner])+'</span><span class="asi32-pill">'+esc(catalog.lines[r.line])+'</span></div>'+
       '<small><strong>Sector:</strong> '+esc(catalog.sectors[r.sector])+'</small><small><strong>Programa:</strong> '+esc(catalog.programs[r.program])+'</small>'+annual+'</article>';
   }
@@ -266,12 +266,19 @@
     const idx=state.detailOwner;if(idx===null)return grouping(rows,'owner');
     const label=catalog.owners[idx],sub=rows.filter(r=>r.owner===idx);
     const s=stat(sub),yy=latestReported(),av=physical(sub,yy),fin=budget(sub,yy);
-    return '<section class="asi32-block"><button type="button" class="asi32-action asi32-action--ghost" data-asi-back>← Todas las dependencias</button>'+
-      '<header class="asi32-detail-banner"><span class="asi32-eyebrow" style="color:#bdecd3">Detalle institucional · '+years[yy]+'</span><h2>'+esc(label)+'</h2><p>Fuente: matriz consolidada. Imágenes institucionales de contexto, sin atribución de obras específicas.</p></header>'+
+    return '<section class="asi32-block"><button type="button" class="asi32-action asi32-action--ghost" data-asi-back>← Regresar al '+(returnTab==='ejecutivo'?'consolidado':'listado de dependencias')+'</button>'+
+      '<header class="asi32-detail-banner"><span class="asi32-eyebrow" style="color:#bdecd3">Detalle institucional · '+(state.year==='all'?'Cuatrienio 2024–2027':years[yy])+'</span><h2>'+esc(label)+'</h2><p>Información de la entidad y sus metas, según los filtros generales.</p></header>'+
       '<div class="asi32-grid-3"><article class="asi32-card"><h3>Información estratégica</h3><p class="asi32-sub">Estructura de la entidad dentro del plan</p>'+[
         [unique(sub.map(r=>r.line)),'Líneas estratégicas'],[unique(sub.map(r=>r.sector)),'Sectores MGA'],[unique(sub.map(r=>r.program)),'Programas'],[sub.length,'Metas producto']].map(x=>'<div class="asi32-finance" style="grid-template-columns:55px 1fr"><strong style="font-size:24px;color:#0b8653">'+x[0]+'</strong><span>'+x[1]+'</span></div>').join('')+'</article>'+
-      '<article class="asi32-card"><h3>Ejecución física y presupuestal</h3><p class="asi32-sub">Vigencia de referencia '+years[yy]+'</p><div class="asi32-finance"><span>Física</span>'+bar(av,'#0a854e')+'<strong>'+pct(av)+'</strong></div><div class="asi32-finance"><span>Pagos</span>'+bar(fin.b>0?fin.p/fin.b:null,'#f1b72d')+'<strong>'+(fin.b>0?pct(fin.p/fin.b):'Sin reporte')+'</strong></div><p class="asi32-source">Porcentaje de metas con reporte y pagos respecto al saldo definitivo; no son indicadores oficiales de cumplimiento global.</p></article>'+
-      '<article class="asi32-card"><h3>Presupuesto asignado</h3><p class="asi32-sub">Saldo definitivo del Plan de Acción '+years[yy]+'</p><strong style="font-size:clamp(22px,2.5vw,34px);color:#106a47">'+compact(fin.n?fin.b:null)+'</strong><p>Pagos informados: <strong>'+compact(fin.n?fin.p:null)+'</strong></p><p class="asi32-source">Plan Indicativo 2024–2027: '+compact(s.indicative)+' programados, sujeto a validación de fuente y vigencia.</p></article></div></section>'+metas(sub);
+      '<article class="asi32-card"><h3>Presupuesto de la entidad</h3><p class="asi32-sub">Saldo definitivo del Plan de Acción '+years[yy]+(state.year==='all'?' · Última vigencia con reporte':'')+'</p><strong style="font-size:clamp(22px,2.5vw,34px);color:#106a47">'+compact(fin.n?fin.b:null)+'</strong><p>Pagos informados: <strong>'+compact(fin.n?fin.p:null)+'</strong></p><p class="asi32-source">'+fin.n+' de '+sub.length+' metas con datos financieros. Plan Indicativo '+(state.year==='all'?'2024–2027':state.year)+': '+compact(s.indicative)+' programados.</p></article>'+
+      '<article class="asi32-card"><h3>Logros certificados</h3><p class="asi32-sub">Fuente pendiente de validación institucional</p><p>Los avances de la matriz son reportes de seguimiento. No se atribuyen obras, fotografías o logros certificados a esta entidad sin sus soportes.</p></article></div></section><section class="asi32-block">'+pairedExecution(sub)+'</section>'+goalComparison(sub)+metas(sub);
+  }
+  function goalComparison(rows){
+    const i=latestReported(),items=rows.flatMap(r=>[
+      {label:'Meta '+r.id+' · Física',value:r.physical[i],color:'#e6b322',goal:r.id},
+      {label:'Meta '+r.id+' · Pagos / saldo',value:Number.isFinite(r.paid[i])&&Number.isFinite(r.action[i])&&r.action[i]>0?r.paid[i]/r.action[i]:null,color:'#138151',goal:r.id}
+    ]);
+    return '<section class="asi32-block"><article class="asi32-card asi32-goal-chart"><h3>Comparación de metas de la entidad · '+years[i]+'</h3><p class="asi32-sub">'+(state.year==='all'?'Última vigencia con ejecución documentada en la matriz. ':'')+rows.length+' metas. Desplázate horizontalmente y selecciona el número para abrir su ficha.</p>'+columns(items,'Avance físico y pagos por meta de la entidad')+'<p class="asi32-source">Dos columnas por meta: porcentaje físico reportado y pagos / saldo definitivo positivo. Cero informado se conserva como 0 %; un campo vacío o denominador cero se muestra sin reporte. Escala compartida de base cero, con referencia mínima de 100 %; los valores por encima de 100 % se conservan.</p></article></section>';
   }
   function content(rows){
     switch(state.tab){
@@ -320,6 +327,8 @@
     state.q=event.target.value;renderTopCards();renderContent();
   });
   root.addEventListener('click',event=>{
+    const goal=event.target.closest('[data-asi-goal]');
+    if(goal){const node=root.querySelector('#asi32-meta-'+goal.dataset.asiGoal);node?.focus({preventScroll:true});node?.scrollIntoView({block:'start',behavior:'smooth'});return;}
     const tab=event.target.closest('[data-asi-tab]');
     if(tab){state.tab=tab.dataset.asiTab;renderNav();renderContent();return;}
     const homeLine=event.target.closest('[data-asi-home-line]');
