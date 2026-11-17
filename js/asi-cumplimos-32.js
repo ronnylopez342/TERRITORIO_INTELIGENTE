@@ -215,6 +215,36 @@
       }).join('')+'</div>'+
       '<div class="asi32-home-method"><strong>Sobre los datos</strong><p>Los cuatro años están contemplados en la programación; únicamente 2024 y 2025 registran ejecución física en las hojas anuales de la matriz compartida. La ausencia de datos no se interpreta como cero.</p></div></article>';
   }
+  function columns(items,label,formatValue=pct){
+    const valid=items.map(x=>x.value).filter(Number.isFinite);
+    const max=Math.max(1,...valid);
+    return '<div class="asi32-plot-scroll" tabindex="0" role="region" aria-label="'+esc(label)+'"><div class="asi32-data-columns" style="--columns:'+Math.max(1,items.length)+'">'+items.map(x=>
+      '<div class="asi32-vcolumn"><strong>'+esc(formatValue(x.value))+'</strong><div class="asi32-vtrack">'+
+      (Number.isFinite(x.value)?'<span style="height:'+(Math.max(0,x.value)/max*100).toFixed(4)+'%;background:'+esc(x.color||'#087d50')+'"></span>':'<div class="asi32-home-missing">Sin reporte</div>')+
+      '</div><b>'+esc(x.label)+'</b><small>'+esc(x.note||'')+'</small></div>').join('')+'</div></div>';
+  }
+  function pairedExecution(rows){
+    const items=yearsToDisplay().flatMap(i=>{
+      const count=rows.filter(r=>Number.isFinite(r.physical[i])).length,b=budget(rows,i);
+      return [{label:years[i]+' · Física',value:physical(rows,i),color:'#e6b322',note:count+' de '+rows.length+' metas con reporte'},
+        {label:years[i]+' · Pagos / saldo',value:financialRatio(rows,i),color:'#138151',note:b.n+' de '+rows.length+' metas con ambos valores'}];
+    });
+    return '<article class="asi32-card asi32-paired"><h3>Ejecución física y presupuestal</h3><p class="asi32-sub">Dos columnas por vigencia, sin sumar porcentajes anuales.</p>'+columns(items,'Ejecución física y pagos respecto al saldo definitivo')+
+      '<p class="asi32-source">Física: promedio simple de porcentajes de metas con reporte. Financiera: suma de pagos / suma del saldo definitivo de las mismas metas con ambos campos numéricos y denominador positivo. Son medidas diferentes. Escala compartida: de 0 % al mayor valor entre 100 % y los reportes visibles. Los años sin reporte se conservan vacíos.</p></article>';
+  }
+  function financialStages(rows){
+    const selected=yearsToDisplay(),stages=['Saldo definitivo','CDP','Registros presupuestales','Obligaciones','Pagos'];
+    const tones=['#127db5','#238c58','#ed9039','#348f9a','#c25255'];
+    const items=stages.map((label,col)=>{
+      const values=rows.flatMap(r=>selected.map(i=>details[r.id]?.financial[i][col])).filter(Number.isFinite);
+      return {label,value:values.length?sum(values):null,color:tones[col],note:values.length+' de '+(rows.length*selected.length)+' campos meta–año'};
+    });
+    return '<article class="asi32-card asi32-stages"><h3>Gestión financiera · Cinco etapas del Plan de Acción</h3><p class="asi32-sub">'+
+      (state.year==='all'?'Cuatrienio seleccionado; importes reportados únicamente en 2024 y 2025.':'Vigencia '+state.year)+
+      '</p>'+columns(items,'Cinco etapas financieras en millones de pesos',v=>Number.isFinite(v)?'$ '+fmt.format(v/1e6)+' M':'Sin reporte')+
+      '<p class="asi32-source">Valores en millones de COP; altura proporcional al mayor importe visible (base cero). Campos exactos AI:AM (2024) y AR:AV (2025), una fila resumen por meta. El saldo definitivo no se suma a la programación del Plan Indicativo. Obligaciones es causación de cuentas; la matriz no identifica una etapa independiente de facturación. Las etapas no se suman entre sí.</p></article>';
+  }
+  function pendingSources(){return '<article class="asi32-card asi32-pending"><h3>Estados de metas y resultados certificados</h3><p class="asi32-sub">Fuentes por completar</p><p>La distribución circular por riesgo o retraso requiere umbrales, fechas de corte y una metodología oficial. La matriz no aporta esa clasificación. Por eso no se asignan estados ni colores de riesgo a las metas.</p><p class="asi32-source">Logros certificados, noticias y fotografías atribuibles: pendientes de validación institucional. Los textos e imágenes ilustrativos del Word no certifican resultados.</p></article>';}
   function start(rows){
     return '<section class="asi32-block asi32-home-intro">'+
       pageTitle('Inicio · Seguimiento del cuatrienio 2024–2027',
@@ -226,19 +256,10 @@
       '<div class="asi32-home-bottom-grid">'+homeStructure(rows)+homeCoverage(rows)+'</div></section>';
   }
   function executive(rows){
-    const st=stat(rows);
     return '<section class="asi32-block">'+pageTitle('Dashboard ejecutivo',
       'Lectura comparativa de la ejecución física y los pagos reportados por las secretarías y entidades.','Seguimiento del cuatrienio')+
       '</section>'+ownerBar(rows)+
-      '<section class="asi32-block">'+pageTitle('Seguimiento anual y programación financiera',
-      'Consulta el detalle anual de las metas y los recursos del Plan Indicativo.','Información complementaria')+
-      '<div class="asi32-grid">'+annualCards(rows)+budgetChart(rows)+'</div></section>'+
-      '<section class="asi32-block">'+pageTitle('Financiación del seguimiento',
-        'Presupuesto y pagos proceden de hojas y definiciones diferentes.','Transparencia')+
-      '<div class="asi32-grid-3">'+
-      kpi('Plan Indicativo',compact(st.indicative),'Programado '+(state.year==='all'?'2024–2027':state.year))+
-      kpi('Saldo definitivo',compact(st.action),'Planes de Acción con datos')+
-      kpi('Pagos',compact(st.paid),'Solo vigencias con informe')+'</div></section>';
+      '<section class="asi32-block">'+pairedExecution(rows)+'</section><section class="asi32-block">'+financialStages(rows)+'</section>'+pendingSources();
   }
   function plan(rows){
     return '<section class="asi32-block">'+pageTitle('Plan de Desarrollo: el cuatrienio completo','Del referente de programación a la evidencia de ejecución por vigencia.','Plan 2024–2027')+

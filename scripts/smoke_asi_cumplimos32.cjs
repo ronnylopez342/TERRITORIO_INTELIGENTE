@@ -77,6 +77,10 @@ async function run(){
   assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),8);
   assert.equal(await page.locator(rootSel+'.asi32-owner-col').count(),16);
   assert.equal(await page.locator(rootSel+'.asi32-owner-legend span').count(),2);
+  assert.equal(await page.locator(rootSel+'.asi32-paired .asi32-vcolumn').count(),8);
+  assert.equal(await page.locator(rootSel+'.asi32-stages .asi32-vcolumn').count(),5);
+  assert.match(await page.locator(rootSel+'.asi32-stages').innerText(),/Obligaciones/);
+  await page.locator(rootSel+'.asi32-stages').screenshot({path:path.join(dest,'asi32-finanzas-desktop.png')});
   const title=await page.locator(rootSel+'[data-asi-owner-section] .asi32-blockhead h2').innerText();
   assert.match(title,/2025/);
   assert.match(title,/secretarías y entidades/i);
@@ -95,6 +99,8 @@ async function run(){
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2026');
   assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),0);
   assert.match(await page.locator(rootSel+'.asi32-owner-no-data').innerText(),/Sin reporte de ejecución para 2026/);
+  assert.equal(await page.locator(rootSel+'.asi32-stages .asi32-home-missing').count(),5);
+  assert.equal(await page.locator(rootSel+'.asi32-paired .asi32-home-missing').count(),2);
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2024');
   assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),8);
   assert.match(await page.locator(rootSel+'[data-asi-owner-section] .asi32-blockhead').innerText(),/2024/);

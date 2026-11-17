@@ -297,3 +297,11 @@ body:has(#desarrollo-cumplimos:not([hidden])) .ti34-sidebar,body:has(#desarrollo
 #desarrollo-cumplimos .asi32 .asi32-fill{display:block!important;position:static!important;height:100%!important}
 #desarrollo-cumplimos .asi32 .asi32-home-tag{display:inline-block!important;width:auto!important;height:auto!important;border-radius:5px!important;padding:7px 9px!important;background:#eff6ef!important}
 #desarrollo-cumplimos .asi32 .asi32-detail-banner{background:#07563e!important;min-height:0}
+#desarrollo-cumplimos .asi32 .asi32-progress-columns>.asi32-vcolumn{flex:0 0 95px!important}
+#desarrollo-cumplimos .asi32 .asi32-progress-columns{min-width:600px}
+#desarrollo-cumplimos .asi32 .asi32-home-annual{min-width:0!important;width:auto!important}
+#desarrollo-cumplimos .asi32 .asi32-data-columns{display:grid;grid-template-columns:repeat(var(--columns),minmax(110px,1fr));min-width:calc(var(--columns)*140px);gap:22px;align-items:start;padding:0 12px}
+#desarrollo-cumplimos .asi32 .asi32-data-columns .asi32-vcolumn>strong{font-size:14px;white-space:nowrap}
+#desarrollo-cumplimos .asi32 .asi32-data-columns .asi32-vcolumn>b{min-height:38px;max-width:130px}
+#desarrollo-cumplimos .asi32 .asi32-data-columns .asi32-vcolumn>small{max-width:125px}
+#desarrollo-cumplimos .asi32 .asi32-pending p{margin-top:12px;line-height:1.7}
