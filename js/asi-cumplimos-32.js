@@ -222,19 +222,25 @@
       pageTitle('Inicio · Seguimiento del cuatrienio 2024–2027',
         'Consulta de metas producto con información física y financiera exclusivamente de la Matriz de Control.',
         'Así cumplimos · 3.2')+
-      '<div class="asi32-home-lead"><strong>Vista general</strong><span>Elige vigencia, línea, sector, programa o dependencia para actualizar todas las cifras de esta página.</span></div>'+
+      '<div class="asi32-home-lead"><strong>Vista general</strong><span>Elige vigencia, línea, sector, programa o dependencia para actualizar todas las cifras de esta página.</span><button class="asi32-owner-shortcut" data-asi-show-exec type="button">Ver gráfica de las 8 secretarías ↗</button></div>'+
       '<div class="asi32-home-main-grid">'+homeProgress(rows)+homeFinance(rows)+'</div></section>'+
       '<section class="asi32-block asi32-home-bottom">'+
       '<div class="asi32-home-bottom-grid">'+homeStructure(rows)+homeCoverage(rows)+'</div></section>';
   }
   function executive(rows){
-    const s=stat(rows);return '<section class="asi32-block">'+pageTitle('Dashboard ejecutivo','109 metas en el conjunto completo, con filtros cruzados por vigencia, línea, sector, programa y dependencia.','Lectura transversal')+
-      '<div class="asi32-grid">'+annualCards(rows)+budgetChart(rows)+'</div></section>'+ownerBar(rows)+
-      '<section class="asi32-block">'+pageTitle('Financiación del seguimiento','Presupuesto y pagos responden a hojas y definiciones diferentes.','Transparencia')+
+    const st=stat(rows);
+    return '<section class="asi32-block">'+pageTitle('Dashboard ejecutivo',
+      'Lectura comparativa de la ejecución física y los pagos reportados por las secretarías y entidades.','Seguimiento del cuatrienio')+
+      '</section>'+ownerBar(rows)+
+      '<section class="asi32-block">'+pageTitle('Seguimiento anual y programación financiera',
+      'Consulta el detalle anual de las metas y los recursos del Plan Indicativo.','Información complementaria')+
+      '<div class="asi32-grid">'+annualCards(rows)+budgetChart(rows)+'</div></section>'+
+      '<section class="asi32-block">'+pageTitle('Financiación del seguimiento',
+        'Presupuesto y pagos proceden de hojas y definiciones diferentes.','Transparencia')+
       '<div class="asi32-grid-3">'+
-      kpi('Plan Indicativo',compact(s.indicative),'Programado '+(state.year==='all'?'2024–2027':state.year))+
-      kpi('Saldo definitivo',compact(s.action),'Planes de acción con datos')+
-      kpi('Pagos',compact(s.paid),'Solo vigencias con informe')+'</div></section>';
+      kpi('Plan Indicativo',compact(st.indicative),'Programado '+(state.year==='all'?'2024–2027':state.year))+
+      kpi('Saldo definitivo',compact(st.action),'Planes de Acción con datos')+
+      kpi('Pagos',compact(st.paid),'Solo vigencias con informe')+'</div></section>';
   }
   function plan(rows){
     return '<section class="asi32-block">'+pageTitle('Plan de Desarrollo: el cuatrienio completo','Del referente de programación a la evidencia de ejecución por vigencia.','Plan 2024–2027')+
@@ -340,6 +346,7 @@
     if(homeLine){state.line=homeLine.dataset.asiHomeLine;state.tab='lineas';render();return;}
     const clear=event.target.closest('[data-asi-clear]');
     if(clear){Object.assign(state,{year:'all',line:'all',sector:'all',program:'all',owner:'all',q:'',detailOwner:null,tab:'inicio'});render();return;}
+    if(event.target.closest('[data-asi-show-exec]')){state.tab='ejecutivo';renderNav();renderContent();root.querySelector('[data-asi-owner-section]')?.scrollIntoView({block:'start'});return;}
     const owner=event.target.closest('[data-asi-owner]');
     if(owner){state.detailOwner=Number(owner.dataset.asiOwner);state.owner='all';state.tab='detalle';render();return;}
     const drill=event.target.closest('[data-asi-drill]');
