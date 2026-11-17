@@ -237,3 +237,13 @@
 #desarrollo-accion .pa-product-content a{font-size:12px;color:#08623a;font-weight:850;text-decoration:underline}
 #desarrollo-accion .pa-product-content>span{font-size:11px;color:#668878}
 #desarrollo-accion .pa-map-open{display:inline-block;font-size:10px;color:#126b51!important;font-weight:850!important;text-decoration:underline}
+
+/* Corte 2026 3T — trazabilidad sin totalizador; tarjetas de meta se conservan. */
+#desarrollo-accion .pa-3t-audit{display:block;width:100%;box-sizing:border-box;margin:0 0 17px;border:1px solid #bad9c8;border-left:4px solid #13805b;border-radius:8px;background:#f0f8f2;color:#214438;padding:14px 17px;font-size:12px;line-height:1.5;}
+#desarrollo-accion .pa-3t-audit>strong{display:block;font-size:14px;color:#065f40;}
+#desarrollo-accion .pa-3t-audit p{margin:7px 0;color:#395d4c;line-height:1.5;}
+#desarrollo-accion .pa-3t-audit details{margin-top:10px;}
+#desarrollo-accion .pa-3t-audit summary{cursor:pointer;color:#145f45;font-weight:800;}
+#desarrollo-accion .pa-3t-audit ul{margin:7px 0;padding-left:22px;}
+#desarrollo-accion .pa-3t-audit small{display:block;margin-top:8px;color:#5c7368;}
+@media(max-width:600px){#desarrollo-accion .pa-3t-audit{padding:12px;}}
