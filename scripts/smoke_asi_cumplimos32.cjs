@@ -70,10 +70,29 @@ async function run(){
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2024');
   assert.match(await page.locator(rootSel+'.asi32-home-annual').innerText(),/96,9/);
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('all');
-  // La navegación a otras vistas sigue funcionando sin rediseñarlas.
-  await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').click();
-  assert.equal(await page.locator(rootSel+'[data-asi-owner]').count(),8);
-  await page.locator(rootSel+'[data-asi-owner]').first().click();
+  // Comparativo ORIGINAL restaurado con dos columnas por entidad, sin cifras ficticias.
+  await page.locator(rootSel+'[data-asi-show-exec]').click();
+  assert.equal(await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').getAttribute('aria-selected'),'true');
+  assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),8);
+  assert.equal(await page.locator(rootSel+'.asi32-owner-col').count(),16);
+  assert.equal(await page.locator(rootSel+'.asi32-owner-legend span').count(),2);
+  const title=await page.locator(rootSel+'[data-asi-owner-section] .asi32-blockhead h2').innerText();
+  assert.match(title,/2025/);
+  assert.match(title,/secretarías y entidades/i);
+  const legend=await page.locator(rootSel+'.asi32-owner-legend').innerText();
+  assert.match(legend,/Ejecución física/);
+  assert.match(legend,/Pagos/);
+  assert.ok((await page.locator(rootSel+'.asi32-owner-value').allInnerTexts()).some(v=>v.includes('%')),'Faltan porcentajes visibles en columnas');
+  await page.locator(rootSel+'[data-asi-owner-section]').scrollIntoViewIfNeeded();
+  await page.screenshot({path:path.join(dest,'asi32-consolidado-desktop.png')});
+  await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2026');
+  assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),0);
+  assert.match(await page.locator(rootSel+'.asi32-owner-no-data').innerText(),/Sin reporte de ejecución para 2026/);
+  await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2024');
+  assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),8);
+  assert.match(await page.locator(rootSel+'[data-asi-owner-section] .asi32-blockhead').innerText(),/2024/);
+  await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('all');
+  await page.locator(rootSel+'.asi32-owner-group').first().click();
   assert.equal(await page.locator(rootSel+'.asi32-detail-banner').count(),1);
   assert.ok(await page.locator(rootSel+'.asi32-goal').count()>0);
   await page.screenshot({path:path.join(dest,'asi32-secretaria-desktop.png')});
@@ -91,6 +110,17 @@ async function run(){
   const compactHeader=await page.locator(rootSel+'.asi32-hero').boundingBox();
   assert.ok(compactHeader.height<260,'Encabezado móvil demasiado grande: '+JSON.stringify(compactHeader));
   await page.screenshot({path:path.join(dest,'asi32-inicio-mobile.png'),fullPage:true});
+  await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').click();
+  assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),8);
+  const viewport=await page.evaluate(()=>{
+    const chart=document.querySelector('#desarrollo-cumplimos .asi32-owner-scroll');
+    return {screen:innerWidth,region:chart?.getBoundingClientRect().width,
+      scrollWidth:chart?.scrollWidth,clientWidth:chart?.clientWidth};
+  });
+  assert.ok(viewport.region<=viewport.screen+2,'Comparativo desborda ventana móvil: '+JSON.stringify(viewport));
+  assert.ok(viewport.scrollWidth>viewport.clientWidth,'El móvil debe permitir desplazamiento horizontal dentro de la gráfica');
+  await page.locator(rootSel+'[data-asi-owner-section]').scrollIntoViewIfNeeded();
+  await page.screenshot({path:path.join(dest,'asi32-consolidado-mobile.png')});
   console.log('ASÍ CUMPLIMOS 3.2: INICIO EN ORDEN, KPI ÚNICO, 109 METAS, 2024/2025 REALES, 2026/2027 SIN REPORTE Y MÓVIL: PASS.');
  }finally{await browser.close();await new Promise(ok=>server.close(ok));}
 }
