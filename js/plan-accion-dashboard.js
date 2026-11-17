@@ -1633,7 +1633,7 @@
     if(state.year==='2026'&&state.supportManifest){
       const source=state.supportManifest.metas?.[String(m.id)]||{};
       const registered=Object.values(source),withLink=registered.filter(a=>a.refs?.length).length;
-      const pending=registered.length-withLink;
+      const pendingActivities=registered.filter(a=>!a.refs?.length),pending=pendingActivities.length;
       const references=registered.reduce((n,a)=>n+(a.refs||[]).length,0);
       const missing=cat.entries.filter(x=>x.accessNote||x.visibility==='not_verified').length;
       const values=[
@@ -1650,7 +1650,8 @@
         '<div><h3>'+html(title)+'</h3><strong>'+html(String(value))+'</strong><small>'+html(sub)+'</small></div></article>').join('')+'</div>'+
       '<p class="pa-su-accuracy-note">Auditoría integral de 2026: 379 actividades; 222 con algún enlace; 157 sin URL; 227 referencias (160 identificadores únicos). Se recuperaron hipervínculos de celdas que no aparecían como texto. Metadatos de 150 identificadores consultables en Drive y 10 sin verificación; la existencia de una carpeta no certifica sus documentos ni su contenido. '+
       (missing?'<strong>'+missing+' enlaces de esta meta requieren revisión de acceso.</strong>':'')+
-      ' Los enlaces externos pueden requerir permisos y sus fechas de modificación no equivalen a la fecha de ejecución.</p></section>';
+      ' Los enlaces externos pueden requerir permisos y sus fechas de modificación no equivalen a la fecha de ejecución.</p>'+ 
+      (pending?'<details class="pa-su-missing-detail" data-pa-su-missing-list><summary>Ver '+pending+' actividad(es) sin soporte enlazado</summary><div class="pa-su-missing-table-scroll"><table><thead><tr><th>Actividad</th><th>Soporte requerido</th><th>Fila Excel</th><th>Estado</th></tr></thead><tbody>'+pendingActivities.map(a=>'<tr><td>'+html(a.activity)+'</td><td>'+html(a.supportExpected||'No especificado')+'</td><td>'+html(String(a.row))+'</td><td>Sin URL en AC</td></tr>').join('')+'</tbody></table></div></details>':'')+'</section>';
     }
     const suffix=cat.unknownRepos?'identificados · hay carpetas sin enumerar':'individuales identificados';
     const values=[['folder','Archivos individuales',cat.files.length,'Archivos '+suffix],['photo','Fotografías',cat.types.photo||(cat.unknownRepos?'—':'0'),'Imágenes identificadas'],['document','Documentos',cat.types.document||(cat.unknownRepos?'—':'0'),'Archivos documentales'],['video','Videos',cat.types.video||(cat.unknownRepos?'—':'0'),'Videos identificados'],['certificate','Actas / Certificaciones',cat.types.certificate||(cat.unknownRepos?'—':'0'),'Sin duplicar documentos']];
