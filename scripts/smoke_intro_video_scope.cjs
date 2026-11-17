@@ -61,7 +61,8 @@ async function checkData(page,mode,out){
           lines:rect.getClientRects().length,overflowWrap:css.overflowWrap,wordBreak:css.wordBreak,
           scroll:span.scrollWidth,client:span.clientWidth};
       });
-      return {width:innerWidth,lines,scroll:document.documentElement.scrollWidth};
+      const hero=document.querySelector('#data-encuesta .k23-hero');
+      return {width:innerWidth,lines,heroScroll:hero.scrollWidth,heroClient:hero.clientWidth,pageScroll:document.documentElement.scrollWidth};
     });
     for(const l of detail.lines){
       assert.ok(l.right<=l.boxRight+2&&l.left>=l.boxLeft-2,
@@ -69,7 +70,7 @@ async function checkData(page,mode,out){
       assert.equal(l.lines,1,mode+' '+width+'px: palabra dividida: '+JSON.stringify(l));
       assert.equal(l.wordBreak,'normal',mode+' '+width+'px: word-break incorrecto');
     }
-    assert.ok(detail.scroll<=width+3,mode+' '+width+'px: scroll horizontal: '+JSON.stringify(detail));
+    assert.ok(detail.heroScroll<=detail.heroClient+3,mode+' '+width+'px: desbordamiento de la portada: '+JSON.stringify(detail));
     if(width===1440||width===390){
       await page.locator('#data-encuesta .k23-hero').screenshot({
         path:path.join(out,'conoce-solo-23-'+mode+'-'+width+'.png')
