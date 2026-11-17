@@ -178,7 +178,7 @@
   function start(rows){
     return '<section class="asi32-block asi32-home-intro">'+
       pageTitle('Inicio · Seguimiento del cuatrienio 2024–2027',
-        'Una lectura clara de las 109 metas producto, con información física y financiera exclusivamente de la Matriz de Control.',
+        'Consulta de metas producto con información física y financiera exclusivamente de la Matriz de Control.',
         'Así cumplimos · 3.2')+
       '<div class="asi32-home-lead"><strong>Vista general</strong><span>Elige vigencia, línea, sector, programa o dependencia para actualizar todas las cifras de esta página.</span></div>'+
       '<div class="asi32-home-main-grid">'+homeProgress(rows)+homeFinance(rows)+'</div></section>'+
@@ -316,7 +316,7 @@
   root.innerHTML='<header class="asi32-hero asi32-hero--compact" aria-label="Así cumplimos, visor del Plan de Desarrollo">'+
     '<div class="asi32-hero-content"><span class="asi32-kicker">SUBACHOQUE · EL MEJOR PLAN · 2024–2027</span>'+
     '<h1>Así cumplimos</h1><p>Seguimiento del Plan de Desarrollo con datos trazables de la matriz municipal.</p></div>'+
-    '<div class="asi32-hero-aside"><strong>109 metas producto</strong><span>Programación 2024–2027 · Reportes disponibles 2024 y 2025</span></div></header>'+
+    '<div class="asi32-hero-aside"><strong>Datos de la matriz</strong><span>Plan Indicativo · Planes de Acción</span></div></header>'+
     '<div class="asi32-filters" data-asi-filters aria-label="Filtros del visor"></div>'+
     '<div class="asi32-topmetrics" data-asi-kpis aria-label="Indicadores generales de la selección"></div>'+
     '<nav class="asi32-nav" role="tablist" aria-label="Secciones de Así cumplimos" data-asi-tabs></nav>'+
