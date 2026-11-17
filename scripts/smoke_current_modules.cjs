@@ -127,6 +127,7 @@ async function run(){
        formula:'valor',numerador:'12',denominador:'',factor:'1000',unidad:'personas'
      }]}))
    });
+   await page.waitForFunction(()=>document.querySelector('[data-cn-tools-list]')?.textContent.includes('Importado de prueba'),null,{timeout:20000});
    assert.match(await page.locator('[data-cn-tools-list]').innerText(),/Importado de prueba/);
    assert.match(await page.locator('[data-cn-tools-list]').innerText(),/12/);
    await page.locator('[data-cn-tools-close]').click();
