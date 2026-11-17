@@ -13,12 +13,26 @@ async function run(){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  const page=await browser.newPage({viewport:{width:1440,height:900}});
+ page.on('pageerror',e=>console.log('[BROWSER PAGEERROR]',e.message));
+ page.on('console',msg=>{if(msg.type()==='error')console.log('[BROWSER CONSOLE]',msg.text());});
  fs.mkdirSync(dest,{recursive:true});
  try{
   await page.goto('http://127.0.0.1:'+server.address().port+'/#desarrollo?seccion=desarrollo-cumplimos',{waitUntil:'domcontentloaded',timeout:45000});
   await page.waitForSelector('#desarrollo-cumplimos [data-asi32-root]',{timeout:30000});
   if(await page.locator('#desarrollo-cumplimos').isHidden())await page.evaluate(()=>document.getElementById('tab-desarrollo-cumplimos')?.click());
-  await page.waitForFunction(()=>document.querySelectorAll('#desarrollo-cumplimos .asi32-kpi').length===6,null,{timeout:45000});
+  try { await page.waitForFunction(()=>document.querySelectorAll('#desarrollo-cumplimos .asi32-kpi').length===6,null,{timeout:25000}); }
+  catch(error) {
+    const debug=await page.evaluate(()=>({
+      section:document.querySelector('#desarrollo-cumplimos')?.outerHTML.slice(0,2400),
+      body:document.querySelector('#desarrollo-cumplimos [data-asi-body]')?.innerText.slice(0,1300),
+      loader:!!document.querySelector('script[src*="asi-cumplimos-32.js"]'),
+      path:location.href,
+      state:document.querySelector('#desarrollo-cumplimos')?.hidden,
+      scriptText:document.querySelector('#desarrollo-cumplimos [data-asi32-root]')?.innerText.slice(0,1200)
+    }));
+    console.log('ASI32 DIAGNOSTIC',JSON.stringify(debug));
+    throw error;
+  }
   const rootSel='#desarrollo-cumplimos ';
   assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),10);
   assert.equal(await page.locator(rootSel+'[data-asi-filter]').count(),5);
