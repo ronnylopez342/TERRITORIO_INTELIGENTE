@@ -83,7 +83,13 @@ async function run(){
   assert.match(legend,/Ejecución física/);
   assert.match(legend,/Pagos/);
   assert.ok((await page.locator(rootSel+'.asi32-owner-value').allInnerTexts()).some(v=>v.includes('%')),'Faltan porcentajes visibles en columnas');
-  await page.locator(rootSel+'[data-asi-owner-section]').scrollIntoViewIfNeeded();
+  const headingColor=await page.locator(rootSel+'[data-asi-owner-section] .asi32-blockhead h2')
+    .evaluate(el=>getComputedStyle(el).color);
+  assert.equal(headingColor,'rgb(21, 63, 47)','Título de gráfica ilegible sobre fondo claro');
+  await page.evaluate(()=>{
+    const el=document.querySelector('#desarrollo-cumplimos [data-asi-owner-section]');
+    window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-115,behavior:'instant'});
+  });
   await page.screenshot({path:path.join(dest,'asi32-consolidado-desktop.png')});
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2026');
   assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),0);
