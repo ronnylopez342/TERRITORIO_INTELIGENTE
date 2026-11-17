@@ -88,7 +88,7 @@ html.ti-data-embed #tiEmbedTabs button{
   white-space:normal!important;
   overflow:visible!important;
   overflow-wrap:normal!important;
-  word-break:keep-all!important;
+  word-break:normal!important;
   hyphens:none!important;
 }
 #data-encuesta #k23-main-title .k23-title-line {
@@ -98,7 +98,7 @@ html.ti-data-embed #tiEmbedTabs button{
   max-width:100%;
   overflow:visible!important;
   overflow-wrap:normal!important;
-  word-break:keep-all!important;
+  word-break:normal!important;
   hyphens:none!important;
 }
 html.ti-data-embed #data-encuesta #k23-main-title{
