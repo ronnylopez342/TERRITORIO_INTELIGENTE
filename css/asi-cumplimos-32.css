@@ -176,6 +176,7 @@ body:has(#desarrollo-cumplimos:not([hidden])) .ti34-sidebar,body:has(#desarrollo
 #desarrollo-cumplimos .asi32-home-finance-bars{display:grid;gap:5px}
 #desarrollo-cumplimos .asi32-home-finance-bars .asi32-track{height:11px}
 #desarrollo-cumplimos .asi32-home-finance-bars .asi32-home-no-data{font-size:10px;color:#8d8473}
+#desarrollo-cumplimos .asi32-home-finance-bars .asi32-home-paid{display:block;font-size:10px;color:#7b6534;font-weight:750;padding-top:2px;overflow-wrap:anywhere}
 #desarrollo-cumplimos .asi32-home-finance .asi32-legend{margin:18px 0 10px}
 #desarrollo-cumplimos .asi32-home-finance .asi32-action{margin-top:13px;font-size:11px}
 #desarrollo-cumplimos .asi32-home-lines-list{display:grid;gap:7px}
