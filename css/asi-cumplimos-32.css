@@ -281,3 +281,19 @@ body:has(#desarrollo-cumplimos:not([hidden])) .ti34-sidebar,body:has(#desarrollo
 #desarrollo-cumplimos .asi32 .asi32-blockhead h3{color:#153f2f!important;text-shadow:none!important}
 #desarrollo-cumplimos .asi32 .asi32-blockhead p{color:#61776a!important;text-shadow:none!important}
 #desarrollo-cumplimos .asi32 .asi32-blockhead .asi32-eyebrow{color:#0b7852!important;text-shadow:none!important}
+
+/* Gráficas 3.2: dimensiones explícitas y aisladas de estilos globales del portal. */
+#desarrollo-cumplimos .asi32 .asi32-plot-scroll{display:block!important;max-width:100%;overflow-x:auto;padding:24px 0 12px}
+#desarrollo-cumplimos .asi32 .asi32-progress-columns{display:flex!important;align-items:flex-start;gap:20px;min-width:480px}
+#desarrollo-cumplimos .asi32 .asi32-home-annual{display:flex!important;flex:1;gap:18px;align-items:flex-start}
+#desarrollo-cumplimos .asi32 .asi32-vcolumn{display:flex!important;flex:1;min-width:75px;flex-direction:column!important;align-items:center;gap:10px;text-align:center;position:static!important;background:none;border:0;padding:0}
+#desarrollo-cumplimos .asi32 .asi32-vcolumn>strong{display:block;font-size:16px;color:#145d40;white-space:nowrap}
+#desarrollo-cumplimos .asi32 .asi32-vcolumn>b{font-size:12px;color:#244b3b}
+#desarrollo-cumplimos .asi32 .asi32-vcolumn>small{font-size:10px;line-height:1.45;max-width:110px;color:#587262}
+#desarrollo-cumplimos .asi32 .asi32-vtrack{position:relative;display:flex!important;flex-direction:column;justify-content:flex-end;align-items:stretch;height:245px!important;width:65px;max-width:100%;border-bottom:1px solid #9cb9aa;background:repeating-linear-gradient(to top,#eff5ef 0,#eff5ef calc(25% - 1px),#d4e3d7 25%);border-radius:9px 9px 0 0;overflow:hidden}
+#desarrollo-cumplimos .asi32 .asi32-vtrack>span{display:block;flex:0 0 auto;width:100%;border-radius:8px 8px 0 0}
+#desarrollo-cumplimos .asi32 .asi32-home-missing{position:static!important;display:flex!important;align-items:center;justify-content:center;height:100%;min-height:0;padding:6px;font-size:10px;color:#64766b;background:repeating-linear-gradient(135deg,#f5f7f4,#f5f7f4 6px,#e5ebe4 6px,#e5ebe4 8px);border-radius:0}
+#desarrollo-cumplimos .asi32 .asi32-track{display:block!important;height:12px!important;position:relative!important;min-width:0}
+#desarrollo-cumplimos .asi32 .asi32-fill{display:block!important;position:static!important;height:100%!important}
+#desarrollo-cumplimos .asi32 .asi32-home-tag{display:inline-block!important;width:auto!important;height:auto!important;border-radius:5px!important;padding:7px 9px!important;background:#eff6ef!important}
+#desarrollo-cumplimos .asi32 .asi32-detail-banner{background:#07563e!important;min-height:0}

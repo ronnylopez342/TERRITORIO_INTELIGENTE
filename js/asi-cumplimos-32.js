@@ -166,14 +166,12 @@
     return '<article class="asi32-card asi32-home-progress" aria-labelledby="asi32-progress-title">'+
       '<div class="asi32-home-cardhead"><div><span class="asi32-eyebrow">Seguimiento físico · Matriz de Control</span><h3 id="asi32-progress-title">Avances del Plan de Desarrollo</h3>'+
       '<p>Porcentaje promedio de metas con avance documentado, por vigencia.</p></div><span class="asi32-home-tag">Escala de referencia: 100 %</span></div>'+
-      '<div class="asi32-home-progress-main"><div class="asi32-home-target" aria-label="Referencia de escala: 100 por ciento">'+
-      '<strong>100 %</strong><span class="asi32-home-targetbar"></span><small>Referencia para cada vigencia, no avance acumulado</small></div>'+
-      '<div class="asi32-home-annual" aria-label="Avance físico por año">'+
-      items.map(item=>'<div class="asi32-home-annual-item"><div class="asi32-home-annual-head"><strong>'+item.year+'</strong>'+
-        '<span class="'+(item.avg===null?'asi32-home-no-data':'asi32-home-annual-value')+'">'+pct(item.avg)+'</span></div>'+
-        (item.avg===null?'<div class="asi32-home-missing"><span>Sin datos de ejecución en la matriz</span></div>':bar(item.avg,colorYear[item.index]))+
-        '<small>'+(item.avg===null?'Hoja de ejecución no diligenciada':item.count+' de '+rows.length+' metas con avance informado')+'</small></div>').join('')+
-      '</div></div>'+
+      '<div class="asi32-plot-scroll" tabindex="0" role="region" aria-label="Columnas anuales de avance físico"><div class="asi32-progress-columns">'+
+      '<div class="asi32-vcolumn"><strong>100 %</strong><div class="asi32-vtrack"><span style="height:100%;background:#087a4e"></span></div><b>Referencia anual</b><small>Escala, no ejecución</small></div>'+
+      '<div class="asi32-home-annual">'+items.map(item=>'<div class="asi32-vcolumn asi32-home-annual-item"><strong class="'+(item.avg===null?'asi32-home-no-data':'asi32-home-annual-value')+'">'+pct(item.avg)+'</strong>'+
+        '<div class="asi32-vtrack">'+(item.avg===null?'<div class="asi32-home-missing">Sin datos de ejecución</div>':'<span style="height:'+Math.min(100,item.avg*100).toFixed(4)+'%;background:'+colorYear[item.index]+'"></span>')+'</div>'+
+        '<b>'+item.year+'</b><small>'+(item.avg===null?'Sin reporte':item.count+' de '+rows.length+' metas con avance informado')+'</small></div>').join('')+
+      '</div></div></div>'+
       '<div class="asi32-home-method"><strong>Cómo interpretar este gráfico</strong><p>Los porcentajes son promedios simples de las metas que tienen dato; no representan el cumplimiento ponderado u oficial de todo el cuatrienio. '+(all?'2026 y 2027 están programados, pero no registran ejecución.':'El filtro muestra únicamente la vigencia seleccionada.')+'</p></div>'+
       '<p class="asi32-source">'+esc(sourceNote)+'</p></article>';
   }
