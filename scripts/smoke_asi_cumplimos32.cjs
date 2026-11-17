@@ -11,7 +11,7 @@ const server=http.createServer((req,res)=>{
 });
 async function run(){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
- const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ const browser=await chromium.launch({headless:true,channel:process.env.ASI_BROWSER_CHANNEL||undefined,args:['--no-sandbox']});
  const page=await browser.newPage({viewport:{width:1440,height:900}});
  page.on('pageerror',e=>console.log('[BROWSER PAGEERROR]',e.message));
  page.on('console',msg=>{if(msg.type()==='error')console.log('[BROWSER CONSOLE]',msg.text());});
@@ -34,7 +34,8 @@ async function run(){
     throw error;
   }
   const rootSel='#desarrollo-cumplimos ';
-  assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),10);
+  assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),9);
+  assert.equal(await page.locator(rootSel+'[data-asi-tab="territorio"]').count(),0);
   assert.equal(await page.locator(rootSel+'[data-asi-filter]').count(),5);
   assert.equal(await page.locator(rootSel+'[data-asi-filter="year"]').inputValue(),'all');
   const kpis=await page.locator(rootSel+'.asi32-kpis').first().innerText();
@@ -99,10 +100,12 @@ async function run(){
   assert.match(await page.locator(rootSel+'[data-asi-owner-section] .asi32-blockhead').innerText(),/2024/);
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('all');
   await page.locator(rootSel+'.asi32-owner-group').first().click();
+  assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),9,'La ficha no agrega otra navegación');
   assert.equal(await page.locator(rootSel+'.asi32-detail-banner').count(),1);
   assert.ok(await page.locator(rootSel+'.asi32-goal').count()>0);
   await page.screenshot({path:path.join(dest,'asi32-secretaria-desktop.png')});
   await page.locator(rootSel+'[data-asi-back]').click();
+  assert.equal(await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').getAttribute('aria-selected'),'true');
   await page.locator(rootSel+'[data-asi-tab="metas"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-goal').count(),109);
   await page.locator(rootSel+'[data-asi-search]').fill('zzzz-no-match');

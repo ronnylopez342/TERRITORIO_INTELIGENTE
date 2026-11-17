@@ -10,12 +10,11 @@
   const sections = [
     ['inicio', 'Inicio'], ['ejecutivo', 'Dashboard ejecutivo'], ['plan', 'Plan de desarrollo'],
     ['lineas', 'Líneas estratégicas'], ['sectores', 'Sectores'], ['programas', 'Programas'],
-    ['dependencias', 'Dependencias'], ['metas', 'Metas'], ['indicadores', 'Indicadores'],
-    ['territorio', 'Territorio']
+    ['dependencias', 'Dependencias'], ['metas', 'Metas'], ['indicadores', 'Indicadores']
   ];
   const colorYear = ['#07884d','#f7c137','#ec8430','#789d9a'];
   const state = {year:'all',line:'all',sector:'all',program:'all',owner:'all',q:'',tab:'inicio',detailOwner:null};
-  let catalog = null, goals = [];
+  let catalog = null, goals = [], details = {}, returnTab = 'ejecutivo';
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const fmt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const money = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
@@ -52,10 +51,11 @@
   }
   function physical(rows,yi){return mean(rows.map(r=>r.physical[yi]));}
   function budget(rows,yi){
-    const valid=rows.filter(r=>Number.isFinite(r.action[yi]));
+    const valid=rows.filter(r=>Number.isFinite(r.action[yi])&&Number.isFinite(r.paid[yi]));
     const b=sum(valid.map(r=>r.action[yi]));
     return {b,p:sum(valid.map(r=>r.paid[yi])),n:valid.length};
   }
+  function financialRatio(rows,yi){const b=budget(rows,yi);return b.n&&b.b>0?b.p/b.b:null;}
   function kpi(label,value,description){return '<article class="asi32-kpi"><span>'+esc(label)+'</span><strong class="asi32-kpi-val">'+esc(value)+'</strong><small>'+esc(description)+'</small></article>';}
   function topCards(rows){
     const s=stat(rows);const selection=state.year==='all'?'Cuatrienio 2024–2027':'Vigencia '+state.year;
@@ -303,7 +303,6 @@
       case 'dependencias':return grouping(rows,'owner');
       case 'metas':return metas(rows);
       case 'indicadores':return indicatorPage(rows);
-      case 'territorio':return territory(rows);
       case 'detalle':return detailOwner(rows);
       default:return start(rows);
     }
@@ -324,15 +323,15 @@
   function renderTopCards(){const node=root.querySelector('[data-asi-kpis]');if(node)node.innerHTML=topCards(selectedRows());}
   function renderNav(){
     const nav=root.querySelector('[data-asi-tabs]');if(!nav)return;
-    const all=state.detailOwner!==null?[...sections,['detalle','Ficha de entidad']]:sections;
-    nav.innerHTML=all.map(x=>'<button type="button" role="tab" data-asi-tab="'+x[0]+'" aria-selected="'+(state.tab===x[0])+'" tabindex="'+(state.tab===x[0]?'0':'-1')+'">'+esc(x[1])+'</button>').join('');
+    const active=state.tab==='detalle'?'dependencias':state.tab;
+    nav.innerHTML=sections.map(x=>'<button type="button" role="tab" id="asi32-tab-'+x[0]+'" aria-controls="asi32-panel" data-asi-tab="'+x[0]+'" aria-selected="'+(active===x[0])+'" tabindex="'+(active===x[0]?'0':'-1')+'">'+esc(x[1])+'</button>').join('');
   }
-  function renderContent(){const dest=root.querySelector('[data-asi-body]');if(dest)dest.innerHTML=content(selectedRows());}
+  function renderContent(){const dest=root.querySelector('[data-asi-body]');if(dest){dest.innerHTML=content(selectedRows());dest.setAttribute('aria-labelledby','asi32-tab-'+(state.tab==='detalle'?'dependencias':state.tab));}}
   function render(){renderFilters();renderTopCards();renderNav();renderContent();}
   root.addEventListener('change',event=>{
     const filter=event.target.closest('[data-asi-filter]');if(!filter)return;
     state[filter.dataset.asiFilter]=filter.value;
-    if(filter.dataset.asiFilter==='owner')state.detailOwner=null;
+    if(filter.dataset.asiFilter==='owner'&&state.tab==='detalle'&&filter.value!=='all')state.detailOwner=Number(filter.value);
     render();
   });
   root.addEventListener('input',event=>{
@@ -348,14 +347,14 @@
     if(clear){Object.assign(state,{year:'all',line:'all',sector:'all',program:'all',owner:'all',q:'',detailOwner:null,tab:'inicio'});render();return;}
     if(event.target.closest('[data-asi-show-exec]')){state.tab='ejecutivo';renderNav();renderContent();root.querySelector('[data-asi-owner-section]')?.scrollIntoView({block:'start'});return;}
     const owner=event.target.closest('[data-asi-owner]');
-    if(owner){state.detailOwner=Number(owner.dataset.asiOwner);state.owner='all';state.tab='detalle';render();return;}
+    if(owner){returnTab=state.tab;state.detailOwner=Number(owner.dataset.asiOwner);state.tab='detalle';render();return;}
     const drill=event.target.closest('[data-asi-drill]');
     if(drill){const kind=drill.dataset.asiDrill,idx=drill.dataset.index;
-      if(kind==='owner'){state.detailOwner=Number(idx);state.owner='all';state.tab='detalle';}
+      if(kind==='owner'){returnTab=state.tab;state.detailOwner=Number(idx);state.tab='detalle';}
       else{state[kind]=idx;state.detailOwner=null;state.tab='metas';}
       render();return;
     }
-    if(event.target.closest('[data-asi-back]')){state.detailOwner=null;state.tab='dependencias';render();return;}
+    if(event.target.closest('[data-asi-back]')){state.detailOwner=null;state.tab=returnTab;render();return;}
     if(event.target.closest('[data-asi-go-plan]')){
       const next=document.getElementById('tab-desarrollo-accion');
       if(next){next.click();document.getElementById('desarrollo-accion')?.scrollIntoView({block:'start'});}
@@ -369,7 +368,13 @@
     '<div class="asi32-filters" data-asi-filters aria-label="Filtros del visor"></div>'+
     '<div class="asi32-topmetrics" data-asi-kpis aria-label="Indicadores generales de la selección"></div>'+
     '<nav class="asi32-nav" role="tablist" aria-label="Secciones de Así cumplimos" data-asi-tabs></nav>'+
-    '<div class="asi32-body" data-asi-body aria-live="polite"><p class="asi32-loading">Consultando la matriz consolidada del cuatrienio…</p></div>';
+    '<div class="asi32-body" id="asi32-panel" role="tabpanel" data-asi-body aria-live="polite"><p class="asi32-loading">Consultando la matriz consolidada del cuatrienio…</p></div>';
+  root.addEventListener('keydown',event=>{
+    const tab=event.target.closest('[data-asi-tab]');if(!tab)return;
+    const pos=sections.findIndex(x=>x[0]===tab.dataset.asiTab);
+    const next=event.key==='ArrowRight'?(pos+1)%sections.length:event.key==='ArrowLeft'?(pos+sections.length-1)%sections.length:event.key==='Home'?0:event.key==='End'?sections.length-1:null;
+    if(next===null)return;event.preventDefault();state.tab=sections[next][0];renderNav();renderContent();root.querySelector('[data-asi-tab="'+state.tab+'"]').focus();
+  });
   async function load(){
     try {
       const response=await fetch('data/asi-cumplimos-32.gz.b64.txt',{cache:'no-store'});
@@ -380,6 +385,7 @@
       const data=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).json();
       if(data.s!==1||data.g.length!==109||data.o.length!==8||data.l.length!==6||data.sct.length!==19||data.pr.length!==29)throw new Error('La fuente no superó la verificación estructural.');
       catalog={lines:data.l,sectors:data.sct,programs:data.pr,owners:data.o};
+      details=data.details||{};
       goals=data.g.map(row);
       if(unique(goals.map(g=>g.id))!==109)throw new Error('Metas duplicadas o incompletas.');
       render();
