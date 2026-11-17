@@ -99,15 +99,57 @@
       '<div class="asi32-legend"><span><i class="asi32-dot" style="background:#14774f"></i>Plan Indicativo</span><span><i class="asi32-dot" style="background:#efb327"></i>Pagos de Plan de Acción</span></div>'+
       '<p class="asi32-source">No sumar el saldo definitivo del Plan de Acción con la programación del Plan Indicativo: son conceptos diferentes. 2026/2027 no cuentan con pagos registrados.</p></article>';
   }
+  // Grafica de barras AGRUPADAS de la referencia. Cifras exclusivamente
+  // de la matriz; 2026 y 2027 nunca se rellenan con valores de ejemplo.
   function ownerBar(rows){
-    const i=latestReported();
-    const year=years[i];
-    return '<section class="asi32-block">'+pageTitle('Avance consolidado por secretarías y entidades','Selecciona una entidad para ver su ficha estratégica y las metas asociadas. Comparativo '+year+'.','Plan de Acción · responsables')+
-      '<div class="asi32-chart-list">'+catalog.owners.map((name,idx)=>{
-        const subset=rows.filter(r=>r.owner===idx);if(!subset.length)return '';
-        const av=physical(subset,i),bud=budget(subset,i),pay=bud.b>0?bud.p/bud.b:null;
-        return '<button class="asi32-chart-item" data-asi-owner="'+idx+'" type="button" aria-label="Ver ficha de '+esc(name)+'"><span class="asi32-label"><strong>'+esc(name)+'</strong><small>'+subset.length+' metas · '+(bud.n?'Con datos presupuestales':'Sin datos presupuestales')+'</small></span>'+mini(av,year)+mini(pay,year,'#f1b72d')+'<span aria-hidden="true">↗</span></button>';
-      }).join('')+'</div><p class="asi32-source">Primera barra: ejecución física de metas. Segunda: pagos / saldo definitivo de la misma vigencia. Valores agregados por responsable; no comparan unidades físicas heterogéneas.</p></section>';
+    const yi=latestReported(),year=years[yi],items=catalog.owners.map((name,idx)=>{
+      const subset=rows.filter(r=>r.owner===idx);
+      if(!subset.length)return null;
+      const fys=physical(subset,yi),bud=budget(subset,yi);
+      const pay=bud.n&&bud.b>0?bud.p/bud.b:null;
+      return {id:idx,name,metas:subset.length,fys,pay,budget:bud};
+    }).filter(Boolean);
+    const observed=items.flatMap(x=>[x.fys,x.pay]).filter(Number.isFinite);
+    const ceiling=Math.max(1,Math.ceil(Math.max(1,...observed)*5)/5);
+    const isEmpty=!observed.length;
+    const bar=(x,k,tone)=>{
+      const val=x[k],height=Number.isFinite(val)?Math.max(0,Math.min(100,val/ceiling*100)):0;
+      return '<span class="asi32-owner-col asi32-owner-col--'+k+'"><span class="asi32-owner-value">'+pct(val)+'</span>'+
+        '<span class="asi32-owner-bartrack" aria-hidden="true">'+
+        (Number.isFinite(val)?'<span class="asi32-owner-bar" style="height:'+height.toFixed(2)+'%;background:'+tone+'"></span>':
+          '<span class="asi32-owner-bar--empty">Sin dato</span>')+'</span></span>';
+    };
+    const groups=items.map(x=>
+      '<button type="button" class="asi32-owner-group" data-asi-owner="'+x.id+'" '+
+        'aria-label="Abrir ficha de '+esc(x.name)+', avance físico '+pct(x.fys)+', pagos respecto al saldo definitivo '+pct(x.pay)+'">'+
+        '<span class="asi32-owner-bars">'+bar(x,'fys','#f1bf2c')+bar(x,'pay','#19804b')+'</span>'+
+        '<span class="asi32-owner-name">'+esc(x.name)+'</span>'+
+        '<span class="asi32-owner-count">'+x.metas+' metas · Ver detalle ↗</span></button>').join('');
+    const list=items.map(x=>
+      '<button type="button" class="asi32-chart-item" data-asi-owner="'+x.id+'" aria-label="Ver ficha de '+esc(x.name)+'">'+
+        '<span class="asi32-label"><strong>'+esc(x.name)+'</strong><small>'+x.metas+' metas · '+(x.budget.n?'Con datos presupuestales':'Sin informe presupuestal')+'</small></span>'+
+        mini(x.fys,year,'#f1bf2c')+mini(x.pay,year,'#19804b')+'<span aria-hidden="true">↗</span></button>').join('');
+    const title='Avance consolidado del Plan de Acción '+year+' · Secretarías y entidades';
+    return '<section class="asi32-block asi32-owner-section" data-asi-owner-section>'+
+      pageTitle(title,'Comparativo físico y financiero basado en la matriz. Selecciona una entidad para consultar sus metas.','Seguimiento del Plan de Acción')+
+      '<article class="asi32-card asi32-owner-card">'+
+        '<div class="asi32-owner-topline"><div><strong>Comparación por responsable</strong><small>Vigencia: '+year+
+          (state.year==='all'?' · Último año con ejecución reportada':' · Filtro seleccionado')+'</small></div>'+
+          '<div class="asi32-owner-legend"><span><i style="background:#f1bf2c"></i>Ejecución física promedio</span>'+
+            '<span><i style="background:#19804b"></i>Pagos / saldo definitivo</span></div></div>'+
+        (isEmpty?
+          '<div class="asi32-empty asi32-owner-no-data" role="status"><strong>Sin reporte de ejecución para '+year+'.</strong>'+
+            '<p>La matriz tiene programación 2024–2027, pero no resultados físicos ni pagos documentados de esta vigencia. Puedes filtrar 2024 o 2025.</p></div>':
+          '<div class="asi32-owner-scroll" role="region" tabindex="0" aria-label="Gráfica de columnas de responsables">'+
+            '<div class="asi32-owner-plot" style="--owner-max:'+ceiling+'">'+
+              '<div class="asi32-owner-axis" aria-hidden="true"><span>'+pct(ceiling)+'</span><span>'+pct(ceiling*.75)+'</span>'+
+                 '<span>'+pct(ceiling*.5)+'</span><span>'+pct(ceiling*.25)+'</span><span>0 %</span></div>'+
+              '<div class="asi32-owner-groups">'+groups+'</div></div></div>')+
+        '<p class="asi32-source">Amarillo: promedio simple de porcentajes físicos reportados por las metas de cada entidad. Verde: pagos / saldo definitivo de esas metas en '+year+'. Son indicadores diferentes, no un porcentaje oficial de cumplimiento global. Los valores de ejemplo 2026 del Word no son resultados del Excel.</p>'+
+      '</article>'+
+      (!isEmpty?'<details class="asi32-owner-table"><summary>Ver comparación numérica detallada por secretaría</summary>'+
+        '<div class="asi32-chart-list">'+list+'</div></details>':'')+
+      '</section>';
   }
   function photoCards(){
     const content=[
