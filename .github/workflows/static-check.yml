@@ -35,6 +35,8 @@ jobs:
         run: node scripts/test_current_modules.cjs
       - name: Verificar matriz cuatrienal de Asi cumplimos 3.2
         run: node scripts/test_asi_cumplimos32.cjs
+      - name: Verificar Plan de Acción 2026 tercer trimestre sin doble totalización
+        run: node scripts/test_plan_accion_2026_3t.cjs
       - name: Proteger fuentes originales y verificar registro editorial M2
         run: |
           node scripts/verify_critical_assets.cjs
@@ -86,6 +88,7 @@ jobs:
           name: evidencia-visual-plan33-cumplimiento42
           path: |
             screenshots/auditoria-plan33-2025.png
+            screenshots/auditoria-plan33-2026-3t.png
             screenshots/auditoria-plan33-movil.png
             screenshots/auditoria-cumplimiento42-mapa.png
             screenshots/auditoria-cumplimiento42-movil.png
