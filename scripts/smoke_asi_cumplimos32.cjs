@@ -119,6 +119,13 @@ async function run(){
   assert.equal(await page.locator(rootSel+'.asi32-plan-table tbody tr').count(),24);
   assert.equal(await page.locator(rootSel+'.asi32-home-progress').count(),0);
   await page.locator(rootSel+'.asi32-plan-table').screenshot({path:path.join(dest,'asi32-plan-desktop.png')});
+  for(const [tab,n] of [['lineas',6],['sectores',19],['programas',29]]){
+    await page.locator(rootSel+'[data-asi-tab="'+tab+'"]').click();
+    assert.equal(await page.locator(rootSel+'.asi32-group').count(),n);
+    assert.equal(await page.locator(rootSel+'[data-asi-class-row]').count(),n*4);
+  }
+  await page.locator(rootSel+'[data-asi-tab="lineas"]').click();
+  await page.locator(rootSel+'.asi32-section-grid').screenshot({path:path.join(dest,'asi32-lineas-desktop.png')});
   await page.locator(rootSel+'[data-asi-tab="metas"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-goal').count(),109);
   await page.locator(rootSel+'[data-asi-search]').fill('zzzz-no-match');

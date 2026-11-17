@@ -239,7 +239,10 @@
       const sub=rows.filter(r=>r[kind]===index);if(!sub.length)return '';
       const y=latestReported(),av=physical(sub,y),bud=budget(sub,y);
       return '<article class="asi32-group"><span class="asi32-eyebrow">'+sub.length+' metas asociadas</span><h3>'+esc(value)+'</h3><div class="asi32-pills"><span class="asi32-pill">'+unique(sub.map(r=>r.sector))+' sectores</span><span class="asi32-pill">'+unique(sub.map(r=>r.program))+' programas</span></div>'+
-        '<div class="asi32-group-meta">Avance físico informado '+years[y]+': '+pct(av)+' · Pagos documentados: '+compact(bud.n?bud.p:null)+'</div>'+
+        '<div class="asi32-class-chart" aria-label="Avance físico por vigencia">'+yearsToDisplay().map(i=>{
+          const v=physical(sub,i),count=sub.filter(r=>Number.isFinite(r.physical[i])).length;
+          return '<div class="asi32-class-row" data-asi-class-row><b>'+years[i]+'</b>'+bar(v,colorYear[i])+'<strong>'+pct(v)+'</strong><small>'+count+' / '+sub.length+' reportes · Pagos / saldo: '+pct(financialRatio(sub,i))+'</small></div>';
+        }).join('')+'</div><p class="asi32-source">Física: promedio simple de metas informadas, escala de barras 0–100 % (valor exacto visible). Programado '+(state.year==='all'?'2024–2027':state.year)+': '+compact(stat(sub).indicative)+' · '+unique(sub.map(r=>r.owner))+' responsables. Pagos / saldo usa las mismas metas con ambos campos numéricos.</p>'+
         '<button class="asi32-action" type="button" data-asi-drill="'+kind+'" data-index="'+index+'">'+(kind==='owner'?'Ver ficha y todas las metas':'Explorar metas')+' ↗</button></article>';
     }).join('')+'</div></section>';
   }
