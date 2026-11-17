@@ -132,3 +132,28 @@ Hallazgos adicionales: la meta 63 tiene descripción y meta ODS pero no tiene di
 La [PR 10](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/pull/10) pasó [Actions del candidato](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44021005504), revisión del preview protegido y [Actions de main](https://github.com/ronnylopez342/TERRITORIO_INTELIGENTE/actions/runs/44021221954). El smoke de producción comprobó las quince hojas, las descargas, el acceso por meta, POAI, paginación hasta la última fila y móvil, junto con las comprobaciones anteriores del visor. El acceso temporal al preview fue revocado tras la revisión. Las capturas adicionales de cobertura, POAI y consulta de fuentes quedan en el artefacto de Actions y en `screenshots/asi32-*.png`.
 
 La integración del contenido del Excel puede cerrarse sin afirmar que los datos vacíos estén completos o que se hayan certificado resultados. Continúan las limitaciones documentales ya identificadas sobre acumulados oficiales, estados de riesgo, noticias y logros certificados.
+
+## Cierre de recuperación del Word — revisión 17/11/2026
+
+La [matriz individual de cobertura](ASI32_COBERTURA_WORD.md) registra los elementos útiles de las páginas 1–5: función, ubicación, fuente/vigencia, diferencia, acción, estado y evidencia. Los estados y publicaciones anteriores de este documento son históricos; para el alcance final del Word prevalece esa matriz y esta actualización.
+
+Novedades verificadas localmente: cinco documentos PDF de cuatro responsables recuperados desde enlaces de la matriz y leídos; una publicación municipal fechada y un directorio real de atención ciudadana; filtros de resultados por meta/año sin atribuciones inferidas; nombre completo de Gobierno con alias original preservado; fuentes pendientes individualizadas; controles desplegables con contraste revisado; accesos rápidos funcionales. La noticia conserva el 28/08/2025, y los informes no se presentan como noticias recientes o logros globales certificados.
+
+La auditoría reproducible de metodología (`scripts/audit_asi32_methodology.py`) inspeccionó fórmulas, caché, formatos condicionales, nombres y criterios. Diferenció 35 metas acumulativas/74 no acumulativas y 37 de incremento/72 de mantenimiento. Las fórmulas de actividades no definen el acumulado entre metas y años. No se encontró regla oficial de estados de riesgo. La explicación y los requisitos concretos están en la interfaz y en la matriz de cobertura.
+
+- [x] Páginas 1–5 revisadas visualmente y elementos individualmente localizados.
+- [x] Datos, cinco etapas financieras y 60.948 celdas originales preservados y conciliados.
+- [x] Resultados documentales atribuibles, fechas y alcance revisados; cinco PDF con enlaces públicos comprobados.
+- [x] Noticia original y acceso ciudadano verificados, sin inventar relación con una meta.
+- [x] Nueve vistas, ocho entidades, filtros, búsqueda, regreso, CSV, quince consultas, últimas filas y móvil: PASS local.
+- [x] Regresión de Data 2.1–2.4, Plan de Acción 3.3 y Cumplimiento4.2: PASS local.
+- [x] Sintaxis, estructura, integridad de nueve fuentes críticas y registro editorial: PASS local.
+- [x] Capturas de Inicio, Dashboard, Plan, Líneas, ficha, gráfico completo de metas, metodología, resultados, noticia, fuentes pendientes y móvil conservadas; workflow ampliado para adjuntar las nuevas.
+- [ ] Candidato: Actions SUCCESS y Vercel READY, verificados antes de integrar.
+- [ ] Publicación: SHA de main igual al dominio público y smoke completo de producción aprobado.
+- [ ] Acumulado oficial y corte certificado: fuente pendiente; no activados.
+- [ ] Estados de riesgo/retraso: criterio oficial pendiente; circular no activada.
+- [ ] Facturación independiente: registro y definición pendientes; obligaciones conservadas.
+- [ ] Fotos atribuibles, certificación de logros globales y distintivo fiscal: soportes pendientes.
+
+El mapa de la página6 y su acceso rápido están excluidos, sin anotarlos como un pendiente. La recuperación con fuentes disponibles puede publicarse; **el Word no se declara completo al100 %** mientras falten los soportes anteriores. El informe identifica exactamente qué fuente activa cada componente y distingue las adaptaciones de las gráficas todavía no implementadas.

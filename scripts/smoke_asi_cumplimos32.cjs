@@ -5,6 +5,7 @@ const zlib=require('node:zlib');
 const root=path.resolve(__dirname,'..'),dest=path.join(root,'screenshots');
 const data=JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(path.join(root,'data/asi-cumplimos-32.gz.b64.txt'),'utf8').trim(),'base64')));
 const archive=JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(path.join(root,'data/asi-cumplimos-32-fuentes.gz.b64.txt'),'utf8').trim(),'base64')));
+const evidence=JSON.parse(fs.readFileSync(path.join(root,'data/asi-cumplimos-32-evidencias.json'),'utf8'));
 const server=http.createServer((req,res)=>{
  const rel=decodeURIComponent((req.url||'/').split('?')[0]).replace(/^\/+/, '')||'index.html';
  const file=path.resolve(root,rel);
@@ -76,11 +77,32 @@ async function run(){
   const kpiText=await page.locator(rootSel+'[data-asi-kpis]').innerText();
   assert.ok(kpiText.includes('97,6')&&kpiText.includes('mil millones'),'No se cargó presupuesto real del cuatrienio');
   assert.ok(!inicio.includes('71,20 %')&&!inicio.includes('3,91 billones'),'No reutilizar porcentajes o presupuestos ficticios del diseño');
+  assert.equal(await page.locator(rootSel+'.asi32-evidence-card').count(),5);
+  assert.match(await page.locator(rootSel+'[data-asi-evidence]').innerText(),/20 funcionarios/);
+  assert.match(await page.locator(rootSel+'[data-asi-evidence]').innerText(),/30 de abril de 2025/);
+  await page.locator(rootSel+'[data-asi-accumulation] summary').click();
+  assert.equal(await page.locator(rootSel+'[data-asi-accumulation] summary').evaluate(n=>getComputedStyle(n).color),'rgb(23, 77, 53)');
+  assert.match(await page.locator(rootSel+'[data-asi-accumulation]').innerText(),/35 metas acumulativas y 74 no acumulativas/);
+  await page.locator(rootSel+'[data-asi-accumulation]').screenshot({path:path.join(dest,'asi32-metodologia-desktop.png'),style:'#siteHeader{visibility:hidden!important}'});
+  await page.locator(rootSel+'[data-asi-accumulation] summary').click();
+  assert.equal(await page.locator(rootSel+'.asi32-evidence-card summary').first().evaluate(n=>getComputedStyle(n).color),'rgb(23, 77, 53)','Procedencia debe ser legible');
+  await page.locator(rootSel+'[data-asi-evidence]').screenshot({path:path.join(dest,'asi32-resultados-desktop.png'),style:'#siteHeader,.skip-link{visibility:hidden!important}'});
+  assert.equal(await page.locator(rootSel+'[data-asi-publication]').count(),1);
+  assert.match(await page.locator(rootSel+'[data-asi-publications]').innerText(),/28 de agosto de 2025/i);
+  assert.equal(await page.locator(rootSel+'[data-asi-citizen]').getAttribute('href'),evidence.citizenChannel.url);
+  await page.locator(rootSel+'[data-asi-publications]').screenshot({path:path.join(dest,'asi32-publicaciones-desktop.png'),style:'#siteHeader,.skip-link{visibility:hidden!important}'});
+  assert.equal(await page.locator(rootSel+'[data-asi-requirement="fotografias"]').count(),1);
+  await page.locator(rootSel+'.asi32-quick-access [data-asi-jump="metas"]').click();
+  assert.equal(await page.locator(rootSel+'[data-asi-tab="metas"]').getAttribute('aria-selected'),'true');
+  await page.locator(rootSel+'[data-asi-tab="inicio"]').click();
+  await page.evaluate(()=>window.scrollTo(0,0));
   await page.screenshot({path:path.join(dest,'asi32-inicio-desktop.png'),fullPage:true});
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2026');
   await page.waitForFunction(()=>document.querySelector('#desarrollo-cumplimos .asi32-home-annual')?.textContent.includes('Sin reporte'),null,{timeout:12000});
   assert.equal(await page.locator(rootSel+'.asi32-home-annual-value').count(),0);
   assert.equal(await page.locator(rootSel+'.asi32-home-missing').count(),1);
+  assert.equal(await page.locator(rootSel+'.asi32-evidence-card').count(),0,'No inventar informes 2026');
+  assert.equal(await page.locator(rootSel+'[data-asi-publication]').count(),0,'No trasladar noticias de 2025 a 2026');
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('2024');
   assert.match(await page.locator(rootSel+'.asi32-home-annual').innerText(),/96,9/);
   await page.locator(rootSel+'[data-asi-filter="year"]').selectOption('all');
@@ -93,6 +115,12 @@ async function run(){
   assert.equal(await page.locator(rootSel+'.asi32-paired .asi32-vcolumn').count(),8);
   assert.equal(await page.locator(rootSel+'.asi32-stages .asi32-vcolumn').count(),5);
   assert.match(await page.locator(rootSel+'.asi32-stages').innerText(),/Obligaciones/);
+  assert.equal(await page.locator(rootSel+'[data-asi-requirement="estados"]').count(),1);
+  assert.equal(await page.locator(rootSel+'[data-asi-requirement="facturacion"]').count(),1);
+  await page.locator(rootSel+'[data-asi-requirement="estados"] summary').click();
+  assert.equal(await page.locator(rootSel+'[data-asi-requirement="estados"] summary').evaluate(n=>getComputedStyle(n).color),'rgb(23, 77, 53)');
+  assert.match(await page.locator(rootSel+'[data-asi-requirement="estados"]').innerText(),/umbrales/);
+  await page.locator(rootSel+'[data-asi-pending]').screenshot({path:path.join(dest,'asi32-fuentes-pendientes-desktop.png'),style:'#siteHeader{visibility:hidden!important}'});
   await page.locator(rootSel+'.asi32-stages').screenshot({path:path.join(dest,'asi32-finanzas-desktop.png')});
   const title=await page.locator(rootSel+'[data-asi-owner-section] .asi32-blockhead h2').innerText();
   assert.match(title,/2025/);
@@ -134,8 +162,11 @@ async function run(){
     const expected=data.g.filter(g=>g[4]===owner).map(g=>g[0]);
     const actual=await page.locator(rootSel+'.asi32-goal').evaluateAll(nodes=>nodes.map(n=>Number(n.id.replace('asi32-meta-',''))));
     assert.deepEqual(actual,expected,'Metas incorrectas de '+data.o[owner]);
-    assert.match(await page.locator(rootSel+'.asi32-detail-banner h2').innerText(),new RegExp(data.o[owner].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
+    const expectedName=data.o[owner]==='Secretaría de Gobierno'?'Secretaría General y de Gobierno':data.o[owner];
+    assert.equal(await page.locator(rootSel+'.asi32-detail-banner h2').innerText(),expectedName);
     assert.equal(await page.locator(rootSel+'[data-asi-tab]').count(),9);
+    const supported=evidence.records.filter(r=>data.g.some(g=>g[0]===r.goal&&g[4]===owner));
+    assert.equal(await page.locator(rootSel+'.asi32-evidence-card').count(),supported.length,'No atribuir soportes a otra entidad');
     if(owner===1){
       await page.locator(rootSel+'.asi32-goal-chart').screenshot({path:path.join(dest,'asi32-metas-entidad-desktop.png')});
       await page.locator(rootSel+'.asi32-paired').screenshot({path:path.join(dest,'asi32-ejecucion-entidad-desktop.png')});
@@ -237,6 +268,7 @@ async function run(){
   const compactHeader=await page.locator(rootSel+'.asi32-hero').boundingBox();
   assert.ok(compactHeader.height<260,'Encabezado móvil demasiado grande: '+JSON.stringify(compactHeader));
   await page.screenshot({path:path.join(dest,'asi32-inicio-mobile.png'),fullPage:true});
+  await page.locator(rootSel+'[data-asi-evidence]').screenshot({path:path.join(dest,'asi32-resultados-mobile.png'),style:'#siteHeader,.skip-link{visibility:hidden!important}'});
   await page.locator(rootSel+'[data-asi-tab="ejecutivo"]').click();
   assert.equal(await page.locator(rootSel+'.asi32-owner-group').count(),8);
   const viewport=await page.evaluate(()=>{

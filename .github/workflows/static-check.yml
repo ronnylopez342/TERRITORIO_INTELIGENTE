@@ -73,6 +73,11 @@ jobs:
             screenshots/asi32-poai-desktop.png
             screenshots/asi32-fuentes-desktop.png
             screenshots/asi32-fuentes-mobile.png
+            screenshots/asi32-metodologia-desktop.png
+            screenshots/asi32-resultados-desktop.png
+            screenshots/asi32-resultados-mobile.png
+            screenshots/asi32-publicaciones-desktop.png
+            screenshots/asi32-fuentes-pendientes-desktop.png
           if-no-files-found: warn
       - name: Conservar evidencia visual del mapa y Planes
         if: always()

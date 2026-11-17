@@ -14,7 +14,7 @@
   ];
   const colorYear = ['#07884d','#f7c137','#ec8430','#789d9a'];
   const state = {year:'all',line:'all',sector:'all',program:'all',owner:'all',q:'',tab:'inicio',detailOwner:null};
-  let catalog = null, goals = [], details = {}, returnTab = 'ejecutivo', sources=null;
+  let catalog = null, goals = [], details = {}, returnTab = 'ejecutivo', sources=null, evidence=null;
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const fmt = new Intl.NumberFormat('es-CO',{maximumFractionDigits:1});
   const quantity = new Intl.NumberFormat('es-CO',{maximumFractionDigits:10});
@@ -132,7 +132,12 @@
         '<b>'+item.year+'</b><small>'+(item.avg===null?'Sin reporte':item.count+' de '+rows.length+' metas con avance informado')+'</small></div>').join('')+
       '</div></div></div>'+
       '<div class="asi32-home-method"><strong>Cómo interpretar este gráfico</strong><p>Los porcentajes son promedios simples de las metas que tienen dato; no representan el cumplimiento ponderado u oficial de todo el cuatrienio. '+(all?'2026 y 2027 están programados, pero no registran ejecución.':'El filtro muestra únicamente la vigencia seleccionada.')+'</p></div>'+
-      '<p class="asi32-source">'+esc(sourceNote)+'</p></article>';
+      '<p class="asi32-source">'+esc(sourceNote)+'</p>'+accumulationMethod(rows)+'</article>';
+  }
+  function accumulationMethod(rows){
+    const cumulative=rows.filter(r=>details[r.id]?.accumulation==='Acumulativo').length;
+    const nonCumulative=rows.filter(r=>details[r.id]?.accumulation==='No acumulativo').length;
+    return '<details class="asi32-methodology" data-asi-accumulation><summary>Avance anual y acumulado: alcance de los datos</summary><p>La selección contiene '+cumulative+' metas acumulativas y '+nonCumulative+' no acumulativas, según el Plan Indicativo. Los porcentajes anuales proceden del avance ponderado de actividades, no de cantidades ejecutadas del indicador.</p><p>Para calcular el acumulado del cuatrienio hace falta una metodología institucional que defina la agregación entre metas y vigencias, los pesos, las cantidades ejecutadas, la fecha de corte y el tratamiento de blancos. Las fórmulas revisadas del Excel no contienen esa regla. No se suman los promedios ni se asigna un peso de 25 % a cada año.</p><p>La columna verde es una referencia de escala anual de 100 %, no una programación financiera ni un acumulado certificado.</p></details>';
   }
   function homeFinance(rows){
     const subset=yearsToDisplay(),amounts=years.map((y,i)=>sum(rows.map(r=>r.indicative[i]))),max=Math.max(1,...amounts);
@@ -203,7 +208,31 @@
       '</p>'+columns(items,'Cinco etapas financieras en millones de pesos',v=>Number.isFinite(v)?'$ '+fmt.format(v/1e6)+' M':'Sin reporte')+
       '<p class="asi32-source">Valores en millones de COP; altura proporcional al mayor importe visible (base cero). Campos exactos AI:AM (2024) y AR:AV (2025), una fila resumen por meta. El saldo definitivo no se suma a la programación del Plan Indicativo. Obligaciones es causación de cuentas; la matriz no identifica una etapa independiente de facturación. Las etapas no se suman entre sí.</p></article>';
   }
-  function pendingSources(){return '<article class="asi32-card asi32-pending"><h3>Estados de metas y resultados certificados</h3><p class="asi32-sub">Fuentes por completar</p><p>La distribución circular por riesgo o retraso requiere umbrales, fechas de corte y una metodología oficial. La matriz no aporta esa clasificación. Por eso no se asignan estados ni colores de riesgo a las metas.</p><p class="asi32-source">Logros certificados, noticias y fotografías atribuibles: pendientes de validación institucional. Los textos e imágenes ilustrativos del Word no certifican resultados.</p></article>';}
+  function pendingSources(){
+    const requested=['estados','facturacion'];
+    return '<section class="asi32-block asi32-pending" data-asi-pending><h3>Información pendiente de fuente institucional</h3><div class="asi32-requirements">'+evidence.sourceRequirements.filter(x=>requested.includes(x.id)).map(requirement).join('')+'</div></section>';
+  }
+  function requirement(item){return '<article class="asi32-card asi32-requirement" data-asi-requirement="'+esc(item.id)+'"><span class="asi32-eyebrow">Fuente pendiente</span><h3>'+esc(item.title)+'</h3><p>'+esc(item.current)+'</p><details><summary>Información necesaria para completar este componente</summary><p>'+esc(item.missing)+'</p><p><strong>Permitirá activar:</strong> '+esc(item.enables)+'</p></details></article>';}
+  function evidenceRows(rows){
+    const selected=new Set(rows.map(r=>r.id));
+    return evidence.records.filter(r=>selected.has(r.goal)&&(state.year==='all'||String(r.year)===state.year));
+  }
+  function evidenceSection(rows){
+    const records=evidenceRows(rows);
+    const dates=new Intl.DateTimeFormat('es-CO',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+    const months=new Intl.DateTimeFormat('es-CO',{month:'long',year:'numeric',timeZone:'UTC'});
+    const dateLabel=r=>r.documentDate?'Fecha del documento: '+dates.format(new Date(r.documentDate+'T00:00:00Z')):'Periodo del documento: '+months.format(new Date(r.documentMonth+'-01T00:00:00Z'));
+    return '<section class="asi32-block asi32-evidence" id="asi32-resultados" data-asi-evidence>'+pageTitle('Resultados y documentos de seguimiento','Documentos revisados y vinculados a una meta y actividad. Se conserva la fecha o el mes que identifica la fuente, sin presentarlos como noticias recientes.','Seguimiento documentado')+
+      '<div class="asi32-evidence-grid">'+(records.length?records.map(r=>'<article class="asi32-card asi32-evidence-card" data-asi-evidence-id="'+esc(r.id)+'"><span class="asi32-eyebrow">Meta '+r.goal+' · Actividad '+esc(r.activity)+'</span><h3>'+esc(r.title)+'</h3><p>'+esc(r.summary)+'</p><p class="asi32-evidence-date">'+esc(r.institution)+'<br>'+esc(dateLabel(r))+'</p><a class="asi32-action" href="'+esc(r.sourceUrl)+'" target="_blank" rel="noopener noreferrer">Leer documento PDF ↗</a><button class="asi32-action asi32-action--ghost" type="button" data-asi-open-meta="'+r.goal+'">Consultar meta '+r.goal+'</button><details class="asi32-source"><summary>Procedencia y alcance</summary><p>'+esc(r.sourceTitle)+' · '+esc(r.sourceSections)+'. Periodo: '+esc(r.period)+'.</p><p>'+esc(r.matrixReference)+'. Documento localizado en la carpeta de soportes de la matriz y leído durante la revisión documental. El contenido se atribuye a su fuente; no certifica el cumplimiento total de la meta.</p></details></article>').join(''):'<div class="asi32-empty" role="status">No hay documentos revisados para las metas y la vigencia seleccionadas. Para incorporar resultados se necesita un informe que identifique la meta o actividad, entidad, periodo y soporte verificable.</div>')+'</div><p class="asi32-source">Los documentos no actualizan automáticamente los porcentajes almacenados en la Matriz de Control. Pueden describir otro corte o un alcance diferente. No se suman los participantes ni se atribuyen porcentajes de una actividad al conjunto de la meta.</p></section>';
+  }
+  function editorialAvailability(){
+    return '<section class="asi32-block asi32-editorial-availability" data-asi-editorial><div class="asi32-requirements">'+evidence.sourceRequirements.filter(x=>['fotografias','reconocimiento'].includes(x.id)).map(requirement).join('')+'</div></section>';
+  }
+  function publications(){
+    const scoped=['line','sector','program','owner'].some(k=>state[k]!=='all')||!!state.q;
+    const records=scoped?[]:evidence.publications.filter(r=>state.year==='all'||String(r.year)===state.year);
+    return '<section class="asi32-block" data-asi-publications>'+pageTitle('Publicaciones institucionales','Publicaciones con fecha y procedencia verificadas. No se atribuyen a una meta sin una relación documentada.','Información municipal')+'<div class="asi32-evidence-grid">'+(records.length?records.map(r=>'<article class="asi32-card" data-asi-publication="'+esc(r.id)+'"><p class="asi32-eyebrow">Publicado el '+esc(new Intl.DateTimeFormat('es-CO',{dateStyle:'long',timeZone:'UTC'}).format(new Date(r.publishedAt+'T00:00:00Z')))+'</p><h3>'+esc(r.title)+'</h3><p>'+esc(r.summary)+'</p><p>'+esc(r.institution)+'</p><a class="asi32-action" href="'+esc(r.sourceUrl)+'" target="_blank" rel="noopener noreferrer">Leer publicación original ↗</a></article>').join(''):'<p class="asi32-empty">No hay publicaciones verificadas vinculadas a esta selección. La publicación municipal disponible no tiene una meta asignada en la fuente.</p>')+'</div><p class="asi32-source">La fecha corresponde a la publicación original; no es una actualización de los porcentajes de la matriz ni una certificación de resultados.</p></section>';
+  }
   function start(rows){
     return '<section class="asi32-block asi32-home-intro">'+
       pageTitle('Inicio · Seguimiento del cuatrienio 2024–2027',
@@ -212,8 +241,9 @@
       '<div class="asi32-home-lead"><strong>Vista general</strong><span>Elige vigencia, línea, sector, programa o dependencia para actualizar todas las cifras de esta página.</span><button class="asi32-owner-shortcut" data-asi-show-exec type="button">Ver gráfica de las 8 secretarías ↗</button>'+sources.shortcut()+'</div>'+
       '<div class="asi32-home-main-grid">'+homeProgress(rows)+homeFinance(rows)+'</div></section>'+
       '<section class="asi32-block asi32-home-bottom">'+
-      '<div class="asi32-home-bottom-grid">'+homeStructure(rows)+homeCoverage(rows)+'</div></section>';
+      '<div class="asi32-home-bottom-grid">'+homeStructure(rows)+homeCoverage(rows)+'</div></section>'+evidenceSection(rows)+publications()+editorialAvailability()+quickAccess();
   }
+  function quickAccess(){return '<section class="asi32-block asi32-quick-access"><h3>Accesos rápidos</h3><div><button type="button" class="asi32-action" data-asi-jump="metas">Consultar metas</button><button type="button" class="asi32-action" data-asi-jump="ejecutivo">Comparar entidades</button><button type="button" class="asi32-action" data-asi-jump="indicadores">Indicadores y fuentes</button>'+goPlanButton()+'<a class="asi32-action asi32-action--ghost" data-asi-citizen href="'+esc(evidence.citizenChannel.url)+'" target="_blank" rel="noopener noreferrer">'+esc(evidence.citizenChannel.title)+'</a></div><p class="asi32-sub">'+esc(evidence.citizenChannel.scope)+'</p></section>';}
   function executive(rows){
     return '<section class="asi32-block">'+pageTitle('Dashboard ejecutivo',
       'Lectura comparativa de la ejecución física y los pagos reportados por las secretarías y entidades.','Seguimiento del cuatrienio')+
@@ -267,13 +297,14 @@
   function detailOwner(rows){
     const idx=state.detailOwner;if(idx===null)return grouping(rows,'owner');
     const label=catalog.owners[idx],sub=rows.filter(r=>r.owner===idx);
+    const fullLabel=label==='Secretaría de Gobierno'?'Secretaría General y de Gobierno':label;
     const s=stat(sub),yy=latestReported(),fin=budget(sub,yy);
     return '<section class="asi32-block"><button type="button" class="asi32-action asi32-action--ghost" data-asi-back>← Regresar al '+(returnTab==='ejecutivo'?'consolidado':'listado de dependencias')+'</button>'+
-      '<header class="asi32-detail-banner"><span class="asi32-eyebrow" style="color:#bdecd3">Detalle institucional · '+(state.year==='all'?'Cuatrienio 2024–2027':years[yy])+'</span><h2>'+esc(label)+'</h2><p>Información de la entidad y sus metas, según los filtros generales.</p></header>'+
+      '<header class="asi32-detail-banner"><span class="asi32-eyebrow" style="color:#bdecd3">Detalle institucional · '+(state.year==='all'?'Cuatrienio 2024–2027':years[yy])+'</span><h2>'+esc(fullLabel)+'</h2><p>Información de la entidad y sus metas, según los filtros generales.'+(fullLabel!==label?' El Plan Indicativo identifica este responsable como «'+esc(label)+'»; los informes institucionales usan su nombre completo.':'')+'</p></header>'+
       '<div class="asi32-grid-3"><article class="asi32-card"><h3>Información estratégica</h3><p class="asi32-sub">Estructura de la entidad dentro del plan</p>'+[
         [unique(sub.map(r=>r.line)),'Líneas estratégicas'],[unique(sub.map(r=>r.sector)),'Sectores MGA'],[unique(sub.map(r=>r.program)),'Programas'],[sub.length,'Metas producto']].map(x=>'<div class="asi32-finance" style="grid-template-columns:55px 1fr"><strong style="font-size:24px;color:#0b8653">'+x[0]+'</strong><span>'+x[1]+'</span></div>').join('')+'</article>'+
       '<article class="asi32-card"><h3>Presupuesto de la entidad</h3><p class="asi32-sub">Saldo definitivo del Plan de Acción '+years[yy]+(state.year==='all'?' · Última vigencia con reporte':'')+'</p><strong style="font-size:clamp(22px,2.5vw,34px);color:#106a47">'+compact(fin.n?fin.b:null)+'</strong><p>Pagos informados: <strong>'+compact(fin.n?fin.p:null)+'</strong></p><p class="asi32-source">'+fin.n+' de '+sub.length+' metas con datos financieros. Plan Indicativo '+(state.year==='all'?'2024–2027':state.year)+': '+compact(s.indicative)+' programados.</p></article>'+
-      '<article class="asi32-card"><h3>Logros certificados</h3><p class="asi32-sub">Fuente pendiente de validación institucional</p><p>Los avances de la matriz son reportes de seguimiento. No se atribuyen obras, fotografías o logros certificados a esta entidad sin sus soportes.</p></article></div></section><section class="asi32-block">'+pairedExecution(sub)+'</section>'+goalComparison(sub)+metas(sub);
+      '<article class="asi32-card"><h3>Resultados y soportes</h3><p class="asi32-sub">'+evidenceRows(sub).length+' documentos revisados para esta selección</p><p>Los documentos se presentan con su entidad, actividad, periodo y fuente. No certifican por sí solos el cumplimiento total de la meta.</p><button type="button" class="asi32-action asi32-action--ghost" data-asi-results>Consultar resultados documentados</button></article></div></section><section class="asi32-block">'+pairedExecution(sub)+'</section>'+goalComparison(sub)+evidenceSection(sub)+metas(sub);
   }
   function goalComparison(rows){
     const i=latestReported(),items=rows.flatMap(r=>[
@@ -329,6 +360,8 @@
     state.q=event.target.value;renderTopCards();renderContent();
   });
   root.addEventListener('click',event=>{
+    const jump=event.target.closest('[data-asi-jump]');if(jump){state.tab=jump.dataset.asiJump;renderNav();renderContent();root.querySelector('[data-asi-body]')?.scrollIntoView({block:'start'});return;}
+    if(event.target.closest('[data-asi-results]')){root.querySelector('[data-asi-evidence]')?.scrollIntoView({block:'start'});return;}
     const openMeta=event.target.closest('[data-asi-open-meta]');
     if(openMeta){state.tab='metas';renderNav();renderContent();const node=root.querySelector('#asi32-meta-'+openMeta.dataset.asiOpenMeta);node?.focus({preventScroll:true});node?.scrollIntoView({block:'start'});return;}
     const goal=event.target.closest('[data-asi-goal]');
@@ -385,6 +418,10 @@
       if(!window.TI32Sources)throw new Error('No se pudo cargar la consulta de hojas originales.');
       sources=window.TI32Sources.create({root,getState:()=>state,getDetails:()=>details,navigate:tab=>{state.tab=tab;renderNav();renderContent();}});
       await sources.load();
+      const documentary=await fetch('data/asi-cumplimos-32-evidencias.json',{cache:'no-store'});
+      if(!documentary.ok)throw new Error('No se pudo comprobar el inventario de soportes documentales.');
+      evidence=await documentary.json();
+      if(evidence.schema!==1||evidence.matrixSha256!==data.audit.sha256||!Array.isArray(evidence.records)||!Array.isArray(evidence.publications)||!evidence.citizenChannel||!Array.isArray(evidence.sourceRequirements))throw new Error('Las evidencias no corresponden a la matriz auditada.');
       render();
     } catch(error) {
       const area=root.querySelector('[data-asi-body]');
