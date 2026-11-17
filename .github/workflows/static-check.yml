@@ -33,6 +33,8 @@ jobs:
         run: node scripts/test_plan_estadistico.cjs
       - name: Verificar vistas 2.1-2.4 y sus fuentes
         run: node scripts/test_current_modules.cjs
+      - name: Verificar matriz cuatrienal de Asi cumplimos 3.2
+        run: node scripts/test_asi_cumplimos32.cjs
       - name: Proteger fuentes originales y verificar registro editorial M2
         run: |
           node scripts/verify_critical_assets.cjs
@@ -48,6 +50,18 @@ jobs:
         run: node scripts/smoke_current_modules.cjs
       - name: Smoke de Plan de Accion 3.3 y Cumplimiento 4.2
         run: node scripts/smoke_plan_cumplimiento.cjs
+      - name: Smoke interactivo de Asi cumplimos 3.2
+        run: node scripts/smoke_asi_cumplimos32.cjs
+      - name: Conservar capturas de Asi cumplimos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencia-asi-cumplimos-32
+          path: |
+            screenshots/asi32-inicio-desktop.png
+            screenshots/asi32-secretaria-desktop.png
+            screenshots/asi32-inicio-mobile.png
+          if-no-files-found: warn
       - name: Conservar evidencia visual del mapa y Planes
         if: always()
         uses: actions/upload-artifact@v4
