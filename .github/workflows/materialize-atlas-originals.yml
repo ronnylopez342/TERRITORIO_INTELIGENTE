@@ -1,0 +1,33 @@
+name: Materializar 246 JPG originales del atlas
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.atlas-source-chunks/**'
+      - 'scripts/materialize_atlas_originals.py'
+      - '.github/workflows/materialize-atlas-originals.yml'
+permissions:
+  contents: write
+jobs:
+  materialize-originals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact main
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: true
+      - name: Reconstruct and verify genuine JPGs
+        run: python3 scripts/materialize_atlas_originals.py
+      - name: Commit 246 original charts and manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets/atlas-original data/atlas-original-manifest.json
+          git rm -r -q .atlas-source-chunks
+          if git diff --cached --quiet; then
+            echo "Atlas images already materialized"
+          else
+            git commit -m "assets(atlas): materialize 246 original JPG charts and 41 panels"
+            git push origin HEAD:main
+          fi
