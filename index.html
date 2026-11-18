@@ -149,7 +149,6 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 <link rel="stylesheet" href="css/ti-cumplimiento-42-resumen-auditoria.css?v=20261116-auditoria">
 <link rel="stylesheet" href="css/asi-cumplimos-32.css?v=20261117-cierre-word">
 <link rel="stylesheet" href="css/ti-conoce-video-scope.css?v=20261117-only-conoce-02" />
-<link rel="stylesheet" href="css/ti-dimensiones-kobo-20261118.css?v=20261118-01"/>
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -635,8 +634,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
         </div>
         
         <div class="k23-dim-section">
-          <div class="k23-dim-section-title"><h2>◈ &nbsp;Explora las cuatro dimensiones del territorio</h2>
-          <p>Selecciona una dimensión, un área y una categoría para consultar los resultados.</p></div>
+          <p class="k23-overline">01 — EXPLORA LAS CUATRO DIMENSIONES</p>
           <nav id="k23-dims" class="k23-dims" aria-label="Dimensiones de la caracterización ciudadana">
             <p role="status">Preparando dimensiones de encuesta…</p>
           </nav>
@@ -646,56 +644,35 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 
     <main class="k23-body">
       <div class="k23-wrap">
-        <div class="k23-filters" aria-label="Explorador de dimensiones, áreas y categorías">
-          <div class="k23-filter-row">
-            <div class="k23-filter-label"><span aria-hidden="true">◈</span><strong>Áreas:</strong></div>
-            <nav id="k23-areas" class="k23-areas" aria-label="Áreas de la dimensión seleccionada"></nav>
-          </div>
-          <div class="k23-filter-row k23-category-row" id="k23-category-row">
-            <div class="k23-filter-label"><span aria-hidden="true">◇</span><strong>Categorías:</strong></div>
-            <nav id="k23-topics" class="k23-topics-list" aria-label="Categorías del área seleccionada"></nav>
-            <details class="k23-search-popover">
-              <summary title="Buscar categorías" aria-label="Buscar categorías">⌕</summary>
-              <div class="k23-search-box">
-                <label for="k23-search">Buscar tema o categoría</label>
-                <input id="k23-search" type="search" placeholder="Buscar por tema…" autocomplete="off"/>
-                <div id="k23-results" class="k23-search-results" hidden></div>
-              </div>
-            </details>
-          </div>
-        </div>
-        <nav class="k23-selection-path" aria-label="Ruta de selección">
-          <span aria-hidden="true">⌂</span>
-          <span id="k23-selected-path">Dimensión Social › Salud y Protección Social › Aseguramiento</span>
-        </nav>
+        <h2 id="k23-heading">Dimensión Social</h2>
+        <p id="k23-description">Información declarada por quienes participaron en el formulario de caracterización.</p>
+        <p id="k23-areas-label">Áreas de esta dimensión</p>
+        <nav id="k23-areas" class="k23-areas" aria-label="Áreas temáticas de la dimensión"></nav>
         <div class="k23-workspace">
+          <aside class="k23-topics-panel" aria-labelledby="k23-topics-heading">
+            <h3 id="k23-topics-heading">Temas de la dimensión</h3>
+            <label class="k23-search-label" for="k23-search">Buscar entre las preguntas y subtemas</label>
+            <input id="k23-search" type="search" placeholder="Buscar por tema…" autocomplete="off">
+            <div class="k23-search-results" id="k23-results" hidden></div>
+            <nav id="k23-topics" class="k23-topics-list" aria-label="Subtemas de encuesta"></nav>
+          </aside>
           <section class="k23-chart-panel" aria-labelledby="k23-topic-title">
-            <h2 id="k23-topic-title" tabindex="-1">Aseguramiento</h2>
+            <p id="k23-topic-breadcrumb" class="k23-topic-breadcrumb">Salud y Protección Social</p>
+            <h3 id="k23-topic-title" tabindex="-1">Aseguramiento</h3>
             <p id="k23-metric-title">¿Está afiliado al sistema de salud?</p>
-            <p id="k23-scope">Encuesta de caracterización · KoBo</p>
+            <p id="k23-scope">Cobertura municipal · encuesta KoBo 2026</p>
+            <div class="k23-valid"><strong id="k23-n">—</strong> <span id="k23-denominator">Respuestas válidas por pregunta</span></div>
             <div id="k23-metric-selector" class="k23-metric-selector" hidden></div>
             <div id="k23-chart" class="k23-chart" aria-label="Gráfica de respuestas agregadas" aria-live="polite"></div>
-            <div class="k23-metric-summary" aria-label="Resumen estadístico del indicador">
-              <div class="k23-valid" id="k23-valid"><span>Base válida</span><strong id="k23-n">—</strong><small id="k23-denominator">Respuestas válidas por pregunta</small></div>
-              <div class="k23-summary-stat"><span>Respuesta más frecuente</span><strong id="k23-summary-top">—</strong></div>
-              <div class="k23-summary-stat"><span>Opciones publicables</span><strong id="k23-summary-options">—</strong></div>
-            </div>
           </section>
-          <div class="k23-insights">
-            <aside class="k23-insight-panel" aria-labelledby="k23-insight-heading">
-              <h3 id="k23-insight-heading"><span class="k23-panel-icon" aria-hidden="true">▥</span> Interpretación analítica</h3>
-              <div id="k23-insight" class="k23-insight" aria-live="polite"><p>Preparando la interpretación de los datos.</p></div>
-            </aside>
-            <aside class="k23-findings-panel" aria-labelledby="k23-findings-heading">
-              <h3 id="k23-findings-heading"><span class="k23-panel-icon" aria-hidden="true">◎</span> Principales hallazgos</h3>
-              <div id="k23-findings" class="k23-findings" aria-live="polite"></div>
-            </aside>
-          </div>
+          <aside class="k23-insight-panel" aria-labelledby="k23-insight-heading">
+            <h3 id="k23-insight-heading">Lectura ciudadana</h3>
+            <div class="k23-insight" id="k23-insight" aria-live="polite">
+              <p>Preparando la interpretación de los datos.</p>
+            </div>
+          </aside>
         </div>
-        <details class="k23-methodology">
-          <summary>Fuente, pregunta original y metodología</summary>
-          <div id="k23-meta" class="k23-meta" aria-label="Metadatos del indicador"></div>
-        </details>
+        <div id="k23-meta" class="k23-meta" aria-label="Metadatos del indicador"></div>
         <section id="k23-gaps" class="k23-gaps" aria-label="Subtemas originales sin indicador en KoBo"></section>
         <p class="k23-disclaimer">Datos descriptivos de personas que respondieron KoBo, no estimaciones representativas de toda la población. Denominador específico por pregunta; categorías con menos de cinco registros no se publican. Los apartados de vivienda/mejoramiento (17–22), identificación personal y respuestas individuales se excluyen de estas gráficas.</p>
         <p id="k23-load" class="k23-load" role="alert" hidden></p>
@@ -861,7 +838,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 
 
 <script defer src="js/data-subachoque.js?v=20261023-cover-22-01"></script>
-<script defer src="js/caracterizacion-kobo.js?v=20261118-nav-"></script>
+<script defer src="js/caracterizacion-kobo.js?v=kobo-23-02"></script>
 <script defer src="js/conoce-publicaciones.js?v=pub21-editorial-02"></script>
 <script defer src="js/explorando-territorio.js?v=20261108-ed-map-v1"></script>
 <script defer src="js/ti-master-heroes.js?v=20261117-only-conoce-v3"></script>
