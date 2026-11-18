@@ -11,9 +11,9 @@
   const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const num=n=>new Intl.NumberFormat('es-CO',{maximumFractionDigits:1}).format(n);
   const COLORS=['#edbe23','#56b8cc','#6497db','#8f84cd','#df9274','#4aa998','#738caa','#a4aeb9','#d7a65a','#ac8fb4'];
-  const defaultId={social:'1.1-1',economica:'2.2-1',ambiental:'3.1-1',percepcion:'per-gestion-gest'};
+  const defaultId={social:'salud-1',economica:'economica-comercio-4',ambiental:'ambiental-ambiente-1',percepcion:'percepcion-4.2'};
   const icon={social:'heart-pulse',economica:'chart',ambiental:'leaf',percepcion:'message'};
-  const state={dim:'social',area:'1.1',topic:'1.1-1',metric:0,search:''};
+  const state={dim:'social',area:'salud',topic:'salud-1',metric:0,search:''};
   let data=null;
   function allTopics(){
     return (data?.dimensiones||[]).flatMap(d=>d.areas.flatMap(a=>a.temas.map(t=>({...t,dimId:d.id,dimName:d.nombre,areaId:a.id,areaName:a.nombre}))));
@@ -52,7 +52,7 @@
     state.search='';
     render();
   }
-  function topicFor(id){return allTopics().find(t=>t.id===id)}
+  function topicFor(id){return allTopics().find(t=>t.id===id||t.koboIds?.includes(id))}
   function gotoDim(id){
     const d=dims().find(v=>v.id===id);
     if(!d)return;
@@ -71,29 +71,39 @@
     state.dim=t.dimId;state.area=t.areaId;state.topic=id;state.metric=0;state.search='';
     setHash();render();
   }
+  const dimIcons={
+    social:'<circle cx="17" cy="15" r="6"/><circle cx="32" cy="16" r="5"/><path d="M5 40v-6a12 12 0 0 1 24 0v6M27 29a11 11 0 0 1 14 11"/>',
+    economica:'<ellipse cx="24" cy="12" rx="16" ry="6"/><path d="M8 12v12c0 8 32 8 32 0V12M8 24v12c0 8 32 8 32 0V24M8 18c0 8 32 8 32 0"/>',
+    ambiental:'<path d="M8 42C6 18 20 9 43 6 43 30 28 42 8 42Zm0 0 26-26"/>',
+    percepcion:'<circle cx="17" cy="16" r="5"/><circle cx="32" cy="16" r="5"/><path d="M2 40v-6c0-13 23-13 23 0v6M23 40v-6c0-13 23-13 23 0v6"/>'
+  };
+  const areaGlyphs={salud:'✚',educacion:'▤',inclusion:'♧',cultura:'◈',deporte:'◉',justicia:'⬡',agricultura:'❀',comercio:'▣',turismo:'⌂',empleo:'♧',energia:'ϟ',hacienda:'▥',ambiente:'❀',vivienda:'⌂',movilidad:'↝',riesgo:'⬡'};
   function renderDims(){
     $('k23-dims').innerHTML=dims().map((d,i)=>
       '<button type="button" class="k23-dim'+(d.id===state.dim?' active':'')+'" data-k23-dim="'+esc(d.id)+
-      '" aria-pressed="'+(d.id===state.dim)+'"><span class="k23-dim-index">0'+(i+1)+'</span><span class="k23-dim-copy">'+
-      '<strong>'+esc(d.nombre)+'</strong><small>'+esc(d.subtitulo)+'</small></span><span class="k23-dim-arrow" aria-hidden="true">↗</span></button>'
+      '" aria-pressed="'+(d.id===state.dim)+'"><span class="k23-dim-icon" aria-hidden="true">'+
+      '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'+(dimIcons[d.id]||dimIcons.social)+'</svg></span>'+
+      '<span class="k23-dim-copy"><strong>'+esc(d.nombre)+'</strong><small>'+esc(d.subtitulo)+'</small></span>'+
+      '<span class="k23-dim-arrow" aria-hidden="true">›</span></button>'
     ).join('');
     $('k23-breadcrumb').textContent=dim().nombre;
-    $('k23-heading').textContent=dim().nombre;
-    $('k23-description').textContent=dim().subtitulo+'. Información declarada por quienes respondieron la caracterización de KoBo.';
   }
   function renderAreas(){
-    $('k23-areas-label').textContent='Áreas de '+dim().nombre;
     $('k23-areas').innerHTML=dim().areas.map(a=>
       '<button type="button" class="k23-area'+(a.id===state.area?' active':'')+'" aria-pressed="'+(a.id===state.area)+
-      '" data-k23-area="'+esc(a.id)+'">'+esc(a.nombre)+'</button>'
+      '" data-k23-area="'+esc(a.id)+'"><span class="k23-area-icon" aria-hidden="true">'+esc(areaGlyphs[a.id]||'◈')+
+      '</span><span>'+esc(a.nombre)+'</span></button>'
     ).join('');
   }
   function renderTopics(){
-    $('k23-topics-heading').textContent=area().nombre;
-    $('k23-topics').innerHTML=area().temas.map(t=>
-      '<button type="button" class="k23-topic'+(t.id===state.topic?' active':'')+'" aria-current="'+(t.id===state.topic)+
-      '" data-k23-topic="'+esc(t.id)+'"><span>'+esc(t.nombre)+'</span><span aria-hidden="true">›</span></button>'
+    const isPerception=state.dim==='percepcion';
+    $('k23-category-row').hidden=isPerception;
+    $('k23-topics').innerHTML=isPerception?'':area().temas.map(t=>
+      '<button type="button" class="k23-topic'+(t.id===state.topic?' active':'')+'" aria-pressed="'+(t.id===state.topic)+
+      '" data-k23-topic="'+esc(t.id)+'"><span>'+esc((t.code?t.code+' ':'')+t.nombre)+'</span></button>'
     ).join('');
+    $('k23-selected-path').textContent=dim().nombre+'  ›  '+area().nombre+
+      (isPerception?'':'  ›  '+(topic()?.nombre||''));
     $('k23-search').value=state.search;
     renderSearch();
   }
@@ -113,53 +123,67 @@
       .filter(x=>Number.isFinite(x.count)&&Number.isFinite(x.pct)&&x.count>=5&&x.pct>=0);
   }
   function renderMetric(){
-    const t=topic(),m=metric();
-    if(!t||!m){$('k23-chart').textContent='No se encontraron resultados publicables.';return;}
-    state.metric=Math.min(state.metric,t.metrics.length-1);
-    $('k23-topic-title').textContent=t.nombre;
-    $('k23-topic-breadcrumb').textContent=area().nombre+' / '+t.nombre;
-    $('k23-metric-title').textContent=m.title;
-    $('k23-scope').textContent='Encuesta de caracterización · '+data.corte+' · '+(m.universe||'Base según la pregunta');
-    $('k23-n').textContent=num(m.n);
-    $('k23-denominator').textContent='Base del porcentaje: '+num(m.n)+' '+m.unit;
+    const t=topic();
+    if(!t)return;
     const selector=$('k23-metric-selector');
-    selector.hidden=t.metrics.length<=1;
-    selector.innerHTML=t.metrics.length>1?'<label for="k23-metric-select">Indicador</label><select id="k23-metric-select" aria-label="Seleccionar indicador">'+
+    const hasMetrics=Array.isArray(t.metrics)&&t.metrics.length>0;
+    state.metric=hasMetrics?Math.max(0,Math.min(state.metric,t.metrics.length-1)):0;
+    const m=hasMetrics?t.metrics[state.metric]:null;
+    $('k23-topic-title').textContent=t.nombre;
+    $('k23-metric-title').textContent=m?.title||(state.dim==='percepcion'?'Información de percepción sobre la gestión municipal':'Resultados de caracterización del territorio');
+    $('k23-scope').textContent=m?'KoBo · '+data.corte+' · '+(m.universe||'Base válida según la pregunta'):
+      'Categoría del inventario territorial · sin resultados KoBo publicables';
+    selector.hidden=!m||t.metrics.length<=1;
+    selector.innerHTML=m&&t.metrics.length>1?'<label for="k23-metric-select">Indicador</label>'+
+      '<select id="k23-metric-select" aria-label="Seleccionar indicador de esta categoría">'+
       t.metrics.map((v,i)=>'<option value="'+i+'"'+(i===state.metric?' selected':'')+'>'+esc(v.title)+'</option>').join('')+'</select>':'';
+    if(!m){
+      $('k23-chart').innerHTML='<div class="k23-no-data" role="status"><span aria-hidden="true">▥</span>'+
+        '<h3>Sin resultados disponibles para esta categoría</h3><p>El tema está incluido en DIMENSIONES.docx, pero la encuesta KoBo no contiene una medición publicable que pueda atribuirse a este apartado.</p>'+
+        '<p>No se presentan cifras de ejemplo ni se reemplazan con las de otra categoría.</p></div>';
+      $('k23-n').textContent='—';$('k23-denominator').textContent='Sin base válida';
+      $('k23-summary-top').textContent='Sin datos';$('k23-summary-options').textContent='0';
+      $('k23-insight').innerHTML='<p>No hay datos suficientes para realizar una interpretación analítica de este tema. Se mantiene la categoría para incorporar futuros indicadores verificados.</p>';
+      $('k23-findings').innerHTML='<p class="k23-empty-findings">No hay hallazgos estadísticos publicables para esta selección.</p>';
+      $('k23-meta').innerHTML='<p>Catálogo temático: DIMENSIONES.docx. Sin pregunta KoBo equivalente verificada.</p>';
+      return;
+    }
     const values=getMetricLabels(m);
-    const focused=values.find(v=>v.label===m.focusCategory);
     const units=m.unit==='personas registradas'?'personas registradas':'encuestas respondidas';
-    $('k23-chart').innerHTML='<div class="k23-bars" role="list" aria-label="Distribución agregada de respuestas">'+
-      values.map(row=>{
-        const isFocus=Boolean(focused&&row.label===focused.label);
-        return '<div class="k23-bar-row'+(isFocus?' k23-bar-focus':'')+'" role="listitem"><div class="k23-bar-top"><span>'+esc(row.label)+
+    const sorted=[...values].sort((a,b)=>b.count-a.count);
+    const biggest=sorted[0],second=sorted[1];
+    $('k23-n').textContent=num(m.n);
+    $('k23-denominator').textContent=esc(m.unit);
+    $('k23-summary-top').textContent=biggest?num(biggest.pct)+' %':'Sin dato';
+    $('k23-summary-options').textContent=String(values.length);
+    $('k23-chart').innerHTML=values.length?'<div class="k23-bars" role="list" aria-label="Distribución agregada de respuestas">'+
+      values.map((row,i)=>'<div class="k23-bar-row" role="listitem"><div class="k23-bar-top"><span>'+esc(row.label)+
         '</span><strong>'+num(row.pct)+' %</strong></div><div class="k23-bar-track" aria-label="'+num(row.count)+
-        ' registros"><span style="width:'+Math.min(100,Math.max(0,row.pct))+'%;background:'+(isFocus?'#e6b522':row.color)+'"></span></div>'+
-        '<small>'+num(row.count)+' '+esc(units)+'</small></div>';
-      }).join('')+'</div><p class="k23-chart-note">'+(m.type==='multi'?
-      'Respuesta múltiple: se puede seleccionar más de una opción. Los porcentajes pueden sumar más del 100 %.':
-      'Porcentaje calculado exclusivamente sobre las respuestas válidas de esta pregunta.')+'</p>';
-    const biggest=values.slice().sort((a,b)=>b.count-a.count)[0];
-    const highlighted=focused||biggest;
-    const focusText=focused?'La categoría correspondiente al subtema es':'La respuesta más frecuente entre las opciones publicadas es';
-    const badge=m.coverage==='directa'?'Respuesta directa a KoBo':'Aproximación, no medición técnica';
-    const shownSum=values.reduce((sum,x)=>sum+x.count,0);
-    const suppressNote=shownSum<m.n&&m.type!=='multi'?
-      'Algunas opciones infrecuentes fueron agrupadas u omitidas para proteger las respuestas.':'';
-    $('k23-insight').innerHTML='<span class="k23-data-badge">'+esc(badge)+'</span>'+
-      '<p>'+focusText+' <strong>'+esc(highlighted?.label||'Sin categoría publicable')+'</strong>: <strong>'+
-      num(highlighted?.count||0)+'</strong> de '+num(m.n)+' '+esc(units)+' ('+num(highlighted?.pct||0)+' %).</p>'+
-      '<div class="k23-important"><strong>¿Cómo se debe interpretar?</strong><p>'+
-      (m.unit==='personas registradas'?'La base está formada por personas registradas en los hogares que participaron, no por 324 encuestas.':
-      'La base corresponde solo a quienes respondieron esta pregunta, no a la población completa de Subachoque.')+
-      ' Los datos describen participantes de una encuesta no probabilística.</p></div>'+
-      (m.hasFilter?'<p><strong>Pregunta condicional:</strong> '+esc(m.universe||'Se aplicó solo a un grupo definido en KoBo.')+'</p>':'')+
-      (m.coverageNote?'<p>'+esc(m.coverageNote)+'</p>':m.coverage==='aproximada'?
-        '<p>Este resultado sirve como aproximación al subtema, pero no equivale a un indicador administrativo, censal o técnico.</p>':'')+
-      (m.focusNote?'<p>'+esc(m.focusNote)+'</p>':'')+
-      (m.privacyNote?'<p>'+esc(m.privacyNote)+'</p>':suppressNote?'<p>'+esc(suppressNote)+'</p>':'');
+        ' registros"><span style="width:'+Math.min(100,Math.max(0,row.pct))+'%;background:'+(i===0?'#e6b522':row.color)+'"></span></div>'+
+        '<small>'+num(row.count)+' '+esc(units)+'</small></div>'
+      ).join('')+'</div><p class="k23-chart-note">'+(m.type==='multi'?
+        'Respuesta múltiple: una persona puede escoger varias opciones; los porcentajes pueden superar el 100 % al sumarse.':
+        'Los porcentajes se calculan con la base válida específica de esta pregunta.')+'</p>':
+      '<div class="k23-no-data" role="status"><h3>Sin opciones publicables</h3><p>Las categorías con menos de cinco registros no se muestran.</p></div>';
+    const dataBadge=state.dim==='percepcion'?'Pregunta KoBo relacionada con el área':
+      m.coverage==='directa'?'Respuesta directa de KoBo':'Aproximación a esta categoría';
+    const description=biggest?'Entre las respuestas publicables, la opción más frecuente fue <strong>'+esc(biggest.label)+'</strong>, con <strong>'+num(biggest.count)+
+      '</strong> '+esc(units)+' ('+num(biggest.pct)+' %).':'No existen opciones con un mínimo de cinco registros publicables.';
+    $('k23-insight').innerHTML='<span class="k23-data-badge">'+esc(dataBadge)+'</span>'+
+      '<p>'+description+'</p><p>La base corresponde a <strong>'+num(m.n)+'</strong> '+esc(m.unit)+
+      ' asociados a esta pregunta. Se describen únicamente las respuestas de participantes de una encuesta no probabilística, sin extrapolación a la población municipal.</p>'+
+      (m.hasFilter?'<p><strong>Pregunta condicional:</strong> '+esc(m.universe||'Se aplicó solo a un grupo definido.')+'</p>':'')+
+      (m.coverageNote?'<p>'+esc(m.coverageNote)+'</p>':'')+
+      (m.privacyNote?'<p>'+esc(m.privacyNote)+'</p>':'')+
+      (state.dim==='percepcion'?'<p>El indicador presentado no sustituye una evaluación integral del área de percepción.</p>':'');
+    const points=[];
+    if(biggest)points.push('La opción '+biggest.label+' concentra '+num(biggest.pct)+' % de las respuestas válidas ('+num(biggest.count)+' registros).');
+    if(second)points.push('La segunda opción publicable fue '+second.label+', con '+num(second.pct)+' % ('+num(second.count)+' registros).');
+    points.push('Base válida para esta pregunta: '+num(m.n)+' '+m.unit+'.');
+    if(m.type==='multi')points.push('Se permitieron respuestas múltiples; no sumar porcentajes como si fueran categorías excluyentes.');
+    $('k23-findings').innerHTML='<ul>'+points.map(x=>'<li><span class="k23-finding-check" aria-hidden="true">✓</span><span>'+esc(x)+'</span></li>').join('')+'</ul>';
     $('k23-meta').innerHTML='<div><span>Fuente y unidad</span><strong>KoBo · Caracterización no técnica · '+esc(m.unit)+'</strong></div>'+
-      '<div><span>Pregunta original</span><strong>'+esc(m.q)+'</strong><details class="k23-question-details"><summary>Leer el texto literal</summary><p>'+esc(m.questionLabel||m.title)+'</p></details></div>'+
+      '<div><span>Pregunta original</span><strong>'+esc(m.q)+'</strong><details class="k23-question-details"><summary>Leer texto literal</summary><p>'+esc(m.questionLabel||m.title)+'</p></details></div>'+
       '<div><span>Base válida</span><strong>'+num(m.n)+'</strong></div>'+
       '<div><span>Corte</span><strong>'+esc(data.corte)+'</strong></div>';
   }
@@ -213,22 +237,59 @@
     state.metric=val;setHash();renderMetric();
   });
   async function load(){
-    const response=await fetch('data/caracterizacion-kobo-2026-agregados.gz.b64',{cache:'no-store'});
-    if(!response.ok)throw Error('El archivo agregado de KoBo no está disponible.');
+    const [response,taxonomyResponse]=await Promise.all([
+      fetch('data/caracterizacion-kobo-2026-agregados.gz.b64',{cache:'no-store'}),
+      fetch('data/dimensiones-kobo-catalogo.json',{cache:'no-store'})
+    ]);
+    if(!response.ok||!taxonomyResponse.ok)throw Error('No está disponible la base agregada o el catálogo de dimensiones.');
     if(typeof DecompressionStream==='undefined'||typeof atob==='undefined')throw Error('Este navegador no admite la descompresión de datos del visor.');
     const encoded=(await response.text()).replace(/\s+/g,'');
     const binary=Uint8Array.from(atob(encoded),ch=>ch.charCodeAt(0));
     const decoded=new Response(new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip')));
-    return decoded.json();
+    return {aggregates:await decoded.json(),taxonomy:await taxonomyResponse.json()};
   }
-  load().then(loaded=>{
+  const perceptionGroups={
+    'percepcion-4.1':[],
+    'percepcion-4.2':['per-gestion-gest','per-gestion-apoyos','per-programas-apoyo','per-servicios-salud','per-servicios-cultura','per-servicios-vial','per-presencia-seguridad'],
+    'percepcion-4.3':['per-participacion-jac','per-participacion-votacion','per-programas-actividades','per-presencia-presencia'],
+    'percepcion-4.4':['per-informacion-enterados','per-informacion-medios','per-informacion-visor','per-programas-conocimiento']
+  };
+  function combineOfficialAndKobo(aggregates,taxonomy){
+    const original=aggregates.dimensiones.flatMap(d=>d.areas.flatMap(a=>
+      a.temas.map(t=>({...t,sourceDim:d.id,sourceArea:a.id}))));
+    const dimensions=taxonomy.dimensiones.map(d=>({
+      id:d.id,nombre:d.nombre,subtitulo:d.subtitulo,
+      areas:d.areas.map(a=>({
+        id:a.id,code:a.code,nombre:a.nombre,
+        temas:a.temas.map(t=>{
+          if(d.id==='percepcion'){
+            const ids=perceptionGroups[t.id]||[];
+            return {...t,koboIds:ids,metrics:ids.flatMap(id=>{
+              const originalTopic=original.find(x=>x.id===id);
+              return originalTopic?.metrics||[];
+            })};
+          }
+          const match=original.find(x=>x.sourceDim===d.id&&norm(x.nombre)===norm(t.nombre)&&
+            (x.sourceArea===a.code||x.sourceArea===a.id));
+          return {...t,koboIds:match?[match.id]:[],metrics:match?.metrics||[]};
+        })
+      }))
+    }));
+    if(dimensions.length!==4||dimensions.some(d=>d.id==='institucional')||
+      dimensions[0].areas.length!==6||dimensions[1].areas.length!==6||
+      dimensions[2].areas.length!==4||dimensions[3].areas.length!==4||
+      dimensions.slice(0,3).reduce((n,d)=>n+d.areas.reduce((x,a)=>x+a.temas.length,0),0)!==86)
+      throw Error('La taxonomía del documento Word no pasó las comprobaciones de integridad.');
+    return {...aggregates,dimensiones:dimensions};
+  }
+  load().then(({aggregates:loaded,taxonomy})=>{
     if(loaded.v!==2||loaded.nEncuestas!==324||loaded.dimensiones?.length!==4||loaded.dimensiones[3]?.id!=='percepcion')
       throw Error('La estructura de la caracterización no pasó las verificaciones.');
     const items=loaded.dimensiones.flatMap(d=>d.areas.flatMap(a=>a.temas));
     const metrics=items.flatMap(t=>t.metrics);
     if(items.length!==48||metrics.length!==49||(loaded.notMeasured?.social?.length+loaded.notMeasured?.economica?.length+loaded.notMeasured?.ambiental?.length)!==53||metrics.some(m=>!Number.isInteger(m.n)||m.n<15||!m.q||!m.title||!m.universe||!m.questionLabel))
       throw Error('Los indicadores agregados no pasaron las verificaciones de integridad.');
-    data=loaded;syncHash();render();
+    data=combineOfficialAndKobo(loaded,taxonomy);syncHash();render();
   }).catch(err=>{
     $('k23-load').hidden=false;
     $('k23-load').textContent='No se pudieron cargar los resultados agregados: '+err.message;
