@@ -69,6 +69,8 @@
   function gotoTopic(id){
     const t=topicFor(id);if(!t)return;
     state.dim=t.dimId;state.area=t.areaId;state.topic=id;state.metric=0;state.search='';
+    const searchPanel=root.querySelector('.k23-search-popover');
+    if(searchPanel)searchPanel.open=false;
     setHash();render();
   }
   function renderDims(){
@@ -78,22 +80,19 @@
       '<strong>'+esc(d.nombre)+'</strong><small>'+esc(d.subtitulo)+'</small></span><span class="k23-dim-arrow" aria-hidden="true">↗</span></button>'
     ).join('');
     $('k23-breadcrumb').textContent=dim().nombre;
-    $('k23-heading').textContent=dim().nombre;
-    $('k23-description').textContent=dim().subtitulo+'. Información declarada por quienes respondieron la caracterización de KoBo.';
   }
   function renderAreas(){
-    $('k23-areas-label').textContent='Áreas de '+dim().nombre;
     $('k23-areas').innerHTML=dim().areas.map(a=>
       '<button type="button" class="k23-area'+(a.id===state.area?' active':'')+'" aria-pressed="'+(a.id===state.area)+
       '" data-k23-area="'+esc(a.id)+'">'+esc(a.nombre)+'</button>'
     ).join('');
   }
   function renderTopics(){
-    $('k23-topics-heading').textContent=area().nombre;
-    $('k23-topics').innerHTML=area().temas.map(t=>
-      '<button type="button" class="k23-topic'+(t.id===state.topic?' active':'')+'" aria-current="'+(t.id===state.topic)+
-      '" data-k23-topic="'+esc(t.id)+'"><span>'+esc(t.nombre)+'</span><span aria-hidden="true">›</span></button>'
-    ).join('');
+    $('k23-topics').innerHTML=area().temas.map(t=>{
+      const code=/^[0-9]+[.][0-9]+-[0-9]+$/.test(t.id)?t.id.replace(/-([0-9]+)$/,'.$1'):'';
+      return '<button type="button" class="k23-topic'+(t.id===state.topic?' active':'')+'" aria-pressed="'+(t.id===state.topic)+
+        '" data-k23-topic="'+esc(t.id)+'"><span>'+esc((code?code+'  ':'')+t.nombre)+'</span></button>';
+    }).join('');
     $('k23-search').value=state.search;
     renderSearch();
   }
@@ -114,14 +113,19 @@
   }
   function renderMetric(){
     const t=topic(),m=metric();
-    if(!t||!m){$('k23-chart').textContent='No se encontraron resultados publicables.';return;}
+    if(!t||!m){
+      $('k23-chart').textContent='No se encontraron resultados publicables.';
+      $('k23-findings').replaceChildren();
+      return;
+    }
     state.metric=Math.min(state.metric,t.metrics.length-1);
     $('k23-topic-title').textContent=t.nombre;
-    $('k23-topic-breadcrumb').textContent=area().nombre+' / '+t.nombre;
+    $('k23-topic-breadcrumb').textContent=dim().nombre+'  ›  '+area().nombre+'  ›  '+t.nombre;
     $('k23-metric-title').textContent=m.title;
-    $('k23-scope').textContent='Encuesta de caracterización · '+data.corte+' · '+(m.universe||'Base según la pregunta');
+    $('k23-scope').textContent='Resultados declarados · '+(m.universe||'Base según la pregunta');
     $('k23-n').textContent=num(m.n);
-    $('k23-denominator').textContent='Base del porcentaje: '+num(m.n)+' '+m.unit;
+    $('k23-denominator').textContent=m.unit;
+    $('k23-source-foot').textContent='Fuente: KoBo · Caracterización no técnica  |  Pregunta: '+m.q+'  |  Corte: '+data.corte;
     const selector=$('k23-metric-selector');
     selector.hidden=t.metrics.length<=1;
     selector.innerHTML=t.metrics.length>1?'<label for="k23-metric-select">Indicador</label><select id="k23-metric-select" aria-label="Seleccionar indicador">'+
@@ -129,7 +133,7 @@
     const values=getMetricLabels(m);
     const focused=values.find(v=>v.label===m.focusCategory);
     const units=m.unit==='personas registradas'?'personas registradas':'encuestas respondidas';
-    $('k23-chart').innerHTML='<div class="k23-bars" role="list" aria-label="Distribución agregada de respuestas">'+
+    $('k23-chart').innerHTML=values.length?'<div class="k23-bars" role="list" aria-label="Distribución agregada de respuestas">'+
       values.map(row=>{
         const isFocus=Boolean(focused&&row.label===focused.label);
         return '<div class="k23-bar-row'+(isFocus?' k23-bar-focus':'')+'" role="listitem"><div class="k23-bar-top"><span>'+esc(row.label)+
@@ -137,27 +141,42 @@
         ' registros"><span style="width:'+Math.min(100,Math.max(0,row.pct))+'%;background:'+(isFocus?'#e6b522':row.color)+'"></span></div>'+
         '<small>'+num(row.count)+' '+esc(units)+'</small></div>';
       }).join('')+'</div><p class="k23-chart-note">'+(m.type==='multi'?
-      'Respuesta múltiple: se puede seleccionar más de una opción. Los porcentajes pueden sumar más del 100 %.':
-      'Porcentaje calculado exclusivamente sobre las respuestas válidas de esta pregunta.')+'</p>';
-    const biggest=values.slice().sort((a,b)=>b.count-a.count)[0];
+      'Respuesta múltiple: cada participante puede escoger varias opciones, por lo que los porcentajes pueden sumar más del 100 %.':
+      'Porcentaje calculado exclusivamente sobre las respuestas válidas de esta pregunta.')+'</p>':
+      '<p role="status">No hay opciones publicables para esta pregunta.</p>';
+    const sorted=values.slice().sort((a,b)=>b.count-a.count);
+    const biggest=sorted[0],second=sorted[1];
     const highlighted=focused||biggest;
-    const focusText=focused?'La categoría correspondiente al subtema es':'La respuesta más frecuente entre las opciones publicadas es';
-    const badge=m.coverage==='directa'?'Respuesta directa a KoBo':'Aproximación, no medición técnica';
+    $('k23-featured-answer').textContent=highlighted?.label||'Sin dato';
+    $('k23-featured-count').textContent=highlighted?num(highlighted.count)+' '+units:'Sin opciones publicables';
+    $('k23-featured-percent').textContent=highlighted?num(highlighted.pct)+' %':'—';
+    const focusText=focused?'La opción destacada para esta categoría es':'La respuesta más frecuente entre las opciones publicadas es';
+    const badge=m.coverage==='directa'?'Respuesta directa de KoBo':'Aproximación, no medición técnica';
     const shownSum=values.reduce((sum,x)=>sum+x.count,0);
     const suppressNote=shownSum<m.n&&m.type!=='multi'?
-      'Algunas opciones infrecuentes fueron agrupadas u omitidas para proteger las respuestas.':'';
+      'Algunas opciones infrecuentes se agruparon u omitieron para proteger la privacidad.':'';
     $('k23-insight').innerHTML='<span class="k23-data-badge">'+esc(badge)+'</span>'+
       '<p>'+focusText+' <strong>'+esc(highlighted?.label||'Sin categoría publicable')+'</strong>: <strong>'+
       num(highlighted?.count||0)+'</strong> de '+num(m.n)+' '+esc(units)+' ('+num(highlighted?.pct||0)+' %).</p>'+
-      '<div class="k23-important"><strong>¿Cómo se debe interpretar?</strong><p>'+
-      (m.unit==='personas registradas'?'La base está formada por personas registradas en los hogares que participaron, no por 324 encuestas.':
-      'La base corresponde solo a quienes respondieron esta pregunta, no a la población completa de Subachoque.')+
-      ' Los datos describen participantes de una encuesta no probabilística.</p></div>'+
-      (m.hasFilter?'<p><strong>Pregunta condicional:</strong> '+esc(m.universe||'Se aplicó solo a un grupo definido en KoBo.')+'</p>':'')+
+      '<p>'+(m.unit==='personas registradas'?
+        'La base corresponde a personas registradas en hogares participantes, no al número total de encuestas.':
+        'La base corresponde únicamente a quienes respondieron esta pregunta.')+
+      ' Los resultados describen una encuesta no probabilística; no representan a toda la población de Subachoque.</p>'+
+      (m.hasFilter?'<p><strong>Pregunta condicional:</strong> '+esc(m.universe||'Se aplicó únicamente a un grupo definido.')+'</p>':'')+
       (m.coverageNote?'<p>'+esc(m.coverageNote)+'</p>':m.coverage==='aproximada'?
-        '<p>Este resultado sirve como aproximación al subtema, pero no equivale a un indicador administrativo, censal o técnico.</p>':'')+
+        '<p>Esta aproximación no equivale a un indicador técnico o administrativo.</p>':'')+
       (m.focusNote?'<p>'+esc(m.focusNote)+'</p>':'')+
       (m.privacyNote?'<p>'+esc(m.privacyNote)+'</p>':suppressNote?'<p>'+esc(suppressNote)+'</p>':'');
+    const findings=[];
+    if(highlighted)findings.push('La respuesta destacada fue '+highlighted.label+': '+num(highlighted.count)+' registros ('+num(highlighted.pct)+' %).');
+    if(second&&second.label!==highlighted?.label)findings.push('Otra respuesta frecuente fue '+second.label+', con '+num(second.count)+' registros ('+num(second.pct)+' %).');
+    else if(biggest&&highlighted&&biggest.label!==highlighted.label)findings.push('La opción más frecuente del conjunto fue '+biggest.label+' ('+num(biggest.pct)+' %).');
+    findings.push('La base válida de esta pregunta reúne '+num(m.n)+' '+m.unit+'.');
+    if(m.type==='multi')findings.push('Se admitieron respuestas múltiples; los porcentajes no son categorías excluyentes.');
+    else if(m.coverage==='aproximada')findings.push('La medición es una aproximación declarada, no un indicador técnico.');
+    else if(suppressNote)findings.push(suppressNote);
+    $('k23-findings').innerHTML=findings.map(statement=>'<li><span class="k23-check" aria-hidden="true">✓</span><span>'+esc(statement)+'</span></li>').join('');
+    // Preserve provenance and original question metadata, but do not expose its old oversized panel.
     $('k23-meta').innerHTML='<div><span>Fuente y unidad</span><strong>KoBo · Caracterización no técnica · '+esc(m.unit)+'</strong></div>'+
       '<div><span>Pregunta original</span><strong>'+esc(m.q)+'</strong><details class="k23-question-details"><summary>Leer el texto literal</summary><p>'+esc(m.questionLabel||m.title)+'</p></details></div>'+
       '<div><span>Base válida</span><strong>'+num(m.n)+'</strong></div>'+
