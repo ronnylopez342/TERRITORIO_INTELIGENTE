@@ -1,0 +1,835 @@
+{
+  "version": 1,
+  "source": "SUBACHOQUE_ATLAS_ESTADISTICO_INTEGRAL_41_PREGUNTAS_246_GRAFICAS_2026.ipynb",
+  "zipSha256": "661b6603e93f686115a50dcd1d3dee5876e3538506b1eddec730139ea82b6d61",
+  "labels": [
+    "Barras",
+    "Puntos",
+    "Proporciones",
+    "Mosaico",
+    "Circular",
+    "Columnas"
+  ],
+  "questions": {
+    "G01": {
+      "views": [
+        "assets/atlas-original/G01/G01_01_barras_horizontales.jpg",
+        "assets/atlas-original/G01/G01_02_puntos.jpg",
+        "assets/atlas-original/G01/G01_03_composicion_100.jpg",
+        "assets/atlas-original/G01/G01_04_mosaico.jpg",
+        "assets/atlas-original/G01/G01_05_circular.jpg",
+        "assets/atlas-original/G01/G01_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G01/G01_panel_6_graficas_original.jpg",
+      "sha256": [
+        "f40c6eb4fa0b3a33a19ed88cec8cf091afc89d7311642fe3b248e6ed863f4fc4",
+        "0dce8bcad12b3c17e993ad7b8b76121be15691493b89bbcf51fdd1a9709230e0",
+        "1f2edf9076bb70f6cf56405a111d5028bb35dc581f3b90cd691fd17d342f2113",
+        "bb572d94eb84e27271addda88d11bcf1f1f63063df2fd7811813947d631ee8a8",
+        "4ee3d4f3575f7afddadf0dbc02a19f380b1f48f44e7a6d0d82ca48f113b20563",
+        "68f28b8b25d6834c7be661ede23f5a5d81a1d3e80d2b3f047fd75336729e5b42"
+      ],
+      "panelSha256": "d05159a3430acffb25f8c7387e033332fdb191fdf481d241fe37745e3a98c14b"
+    },
+    "G02": {
+      "views": [
+        "assets/atlas-original/G02/G02_01_barras_horizontales.jpg",
+        "assets/atlas-original/G02/G02_02_puntos.jpg",
+        "assets/atlas-original/G02/G02_03_composicion_100.jpg",
+        "assets/atlas-original/G02/G02_04_mosaico.jpg",
+        "assets/atlas-original/G02/G02_05_circular.jpg",
+        "assets/atlas-original/G02/G02_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G02/G02_panel_6_graficas_original.jpg",
+      "sha256": [
+        "ffa5366fec3bedd31a56f6fdf23fe7733d29c106a4dfba11e5255f636920753b",
+        "ce924e154f6941dd8232649a6ee148e8665c2c58ebad48666820d7486f569e23",
+        "e99ecb6e535c0d3679c7c66396f7e113a56c3325055a39e8685ef8b1cf1c5280",
+        "d5f317629fe0d14a21e25c9ee0b2d6e16107da666419d4074584855d5914bd37",
+        "312a1f601b82e2100e9739985f184e9c9777199dcf2796f5237f7a44637020ca",
+        "82fd04fe7d7c49a8d76aa1feefa4e7dde39fa396e11fe9911980a0734c88c5bf"
+      ],
+      "panelSha256": "595a7bda4a770c4b5d38d7f9dfcdf4c0961ba40961fb951d1f17df468f3772b3"
+    },
+    "G03": {
+      "views": [
+        "assets/atlas-original/G03/G03_01_barras_horizontales.jpg",
+        "assets/atlas-original/G03/G03_02_puntos.jpg",
+        "assets/atlas-original/G03/G03_03_composicion_100.jpg",
+        "assets/atlas-original/G03/G03_04_mosaico.jpg",
+        "assets/atlas-original/G03/G03_05_circular.jpg",
+        "assets/atlas-original/G03/G03_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G03/G03_panel_6_graficas_original.jpg",
+      "sha256": [
+        "d1d78f5fe92679d213293f1d21ed251291e6fba909bf9e697a25424a424a1c6c",
+        "42f6ced565fc672c0ae51e654f50e6f8a24efe0bd59e58961aca802c8474d4ed",
+        "4366e9fbc81c69812e465a0202245c1b4cdb21964e9b67498a2df5628713f085",
+        "7fb481e43bbf92b7e755015b19e687ae4ffcf394cfaf98d6a8d9443ddf037680",
+        "daf81627b5f571d13646758943a2078e83f07c853196f6f1b37346bacc128d8a",
+        "77b38fc8d052824e6e9eb01a716f50bc298501a1db97b320c8cdf822f73cfa6a"
+      ],
+      "panelSha256": "cf5c1319c74a6f91086651f272f4e984ab01f0d43e0befe1a98579261d926f52"
+    },
+    "G04": {
+      "views": [
+        "assets/atlas-original/G04/G04_01_barras_horizontales.jpg",
+        "assets/atlas-original/G04/G04_02_puntos.jpg",
+        "assets/atlas-original/G04/G04_03_composicion_100.jpg",
+        "assets/atlas-original/G04/G04_04_mosaico.jpg",
+        "assets/atlas-original/G04/G04_05_circular.jpg",
+        "assets/atlas-original/G04/G04_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G04/G04_panel_6_graficas_original.jpg",
+      "sha256": [
+        "25974ca77a6ab5c3f3431af56be6f7b0d03f6525cb71347668132a951dfd775b",
+        "7730d34cb0f6458c59f685c711564b87557d913c57af1a3bdfdcdc703aea3be7",
+        "e3e35f8fb6e41a54539e72dd3bb0bc9c4a3e6fee5ad3822b479db34f83eb17fe",
+        "9bdee4686efe4fe3121531bc149f75bfa7b7a77007c87679ebebe344abf92ae5",
+        "86b4487ffb2fe0c1ee246a38ad9067acc0ab518eb1518bbf76a6c1e534e600f2",
+        "fd9c70d8f3960ad28fe7183ee69168049c0d33459a1b66f0ccc1ef0ffd82deb9"
+      ],
+      "panelSha256": "f5ab8d75744492c47b10bec67218db6348945a3cc353517e8027a831b3f8e2be"
+    },
+    "G05": {
+      "views": [
+        "assets/atlas-original/G05/G05_01_barras_horizontales.jpg",
+        "assets/atlas-original/G05/G05_02_puntos.jpg",
+        "assets/atlas-original/G05/G05_03_composicion_100.jpg",
+        "assets/atlas-original/G05/G05_04_mosaico.jpg",
+        "assets/atlas-original/G05/G05_05_circular.jpg",
+        "assets/atlas-original/G05/G05_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G05/G05_panel_6_graficas_original.jpg",
+      "sha256": [
+        "0618dbd80c75d5fa3e212bc8193c6b0b20f4d8182f1cb44f8aee05dafdaa66a6",
+        "158bc169dfd153bc7a416ec1615be9050a7387dbf9eb37364d9f49f87210bd34",
+        "2254c3ea30040d4cfdc3cc3d4be7ceffd6f3aa91497bd5705ef8a438bd681f4b",
+        "94c4d9210f0aa34ac1bb626191e0e80d8a0a2b44641e9721b904ff1c9116861c",
+        "8415b72fee0e8d59e4c90087cbeae6e36b8a0077d741af38340f8dd25e26da0a",
+        "9272446638d7b6ee7721100752197cd0a9d960d3d0d0fd4054a101560e9f1477"
+      ],
+      "panelSha256": "ce37bc6de2cd4c124ede541f916170819163b5f5f793543dcea6f26bf2d6d672"
+    },
+    "G06": {
+      "views": [
+        "assets/atlas-original/G06/G06_01_barras_horizontales.jpg",
+        "assets/atlas-original/G06/G06_02_puntos.jpg",
+        "assets/atlas-original/G06/G06_03_composicion_100.jpg",
+        "assets/atlas-original/G06/G06_04_mosaico.jpg",
+        "assets/atlas-original/G06/G06_05_circular.jpg",
+        "assets/atlas-original/G06/G06_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G06/G06_panel_6_graficas_original.jpg",
+      "sha256": [
+        "f17f4e3b10fc7244c7ee1a071dae3d9d4c78320ecf0e9918f4f2d74040c69e5e",
+        "77b14869feb7e20cbece3b2965d93212ad433eb455550c1bb214584b041175e0",
+        "cffb5b31b05a45f17cfa5ef3fda087a75a2f0bcac8fb3db15df2ad34afef49aa",
+        "335eb3bfa1ff3c62139284045117edd25b0fc5412691085b97454ea5a8c06cea",
+        "477751b1531e85be3057ca7b41ea551bcdbd110b1b405fe34b95153cc93b45f0",
+        "57bcc77bd02a97aefac61ce48ae20e43addddbb2c519022b01c10c22baf2a518"
+      ],
+      "panelSha256": "7c59bc5d25249571097f117ea5616865709319fd24ac04801475f557a0a66dad"
+    },
+    "G07": {
+      "views": [
+        "assets/atlas-original/G07/G07_01_barras_horizontales.jpg",
+        "assets/atlas-original/G07/G07_02_puntos.jpg",
+        "assets/atlas-original/G07/G07_03_composicion_100.jpg",
+        "assets/atlas-original/G07/G07_04_mosaico.jpg",
+        "assets/atlas-original/G07/G07_05_circular.jpg",
+        "assets/atlas-original/G07/G07_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G07/G07_panel_6_graficas_original.jpg",
+      "sha256": [
+        "183e2b58cc92adc002d14085e7b369cf95fc6c2ed7437eaca874ea1aa52916a6",
+        "bea14981c956bc13ed90cda590149f756896a7346dcc325a015c657764c16d1b",
+        "eb2c97f9c04cb0664ff25c9b11d5b8e5be67af56b4cb3367479f25d247f95bad",
+        "592b4b40b1fd8667315a5431312f4632de94a0375659aed778b3e50cc50f02ae",
+        "3e474ba991c92884fc0b58109cc922c8410efff8ac254549067646edb26c2c26",
+        "3d0077c8e24bdff7f7242c3d9c7e4449d58352ca7da4bf7a95da9b746bf750e9"
+      ],
+      "panelSha256": "cb116886ba22cd3c9bac35680eff3329bdad97eaa1a1a769676e11c93bd5dc67"
+    },
+    "G08": {
+      "views": [
+        "assets/atlas-original/G08/G08_01_barras_horizontales.jpg",
+        "assets/atlas-original/G08/G08_02_puntos.jpg",
+        "assets/atlas-original/G08/G08_03_composicion_100.jpg",
+        "assets/atlas-original/G08/G08_04_mosaico.jpg",
+        "assets/atlas-original/G08/G08_05_circular.jpg",
+        "assets/atlas-original/G08/G08_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G08/G08_panel_6_graficas_original.jpg",
+      "sha256": [
+        "36f51d5e0f5aba110e9c9f838f9a211ef76a7148b715ddd8b4b614e68a9f2d65",
+        "9ea01f9242edbf3908d7145f6f893761deeaedd2a2207f14e506aacf2951594b",
+        "927cf753d05edd260718ffe32dcbb03130abc808f847bbcb1c44604a067fc0bd",
+        "d5317e99853a11f2e59e53ec1091ee09c640e4a6b221e32c0e713dc8b300c1c0",
+        "2cfe433a6a7d9a79cfaece9550be8993f3c85d69c41e2073c52abe728f1e75b0",
+        "9b8059e5c0ce42cf99c088dcadbfa66484d1671af241ec8e5169fb09c0d721d2"
+      ],
+      "panelSha256": "dbd09a3f7e37bfd2706b755708743751ff0d6c2257c2a69dfbc9e59a00ffbb9d"
+    },
+    "G09": {
+      "views": [
+        "assets/atlas-original/G09/G09_01_barras_horizontales.jpg",
+        "assets/atlas-original/G09/G09_02_puntos.jpg",
+        "assets/atlas-original/G09/G09_03_composicion_100.jpg",
+        "assets/atlas-original/G09/G09_04_mosaico.jpg",
+        "assets/atlas-original/G09/G09_05_circular.jpg",
+        "assets/atlas-original/G09/G09_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G09/G09_panel_6_graficas_original.jpg",
+      "sha256": [
+        "9bf6a138c4897aa95e6c8e562de842d79fe5c55234b6ab4093f96299c049ef54",
+        "ae291cda138efc9c4bddb1a9a14858a6a8b57ecdba4c3e628284bb7418e337e9",
+        "e106cb986c3e7b8f3fab9c9167a8f70f1cd31520b443f3fac8795f7ba9f69e0e",
+        "09829f1936b5b0a1e9adf9fe8a2d77360f3484a4df1160581f84940e97a28977",
+        "334768022fdcca30a77889e8f4172c5218c5b397749133bf4336bf8e3ae07a8c",
+        "441d884e4a3e6c70fe0ad7e15e887c54561fb1d3995d3c2aa6146f79b4ccae9c"
+      ],
+      "panelSha256": "8caa25fb87752c6605fb9150fe2946a2c19c83a2b147ae6df5c1090396e99230"
+    },
+    "G10": {
+      "views": [
+        "assets/atlas-original/G10/G10_01_barras_horizontales.jpg",
+        "assets/atlas-original/G10/G10_02_puntos.jpg",
+        "assets/atlas-original/G10/G10_03_composicion_100.jpg",
+        "assets/atlas-original/G10/G10_04_mosaico.jpg",
+        "assets/atlas-original/G10/G10_05_circular.jpg",
+        "assets/atlas-original/G10/G10_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G10/G10_panel_6_graficas_original.jpg",
+      "sha256": [
+        "b4e3117ec52a702959f71f2a205136de52671a675af7a578fbbe07a3205a3900",
+        "c99ef5bb80dd9f333f2d7d07de327b11cd9632c73395da9429933c5c59032c26",
+        "bfb2c5471294e4969ba104961a95b4384470d2e15e868ed5981a3b6af9dee002",
+        "38e23a7dbfadef1841e537a2cc179922fe818faebe223596db722ac354752740",
+        "2b22ce9cef447bd84a0419d8bf8f5c576008febf7a2e81351bb383e78d24d4b0",
+        "35f0f194d6dbe1fd56920fa39f58866a26bd5dc8459c0c2356e66fc8d64d044a"
+      ],
+      "panelSha256": "55876481f7fe175cd60820ac75c63a2c47d30c10ce18815e398313cf2651b3aa"
+    },
+    "G11": {
+      "views": [
+        "assets/atlas-original/G11/G11_01_barras_horizontales.jpg",
+        "assets/atlas-original/G11/G11_02_puntos.jpg",
+        "assets/atlas-original/G11/G11_03_composicion_100.jpg",
+        "assets/atlas-original/G11/G11_04_mosaico.jpg",
+        "assets/atlas-original/G11/G11_05_circular.jpg",
+        "assets/atlas-original/G11/G11_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G11/G11_panel_6_graficas_original.jpg",
+      "sha256": [
+        "00ec2771826b22c4d1c067f8d51c16dc912cd5f7a6697c4c5e0cbec76bfe4dde",
+        "eeaa37984987a8176e0a40c8c4f99cd1dfa078810c031b1e8af77e8adb7ba90b",
+        "14233a3051e06e1736655278944d465775e40d7bd2577b956e49abc329825d32",
+        "ad5f33cb761cba141a544e7cb6750008074f5ebb8bd693e8f395a605633671ae",
+        "d75146066d1ed8562da06917f25dc068c49bb17b2164ec4d52ea40cae200f019",
+        "e07e79b7dba58134eeb443c8fff72c9bd5968fb5bddfe4aae68edeb48dfcbc69"
+      ],
+      "panelSha256": "d855b1db014e3f6753b446d30adcfb904697edee1a715e2d620a17354d06fef7"
+    },
+    "G12": {
+      "views": [
+        "assets/atlas-original/G12/G12_01_barras_horizontales.jpg",
+        "assets/atlas-original/G12/G12_02_puntos.jpg",
+        "assets/atlas-original/G12/G12_03_composicion_100.jpg",
+        "assets/atlas-original/G12/G12_04_mosaico.jpg",
+        "assets/atlas-original/G12/G12_05_circular.jpg",
+        "assets/atlas-original/G12/G12_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G12/G12_panel_6_graficas_original.jpg",
+      "sha256": [
+        "ebe81c495f0b07cf9b1b634a65c790dea40497b895fa866cd5597f5a3f895483",
+        "3f601bdc8c857c79ca96aa18fd03dd595326d0331259846aac4ea23aff372f73",
+        "e5f69e8a3bcb97cba38df2707f29da0c7c790a0e1201851f42d8815c96ade255",
+        "098c68a36ce0e1726dbbf62c9b23b2e30436b096b4708038193a8e1f8575c881",
+        "9598fe9c560c9eb26a5198a526ec10e5048ee7e77bd78da75257c57ef9051827",
+        "e7577965a71db4f12a132d4761a20f404160b5b4626288dff7cfeb30b237bf23"
+      ],
+      "panelSha256": "c6814aa0c24423d0867fb5b969bc866c823a638a8cf0d9691780b1f2429ae1e0"
+    },
+    "G13": {
+      "views": [
+        "assets/atlas-original/G13/G13_01_barras_horizontales.jpg",
+        "assets/atlas-original/G13/G13_02_puntos.jpg",
+        "assets/atlas-original/G13/G13_03_composicion_100.jpg",
+        "assets/atlas-original/G13/G13_04_mosaico.jpg",
+        "assets/atlas-original/G13/G13_05_circular.jpg",
+        "assets/atlas-original/G13/G13_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G13/G13_panel_6_graficas_original.jpg",
+      "sha256": [
+        "788f81ed5c2e93d77f2bae442eb413d87559930b55229d4cfe0563f7f0cb3b6f",
+        "34ec31d56edf89671d8bb7076fadcb56b65f390427fc84f9485d805ec8250328",
+        "a9c326f735d3347e57708a84cce67dc9b18f48fb5592bf70fcd9f5faebc01835",
+        "03405108aadfa5020badbf1a9be17b67df201a93e0b2dea1f91375df2a7faa26",
+        "3cb79f179572ff0a24fccf9b6e983ed84d125ac2ac7708998df62ab055a900ab",
+        "33f8abcbee1168298af3e8aa728ffa25d8ff930c7619bc417b6e679dfe375502"
+      ],
+      "panelSha256": "e3bb4bb04d84394194bf89ec81547e242f9094e64d28ce11e7c91a6c7ef9e63f"
+    },
+    "G14": {
+      "views": [
+        "assets/atlas-original/G14/G14_01_barras_horizontales.jpg",
+        "assets/atlas-original/G14/G14_02_puntos.jpg",
+        "assets/atlas-original/G14/G14_03_composicion_100.jpg",
+        "assets/atlas-original/G14/G14_04_mosaico.jpg",
+        "assets/atlas-original/G14/G14_05_circular.jpg",
+        "assets/atlas-original/G14/G14_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G14/G14_panel_6_graficas_original.jpg",
+      "sha256": [
+        "ec856149318c2985292378c44e28105cc3fcd9f452cdae9c7e8a72a14b501704",
+        "d018fdbb7d8bbad2db401454dad0e07204eeb58e3b57b4f6d9a93dcd8921192d",
+        "2257f1c3ad57dbf897dfac1facaabc7294925b83f6e272a08a583770878ba069",
+        "baa4ec00d2f9b209d6b6fbeb27cdbeeed2b62ff560ed4a65047da52ad3c4e485",
+        "2124e30e58c6dd413210e4cb4b745821d06c5eb9937b4547896475b0a48b254d",
+        "eb47f630c04ebb636f3649de1117019f6dae559c2ba75c198571c1fe086c69be"
+      ],
+      "panelSha256": "6efe35749c1c84995bfac048a4d4170722453a5c45a0380f71104c4d67d3bc8a"
+    },
+    "G15": {
+      "views": [
+        "assets/atlas-original/G15/G15_01_barras_horizontales.jpg",
+        "assets/atlas-original/G15/G15_02_puntos.jpg",
+        "assets/atlas-original/G15/G15_03_composicion_100.jpg",
+        "assets/atlas-original/G15/G15_04_mosaico.jpg",
+        "assets/atlas-original/G15/G15_05_circular.jpg",
+        "assets/atlas-original/G15/G15_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G15/G15_panel_6_graficas_original.jpg",
+      "sha256": [
+        "70b0ac50a337c7395ab871196a0a63fa6857eabc2b0dced9504f7f2c9db749b5",
+        "f4766800fe649bcd7c63ddc8309830e1bde01dc7e797d59c64caec49979ca836",
+        "1f9be86ae72d14613ddd56af06794b7f077354097ea4dbf3be163479836dc4c4",
+        "4bf6cb17ba4c524986c2694c467187387521ea32b5fe7ec00fe5381f3312c185",
+        "fd769a3b2ceb12c94dd99f7171576a74a86032cc4c4763c9f57d4ccf7fe12468",
+        "90eb6b226ba7cdc69ae0f46b8dc3a689cd4a847a536a6744ea0069a51e8eb103"
+      ],
+      "panelSha256": "71fa421109d3348f90e6b096bacd14f7cf8b85cc2b25de03fea47e5e901da756"
+    },
+    "G16": {
+      "views": [
+        "assets/atlas-original/G16/G16_01_barras_horizontales.jpg",
+        "assets/atlas-original/G16/G16_02_puntos.jpg",
+        "assets/atlas-original/G16/G16_03_composicion_100.jpg",
+        "assets/atlas-original/G16/G16_04_mosaico.jpg",
+        "assets/atlas-original/G16/G16_05_circular.jpg",
+        "assets/atlas-original/G16/G16_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G16/G16_panel_6_graficas_original.jpg",
+      "sha256": [
+        "1faf759c0a694dacbe53d86295574b29eabe4c521dc7aa01fe8daec9ea90e67a",
+        "6ddfbe5dfe618a8b5e37d53dec36d28fcace13f31d4ec09b0e2409773ac12b94",
+        "bbb62bab13678244b60afb2827670511de6be40f8ebe7616f5439b9af90bf8fd",
+        "b2c8c466d053ebd1fba799836619482f0b79aa17280e5b64cd3c8f11b42a889b",
+        "7208adcb2a35aa397f76f3197352e628cf7ab91bd86cfc5590df65525f122737",
+        "c0770027bd3122e33a1e68cd557b24f4dd7fc4de439eebc95f2847bd36f60778"
+      ],
+      "panelSha256": "4c6f8e25645c1caf866d439927953b27dee6385861718d26c57914aae4d47861"
+    },
+    "G17": {
+      "views": [
+        "assets/atlas-original/G17/G17_01_barras_horizontales.jpg",
+        "assets/atlas-original/G17/G17_02_puntos.jpg",
+        "assets/atlas-original/G17/G17_03_composicion_100.jpg",
+        "assets/atlas-original/G17/G17_04_mosaico.jpg",
+        "assets/atlas-original/G17/G17_05_circular.jpg",
+        "assets/atlas-original/G17/G17_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G17/G17_panel_6_graficas_original.jpg",
+      "sha256": [
+        "9c49b3791d0007b8aedc53a4ce644a323ac59f6b1069538103d890477158ebe4",
+        "c81101636f811f762f2607ebab98c0d75f95937100e2299a9e14b0315e41f341",
+        "d6e38fb2dcc276a20dea521bb9d8ddae4664c0de2fa4d6a61ff769728f62ec85",
+        "7bec7189f77d033d80b5a3d184adacf5a179d664d76721ea7eaa41d9e83eb131",
+        "c4d99caa6b5e947818e3c520ddcc0a7352337d4a67ae4739e025e07e26eae1f1",
+        "96e6d7b375b3bc6a3c7d5d92a195023f2556b8a28960ca2d767b09491da66de6"
+      ],
+      "panelSha256": "832ab60606070469466cfae91f209525e197ff5d8bb2f6b8e1fd3a75a418a384"
+    },
+    "G18": {
+      "views": [
+        "assets/atlas-original/G18/G18_01_barras_horizontales.jpg",
+        "assets/atlas-original/G18/G18_02_puntos.jpg",
+        "assets/atlas-original/G18/G18_03_composicion_100.jpg",
+        "assets/atlas-original/G18/G18_04_mosaico.jpg",
+        "assets/atlas-original/G18/G18_05_circular.jpg",
+        "assets/atlas-original/G18/G18_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G18/G18_panel_6_graficas_original.jpg",
+      "sha256": [
+        "301fc63def630a9bd4156cdab48434eb82fdacbe519b984b0e04217ac301088b",
+        "499b295e023e76075a55d6b170393be99f5c5320317b8417098a00ae92f23b9d",
+        "3177c44f15bee350e3b1953c76c2494a479630c215366be39b8a00da167a72ec",
+        "d37dd481028d72e0cb0c731ecc19335d66f135f047ffa3178007572d7f996a9e",
+        "dbe1d04f776309319ef4eb232478c18ef570bafa84bad4581a5ca31164741929",
+        "57a9772cb1695118d8566c7c18d043dbb23e056f765b35946f8d51ed3fcd2048"
+      ],
+      "panelSha256": "433c2b3cba21a5634b3cc8d5028121c4bb4e7dbfefd2f12d4c6c1d2b1528fc19"
+    },
+    "G19": {
+      "views": [
+        "assets/atlas-original/G19/G19_01_barras_horizontales.jpg",
+        "assets/atlas-original/G19/G19_02_puntos.jpg",
+        "assets/atlas-original/G19/G19_03_composicion_100.jpg",
+        "assets/atlas-original/G19/G19_04_mosaico.jpg",
+        "assets/atlas-original/G19/G19_05_circular.jpg",
+        "assets/atlas-original/G19/G19_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G19/G19_panel_6_graficas_original.jpg",
+      "sha256": [
+        "7320527775746afeeda4b727fb41c2c35ae30b8e842d2fea31e3f61c41b1c275",
+        "904229e8bdbbfb1e96f088e0d9b373ddb3cb2293f60a847996b8ce633d1249fd",
+        "80f8af3c6214cb7e3fe0958604d2cda1730365f841ed44d2ad11f8218cd1446e",
+        "69737153bae29709ca81cfdf22e7782d2b7577b495c5926a80901bba168b7722",
+        "711e4070773c77847eb80bf1b3250df1faceb347daba8ad8836e370208ff65ff",
+        "490987b29b9b9274ede69df1177e84543223958c99f0c47220bf14d8c970954d"
+      ],
+      "panelSha256": "964a4e40fec891ab727344b36c6249688776da5f5ce0df914bc4fd920c1fe5d5"
+    },
+    "G20": {
+      "views": [
+        "assets/atlas-original/G20/G20_01_barras_horizontales.jpg",
+        "assets/atlas-original/G20/G20_02_puntos.jpg",
+        "assets/atlas-original/G20/G20_03_composicion_100.jpg",
+        "assets/atlas-original/G20/G20_04_mosaico.jpg",
+        "assets/atlas-original/G20/G20_05_circular.jpg",
+        "assets/atlas-original/G20/G20_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G20/G20_panel_6_graficas_original.jpg",
+      "sha256": [
+        "6cdb0a9954fc192dd367eadf29946a446478a9d8bd2dc75aec21fef8cf0759db",
+        "43719a2b5b80d118ba2a6be6dc6403cb05cfeee5c326dc4c1bcefb0fe38aa4db",
+        "145f3a2b34df9458c8b45349a6907ddb47bb4e6287c11b88778e75866be3c94b",
+        "fc85b57f1b5941238fd13ab197d41d86a16395ac4b1197c8a047c4764454a515",
+        "402895a76b647410d79f372fdbeb52cabf36d2ea83f52cdd391f7d77f94dae7d",
+        "7345106b83ae9a4688e9437903d89e3a0fceb4a0fed6163bda6570c63a955f4c"
+      ],
+      "panelSha256": "cc54988c9cf3658487e259df3a85be27a3a645a58630a965f49ba363f2171629"
+    },
+    "G21": {
+      "views": [
+        "assets/atlas-original/G21/G21_01_barras_horizontales.jpg",
+        "assets/atlas-original/G21/G21_02_puntos.jpg",
+        "assets/atlas-original/G21/G21_03_composicion_100.jpg",
+        "assets/atlas-original/G21/G21_04_mosaico.jpg",
+        "assets/atlas-original/G21/G21_05_circular.jpg",
+        "assets/atlas-original/G21/G21_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G21/G21_panel_6_graficas_original.jpg",
+      "sha256": [
+        "7f71d5010cc76cb4c205ff5b259889940b4102d2db03b63e10a0da130b1f9529",
+        "e74fc7f42bb0d4d3474619e01cc3d41b8ff7090e60be83b80fefe74b481d0fe3",
+        "734567745a5ccf04e84f2268e82feebab74f3c0483e22c453b7a648c5ed97659",
+        "0ded514869907d621bd0639ef31ab29ce0e8bb264f81d6a9f16d2c2cd26d9358",
+        "886d1f77108792b872b6667c8fc423aa2a9b47d90737a033356d3fb9755a44fb",
+        "5145b9074c0d07565fb8fe65cca56ea87e6c03319b7fc9d3f9cdee1b18848d09"
+      ],
+      "panelSha256": "46cb97348abf2dae6ceabaee31ff29690090609e54ed4ae20fe729dafdb822f4"
+    },
+    "G22": {
+      "views": [
+        "assets/atlas-original/G22/G22_01_barras_horizontales.jpg",
+        "assets/atlas-original/G22/G22_02_puntos.jpg",
+        "assets/atlas-original/G22/G22_03_composicion_100.jpg",
+        "assets/atlas-original/G22/G22_04_mosaico.jpg",
+        "assets/atlas-original/G22/G22_05_circular.jpg",
+        "assets/atlas-original/G22/G22_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G22/G22_panel_6_graficas_original.jpg",
+      "sha256": [
+        "37493217127eb7186afac2437e366cf0112732dc62cad177bfa6cc7d4303eaed",
+        "cfcdf2531a58b839c3efa48f96b0c2f4ed3f9aea9688e32dce6a660fa66769ab",
+        "9321ed823c7235f078c8083ee82a6fa51cdee79e198ed77d23845c34897a8193",
+        "d7722781d98b44c8a6a92b058b15a262c0b58e0f786637c99d3436394732aac8",
+        "280da72e003f2a5e906fcc111eda005d135ea58e105290173943087d2b44ebda",
+        "cf9f09c83bdfb38c0bbf1e819f93a38631201f9bca3f55d3b1f0553aabf59ae4"
+      ],
+      "panelSha256": "aa0d18ed4add1d63bc1fde97c796611351b1ce2bf92fb141a506266e8f7c8bdb"
+    },
+    "G23": {
+      "views": [
+        "assets/atlas-original/G23/G23_01_barras_horizontales.jpg",
+        "assets/atlas-original/G23/G23_02_puntos.jpg",
+        "assets/atlas-original/G23/G23_03_composicion_100.jpg",
+        "assets/atlas-original/G23/G23_04_mosaico.jpg",
+        "assets/atlas-original/G23/G23_05_circular.jpg",
+        "assets/atlas-original/G23/G23_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G23/G23_panel_6_graficas_original.jpg",
+      "sha256": [
+        "0915b394703943bd6e2ce0d30f004ea367b475f72728e18d35f3d74101e1be70",
+        "a266eda924e5e062bca838ae96ea431671ee345a8d9102e463558c1695f598c3",
+        "9ec62611b89915a19319edcafc92f3053db6f951a469b1b84a748cd1f7793fb8",
+        "ff6432abdadcb5f47bee1dd07f1393ed93ae869d9fcb89bec2bff9bbbfd89849",
+        "e589f4fd1e47d7504b6857a40a290ba8019ba6de6752697dd8d8595161c803f3",
+        "2f5c63cf5d6a0571bbd3b79bc86508af8742670f9b30e212789da79bed8c6890"
+      ],
+      "panelSha256": "1396376d6261e6982fc1bb45f7a489671f3e7ec099253947a3fd64046cb2598c"
+    },
+    "G24": {
+      "views": [
+        "assets/atlas-original/G24/G24_01_barras_horizontales.jpg",
+        "assets/atlas-original/G24/G24_02_puntos.jpg",
+        "assets/atlas-original/G24/G24_03_composicion_100.jpg",
+        "assets/atlas-original/G24/G24_04_mosaico.jpg",
+        "assets/atlas-original/G24/G24_05_circular.jpg",
+        "assets/atlas-original/G24/G24_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G24/G24_panel_6_graficas_original.jpg",
+      "sha256": [
+        "1b649dcca67f8eac703311e0f723d6f74e0efda6b336efbca024fd854211f2e3",
+        "4995dbc7cb9c463caa1369392c64b035e78221accb3a8d5cfa923d18ac34a3c5",
+        "58956fbfe1aba8a331e5d14a8cb6a51d0729cb1ea33cabc50979637989c51004",
+        "9427d39a27f3b0963c109bb2ee2a7abbb57f378ecb7c793c9ea8796e58c48779",
+        "833a8c58da92c6b3b4ec2f779c2c5d3c300d8d6475120f05a66fb2ab3cd8f354",
+        "1104e11948b0520cbfbaa5002fd433cb0cf3328fea130daf7ecb8da8f6120d38"
+      ],
+      "panelSha256": "fec0d91652bcf93dfb21ebe5c8fb1bfb38bdec917ea8ca7ce0db6b5c57b3eac1"
+    },
+    "G25": {
+      "views": [
+        "assets/atlas-original/G25/G25_01_barras_horizontales.jpg",
+        "assets/atlas-original/G25/G25_02_puntos.jpg",
+        "assets/atlas-original/G25/G25_03_composicion_100.jpg",
+        "assets/atlas-original/G25/G25_04_mosaico.jpg",
+        "assets/atlas-original/G25/G25_05_circular.jpg",
+        "assets/atlas-original/G25/G25_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G25/G25_panel_6_graficas_original.jpg",
+      "sha256": [
+        "b718232c407d115bc02d2113c4714ddce9001a3d44b7fd06ab8ef72c4a040382",
+        "c3619ebf607d6c2818d06d35d21efbca929b52402dbff7140758b3436d660bf6",
+        "ece94c5590183fe88231a00c933f28ce4f0437b1189db0a759ee2f8f3805bd29",
+        "c692aad4372d2ee0d6d78db20910942a256a0580471e3b20b16e14ad8599e1b5",
+        "afccec012c7aca62cdd0c774cb278d74ab231be8213ee142f2a56bbfcacc0a6d",
+        "7a34e089942671c85c578b22ab69c1cb20354794f5fc35f254db82d7881e0573"
+      ],
+      "panelSha256": "146123de0ee98f519bf95ec01a2f223c09a643b802b2dbbdbbd3a635b03af80f"
+    },
+    "G26": {
+      "views": [
+        "assets/atlas-original/G26/G26_01_barras_horizontales.jpg",
+        "assets/atlas-original/G26/G26_02_puntos.jpg",
+        "assets/atlas-original/G26/G26_03_composicion_100.jpg",
+        "assets/atlas-original/G26/G26_04_mosaico.jpg",
+        "assets/atlas-original/G26/G26_05_circular.jpg",
+        "assets/atlas-original/G26/G26_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G26/G26_panel_6_graficas_original.jpg",
+      "sha256": [
+        "45af7d8cdfe2278d8472367f4237c4d7a771c95702c16c20b36bbd7108892062",
+        "d7278c9e871bbb2032087e08c4bdd763a0edfd72fd6bc1099f2c144c79e95fb1",
+        "eae8784658224c5367e332e798c223c25342cb9b97178a10661c462db902580b",
+        "c8ff039af57aff2a5edc5259658ec763f6a6c5823173721deafcb4dd5eb2ec6c",
+        "e1995edf3990fc2e47feb1906dc1159d3b7b4e4eb680425ab8ee4006cf56eb39",
+        "a4d3c7b4306686d46e18e80fbec519721e065121c1a9bbbfac34a727ca509b98"
+      ],
+      "panelSha256": "5c9137f26362d4e6401399199df4647cc66d16b52617e62a3305779ab04d00aa"
+    },
+    "G27": {
+      "views": [
+        "assets/atlas-original/G27/G27_01_barras_horizontales.jpg",
+        "assets/atlas-original/G27/G27_02_puntos.jpg",
+        "assets/atlas-original/G27/G27_03_composicion_100.jpg",
+        "assets/atlas-original/G27/G27_04_mosaico.jpg",
+        "assets/atlas-original/G27/G27_05_circular.jpg",
+        "assets/atlas-original/G27/G27_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G27/G27_panel_6_graficas_original.jpg",
+      "sha256": [
+        "912ee27caddfc1a0fb8405ed13f18a521c0deb89bcf4f8a4c96b6c3f742c3397",
+        "f4882105cf3fb139d6f8677e495a84fa70c8060b21a2540e019cb3e056f65efc",
+        "8901d6db07df0f38f76a5d199db5193cb12d0457af4d9fea0ba93dbf3f212235",
+        "016963d88b68e4f7cf1027f6a0a98e48ec588240d1e85c4693dbf4891e98033a",
+        "e79d56f501f171555701b3318914e64e69333116853c05797aeddaf2a3811857",
+        "a357f93ceb9834e7165ced6fb220a724759cbb213190a7803da8b4f73a2b4dfc"
+      ],
+      "panelSha256": "4c55cac57198d632724a848a4a6a969e06259b01a1740f48da7a66c95127c9b6"
+    },
+    "G28": {
+      "views": [
+        "assets/atlas-original/G28/G28_01_barras_horizontales.jpg",
+        "assets/atlas-original/G28/G28_02_puntos.jpg",
+        "assets/atlas-original/G28/G28_03_composicion_100.jpg",
+        "assets/atlas-original/G28/G28_04_mosaico.jpg",
+        "assets/atlas-original/G28/G28_05_circular.jpg",
+        "assets/atlas-original/G28/G28_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G28/G28_panel_6_graficas_original.jpg",
+      "sha256": [
+        "1205616caee84f5df2b17e5c3f1c48b554f7b52a10a661a152bb1da1ae30086f",
+        "0f7e5da1f7683d9568bf37c8932d8d6949ab606c3687c76869fdf51d7b11b01f",
+        "c1ca4693bbd4b74f85df2bbd0e80f40c19b209fb806aede54678f7c1217f8820",
+        "c9a9afe1d36ef3df65867700e1e2deca3c53cd87b4377aa9cb3f97a003886515",
+        "b144df4d22fa2fbf515ceef3a0f13262919aa19f1b78badf4554cb15dcc18968",
+        "32f0b2b2142a3cc8db39b10bc40212ce7a48c054ac412448e101188fccd7ff11"
+      ],
+      "panelSha256": "a5c3b244bef7c7a44efbfb69bc5c21875e7e34d52351565e0c5bc3f26e9c8869"
+    },
+    "G29": {
+      "views": [
+        "assets/atlas-original/G29/G29_01_barras_horizontales.jpg",
+        "assets/atlas-original/G29/G29_02_puntos.jpg",
+        "assets/atlas-original/G29/G29_03_composicion_100.jpg",
+        "assets/atlas-original/G29/G29_04_mosaico.jpg",
+        "assets/atlas-original/G29/G29_05_circular.jpg",
+        "assets/atlas-original/G29/G29_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G29/G29_panel_6_graficas_original.jpg",
+      "sha256": [
+        "3310e37854b59c2056a458d43b16c23f06a964292f0c420dafa5874c7181a3ac",
+        "3473d11ffa5c760e5746b4aeff47ef64e93d7b521a08efc91c502d1df3ac811a",
+        "253a9dfef34f871c76ba1387c4f4326394f84b1312fb081745041b45cb77c318",
+        "d6701ad7f992e2cf87af6ca059c743e2670382f5039193da6375694027da0f72",
+        "408a27054c77e99704e919a8d70f5f8693872bf4dc0223bc03bf2cef78293bba",
+        "cdc6a17af0b5fc3971a8e1d228a210917792bc998c3789a002cf9d8ad8f05521"
+      ],
+      "panelSha256": "df421914fdcb9834d99c150915699f20142dfeeec458f6ea1b626fe24dfb8dc2"
+    },
+    "G30": {
+      "views": [
+        "assets/atlas-original/G30/G30_01_barras_horizontales.jpg",
+        "assets/atlas-original/G30/G30_02_puntos.jpg",
+        "assets/atlas-original/G30/G30_03_composicion_100.jpg",
+        "assets/atlas-original/G30/G30_04_mosaico.jpg",
+        "assets/atlas-original/G30/G30_05_circular.jpg",
+        "assets/atlas-original/G30/G30_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G30/G30_panel_6_graficas_original.jpg",
+      "sha256": [
+        "4fb4cdaa82bd8c8bc789cfdf6f42c8fd10651753f05a451d9cc7c920545b4a59",
+        "50947984a16640de6f99bcfa74ee19ff7fc8133666aa5e61953edb8e306ff8fb",
+        "3c33db6c4571f959ff1b385c10ab488c665ed33be625dafb122d5ba146bb384c",
+        "9c25efc97254784578b6dec13ddb43d8efbfe044d0784edad215b46283a8ac72",
+        "858f53d422129e8eaf478d7f86f1f1e7cea9b3eaf59f04f5a3ebe16a58b906a1",
+        "45e9e43ea39b99539a673be334ce4cb9f9c317a0ebbfca722cd0123b498c5b3d"
+      ],
+      "panelSha256": "941c16ae804ff3a8950a778121804cc2f18fdf9fca12b6364639f06835817927"
+    },
+    "G31": {
+      "views": [
+        "assets/atlas-original/G31/G31_01_barras_horizontales.jpg",
+        "assets/atlas-original/G31/G31_02_puntos.jpg",
+        "assets/atlas-original/G31/G31_03_composicion_100.jpg",
+        "assets/atlas-original/G31/G31_04_mosaico.jpg",
+        "assets/atlas-original/G31/G31_05_circular.jpg",
+        "assets/atlas-original/G31/G31_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G31/G31_panel_6_graficas_original.jpg",
+      "sha256": [
+        "af21ed0d53a8a05acf61d8e42aa827581a76d1587e7ca64379d66a8e5176ec43",
+        "24c2498c153f46867f74af93e114289648cbf844946f28e3c04e214d67a7ddfc",
+        "7a2498d76f5083fcc59f20c1ca4ad6268fa882acaef46035013c66d1c918ad70",
+        "182fccc1d68ec19e0720e8f3eb9bf4e5ec54baf4bb194aad86c8185c5326fd9a",
+        "6e10a915ceb64da1e7923520f3ed84542335a53bd24b40471c0d1c9bf8bdfbfb",
+        "5a118162b848bff2d44b8450339f43c599dca4467478774aedc423e0dcb96f92"
+      ],
+      "panelSha256": "f7a52206509109b8fbc9fc6104ec1e657a88c2e25b2596f7022c017c99456911"
+    },
+    "G32": {
+      "views": [
+        "assets/atlas-original/G32/G32_01_barras_horizontales.jpg",
+        "assets/atlas-original/G32/G32_02_puntos.jpg",
+        "assets/atlas-original/G32/G32_03_composicion_100.jpg",
+        "assets/atlas-original/G32/G32_04_mosaico.jpg",
+        "assets/atlas-original/G32/G32_05_circular.jpg",
+        "assets/atlas-original/G32/G32_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G32/G32_panel_6_graficas_original.jpg",
+      "sha256": [
+        "17da879c6425e1c738fa64a54040c9e04958efbec6524e62377b9b630202c22d",
+        "9b07fe45e2689d5e62b696cc6d420183ec2450c0cc08f8aef3b0df512fe169c8",
+        "31b5e826f8dbcd2532d038f4363b7a14c127c2c60e92599280bb19bedcbf92ec",
+        "96cd9ee218dac1e92def612ee5de047ea86925ef26e040d5c0f6cc21ae390171",
+        "8228c33198c6d7602ebf331656d51738777e928090ccc45b9b073157127e619a",
+        "d0621e6ed5e300d50a49d44a2088d154f04354b007efc8f69891e993bfe27dd1"
+      ],
+      "panelSha256": "0e49d03a038e024e3bb0681b16ff92968fc0d9ab7235289ff10a8a47ea52c41c"
+    },
+    "G33": {
+      "views": [
+        "assets/atlas-original/G33/G33_01_barras_horizontales.jpg",
+        "assets/atlas-original/G33/G33_02_puntos.jpg",
+        "assets/atlas-original/G33/G33_03_composicion_100.jpg",
+        "assets/atlas-original/G33/G33_04_mosaico.jpg",
+        "assets/atlas-original/G33/G33_05_circular.jpg",
+        "assets/atlas-original/G33/G33_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G33/G33_panel_6_graficas_original.jpg",
+      "sha256": [
+        "a7c4a5a2bef2a53287840042d52ab04ba215e9541243b7406eba2e3e8e65ddbd",
+        "4716dce670848ddc05d7c4139f3ccf0615d58012db5a67a4d4efba41627ce824",
+        "cfc95ffd54c56ea92aa6d65a498f9c84b07f73b8bbf83b21d8f20591fa82b229",
+        "659b170119661058022aa95637f065ce6f62810ff2f0c9067a12851707136a03",
+        "6d730f524f7426ff1668f810b259ca2280293da335d1029b5d5dbdc031d814cb",
+        "1a40c4c3e6e7cace4bab4bdce7361242a8dd71f2da10c2ab618b1ab47386f63e"
+      ],
+      "panelSha256": "14ae3385e46c6f0dcab91eb0ca6d1f522620e594f45740c608878f0231bbc4c3"
+    },
+    "G34": {
+      "views": [
+        "assets/atlas-original/G34/G34_01_barras_horizontales.jpg",
+        "assets/atlas-original/G34/G34_02_puntos.jpg",
+        "assets/atlas-original/G34/G34_03_composicion_100.jpg",
+        "assets/atlas-original/G34/G34_04_mosaico.jpg",
+        "assets/atlas-original/G34/G34_05_circular.jpg",
+        "assets/atlas-original/G34/G34_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G34/G34_panel_6_graficas_original.jpg",
+      "sha256": [
+        "072bb168862fdc84f9b51de772f35f8bcecbcfdb276c4259c2e33d48bb99d60b",
+        "995d7163255fdcc9fb4e212dfc1c1f9bf2fcaa771f259bd954a79a5fa43b3bad",
+        "5164537aeae3c47f656a22df23eb2fc76424e0ebdfb1aed1a22c6b175e32df13",
+        "1101d1a03124f49449121d88dc0285546d8a77809ab6c7999dd5add6f11345e3",
+        "c4b1d69821bff31a4c15746e1c3aa0946b29294141a62fa3202209f058e7ab7b",
+        "552140e2a44cbfb01e3bd52073bad8554f7f0ab6789b0835f658594ff6b418b6"
+      ],
+      "panelSha256": "6f6242746485e4dd544ad124a48b986ea0c66a15ee3e00af824c50d3e4c2ab97"
+    },
+    "G35": {
+      "views": [
+        "assets/atlas-original/G35/G35_01_barras_horizontales.jpg",
+        "assets/atlas-original/G35/G35_02_puntos.jpg",
+        "assets/atlas-original/G35/G35_03_composicion_100.jpg",
+        "assets/atlas-original/G35/G35_04_mosaico.jpg",
+        "assets/atlas-original/G35/G35_05_circular.jpg",
+        "assets/atlas-original/G35/G35_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G35/G35_panel_6_graficas_original.jpg",
+      "sha256": [
+        "a6acb8f9f77aec8e1e90781bd34a6350aa0edd58053775726ca050ef081ad061",
+        "faf696c1d1279bebf66cc3b2d516f9764b5e5b355047b4068442cdc61628703e",
+        "85977a93b2695366842c2ab7efee11d2617ba1b388930e1d67ee4c321b321772",
+        "1751df8b8e920df299e873495b482f08ab61566161056b0766db547fbf5a1caf",
+        "4a3d3ef07f822643c99907e3a55cbf645fa7eb5cc72c219e5c05738680e8582c",
+        "8fa098923ae25a69f30f0067d1aa58a322d673f7214c5965168159f34344970d"
+      ],
+      "panelSha256": "5e66f6cfc4f08d2e31620c99042f398c37554c250eee6bf88cab18a31cc28283"
+    },
+    "G37": {
+      "views": [
+        "assets/atlas-original/G37/G37_01_barras_horizontales.jpg",
+        "assets/atlas-original/G37/G37_02_puntos.jpg",
+        "assets/atlas-original/G37/G37_03_composicion_100.jpg",
+        "assets/atlas-original/G37/G37_04_mosaico.jpg",
+        "assets/atlas-original/G37/G37_05_circular.jpg",
+        "assets/atlas-original/G37/G37_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G37/G37_panel_6_graficas_original.jpg",
+      "sha256": [
+        "9d47dfdacfdfbeef3a0a9508b529fedd2ad27c37204c4b1dbe1f4c60622e9612",
+        "12d10b6b9ecb00fd57047279110f1f26412644789c35c9fa6860c16593fa561b",
+        "3fa69c3814e7dc9a466b026b77565e85a2d482cc36a1caef0d4f700e587aa7c9",
+        "d00efcd56420176d77ffe0924216dc5b8f95c4b10134da8e7414e34e13bafee1",
+        "fc2d044d086ccdb79d5fea662bf548fc53c71153e29aa6a85ae7e1d9ade41cb5",
+        "5274d85beab796b5b5e8e71c48823d4b9d599fca56baffb21f25b6a664f62f2e"
+      ],
+      "panelSha256": "eed6e1202f67da800e1f12cae36b97fc5a2e6ed12bd635ef839880fb0f2097af"
+    },
+    "G38": {
+      "views": [
+        "assets/atlas-original/G38/G38_01_barras_horizontales.jpg",
+        "assets/atlas-original/G38/G38_02_puntos.jpg",
+        "assets/atlas-original/G38/G38_03_composicion_100.jpg",
+        "assets/atlas-original/G38/G38_04_mosaico.jpg",
+        "assets/atlas-original/G38/G38_05_circular.jpg",
+        "assets/atlas-original/G38/G38_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G38/G38_panel_6_graficas_original.jpg",
+      "sha256": [
+        "27ac02c32f4097d80e4cf19263beb5a5ce69022c199d1060945d867f59c2b040",
+        "c99fc8efac05125150f1f175551fb166e2844893549db634368845a7a2012d5a",
+        "8f01e9c7423baf1759148f53d85398dd8828e0b15c063ea4648827f035a9f495",
+        "e971877e6cb86c3a7a5f8ecc0f1bfdb4163c08f3efa61f123556945f1894924b",
+        "29e3daf9910f9f2c35bbcedeba01c8ddf08aa2214fc727f1fb0ff9ed8ce963f6",
+        "f6a2faa46a02395c108664ff7cf632395585966b126b3f97a1aec394c5ccda22"
+      ],
+      "panelSha256": "975db6f7c08f56c3333511c9522ebe43e90ec0e86edc2752c5fbc9fab3615cd0"
+    },
+    "G39": {
+      "views": [
+        "assets/atlas-original/G39/G39_01_barras_horizontales.jpg",
+        "assets/atlas-original/G39/G39_02_puntos.jpg",
+        "assets/atlas-original/G39/G39_03_composicion_100.jpg",
+        "assets/atlas-original/G39/G39_04_mosaico.jpg",
+        "assets/atlas-original/G39/G39_05_circular.jpg",
+        "assets/atlas-original/G39/G39_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G39/G39_panel_6_graficas_original.jpg",
+      "sha256": [
+        "e2c33fc0c9839165f15d9872a4d1cb00c373091c07f3a76ac98a94d2eb028d58",
+        "be5a40844b98bd94b9498b83323dcf3984987e7a393362a7418c38fa0f02075e",
+        "101021f826838efe524742a289775fa09d081937d5cfaa62fa3d227be567b6b1",
+        "5c1227896bed445233c1f896c0fb93674e2a075a38bd8a514fb868330c71600d",
+        "a2e619b571cf19abba55841e93ac390c14f334b32925bf2b43f8a4e9b7a32182",
+        "0ab86f16d5fdf6b59249150875a26426a6cda55c5ea569510a66eede89bf6fe0"
+      ],
+      "panelSha256": "d51f750e9c6c234d73bec555112ae3f9097505145a498d9a0f9c6d84d39cec1f"
+    },
+    "G40": {
+      "views": [
+        "assets/atlas-original/G40/G40_01_barras_horizontales.jpg",
+        "assets/atlas-original/G40/G40_02_puntos.jpg",
+        "assets/atlas-original/G40/G40_03_composicion_100.jpg",
+        "assets/atlas-original/G40/G40_04_mosaico.jpg",
+        "assets/atlas-original/G40/G40_05_circular.jpg",
+        "assets/atlas-original/G40/G40_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G40/G40_panel_6_graficas_original.jpg",
+      "sha256": [
+        "5846bb2008b6e22d709d7e52aaf4cdd12e38dfea985f011a0d1423bd78e002f9",
+        "9d81d3c3d18e972842a0e33dea46f7583cebb82ed1e52afab1c5897c166adcbf",
+        "be503a3741c2eebc14ba74943e8bab35ce8f5964d536a982b04356c7e89fb393",
+        "1cf4a52eff7536d73e21a1051d970bc4199b7a78b2d67ef92c766f5d2acc035a",
+        "8bf8b06624d48762c78535b7b3ab28558ff0cd497245dc727298f86a4d8e37d9",
+        "d864c4860479b74d3ceaf57afd36f965f0aec66b1d98707bc3986d000811169a"
+      ],
+      "panelSha256": "1fd1231f441f3839da0f7b50f947414a87fbb5fd68104bb985a1d4dc22a07acd"
+    },
+    "G41": {
+      "views": [
+        "assets/atlas-original/G41/G41_01_barras_horizontales.jpg",
+        "assets/atlas-original/G41/G41_02_puntos.jpg",
+        "assets/atlas-original/G41/G41_03_composicion_100.jpg",
+        "assets/atlas-original/G41/G41_04_mosaico.jpg",
+        "assets/atlas-original/G41/G41_05_circular.jpg",
+        "assets/atlas-original/G41/G41_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G41/G41_panel_6_graficas_original.jpg",
+      "sha256": [
+        "b0a7696eaf1c98ef1625ee7bbe0128f6f5ccd5af59c56de78715cdb1855c1706",
+        "fe16ccfa35b54e6b0d71f70abf4704c2a23f9609a8af53380332a53fa6181a68",
+        "8f9127c229ff967e77e321511f22174ce5c1b005f31ea818823f39718062d3a7",
+        "ea18be759be00855b4e0d991b9ba890b52494a7e5a3030497431e8510680ad33",
+        "bda9febacd20e4bdc2445d4a623edd77733e02a4120d59881d08b98c02a3ebfd",
+        "1125434126588361ec01851167496ff1ebe18966d683e3d24d97432582fac25e"
+      ],
+      "panelSha256": "7d011269de26b34106d8527b52cdddf173d1b3a735d49a92eebfdeacf05b7234"
+    },
+    "G42": {
+      "views": [
+        "assets/atlas-original/G42/G42_01_barras_horizontales.jpg",
+        "assets/atlas-original/G42/G42_02_puntos.jpg",
+        "assets/atlas-original/G42/G42_03_composicion_100.jpg",
+        "assets/atlas-original/G42/G42_04_mosaico.jpg",
+        "assets/atlas-original/G42/G42_05_circular.jpg",
+        "assets/atlas-original/G42/G42_06_columnas.jpg"
+      ],
+      "panel": "assets/atlas-original/G42/G42_panel_6_graficas_original.jpg",
+      "sha256": [
+        "6b59ff432c4623d1b889e34734a1552802ce6a4ce03f071e841cb7f99612c883",
+        "479d1a4d22bdfbbbbc10870b93d1d313b4705d16b4a0aa6dfeb370d63cb97248",
+        "f86c4c8ce310d9d58b6d4f9df83a8ca6c474baa1a0140f79ad33fe2a035341b6",
+        "322f390b9244a514cc3bd451f1aa50ba3d1216e54e233f863d12da0dbc3be4bd",
+        "bbcd61be6f2a6d28b0e822b2616acbc7a561867c8ae9e7e81abdef0b424541af",
+        "c03b2847f9d0a1c38321f7e9f0f505dbb2ceff9162e119b453e72d4c340f795e"
+      ],
+      "panelSha256": "dae1d2a2652419d5fc37efba6a81387910d161c9ebf0385234b282f3ae030125"
+    }
+  }
+}
