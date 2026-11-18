@@ -1,0 +1,433 @@
+{
+  "version": 1,
+  "source": "data/data-subachoque-dimensiones.json + DIMENSIONES.docx (cuatro dimensiones públicas)",
+  "dimensions": [
+    {
+      "id": "social",
+      "nombre": "Dimensión Social",
+      "areas": [
+        {
+          "id": "1.1",
+          "code": "1.1",
+          "nombre": "Salud y Protección Social",
+          "officialId": "salud"
+        },
+        {
+          "id": "1.2",
+          "code": "1.2",
+          "nombre": "Educación",
+          "officialId": "educacion"
+        },
+        {
+          "id": "1.3",
+          "code": "1.3",
+          "nombre": "Inclusión Social y Equidad",
+          "officialId": "inclusion"
+        },
+        {
+          "id": "1.4",
+          "code": "1.4",
+          "nombre": "Cultura",
+          "officialId": "cultura"
+        },
+        {
+          "id": "1.5",
+          "code": "1.5",
+          "nombre": "Deporte y Recreación",
+          "officialId": "deporte"
+        },
+        {
+          "id": "1.6",
+          "code": "1.6",
+          "nombre": "Justicia y Seguridad Ciudadana",
+          "officialId": "justicia"
+        }
+      ]
+    },
+    {
+      "id": "economica",
+      "nombre": "Dimensión Económica",
+      "areas": [
+        {
+          "id": "2.1",
+          "code": "2.1",
+          "nombre": "Agricultura y Desarrollo Rural",
+          "officialId": "agricultura"
+        },
+        {
+          "id": "2.2",
+          "code": "2.2",
+          "nombre": "Comercio y Desarrollo Empresarial",
+          "officialId": "comercio"
+        },
+        {
+          "id": "2.3",
+          "code": "2.3",
+          "nombre": "Turismo",
+          "officialId": "turismo"
+        },
+        {
+          "id": "2.4",
+          "code": "2.4",
+          "nombre": "Trabajo y Empleo",
+          "officialId": "empleo"
+        },
+        {
+          "id": "2.5",
+          "code": "2.5",
+          "nombre": "Minas y Energía",
+          "officialId": "energia"
+        },
+        {
+          "id": "2.6",
+          "code": "2.6",
+          "nombre": "Hacienda Pública y Gestión Financiera",
+          "officialId": "hacienda"
+        }
+      ]
+    },
+    {
+      "id": "ambiental",
+      "nombre": "Dimensión Ambiental y Territorial",
+      "areas": [
+        {
+          "id": "3.1",
+          "code": "3.1",
+          "nombre": "Ambiente y Desarrollo Sostenible",
+          "officialId": "ambiente"
+        },
+        {
+          "id": "3.2",
+          "code": "3.2",
+          "nombre": "Vivienda, Hábitat y Ordenamiento Territorial",
+          "officialId": "vivienda"
+        },
+        {
+          "id": "3.3",
+          "code": "3.3",
+          "nombre": "Transporte y Movilidad",
+          "officialId": "movilidad"
+        },
+        {
+          "id": "3.4",
+          "code": "3.4",
+          "nombre": "Gestión del Riesgo de Desastres",
+          "officialId": "riesgo"
+        }
+      ]
+    },
+    {
+      "id": "percepcion",
+      "nombre": "Percepción ciudadana sobre la gestión municipal",
+      "areas": [
+        {
+          "id": "4.1",
+          "code": "4.1",
+          "nombre": "Confianza e imagen institucional"
+        },
+        {
+          "id": "4.2",
+          "code": "4.2",
+          "nombre": "Evaluación del desempeño de la administración municipal"
+        },
+        {
+          "id": "4.3",
+          "code": "4.3",
+          "nombre": "Relacionamiento con la ciudadanía y participación comunitaria"
+        },
+        {
+          "id": "4.4",
+          "code": "4.4",
+          "nombre": "Comunicación pública, transparencia y acceso a la información"
+        }
+      ]
+    }
+  ],
+  "legacyKoboAreaMap": {
+    "per-gestion-gest": "4.2",
+    "per-gestion-apoyos": "4.2",
+    "per-programas-conocimiento": "4.4",
+    "per-programas-apoyo": "4.2",
+    "per-programas-actividades": "4.3",
+    "per-participacion-jac": "4.3",
+    "per-participacion-votacion": "4.3",
+    "per-informacion-enterados": "4.4",
+    "per-informacion-medios": "4.4",
+    "per-informacion-visor": "4.4",
+    "per-presencia-presencia": "4.1",
+    "per-presencia-seguridad": "4.1",
+    "per-servicios-salud": "4.2",
+    "per-servicios-cultura": "4.2",
+    "per-servicios-vial": "4.2"
+  },
+  "atlasBindings": {
+    "G01": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    },
+    "G02": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    },
+    "G03": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    },
+    "G04": {
+      "dimension": "social",
+      "area": "1.3",
+      "sourceDimension": "social",
+      "sourceArea": "1.3"
+    },
+    "G05": {
+      "dimension": "social",
+      "area": "1.3",
+      "sourceDimension": "social",
+      "sourceArea": "1.3"
+    },
+    "G06": {
+      "dimension": "social",
+      "area": "1.3",
+      "sourceDimension": "social",
+      "sourceArea": "1.3"
+    },
+    "G07": {
+      "dimension": "social",
+      "area": "1.3",
+      "sourceDimension": "social",
+      "sourceArea": "1.3"
+    },
+    "G08": {
+      "dimension": "social",
+      "area": "1.3",
+      "sourceDimension": "social",
+      "sourceArea": "1.3"
+    },
+    "G09": {
+      "dimension": "social",
+      "area": "1.3",
+      "sourceDimension": "social",
+      "sourceArea": "1.3"
+    },
+    "G10": {
+      "dimension": "social",
+      "area": "1.2",
+      "sourceDimension": "social",
+      "sourceArea": "1.2"
+    },
+    "G11": {
+      "dimension": "social",
+      "area": "1.2",
+      "sourceDimension": "social",
+      "sourceArea": "1.2"
+    },
+    "G12": {
+      "dimension": "social",
+      "area": "1.2",
+      "sourceDimension": "social",
+      "sourceArea": "1.2"
+    },
+    "G13": {
+      "dimension": "social",
+      "area": "1.1",
+      "sourceDimension": "social",
+      "sourceArea": "1.1"
+    },
+    "G14": {
+      "dimension": "social",
+      "area": "1.1",
+      "sourceDimension": "social",
+      "sourceArea": "1.1"
+    },
+    "G15": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    },
+    "G16": {
+      "dimension": "ambiental",
+      "area": "3.3",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.3"
+    },
+    "G17": {
+      "dimension": "ambiental",
+      "area": "3.3",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.3"
+    },
+    "G18": {
+      "dimension": "social",
+      "area": "1.1",
+      "sourceDimension": "social",
+      "sourceArea": "1.1"
+    },
+    "G19": {
+      "dimension": "percepcion",
+      "area": "4.2",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-servicios"
+    },
+    "G20": {
+      "dimension": "social",
+      "area": "1.4",
+      "sourceDimension": "social",
+      "sourceArea": "1.4"
+    },
+    "G21": {
+      "dimension": "economica",
+      "area": "2.4",
+      "sourceDimension": "economica",
+      "sourceArea": "2.4"
+    },
+    "G22": {
+      "dimension": "economica",
+      "area": "2.2",
+      "sourceDimension": "economica",
+      "sourceArea": "2.2"
+    },
+    "G23": {
+      "dimension": "economica",
+      "area": "2.4",
+      "sourceDimension": "economica",
+      "sourceArea": "2.4"
+    },
+    "G24": {
+      "dimension": "economica",
+      "area": "2.4",
+      "sourceDimension": "economica",
+      "sourceArea": "2.4"
+    },
+    "G25": {
+      "dimension": "economica",
+      "area": "2.4",
+      "sourceDimension": "economica",
+      "sourceArea": "2.4"
+    },
+    "G26": {
+      "dimension": "ambiental",
+      "area": "3.1",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-participacion"
+    },
+    "G27": {
+      "dimension": "economica",
+      "area": "2.3",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.3"
+    },
+    "G28": {
+      "dimension": "percepcion",
+      "area": "4.3",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-participacion"
+    },
+    "G29": {
+      "dimension": "percepcion",
+      "area": "4.3",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-participacion"
+    },
+    "G30": {
+      "dimension": "percepcion",
+      "area": "4.4",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-informacion"
+    },
+    "G31": {
+      "dimension": "percepcion",
+      "area": "4.4",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-informacion"
+    },
+    "G32": {
+      "dimension": "percepcion",
+      "area": "4.4",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-informacion"
+    },
+    "G33": {
+      "dimension": "percepcion",
+      "area": "4.2",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-gestion"
+    },
+    "G34": {
+      "dimension": "percepcion",
+      "area": "4.3",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-programas"
+    },
+    "G35": {
+      "dimension": "percepcion",
+      "area": "4.2",
+      "sourceDimension": "percepcion",
+      "sourceArea": "per-programas"
+    },
+    "G37": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    },
+    "G38": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    },
+    "G39": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    },
+    "G40": {
+      "dimension": "ambiental",
+      "area": "3.1",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.1"
+    },
+    "G41": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    },
+    "G42": {
+      "dimension": "ambiental",
+      "area": "3.2",
+      "sourceDimension": "ambiental",
+      "sourceArea": "3.2"
+    }
+  },
+  "classificationNotes": {
+    "G26": "Prioridades ambientales declaradas sobre agua, aire, ruido, temperatura y áreas verdes; no sustituye medición ambiental.",
+    "G27": "Incluye dos series de atractivos turísticos y tradiciones locales. Ubicación principal: Turismo; relación temática con Cultura, sin duplicar indicador.",
+    "G34": "Participación declarada en actividades de la administración municipal; se ubica en relacionamiento ciudadano."
+  },
+  "integrity": {
+    "koBoTopics": 48,
+    "koBoMetrics": 49,
+    "atlasIndicators": 41,
+    "areaCounts": [
+      6,
+      6,
+      4,
+      4
+    ],
+    "atlasByDimension": {
+      "social": 13,
+      "economica": 6,
+      "ambiental": 13,
+      "percepcion": 9
+    }
+  }
+}

@@ -1,0 +1,269 @@
+/* Territorio Inteligente · Caracterización · selector con imágenes originales.
+   Alcance: solamente el interior del bloque 2.3 (#data-encuesta).
+   Sin modificaciones a cabeceras, tarjetas de dimensión, áreas o categorías. */
+#data-encuesta .k23-metric-selector {
+  display:block;
+  margin:16px 0 13px;
+  padding:0;
+  min-width:0;
+}
+#data-encuesta .k23-metric-selector[hidden] {display:none!important}
+#data-encuesta .atlas-selector-row {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  min-width:0;
+}
+#data-encuesta .atlas-selector-label {
+  margin:0;
+  padding:0;
+  background:transparent;
+  color:#142c42;
+  font-size:13px;
+  font-weight:800;
+  line-height:1.3;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+#data-encuesta .atlas-switch {
+  display:flex;
+  flex:1 1 0;
+  min-width:0;
+  overflow-x:auto;
+  flex-wrap:nowrap!important;
+  align-items:center;
+  gap:6px;
+  padding:2px 1px 6px;
+  scrollbar-width:thin;
+  scrollbar-color:#a7bcc9 transparent;
+}
+#data-encuesta .atlas-switch-button,
+#data-encuesta .atlas-switch-button:hover:not(.active) {
+  appearance:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  flex:1 0 auto;
+  min-width:max-content;
+  min-height:39px;
+  margin:0;
+  padding:7px 12px!important;
+  border:1px solid #bccbd8!important;
+  border-radius:9px!important;
+  color:#163147!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  font-size:12px!important;
+  font-weight:650!important;
+  line-height:1.15!important;
+  white-space:nowrap;
+  cursor:pointer;
+}
+#data-encuesta .atlas-switch-button svg {
+  width:18px;
+  height:18px;
+  flex:0 0 18px;
+}
+#data-encuesta .atlas-switch-button.active,
+#data-encuesta .atlas-switch-button.active:hover {
+  color:#09293d!important;
+  background:#ffcb2e!important;
+  border-color:#ffcb2e!important;
+  box-shadow:0 1px 3px #152b360f!important;
+  font-weight:850!important;
+}
+#data-encuesta .atlas-switch-button:focus-visible {
+  outline:3px solid #2396c7!important;
+  outline-offset:2px;
+}
+#data-encuesta .atlas-secondary-selector{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:8px 0 3px;
+}
+#data-encuesta .atlas-secondary-selector label {
+  color:#263f53;
+  font-size:12px;
+  font-weight:750;
+}
+#data-encuesta .atlas-secondary-selector select {
+  border:1px solid #b1c9d5!important;
+  border-radius:7px!important;
+  background:#fff!important;
+  color:#17384f!important;
+  min-width:145px;
+  max-width:100%;
+  min-height:35px;
+  padding:6px 10px;
+  font-size:12px;
+}
+#data-encuesta #k23-chart.atlas-chart {
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  justify-content:center;
+  min-height:210px;
+  width:100%;
+  background:#fff!important;
+  margin:10px 0 12px;
+}
+#data-encuesta .atlas-original-figure {
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:0;
+  gap:6px;
+  background:#fff!important;
+}
+#data-encuesta .atlas-image-open {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  max-width:100%;
+  min-height:100px;
+  padding:0;
+  margin:0;
+  background:#fff!important;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  cursor:zoom-in;
+}
+#data-encuesta .atlas-original-image {
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:450px;
+  object-fit:contain;
+  object-position:center;
+  background:#fff!important;
+  image-rendering:auto;
+}
+#data-encuesta .atlas-original-figure figcaption {
+  margin:0;
+  color:#688297;
+  text-align:center;
+  font-size:10px;
+  line-height:1.4;
+}
+#data-encuesta .atlas-image-error,
+#data-encuesta .k23-no-published {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:170px;
+  padding:22px;
+  background:#f3f7fa;
+  border:1px dashed #c1d6df;
+  border-radius:10px;
+  color:#3a5667;
+  text-align:center;
+  font-size:13px;
+  line-height:1.5;
+}
+#data-encuesta .k23-no-topics {
+  align-self:center;
+  padding:9px 0;
+  font-size:12px;
+  color:#d1e3e9;
+}
+#data-encuesta .k23-atlas-dialog {
+  padding:0;
+  width:min(1360px,94vw);
+  max-width:94vw;
+  max-height:92vh;
+  overflow:hidden;
+  border:1px solid #d0e0e8;
+  border-radius:14px;
+  background:#fff;
+  color:#15364a;
+  box-shadow:0 18px 70px #00182160;
+}
+#data-encuesta .k23-atlas-dialog::backdrop {background:rgba(4,24,39,.76)}
+#data-encuesta .k23-atlas-dialog-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 20px;
+  border-bottom:1px solid #e2edf1;
+  background:#f4f8fb;
+  font-size:14px;
+}
+#data-encuesta .k23-atlas-dialog-head button {
+  padding:8px 12px;
+  border:1px solid #b2cbd8;
+  border-radius:8px;
+  background:white;
+  color:#12364c;
+  cursor:pointer;
+}
+#data-encuesta .k23-atlas-dialog-body {
+  display:flex;
+  justify-content:center;
+  max-height:calc(92vh - 68px);
+  overflow:auto;
+  background:#fff;
+  padding:16px;
+}
+#data-encuesta #k23-atlas-dialog-img {
+  width:auto;
+  height:auto;
+  max-width:none;
+  max-height:none;
+  background:white;
+}
+#data-encuesta .atlas-provenance {
+  font-size:10px;
+  line-height:1.35;
+  white-space:normal;
+  display:inline-block;
+  max-width:100%;
+  border-radius:7px;
+  color:#735315;
+  background:#fff5d9;
+  padding:5px 9px;
+  margin-bottom:8px;
+}
+#data-encuesta .k23-chart-panel {
+  min-height:440px!important;
+}
+#data-encuesta .k23-source-foot {
+  margin-top:11px!important;
+  padding-top:8px!important;
+  border-top:1px solid #dceaf0!important;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  line-height:1.4;
+}
+#data-encuesta .k23-findings li {
+  line-height:1.5;
+}
+@media (max-width:1150px) {
+  #data-encuesta .atlas-switch-button {
+    flex:0 0 auto;
+  }
+}
+@media (max-width:690px) {
+  #data-encuesta .atlas-selector-row{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:7px;
+  }
+  #data-encuesta .atlas-switch{width:100%}
+  #data-encuesta .atlas-switch-button {
+    min-height:37px;
+    padding:7px 10px!important;
+  }
+  #data-encuesta .atlas-original-image{max-height:390px}
+  #data-encuesta .k23-atlas-dialog-head{padding:9px 12px}
+  #data-encuesta .k23-atlas-dialog-body{padding:7px}
+}

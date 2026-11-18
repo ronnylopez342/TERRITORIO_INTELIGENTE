@@ -10,11 +10,16 @@
   const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
   const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const num=n=>new Intl.NumberFormat('es-CO',{maximumFractionDigits:1}).format(n);
+  const pct=n=>{
+    const decimals=Math.abs(Number(n)*10-Math.round(Number(n)*10))<1e-7?1:2;
+    return new Intl.NumberFormat('es-CO',{maximumFractionDigits:decimals}).format(Number(n)||0);
+  };
   const COLORS=['#edbe23','#56b8cc','#6497db','#8f84cd','#df9274','#4aa998','#738caa','#a4aeb9','#d7a65a','#ac8fb4'];
   const defaultId={social:'1.1-1',economica:'2.2-1',ambiental:'3.1-1',percepcion:'per-gestion-gest'};
   const icon={social:'heart-pulse',economica:'chart',ambiental:'leaf',percepcion:'message'};
   const state={dim:'social',area:'1.1',topic:'1.1-1',metric:0,search:'',atlasView:0,atlasSeries:0};
   let data=null;
+  let atlasManifest=null;
   function allTopics(){
     return (data?.dimensiones||[]).flatMap(d=>d.areas.flatMap(a=>a.temas.map(t=>({...t,dimId:d.id,dimName:d.nombre,areaId:a.id,areaName:a.nombre}))));
   }
@@ -35,7 +40,9 @@
       if(state.atlasSeries)params.set('serie',String(state.atlasSeries));else params.delete('serie');
     }else{
       if(state.metric)params.set('indicador',String(state.metric));else params.delete('indicador');
-      params.delete('grafica');params.delete('serie');
+      if(state.atlasView)params.set('grafica',String(state.atlasView+1));
+      else params.delete('grafica');
+      params.delete('serie');
     }
     params.delete('nivel');params.delete('sub');params.delete('vista');
     const hash='#data?'+params.toString();
@@ -53,7 +60,7 @@
     const selected=picked||chosenArea.temas.find(t=>t.id===p.get('tema'))||(!p.has('area')?base:null)||chosenArea.temas[0];
     state.dim=requested.id;
     state.area=(picked?.areaId||(!p.has('area')?base?.areaId:null)||chosenArea.id);
-    state.topic=selected?.id||chosenArea.temas[0].id;
+    state.topic=selected?.id||chosenArea.temas[0]?.id||'';
     const i=Number(p.get('indicador'));
     state.metric=Number.isInteger(i)&&i>=0?i:0;
     const view=Number(p.get('grafica'));
@@ -67,14 +74,14 @@
   function gotoDim(id){
     const d=dims().find(v=>v.id===id);
     if(!d)return;
-    const first=topicFor(defaultId[id])||d.areas[0].temas[0];
-    state.dim=id;state.area=first.areaId||d.areas[0].id;state.topic=first.id;
+    const first=topicFor(defaultId[id])||d.areas.flatMap(a=>a.temas.map(t=>({...t,areaId:a.id})))[0];
+    state.dim=id;state.area=first?.areaId||d.areas[0].id;state.topic=first?.id||'';
     state.metric=0;state.search='';state.atlasView=0;state.atlasSeries=0;
     setHash();render();
   }
   function gotoArea(id){
     const a=dim()?.areas.find(v=>v.id===id);if(!a)return;
-    state.area=id;state.topic=a.temas[0].id;state.metric=0;state.search='';state.atlasView=0;state.atlasSeries=0;
+    state.area=id;state.topic=a.temas[0]?.id||'';state.metric=0;state.search='';state.atlasView=0;state.atlasSeries=0;
     setHash();render();
   }
   function gotoTopic(id){
@@ -99,11 +106,11 @@
     ).join('');
   }
   function renderTopics(){
-    $('k23-topics').innerHTML=area().temas.map(t=>{
+    $('k23-topics').innerHTML=area().temas.length?area().temas.map(t=>{
       const code=/^[0-9]+[.][0-9]+-[0-9]+$/.test(t.id)?t.id.replace(/-([0-9]+)$/,'.$1'):'';
       return '<button type="button" class="k23-topic'+(t.id===state.topic?' active':'')+'" aria-pressed="'+(t.id===state.topic)+
         '" data-k23-topic="'+esc(t.id)+'"><span>'+esc((code?code+'  ':'')+t.nombre)+'</span></button>';
-    }).join('');
+    }).join(''):'<span class="k23-no-topics">No hay indicadores publicados para esta área.</span>';
     $('k23-search').value=state.search;
     renderSearch();
   }
@@ -124,109 +131,150 @@
   }
   // Import official frozen tables as additional navigable categories,
   // retaining all 48 historical KoBo topics / 49 KoBo metrics unchanged.
-  function integrateAtlas(loaded,atlas){
+  function applyOfficialTaxonomy(loaded,catalog){
+    if(catalog?.version!==1||catalog.dimensions?.length!==4)
+      throw Error('Taxonomía territorial incompleta.');
+    const before=new Set(loaded.dimensiones.flatMap(d=>d.areas.flatMap(a=>a.temas.map(t=>t.id))));
+    if(before.size!==48)throw Error('La cantidad original de indicadores KoBo cambió.');
+    const remap=catalog.legacyKoboAreaMap;
+    for(const d of loaded.dimensiones){
+      const official=catalog.dimensions.find(item=>item.id===d.id);
+      if(!official)throw Error('Dimensión no reconocida: '+d.id);
+      const old=d.areas.flatMap(a=>a.temas.map(t=>({topic:t,legacyArea:a.id})));
+      const grouped=new Map(official.areas.map(a=>[a.id,[]]));
+      for(const item of old){
+        const target=d.id==='percepcion'?remap[item.topic.id]:item.legacyArea;
+        if(!grouped.has(target))throw Error('Área sin correspondencia: '+item.topic.id+' -> '+target);
+        grouped.get(target).push(item.topic);
+      }
+      d.areas=official.areas.map(a=>({id:a.id,nombre:a.nombre,temas:grouped.get(a.id)}));
+      d.nombre=official.nombre;
+    }
+    const after=new Set(loaded.dimensiones.flatMap(d=>d.areas.flatMap(a=>a.temas.map(t=>t.id))));
+    if(after.size!==48||[...before].some(id=>!after.has(id)))throw Error('Se perdieron categorías originales de KoBo.');
+    if(loaded.dimensiones.some((d,i)=>d.areas.length!==[6,6,4,4][i]))
+      throw Error('La estructura oficial 6/6/4/4 no coincide.');
+  }
+  function integrateAtlas(loaded,atlas,catalog){
     if(atlas?.v!==1||!Array.isArray(atlas.q)||atlas.q.length!==41)
-      throw Error('El catálogo del atlas debe contener exactamente 41 preguntas.');
+      throw Error('El Atlas debe contener 41 preguntas.');
     const ids=new Set();
     for(const q of atlas.q){
-      const [id,title,dimensionId,areaId]=q;
-      if(!/^G[0-9]{2}$/.test(id)||id==='G36'||ids.has(id))throw Error('Identificador de atlas inválido: '+id);
+      const id=q[0],binding=catalog.atlasBindings[id];
+      if(!/^G[0-9]{2}$/.test(id)||id==='G36'||ids.has(id)||!binding)
+        throw Error('Identificador del Atlas inválido: '+id);
       ids.add(id);
-      const d=loaded.dimensiones.find(item=>item.id===dimensionId);
-      if(!d)throw Error('Dimensión no reconocida: '+dimensionId);
-      let a=d.areas.find(item=>item.id===areaId);
-      if(!a&&dimensionId==='ambiental'&&areaId==='3.2'){
-        a={id:'3.2',nombre:'Vivienda, Hábitat y Ordenamiento Territorial',temas:[]};
-        d.areas.splice(1,0,a);
-      }
-      if(!a)throw Error('Área no reconocida para '+id+': '+areaId);
-      a.temas.push({id:'atlas-'+id,nombre:id+' · '+title,metrics:[],atlas:q});
+      const d=loaded.dimensiones.find(item=>item.id===binding.dimension);
+      const a=d?.areas.find(item=>item.id===binding.area);
+      if(!a)throw Error('Área oficial sin correspondencia: '+id);
+      a.temas.push({id:'atlas-'+id,nombre:id+' · '+q[1],metrics:[],atlas:q,
+        classification:catalog.classificationNotes?.[id]||''});
     }
-    const counts={social:13,economica:5,ambiental:13,percepcion:10};
-    for(const [id,expected] of Object.entries(counts)){
-      const n=loaded.dimensiones.find(d=>d.id===id).areas.flatMap(a=>a.temas)
-        .filter(t=>t.atlas).length;
-      if(n!==expected)throw Error('Clasificación errónea en '+id+' ('+n+'/'+expected+')');
+    const counts={social:13,economica:6,ambiental:13,percepcion:9};
+    for(const [id,count] of Object.entries(counts)){
+      const n=loaded.dimensiones.find(d=>d.id===id).areas.reduce((sum,a)=>
+        sum+a.temas.filter(t=>t.atlas).length,0);
+      if(n!==count)throw Error('Distribución del Atlas incorrecta: '+id+' = '+n);
     }
-    if(loaded.dimensiones.length!==4||loaded.dimensiones.some(d=>d.id==='institucional'))
-      throw Error('El atlas no puede introducir una quinta dimensión.');
-    return atlas.q.length;
+    return ids.size;
   }
-  function renderAtlas(t){
-    const q=t.atlas;
-    const labels=window.TIAtlasVistas?.LABELS;
-    if(!labels||labels.length!==6)throw Error('Visualizaciones SVG del atlas no disponibles.');
-    const series=q[10]||[];
-    state.atlasSeries=Math.min(Math.max(state.atlasSeries,0),series.length-1);
-    const [seriesName,items]=series[state.atlasSeries];
-    const valid=items.filter(r=>Number.isFinite(r[1])&&r[1]>=0);
-    const ordered=[...valid].sort((a,b)=>b[1]-a[1]);
-    const major=ordered[0],runner=ordered[1];
-    const counted=valid.reduce((sum,r)=>sum+r[1],0);
-    const modeled=q[7]>0;
-    $('k23-chart').classList.add('atlas-chart');
-    $('k23-topic-title').textContent=q[1];
-    $('k23-topic-breadcrumb').textContent=dim().nombre+'  ›  '+area().nombre+'  ›  '+q[0];
-    $('k23-metric-title').textContent='Atlas estadístico integral · '+seriesName+' · seis visualizaciones';
-    $('k23-scope').textContent='Escenario documental del 17–18 de noviembre de 2026'+
-      (modeled?' · contiene estimaciones; no son encuestas originales':' · datos publicados según el atlas');
-    const chooser=$('k23-metric-selector');
-    chooser.hidden=false;
-    chooser.innerHTML='<div class="atlas-selector-label">Cambiar tipo de gráfica <span>Vista '+(state.atlasView+1)+' de 6</span></div>'+
-      '<div class="atlas-switch" role="group" aria-label="Seis formas de representar la misma pregunta">'+
-      labels.map((label,i)=>'<button type="button" data-atlas-view="'+i+'" class="atlas-switch-button'+
-        (i===state.atlasView?' active':'')+'" aria-pressed="'+(i===state.atlasView)+'">'+
-        (i+1)+' · '+esc(label)+'</button>').join('')+'</div>'+
-      (series.length>1?'<label class="atlas-series-label" for="atlas-series">Serie estadística</label>'+
+  function renderTypeSelector(hasSeries=false,series=[]){
+    const labels=['Barras','Puntos','Proporciones','Mosaico','Circular','Columnas'];
+    const icons=["<path d=\"M3 5h3v3H3zM9 5h12M3 11h3v3H3zM9 11h12M3 17h3v3H3zM9 17h12\"/>", "<circle cx=\"7\" cy=\"7\" r=\"2\"/><circle cx=\"17\" cy=\"7\" r=\"2\"/><circle cx=\"12\" cy=\"17\" r=\"2\"/><path d=\"M9 8.5l2 6M15 8.5l-2 6\"/>", "<rect x=\"3\" y=\"5\" width=\"3\" height=\"14\"/><rect x=\"8\" y=\"5\" width=\"5\" height=\"14\"/><rect x=\"15\" y=\"5\" width=\"6\" height=\"14\"/>", "<rect x=\"3\" y=\"3\" width=\"8\" height=\"8\"/><rect x=\"13\" y=\"3\" width=\"8\" height=\"8\"/><rect x=\"3\" y=\"13\" width=\"8\" height=\"8\"/><rect x=\"13\" y=\"13\" width=\"8\" height=\"8\"/>", "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 12V3M12 12l8 4M12 12l-5 7\"/>", "<rect x=\"4\" y=\"13\" width=\"3\" height=\"8\"/><rect x=\"10\" y=\"8\" width=\"3\" height=\"13\"/><rect x=\"16\" y=\"3\" width=\"3\" height=\"18\"/>"];
+    const buttons=labels.map((label,i)=>
+      '<button type="button" class="atlas-switch-button'+(i===state.atlasView?' active':'')+
+      '" data-atlas-view="'+i+'" aria-label="Mostrar gráfica de '+esc(label)+
+      '" aria-pressed="'+(state.atlasView===i)+'"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+
+      icons[i]+'</svg><span>'+esc(label)+'</span></button>'
+    ).join('');
+    return '<div class="atlas-selector-row"><strong class="atlas-selector-label">Tipo de gráfica:</strong>'+
+      '<div class="atlas-switch" role="group" aria-label="Tipo de gráfica">'+buttons+'</div></div>'+
+      (hasSeries&&series.length>1?'<div class="atlas-secondary-selector"><label for="atlas-series">Serie de la pregunta:</label>'+
         '<select id="atlas-series" aria-label="Seleccionar serie del mismo indicador">'+
         series.map((entry,i)=>'<option value="'+i+'"'+(i===state.atlasSeries?' selected':'')+'>'+
-        esc(entry[0])+'</option>').join('')+'</select>':'');
-    $('k23-chart').innerHTML=window.TIAtlasVistas.render(q,state.atlasView,state.atlasSeries);
-    // Use the same three summary cards, with a specific denominator for the atlas scenario.
-    const summaryText=$('k23-n').closest('.k23-summary-item')?.querySelector('span');
-    if(summaryText)summaryText.textContent='Universo publicado';
-    $('k23-n').textContent=num(q[4]);
-    $('k23-denominator').textContent='Base elegible: '+num(q[5]);
-    $('k23-featured-answer').textContent=major?major[0].replaceAll('_',' '):'Sin registros';
-    $('k23-featured-count').textContent=major?num(major[1])+' marcas':'';
-    $('k23-featured-percent').textContent=major&&major[2]!=null?num(major[2])+' %':'—';
-    $('k23-source-foot').textContent='Fuente: Atlas estadístico integral de Subachoque, tabla '+q[0]+
-      ' · Escenario 17–18/11/2026 · Originales reportados: '+num(q[6])+
-      ' · Estimados en series: '+num(q[7])+'.';
-    const intro='<span class="atlas-provenance">'+(modeled?
-      'Escenario con datos originales y estimados':'Escenario documental publicado')+'</span>';
-    $('k23-insight').innerHTML=intro+'<p>La mayor frecuencia en la serie <strong>'+esc(seriesName)+
-      '</strong> corresponde a <strong>'+esc(major?.[0]||'Sin dato')+'</strong> ('+
-      num(major?.[1]||0)+' marcas; '+(major?.[2]!=null?num(major[2])+' % del universo global':'sin porcentaje global')+
-      '). La base elegible es de <strong>'+num(q[5])+'</strong>, frente a un universo publicado de <strong>'+
-      num(q[4])+'</strong>.</p><p>'+esc(q[9]||'La distribución describe exclusivamente el escenario publicado.')+
-      '</p><p>'+ (modeled?
-        'Atención: algunos valores fueron estimados/modelados en el atlas. No son nuevos testimonios individuales ni equivalen a respuestas verificadas de KoBo.':
-        'Las seis variantes son representaciones del mismo conjunto de valores; no constituyen seis muestras distintas.')+
-      '</p>';
+        esc(entry[0].replaceAll('_',' '))+'</option>').join('')+'</select></div>':'');
+  }
+  function renderAtlas(t){
+    const q=t.atlas,id=q[0],meta=atlasManifest?.questions?.[id];
+    const series=q[10]||[];
+    state.atlasSeries=Math.max(0,Math.min(state.atlasSeries,series.length-1));
+    const [seriesName,items]=series[state.atlasSeries]||['Sin serie',[]];
+    const valid=items.filter(r=>Number.isFinite(r[1])&&r[1]>=0);
+    const ordered=valid.slice().sort((a,b)=>b[1]-a[1]);
+    const major=ordered[0],runner=ordered[1];
+    const total=valid.reduce((sum,r)=>sum+r[1],0);
+    const modelCoverage=Number(q[7])||0;
+    const modelMarks=valid.reduce((sum,r)=>sum+(Number(r[3])||0),0);
+    const note=(modelCoverage||modelMarks)?' · Incluye estimaciones, diferenciadas de registros originales':'';
+    $('k23-chart').classList.add('atlas-chart');
+    $('k23-topic-title').textContent=q[1];
+    $('k23-topic-breadcrumb').textContent=dim().nombre+'  ›  '+area().nombre+'  ›  '+id;
+    $('k23-metric-title').textContent='Atlas estadístico integral · '+seriesName.replaceAll('_',' ');
+    $('k23-scope').textContent='Escenario documentado del 17–18 de noviembre de 2026'+note;
+    const chooser=$('k23-metric-selector');
+    chooser.hidden=false;
+    chooser.innerHTML=renderTypeSelector(true,series);
+    const source=meta?.views?.[state.atlasView];
+    const safeSource=typeof source==='string'&&
+      new RegExp('^assets/atlas-original/'+id+'/'+id+'_[0-9]{2}_[a-z0-9_]+[.]jpg$').test(source);
+    if(safeSource){
+      $('k23-chart').innerHTML='<figure class="atlas-original-figure">'+
+        '<button type="button" class="atlas-image-open" data-atlas-open="1" aria-label="Ampliar la gráfica original de '+esc(id)+'">'+
+        '<img id="k23-atlas-image" class="atlas-original-image" src="'+esc(source)+'" '+
+        'alt="Gráfica original '+esc(id)+' · '+esc(q[1])+' · '+(state.atlasView+1)+' de seis" '+
+        'loading="eager" decoding="async" /></button>'+
+        '<figcaption>Imagen original del notebook · '+(state.atlasView+1)+' de 6 · Haz clic para ampliar</figcaption></figure>';
+      const next=meta.views[(state.atlasView+1)%6];
+      if(next&&typeof Image!=='undefined'){const preloaded=new Image();preloaded.src=next;}
+    }else{
+      $('k23-chart').innerHTML='<div class="atlas-image-error" role="status"><strong>Imagen original no disponible.</strong>'+
+        '<p>El indicador y sus datos permanecen disponibles. Comprueba el manifiesto de imágenes antes de publicar.</p></div>';
+    }
+    $('k23-source-foot').textContent='Fuente: Atlas estadístico integral de Subachoque | '+id+
+      ' | Corte: 17–18/11/2026 | Registros originales: '+num(q[6])+
+      ' | Estimaciones de cobertura: '+num(modelCoverage)+' | Estado: '+q[8]+'.';
+    const warning=valid.some(r=>r[1]>0&&r[1]<5);
+    $('k23-insight').innerHTML='<span class="atlas-provenance">'+
+      esc(q[8])+'</span>'+
+      '<p>En la serie <strong>'+esc(seriesName.replaceAll('_',' '))+
+      '</strong>, la categoría con más marcas publicadas es <strong>'+
+      esc(major?.[0]?.replaceAll('_',' ')||'Sin datos')+
+      '</strong> ('+num(major?.[1]||0)+' marcas; '+(major?.[2]!=null?pct(major[2])+' % del universo global':'sin porcentaje disponible')+
+      '). La base elegible es '+num(q[5])+' y el universo documental es '+num(q[4])+'.</p>'+
+      (q[9]?'<p>'+esc(q[9])+'</p>':'')+
+      (t.classification?'<p>'+esc(t.classification)+'</p>':'')+
+      ((modelCoverage||modelMarks)?'<p>Las estimaciones de cobertura ('+num(modelCoverage)+
+        ') son distintas de las marcas estimadas en esta serie ('+num(modelMarks)+
+        '); no representan nuevas encuestas originales.</p>':'')+
+      (warning?'<p>Nota de privacidad: existen categorías de frecuencia reducida; no se ofrecen cruces individuales ni datos personales.</p>':'');
     const findings=[];
-    if(major)findings.push('Categoría de mayor frecuencia: '+major[0]+' · '+num(major[1])+
-      (major[2]!=null?' ('+num(major[2])+' % del universo global).':'.'));
-    if(runner)findings.push('Segunda categoría: '+runner[0]+' · '+num(runner[1])+' marcas publicadas.');
-    findings.push('Categorías disponibles en la serie: '+num(valid.length)+
-      '. Total de marcas publicadas: '+num(counted)+'.');
-    findings.push(modeled?'El escenario incluye '+num(q[7])+' marcas estimadas; originales reportados: '+num(q[6])+'.':
-      'No se reportan componentes estimados en las categorías de esta pregunta.');
+    if(major)findings.push('Mayor frecuencia: '+major[0].replaceAll('_',' ')+', '+num(major[1])+
+      ' marcas'+(major[2]!=null?' ('+pct(major[2])+' % del universo global).':'.'));
+    if(runner)findings.push('Segunda categoría: '+runner[0].replaceAll('_',' ')+
+      ' ('+num(runner[1])+' marcas).');
+    findings.push('La serie presenta '+num(valid.length)+' categorías y '+num(total)+' marcas publicadas'+
+      (series.length>1?'; existen '+series.length+' series diferenciadas.':'.'));
+    if(modelMarks!==modelCoverage)findings.push('Las marcas estimadas por categoría y las estimaciones de cobertura miden conceptos distintos.');
     $('k23-findings').innerHTML=findings.map(v=>'<li><span class="k23-check" aria-hidden="true">✓</span><span>'+
       esc(v)+'</span></li>').join('');
-    // Provenance is kept in hidden metadata for internal audit as before.
-    $('k23-meta').textContent='Atlas '+q[0]+'. Control: '+q[8]+'. Datos: '+num(valid.length)+
-      ' categorías, '+num(q[7])+' estimados. Pregunta: '+q[1];
+    $('k23-meta').textContent='Atlas '+id+'. Estado: '+q[8]+'. Fuente original: '+atlasManifest?.source+
+      '. Series: '+series.length+'.';
   }
   function renderMetric(){
     const t=topic(),m=metric();
     if(t?.atlas)return renderAtlas(t);
     $('k23-chart').classList.remove('atlas-chart');
-    const summaryText=$('k23-n').closest('.k23-summary-item')?.querySelector('span');
-    if(summaryText)summaryText.textContent='Base válida';
     if(!t||!m){
-      $('k23-chart').textContent='No se encontraron resultados publicables.';
+      $('k23-topic-title').textContent=area()?.nombre||'Sin indicadores';
+      $('k23-topic-breadcrumb').textContent=dim().nombre+'  ›  '+area().nombre;
+      $('k23-metric-title').textContent='Esta área oficial todavía no dispone de indicadores publicados.';
+      $('k23-scope').textContent='No se presentan cifras ni categorías inventadas.';
+      $('k23-metric-selector').hidden=true;
+      $('k23-metric-selector').replaceChildren();
+      $('k23-chart').innerHTML='<div class="k23-no-published" role="status">Sin datos disponibles para esta área. Puedes seleccionar otra área o dimensión.</div>';
+      $('k23-insight').innerHTML='<p>Esta área forma parte de la estructura territorial oficial. No se identificó una medición pública verificable para este apartado.</p>';
       $('k23-findings').replaceChildren();
+      $('k23-source-foot').textContent='Fuente: catálogo oficial de dimensiones · Sin indicador integrado.';
       return;
     }
     state.metric=Math.min(state.metric,t.metrics.length-1);
@@ -234,17 +282,18 @@
     $('k23-topic-breadcrumb').textContent=dim().nombre+'  ›  '+area().nombre+'  ›  '+t.nombre;
     $('k23-metric-title').textContent=m.title;
     $('k23-scope').textContent='Resultados declarados · '+(m.universe||'Base según la pregunta');
-    $('k23-n').textContent=num(m.n);
-    $('k23-denominator').textContent=m.unit;
     $('k23-source-foot').textContent='Fuente: KoBo · Caracterización no técnica  |  Pregunta: '+m.q+'  |  Corte: '+data.corte;
     const selector=$('k23-metric-selector');
-    selector.hidden=t.metrics.length<=1;
-    selector.innerHTML=t.metrics.length>1?'<label for="k23-metric-select">Indicador</label><select id="k23-metric-select" aria-label="Seleccionar indicador">'+
-      t.metrics.map((v,i)=>'<option value="'+i+'"'+(i===state.metric?' selected':'')+'>'+esc(v.title)+'</option>').join('')+'</select>':'';
+    selector.hidden=false;
+    selector.innerHTML=renderTypeSelector(false)+
+      (t.metrics.length>1?'<div class="atlas-secondary-selector"><label for="k23-metric-select">Indicador:</label>'+
+      '<select id="k23-metric-select" aria-label="Seleccionar indicador de KoBo">'+
+      t.metrics.map((v,i)=>'<option value="'+i+'"'+(i===state.metric?' selected':'')+'>'+esc(v.title)+'</option>').join('')+
+      '</select></div>':'');
     const values=getMetricLabels(m);
     const focused=values.find(v=>v.label===m.focusCategory);
     const units=m.unit==='personas registradas'?'personas registradas':'encuestas respondidas';
-    $('k23-chart').innerHTML=values.length?'<div class="k23-bars" role="list" aria-label="Distribución agregada de respuestas">'+
+    const originalBars=values.length?'<div class="k23-bars" role="list" aria-label="Distribución agregada de respuestas">'+
       values.map(row=>{
         const isFocus=Boolean(focused&&row.label===focused.label);
         return '<div class="k23-bar-row'+(isFocus?' k23-bar-focus':'')+'" role="listitem"><div class="k23-bar-top"><span>'+esc(row.label)+
@@ -255,12 +304,17 @@
       'Respuesta múltiple: cada participante puede escoger varias opciones, por lo que los porcentajes pueden sumar más del 100 %.':
       'Porcentaje calculado exclusivamente sobre las respuestas válidas de esta pregunta.')+'</p>':
       '<p role="status">No hay opciones publicables para esta pregunta.</p>';
+    if(state.atlasView===0||!values.length){
+      $('k23-chart').innerHTML=originalBars;
+    }else{
+      const stat=['KoBo',m.title,'','',m.n,m.n,m.n,0,'','',[[m.title,
+        values.map(v=>[v.label,v.count,v.pct,0])]]];
+      $('k23-chart').innerHTML=window.TIAtlasVistas.render(stat,state.atlasView,0)+
+        '<p class="k23-chart-note">Vista dinámica de los mismos agregados KoBo. Los porcentajes publicados se calculan sobre la base específica de la pregunta; las composiciones se normalizan sobre las marcas mostradas.</p>';
+    }
     const sorted=values.slice().sort((a,b)=>b.count-a.count);
     const biggest=sorted[0],second=sorted[1];
     const highlighted=focused||biggest;
-    $('k23-featured-answer').textContent=highlighted?.label||'Sin dato';
-    $('k23-featured-count').textContent=highlighted?num(highlighted.count)+' '+units:'Sin opciones publicables';
-    $('k23-featured-percent').textContent=highlighted?num(highlighted.pct)+' %':'—';
     const focusText=focused?'La opción destacada para esta categoría es':'La respuesta más frecuente entre las opciones publicadas es';
     const badge=m.coverage==='directa'?'Respuesta directa de KoBo':'Aproximación, no medición técnica';
     const shownSum=values.reduce((sum,x)=>sum+x.count,0);
@@ -331,13 +385,33 @@
     if(btn.hasAttribute('data-k23-dim'))return gotoDim(btn.dataset.k23Dim);
     if(btn.hasAttribute('data-k23-area'))return gotoArea(btn.dataset.k23Area);
     if(btn.hasAttribute('data-k23-topic'))return gotoTopic(btn.dataset.k23Topic);
-    if(btn.hasAttribute('data-atlas-view')&&topic()?.atlas){
+    if(btn.hasAttribute('data-atlas-view')&&topic()){
       const next=Number(btn.dataset.atlasView);
       if(Number.isInteger(next)&&next>=0&&next<6){
-        state.atlasView=next;setHash();renderAtlas(topic());
+        state.atlasView=next;setHash();renderMetric();
       }
+      return;
+    }
+    if(btn.hasAttribute('data-atlas-open')){
+      const image=$('k23-atlas-image'),dialog=$('k23-atlas-dialog');
+      if(image?.src&&dialog?.showModal){
+        $('k23-atlas-dialog-img').src=image.src;
+        $('k23-atlas-dialog-img').alt=image.alt;
+        dialog.showModal();
+      }
+      return;
+    }
+    if(btn.hasAttribute('data-atlas-close')){
+      $('k23-atlas-dialog')?.close();
+      return;
     }
   });
+  root.addEventListener('error',e=>{
+    if(e.target?.id!=='k23-atlas-image')return;
+    const figure=e.target.closest('.atlas-original-figure');
+    if(figure)figure.innerHTML='<div class="atlas-image-error" role="alert">'+
+      'No se pudo cargar el JPG original. Los datos y la navegación siguen disponibles.</div>';
+  },true);
   root.addEventListener('input',e=>{
     if(e.target.id!=='k23-search')return;
     state.search=e.target.value;renderSearch();
@@ -353,7 +427,7 @@
     if(e.target.id!=='k23-metric-select')return;
     const val=Number(e.target.value);
     if(!Number.isInteger(val)||val<0||val>=topic().metrics.length)return;
-    state.metric=val;setHash();renderMetric();
+    state.metric=val;state.atlasView=0;setHash();renderMetric();
   });
   async function load(){
     const response=await fetch('data/caracterizacion-kobo-2026-agregados.gz.b64',{cache:'no-store'});
@@ -364,14 +438,13 @@
     const decoded=new Response(new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip')));
     return decoded.json();
   }
-  // Atlas is optional for boot safety: the original KoBo viewer must never go blank if
-  // the additional frozen catalogue cannot be loaded or is invalid.
-  const atlasRequest=fetch('data/subachoque-atlas-41.json',{cache:'no-store'})
-    .then(response=>{
-      if(!response.ok)throw Error('No se encontró el archivo de datos del atlas.');
-      return response.json();
-    })
-    .catch(error=>{console.warn('Atlas estadístico no disponible:',error);return null;});
+  const optionalJSON=path=>fetch(path,{cache:'no-store'}).then(r=>{
+    if(!r.ok)throw Error('No disponible: '+path);
+    return r.json();
+  }).catch(error=>{console.warn(error);return null;});
+  const atlasRequest=optionalJSON('data/subachoque-atlas-41.json');
+  const taxonomyRequest=optionalJSON('data/atlas-taxonomia-oficial.json');
+  const imagesRequest=optionalJSON('data/atlas-original-manifest.json');
   load().then(async loaded=>{
     if(loaded.v!==2||loaded.nEncuestas!==324||loaded.dimensiones?.length!==4||loaded.dimensiones[3]?.id!=='percepcion')
       throw Error('La estructura de la caracterización no pasó las verificaciones.');
@@ -379,11 +452,17 @@
     const metrics=items.flatMap(t=>t.metrics);
     if(items.length!==48||metrics.length!==49||(loaded.notMeasured?.social?.length+loaded.notMeasured?.economica?.length+loaded.notMeasured?.ambiental?.length)!==53||metrics.some(m=>!Number.isInteger(m.n)||m.n<15||!m.q||!m.title||!m.universe||!m.questionLabel))
       throw Error('Los indicadores agregados no pasaron las verificaciones de integridad.');
-    const atlas=await atlasRequest;
-    if(atlas){
-      try{integrateAtlas(loaded,atlas);}
-      catch(error){
-        console.error('Atlas estadístico rechazado:',error);
+    const [atlas,taxonomy,images]=await Promise.all([atlasRequest,taxonomyRequest,imagesRequest]);
+    atlasManifest=images?.questions&&Object.keys(images.questions).length===41?images:null;
+    if(taxonomy){
+      try{
+        applyOfficialTaxonomy(loaded,taxonomy);
+        if(atlas)integrateAtlas(loaded,atlas,taxonomy);
+      }catch(error){
+        console.error('Error al integrar el Atlas y la taxonomía:',error);
+        // Preserve KoBo even if external mapping fails; do not leave empty UI.
+        loaded=(await load());
+        atlasManifest=null;
       }
     }
     data=loaded;syncHash();render();
