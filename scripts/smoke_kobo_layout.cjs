@@ -29,7 +29,7 @@ async function main(){
   assert.equal(await page.locator('#data-encuesta').isVisible(),true,'The full module must be visible');
   assert.equal(await page.locator('#k23-dims button').count(),4);
   assert.equal(await page.locator('#k23-areas button').count(),6);
-  assert.equal(await page.locator('#k23-topics button').count(),7);
+  assert.equal(await page.locator('#k23-topics button').count(),10);
   assert.equal(await page.locator('#k23-topic-title').innerText(),'Aseguramiento');
   assert.match(await page.locator('#k23-source-foot').innerText(),/Fuente.*KoBo.*Corte.*2026-10-17/);
   assert.equal(await page.locator('.k23-topics-panel').count(),0,'Old vertical topics sidebar');
@@ -55,13 +55,71 @@ async function main(){
   await page.locator('#k23-area-nonexistent').count();
   await page.locator('#k23-areas button[data-k23-area="1.2"]').click();
   assert.equal(await page.locator('#k23-topic-title').innerText(),'Cobertura educativa');
-  assert.equal(await page.locator('#k23-topics button').count(),4);
+  assert.equal(await page.locator('#k23-topics button').count(),7);
   assert((await page.locator('#k23-findings li').count())>=2);
   await page.locator('#k23-dims button[data-k23-dim="economica"]').click();
   assert.match(await page.locator('#k23-areas').innerText(),/Comercio y Desarrollo Empresarial/);
   await page.locator('#k23-dims button[data-k23-dim="percepcion"]').click();
   assert.match(await page.locator('#k23-topic-breadcrumb').innerText(),/Percepción ciudadana/);
   assert((await page.locator('#k23-findings li').count())>=2);
+  // Real notebook atlas: 41 topics distributed inside four dimensions.
+  // Six switches must change the drawing, NOT the source topic or the white canvas.
+  await page.locator('#k23-dims button[data-k23-dim="social"]').click();
+  await page.locator('#k23-topics button[data-k23-topic="atlas-G13"]').click();
+  assert.match(await page.locator('#k23-topic-title').innerText(),/Porcentaje de personas afiliadas a salud/);
+  assert.equal(await page.locator('.atlas-switch-button').count(),6);
+  assert.equal(await page.locator('#k23-chart svg[role="img"]').count(),1);
+  assert.match(await page.locator('#k23-source-foot').innerText(),/Atlas estadístico integral.*G13/);
+  assert.match(await page.locator('#k23-insight').innerText(),/estimados|estimadas/i);
+  assert.equal(await page.locator('#k23-chart .atlas-svg rect').first().getAttribute('fill'),'#FFFFFF');
+  const originalSvg=await page.locator('#k23-chart .atlas-svg').innerHTML();
+  for(let i=0;i<6;i++){
+    await page.locator('.atlas-switch-button[data-atlas-view="'+i+'"]').click();
+    assert.equal(await page.locator('#k23-chart svg[role="img"]').count(),1);
+    assert.equal(await page.locator('.atlas-switch-button.active').count(),1);
+    assert.match(await page.locator('#k23-topic-title').innerText(),/Porcentaje de personas afiliadas a salud/);
+    assert.equal(await page.locator('#k23-chart .atlas-svg rect').first().getAttribute('fill'),'#FFFFFF');
+  }
+  assert.notEqual(await page.locator('#k23-chart .atlas-svg').innerHTML(),originalSvg);
+  assert.match(await page.evaluate(()=>location.hash),/grafica=6/);
+  await page.screenshot({path:path.join(root,'screenshots','atlas-G13-seis-vistas.png'),fullPage:true});
+  // Return to a KoBo result: original source and original KoBo controls are preserved.
+  await page.locator('#k23-topics button[data-k23-topic="1.1-1"]').click();
+  assert.equal(await page.locator('.atlas-switch-button').count(),0);
+  assert.match(await page.locator('#k23-source-foot').innerText(),/KoBo/);
+  await page.locator('#k23-dims button[data-k23-dim="ambiental"]').click();
+  await page.locator('#k23-areas button[data-k23-area="3.2"]').click();
+  assert.match(await page.locator('#k23-areas').innerText(),/Vivienda, Hábitat/);
+  await page.locator('#k23-topics button[data-k23-topic="atlas-G42"]').click();
+  assert.match(await page.locator('#k23-topic-title').innerText(),/Principales necesidades identificadas/);
+  assert.match(await page.locator('#k23-source-foot').innerText(),/G42/);
+  assert.match(await page.locator('#k23-insight').innerText(),/estimados/i);
+  await page.locator('#k23-areas button[data-k23-area="3.3"]').click();
+  await page.locator('#k23-topics button[data-k23-topic="atlas-G27"]').click();
+  assert.equal(await page.locator('#atlas-series option').count(),2);
+  await page.locator('#atlas-series').selectOption('1');
+  assert.equal(await page.locator('#atlas-series').inputValue(),'1');
+  await page.locator('.atlas-switch-button[data-atlas-view="3"]').click();
+  assert.equal(await page.locator('#k23-chart svg').count(),1);
+  await page.locator('#k23-dims button[data-k23-dim="percepcion"]').click();
+  await page.locator('#k23-areas button[data-k23-area="per-gestion"]').click();
+  await page.locator('#k23-topics button[data-k23-topic="atlas-G33"]').click();
+  assert.match(await page.locator('#k23-topic-title').innerText(),/Percepción de la gestión/);
+  assert.equal(await page.locator('#k23-findings li').count()>=3,true);
+  // Every one of the 41 atlas questions must be reachable through its own
+  // dimension / area, preserving the same six styles and white SVG canvas.
+  const atlasCatalogue=JSON.parse(fs.readFileSync(path.join(root,'data/subachoque-atlas-41.json'),'utf8'));
+  for(const q of atlasCatalogue.q){
+    await page.locator('#k23-dims button[data-k23-dim="'+q[2]+'"]').click();
+    await page.locator('#k23-areas button[data-k23-area="'+q[3]+'"]').click();
+    await page.locator('#k23-topics button[data-k23-topic="atlas-'+q[0]+'"]').click();
+    assert.equal(await page.locator('.atlas-switch-button').count(),6,q[0]+' six controls');
+    assert.equal(await page.locator('#k23-chart svg[role="img"]').count(),1,q[0]+' graphic');
+    assert.equal(await page.locator('#k23-chart .atlas-svg rect').first().getAttribute('fill'),'#FFFFFF',q[0]+' background');
+    assert.match(await page.locator('#k23-source-foot').innerText(),new RegExp(q[0]));
+    assert.equal(await page.locator('#k23-findings li').count()>=3,true,q[0]+' findings');
+  }
+  console.log('ALL 41 ATLAS INDICATORS VERIFIED IN BROWSER');
   await page.goto(base+'/#data?seccion=data-subachoque',{waitUntil:'domcontentloaded',timeout:30000});
   await page.locator('#data-subachoque:not([hidden])').waitFor({timeout:15000});
   assert.equal(await page.locator('#data-subachoque').isVisible(),true,'Another Data section must remain accessible');
@@ -72,7 +130,12 @@ async function main(){
   assert.equal(await mobile.locator('#data-encuesta').isVisible(),true);
   assert((await mobile.locator('#k23-findings li').count())>=2);
   assert.equal(await mobile.locator('#k23-areas button').count(),6);
-  assert.equal(await mobile.locator('#k23-topics button').count(),7);
+  assert.equal(await mobile.locator('#k23-topics button').count(),10);
+  await mobile.locator('#k23-topics button[data-k23-topic="atlas-G13"]').click();
+  assert.equal(await mobile.locator('.atlas-switch-button').count(),6);
+  assert.equal(await mobile.locator('#k23-chart .atlas-svg rect').first().getAttribute('fill'),'#FFFFFF');
+  await mobile.locator('.atlas-switch-button[data-atlas-view="4"]').click();
+  assert.equal(await mobile.locator('.atlas-switch-button.active').count(),1);
   const horizontal=await mobile.evaluate(()=>{
     const module=document.querySelector('#data-encuesta');
     const filter=document.querySelector('#k23-topics');

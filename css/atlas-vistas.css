@@ -1,0 +1,73 @@
+/* Atlas estadístico integral: seis vistas sobre fondo blanco original.
+   Sólo complementa el visor #data-encuesta; no toca encabezado ni otras pestañas.
+*/
+#data-encuesta .atlas-selector-label{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  font-weight:800;font-size:12px;color:#315E49;margin:0 0 9px;
+}
+#data-encuesta .atlas-selector-label span{font-size:11px;color:#637D6C;font-weight:600}
+#data-encuesta .atlas-switch{
+  display:flex;flex-wrap:nowrap;gap:5px;
+  overflow-x:auto;scrollbar-width:thin;
+  scrollbar-color:#9DBAA7 transparent;
+  padding:2px 1px 8px;
+}
+#data-encuesta .atlas-switch-button{
+  appearance:none;white-space:nowrap;flex:1 0 auto;
+  padding:9px 12px;border-radius:8px;
+  background:#F1F5F1;color:#35564A;
+  border:1px solid #BCD3C4;
+  font-size:12px;line-height:1.2;font-weight:750;
+  cursor:pointer;min-height:38px;
+}
+#data-encuesta .atlas-switch-button.active{
+  background:#285B4A;color:#fff;border-color:#285B4A;
+}
+#data-encuesta .atlas-switch-button:hover:not(.active),
+#data-encuesta .atlas-switch-button:focus-visible{
+  background:#DDEFE3;border-color:#50896F;outline-offset:2px;
+}
+#data-encuesta .atlas-series-label{
+  display:inline-block;color:#355B49;font-size:12px;font-weight:800;
+  margin:10px 10px 5px 0;
+}
+#data-encuesta #atlas-series{
+  background:#FFF;color:#214D3B;border:1px solid #A7C7B4;border-radius:7px;
+  min-width:165px;min-height:36px;padding:6px 10px;
+}
+#data-encuesta #k23-chart.atlas-chart{
+  display:flex;align-items:stretch;justify-content:flex-start;
+  min-height:330px;margin:10px 0 14px;
+  background:#FFFFFF!important;
+}
+#data-encuesta .atlas-svg-shell{
+  box-sizing:border-box;
+  display:block;width:100%;
+  max-height:555px;
+  overflow:auto;
+  background:#FFFFFF!important;
+  border:1px solid #E7EEE9;border-radius:10px;
+  scrollbar-width:thin;scrollbar-color:#94B7A2 #F3F8F4;
+}
+#data-encuesta .atlas-svg{
+  display:block;
+  max-width:none;
+  height:auto;
+  background:#FFFFFF!important;
+}
+#data-encuesta .atlas-provenance{
+  display:inline-flex;align-items:center;max-width:100%;
+  border-radius:8px;padding:6px 10px;margin-bottom:9px;
+  background:#FFF4DA;color:#86620C;font-size:11px;font-weight:800;
+}
+#data-encuesta .k23-summary-item strong{
+  overflow-wrap:anywhere;
+}
+@media(max-width:850px){
+  #data-encuesta .atlas-switch-button{flex:0 0 auto}
+  #data-encuesta .atlas-svg-shell{max-height:490px}
+}
+@media(max-width:600px){
+  #data-encuesta .atlas-switch-button{font-size:11px;padding:8px 10px}
+  #data-encuesta .atlas-svg-shell{max-height:445px}
+}
