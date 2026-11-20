@@ -22,7 +22,8 @@
 
 
 <link rel="stylesheet" href="css/caracterizacion-kobo.css?v=kobo-23-02">
-<link rel="stylesheet" href="css/ti-dimensiones-layout.css?v=20261118-v3"
+<link rel="stylesheet" href="css/ti-dimensiones-layout.css?v=20261118-v3">
+<link rel="stylesheet" href="css/data-subachoque-como-caracterizacion.css?v=20261120-01">
 
 <link rel="stylesheet" href="css/atlas-original-fidelity.css?v=20261118-final-2">
 <link rel="stylesheet" href="css/ti-chart-containment.css?v=20261120-fix-1">
@@ -562,66 +563,61 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 
 </section>
 <section aria-labelledby="tab-data-subachoque" class="module-panel ti-data-subachoque" data-panel-group="data" id="data-subachoque" role="tabpanel" data-ready="false" hidden>
-  <div class="ds3-shell">
-    <header class="ds3-head">
-      <p class="ds3-breadcrumb">Data Territorio <span aria-hidden="true">›</span> <span id="ds3-breadcrumb-current">2.2 Data Subachoque</span></p>
-      <div class="ds3-title-row">
-        <div class="ds3-title-icon" id="ds3-header-icon" aria-hidden="true">♡</div>
-        <div class="ds3-title-copy">
-          <h1 id="ds3-title" tabindex="-1">Data<br><em>Subachoque</em></h1>
-          <p id="ds3-description">Consulta datos nacionales, departamentales y municipales sobre las dimensiones social, económica, ambiental e institucional del territorio.</p>
+  <div class="k23-app ds4-app" id="ds4-app">
+    <header class="k23-hero">
+      <div class="k23-wrap">
+        <p class="k23-breadcrumb">Data Territorio <span aria-hidden="true">/</span> 2.2 Data Subachoque <span aria-hidden="true">/</span> <span id="ds4-dimension-breadcrumb">Dimensión Social</span></p>
+        <div class="k23-hero-top">
+          <div>
+            <p class="k23-tag">INFORMACIÓN TERRITORIAL · ORGANIZACIÓN TEMÁTICA</p>
+            <h1 id="ds4-main-title" tabindex="-1"><span class="k23-title-line">DATA</span><span class="k23-title-line">SUBACHOQUE</span></h1>
+            <p class="k23-hero-lead">Explora las dimensiones, áreas y categorías del territorio. Consulta sus fuentes y registros publicados sin gráficas.</p>
+          </div>
+        </div>
+        <div class="k23-dim-section">
+          <p class="k23-overline">01 — EXPLORA LAS CUATRO DIMENSIONES DEL TERRITORIO</p>
+          <nav id="ds4-dims" class="k23-dims" aria-label="Dimensiones de Data Subachoque">
+            <p role="status">Cargando las dimensiones del territorio…</p>
+          </nav>
         </div>
       </div>
     </header>
-    
-
-    <section class="ds3-editorial-intro" aria-label="Exploración de datos"><h2>Explora los datos del territorio</h2><p>Consulta indicadores y análisis por dimensión, área y subtema para comprender la realidad de Subachoque.</p></section>
-    <nav class="ds3-dimensions" id="ds3-dimensions" aria-label="Seleccionar dimensión">
-      <p role="status">Cargando dimensiones de Data Subachoque…</p>
-    </nav>
-
-    <section class="ds3-areas-section" aria-labelledby="ds3-areas-title">
-      <h2 id="ds3-areas-title">Áreas de la dimensión</h2>
-      <nav class="ds3-areas" id="ds3-areas" aria-label="Seleccionar área de la dimensión"></nav>
-    </section>
-
-    <div class="ds3-territory" role="group" aria-label="Cobertura territorial seleccionada">
-      <button type="button" class="ds3-territory-button" data-ds3-level="nacional" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20v-6h3v6M10 20V9h3v11M16 20V4h3v16"/></svg><span>Nacional</span></button>
-      <button type="button" class="ds3-territory-button" data-ds3-level="departamental" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 5 6-2 6 3 6-3v16l-6 2-6-3-6 3zM9 3v15M15 6v15"/></svg><span>Departamental</span></button>
-      <button type="button" class="ds3-territory-button" data-ds3-level="municipal" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16M7 21V8h10v13M10 8V3h4v5M10 12h1M14 12h1M10 16h1M14 16h1"/></svg><span>Municipal</span></button>
-    </div>
-
-    <div class="ds3-workspace">
-      <aside class="ds3-topic-pane" aria-labelledby="ds3-topic-heading">
-        <h2 id="ds3-topic-heading"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h2M9 5h12M3 12h2M9 12h12M3 19h2M9 19h12"/></svg> Subtemas</h2>
-        <label class="ds3-search-label" for="ds3-search">Buscar subtema</label>
-        <div class="ds3-search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="ds3-search" type="search" autocomplete="off" placeholder="Buscar subtemas..." aria-label="Buscar entre los subtemas"></div>
-        <div id="ds3-search-results" class="ds3-search-results" hidden></div>
-        <nav id="ds3-topics" class="ds3-topics" aria-label="Subtemas del área seleccionada"></nav>
-      </aside>
-
-      <section class="ds3-chart-pane" aria-labelledby="ds3-topic-title">
-        <header class="ds3-chart-heading">
-          <p class="ds3-context" id="ds3-area-label">Salud y Protección Social</p>
-          <h2 id="ds3-topic-title" tabindex="-1">Adulto mayor</h2>
-          <p class="ds3-indicator-title" id="ds3-indicator-title">Población mayor de 59 años</p>
-          <p class="ds3-indicator-description" id="ds3-indicator-description">Comparación territorial con datos y fechas verificables.</p>
-        </header>
-        <div class="ds3-chart-area" id="ds3-chart-area" aria-live="polite" aria-label="Visualización del indicador"></div>
-        <div class="ds3-chart-footer" id="ds3-chart-footer" aria-live="polite"></div>
-        <div class="ds3-indicator-nav" id="ds3-indicator-nav" hidden></div>
-      </section>
-
-      <aside class="ds3-analysis-pane" aria-labelledby="ds3-analysis-heading">
-        <h2 id="ds3-analysis-heading"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20v-6h4v6M10 20V9h4v11M17 20V4h4v16"/></svg> Análisis clave</h2>
-        <div class="ds3-analysis-body" id="ds3-analysis-body" aria-live="polite">
-          <p>Cargando información territorial…</p>
+    <main class="k23-body">
+      <div class="k23-wrap">
+        <div class="k23-filters" aria-label="Navegación por áreas y categorías">
+          <div class="k23-filter-line">
+            <span class="k23-filter-title"><span aria-hidden="true">◈</span> Áreas:</span>
+            <nav id="ds4-areas" class="k23-areas" aria-label="Áreas de la dimensión seleccionada"></nav>
+          </div>
+          <div class="k23-filter-line k23-filter-categories">
+            <span class="k23-filter-title"><span aria-hidden="true">◇</span> Categorías:</span>
+            <nav id="ds4-topics" class="k23-topics-list" aria-label="Categorías del área seleccionada"></nav>
+            <details class="k23-search-popover">
+              <summary title="Buscar categorías" aria-label="Buscar entre todas las categorías">⌕</summary>
+              <div class="k23-search-box">
+                <label for="ds4-search">Buscar dimensión, área o categoría</label>
+                <input id="ds4-search" type="search" placeholder="Buscar categoría…" autocomplete="off">
+                <div class="k23-search-results" id="ds4-results" hidden></div>
+              </div>
+            </details>
+          </div>
         </div>
-        <div class="ds3-source" id="ds3-source"></div>
-      </aside>
-    </div>
-    <p class="ds3-data-policy" id="ds3-data-policy">Los indicadores publicados muestran la fuente, el período y la unidad. Si no hay información verificable, no se muestran valores de ejemplo.</p>
-    <p class="ds3-setup-alert" id="ds3-setup-alert" role="alert" hidden></p>
+        <div class="k23-display ds4-display">
+          <nav class="k23-selection-path" aria-label="Ubicación de la categoría">
+            <span aria-hidden="true">⌂</span><span id="ds4-topic-breadcrumb">Dimensión Social › Salud y Protección Social › Aseguramiento</span>
+          </nav>
+          <section class="ds4-detail" aria-labelledby="ds4-topic-title">
+            <header class="ds4-heading">
+              <p id="ds4-topic-context">Dimensión Social · Salud y Protección Social</p>
+              <div class="ds4-topic-header"><span id="ds4-topic-code">1.1.1</span><h2 id="ds4-topic-title" tabindex="-1">Aseguramiento</h2></div>
+              <p>Información y fuentes organizadas por ámbito territorial, sin visualizaciones gráficas.</p>
+            </header>
+            <div class="ds4-levels" id="ds4-information" aria-live="polite"></div>
+          </section>
+          <p class="ds4-footnote">Los datos se presentan solo cuando existen registros con fuente, periodo y unidad identificables. La ausencia de un registro no significa que el indicador tenga valor cero.</p>
+        </div>
+      </div>
+    </main>
   </div>
 </section>
 <section aria-labelledby="tab-data-encuesta" class="module-panel ti-encuesta" data-panel-group="data" hidden id="data-encuesta" role="tabpanel">
@@ -875,7 +871,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 
 
 
-<script defer src="js/data-subachoque.js?v=20261023-cover-22-01"></script>
+<script defer src="js/data-subachoque-navegacion.js?v=20261120-01"></script>
 
 <script defer src="js/caracterizacion-kobo.js?v=20261120-legends-v1"></script>
 <script defer src="js/conoce-publicaciones.js?v=pub21-editorial-02"></script>

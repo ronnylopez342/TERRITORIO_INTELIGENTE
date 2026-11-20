@@ -1,0 +1,158 @@
+/* ==================== 2.2 Data Subachoque ====================
+ * Exactly the same button system used by Caracterizacion, isolated to 2.2.
+ * The fourth dimension is INSTITUCIONAL, while 2.3 remains PERCEPCION.
+ * No graphs are created, drawn, loaded, or embedded in the 2.2 markup.
+ */
+#data-subachoque .ds4-app{min-width:0;background:#082b3e;color:#f5fbff}
+#data-subachoque .k23-hero{padding:30px 0 22px!important;border-bottom:0!important;
+ background:linear-gradient(115deg,#062638 0%,#0b3748 70%,#0b3f52 100%)!important}
+#data-subachoque .k23-hero .k23-wrap{max-width:1710px}
+#data-subachoque .k23-hero-top{margin-bottom:18px}
+#data-subachoque #ds4-main-title{
+ font-family:Arial,Helvetica,sans-serif!important;font-size:clamp(32px,3.3vw,52px)!important;
+ font-weight:900!important;line-height:1.06!important;letter-spacing:-.03em!important;
+ color:#fff!important;margin:0 0 13px!important
+}
+#data-subachoque #ds4-main-title .k23-title-line{display:block;color:inherit}
+#data-subachoque .k23-tag{color:#f3ca32!important}
+#data-subachoque .k23-hero-lead{max-width:790px!important;font-size:14px!important;color:#d1e2ed!important}
+#data-subachoque .k23-dim-section{margin-top:22px!important}
+#data-subachoque .k23-overline{
+ font-size:16px!important;letter-spacing:0!important;color:#f7fbff!important;
+ line-height:1.25!important;font-weight:800!important;margin:0 0 13px!important
+}
+#data-subachoque .k23-dims{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+#data-subachoque .k23-dim{
+ border-radius:11px!important;min-height:92px!important;
+ padding:15px 15px!important;background:#113d50!important;color:#f6fbff!important;
+ border-color:#59889d!important
+}
+#data-subachoque .k23-dim:hover:not(.active){background:#1c5165!important}
+#data-subachoque .k23-dim.active{
+ background:#ffca31!important;border-color:#ffca31!important;color:#082e42!important
+}
+#data-subachoque .k23-dim-copy strong{font-weight:850!important}
+#data-subachoque .k23-dim-index{color:#72b6cd!important}
+#data-subachoque .k23-dim.active .k23-dim-index{color:#13576c!important}
+#data-subachoque .k23-dim.active .k23-dim-copy strong,
+#data-subachoque .k23-dim.active .k23-dim-arrow{color:#082e42!important}
+#data-subachoque .k23-dim.active .k23-dim-copy small{color:#2d5161!important}
+#data-subachoque .k23-body{padding:8px 0 32px!important;background:#082b3e!important}
+#data-subachoque .k23-filter-line{min-height:61px!important;gap:15px!important}
+#data-subachoque .k23-filter-title{flex:0 0 106px!important;font-weight:800!important}
+#data-subachoque .k23-areas,#data-subachoque .k23-topics-list{scrollbar-width:thin;min-width:0}
+#data-subachoque .k23-area{border-radius:13px!important}
+#data-subachoque .k23-topic{border-radius:25px!important}
+#data-subachoque .k23-area.active,
+#data-subachoque .k23-topic.active{
+ background:#ffca31!important;border-color:#ffca31!important;color:#092b3f!important
+}
+#data-subachoque .k23-area:not(.active),
+#data-subachoque .k23-topic:not(.active){
+ background:#103f53!important;color:#f8fbff!important;border-color:#6b9bad!important
+}
+#data-subachoque .k23-display{
+ background:#e5f2f7!important;border-radius:17px!important;
+ margin-top:12px!important;overflow:hidden!important;
+}
+#data-subachoque .k23-selection-path{
+ background:#e5f2f7!important;color:#153b50!important;
+ font-size:14px!important;min-height:56px!important
+}
+#data-subachoque .ds4-detail{padding:18px clamp(17px,2.5vw,38px) 27px;background:#e5f2f7}
+#data-subachoque .ds4-heading{padding:22px clamp(18px,2.4vw,30px);border-radius:14px;
+ background:#fff;border:1px solid #d8e6ec;color:#15354c}
+#data-subachoque #ds4-topic-context{
+ margin:0 0 8px!important;color:#55778a!important;
+ font-size:13px!important;font-weight:700!important
+}
+#data-subachoque .ds4-topic-header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+#data-subachoque #ds4-topic-code{border-radius:100px;padding:4px 11px;
+ color:#135169;background:#d9edf3;font-size:13px;font-weight:800}
+#data-subachoque #ds4-topic-title{
+ margin:0!important;font-size:clamp(24px,2.4vw,38px)!important;
+ line-height:1.15!important;letter-spacing:-.03em!important;
+ font-family:Arial,Helvetica,sans-serif!important;font-weight:850!important;
+ color:#082d45!important
+}
+#data-subachoque .ds4-heading>p:last-child{
+ margin:8px 0 0!important;font-size:13px;color:#57788a!important
+}
+#data-subachoque .ds4-levels{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:13px;margin-top:14px;min-width:0
+}
+#data-subachoque .ds4-level{box-sizing:border-box;min-width:0;
+ padding:22px;border:1px solid #d7e6ed;border-radius:14px;
+ background:#fff;box-shadow:0 2px 8px #0532480b;color:#16394e}
+#data-subachoque .ds4-level-head{display:flex;align-items:center;gap:13px;
+ padding:0 0 14px;margin:0 0 16px;border-bottom:1px solid #e3edf1}
+#data-subachoque .ds4-level-icon{
+ display:inline-flex;justify-content:center;align-items:center;flex:0 0 42px;
+ width:42px;height:42px;border-radius:11px;background:#e3f0f6;color:#146284;
+ font-size:22px;font-weight:700
+}
+#data-subachoque .ds4-level h3{
+ margin:0!important;font-size:19px!important;line-height:1.2!important;
+ color:#10334a!important;font-family:Arial,Helvetica,sans-serif!important;
+ font-weight:850!important
+}
+#data-subachoque .ds4-level-head p{
+ margin:3px 0 0!important;font-size:12px;color:#647d8d
+}
+#data-subachoque .ds4-verified{font-size:12px;color:#216451!important;
+ font-weight:800;margin:0 0 12px!important}
+#data-subachoque .ds4-empty{min-height:52px;font-size:13px;line-height:1.5;color:#5a7585}
+#data-subachoque .ds4-measures{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+#data-subachoque .ds4-measure{
+ display:flex;justify-content:space-between;gap:12px;
+ border-bottom:1px solid #e8eff3;padding:0 0 11px
+}
+#data-subachoque .ds4-measure>div{min-width:0;flex:1}
+#data-subachoque .ds4-measure strong{display:block;color:#173b50;
+ font-size:13px;line-height:1.35;overflow-wrap:anywhere}
+#data-subachoque .ds4-measure small{display:block;margin-top:4px;
+ font-size:11px;color:#617e8e;line-height:1.4}
+#data-subachoque .ds4-measure-value{text-align:right;flex:0 1 46%;
+ color:#0d4e6c;font-size:14px;line-height:1.35;font-weight:850;
+ font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+#data-subachoque .ds4-links{display:flex;flex-wrap:wrap;gap:9px;
+ margin-top:17px;padding-top:12px;border-top:1px solid #e3eef2}
+#data-subachoque .ds4-links a{display:inline-flex;padding:8px 11px;
+ border-radius:9px;background:#edf7fa;border:1px solid #bfdce6;
+ text-decoration:none;color:#17536b;font-size:12px;line-height:1.4;
+ font-weight:750;overflow-wrap:anywhere}
+#data-subachoque .ds4-links a:hover{background:#dceef5}
+#data-subachoque .ds4-footnote{padding:10px 24px 17px!important;margin:0!important;
+ font-size:11px;line-height:1.55;color:#537184;background:#e5f2f7}
+#data-subachoque .k23-search-results .k23-result{display:block}
+html.ti-data-embed #data-subachoque{background:#082b3e!important;color:#fff!important}
+html.ti-data-embed #data-subachoque .k23-hero,
+html.ti-data-embed #data-subachoque .k23-body{background:#082b3e!important}
+html.ti-data-embed #data-subachoque #ds4-main-title{color:#fff!important;
+ font-family:Arial,Helvetica,sans-serif!important}
+html.ti-data-embed #data-subachoque :is(.k23-overline,.k23-dim-copy strong){font-family:Arial,Helvetica,sans-serif!important}
+html.ti-data-embed #data-subachoque #ds4-topic-title,
+html.ti-data-embed #data-subachoque .ds4-level h3{font-family:Arial,Helvetica,sans-serif!important}
+@media(max-width:1250px){
+ #data-subachoque .ds4-levels{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #data-subachoque .k23-dims{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:750px){
+ #data-subachoque .k23-dims{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #data-subachoque .ds4-levels{grid-template-columns:1fr}
+ #data-subachoque .k23-filter-line{flex-wrap:wrap}
+ #data-subachoque .k23-filter-title{flex:1 1 100%!important}
+ #data-subachoque .k23-areas,#data-subachoque .k23-topics-list{
+  flex:1 1 0;min-width:0;width:100%
+ }
+ #data-subachoque .k23-filter-categories .k23-search-popover{margin-left:auto}
+ #data-subachoque .ds4-detail{padding:12px}
+ #data-subachoque .k23-dim{min-height:86px!important}
+}
+@media(max-width:440px){
+ #data-subachoque .k23-dims{grid-template-columns:1fr!important}
+ #data-subachoque .ds4-level{padding:15px}
+ #data-subachoque .ds4-measure{flex-direction:column}
+ #data-subachoque .ds4-measure-value{text-align:left}
+}

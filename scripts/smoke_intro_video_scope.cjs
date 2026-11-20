@@ -81,7 +81,7 @@ async function checkData(page,mode,out){
   await page.evaluate(()=>selectDataPanel('data-explorando'));
   assert.equal(await page.locator('#ex-map').count(),1,'Mapa de 2.4 perdido');
   await page.evaluate(()=>selectDataPanel('data-subachoque'));
-  assert.equal(await page.locator('#ds3-dimensions').count(),1,'Dimensiones 2.2 perdidas');
+  assert.equal(await page.locator('#ds4-dims [data-ds4-dimension]').count(),4,'Dimensiones 2.2 perdidas');
   console.log('DATA '+mode+': 2.1 video; 2.2/2.3/2.4 directas; paneles íntegros');
 }
 async function checkPlan(page,out){

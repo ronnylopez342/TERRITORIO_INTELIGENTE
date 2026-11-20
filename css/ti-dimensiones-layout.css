@@ -1,17 +1,17 @@
 /* Territorio Inteligente · Dimensiones / KoBo
- * Cambio de disposición inferior exclusivamente en #data-encuesta.
+ * Cambio de disposición inferior exclusivamente en :is(#data-encuesta,#data-subachoque).
  * La cabecera y las cuatro tarjetas superiores conservan sus reglas originales.
  * Las herramientas internas permanecen en DOM, pero no se publican en esta vista.
  */
-#data-encuesta .k23-body{
+:is(#data-encuesta,#data-subachoque) .k23-body{
   padding:12px 0 26px!important;
   background:#082b3e!important;
 }
-#data-encuesta .k23-filters{
+:is(#data-encuesta,#data-subachoque) .k23-filters{
   color:#f2f7fb;
   margin:0 0 9px;
 }
-#data-encuesta .k23-filter-line{
+:is(#data-encuesta,#data-subachoque) .k23-filter-line{
   display:flex;
   align-items:center;
   gap:15px;
@@ -19,8 +19,8 @@
   padding:10px 0;
   border-bottom:1px solid #42687a;
 }
-#data-encuesta .k23-filter-categories{border-bottom:0}
-#data-encuesta .k23-filter-title{
+:is(#data-encuesta,#data-subachoque) .k23-filter-categories{border-bottom:0}
+:is(#data-encuesta,#data-subachoque) .k23-filter-title{
   display:flex;
   align-items:center;
   gap:9px;
@@ -31,13 +31,13 @@
   font-weight:800;
   white-space:nowrap;
 }
-#data-encuesta .k23-filter-title span{
+:is(#data-encuesta,#data-subachoque) .k23-filter-title span{
   color:#cde4ed;
   font-size:24px;
   line-height:1;
 }
-#data-encuesta .k23-areas,
-#data-encuesta .k23-topics-list{
+:is(#data-encuesta,#data-subachoque) .k23-areas,
+:is(#data-encuesta,#data-subachoque) .k23-topics-list{
   display:flex!important;
   flex-direction:row!important;
   align-items:center;
@@ -54,8 +54,8 @@
   scrollbar-color:#63899d transparent;
   overscroll-behavior-inline:contain;
 }
-#data-encuesta .k23-area,
-#data-encuesta .k23-topic{
+:is(#data-encuesta,#data-subachoque) .k23-area,
+:is(#data-encuesta,#data-subachoque) .k23-topic{
   flex:0 0 auto;
   display:inline-flex!important;
   align-items:center;
@@ -76,64 +76,64 @@
   text-align:center;
   text-transform:none!important;
 }
-#data-encuesta .k23-topic{
+:is(#data-encuesta,#data-subachoque) .k23-topic{
   border-radius:26px!important;
   min-height:39px;
   padding:10px 16px!important;
 }
-#data-encuesta .k23-area:hover:not(.active),
-#data-encuesta .k23-topic:hover:not(.active){
+:is(#data-encuesta,#data-subachoque) .k23-area:hover:not(.active),
+:is(#data-encuesta,#data-subachoque) .k23-topic:hover:not(.active){
   border-color:#b4d7e2!important;
   background:#19566b!important;
 }
-#data-encuesta .k23-area.active,
-#data-encuesta .k23-topic.active{
+:is(#data-encuesta,#data-subachoque) .k23-area.active,
+:is(#data-encuesta,#data-subachoque) .k23-topic.active{
   background:#ffca31!important;
   border-color:#ffca31!important;
   color:#092b3f!important;
   font-weight:850!important;
 }
-#data-encuesta .k23-topic span:last-child{font-size:inherit!important;font-weight:inherit!important}
-#data-encuesta .k23-search-popover{flex:0 0 auto;position:relative}
-#data-encuesta .k23-search-popover summary{
+:is(#data-encuesta,#data-subachoque) .k23-topic span:last-child{font-size:inherit!important;font-weight:inherit!important}
+:is(#data-encuesta,#data-subachoque) .k23-search-popover{flex:0 0 auto;position:relative}
+:is(#data-encuesta,#data-subachoque) .k23-search-popover summary{
   display:flex;align-items:center;justify-content:center;
   list-style:none;border-radius:10px;border:1px solid #638e9e;
   background:#104052;color:#fff;font-size:24px;font-weight:800;
   height:41px;width:43px;cursor:pointer;
 }
-#data-encuesta .k23-search-popover summary::-webkit-details-marker{display:none}
-#data-encuesta .k23-search-box{
+:is(#data-encuesta,#data-subachoque) .k23-search-popover summary::-webkit-details-marker{display:none}
+:is(#data-encuesta,#data-subachoque) .k23-search-box{
   position:absolute;right:0;top:calc(100% + 8px);z-index:8;
   width:min(365px,85vw);
   padding:12px;border-radius:9px;border:1px solid #5a90a5;
   background:#0d3447;box-shadow:0 12px 30px #07172580;
 }
-#data-encuesta .k23-search-box label{
+:is(#data-encuesta,#data-subachoque) .k23-search-box label{
   color:#f5fbfe;font-size:12px;font-weight:700;display:block;margin:0 0 7px;
 }
-#data-encuesta #k23-search{
+:is(#data-encuesta,#data-subachoque) #k23-search{
   width:100%;background:#214e62;border:1px solid #6994a7;
   color:#fff;border-radius:7px;min-height:40px;padding:8px 11px;
 }
-#data-encuesta .k23-display{
+:is(#data-encuesta,#data-subachoque) .k23-display{
   overflow:hidden;
   border-radius:18px 18px 0 0;
   background:#e7f3f8;
 }
-#data-encuesta .k23-selection-path{
+:is(#data-encuesta,#data-subachoque) .k23-selection-path{
   display:flex;align-items:center;gap:12px;
   min-height:53px;padding:10px 25px;
   color:#17394e;font-size:13px;font-weight:750;
 }
-#data-encuesta .k23-selection-path>span:first-child{
+:is(#data-encuesta,#data-subachoque) .k23-selection-path>span:first-child{
   font-size:27px;line-height:1;
 }
-#data-encuesta #k23-topic-breadcrumb{
+:is(#data-encuesta,#data-subachoque) #k23-topic-breadcrumb{
   white-space:normal;
   overflow-wrap:anywhere;
   line-height:1.35;
 }
-#data-encuesta .k23-workspace{
+:is(#data-encuesta,#data-subachoque) .k23-workspace{
   display:grid!important;
   grid-template-columns:minmax(0,1.73fr) minmax(305px,1fr)!important;
   align-items:stretch!important;
@@ -141,9 +141,9 @@
   padding:0 0 0!important;
   min-width:0;
 }
-#data-encuesta .k23-chart-panel,
-#data-encuesta .k23-insight-panel,
-#data-encuesta .k23-findings-panel{
+:is(#data-encuesta,#data-subachoque) .k23-chart-panel,
+:is(#data-encuesta,#data-subachoque) .k23-insight-panel,
+:is(#data-encuesta,#data-subachoque) .k23-findings-panel{
   background:#fff!important;
   color:#143349!important;
   border:1px solid #d9e7ec!important;
@@ -151,12 +151,12 @@
   box-shadow:0 2px 9px #05324812;
   min-width:0;
 }
-#data-encuesta .k23-chart-panel{
+:is(#data-encuesta,#data-subachoque) .k23-chart-panel{
   display:flex;flex-direction:column;
   min-height:500px;
   padding:22px clamp(17px,2.3vw,33px) 14px!important;
 }
-#data-encuesta #k23-topic-title{
+:is(#data-encuesta,#data-subachoque) #k23-topic-title{
   font-size:clamp(26px,2.4vw,38px)!important;
   color:#0a2e45!important;
   font-weight:900!important;
@@ -165,36 +165,36 @@
   letter-spacing:-.03em!important;
   text-transform:none!important;
 }
-#data-encuesta #k23-metric-title{
+:is(#data-encuesta,#data-subachoque) #k23-metric-title{
   font-size:clamp(13px,.96vw,16px)!important;
   line-height:1.45!important;
   color:#27465b!important;
   margin:0 0 4px!important;
   font-weight:600!important;
 }
-#data-encuesta #k23-scope{
+:is(#data-encuesta,#data-subachoque) #k23-scope{
   font-size:11px!important;
   color:#708694!important;
   margin:0 0 12px!important;
 }
-#data-encuesta .k23-metric-selector{
+:is(#data-encuesta,#data-subachoque) .k23-metric-selector{
   margin:3px 0 7px;
 }
-#data-encuesta .k23-chart{
+:is(#data-encuesta,#data-subachoque) .k23-chart{
   flex:1 1 auto;
   min-height:220px;
   display:flex;flex-direction:column;justify-content:center;
   margin:5px 0 13px;
 }
-#data-encuesta .k23-bars{gap:12px}
-#data-encuesta .k23-bar-track{height:15px;background:#e9f1f5}
-#data-encuesta .k23-bar-row>small{font-size:11px}
-#data-encuesta .k23-chart-note{
+:is(#data-encuesta,#data-subachoque) .k23-bars{gap:12px}
+:is(#data-encuesta,#data-subachoque) .k23-bar-track{height:15px;background:#e9f1f5}
+:is(#data-encuesta,#data-subachoque) .k23-bar-row>small{font-size:11px}
+:is(#data-encuesta,#data-subachoque) .k23-chart-note{
   margin:12px 0 0!important;
   font-size:11px;color:#6a8392;
   line-height:1.45;
 }
-#data-encuesta .k23-summary{
+:is(#data-encuesta,#data-subachoque) .k23-summary{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   align-items:stretch;
@@ -203,25 +203,25 @@
   background:#e8f3f9;
   padding:8px 5px;
 }
-#data-encuesta .k23-summary-item{
+:is(#data-encuesta,#data-subachoque) .k23-summary-item{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:2px;min-width:0;text-align:center;padding:7px 12px;
   border-right:1px solid #a9c7d8;
 }
-#data-encuesta .k23-summary-item:last-child{border-right:0}
-#data-encuesta .k23-summary-item>span{
+:is(#data-encuesta,#data-subachoque) .k23-summary-item:last-child{border-right:0}
+:is(#data-encuesta,#data-subachoque) .k23-summary-item>span{
   font-size:11px;font-weight:700;color:#39566b;
 }
-#data-encuesta .k23-summary-item>strong{
+:is(#data-encuesta,#data-subachoque) .k23-summary-item>strong{
   font-size:clamp(16px,1.4vw,23px);
   font-weight:900;line-height:1.16;
   color:#0b304c;
   overflow-wrap:anywhere;
 }
-#data-encuesta .k23-summary-item>small{
+:is(#data-encuesta,#data-subachoque) .k23-summary-item>small{
   font-size:10px;color:#687f90;line-height:1.3;
 }
-#data-encuesta .k23-source-foot{
+:is(#data-encuesta,#data-subachoque) .k23-source-foot{
   margin:10px 0 0!important;
   padding-top:7px;
   border-top:1px solid #dfecf3;
@@ -229,17 +229,17 @@
   font-size:11px;
   line-height:1.45;
 }
-#data-encuesta .k23-analysis-stack{
+:is(#data-encuesta,#data-subachoque) .k23-analysis-stack{
   min-width:0;
   display:grid;
   grid-template-rows:minmax(0,1fr) minmax(0,1fr);
   gap:12px;
 }
-#data-encuesta .k23-insight-panel,
-#data-encuesta .k23-findings-panel{
+:is(#data-encuesta,#data-subachoque) .k23-insight-panel,
+:is(#data-encuesta,#data-subachoque) .k23-findings-panel{
   padding:23px clamp(17px,2vw,29px)!important;
 }
-#data-encuesta .k23-analysis-stack h3{
+:is(#data-encuesta,#data-subachoque) .k23-analysis-stack h3{
   display:flex;align-items:center;gap:11px;
   color:#0c2c45!important;
   font-size:clamp(18px,1.38vw,23px)!important;
@@ -249,51 +249,51 @@
   margin:0 0 18px!important;
   text-transform:none!important;
 }
-#data-encuesta .k23-insight-icon{
+:is(#data-encuesta,#data-subachoque) .k23-insight-icon{
   display:flex;align-items:center;justify-content:center;
   width:39px;height:39px;flex:0 0 39px;
   border-radius:9px;background:#dfedf8;
   color:#086ca6;font-size:24px;
   line-height:1;
 }
-#data-encuesta .k23-insight{gap:11px}
-#data-encuesta .k23-insight p{
+:is(#data-encuesta,#data-subachoque) .k23-insight{gap:11px}
+:is(#data-encuesta,#data-subachoque) .k23-insight p{
   font-size:clamp(12px,.89vw,14px)!important;
   color:#304a5b!important;
   line-height:1.58!important;
   margin:0!important;
 }
-#data-encuesta .k23-data-badge{font-size:10px}
-#data-encuesta .k23-important{
+:is(#data-encuesta,#data-subachoque) .k23-data-badge{font-size:10px}
+:is(#data-encuesta,#data-subachoque) .k23-important{
   padding:10px!important;
   background:#f4f9fb!important;
   border-left:3px solid #9dd2ea;
 }
-#data-encuesta .k23-important strong{font-size:12px}
-#data-encuesta .k23-important p{font-size:12px!important}
-#data-encuesta .k23-findings{
+:is(#data-encuesta,#data-subachoque) .k23-important strong{font-size:12px}
+:is(#data-encuesta,#data-subachoque) .k23-important p{font-size:12px!important}
+:is(#data-encuesta,#data-subachoque) .k23-findings{
   margin:0;padding:0;list-style:none;
   display:flex;flex-direction:column;gap:15px;
 }
-#data-encuesta .k23-findings li{
+:is(#data-encuesta,#data-subachoque) .k23-findings li{
   display:flex;align-items:flex-start;gap:11px;
   color:#264458;font-size:clamp(12px,.93vw,14px);
   line-height:1.5;
   overflow-wrap:anywhere;
 }
-#data-encuesta .k23-check{
+:is(#data-encuesta,#data-subachoque) .k23-check{
   display:flex;align-items:center;justify-content:center;
   background:#37a041;color:#fff;font-weight:850;
   border-radius:50%;
   flex:0 0 22px;width:22px;height:22px;
   line-height:1;
 }
-#data-encuesta #k23-meta[hidden],
-#data-encuesta #k23-gaps[hidden],
-#data-encuesta .k23-tools[hidden]{
+:is(#data-encuesta,#data-subachoque) #k23-meta[hidden],
+:is(#data-encuesta,#data-subachoque) #k23-gaps[hidden],
+:is(#data-encuesta,#data-subachoque) .k23-tools[hidden]{
   display:none!important;
 }
-#data-encuesta .k23-disclaimer{
+:is(#data-encuesta,#data-subachoque) .k23-disclaimer{
   color:#c1d3dc!important;
   background:#082b3e!important;
   font-size:11px!important;
@@ -301,26 +301,26 @@
   padding:13px 0 0;
   margin:0!important;
 }
-#data-encuesta .k23-load{margin-top:9px}
+:is(#data-encuesta,#data-subachoque) .k23-load{margin-top:9px}
 @media(max-width:1150px){
-  #data-encuesta .k23-workspace{grid-template-columns:minmax(0,1.45fr) minmax(275px,1fr)!important}
-  #data-encuesta .k23-filter-title{flex-basis:95px}
+  :is(#data-encuesta,#data-subachoque) .k23-workspace{grid-template-columns:minmax(0,1.45fr) minmax(275px,1fr)!important}
+  :is(#data-encuesta,#data-subachoque) .k23-filter-title{flex-basis:95px}
 }
 @media(max-width:860px){
-  #data-encuesta .k23-workspace{grid-template-columns:minmax(0,1fr)!important}
-  #data-encuesta .k23-analysis-stack{grid-template-rows:auto;grid-template-columns:repeat(2,minmax(0,1fr))}
-  #data-encuesta .k23-chart-panel{min-height:420px}
+  :is(#data-encuesta,#data-subachoque) .k23-workspace{grid-template-columns:minmax(0,1fr)!important}
+  :is(#data-encuesta,#data-subachoque) .k23-analysis-stack{grid-template-rows:auto;grid-template-columns:repeat(2,minmax(0,1fr))}
+  :is(#data-encuesta,#data-subachoque) .k23-chart-panel{min-height:420px}
 }
 @media(max-width:600px){
-  #data-encuesta .k23-filter-line{display:block;padding:11px 0;min-height:0}
-  #data-encuesta .k23-filter-title{display:flex;margin:0 0 9px;font-size:13px}
-  #data-encuesta .k23-filter-categories{position:relative;padding-right:48px}
-  #data-encuesta .k23-search-popover{position:absolute;right:0;bottom:10px}
-  #data-encuesta .k23-area,#data-encuesta .k23-topic{font-size:12px!important;padding:10px 13px!important;min-width:max-content}
-  #data-encuesta .k23-selection-path{padding:9px 14px;font-size:11px}
-  #data-encuesta .k23-chart-panel,#data-encuesta .k23-insight-panel,#data-encuesta .k23-findings-panel{padding:17px!important}
-  #data-encuesta .k23-analysis-stack{grid-template-columns:1fr}
-  #data-encuesta .k23-summary-item{padding:6px 5px}
-  #data-encuesta .k23-summary-item>strong{font-size:16px}
-  #data-encuesta .k23-summary-item>span{font-size:10px}
+  :is(#data-encuesta,#data-subachoque) .k23-filter-line{display:block;padding:11px 0;min-height:0}
+  :is(#data-encuesta,#data-subachoque) .k23-filter-title{display:flex;margin:0 0 9px;font-size:13px}
+  :is(#data-encuesta,#data-subachoque) .k23-filter-categories{position:relative;padding-right:48px}
+  :is(#data-encuesta,#data-subachoque) .k23-search-popover{position:absolute;right:0;bottom:10px}
+  :is(#data-encuesta,#data-subachoque) .k23-area,:is(#data-encuesta,#data-subachoque) .k23-topic{font-size:12px!important;padding:10px 13px!important;min-width:max-content}
+  :is(#data-encuesta,#data-subachoque) .k23-selection-path{padding:9px 14px;font-size:11px}
+  :is(#data-encuesta,#data-subachoque) .k23-chart-panel,:is(#data-encuesta,#data-subachoque) .k23-insight-panel,:is(#data-encuesta,#data-subachoque) .k23-findings-panel{padding:17px!important}
+  :is(#data-encuesta,#data-subachoque) .k23-analysis-stack{grid-template-columns:1fr}
+  :is(#data-encuesta,#data-subachoque) .k23-summary-item{padding:6px 5px}
+  :is(#data-encuesta,#data-subachoque) .k23-summary-item>strong{font-size:16px}
+  :is(#data-encuesta,#data-subachoque) .k23-summary-item>span{font-size:10px}
 }
