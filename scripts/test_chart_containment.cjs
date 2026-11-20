@@ -38,19 +38,19 @@ const server=http.createServer((req,res)=>{
           await page.locator('.atlas-switch-button').nth(i).click();
           const geom=await page.evaluate(()=>{
             const bounds=selector=>{const n=document.querySelector(selector);if(!n)return null;const r=n.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,scrollWidth:n.scrollWidth,clientWidth:n.clientWidth}};
-            return {panel:bounds('#data-encuesta .k23-chart-panel'),chart:bounds('#k23-chart'),shell:bounds('#k23-chart .atlas-svg-shell'),svg:bounds('#k23-chart svg'),insight:bounds('.k23-insight-panel')};
+            return {panel:bounds('#data-encuesta .k23-chart-panel'),chart:bounds('#k23-chart'),shell:bounds('#k23-chart .kobo-static-viewport'),svg:bounds('#k23-chart img.kobo-static-sprite'),selector:bounds('#k23-metric-selector'),buttons:bounds('.atlas-switch'),title:bounds('#k23-topic-title'),insight:bounds('.k23-insight-panel')};
           });
           assert(geom.panel&&geom.chart&&geom.insight,'Chart panels must exist');
+          assert(geom.selector.bottom<geom.title.top,'Selector must be above question');
+          assert(geom.buttons.scrollWidth<=geom.buttons.clientWidth+3,'Six visible buttons without scroll');
           assert(geom.chart.left>=geom.panel.left-3&&geom.chart.right<=geom.panel.right+3,'Chart outside card '+width+' '+caseName+' '+i);
-          if(i>0){
-            assert(geom.shell&&geom.svg,'KoBo dynamic view contains SVG');
-            assert(geom.svg.width<=geom.chart.width+3,'SVG too wide '+width+' '+caseName+' view '+i+': '+geom.svg.width+'/'+geom.chart.width);
-            assert(geom.svg.right<=geom.panel.right+3,'SVG invades right card '+width+' '+caseName+' '+i);
-            assert(geom.shell.scrollWidth<=geom.shell.clientWidth+3,'SVG shell overflows '+width+' '+caseName+' '+i);
-            assert(geom.chart.scrollWidth<=geom.chart.clientWidth+3,'Chart scrolls internally '+width+' '+caseName+' '+i);
-          }
+          assert(geom.shell&&geom.svg,'KoBo PNG image must be present');
+          assert(geom.shell.width<=geom.chart.width+3,'Static PNG viewport fits card');
+          assert(geom.shell.right<=geom.panel.right+3,'Static PNG must not overlap');
+          assert.equal(await page.locator('#k23-chart svg').count(),0,'No SVG charts');
+          assert.equal(await page.locator('#k23-chart .k23-bars').count(),0,'No HTML bars');
           if(width>=1100)assert(geom.panel.right<geom.insight.left,'Left and right panels do not overlap');
-          log.push({width,caseName,view:i+1,svgWidth:Math.round(geom.svg?.width||0),chartWidth:Math.round(geom.chart.width)});
+          log.push({width,caseName,view:i+1,spriteWidth:Math.round(geom.svg?.width||0),chartWidth:Math.round(geom.chart.width)});
         }
       }
       await page.locator('#k23-topics button[data-k23-topic="atlas-G13"]').click();
@@ -68,7 +68,7 @@ const server=http.createServer((req,res)=>{
       assert.deepEqual(errors,[],'Page console errors');
       await page.close();
     }
-    console.log('CHART CONTAINMENT PASS',log.length,'dynamic graph checks, 4 widths, both KoBo metrics and original JPGs');
+    console.log('STATIC PNG CONTAINMENT PASS',log.length,'static image switches, 4 widths, both KoBo metrics and original JPGs');
     console.log('RESULTS',JSON.stringify(log.filter(x=>x.view===2)));
   }finally{await browser.close();server.close();}
 })().catch(err=>{console.error(err.stack||err);server.close();process.exit(1)});

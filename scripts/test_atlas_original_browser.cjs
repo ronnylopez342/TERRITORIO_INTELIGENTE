@@ -71,13 +71,13 @@ async function run(){
  assert(chart.width>insight.width&&findings.y>insight.y,'two stacked right panels');
  await page.locator('#k23-topics button[data-k23-topic="1.1-4"]').click();
  assert.equal(await page.locator('#k23-topic-title').innerText(),'Discapacidad');
- assert.match(await page.locator('#k23-chart').innerText(),/854/);
- assert.match(await page.locator('#k23-chart').innerText(),/73/);
+ assert.match(await page.locator('#k23-insight').innerText(),/854/);
+ assert.match(await page.locator('#k23-findings').innerText(),/73/);
  assert.match(await page.locator('#k23-source-foot').innerText(),/KoBo/);
  await page.locator('.atlas-switch-button[data-atlas-view="4"]').click();
- assert.equal(await page.locator('#k23-chart svg[role="img"]').count(),1,'KoBo dynamic circular view');
+ assert.equal(await page.locator('#k23-chart img.kobo-static-sprite').count(),1,'KoBo circular PNG image');
  await page.locator('.atlas-switch-button[data-atlas-view="0"]').click();
- assert.equal(await page.locator('#k23-chart .k23-bars').count(),1,'KoBo original bar chart restored');
+ assert.equal(await page.locator('#k23-chart img.kobo-static-sprite').count(),1,'KoBo bar PNG image');
  await page.locator('#k23-topics button[data-k23-topic="atlas-G13"]').click();
  assert.equal(await page.locator('.atlas-original-image').count(),1,'actual JPG not SVG for Atlas');
  assert.equal(await page.locator('#k23-chart svg').count(),0);

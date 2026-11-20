@@ -20,6 +20,7 @@
   const state={dim:'social',area:'1.1',topic:'1.1-1',metric:0,search:'',atlasView:0,atlasSeries:0};
   let data=null;
   let atlasManifest=null;
+  let koboSprites=null;
   function allTopics(){
     return (data?.dimensiones||[]).flatMap(d=>d.areas.flatMap(a=>a.temas.map(t=>({...t,dimId:d.id,dimName:d.nombre,areaId:a.id,areaName:a.nombre}))));
   }
@@ -262,8 +263,8 @@
   }
   function renderMetric(){
     const t=topic(),m=metric();
-    if(t?.atlas)return renderAtlas(t);
-    $('k23-chart').classList.remove('atlas-chart');
+    if(t?.atlas){$('k23-chart').classList.remove('kobo-image-chart');return renderAtlas(t);}
+    $('k23-chart').classList.remove('atlas-chart','kobo-image-chart');
     if(!t||!m){
       $('k23-topic-title').textContent=area()?.nombre||'Sin indicadores';
       $('k23-topic-breadcrumb').textContent=dim().nombre+'  ›  '+area().nombre;
@@ -293,24 +294,32 @@
     const values=getMetricLabels(m);
     const focused=values.find(v=>v.label===m.focusCategory);
     const units=m.unit==='personas registradas'?'personas registradas':'encuestas respondidas';
-    const originalBars=values.length?'<div class="k23-bars" role="list" aria-label="Distribución agregada de respuestas">'+
-      values.map(row=>{
-        const isFocus=Boolean(focused&&row.label===focused.label);
-        return '<div class="k23-bar-row'+(isFocus?' k23-bar-focus':'')+'" role="listitem"><div class="k23-bar-top"><span>'+esc(row.label)+
-        '</span><strong>'+num(row.pct)+' %</strong></div><div class="k23-bar-track" aria-label="'+num(row.count)+
-        ' registros"><span style="width:'+Math.min(100,Math.max(0,row.pct))+'%;background:'+(isFocus?'#e6b522':row.color)+'"></span></div>'+
-        '<small>'+num(row.count)+' '+esc(units)+'</small></div>';
-      }).join('')+'</div><p class="k23-chart-note">'+(m.type==='multi'?
-      'Respuesta múltiple: cada participante puede escoger varias opciones, por lo que los porcentajes pueden sumar más del 100 %.':
-      'Porcentaje calculado exclusivamente sobre las respuestas válidas de esta pregunta.')+'</p>':
-      '<p role="status">No hay opciones publicables para esta pregunta.</p>';
-    if(state.atlasView===0||!values.length){
-      $('k23-chart').innerHTML=originalBars;
+    // Pre-rendered PNG sheets for KoBo. Visitors only load an <img>; they
+    // never construct SVG, canvas or HTML bars while switching views.
+    const entry=koboSprites?.sprites?.[m.id];
+    const valid=entry&&typeof entry.path==='string'&&
+      /^assets\/kobo-static\/[a-zA-Z0-9_-]+[.]png$/.test(entry.path)&&
+      entry.path==='assets/kobo-static/'+m.id+'.png';
+    $('k23-chart').classList.add('kobo-image-chart');
+    if(valid&&values.length){
+      const column=state.atlasView%2, row=Math.floor(state.atlasView/2);
+      const view=['Barras','Puntos','Proporciones','Mosaico','Circular','Columnas'][state.atlasView];
+      $('k23-chart').innerHTML=
+        '<figure class="kobo-static-figure">'+
+        '<div class="kobo-static-viewport" role="img" aria-label="'+
+          esc(view+' · '+m.title+' · '+m.unit)+'">'+
+        '<img class="kobo-static-sprite" src="'+esc(entry.path)+'" '+
+          'style="left:-'+(column*100)+'%;top:-'+(row*100)+'%;" '+
+          'alt="" loading="eager" decoding="async"></div>'+
+        '<figcaption>Imagen PNG estática de agregados KoBo · Vista '+
+          (state.atlasView+1)+' de 6. '+
+          (m.type==='multi'?
+            'Composiciones basadas en selecciones publicadas, no en personas.':
+            'Porcentajes calculados sobre la base específica de esta pregunta.')+
+        '</figcaption></figure>';
     }else{
-      const stat=['KoBo',m.title,'','',m.n,m.n,m.n,0,'','',[[m.title,
-        values.map(v=>[v.label,v.count,v.pct,0])]]];
-      $('k23-chart').innerHTML=window.TIAtlasVistas.render(stat,state.atlasView,0)+
-        '<p class="k23-chart-note">Vista dinámica de los mismos agregados KoBo. Los porcentajes publicados se calculan sobre la base específica de la pregunta; las composiciones se normalizan sobre las marcas mostradas.</p>';
+      $('k23-chart').innerHTML='<p role="status" class="kobo-image-error">'+
+        'Imagen PNG del indicador no disponible. Las respuestas y el análisis permanecen conservados.</p>';
     }
     const sorted=values.slice().sort((a,b)=>b.count-a.count);
     const biggest=sorted[0],second=sorted[1];
@@ -445,6 +454,7 @@
   const atlasRequest=optionalJSON('data/subachoque-atlas-41.json');
   const taxonomyRequest=optionalJSON('data/atlas-taxonomia-oficial.json');
   const imagesRequest=optionalJSON('data/atlas-original-manifest.json');
+  const koboSpritesRequest=optionalJSON('data/kobo-static-sprites.json');
   load().then(async loaded=>{
     if(loaded.v!==2||loaded.nEncuestas!==324||loaded.dimensiones?.length!==4||loaded.dimensiones[3]?.id!=='percepcion')
       throw Error('La estructura de la caracterización no pasó las verificaciones.');
@@ -452,7 +462,9 @@
     const metrics=items.flatMap(t=>t.metrics);
     if(items.length!==48||metrics.length!==49||(loaded.notMeasured?.social?.length+loaded.notMeasured?.economica?.length+loaded.notMeasured?.ambiental?.length)!==53||metrics.some(m=>!Number.isInteger(m.n)||m.n<15||!m.q||!m.title||!m.universe||!m.questionLabel))
       throw Error('Los indicadores agregados no pasaron las verificaciones de integridad.');
-    const [atlas,taxonomy,images]=await Promise.all([atlasRequest,taxonomyRequest,imagesRequest]);
+    const [atlas,taxonomy,images,raster]=await Promise.all([atlasRequest,taxonomyRequest,imagesRequest,koboSpritesRequest]);
+    koboSprites=raster?.version===1&&raster?.frameWidth===1200&&raster?.frameHeight===640&&
+      Object.keys(raster.sprites||{}).length===49?raster:null;
     atlasManifest=images?.questions&&Object.keys(images.questions).length===41?images:null;
     if(taxonomy){
       try{
