@@ -1,4 +1,4 @@
-/* Selector superior e imagenes guardadas. Scope exclusivo: Caracterizacion. */
+/* Selector superior para JPG originales del notebook; KoBo como tabla de datos. */
 #data-encuesta .k23-chart-panel{min-width:0;overflow:hidden;background:#fff!important}
 #data-encuesta #k23-metric-selector{
   display:block;width:100%;min-width:0;padding:0!important;margin:0 0 38px!important
@@ -41,33 +41,59 @@
 #data-encuesta #k23-topic-title{margin:0 0 5px!important}
 #data-encuesta #k23-metric-title{margin:0 0 3px!important}
 #data-encuesta #k23-scope{margin:0 0 18px!important}
-/* One PNG sprite contains six PRE-RENDERED charts (2 columns x 3 rows).
-   The selected frame is clipped; no browser SVG/canvas/bar rendering occurs. */
-#data-encuesta #k23-chart.kobo-image-chart{
-  display:block!important;width:100%;max-width:100%;min-width:0;
-  margin:9px 0 14px!important;background:#fff!important;overflow:hidden!important
+/* KoBo preserves the aggregated survey numbers without synthesizing charts
+   when no exact JPG was supplied for the question. */
+#data-encuesta #k23-chart.kobo-tabular-chart{
+  width:100%!important;max-width:100%!important;min-width:0;
+  padding:0;margin:15px 0 12px!important;overflow:hidden!important;
+  background:#fff!important
 }
-#data-encuesta .kobo-static-figure{
-  display:block;width:100%;max-width:100%;min-width:0;padding:0;margin:0;background:#fff
+#data-encuesta .kobo-results-panel{
+  box-sizing:border-box;width:100%;max-width:100%;min-width:0;
+  border:1px solid #d9e7ee;border-radius:13px;
+  padding:22px 24px 20px;background:#fbfdfe;color:#173b50
 }
-#data-encuesta .kobo-static-viewport{
-  display:block;position:relative;box-sizing:border-box;
-  width:100%;max-width:100%;min-width:0;aspect-ratio:1200 / 640;
-  overflow:hidden;background:#fff;border:1px solid #e4edf1;border-radius:8px
+#data-encuesta .kobo-results-panel h3{
+  font-size:20px!important;line-height:1.4;
+  font-weight:800!important;margin:0 0 7px!important;color:#12364b!important
 }
-#data-encuesta #k23-chart .kobo-static-sprite{
-  position:absolute!important;display:block!important;
-  box-sizing:content-box!important;width:200%!important;height:300%!important;
-  min-width:0!important;max-width:none!important;min-height:0!important;max-height:none!important;
-  margin:0!important;padding:0!important;border:0!important;border-radius:0!important;
-  object-fit:fill!important;pointer-events:none;user-select:none;-webkit-user-drag:none
+#data-encuesta .kobo-results-intro,
+#data-encuesta .kobo-results-note{
+  margin:0 0 16px;font-size:13px;line-height:1.55;color:#54728a
 }
-#data-encuesta .kobo-static-figure figcaption{
-  margin:10px 0 0;color:#648095;font-size:11px;line-height:1.5;text-align:left
+#data-encuesta .kobo-results-table{
+  box-sizing:border-box;width:100%;min-width:0;
+  table-layout:fixed;border-collapse:collapse;font-size:14px;
+  text-align:left;color:#12344b;background:#fff
 }
-#data-encuesta .kobo-image-error{
-  margin:20px 0;padding:18px;color:#54778d;border:1px solid #d9e7ee;
-  border-radius:10px;background:#f6fafb
+#data-encuesta .kobo-results-table th,
+#data-encuesta .kobo-results-table td{
+  box-sizing:border-box;padding:12px 13px;
+  border-bottom:1px solid #dde8ee;overflow-wrap:anywhere
+}
+#data-encuesta .kobo-results-table thead th{
+  font-size:12px;font-weight:800;color:#294e65;background:#eaf3f7
+}
+#data-encuesta .kobo-results-table td{
+  text-align:right;font-variant-numeric:tabular-nums
+}
+#data-encuesta .kobo-results-table th:first-child{width:54%}
+#data-encuesta .kobo-results-table tbody tr:last-child>*{border-bottom:0}
+#data-encuesta .kobo-original-related{
+  margin-top:18px;padding:15px 17px;border-radius:10px;background:#eff7fb
+}
+#data-encuesta .kobo-original-related p{
+  font-size:13px;line-height:1.5;margin:0 0 12px;color:#335469
+}
+#data-encuesta .kobo-original-link{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:43px;padding:9px 17px;border:1px solid #1c5770;
+  border-radius:9px;background:#0d4561;color:#fff;
+  font-size:13px;font-weight:750;cursor:pointer
+}
+#data-encuesta .kobo-original-link:hover{background:#09334c}
+#data-encuesta .kobo-original-link:focus-visible{
+  outline:3px solid #efc321;outline-offset:3px
 }
 @media(max-width:1450px){
   #data-encuesta .atlas-switch{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -78,7 +104,7 @@
   #data-encuesta #k23-metric-selector{margin-bottom:25px!important}
   #data-encuesta .atlas-selector-label{font-size:15px!important}
   #data-encuesta .atlas-switch-button{min-height:47px!important;font-size:12px!important}
-  #data-encuesta .atlas-switch-button svg{
+  #data-encuesta .kobo-results-panel{padding:14px 12px}\n  #data-encuesta .kobo-results-table{font-size:12px}\n  #data-encuesta .kobo-results-table th,\n  #data-encuesta .kobo-results-table td{padding:10px 7px}\n  #data-encuesta .atlas-switch-button svg{
     width:18px!important;height:18px!important;flex-basis:18px!important
   }
 }

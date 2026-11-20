@@ -1,54 +1,43 @@
 'use strict';
+/* The Atlas must be read from its source JPGs. No chart-generation fallback. */
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
-const vm=require('node:vm');
+const crypto=require('node:crypto');
 const atlas=JSON.parse(fs.readFileSync('data/subachoque-atlas-41.json','utf8'));
+const manifest=JSON.parse(fs.readFileSync('data/atlas-original-manifest.json','utf8'));
+const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 assert.equal(atlas.v,1);
 assert.equal(atlas.q.length,41);
-assert.equal(new Set(atlas.q.map(q=>q[0])).size,41);
+assert.equal(Object.keys(manifest.questions).length,41);
 assert(!atlas.q.some(q=>q[0]==='G36'));
-const dims=atlas.q.reduce((x,q)=>(x[q[2]]=(x[q[2]]||0)+1,x),{});
-assert.deepEqual(dims,{ambiental:13,social:13,percepcion:10,economica:5});
-const env={window:{}};
-vm.runInNewContext(fs.readFileSync('js/atlas-vistas.js','utf8'),env);
-const renderer=env.window.TIAtlasVistas;
-assert.equal(renderer.LABELS.length,6);
-let count=0,multi=0;
+const counts=atlas.q.reduce((m,q)=>(m[q[2]]=(m[q[2]]||0)+1,m),{});
+assert.deepEqual(counts,{ambiental:13,social:13,percepcion:10,economica:5});
+let original=0,series=0;
 for(const q of atlas.q){
- assert.equal(q.length,11,q[0]);
- assert(q[10].length>0);
- assert(q[10].every(s=>s[1].length>0));
- if(q[10].length>1)multi++;
+ assert.equal(q.length,11);
+ assert(q[10].length>=1);
+ series+=q[10].length;
+ const v=manifest.questions[q[0]];
+ assert(v&&v.views.length===6);
  for(let i=0;i<6;i++){
-   const html=renderer.render(q,i,0);
-   assert.match(html,/<svg\b/);
-   assert.match(html,/fill="#FFFFFF"/);
-   assert.match(html,/role="img"/);
-   assert(html.includes(q[0]));
-   assert(!html.includes('NaN')&&!html.includes('undefined'));
-   count++;
+  const f=v.views[i];
+  assert.match(f,/^assets\/atlas-original\/G\d\d\/G\d\d_\d\d_[a-z0-9_]+\.jpg$/);
+  assert(fs.existsSync(f),f);
+  assert.equal(sha(fs.readFileSync(f)),v.sha256[i],f);
+  original++;
  }
- for(let j=1;j<q[10].length;j++){
-   const html=renderer.render(q,3,j);
-   assert.match(html,/<svg\b/);
- }
+ assert(fs.existsSync(v.panel));
+ assert.equal(sha(fs.readFileSync(v.panel)),v.panelSha256);
 }
-assert.equal(count,246);
-assert.equal(multi,2,'G27 and G32 must preserve both series');
 const g13=atlas.q.find(q=>q[0]==='G13');
-assert.equal(g13[6],965);
-assert.equal(g13[7],6);
+assert.equal(g13[6],965);assert.equal(g13[7],6);
 assert.equal(g13[10][0][1][0][1],905);
-const g42=atlas.q.find(q=>q[0]==='G42');
-assert.equal(g42[4],59);
-assert.equal(g42[7],4);
-assert.equal(g42[2],'ambiental');
-assert.equal(g42[3],'3.2');
-assert(!fs.readFileSync('index.html','utf8').includes('src="js/atlas-vistas.js'));
-assert(!fs.readFileSync('js/caracterizacion-kobo.js','utf8').includes('TIAtlasVistas.render'));
-const pngManifest=JSON.parse(fs.readFileSync('data/kobo-static-sprites.json','utf8'));
-assert.equal(Object.keys(pngManifest.sprites).length,49);
-assert.equal(pngManifest.views.length,6);
-const css=fs.readFileSync('css/atlas-vistas.css','utf8');
-assert.match(css,/background:#FFFFFF!important/);
-console.log('ATLAS 41 PASS: 41 indicators, 246 variants, 4 dimensions, 2 multisets, original vs estimated recorded.');
+assert.equal(atlas.q.filter(q=>q[10].length>1).length,2);
+const js=fs.readFileSync('js/caracterizacion-kobo.js','utf8');
+const html=fs.readFileSync('index.html','utf8');
+assert(!js.includes('TIAtlasVistas.render'),'No runtime chart generator');
+assert(!js.includes('kobo-static-sprites'),'No generated Kobo PNGs');
+assert(!html.includes('js/atlas-vistas.js'),'No SVG module loaded');
+assert(!html.includes('css/atlas-vistas.css'),'No deprecated generator CSS loaded');
+assert.equal(original,246);
+console.log('ATLAS ORIGINAL JPG PASS: 41 indicators, 246 JPGs, 41 panels, hashes verified; no runtime chart generation.');

@@ -57,7 +57,7 @@ async function run(){
  assert.equal(await page.locator('#k23-dims button').count(),4,'four dimensions');
  assert.equal(await page.locator('#k23-areas button').count(),6,'six social areas');
  assert.equal(await page.locator('.k23-summary').count(),0,'old summary removed');
- assert.equal(await page.locator('.atlas-switch-button').count(),6,'six chart selectors on KoBo');
+ assert.equal(await page.locator('.atlas-switch-button').count(),6,'six original JPG chart selectors');
  assert.equal(await page.locator('.atlas-switch-button.active').count(),1);
  assert.equal(await page.locator('.atlas-selector-label').innerText(),'Tipo de gráfica:');
  const dims=await page.locator('#k23-dims').boundingBox();
@@ -69,19 +69,29 @@ async function run(){
  assert(dims.y<area.y&&area.y<topic.y&&topic.y<chart.y,'header and filters preserved');
  assert(chart.x<insight.x&&chart.x<findings.x,'chart left, analytics right');
  assert(chart.width>insight.width&&findings.y>insight.y,'two stacked right panels');
+ // Default is the authentic G13 JPG. The related KoBo 899 result is NOT
+ // relabeled as the Atlas G13 count of 905.
+ assert.equal(await page.locator('#k23-topic-title').innerText(),'Aseguramiento');
+ assert.equal(await page.locator('#k23-atlas-image').count(),1);
+ await page.locator('#k23-atlas-image').evaluate(img=>img.decode());
+ await page.locator('#k23-topics button[data-k23-topic="1.1-1"]').click();
+ assert.equal(await page.locator('#k23-chart .kobo-results-table').count(),1);
+ assert.match(await page.locator('#k23-chart').innerText(),/899/);
+ assert.equal(await page.locator('#k23-chart img').count(),0,'No fabricated KoBo image');
+ assert.equal(await page.locator('.atlas-switch-button').count(),0,'KoBo has no invented six JPGs');
+ await page.locator('#k23-chart button[data-k23-topic="atlas-G13"]').click();
+ assert.equal(await page.locator('#k23-atlas-image').count(),1,'Link opens related original JPG');
  await page.locator('#k23-topics button[data-k23-topic="1.1-4"]').click();
  assert.equal(await page.locator('#k23-topic-title').innerText(),'Discapacidad');
- assert.match(await page.locator('#k23-insight').innerText(),/854/);
- assert.match(await page.locator('#k23-findings').innerText(),/73/);
+ assert.equal(await page.locator('#k23-chart .kobo-results-table').count(),1);
+ assert.match(await page.locator('#k23-chart').innerText(),/854/);
+ assert.match(await page.locator('#k23-chart').innerText(),/73/);
+ assert.equal(await page.locator('#k23-chart svg, #k23-chart img, #k23-chart .k23-bars').count(),0);
  assert.match(await page.locator('#k23-source-foot').innerText(),/KoBo/);
- await page.locator('.atlas-switch-button[data-atlas-view="4"]').click();
- assert.equal(await page.locator('#k23-chart img.kobo-static-sprite').count(),1,'KoBo circular PNG image');
- await page.locator('.atlas-switch-button[data-atlas-view="0"]').click();
- assert.equal(await page.locator('#k23-chart img.kobo-static-sprite').count(),1,'KoBo bar PNG image');
  await page.locator('#k23-topics button[data-k23-topic="atlas-G13"]').click();
  assert.equal(await page.locator('.atlas-original-image').count(),1,'actual JPG not SVG for Atlas');
  assert.equal(await page.locator('#k23-chart svg').count(),0);
- assert.match(await page.locator('#k23-topic-title').innerText(),/afiliadas/i);
+ assert.match(await page.locator('#k23-topic-title').innerText(),/Aseguramiento/i);
  for(let i=0;i<6;i++){
    await page.locator('.atlas-switch-button[data-atlas-view="'+i+'"]').click();
    const expected=manifest.questions.G13.views[i].split('/').pop();
