@@ -1,0 +1,52 @@
+name: Materializar 294 vistas KoBo como 49 PNG
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_kobo_sprite_images.py'
+      - 'data/caracterizacion-kobo-2026-agregados.gz.b64'
+      - '.github/workflows/materialize-kobo-static.yml'
+permissions:
+  contents: write
+concurrency:
+  group: ti-materialize-kobo-static
+  cancel-in-progress: false
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact main
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: true
+      - name: Install only offline build dependency
+        run: |
+          python3 -m venv /tmp/kobo-png-builder
+          /tmp/kobo-png-builder/bin/pip install --disable-pip-version-check pillow==12.0.0
+      - name: Generate 294 static KoBo views and manifest
+        run: /tmp/kobo-png-builder/bin/python scripts/build_kobo_sprite_images.py
+      - name: Verify 49 image files, one for each public KoBo metric
+        run: |
+          /tmp/kobo-png-builder/bin/python - <<'PY'
+          import hashlib,json,pathlib
+          d=json.load(open('data/kobo-static-sprites.json'))
+          assert len(d['sprites'])==49
+          assert len(d['views'])==6
+          for meta in d['sprites'].values():
+              p=pathlib.Path(meta['path'])
+              assert p.is_file()
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==meta['sha256']
+          print('PASS: 49 real PNG images, 294 selectable views, hashes valid')
+          PY
+      - name: Commit static assets without overwriting existing content
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets/kobo-static data/kobo-static-sprites.json
+          if git diff --cached --quiet; then
+            echo "KoBo static PNGs already materialized"
+          else
+            git commit -m "assets(kobo): publish 294 static PNG views for 49 aggregate metrics"
+            git push origin HEAD:main
+          fi
