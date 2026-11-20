@@ -203,6 +203,34 @@
         series.map((entry,i)=>'<option value="'+i+'"'+(i===state.atlasSeries?' selected':'')+'>'+
         esc(entry[0].replaceAll('_',' '))+'</option>').join('')+'</select></div>':'');
   }
+  // The original 100%-stacked JPGs have text-overlap in their embedded
+  // legends (confirmed in G13, G07 and others). Never change the source JPG;
+  // mask only the defective legend band and read labels from the immutable
+  // published dataset, independently of the source image.
+  const STACKED_LEGEND_IDS=new Set([
+    'G01','G05','G07','G11','G13','G15',
+    'G20','G23','G28','G29','G30','G34'
+  ]);
+  const percentTicks='<span>0 %</span><span>20 %</span><span>40 %</span>'+
+    '<span>60 %</span><span>80 %</span><span>100 %</span>';
+  const axisMask='<span class="atlas-composition-mask" aria-hidden="true">'+
+    '<span class="atlas-composition-ticks">'+percentTicks+'</span></span>';
+  function correctedLegend(rows){
+    const palette=['#226b55','#629782','#8baba0','#abc8b9','#648c79','#c9ddcd'];
+    const visible=rows.filter(r=>Number(r[1])>=5);
+    const items=visible.map((r,i)=>
+      '<li class="atlas-legible-item"><span class="atlas-swatch" style="--atlas-swatch:'+
+      palette[i%palette.length]+'" aria-hidden="true"></span><span><strong>'+
+      esc(String(r[0]||'').replaceAll('_',' '))+'</strong> · '+num(r[1])+
+      ' ('+pct(r[2])+' %)</span></li>').join('');
+    const suppressed=rows.some(r=>Number(r[1])<5);
+    return '<section class="atlas-legible-legend" aria-label="Leyenda legible de la gráfica">'+
+      '<p>Resultados de la gráfica · categorías publicadas</p>'+
+      '<ul>'+items+'</ul>'+
+      (suppressed?'<small>Por privacidad, los desgloses inferiores a cinco registros no se repiten en esta leyenda.</small>':'')+
+      '</section>';
+  }
+
   function renderAtlas(t){
     const q=t.atlas,id=q[0],meta=atlasManifest?.questions?.[id];
     const series=q[10]||[];
@@ -227,12 +255,19 @@
     const safeSource=typeof source==='string'&&
       new RegExp('^assets/atlas-original/'+id+'/'+id+'_[0-9]{2}_[a-z0-9_]+[.]jpg$').test(source);
     if(safeSource){
+      const legendNeedsRepair=state.atlasView===2&&STACKED_LEGEND_IDS.has(id);
+      const imageMarkup='<img id="k23-atlas-image" class="atlas-original-image" src="'+esc(source)+'" '+
+        'alt="Gráfica original '+esc(id)+' · '+esc(q[1])+' · '+(state.atlasView+1)+' de seis" '+
+        'loading="eager" decoding="async" />';
       $('k23-chart').innerHTML='<figure class="atlas-original-figure">'+
         '<button type="button" class="atlas-image-open" data-atlas-open="1" aria-label="Ampliar la gráfica original de '+esc(id)+'">'+
-        '<img id="k23-atlas-image" class="atlas-original-image" src="'+esc(source)+'" '+
-        'alt="Gráfica original '+esc(id)+' · '+esc(q[1])+' · '+(state.atlasView+1)+' de seis" '+
-        'loading="eager" decoding="async" /></button>'+
-        '<figcaption>Imagen original del notebook · '+(state.atlasView+1)+' de 6 · Haz clic para ampliar</figcaption></figure>';
+        (legendNeedsRepair?'<span class="atlas-composition-image-frame">'+imageMarkup+axisMask+'</span>':imageMarkup)+
+        '</button>'+
+        (legendNeedsRepair?correctedLegend(valid):'')+
+        '<figcaption>Imagen original del notebook · '+(state.atlasView+1)+
+        ' de 6 · Haz clic para ampliar'+
+        (legendNeedsRepair?' · Leyenda corregida en la presentación, JPG original intacto':'')+
+        '</figcaption></figure>';
       const next=meta.views[(state.atlasView+1)%6];
       if(next&&typeof Image!=='undefined'){const preloaded=new Image();preloaded.src=next;}
     }else{
@@ -411,6 +446,14 @@
       if(image?.src&&dialog?.showModal){
         $('k23-atlas-dialog-img').src=image.src;
         $('k23-atlas-dialog-img').alt=image.alt;
+        const hasRepair=Boolean(image.closest('.atlas-composition-image-frame'));
+        const modalMask=$('k23-atlas-dialog-mask'),modalLegend=$('k23-atlas-dialog-legend');
+        const content=$('k23-atlas-dialog-body');
+        content.classList.toggle('atlas-dialog-has-repaired-legend',hasRepair);
+        modalMask.hidden=!hasRepair;
+        modalLegend.hidden=!hasRepair;
+        modalLegend.innerHTML=hasRepair?
+          (root.querySelector('#k23-chart .atlas-legible-legend')?.outerHTML||''):'';
         dialog.showModal();
       }
       return;

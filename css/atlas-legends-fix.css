@@ -1,0 +1,143 @@
+/* Repair ONLY the visible, overlapping legend on the notebook's stacked
+ * 100%-composition JPGs. The original image files remain byte-identical.
+ * An opaque white band covers the defective embedded legend and tick labels;
+ * correct axis ticks and an accessible data-derived legend sit alongside it.
+ */
+#data-encuesta .atlas-composition-image-frame{
+  position:relative;
+  display:block;
+  flex:none;
+  box-sizing:border-box;
+  width:min(100%,594px);
+  max-width:100%;
+  margin:0 auto;
+  line-height:0;
+  background:#fff;
+}
+#data-encuesta .atlas-composition-image-frame .atlas-original-image{
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  max-width:100%;
+  max-height:none;
+  height:auto;
+  aspect-ratio:1032/782;
+  object-fit:contain;
+}
+#data-encuesta .atlas-composition-mask{
+  position:absolute;
+  z-index:1;
+  box-sizing:border-box;
+  top:72%;
+  left:5.5%;
+  right:5.5%;
+  height:14%;
+  display:block;
+  background:#fff;
+  pointer-events:none;
+}
+#data-encuesta .atlas-composition-mask[hidden]{display:none!important}
+#data-encuesta .atlas-composition-ticks{
+  box-sizing:border-box;
+  display:flex;
+  width:100%;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding:2.4% 2.5% 0;
+  font-family:inherit;
+  font-size:clamp(8px,.95vw,12px);
+  line-height:1.2;
+  letter-spacing:0;
+  font-weight:450;
+  color:#687f7a;
+  white-space:nowrap;
+}
+#data-encuesta .atlas-legible-legend{
+  display:block;
+  width:100%;
+  box-sizing:border-box;
+  margin:3px 0 10px;
+  padding:13px 16px 10px;
+  border:1px solid #e0eae7;
+  border-radius:9px;
+  background:#fbfdfc;
+  color:#244f44;
+  text-align:left;
+}
+#data-encuesta .atlas-legible-legend>p{
+  margin:0 0 9px!important;
+  color:#254e43;
+  font-size:13px;
+  line-height:1.4;
+  font-weight:750;
+}
+#data-encuesta .atlas-legible-legend ul{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));
+  column-gap:16px;
+  row-gap:9px;
+  padding:0;
+  margin:0!important;
+  list-style:none;
+}
+#data-encuesta .atlas-legible-legend li{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  min-width:0;
+  padding:0;
+  color:#1c443a;
+  font-size:13px;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+#data-encuesta .atlas-legible-legend .atlas-swatch{
+  display:block;
+  flex:0 0 15px;
+  width:15px;
+  height:12px;
+  margin-top:3px;
+  border-radius:2px;
+  background:var(--atlas-swatch,#246b55);
+}
+#data-encuesta .atlas-legible-legend strong{font-weight:800}
+#data-encuesta .atlas-legible-legend small{
+  display:block;
+  margin-top:10px;
+  font-size:12px;
+  color:#647e74;
+}
+#data-encuesta .atlas-dialog-image-frame{
+  display:inline-flex;
+  position:relative;
+  flex:0 0 auto;
+  align-items:center;
+  max-width:none;
+  line-height:0;
+}
+#data-encuesta .atlas-dialog-has-repaired-legend{
+  flex-direction:column;
+  align-items:center;
+}
+#data-encuesta .atlas-dialog-has-repaired-legend .atlas-dialog-image-frame{
+  max-width:100%;
+}
+#data-encuesta .atlas-dialog-has-repaired-legend #k23-atlas-dialog-img{
+  width:min(1032px,100%);
+  max-width:100%;
+  height:auto;
+  aspect-ratio:1032/782;
+  object-fit:contain;
+}
+#data-encuesta .atlas-dialog-legend{
+  box-sizing:border-box;
+  width:min(1032px,100%);
+  max-width:100%;
+  margin:12px auto 4px;
+}
+#data-encuesta .atlas-dialog-legend[hidden]{display:none!important}
+@media(max-width:600px){
+  #data-encuesta .atlas-composition-ticks{font-size:8px}
+  #data-encuesta .atlas-legible-legend{padding:11px 10px}
+  #data-encuesta .atlas-legible-legend li{font-size:12px}
+}

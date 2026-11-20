@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="css/atlas-original-fidelity.css?v=20261118-final-2">
 <link rel="stylesheet" href="css/ti-chart-containment.css?v=20261120-fix-1">
 <link rel="stylesheet" href="css/ti-kobo-static-design.css?v=20261120-jpg-only-3">
+<link rel="stylesheet" href="css/atlas-legends-fix.css?v=20261120-v1">
 <link rel="stylesheet" href="css/conoce-publicaciones.css?v=pub21-portadas-sin-cortes-04">
 <link rel="stylesheet" href="css/data-subachoque.css?v=ds-datos-reales-01">
 <link rel="stylesheet" href="css/explorando-territorio.css?v=ex24-01">
@@ -699,7 +700,15 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
             <strong>Gráfica original · Atlas Estadístico</strong>
             <button type="button" data-atlas-close="1" aria-label="Cerrar imagen ampliada">Cerrar ×</button>
           </div>
-          <div class="k23-atlas-dialog-body"><img id="k23-atlas-dialog-img" alt="Gráfica ampliada del Atlas"/></div>
+          <div id="k23-atlas-dialog-body" class="k23-atlas-dialog-body">
+            <div class="atlas-dialog-image-frame">
+              <img id="k23-atlas-dialog-img" alt="Gráfica ampliada del Atlas"/>
+              <div id="k23-atlas-dialog-mask" class="atlas-composition-mask" aria-hidden="true" hidden>
+                <div class="atlas-composition-ticks"><span>0 %</span><span>20 %</span><span>40 %</span><span>60 %</span><span>80 %</span><span>100 %</span></div>
+              </div>
+            </div>
+            <div id="k23-atlas-dialog-legend" class="atlas-dialog-legend" hidden></div>
+          </div>
         </dialog>
         <div id="k23-meta" class="k23-meta" hidden aria-hidden="true"></div>
         <section id="k23-gaps" class="k23-gaps" hidden aria-hidden="true"></section>
@@ -868,7 +877,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 
 <script defer src="js/data-subachoque.js?v=20261023-cover-22-01"></script>
 
-<script defer src="js/caracterizacion-kobo.js?v=20261120-static-v2"></script>
+<script defer src="js/caracterizacion-kobo.js?v=20261120-legends-v1"></script>
 <script defer src="js/conoce-publicaciones.js?v=pub21-editorial-02"></script>
 <script defer src="js/explorando-territorio.js?v=20261108-ed-map-v1"></script>
 <script defer src="js/ti-master-heroes.js?v=20261117-only-conoce-v3"></script>
