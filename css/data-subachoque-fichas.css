@@ -221,3 +221,10 @@
 }
 /* Do not overlay Data Subachoque with the unrelated floating assistant button. */
 body:has(#data-subachoque.active:not([hidden])) #assistantLaunch{display:none!important}
+
+/* Alternancia accesible de series históricas y desagregaciones en siete fichas mixtas. */
+#data-subachoque .ds5-modes{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 5px}
+#data-subachoque .ds5-modes button{border:1px solid #4f96a9;background:#0b4a60;color:#dff7fb;
+ border-radius:8px;font-size:12px;font-weight:760;padding:9px 12px;min-height:37px;cursor:pointer}
+#data-subachoque .ds5-modes button.active{background:#ffca2a;color:#083044;border-color:#ffca2a}
+#data-subachoque .ds5-modes button:focus-visible{outline:2px solid #ffca2a;outline-offset:2px}

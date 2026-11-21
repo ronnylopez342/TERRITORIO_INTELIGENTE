@@ -63,3 +63,15 @@ El código preserva el valor numérico original. En la vista, **solo** convierte
 `PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64 node scripts/test_data_subachoque_pdf.cjs`
 
 La sección 2.3 conserva las **246 imágenes JPG originales de los 41 indicadores del Atlas** y su navegación independiente.
+
+## Actualización: validación exhaustiva y reclasificación (21 noviembre 2026)
+
+La revisión de los **nueve libros Excel** produjo **357 hojas de indicador**, de las que quedan **341 fichas únicas** tras consolidar 16 duplicados. Se cotejaron **1.212 puntos temporales** y **98 valores categóricos** con las celdas de las hojas de origen; no se hallaron diferencias numéricas después de interpretar formatos textuales como porcentajes o pesos. Los libros NO contienen gráficos incrustados: la interfaz muestra sus series como visualizaciones interactivas, no se presentan como gráficos originales.
+
+El archivo `data/fichas-2026-validadas.json` preserva los 341 registros y sus 290 fichas con datos, pero registra la clasificación de origen y una clasificación revisada; `scripts/validar_clasificacion_subachoque.cjs` vuelve a producirlo de forma determinista. Se han corregido **65 ubicaciones** temáticas y **16 enlaces internos de trazabilidad de duplicados**. El listado preciso de correcciones está en `data/auditoria-clasificacion-fichas.json`.
+
+**Cambio de interfaz:** áreas y subcategorías sin indicadores publicables se **ocultan completamente**, ya no se muestran como botones deshabilitados. Las cuatro dimensiones se mantienen cuando cuentan con datos. Para las **siete fichas** que poseen simultáneamente serie temporal y datos por categorías hay selector para alternar las dos representaciones sin omitir filas categóricas.
+
+**Advertencias pendientes:** algunos valores se registran como cortes parciales (2026), y unas fichas advierten que el soporte no permite demostrar directamente las cifras (por ejemplo, inversión pública o regalías), además de la serie de deuda pública de ceros. Las coincidencias de las celdas Excel no constituyen certificación institucional de la confiabilidad de las fuentes. Estas observaciones se conservan para verificación con las dependencias.
+
+**Pruebas:** `node scripts/validar_clasificacion_subachoque.cjs`, `PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64 node scripts/test_data_subachoque_strict.cjs`, y los tests actuales de 2.1–2.4, Atlas KoBo, tabla/panel y exportación PDF.

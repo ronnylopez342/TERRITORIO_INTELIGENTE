@@ -1,0 +1,1002 @@
+{
+  "version": 1,
+  "sourceFiles": 9,
+  "originalSheets": 357,
+  "uniqueIndicators": 341,
+  "available": 290,
+  "dataValidation": {
+    "temporalValuesCheckedAgainstOriginalCells": 1212,
+    "categoricalValuesCheckedAgainstOriginalCells": 98
+  },
+  "sourceFormat": {
+    "embeddedWorkbookCharts": 0,
+    "embeddedWorkbookImages": 0
+  },
+  "expected": {
+    "withSeries": 280,
+    "withCategories": 17,
+    "available": 290,
+    "unavailable": 51,
+    "series": 435,
+    "points": 1212,
+    "categoryValues": 98
+  },
+  "corrected": [
+    {
+      "id": "c15056b95733",
+      "name": "Eventos de salud mental",
+      "from": [
+        "social",
+        "",
+        ""
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.2"
+      ],
+      "reason": "Salud mental / salud pública"
+    },
+    {
+      "id": "aecffda750cd",
+      "name": "Animales atendidos en jornadas de bienestar animal por tipo de jornada",
+      "from": [
+        "social",
+        "1.1",
+        "1.1.2"
+      ],
+      "to": [
+        "ambiental",
+        "3.1",
+        "3.1.2"
+      ],
+      "reason": "Bienestar animal se registra en gestión ambiental"
+    },
+    {
+      "id": "708108c16fcd",
+      "name": "Animales atendidos en jornadas rurales de bienestar animal",
+      "from": [
+        "social",
+        "1.1",
+        "1.1.2"
+      ],
+      "to": [
+        "ambiental",
+        "3.1",
+        "3.1.2"
+      ],
+      "reason": "Bienestar animal se registra en gestión ambiental"
+    },
+    {
+      "id": "214437970999",
+      "name": "Población rural proyectada de Subachoque",
+      "from": [
+        "social",
+        "1.1",
+        "1.1.2"
+      ],
+      "to": [
+        "social",
+        "1.3",
+        "1.3.7"
+      ],
+      "reason": "Demografía territorial, no intervención de salud pública"
+    },
+    {
+      "id": "17ec702e89e1",
+      "name": "Población total proyectada de Subachoque",
+      "from": [
+        "social",
+        "1.1",
+        "1.1.2"
+      ],
+      "to": [
+        "social",
+        "1.3",
+        "1.3.7"
+      ],
+      "reason": "Demografía territorial, no intervención de salud pública"
+    },
+    {
+      "id": "252dcad49835",
+      "name": "Población urbana proyectada de Subachoque",
+      "from": [
+        "social",
+        "1.1",
+        "1.1.2"
+      ],
+      "to": [
+        "social",
+        "1.3",
+        "1.3.7"
+      ],
+      "reason": "Demografía territorial, no intervención de salud pública"
+    },
+    {
+      "id": "ca60a88b247e",
+      "name": "Porcentaje de población rural de Subachoque",
+      "from": [
+        "social",
+        "1.1",
+        "1.1.2"
+      ],
+      "to": [
+        "social",
+        "1.3",
+        "1.3.7"
+      ],
+      "reason": "Demografía territorial, no intervención de salud pública"
+    },
+    {
+      "id": "86c9d66c3373",
+      "name": "Porcentaje de población urbana de Subachoque",
+      "from": [
+        "social",
+        "1.1",
+        "1.1.2"
+      ],
+      "to": [
+        "social",
+        "1.3",
+        "1.3.7"
+      ],
+      "reason": "Demografía territorial, no intervención de salud pública"
+    },
+    {
+      "id": "824e0b9d9da6",
+      "name": "Sesiones del Comité Municipal de Permanencia Escolar realizadas",
+      "from": [
+        "social",
+        "1.2",
+        ""
+      ],
+      "to": [
+        "social",
+        "1.2",
+        "1.2.3"
+      ],
+      "reason": "Permanencia escolar"
+    },
+    {
+      "id": "3b4f2cb321d3",
+      "name": "Inversión de la alcaldía en desarrollo social",
+      "from": [
+        "social",
+        "1.3",
+        ""
+      ],
+      "to": [
+        "social",
+        "1.3",
+        "sin codigo"
+      ],
+      "reason": "Subcategoría específica con datos: inversión social municipal"
+    },
+    {
+      "id": "3124ed30dbb0",
+      "name": "Atenciones de la Comisaría de Familia por tipo, por vereda y por zona (urbana y rural)",
+      "from": [
+        "social",
+        "1.3",
+        "1.3.2"
+      ],
+      "to": [
+        "social",
+        "1.6",
+        "1.6.4"
+      ],
+      "reason": "Protección jurídica, acceso a la justicia y convivencia ciudadana"
+    },
+    {
+      "id": "db3f692f8165",
+      "name": "Casos de violencia intrafamiliar atendidos por tipo de violencia",
+      "from": [
+        "social",
+        "1.3",
+        "1.3.2"
+      ],
+      "to": [
+        "social",
+        "1.6",
+        "1.6.2"
+      ],
+      "reason": "Protección jurídica, acceso a la justicia y convivencia ciudadana"
+    },
+    {
+      "id": "e0574dc8c3c0",
+      "name": "Medidas de protección dictadas e incidentes de incumplimiento",
+      "from": [
+        "social",
+        "1.3",
+        "1.3.2"
+      ],
+      "to": [
+        "social",
+        "1.6",
+        "1.6.4"
+      ],
+      "reason": "Protección jurídica, acceso a la justicia y convivencia ciudadana"
+    },
+    {
+      "id": "e2103c887f5c",
+      "name": "Porcentaje de entregas de insumos en el casco urbano",
+      "from": [
+        "economica",
+        "2.1",
+        "2.1.5"
+      ],
+      "to": [
+        "economica",
+        "2.1",
+        "2.1.2"
+      ],
+      "reason": "Insumos agropecuarios y producción"
+    },
+    {
+      "id": "eab303776139",
+      "name": "Artesanos vinculados a una organización",
+      "from": [
+        "economica",
+        "2.2",
+        "2.1.4"
+      ],
+      "to": [
+        "economica",
+        "2.2",
+        "2.2.4"
+      ],
+      "reason": "Asociaciones artesanales dentro de economía local"
+    },
+    {
+      "id": "92fe87fd4371",
+      "name": "Número de organizaciones a las que pertenecen los artesanos registrados",
+      "from": [
+        "economica",
+        "2.2",
+        "2.1.4"
+      ],
+      "to": [
+        "economica",
+        "2.2",
+        "2.2.4"
+      ],
+      "reason": "Asociaciones artesanales dentro de economía local"
+    },
+    {
+      "id": "f638706658df",
+      "name": "Recaudo tributario municipal.",
+      "from": [
+        "economica",
+        "2.6",
+        ""
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.2"
+      ],
+      "reason": "Recaudo de impuestos"
+    },
+    {
+      "id": "f338959de5b1",
+      "name": "Brecha entre afiliados y giro neto de UPC de Famisanar",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.10"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "bb089a44033a",
+      "name": "Concentración de restituciones de UPC en Famisanar",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.10"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "3ff44536ce45",
+      "name": "IVC reconocido mediante resoluciones en agosto y septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.10"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "6d3d24676ae9",
+      "name": "Participación de Famisanar en el giro neto de UPC",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.10"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "4d09e01d584d",
+      "name": "Tasa de restitución de UPC en septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.10"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "932ea1ccf0ab",
+      "name": "UPC neta reconocida del régimen subsidiado en septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.10"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "c45abd10a06b",
+      "name": "UPC restituida del régimen subsidiado en septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.10"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "2d5ae576b219",
+      "name": "Aporte de Subachoque al convenio de pagos por servicios ambientales frente al valor total del convenio",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.11"
+      ],
+      "to": [
+        "ambiental",
+        "3.1",
+        "3.1.2"
+      ],
+      "reason": "Inversión en pagos por servicios ambientales"
+    },
+    {
+      "id": "a6d2cc8657f4",
+      "name": "Inversión total formulada para el plan de gestión del riesgo",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.11"
+      ],
+      "to": [
+        "ambiental",
+        "3.4",
+        "3.4.1"
+      ],
+      "reason": "Formulación económica de actuaciones de gestión del riesgo"
+    },
+    {
+      "id": "bf64515c1294",
+      "name": "2.6.13 Deuda pública",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.13"
+      ],
+      "reason": "Deuda pública"
+    },
+    {
+      "id": "bfbc7346f690",
+      "name": "2.6.14 Cartera municipal",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.14"
+      ],
+      "reason": "Cartera municipal"
+    },
+    {
+      "id": "805f34a32b31",
+      "name": "Avisos y tableros",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.2"
+      ],
+      "reason": "Impuesto municipal de avisos y tableros"
+    },
+    {
+      "id": "25151226f08f",
+      "name": "Gestión de tesorería municipal.",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.12"
+      ],
+      "reason": "Tesorería municipal"
+    },
+    {
+      "id": "3d85ed11d33e",
+      "name": "Inversión pública municipal (ejecucion recursos de inversion)",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.11"
+      ],
+      "reason": "Inversión pública"
+    },
+    {
+      "id": "3a4a5870f9af",
+      "name": "Porcentaje de recaudo",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.10"
+      ],
+      "reason": "Ejecución y porcentaje de recaudo; revisar denominador"
+    },
+    {
+      "id": "16ae27d57072",
+      "name": "Presupuesto municipal de ingresos.",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.9"
+      ],
+      "reason": "Presupuesto municipal"
+    },
+    {
+      "id": "3bf8b39d9fb0",
+      "name": "Recaudo por concepto de transferencias.",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.7"
+      ],
+      "reason": "Transferencias"
+    },
+    {
+      "id": "0c01e2f03e7e",
+      "name": "Recursos recibidos por concepto de regalías.",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.6"
+      ],
+      "to": [
+        "economica",
+        "2.6",
+        "2.6.8"
+      ],
+      "reason": "Regalías"
+    },
+    {
+      "id": "2f97d5ae7cc7",
+      "name": "Aporte del SGP a la UPC subsidiada en septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.7"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "1a48c7bb7597",
+      "name": "Aporte Nación/ADRES a la UPC subsidiada en septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.7"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "7380efb95772",
+      "name": "Cofinanciación departamental de UPC en septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.7"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "bde1d8a84805",
+      "name": "Participación de Nación/ADRES en el giro neto de UPC",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.7"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "dd1d64cd249d",
+      "name": "Participación territorial en el giro neto de UPC",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.7"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "66a134fade67",
+      "name": "Recursos de Coljuegos para la UPC subsidiada en septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.7"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "448a93d25700",
+      "name": "Relación entre IVC reconocido agosto-septiembre y presupuesto anual",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.9"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "166f0125e8c5",
+      "name": "UPC apropiada del régimen subsidiado en septiembre",
+      "from": [
+        "economica",
+        "2.6",
+        "2.6.9"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "Financiación y aseguramiento del régimen de salud"
+    },
+    {
+      "id": "412b4ae2a514",
+      "name": "Porcentaje de ejecución de los programas del EOT en educación",
+      "from": [
+        "ambiental",
+        "3.2",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "c43ce6662333",
+      "name": "Porcentaje de ejecución de los programas del EOT en equipamientos",
+      "from": [
+        "ambiental",
+        "3.2",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "9350d5612d36",
+      "name": "Porcentaje de ejecución de los programas del EOT en patrimonio histórico, arquitectónico y cultural",
+      "from": [
+        "ambiental",
+        "3.2",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "7ada066ea1fa",
+      "name": "Porcentaje de ejecución de los programas del EOT en salud",
+      "from": [
+        "ambiental",
+        "3.2",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "b465574f4787",
+      "name": "Porcentaje de ejecución de los programas del EOT en servicios públicos",
+      "from": [
+        "ambiental",
+        "3.2",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "9b704b610d02",
+      "name": "Porcentaje de ejecución de los programas del EOT en turismo",
+      "from": [
+        "ambiental",
+        "3.2",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "0e32190595d1",
+      "name": "Porcentaje de ejecución de los programas del EOT en vías y transporte",
+      "from": [
+        "ambiental",
+        "3.2",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "27052dcba323",
+      "name": "Porcentaje de ejecución de los programas del EOT en vivienda",
+      "from": [
+        "ambiental",
+        "3.2",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "f423078e1d2a",
+      "name": "Área del municipio con conflicto de uso del suelo",
+      "from": [
+        "ambiental",
+        "3.2",
+        "3.2.1"
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "24a98c962105",
+      "name": "Porcentaje de ejecución de los programas del EOT en medio ambiente y recursos naturales",
+      "from": [
+        "ambiental",
+        "3.2.5",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "dcf3e564ccf0",
+      "name": "Porcentaje de ejecución de los programas del EOT en sistemas productivos",
+      "from": [
+        "ambiental",
+        "3.2.5",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.5"
+      ],
+      "reason": "Ejecución y seguimiento de planes de ordenamiento territorial"
+    },
+    {
+      "id": "b8812ce01e68",
+      "name": "Áreas en condición de riesgo por fenómenos naturales",
+      "from": [
+        "ambiental",
+        "3.3",
+        "3.3.1"
+      ],
+      "to": [
+        "ambiental",
+        "3.4",
+        "3.4.1"
+      ],
+      "reason": "Amenazas naturales y áreas de riesgo"
+    },
+    {
+      "id": "5efa1300b1ee",
+      "name": "Índice de Riesgo de la Calidad del Agua para Consumo Humano (IRCA)",
+      "from": [
+        "ambiental",
+        "3.5",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.1",
+        "3.1.6"
+      ],
+      "reason": "Calidad del agua / servicios públicos domiciliarios"
+    },
+    {
+      "id": "e8712cba7a5d",
+      "name": "Número de Plantas de Tratamiento de Aguas Residuales (PTAR) por zona",
+      "from": [
+        "ambiental",
+        "3.5",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.3"
+      ],
+      "reason": "Calidad del agua / servicios públicos domiciliarios"
+    },
+    {
+      "id": "01834c4bf7aa",
+      "name": "Número total de Plantas de Tratamiento de Aguas Residuales (PTAR)",
+      "from": [
+        "ambiental",
+        "3.5",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.3"
+      ],
+      "reason": "Calidad del agua / servicios públicos domiciliarios"
+    },
+    {
+      "id": "31e681db2d98",
+      "name": "Número total de usuarios beneficiarios de subsidios",
+      "from": [
+        "ambiental",
+        "3.5",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.3"
+      ],
+      "reason": "Calidad del agua / servicios públicos domiciliarios"
+    },
+    {
+      "id": "4e5178fe2f3f",
+      "name": "Presupuesto asignado para subsidios por año en la Empresa de Aguas y Aseo de Subachoque",
+      "from": [
+        "ambiental",
+        "3.5",
+        ""
+      ],
+      "to": [
+        "ambiental",
+        "3.2",
+        "3.2.3"
+      ],
+      "reason": "Calidad del agua / servicios públicos domiciliarios"
+    },
+    {
+      "id": "a0c7abad3975",
+      "name": "Adición presupuestal para inspección vigilancia y control",
+      "from": [
+        "institucional",
+        "4.1",
+        "4.1.1"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "IVC del aseguramiento del régimen subsidiado"
+    },
+    {
+      "id": "d69c1ff48604",
+      "name": "Porcentaje de incremento presupuestal IVC régimen subsidiado",
+      "from": [
+        "institucional",
+        "4.1",
+        "4.1.1"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "IVC del aseguramiento del régimen subsidiado"
+    },
+    {
+      "id": "7f00f538226f",
+      "name": "Presupuesto definitivo de inspección vigilancia y control del régimen subsidiado",
+      "from": [
+        "institucional",
+        "4.1",
+        "4.1.1"
+      ],
+      "to": [
+        "social",
+        "1.1",
+        "1.1.1"
+      ],
+      "reason": "IVC del aseguramiento del régimen subsidiado"
+    },
+    {
+      "id": "e48851583333",
+      "name": "Eficiencia en la Contratación Directa y Ejecución Presupuestal de Programas de Inversión Social (Salud Pública)",
+      "from": [
+        "institucional",
+        "4.1",
+        "4.1.2"
+      ],
+      "to": [
+        "institucional",
+        "4.1",
+        "4.1.1"
+      ],
+      "reason": "Eficiencia en contratación y desempeño institucional"
+    },
+    {
+      "id": "8dde4fbc56c7",
+      "name": "Número de encuestas realizadas para el SISBEN del Municipio",
+      "from": [
+        "institucional",
+        "4.1",
+        "4.1.4"
+      ],
+      "to": [
+        "institucional",
+        "4.3",
+        "4.3.1"
+      ],
+      "reason": "SISBÉN es un registro administrativo"
+    }
+  ],
+  "classificationReview": []
+}

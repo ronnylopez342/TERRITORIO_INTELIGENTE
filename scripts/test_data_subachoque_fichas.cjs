@@ -63,12 +63,10 @@ const server=http.createServer((req,res)=>{
    assert.match(await root.locator('.k23-dim.active').innerText(),/Ambiental/);
    await root.locator('.k23-dim').nth(3).click();
    assert.match(await root.locator('.k23-dim.active').innerText(),/Institucional/);
-   const disabled=await root.locator('button.k23-topic[disabled]').count();
-   assert(disabled>=1,'unavailable categories remain and are disabled');
-   const firstDisabled=root.locator('button.k23-topic[disabled]').first();
-   const before=await root.locator('#ds5-title').innerText();
-   await firstDisabled.evaluate(n=>n.click());
-   assert.equal(await root.locator('#ds5-title').innerText(),before,'disabled category cannot change selection');
+   assert.equal(await root.locator('button.k23-topic[disabled]').count(),0,'no dark disabled category tabs');
+   assert.equal(await root.locator('button.k23-area[disabled]').count(),0,'no dark disabled area tabs');
+   const availableTopicCount=await root.locator('button.k23-topic').count();
+   assert(availableTopicCount>=1,'there is at least one valid category');
    if(width===1648){
     await root.screenshot({path:'/tmp/data-subachoque-fichas-desktop.png',fullPage:false});
     const pdf=await page.pdf({path:'/tmp/data-subachoque-idi.pdf',format:'A4',printBackground:true});

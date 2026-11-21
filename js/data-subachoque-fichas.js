@@ -18,7 +18,7 @@
  const trace=r=>r.sourceFile+' · Hoja '+r.sourceSheet;
  const dimLabels={social:'Dimensión Social',economica:'Dimensión Económica',ambiental:'Dimensión Ambiental y Territorial',institucional:'Dimensión Institucional'};
  const icons={social:'♧',economica:'▰',ambiental:'♧',institucional:'▤'};
- const state={dim:'institucional',area:null,topic:null,indicator:null,series:0,search:''};
+ const state={dim:'institucional',area:null,topic:null,indicator:null,series:0,chartMode:'temporal',search:''};
  let catalog=null, dataset=null,lookup=new Map(),catalogIndex=[];
  const dimensions=()=>catalog?.dimensiones||[];
  const dim=()=>dimensions().find(d=>d.id===state.dim)||dimensions()[0];
@@ -120,13 +120,13 @@
  }
  function availableTopic(a){return a?.topics.find(t=>t.available)||null;}
  function resolve(did,aid,tid,rid){
-  const d=dimensions().find(v=>v.id===did)||dimensions().find(v=>v.available)||dimensions()[0];
-  const a=d.areas.find(v=>v.id===aid||v.code===aid)||d.areas.find(v=>v.available)||d.areas[0];
-  const t=a.topics.find(v=>v.id===tid||v.documentCode===tid)||availableTopic(a)||a.topics[0];
+  const d=dimensions().find(v=>v.id===did&&v.available)||dimensions().find(v=>v.available)||dimensions()[0];
+  const a=d.areas.find(v=>v.available&&(v.id===aid||v.code===aid))||d.areas.find(v=>v.available)||d.areas[0];
+  const t=a.topics.find(v=>v.available&&(v.id===tid||v.documentCode===tid))||availableTopic(a)||a.topics[0];
   const rs=indicators(t);
   const starter=t.documentCode==='4.1.1'?rs.find(v=>v.available&&/indice de desempeno institucional \(idi\)/.test(norm(v.name))):null;
   const r=rs.find(v=>v.id===rid&&v.available)||starter||rs.find(v=>v.available)||null;
-  state.dim=d.id;state.area=a.id;state.topic=t.id;state.indicator=r?.id||null;state.series=0;
+  state.dim=d.id;state.area=a.id;state.topic=t.id;state.indicator=r?.id||null;state.series=0;state.chartMode='temporal';
  }
  function readHash(){
   if(!catalog)return;
@@ -151,24 +151,22 @@
  }
  function renderDimensions(){
   by('ds4-dimension-breadcrumb').textContent=dim().titulo;
-  by('ds4-dims').innerHTML=dimensions().map((d,i)=>
-   '<button type="button" class="k23-dim'+selectedClass(d.id===state.dim)+'" data-ds5-dim="'+esc(d.id)+'" aria-pressed="'+(d.id===state.dim)+'"'+(!d.available?' disabled aria-disabled="true"':'')+'>'+
-   '<span class="k23-dim-index">0'+(i+1)+'</span><span class="k23-dim-copy"><strong>'+
+  by('ds4-dims').innerHTML=dimensions().filter(d=>d.available).map(d=>
+   '<button type="button" class="k23-dim'+selectedClass(d.id===state.dim)+'" data-ds5-dim="'+esc(d.id)+'" aria-pressed="'+(d.id===state.dim)+'">'+
+   '<span class="k23-dim-index">0'+(dimensions().indexOf(d)+1)+'</span><span class="k23-dim-copy"><strong>'+
    esc(d.titulo)+'</strong><small>'+esc(d.subtitulo||'')+'</small></span>'+
    '<span class="k23-dim-arrow" aria-hidden="true">↗</span></button>'
   ).join('');
  }
  function renderFilters(){
-  by('ds4-areas').innerHTML=dim().areas.map(a=>
+  by('ds4-areas').innerHTML=dim().areas.filter(a=>a.available).map(a=>
    '<button type="button" class="k23-area'+selectedClass(a.id===state.area)+
-   '" data-ds5-area="'+esc(a.id)+'" aria-pressed="'+(a.id===state.area)+'"'+
-   (!a.available?' disabled aria-disabled="true" title="Sin indicadores con datos"':'')+
-   '>'+esc(a.title)+'</button>').join('');
-  by('ds4-topics').innerHTML=area().topics.map(t=>
+   '" data-ds5-area="'+esc(a.id)+'" aria-pressed="'+(a.id===state.area)+'">'+
+   esc(a.title)+'</button>').join('');
+  by('ds4-topics').innerHTML=area().topics.filter(t=>t.available).map(t=>
    '<button type="button" class="k23-topic'+selectedClass(t.id===state.topic)+
-   '" data-ds5-topic="'+esc(t.id)+'" aria-pressed="'+(t.id===state.topic)+'"'+
-   (!t.available?' disabled aria-disabled="true" title="Categoría sin datos numéricos publicados"':'')+
-   '><span>'+esc((t.documentCode?t.documentCode+' ':'')+t.title)+'</span></button>'
+   '" data-ds5-topic="'+esc(t.id)+'" aria-pressed="'+(t.id===state.topic)+'">'+
+   '<span>'+esc((t.documentCode?t.documentCode+' ':'')+t.title)+'</span></button>'
   ).join('');
   by('ds4-topic-breadcrumb').textContent=dim().titulo+' › '+area().title+' › '+topic().title;
  }
@@ -280,7 +278,7 @@
  }
  function categoricalChart(r){
   const rows=(r.categories||[]).flatMap(c=>c.values.map(v=>({name:c.name+(c.values.length>1?' · '+v[0]:''),value:Number(v[1])})))
-    .filter(v=>Number.isFinite(v.value)).sort((a,b)=>Math.abs(b.value)-Math.abs(a.value)).slice(0,14);
+    .filter(v=>Number.isFinite(v.value)).sort((a,b)=>Math.abs(b.value)-Math.abs(a.value));
   if(!rows.length)return '<p class="ds5-missing">No hay desagregaciones publicables.</p>';
   const max=Math.max(1,...rows.map(v=>Math.abs(v.value)));
   return '<div class="ds5-bar-list">'+rows.map(row=>
@@ -290,14 +288,21 @@
  }
  function chart(r){
   const all=availableSeries(r),m=metrics(r);
-  const graph=all.length?lineChart(r):categoricalChart(r);
-  const seriesSelect=all.length>1?'<label class="ds5-series-selector">Serie de la ficha <select id="ds5-series-select" aria-label="Elegir serie para la gráfica">'+
+  const hasCats=(r.categories||[]).some(c=>c.values&&c.values.length);
+  const useCategories=hasCats&&(state.chartMode==='categorias'||all.length===0);
+  const graph=useCategories?categoricalChart(r):lineChart(r);
+  const switches=hasCats&&all.length?
+   '<div class="ds5-modes" role="group" aria-label="Explorar todas las representaciones de la ficha">'+
+    '<button type="button" data-ds5-chartmode="temporal" aria-pressed="'+(!useCategories)+'" class="'+(!useCategories?'active':'')+'">Serie temporal</button>'+
+    '<button type="button" data-ds5-chartmode="categorias" aria-pressed="'+useCategories+'" class="'+(useCategories?'active':'')+'">Desagregaciones</button></div>':'';
+  const seriesSelect=!useCategories&&all.length>1?'<label class="ds5-series-selector">Serie de la ficha <select id="ds5-series-select" aria-label="Elegir serie para la gráfica">'+
    all.map((s,i)=>'<option value="'+i+'"'+(i===state.series?' selected':'')+'>'+esc(s.name)+'</option>').join('')+
    '</select></label>':'';
   return '<section class="ds5-chart-card" aria-labelledby="ds5-chart-title">'+
-   '<div class="ds5-chart-head"><h3 id="ds5-chart-title">Evolución del indicador</h3>'+seriesSelect+'</div>'+
+   '<div class="ds5-chart-head"><h3 id="ds5-chart-title">'+(useCategories?'Desagregaciones del indicador':'Evolución del indicador')+'</h3>'+seriesSelect+'</div>'+
+   switches+
    '<div class="ds5-chart-frame">'+graph+'</div>'+
-   '<p class="ds5-chart-foot">'+esc(m.info.note||'Gráfica construida exclusivamente con los valores de las series incluidas en la ficha original.')+
+   '<p class="ds5-chart-foot">'+esc(m.info.note||'Visualización exclusiva de los valores y desagregaciones de la ficha Excel original.')+
    '</p></section>';
  }
  function metadata(r){
@@ -417,6 +422,7 @@
     const r=lookup.get(b.dataset.ds5Search);if(r?.nav)change(r.nav.dimension,r.nav.area,r.nav.topic,r.id);
     by('ds5-search').value='';
    }
+   else if(b.dataset.ds5Chartmode){state.chartMode=b.dataset.ds5Chartmode;const r=active();if(r)root.querySelector('.ds5-chart-card')?.replaceWith(document.createRange().createContextualFragment(chart(r)));}
    else if(b.id==='ds5-download')printPdf();
   });
   root.addEventListener('change',e=>{
@@ -438,9 +444,13 @@
  bind();
  Promise.all([
   fetch('data/data-subachoque-dimensiones.json').then(r=>{if(!r.ok)throw Error('Catálogo 2.2 inaccesible');return r.json();}),
-  fetch('data/fichas-2026-consolidadas.json').then(r=>{if(!r.ok)throw Error('Fichas Excel inaccesibles');return r.json();})
+  fetch('data/fichas-2026-validadas.json').then(r=>{if(!r.ok)throw Error('Fichas Excel inaccesibles');return r.json();})
  ]).then(([tax,sources])=>{
   if(sources.records?.length!==341||tax.dimensiones?.length!==4)throw Error('Fuentes inesperadas; no se publicarán datos incompletos.');
+  if(sources.audit?.validation?.available!==290||sources.audit?.validation?.series!==435||sources.audit?.validation?.points!==1212||
+     sources.audit?.validation?.categoryValues!==98||sources.records.some(r=>r.available&&!r.classification)||
+     new Set(sources.records.map(r=>r.id)).size!==341)
+    throw Error('La integridad de las fichas Excel o su clasificación no coincide.');
   dataset=sources;
   catalog=merge(sources,tax);
   const extraAreas=catalog.dimensiones.flatMap(d=>d.areas).filter(a=>a.new).length;
