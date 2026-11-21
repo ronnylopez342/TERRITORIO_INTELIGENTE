@@ -150,9 +150,17 @@ const codebookPath=path.join(root,'data','codigos-data-subachoque.json');
 const registry=fs.existsSync(codebookPath)?
   JSON.parse(fs.readFileSync(codebookPath,'utf8')):{version:1,scheme:'TI-DS-v1',assignments:{}};
 applyCodes(output,registry);
+// Los alias breves son la etiqueta humana; el TI-DS original sigue intacto.
+const {assign:applyHumanCodes}=require('./asignar_codigos_amigables_subachoque.cjs');
+const aliasesPath=path.join(root,'data','codigos-amigables-subachoque.json');
+const aliases=fs.existsSync(aliasesPath)?
+  JSON.parse(fs.readFileSync(aliasesPath,'utf8')):
+  {version:1,scheme:'TI-SHORT-v1',assignments:{}};
+applyHumanCodes(output,aliases);
 const dest=path.join(root,'data','fichas-2026-validadas.json');
 fs.writeFileSync(dest,JSON.stringify(output));
 fs.writeFileSync(codebookPath,JSON.stringify(registry,null,2)+'\n');
+fs.writeFileSync(aliasesPath,JSON.stringify(aliases,null,2)+'\n');
 const log={version:1,sourceFiles:9,originalSheets:357,uniqueIndicators:341,available:290,
   dataValidation:{temporalValuesCheckedAgainstOriginalCells:1212,categoricalValuesCheckedAgainstOriginalCells:98},
   sourceFormat:{embeddedWorkbookCharts:0,embeddedWorkbookImages:0},

@@ -1,0 +1,2395 @@
+{
+  "version": 1,
+  "scheme": "TI-SHORT-v1",
+  "assignments": {
+    "3b6696367fed": {
+      "shortCode": "IDI",
+      "id": "3b6696367fed",
+      "sourceId": "3b6696367fed",
+      "fullCode": "TI-DS-04.01.01-002",
+      "issuedName": "Índice de Desempeño Institucional (IDI)"
+    },
+    "ccece5fb2355": {
+      "shortCode": "POL01",
+      "id": "ccece5fb2355",
+      "sourceId": "ccece5fb2355",
+      "fullCode": "TI-DS-04.01.01-010",
+      "issuedName": "Política de Gestión Estratégica del Talento Humano (POL01)"
+    },
+    "818c95c420db": {
+      "shortCode": "POL02",
+      "id": "818c95c420db",
+      "sourceId": "818c95c420db",
+      "fullCode": "TI-DS-04.01.01-013",
+      "issuedName": "Política de Integridad (POL02)"
+    },
+    "4ce2438825e9": {
+      "shortCode": "POL03",
+      "id": "4ce2438825e9",
+      "sourceId": "4ce2438825e9",
+      "fullCode": "TI-DS-04.01.01-015",
+      "issuedName": "Política de Planeación Institucional (POL03)"
+    },
+    "698b75db67b7": {
+      "shortCode": "POL04",
+      "id": "698b75db67b7",
+      "sourceId": "698b75db67b7",
+      "fullCode": "TI-DS-04.01.01-011",
+      "issuedName": "Política de Gestión Presupuestal y Eficiencia del Gasto Público (POL04)"
+    },
+    "eb6f3130c0f2": {
+      "shortCode": "POL05",
+      "id": "eb6f3130c0f2",
+      "sourceId": "eb6f3130c0f2",
+      "fullCode": "TI-DS-04.01.01-003",
+      "issuedName": "Política de Compras y Contratación Pública (POL05)"
+    },
+    "420220ee3e9a": {
+      "shortCode": "POL06",
+      "id": "420220ee3e9a",
+      "sourceId": "420220ee3e9a",
+      "fullCode": "TI-DS-04.01.01-006",
+      "issuedName": "Política de Fortalecimiento Organizacional y Simplificación de Procesos (POL06)"
+    },
+    "a3c90027e897": {
+      "shortCode": "POL07",
+      "id": "a3c90027e897",
+      "sourceId": "a3c90027e897",
+      "fullCode": "TI-DS-04.01.01-012",
+      "issuedName": "Política de Gobierno Digital (POL07)"
+    },
+    "71ec36275142": {
+      "shortCode": "POL08",
+      "id": "71ec36275142",
+      "sourceId": "71ec36275142",
+      "fullCode": "TI-DS-04.01.01-018",
+      "issuedName": "Política de Seguridad Digital (POL08)"
+    },
+    "e923a94078d6": {
+      "shortCode": "POL09",
+      "id": "e923a94078d6",
+      "sourceId": "e923a94078d6",
+      "fullCode": "TI-DS-04.01.01-005",
+      "issuedName": "Política de Defensa Jurídica (POL09)"
+    },
+    "73047edc94f7": {
+      "shortCode": "POL11",
+      "id": "73047edc94f7",
+      "sourceId": "73047edc94f7",
+      "fullCode": "TI-DS-04.01.01-019",
+      "issuedName": "Política de Servicio a la Ciudadanía (POL11)"
+    },
+    "776dc4543c04": {
+      "shortCode": "POL12",
+      "id": "776dc4543c04",
+      "sourceId": "776dc4543c04",
+      "fullCode": "TI-DS-04.01.01-016",
+      "issuedName": "Política de Racionalización de Trámites (POL12)"
+    },
+    "a5e76685421b": {
+      "shortCode": "POL13",
+      "id": "a5e76685421b",
+      "sourceId": "a5e76685421b",
+      "fullCode": "TI-DS-04.01.01-014",
+      "issuedName": "Política de Participación Ciudadana en la Gestión Pública (POL13)"
+    },
+    "f1afe3620417": {
+      "shortCode": "POL14",
+      "id": "f1afe3620417",
+      "sourceId": "f1afe3620417",
+      "fullCode": "TI-DS-04.01.01-017",
+      "issuedName": "Política de Seguimiento y Evaluación del Desempeño Institucional (POL14)"
+    },
+    "9d055d22cd6c": {
+      "shortCode": "POL15",
+      "id": "9d055d22cd6c",
+      "sourceId": "9d055d22cd6c",
+      "fullCode": "TI-DS-04.01.01-020",
+      "issuedName": "Política de Transparencia, Acceso a la Información y Lucha contra la Corrupción (POL15)"
+    },
+    "06af2552f4fe": {
+      "shortCode": "POL16",
+      "id": "06af2552f4fe",
+      "sourceId": "06af2552f4fe",
+      "fullCode": "TI-DS-04.01.01-009",
+      "issuedName": "Política de Gestión Documental (POL16)"
+    },
+    "e55c20d7a8aa": {
+      "shortCode": "POL17",
+      "id": "e55c20d7a8aa",
+      "sourceId": "e55c20d7a8aa",
+      "fullCode": "TI-DS-04.01.01-007",
+      "issuedName": "Política de Gestión de la Información Estadística (POL17)"
+    },
+    "1167a6a08ed9": {
+      "shortCode": "POL18",
+      "id": "1167a6a08ed9",
+      "sourceId": "1167a6a08ed9",
+      "fullCode": "TI-DS-04.01.01-008",
+      "issuedName": "Política de Gestión del Conocimiento y la Innovación (POL18)"
+    },
+    "d06a78d8dcbc": {
+      "shortCode": "POL19",
+      "id": "d06a78d8dcbc",
+      "sourceId": "d06a78d8dcbc",
+      "fullCode": "TI-DS-04.01.01-004",
+      "issuedName": "Política de Control Interno (POL19)"
+    },
+    "2e8a4bce4dfb": {
+      "shortCode": "ABASTO-GRU",
+      "id": "2e8a4bce4dfb",
+      "sourceId": "2e8a4bce4dfb",
+      "fullCode": "TI-DS-02.01.02-012",
+      "issuedName": "Toneladas de alimentos que llegan a las centrales de abasto, por grupo de alimentos y productos principales"
+    },
+    "2fb985d453d0": {
+      "shortCode": "ABASTO-PROD",
+      "id": "2fb985d453d0",
+      "sourceId": "2fb985d453d0",
+      "fullCode": "TI-DS-02.01.06-001",
+      "issuedName": "Número de productos distintos que llegan a las centrales de abasto"
+    },
+    "fad9e7af2b34": {
+      "shortCode": "ABASTO-TON",
+      "id": "fad9e7af2b34",
+      "sourceId": "fad9e7af2b34",
+      "fullCode": "TI-DS-02.01.02-011",
+      "issuedName": "Toneladas de alimentos que llegan a las centrales de abasto"
+    },
+    "8f3e6b40cba2": {
+      "shortCode": "ACCE-COMP",
+      "id": "8f3e6b40cba2",
+      "sourceId": "8f3e6b40cba2",
+      "fullCode": "TI-DS-01.01.03-013",
+      "issuedName": "Mejora semestral del criterio de acceso en Compensar"
+    },
+    "505d17a77a3c": {
+      "shortCode": "ACU-COM",
+      "id": "505d17a77a3c",
+      "sourceId": "505d17a77a3c",
+      "fullCode": "TI-DS-03.02.03-028",
+      "issuedName": "Suscriptores de acueductos comunitarios según tipo de suministro de agua"
+    },
+    "54ac4a24c2a0": {
+      "shortCode": "ACU-RIES",
+      "id": "54ac4a24c2a0",
+      "sourceId": "54ac4a24c2a0",
+      "fullCode": "TI-DS-03.02.03-024",
+      "issuedName": "Prestadores de acueducto con riesgo alto de desabastecimiento"
+    },
+    "a7a8f29d1a1c": {
+      "shortCode": "ACU-USU",
+      "id": "a7a8f29d1a1c",
+      "sourceId": "a7a8f29d1a1c",
+      "fullCode": "TI-DS-03.02.03-011",
+      "issuedName": "Número de usuarios del servicio de acueducto de la Empresa de Aguas y Aseo de Subachoque S.A. E.S.P."
+    },
+    "bbb8c96f7f82": {
+      "shortCode": "AFIL-EXC",
+      "id": "bbb8c96f7f82",
+      "sourceId": "bbb8c96f7f82",
+      "fullCode": "TI-DS-01.01.01-022",
+      "issuedName": "Participación de regímenes de excepción en la afiliación"
+    },
+    "ae031ffee5b5": {
+      "shortCode": "AFIL-POB",
+      "id": "ae031ffee5b5",
+      "sourceId": "ae031ffee5b5",
+      "fullCode": "TI-DS-01.01.01-003",
+      "issuedName": "Afiliación registrada respecto de población municipal"
+    },
+    "30c5184a3bf6": {
+      "shortCode": "AFIL-SUBS",
+      "id": "30c5184a3bf6",
+      "sourceId": "30c5184a3bf6",
+      "fullCode": "TI-DS-01.01.01-005",
+      "issuedName": "Afiliados activos al régimen subsidiado"
+    },
+    "84ff855bbad1": {
+      "shortCode": "AGRO-ESC",
+      "id": "84ff855bbad1",
+      "sourceId": "84ff855bbad1",
+      "fullCode": "TI-DS-02.01.02-001",
+      "issuedName": "Criterios de Clasificación de Productores Agropecuarios según Escala Productiva"
+    },
+    "c749cebcd1ef": {
+      "shortCode": "AGRO-INS",
+      "id": "c749cebcd1ef",
+      "sourceId": "c749cebcd1ef",
+      "fullCode": "TI-DS-02.01.02-002",
+      "issuedName": "Entregas de insumos agropecuarios por programa"
+    },
+    "9eb818ffd3ef": {
+      "shortCode": "AGUA-USU",
+      "id": "9eb818ffd3ef",
+      "sourceId": "9eb818ffd3ef",
+      "fullCode": "TI-DS-03.02.03-010",
+      "issuedName": "Número de usuarios con servicios de la Empresa de Aguas y Aseo"
+    },
+    "03d9ba8c9521": {
+      "shortCode": "ALCAN-RED",
+      "id": "03d9ba8c9521",
+      "sourceId": "03d9ba8c9521",
+      "fullCode": "TI-DS-03.02.03-026",
+      "issuedName": "Redes de alcantarillado a cargo de la Empresa de Aguas y Aseo de Subachoque S.A. E.S.P., según nombre, ubicación y longitud"
+    },
+    "a8ca361426cd": {
+      "shortCode": "ALCAN-USU",
+      "id": "a8ca361426cd",
+      "sourceId": "a8ca361426cd",
+      "fullCode": "TI-DS-03.02.03-012",
+      "issuedName": "Número de usuarios del servicio de alcantarillado de la Empresa de Aguas y Aseo de Subachoque S.A. E.S.P."
+    },
+    "aecffda750cd": {
+      "shortCode": "ANIM-JORN",
+      "id": "aecffda750cd",
+      "sourceId": "aecffda750cd",
+      "fullCode": "TI-DS-03.01.02-001",
+      "issuedName": "Animales atendidos en jornadas de bienestar animal por tipo de jornada"
+    },
+    "708108c16fcd": {
+      "shortCode": "ANIM-RUR",
+      "id": "708108c16fcd",
+      "sourceId": "708108c16fcd",
+      "fullCode": "TI-DS-03.01.02-002",
+      "issuedName": "Animales atendidos en jornadas rurales de bienestar animal"
+    },
+    "8cbd609f7ed2": {
+      "shortCode": "ANIM-SENS",
+      "id": "8cbd609f7ed2",
+      "sourceId": "8cbd609f7ed2",
+      "fullCode": "TI-DS-03.01.02-004",
+      "issuedName": "Participaciones en actividades de sensibilización sobre bienestar animal"
+    },
+    "35117db82088": {
+      "shortCode": "ARB-REFO",
+      "id": "35117db82088",
+      "sourceId": "35117db82088",
+      "fullCode": "TI-DS-03.01.01-001",
+      "issuedName": "Árboles sembrados en jornadas de reforestación y compensación"
+    },
+    "0644c342b968": {
+      "shortCode": "AUD-FAMI",
+      "id": "0644c342b968",
+      "sourceId": "0644c342b968",
+      "fullCode": "TI-DS-01.01.03-006",
+      "issuedName": "Auditorías de Famisanar con hallazgo en acceso y continuidad"
+    },
+    "805f34a32b31": {
+      "shortCode": "AVISOS",
+      "id": "805f34a32b31",
+      "sourceId": "805f34a32b31",
+      "fullCode": "TI-DS-02.06.02-001",
+      "issuedName": "Avisos y tableros"
+    },
+    "ab2b20de7207": {
+      "shortCode": "BIB-SABER",
+      "id": "ab2b20de7207",
+      "sourceId": "ab2b20de7207",
+      "fullCode": "TI-DS-01.04.02-001",
+      "issuedName": "Afiliados a las Llaves del Saber"
+    },
+    "0138859b9ac8": {
+      "shortCode": "BRE-SUBS",
+      "id": "0138859b9ac8",
+      "sourceId": "0138859b9ac8",
+      "fullCode": "TI-DS-01.01.01-009",
+      "issuedName": "Brecha mensual máxima de afiliación subsidiada"
+    },
+    "6cad284e780d": {
+      "shortCode": "BRIG-SALUD",
+      "id": "6cad284e780d",
+      "sourceId": "6cad284e780d",
+      "fullCode": "TI-DS-01.01.03-020",
+      "issuedName": "Servicios de salud declarados en consolidado de brigadas"
+    },
+    "2d184c5aef57": {
+      "shortCode": "BRIG-SERV",
+      "id": "2d184c5aef57",
+      "sourceId": "2d184c5aef57",
+      "fullCode": "TI-DS-01.01.03-019",
+      "issuedName": "Servicios de brigadas sumados desde categorías"
+    },
+    "bfbc7346f690": {
+      "shortCode": "CARTERA",
+      "id": "bfbc7346f690",
+      "sourceId": "bfbc7346f690",
+      "fullCode": "TI-DS-02.06.14-001",
+      "issuedName": "2.6.14 Cartera municipal"
+    },
+    "0156dc4a041f": {
+      "shortCode": "CAUD-VER",
+      "id": "0156dc4a041f",
+      "sourceId": "0156dc4a041f",
+      "fullCode": "TI-DS-03.01.01-003",
+      "issuedName": "Caudal concesionado a los acueductos veredales"
+    },
+    "d1249ad5b802": {
+      "shortCode": "CITAS-EFEC",
+      "id": "d1249ad5b802",
+      "sourceId": "d1249ad5b802",
+      "fullCode": "TI-DS-01.01.03-007",
+      "issuedName": "Citas efectivas e inasistencias en el Centro de Salud de Subachoque"
+    },
+    "40792a1bc217": {
+      "shortCode": "CITAS-SAC",
+      "id": "40792a1bc217",
+      "sourceId": "40792a1bc217",
+      "fullCode": "TI-DS-01.01.03-008",
+      "issuedName": "Citas y apoyos de acceso a servicios gestionados por el Servicio de Atención a la Comunidad (SAC)"
+    },
+    "92292b0838cd": {
+      "shortCode": "COMP-CAMB",
+      "id": "92292b0838cd",
+      "sourceId": "92292b0838cd",
+      "fullCode": "TI-DS-01.01.01-010",
+      "issuedName": "Cambio de afiliación subsidiada en Compensar"
+    },
+    "c4a30f7b5f8d": {
+      "shortCode": "COMP-CONC",
+      "id": "c4a30f7b5f8d",
+      "sourceId": "c4a30f7b5f8d",
+      "fullCode": "TI-DS-01.01.01-013",
+      "issuedName": "Concentración de afiliación subsidiada en Compensar"
+    },
+    "c973b7db9245": {
+      "shortCode": "COMPAREN",
+      "id": "c973b7db9245",
+      "sourceId": "c973b7db9245",
+      "fullCode": "TI-DS-01.06.05-001",
+      "issuedName": "Comparendos por comportamientos contrarios a la convivencia (julio-septiembre 2026)"
+    },
+    "ce8854c38605": {
+      "shortCode": "CONCILIA",
+      "id": "ce8854c38605",
+      "sourceId": "ce8854c38605",
+      "fullCode": "TI-DS-01.06.01-001",
+      "issuedName": "Tramites de conciliacion por convivencia y querellas civiles de policia atendidos"
+    },
+    "678e7e629c75": {
+      "shortCode": "CONS-FEB",
+      "id": "678e7e629c75",
+      "sourceId": "678e7e629c75",
+      "fullCode": "TI-DS-01.01.03-009",
+      "issuedName": "Consultas efectivas del Centro de Salud de Subachoque en febrero"
+    },
+    "e69231e683cf": {
+      "shortCode": "CONTR-GOB",
+      "id": "e69231e683cf",
+      "sourceId": "e69231e683cf",
+      "fullCode": "TI-DS-04.01.01-021",
+      "issuedName": "Valor de contratos registrados por la Secretaria de Gobierno"
+    },
+    "bdb001bf952e": {
+      "shortCode": "COPACO",
+      "id": "bdb001bf952e",
+      "sourceId": "bdb001bf952e",
+      "fullCode": "TI-DS-04.04.01-002",
+      "issuedName": "Reuniones del COPACO documentadas"
+    },
+    "14fc1bdce1eb": {
+      "shortCode": "CTSSS",
+      "id": "14fc1bdce1eb",
+      "sourceId": "14fc1bdce1eb",
+      "fullCode": "TI-DS-04.04.01-001",
+      "issuedName": "Reuniones del Consejo Territorial de Seguridad Social en Salud documentadas"
+    },
+    "aa741788ddf2": {
+      "shortCode": "CUID-FORM",
+      "id": "aa741788ddf2",
+      "sourceId": "aa741788ddf2",
+      "fullCode": "TI-DS-01.01.04-001",
+      "issuedName": "Cuidadores caracterizados y formados por el programa"
+    },
+    "b40452e7e976": {
+      "shortCode": "CULT-DISC",
+      "id": "b40452e7e976",
+      "sourceId": "b40452e7e976",
+      "fullCode": "TI-DS-01.04.01-003",
+      "issuedName": "Cobertura de personas con discapacidad en las escuelas de formación artística y cultural"
+    },
+    "e4225fe4f97e": {
+      "shortCode": "CULT-ESC",
+      "id": "e4225fe4f97e",
+      "sourceId": "e4225fe4f97e",
+      "fullCode": "TI-DS-01.04.01-005",
+      "issuedName": "Número de beneficiarios por cada escuela de formación"
+    },
+    "70565529cfeb": {
+      "shortCode": "CULT-POB",
+      "id": "70565529cfeb",
+      "sourceId": "70565529cfeb",
+      "fullCode": "TI-DS-01.04.01-001",
+      "issuedName": "Cobertura de beneficiarios por cada grupo poblacional en las escuelas de formación artística y cultural"
+    },
+    "7a7a370af45e": {
+      "shortCode": "CULT-RUR",
+      "id": "7a7a370af45e",
+      "sourceId": "7a7a370af45e",
+      "fullCode": "TI-DS-01.04.01-002",
+      "issuedName": "Cobertura de beneficiarios por sector en el territorio (urbano/rural)."
+    },
+    "7b442ace1541": {
+      "shortCode": "CULT-TOTAL",
+      "id": "7b442ace1541",
+      "sourceId": "7b442ace1541",
+      "fullCode": "TI-DS-01.04.01-004",
+      "issuedName": "Cobertura total de beneficiarios de las escuelas de formación artísticas y culturales"
+    },
+    "55d32255bb99": {
+      "shortCode": "DEFUNC",
+      "id": "55d32255bb99",
+      "sourceId": "55d32255bb99",
+      "fullCode": "TI-DS-01.03.07-001",
+      "issuedName": "Defunciones de residentes del municipio por sexo, grupo de edad y causa"
+    },
+    "7000f622947e": {
+      "shortCode": "DEP-DISC",
+      "id": "7000f622947e",
+      "sourceId": "7000f622947e",
+      "fullCode": "TI-DS-01.05.01-003",
+      "issuedName": "Cobertura de personas con discapacidad en las escuelas de formación deportiva"
+    },
+    "5bfbaba3e1e3": {
+      "shortCode": "DEP-ESC",
+      "id": "5bfbaba3e1e3",
+      "sourceId": "5bfbaba3e1e3",
+      "fullCode": "TI-DS-01.05.01-005",
+      "issuedName": "Número de beneficiarios por cada escuela de formación deportiva"
+    },
+    "96c80fe92275": {
+      "shortCode": "DEP-POB",
+      "id": "96c80fe92275",
+      "sourceId": "96c80fe92275",
+      "fullCode": "TI-DS-01.05.01-001",
+      "issuedName": "Cobertura de beneficiarios por cada grupo poblacional en las escuelas de formación deportiva"
+    },
+    "acfe4e61493a": {
+      "shortCode": "DEP-RUR",
+      "id": "acfe4e61493a",
+      "sourceId": "acfe4e61493a",
+      "fullCode": "TI-DS-01.05.01-002",
+      "issuedName": "Cobertura de beneficiarios por sector en el territorio (urbano/rural)."
+    },
+    "b4b4cf043505": {
+      "shortCode": "DEP-TOTAL",
+      "id": "b4b4cf043505",
+      "sourceId": "b4b4cf043505",
+      "fullCode": "TI-DS-01.05.01-004",
+      "issuedName": "Cobertura total de beneficiarios de las escuelas de formación deportiva"
+    },
+    "b0fd8a59e1e6": {
+      "shortCode": "DER-VERIF",
+      "id": "b0fd8a59e1e6",
+      "sourceId": "b0fd8a59e1e6",
+      "fullCode": "TI-DS-01.03.02-004",
+      "issuedName": "Verificaciones de derechos y acompañamientos por motivo"
+    },
+    "bf64515c1294": {
+      "shortCode": "DEUDA",
+      "id": "bf64515c1294",
+      "sourceId": "bf64515c1294",
+      "fullCode": "TI-DS-02.06.13-001",
+      "issuedName": "2.6.13 Deuda pública"
+    },
+    "d854895eb2bc": {
+      "shortCode": "DISP-COMP",
+      "id": "d854895eb2bc",
+      "sourceId": "d854895eb2bc",
+      "fullCode": "TI-DS-01.01.03-015",
+      "issuedName": "Persistencia de hallazgos de dispensación en Compensar"
+    },
+    "262a6eca0dce": {
+      "shortCode": "DISP-FAMI",
+      "id": "262a6eca0dce",
+      "sourceId": "262a6eca0dce",
+      "fullCode": "TI-DS-01.01.03-016",
+      "issuedName": "Persistencia de hallazgos de dispensación en Famisanar"
+    },
+    "c7f0478c4829": {
+      "shortCode": "DISP-GAUDI",
+      "id": "c7f0478c4829",
+      "sourceId": "c7f0478c4829",
+      "fullCode": "TI-DS-01.01.03-018",
+      "issuedName": "Proporción de auditorías GAUDI con incumplimiento de dispensación"
+    },
+    "ed4f265b67f7": {
+      "shortCode": "DISP-STOT",
+      "id": "ed4f265b67f7",
+      "sourceId": "ed4f265b67f7",
+      "fullCode": "TI-DS-01.01.03-017",
+      "issuedName": "Persistencia de hallazgos de dispensación en Salud Total"
+    },
+    "123cb44d225e": {
+      "shortCode": "DOC-ALUM",
+      "id": "123cb44d225e",
+      "sourceId": "123cb44d225e",
+      "fullCode": "TI-DS-04.05.01-001",
+      "issuedName": "Relación Docente-Estudiante y Cobertura de Personal Directivo/Orientador en las Instituciones Educativas Municipales"
+    },
+    "40b61513f9ab": {
+      "shortCode": "ECO-AREA",
+      "id": "40b61513f9ab",
+      "sourceId": "40b61513f9ab",
+      "fullCode": "TI-DS-03.01.01-002",
+      "issuedName": "Área del municipio en la estructura ecológica principal"
+    },
+    "2ade5f2604ce": {
+      "shortCode": "EDU-AMB",
+      "id": "2ade5f2604ce",
+      "sourceId": "2ade5f2604ce",
+      "fullCode": "TI-DS-03.01.02-005",
+      "issuedName": "Personas capacitadas en educación ambiental"
+    },
+    "e48851583333": {
+      "shortCode": "EFIC-CONTR",
+      "id": "e48851583333",
+      "sourceId": "e48851583333",
+      "fullCode": "TI-DS-04.01.01-001",
+      "issuedName": "Eficiencia en la Contratación Directa y Ejecución Presupuestal de Programas de Inversión Social (Salud Pública)"
+    },
+    "9be033470d73": {
+      "shortCode": "EMPLEO",
+      "id": "9be033470d73",
+      "sourceId": "9be033470d73",
+      "fullCode": "TI-DS-02.04.02-001",
+      "issuedName": "Personas contratadas a través de la ruta de empleabilidad"
+    },
+    "77def22bf180": {
+      "shortCode": "ENER-USU",
+      "id": "77def22bf180",
+      "sourceId": "77def22bf180",
+      "fullCode": "TI-DS-03.02.03-018",
+      "issuedName": "Número total de usuarios del servicio de energía"
+    },
+    "1b968d5e0c60": {
+      "shortCode": "ENF-BRIG",
+      "id": "1b968d5e0c60",
+      "sourceId": "1b968d5e0c60",
+      "fullCode": "TI-DS-01.01.03-002",
+      "issuedName": "Atenciones de enfermería en brigadas"
+    },
+    "824e0b9d9da6": {
+      "shortCode": "ESC-PERM",
+      "id": "824e0b9d9da6",
+      "sourceId": "824e0b9d9da6",
+      "fullCode": "TI-DS-01.02.03-003",
+      "issuedName": "Sesiones del Comité Municipal de Permanencia Escolar realizadas"
+    },
+    "f338959de5b1": {
+      "shortCode": "FAMI-BRE",
+      "id": "f338959de5b1",
+      "sourceId": "f338959de5b1",
+      "fullCode": "TI-DS-01.01.01-008",
+      "issuedName": "Brecha entre afiliados y giro neto de UPC de Famisanar"
+    },
+    "97ed225eac14": {
+      "shortCode": "FAMI-CAMB",
+      "id": "97ed225eac14",
+      "sourceId": "97ed225eac14",
+      "fullCode": "TI-DS-01.01.01-011",
+      "issuedName": "Cambio de afiliación subsidiada en Famisanar"
+    },
+    "7b86f672e8c9": {
+      "shortCode": "FAMI-CONC",
+      "id": "7b86f672e8c9",
+      "sourceId": "7b86f672e8c9",
+      "fullCode": "TI-DS-01.01.01-014",
+      "issuedName": "Concentración de afiliación subsidiada en Famisanar"
+    },
+    "ee19058a824d": {
+      "shortCode": "FEC-10-14",
+      "id": "ee19058a824d",
+      "sourceId": "ee19058a824d",
+      "fullCode": "TI-DS-01.01.02-015",
+      "issuedName": "Fecundidad específica en niñas de 10 a 14 años"
+    },
+    "0c21e13260af": {
+      "shortCode": "FEC-10-19",
+      "id": "0c21e13260af",
+      "sourceId": "0c21e13260af",
+      "fullCode": "TI-DS-01.01.02-013",
+      "issuedName": "Fecundidad específica en mujeres de 10 a 19 años"
+    },
+    "eabbc9e65ff0": {
+      "shortCode": "FEC-15-19",
+      "id": "eabbc9e65ff0",
+      "sourceId": "eabbc9e65ff0",
+      "fullCode": "TI-DS-01.01.02-014",
+      "issuedName": "Fecundidad específica en mujeres de 15 a 19 años"
+    },
+    "5277c4ad584c": {
+      "shortCode": "FEC-TASA",
+      "id": "5277c4ad584c",
+      "sourceId": "5277c4ad584c",
+      "fullCode": "TI-DS-01.03.04-008",
+      "issuedName": "Tasa global de fecundidad (hijos por mujer)"
+    },
+    "cd8b64bbd73b": {
+      "shortCode": "FIN-SGP",
+      "id": "cd8b64bbd73b",
+      "sourceId": "cd8b64bbd73b",
+      "fullCode": "TI-DS-01.01.02-009",
+      "issuedName": "Composición y Diversificación de Fuentes de Financiación en Inversión de Salud Pública (SGP vs. Recursos Propios)"
+    },
+    "db239d7b7ee8": {
+      "shortCode": "GASOLINA",
+      "id": "db239d7b7ee8",
+      "sourceId": "db239d7b7ee8",
+      "fullCode": "TI-DS-02.06.06-001",
+      "issuedName": "Recaudo de la sobretasa a la gasolina."
+    },
+    "16afb310d3fc": {
+      "shortCode": "HUELLA-CO2",
+      "id": "16afb310d3fc",
+      "sourceId": "16afb310d3fc",
+      "fullCode": "TI-DS-03.01.04-001",
+      "issuedName": "Huella de carbono de la Alcaldía"
+    },
+    "c12faa758f76": {
+      "shortCode": "HUERT-INS",
+      "id": "c12faa758f76",
+      "sourceId": "c12faa758f76",
+      "fullCode": "TI-DS-02.01.06-002",
+      "issuedName": "Personas beneficiadas con insumos para huertas"
+    },
+    "a16e2c517491": {
+      "shortCode": "HUERT-VER",
+      "id": "a16e2c517491",
+      "sourceId": "a16e2c517491",
+      "fullCode": "TI-DS-02.01.06-003",
+      "issuedName": "Veredas rurales con beneficiarios de huertas"
+    },
+    "e86769219baa": {
+      "shortCode": "ICA",
+      "id": "e86769219baa",
+      "sourceId": "e86769219baa",
+      "fullCode": "TI-DS-02.06.05-001",
+      "issuedName": "Recaudo del impuesto de industria y comercio municipal."
+    },
+    "1c2330d75dea": {
+      "shortCode": "INC-ART",
+      "id": "1c2330d75dea",
+      "sourceId": "1c2330d75dea",
+      "fullCode": "TI-DS-01.04.06-001",
+      "issuedName": "Artistas beneficiados con incentivos artísticos del municipio de Subachoque"
+    },
+    "620476f75f55": {
+      "shortCode": "INC-DEP",
+      "id": "620476f75f55",
+      "sourceId": "620476f75f55",
+      "fullCode": "TI-DS-01.05.05-001",
+      "issuedName": "Deportistas beneficiados con incentivos deportivos del municipio de Subachoque"
+    },
+    "5c1de640ebcd": {
+      "shortCode": "INFRA-CULT",
+      "id": "5c1de640ebcd",
+      "sourceId": "5c1de640ebcd",
+      "fullCode": "TI-DS-01.00.00-001",
+      "issuedName": "INFRAESTRUCTURA CULTURAL"
+    },
+    "51069be26fa3": {
+      "shortCode": "INFRA-DEP",
+      "id": "51069be26fa3",
+      "sourceId": "51069be26fa3",
+      "fullCode": "TI-DS-01.00.00-002",
+      "issuedName": "INFRAESTRUCTURA DEPORTIVA"
+    },
+    "06405ca821d7": {
+      "shortCode": "INGLES",
+      "id": "06405ca821d7",
+      "sourceId": "06405ca821d7",
+      "fullCode": "TI-DS-01.02.02-001",
+      "issuedName": "Estudiantes fortalecidos en competencias comunicativas en segundo idioma (Inglés)"
+    },
+    "ed19995f0bac": {
+      "shortCode": "INGRESOS",
+      "id": "ed19995f0bac",
+      "sourceId": "ed19995f0bac",
+      "fullCode": "TI-DS-02.06.01-001",
+      "issuedName": "Ingresos totales del municipio de Subachoque"
+    },
+    "3d85ed11d33e": {
+      "shortCode": "INV-PUB",
+      "id": "3d85ed11d33e",
+      "sourceId": "3d85ed11d33e",
+      "fullCode": "TI-DS-02.06.11-002",
+      "issuedName": "Inversión pública municipal (ejecucion recursos de inversion)"
+    },
+    "5efa1300b1ee": {
+      "shortCode": "IRCA",
+      "id": "5efa1300b1ee",
+      "sourceId": "5efa1300b1ee",
+      "fullCode": "TI-DS-03.01.06-001",
+      "issuedName": "Índice de Riesgo de la Calidad del Agua para Consumo Humano (IRCA)"
+    },
+    "448a93d25700": {
+      "shortCode": "IVC-PRES",
+      "id": "448a93d25700",
+      "sourceId": "448a93d25700",
+      "fullCode": "TI-DS-01.01.01-030",
+      "issuedName": "Relación entre IVC reconocido agosto-septiembre y presupuesto anual"
+    },
+    "f520f9c39735": {
+      "shortCode": "LUM-CABLE",
+      "id": "f520f9c39735",
+      "sourceId": "f520f9c39735",
+      "fullCode": "TI-DS-03.02.03-006",
+      "issuedName": "Número de metros de cableado de alumbrado público subterranizado"
+    },
+    "9464826f2602": {
+      "shortCode": "MAMO-JORN",
+      "id": "9464826f2602",
+      "sourceId": "9464826f2602",
+      "fullCode": "TI-DS-01.01.02-034",
+      "issuedName": "Proporción de asistentes con mamografía en jornada"
+    },
+    "83ca949b4748": {
+      "shortCode": "MAQ-HORAS",
+      "id": "83ca949b4748",
+      "sourceId": "83ca949b4748",
+      "fullCode": "TI-DS-02.01.02-003",
+      "issuedName": "Horas de trabajo del banco de maquinaria agrícola"
+    },
+    "69d66d92b5d7": {
+      "shortCode": "MAT-RURAL",
+      "id": "69d66d92b5d7",
+      "sourceId": "69d66d92b5d7",
+      "fullCode": "TI-DS-01.02.01-001",
+      "issuedName": "Distribución Matricular y Concentración Estudiantil en Sedes Educativas Rurales"
+    },
+    "70e0195dcc84": {
+      "shortCode": "MATRICULA",
+      "id": "70e0195dcc84",
+      "sourceId": "70e0195dcc84",
+      "fullCode": "TI-DS-01.02.01-002",
+      "issuedName": "Estudiantes matriculados en niveles de preescolar, básica y media."
+    },
+    "cd6eae694b52": {
+      "shortCode": "MAY-EDAD",
+      "id": "cd6eae694b52",
+      "sourceId": "cd6eae694b52",
+      "fullCode": "TI-DS-01.01.05-004",
+      "issuedName": "Personas mayores del municipio por grupo de edad y sexo"
+    },
+    "579edd47d49c": {
+      "shortCode": "MED-BRIG",
+      "id": "579edd47d49c",
+      "sourceId": "579edd47d49c",
+      "fullCode": "TI-DS-01.01.03-004",
+      "issuedName": "Atenciones de medicina general en brigadas"
+    },
+    "373d2ac1aecb": {
+      "shortCode": "MED-PRAD",
+      "id": "373d2ac1aecb",
+      "sourceId": "373d2ac1aecb",
+      "fullCode": "TI-DS-01.01.03-005",
+      "issuedName": "Atenciones de medicina general en La Pradera"
+    },
+    "813ffd88d300": {
+      "shortCode": "MGA-COSTO",
+      "id": "813ffd88d300",
+      "sourceId": "813ffd88d300",
+      "fullCode": "TI-DS-02.06.11-001",
+      "issuedName": "Costo estimado por beneficiario en evaluación MGA"
+    },
+    "f930d60fea1d": {
+      "shortCode": "MGA-EDU",
+      "id": "f930d60fea1d",
+      "sourceId": "f930d60fea1d",
+      "fullCode": "TI-DS-02.06.11-004",
+      "issuedName": "Participación del producto educación informal en costo MGA"
+    },
+    "a72e50a9b842": {
+      "shortCode": "MGA-PROPIOS",
+      "id": "a72e50a9b842",
+      "sourceId": "a72e50a9b842",
+      "fullCode": "TI-DS-02.06.11-003",
+      "issuedName": "Participación de recursos propios en financiación MGA"
+    },
+    "a48836e69717": {
+      "shortCode": "MICE-ESP",
+      "id": "a48836e69717",
+      "sourceId": "a48836e69717",
+      "fullCode": "TI-DS-02.03.01-002",
+      "issuedName": "Espacios para eventos y turismo MICE (venues) identificados"
+    },
+    "64a1f561e21c": {
+      "shortCode": "MIGRANTES",
+      "id": "64a1f561e21c",
+      "sourceId": "64a1f561e21c",
+      "fullCode": "TI-DS-01.03.07-002",
+      "issuedName": "Personas migrantes caracterizadas en el municipio"
+    },
+    "3778d9e62a23": {
+      "shortCode": "MUERT-EXT",
+      "id": "3778d9e62a23",
+      "sourceId": "3778d9e62a23",
+      "fullCode": "TI-DS-01.01.02-027",
+      "issuedName": "Muertes por causas externas: suicidios, accidentes de tránsito y homicidios"
+    },
+    "8073a4b78e65": {
+      "shortCode": "NEPS-CONC",
+      "id": "8073a4b78e65",
+      "sourceId": "8073a4b78e65",
+      "fullCode": "TI-DS-01.01.01-015",
+      "issuedName": "Concentración de afiliación subsidiada en Nueva EPS"
+    },
+    "77066a3c64cb": {
+      "shortCode": "NET-EDU",
+      "id": "77066a3c64cb",
+      "sourceId": "77066a3c64cb",
+      "fullCode": "TI-DS-04.02.02-001",
+      "issuedName": "Estudiantes con acceso a conexión a internet en sedes educativas"
+    },
+    "541d3935b461": {
+      "shortCode": "ORAL-BRIG",
+      "id": "541d3935b461",
+      "sourceId": "541d3935b461",
+      "fullCode": "TI-DS-01.01.03-003",
+      "issuedName": "Atenciones de higiene oral en brigadas"
+    },
+    "0621ff0d5434": {
+      "shortCode": "PAE",
+      "id": "0621ff0d5434",
+      "sourceId": "0621ff0d5434",
+      "fullCode": "TI-DS-01.02.03-001",
+      "issuedName": "Beneficiarios de la alimentación escolar (PAE) - Bolsa Común."
+    },
+    "0465062130bb": {
+      "shortCode": "PART-SUBS",
+      "id": "0465062130bb",
+      "sourceId": "0465062130bb",
+      "fullCode": "TI-DS-01.01.01-024",
+      "issuedName": "Participación del régimen subsidiado en el aseguramiento"
+    },
+    "a66eaab3e883": {
+      "shortCode": "POB-AFIL",
+      "id": "a66eaab3e883",
+      "sourceId": "a66eaab3e883",
+      "fullCode": "TI-DS-01.01.01-026",
+      "issuedName": "Población afiliada al sistema de salud"
+    },
+    "dea19b1749d1": {
+      "shortCode": "POB-EDAD",
+      "id": "dea19b1749d1",
+      "sourceId": "dea19b1749d1",
+      "fullCode": "TI-DS-01.03.07-004",
+      "issuedName": "Población total del municipio por grupo de edad y sexo"
+    },
+    "214437970999": {
+      "shortCode": "POB-RURAL",
+      "id": "214437970999",
+      "sourceId": "214437970999",
+      "fullCode": "TI-DS-01.03.07-003",
+      "issuedName": "Población rural proyectada de Subachoque"
+    },
+    "17ec702e89e1": {
+      "shortCode": "POB-TOTAL",
+      "id": "17ec702e89e1",
+      "sourceId": "17ec702e89e1",
+      "fullCode": "TI-DS-01.03.07-005",
+      "issuedName": "Población total proyectada de Subachoque"
+    },
+    "252dcad49835": {
+      "shortCode": "POB-URB",
+      "id": "252dcad49835",
+      "sourceId": "252dcad49835",
+      "fullCode": "TI-DS-01.03.07-006",
+      "issuedName": "Población urbana proyectada de Subachoque"
+    },
+    "f5d790906a02": {
+      "shortCode": "POBREZA",
+      "id": "f5d790906a02",
+      "sourceId": "f5d790906a02",
+      "fullCode": "TI-DS-01.03.01-002",
+      "issuedName": "Pobreza multidimensional y monetaria"
+    },
+    "15be6d98510b": {
+      "shortCode": "POL-ACC",
+      "id": "15be6d98510b",
+      "sourceId": "15be6d98510b",
+      "fullCode": "TI-DS-01.00.00-003",
+      "issuedName": "Póliza de accidentes personales de los inscritos en las escuelas de formación"
+    },
+    "19f06e9aea3d": {
+      "shortCode": "POL-ACT",
+      "id": "19f06e9aea3d",
+      "sourceId": "19f06e9aea3d",
+      "fullCode": "TI-DS-01.06.03-001",
+      "issuedName": "Actuaciones policiales documentadas: capturas y automotores recuperados"
+    },
+    "14262d490cda": {
+      "shortCode": "PREDIAL",
+      "id": "14262d490cda",
+      "sourceId": "14262d490cda",
+      "fullCode": "TI-DS-02.06.04-001",
+      "issuedName": "Recaudo del impuesto predial municipal."
+    },
+    "16ae27d57072": {
+      "shortCode": "PRES-ING",
+      "id": "16ae27d57072",
+      "sourceId": "16ae27d57072",
+      "fullCode": "TI-DS-02.06.09-001",
+      "issuedName": "Presupuesto municipal de ingresos."
+    },
+    "2d5ae576b219": {
+      "shortCode": "PSA-APORT",
+      "id": "2d5ae576b219",
+      "sourceId": "2d5ae576b219",
+      "fullCode": "TI-DS-03.01.02-003",
+      "issuedName": "Aporte de Subachoque al convenio de pagos por servicios ambientales frente al valor total del convenio"
+    },
+    "1d9c83946329": {
+      "shortCode": "PSA-HECT",
+      "id": "1d9c83946329",
+      "sourceId": "1d9c83946329",
+      "fullCode": "TI-DS-03.01.01-004",
+      "issuedName": "Hectáreas en conservación por acuerdos de pagos por servicios ambientales"
+    },
+    "acaf04b7cb53": {
+      "shortCode": "PTAP-CAP",
+      "id": "acaf04b7cb53",
+      "sourceId": "acaf04b7cb53",
+      "fullCode": "TI-DS-03.02.03-001",
+      "issuedName": "Capacidad instalada de tratamiento de las Plantas de Tratamiento de Agua Potable (PTAP) en operación"
+    },
+    "42ec7c0a253e": {
+      "shortCode": "PTAP-DISTR",
+      "id": "42ec7c0a253e",
+      "sourceId": "42ec7c0a253e",
+      "fullCode": "TI-DS-03.02.03-004",
+      "issuedName": "Distribución de las Plantas de Tratamiento de Agua Potable (PTAP) en operación según entidad administradora"
+    },
+    "33061d8a21e7": {
+      "shortCode": "PTAP-TOTAL",
+      "id": "33061d8a21e7",
+      "sourceId": "33061d8a21e7",
+      "fullCode": "TI-DS-03.02.03-014",
+      "issuedName": "Número total de Plantas de Tratamiento de Agua Potable (PTAP) en operación"
+    },
+    "9a7a4136d31e": {
+      "shortCode": "PTAP-ZON",
+      "id": "9a7a4136d31e",
+      "sourceId": "9a7a4136d31e",
+      "fullCode": "TI-DS-03.02.03-007",
+      "issuedName": "Número de Plantas de Tratamiento de Agua Potable (PTAP) por zona"
+    },
+    "01834c4bf7aa": {
+      "shortCode": "PTAR-TOTAL",
+      "id": "01834c4bf7aa",
+      "sourceId": "01834c4bf7aa",
+      "fullCode": "TI-DS-03.02.03-015",
+      "issuedName": "Número total de Plantas de Tratamiento de Aguas Residuales (PTAR)"
+    },
+    "e8712cba7a5d": {
+      "shortCode": "PTAR-ZONA",
+      "id": "e8712cba7a5d",
+      "sourceId": "e8712cba7a5d",
+      "fullCode": "TI-DS-03.02.03-008",
+      "issuedName": "Número de Plantas de Tratamiento de Aguas Residuales (PTAR) por zona"
+    },
+    "2b9ce4a075d2": {
+      "shortCode": "REC-NOTR",
+      "id": "2b9ce4a075d2",
+      "sourceId": "2b9ce4a075d2",
+      "fullCode": "TI-DS-02.06.03-001",
+      "issuedName": "Recaudo no tributario municipal."
+    },
+    "f638706658df": {
+      "shortCode": "REC-TRIB",
+      "id": "f638706658df",
+      "sourceId": "f638706658df",
+      "fullCode": "TI-DS-02.06.02-002",
+      "issuedName": "Recaudo tributario municipal."
+    },
+    "3dd95656ab6b": {
+      "shortCode": "REF-NEPS",
+      "id": "3dd95656ab6b",
+      "sourceId": "3dd95656ab6b",
+      "fullCode": "TI-DS-01.01.03-010",
+      "issuedName": "Cumplimiento de referencia y contrarreferencia en Nueva EPS contributiva"
+    },
+    "c4d159d18b06": {
+      "shortCode": "REF-STOT",
+      "id": "c4d159d18b06",
+      "sourceId": "c4d159d18b06",
+      "fullCode": "TI-DS-01.01.03-012",
+      "issuedName": "Mejora semestral de referencia y contrarreferencia en Salud Total"
+    },
+    "0c01e2f03e7e": {
+      "shortCode": "REGALIAS",
+      "id": "0c01e2f03e7e",
+      "sourceId": "0c01e2f03e7e",
+      "fullCode": "TI-DS-02.06.08-001",
+      "issuedName": "Recursos recibidos por concepto de regalías."
+    },
+    "1a6a3bc55c3c": {
+      "shortCode": "RES-COSTO",
+      "id": "1a6a3bc55c3c",
+      "sourceId": "1a6a3bc55c3c",
+      "fullCode": "TI-DS-03.02.03-003",
+      "issuedName": "Costo de disposición final por tonelada de residuos"
+    },
+    "d33502752be0": {
+      "shortCode": "RES-SOL",
+      "id": "d33502752be0",
+      "sourceId": "d33502752be0",
+      "fullCode": "TI-DS-03.02.03-027",
+      "issuedName": "Residuos sólidos generados y aprovechados"
+    },
+    "509022e7d99b": {
+      "shortCode": "RIES-ADULT",
+      "id": "509022e7d99b",
+      "sourceId": "509022e7d99b",
+      "fullCode": "TI-DS-03.04.02-002",
+      "issuedName": "Participación de mayores de 60 años en población objetivo de riesgo"
+    },
+    "b8812ce01e68": {
+      "shortCode": "RIES-AREA",
+      "id": "b8812ce01e68",
+      "sourceId": "b8812ce01e68",
+      "fullCode": "TI-DS-03.04.01-001",
+      "issuedName": "Áreas en condición de riesgo por fenómenos naturales"
+    },
+    "670d9635fa1d": {
+      "shortCode": "RIES-CAP",
+      "id": "670d9635fa1d",
+      "sourceId": "670d9635fa1d",
+      "fullCode": "TI-DS-03.04.02-001",
+      "issuedName": "Meta de personas capacitadas en gestión del riesgo"
+    },
+    "ad5c25b99e56": {
+      "shortCode": "RIES-EDU",
+      "id": "ad5c25b99e56",
+      "sourceId": "ad5c25b99e56",
+      "fullCode": "TI-DS-03.04.02-006",
+      "issuedName": "Presupuesto formulado para educación en gestión del riesgo"
+    },
+    "3788f99c9d39": {
+      "shortCode": "RIES-EDUC",
+      "id": "3788f99c9d39",
+      "sourceId": "3788f99c9d39",
+      "fullCode": "TI-DS-03.04.02-005",
+      "issuedName": "Presupuesto de capacitación específica en gestión del riesgo"
+    },
+    "bde6c2688e11": {
+      "shortCode": "RIES-ESTUD",
+      "id": "bde6c2688e11",
+      "sourceId": "bde6c2688e11",
+      "fullCode": "TI-DS-03.04.01-003",
+      "issuedName": "Estudios técnicos territoriales de riesgo programados"
+    },
+    "eea59f142b00": {
+      "shortCode": "RIES-GAL",
+      "id": "eea59f142b00",
+      "sourceId": "eea59f142b00",
+      "fullCode": "TI-DS-03.04.01-005",
+      "issuedName": "Presupuesto de estudio de remoción en masa en Galdámez"
+    },
+    "a6d2cc8657f4": {
+      "shortCode": "RIES-INV",
+      "id": "a6d2cc8657f4",
+      "sourceId": "a6d2cc8657f4",
+      "fullCode": "TI-DS-03.04.01-004",
+      "issuedName": "Inversión total formulada para el plan de gestión del riesgo"
+    },
+    "e838dd04371c": {
+      "shortCode": "RIES-MUJ",
+      "id": "e838dd04371c",
+      "sourceId": "e838dd04371c",
+      "fullCode": "TI-DS-03.04.02-003",
+      "issuedName": "Participación de mujeres en población objetivo de gestión del riesgo"
+    },
+    "9b0dd8e42c5f": {
+      "shortCode": "RIES-OBRA",
+      "id": "9b0dd8e42c5f",
+      "sourceId": "9b0dd8e42c5f",
+      "fullCode": "TI-DS-03.04.01-002",
+      "issuedName": "Costo previsto de obra para mitigación de riesgo"
+    },
+    "541218380de9": {
+      "shortCode": "RIES-PRAD",
+      "id": "541218380de9",
+      "sourceId": "541218380de9",
+      "fullCode": "TI-DS-03.04.01-006",
+      "issuedName": "Presupuesto de estudio de riesgo en La Pradera"
+    },
+    "295a6df5542f": {
+      "shortCode": "RIES-PRES",
+      "id": "295a6df5542f",
+      "sourceId": "295a6df5542f",
+      "fullCode": "TI-DS-03.04.01-008",
+      "issuedName": "Presupuesto total de estudios técnicos de riesgo"
+    },
+    "0a15e4ed5703": {
+      "shortCode": "RIES-SILES",
+      "id": "0a15e4ed5703",
+      "sourceId": "0a15e4ed5703",
+      "fullCode": "TI-DS-03.04.01-007",
+      "issuedName": "Presupuesto del estudio de riesgo en La Silesia"
+    },
+    "13e46ab2092c": {
+      "shortCode": "RIES-TANQ",
+      "id": "13e46ab2092c",
+      "sourceId": "13e46ab2092c",
+      "fullCode": "TI-DS-03.04.02-004",
+      "issuedName": "Presupuesto de adquisición de tanques para afectados"
+    },
+    "ca60a88b247e": {
+      "shortCode": "RURAL-PCT",
+      "id": "ca60a88b247e",
+      "sourceId": "ca60a88b247e",
+      "fullCode": "TI-DS-01.03.07-007",
+      "issuedName": "Porcentaje de población rural de Subachoque"
+    },
+    "815b4dd23bb1": {
+      "shortCode": "SAC-ESPEC",
+      "id": "815b4dd23bb1",
+      "sourceId": "815b4dd23bb1",
+      "fullCode": "TI-DS-01.01.03-011",
+      "issuedName": "Gestiones SAC para citas y procedimientos especializados"
+    },
+    "476b82a0c720": {
+      "shortCode": "SAC-PART",
+      "id": "476b82a0c720",
+      "sourceId": "476b82a0c720",
+      "fullCode": "TI-DS-01.01.03-014",
+      "issuedName": "Participación de citas especializadas en las gestiones SAC"
+    },
+    "c15056b95733": {
+      "shortCode": "SAL-MENT",
+      "id": "c15056b95733",
+      "sourceId": "c15056b95733",
+      "fullCode": "TI-DS-01.01.02-011",
+      "issuedName": "Eventos de salud mental"
+    },
+    "c98b1f23ae1e": {
+      "shortCode": "SAN-ANIM",
+      "id": "c98b1f23ae1e",
+      "sourceId": "c98b1f23ae1e",
+      "fullCode": "TI-DS-02.01.02-005",
+      "issuedName": "Personas beneficiadas con insumos de sanidad animal"
+    },
+    "c517cc8bff4c": {
+      "shortCode": "SEDES-DOT",
+      "id": "c517cc8bff4c",
+      "sourceId": "c517cc8bff4c",
+      "fullCode": "TI-DS-01.02.04-001",
+      "issuedName": "Sedes educativas mejoradas y dotadas (Mobiliario e Infraestructura)."
+    },
+    "8dde4fbc56c7": {
+      "shortCode": "SISBEN",
+      "id": "8dde4fbc56c7",
+      "sourceId": "8dde4fbc56c7",
+      "fullCode": "TI-DS-04.03.01-001",
+      "issuedName": "Número de encuestas realizadas para el SISBEN del Municipio"
+    },
+    "ddeeca8f1ae4": {
+      "shortCode": "SIST-ALCAL",
+      "id": "ddeeca8f1ae4",
+      "sourceId": "ddeeca8f1ae4",
+      "fullCode": "TI-DS-04.02.04-001",
+      "issuedName": "Número de sistemas de información en operación en la Alcaldía de Subachoque"
+    },
+    "31e681db2d98": {
+      "shortCode": "SUB-USU",
+      "id": "31e681db2d98",
+      "sourceId": "31e681db2d98",
+      "fullCode": "TI-DS-03.02.03-016",
+      "issuedName": "Número total de usuarios beneficiarios de subsidios"
+    },
+    "25151226f08f": {
+      "shortCode": "TESORERIA",
+      "id": "25151226f08f",
+      "sourceId": "25151226f08f",
+      "fullCode": "TI-DS-02.06.12-001",
+      "issuedName": "Gestión de tesorería municipal."
+    },
+    "e5271272ff59": {
+      "shortCode": "TRAC-CUMP",
+      "id": "e5271272ff59",
+      "sourceId": "e5271272ff59",
+      "fullCode": "TI-DS-02.01.02-006",
+      "issuedName": "Porcentaje de cumplimiento de servicios de tractor agendados"
+    },
+    "1e705065dd2b": {
+      "shortCode": "TRAC-REC",
+      "id": "1e705065dd2b",
+      "sourceId": "1e705065dd2b",
+      "fullCode": "TI-DS-02.01.02-010",
+      "issuedName": "Recaudo anual por servicio de tractor"
+    },
+    "75eff6d02c24": {
+      "shortCode": "TRAC-SERV",
+      "id": "75eff6d02c24",
+      "sourceId": "75eff6d02c24",
+      "fullCode": "TI-DS-02.01.02-004",
+      "issuedName": "Número de servicios de tractor prestados"
+    },
+    "ba35715f1621": {
+      "shortCode": "TRAM-POL",
+      "id": "ba35715f1621",
+      "sourceId": "ba35715f1621",
+      "fullCode": "TI-DS-01.06.04-003",
+      "issuedName": "Tramites policivos especiales, comisorios, tutelas y proteccion animal"
+    },
+    "32ee2eb32467": {
+      "shortCode": "TRANS-ESC",
+      "id": "32ee2eb32467",
+      "sourceId": "32ee2eb32467",
+      "fullCode": "TI-DS-01.02.03-002",
+      "issuedName": "Beneficiarios de transporte escolar."
+    },
+    "3bf8b39d9fb0": {
+      "shortCode": "TRANSFER",
+      "id": "3bf8b39d9fb0",
+      "sourceId": "3bf8b39d9fb0",
+      "fullCode": "TI-DS-02.06.07-001",
+      "issuedName": "Recaudo por concepto de transferencias."
+    },
+    "4eea3f8d97eb": {
+      "shortCode": "TUR-GASTRO",
+      "id": "4eea3f8d97eb",
+      "sourceId": "4eea3f8d97eb",
+      "fullCode": "TI-DS-02.03.01-003",
+      "issuedName": "Establecimientos de alimentos y bebidas (gastronomía) vinculados al turismo"
+    },
+    "6320b6dab01d": {
+      "shortCode": "TUR-NAT",
+      "id": "6320b6dab01d",
+      "sourceId": "6320b6dab01d",
+      "fullCode": "TI-DS-02.03.03-001",
+      "issuedName": "Áreas protegidas y ecosistemas estratégicos con potencial de turismo de naturaleza"
+    },
+    "1a48c7bb7597": {
+      "shortCode": "UPC-ADRES",
+      "id": "1a48c7bb7597",
+      "sourceId": "1a48c7bb7597",
+      "fullCode": "TI-DS-01.01.01-007",
+      "issuedName": "Aporte Nación/ADRES a la UPC subsidiada en septiembre"
+    },
+    "7380efb95772": {
+      "shortCode": "UPC-DEP",
+      "id": "7380efb95772",
+      "sourceId": "7380efb95772",
+      "fullCode": "TI-DS-01.01.01-012",
+      "issuedName": "Cofinanciación departamental de UPC en septiembre"
+    },
+    "356fdd15a02c": {
+      "shortCode": "UPC-REST",
+      "id": "356fdd15a02c",
+      "sourceId": "356fdd15a02c",
+      "fullCode": "TI-DS-01.01.01-017",
+      "issuedName": "EPS distintas con restituciones de UPC en septiembre"
+    },
+    "86c9d66c3373": {
+      "shortCode": "URB-PCT",
+      "id": "86c9d66c3373",
+      "sourceId": "86c9d66c3373",
+      "fullCode": "TI-DS-01.03.07-008",
+      "issuedName": "Porcentaje de población urbana de Subachoque"
+    },
+    "1f7797065f4f": {
+      "shortCode": "VAC-BRIG",
+      "id": "1f7797065f4f",
+      "sourceId": "1f7797065f4f",
+      "fullCode": "TI-DS-01.01.02-001",
+      "issuedName": "Atenciones de vacunación en brigadas"
+    },
+    "ad461de14311": {
+      "shortCode": "VAC-PRAD",
+      "id": "ad461de14311",
+      "sourceId": "ad461de14311",
+      "fullCode": "TI-DS-01.01.02-002",
+      "issuedName": "Atenciones de vacunación en La Pradera"
+    },
+    "b94638da7a62": {
+      "shortCode": "VAR-CONT",
+      "id": "b94638da7a62",
+      "sourceId": "b94638da7a62",
+      "fullCode": "TI-DS-01.01.01-037",
+      "issuedName": "Variación mensual neta de afiliados al régimen contributivo"
+    },
+    "0fa3d531969b": {
+      "shortCode": "VAR-EXC",
+      "id": "0fa3d531969b",
+      "sourceId": "0fa3d531969b",
+      "fullCode": "TI-DS-01.01.01-039",
+      "issuedName": "Variación neta de afiliados al régimen de excepción"
+    },
+    "d0e41b79b8bd": {
+      "shortCode": "VAR-SUBS",
+      "id": "d0e41b79b8bd",
+      "sourceId": "d0e41b79b8bd",
+      "fullCode": "TI-DS-01.01.01-038",
+      "issuedName": "Variación mensual neta de afiliados al régimen subsidiado"
+    },
+    "7f7b2291ef23": {
+      "shortCode": "VIAS-MANT",
+      "id": "7f7b2291ef23",
+      "sourceId": "7f7b2291ef23",
+      "fullCode": "TI-DS-03.03.01-002",
+      "issuedName": "Número de mantenimientos preventivos y correctivos a las vías terciarias."
+    },
+    "4201eedb6d69": {
+      "shortCode": "VIAS-PRES",
+      "id": "4201eedb6d69",
+      "sourceId": "4201eedb6d69",
+      "fullCode": "TI-DS-03.03.01-003",
+      "issuedName": "Presupuesto anual para el mantenimiento de las vías terciarias"
+    },
+    "f105446a40e0": {
+      "shortCode": "VIAS-ZONA",
+      "id": "f105446a40e0",
+      "sourceId": "f105446a40e0",
+      "fullCode": "TI-DS-03.03.01-001",
+      "issuedName": "Número de mantenimientos a vías terciarias por zona rural / urbana"
+    },
+    "7dc9589b1730": {
+      "shortCode": "VIOL-DENUNC",
+      "id": "7dc9589b1730",
+      "sourceId": "7dc9589b1730",
+      "fullCode": "TI-DS-01.03.04-003",
+      "issuedName": "Casos de violencia intrafamiliar y delitos sexuales denunciados ante la Policía, por sexo y edad de la víctima"
+    },
+    "db3f692f8165": {
+      "shortCode": "VIOL-INTRA",
+      "id": "db3f692f8165",
+      "sourceId": "db3f692f8165",
+      "fullCode": "TI-DS-01.06.02-001",
+      "issuedName": "Casos de violencia intrafamiliar atendidos por tipo de violencia"
+    },
+    "2f907199af63": {
+      "shortCode": "VIS-TUR",
+      "id": "2f907199af63",
+      "sourceId": "2f907199af63",
+      "fullCode": "TI-DS-02.03.02-001",
+      "issuedName": "Visitantes recibidos anualmente"
+    },
+    "dd47cd6a96c5": {
+      "shortCode": "VIV-RURAL",
+      "id": "dd47cd6a96c5",
+      "sourceId": "dd47cd6a96c5",
+      "fullCode": "TI-DS-03.02.00-001",
+      "issuedName": "Número de subsidios y soluciones de vivienda rural (mejoramiento y construcción) ejecutados"
+    },
+    "26e5a4d8281b": {
+      "shortCode": "VIV-SANCAR",
+      "id": "26e5a4d8281b",
+      "sourceId": "26e5a4d8281b",
+      "fullCode": "TI-DS-01.01.02-035",
+      "issuedName": "Viviendas caracterizadas en Urbanización San Carlos"
+    },
+    "c2727d3280ab": {
+      "shortCode": "ACT-CONSEJ",
+      "id": "c2727d3280ab",
+      "sourceId": "c2727d3280ab",
+      "fullCode": "TI-DS-01.03.04-001",
+      "issuedName": "Actividades del Consejo Consultivo de Mujeres y asistentes"
+    },
+    "bc571d6b2931": {
+      "shortCode": "ACT-DEP",
+      "id": "bc571d6b2931",
+      "sourceId": "bc571d6b2931",
+      "fullCode": "TI-DS-01.05.02-001",
+      "issuedName": "Beneficiarios de actividades deportivas"
+    },
+    "a0c7abad3975": {
+      "shortCode": "ADICIO-PRES",
+      "id": "a0c7abad3975",
+      "sourceId": "a0c7abad3975",
+      "fullCode": "TI-DS-01.01.01-001",
+      "issuedName": "Adición presupuestal para inspección vigilancia y control"
+    },
+    "5e45916e661c": {
+      "shortCode": "AFIL-REG",
+      "id": "5e45916e661c",
+      "sourceId": "5e45916e661c",
+      "fullCode": "TI-DS-01.01.01-004",
+      "issuedName": "Afiliados activos al régimen contributivo"
+    },
+    "9505928caf91": {
+      "shortCode": "AFIL-SAL",
+      "id": "9505928caf91",
+      "sourceId": "9505928caf91",
+      "fullCode": "TI-DS-01.01.01-002",
+      "issuedName": "Afiliación a salud por régimen y protección laboral"
+    },
+    "ab6b9409a865": {
+      "shortCode": "AGUA-PTAP",
+      "id": "ab6b9409a865",
+      "sourceId": "ab6b9409a865",
+      "fullCode": "TI-DS-03.02.03-005",
+      "issuedName": "Fuentes hídricas que abastecen las Plantas de Tratamiento de Agua Potable (PTAP) en operación"
+    },
+    "7ffed41b7509": {
+      "shortCode": "ANOS-PROMED",
+      "id": "7ffed41b7509",
+      "sourceId": "7ffed41b7509",
+      "fullCode": "TI-DS-01.03.04-002",
+      "issuedName": "Años promedio de educación de mujeres y hombres en la cabecera municipal"
+    },
+    "2f97d5ae7cc7": {
+      "shortCode": "APORTE-SGP",
+      "id": "2f97d5ae7cc7",
+      "sourceId": "2f97d5ae7cc7",
+      "fullCode": "TI-DS-01.01.01-006",
+      "issuedName": "Aporte del SGP a la UPC subsidiada en septiembre"
+    },
+    "31326edb74e7": {
+      "shortCode": "APOYOS-SAC",
+      "id": "31326edb74e7",
+      "sourceId": "31326edb74e7",
+      "fullCode": "TI-DS-01.01.03-001",
+      "issuedName": "Apoyos SAC a citas médicas y odontológicas del centro de salud"
+    },
+    "f423078e1d2a": {
+      "shortCode": "AREA-CONFLI",
+      "id": "f423078e1d2a",
+      "sourceId": "f423078e1d2a",
+      "fullCode": "TI-DS-03.02.05-001",
+      "issuedName": "Área del municipio con conflicto de uso del suelo"
+    },
+    "188bb6d8e469": {
+      "shortCode": "AREA-CONSTR",
+      "id": "188bb6d8e469",
+      "sourceId": "188bb6d8e469",
+      "fullCode": "TI-DS-03.02.06-001",
+      "issuedName": "Área Construida Rural por Vereda en (%)"
+    },
+    "5aa641c4f6a4": {
+      "shortCode": "AREA-URB",
+      "id": "5aa641c4f6a4",
+      "sourceId": "5aa641c4f6a4",
+      "fullCode": "TI-DS-03.02.06-002",
+      "issuedName": "Área Construida Urbana por Sector (%)"
+    },
+    "eab303776139": {
+      "shortCode": "ARTES-VINC",
+      "id": "eab303776139",
+      "sourceId": "eab303776139",
+      "fullCode": "TI-DS-02.02.04-001",
+      "issuedName": "Artesanos vinculados a una organización"
+    },
+    "53f2163420e6": {
+      "shortCode": "ASIST-SERV",
+      "id": "53f2163420e6",
+      "sourceId": "53f2163420e6",
+      "fullCode": "TI-DS-01.04.02-002",
+      "issuedName": "Asistencias a los servicios bibliotecarios por línea de servicio"
+    },
+    "c7c21ba25d2e": {
+      "shortCode": "ASISTE-60",
+      "id": "c7c21ba25d2e",
+      "sourceId": "c7c21ba25d2e",
+      "fullCode": "TI-DS-01.01.05-001",
+      "issuedName": "Asistentes de 60 años o más en jornada de mujer"
+    },
+    "4578a9781eb7": {
+      "shortCode": "ASOCIA-AGRO",
+      "id": "4578a9781eb7",
+      "sourceId": "4578a9781eb7",
+      "fullCode": "TI-DS-02.01.04-001",
+      "issuedName": "Asociaciones agropecuarias activas en el municipio"
+    },
+    "99db61161e35": {
+      "shortCode": "ATEN-CENTRO",
+      "id": "99db61161e35",
+      "sourceId": "99db61161e35",
+      "fullCode": "TI-DS-01.01.02-030",
+      "issuedName": "Personas atendidas en el Centro de Acompañamiento Psicológico"
+    },
+    "3124ed30dbb0": {
+      "shortCode": "ATEN-COMISA",
+      "id": "3124ed30dbb0",
+      "sourceId": "3124ed30dbb0",
+      "fullCode": "TI-DS-01.06.04-001",
+      "issuedName": "Atenciones de la Comisaría de Familia por tipo, por vereda y por zona (urbana y rural)"
+    },
+    "6ce1ee222be6": {
+      "shortCode": "ATEN-JORN",
+      "id": "6ce1ee222be6",
+      "sourceId": "6ce1ee222be6",
+      "fullCode": "TI-DS-01.01.02-031",
+      "issuedName": "Personas atendidas en jornada de La Pradera"
+    },
+    "0b4244b8a469": {
+      "shortCode": "ATEN-PIC",
+      "id": "0b4244b8a469",
+      "sourceId": "0b4244b8a469",
+      "fullCode": "TI-DS-01.01.02-032",
+      "issuedName": "Personas atendidas por PIC reportadas al COPACO"
+    },
+    "53fd79684e0f": {
+      "shortCode": "BAJO-PESO",
+      "id": "53fd79684e0f",
+      "sourceId": "53fd79684e0f",
+      "fullCode": "TI-DS-01.01.07-001",
+      "issuedName": "Bajo peso en adultos según ASIS"
+    },
+    "a85f369c517a": {
+      "shortCode": "BENEFI-CADA",
+      "id": "a85f369c517a",
+      "sourceId": "a85f369c517a",
+      "fullCode": "TI-DS-01.04.03-001",
+      "issuedName": "Número de beneficiario por cada actividad cultural"
+    },
+    "afa68bac4c40": {
+      "shortCode": "BIENES-PATR",
+      "id": "afa68bac4c40",
+      "sourceId": "afa68bac4c40",
+      "fullCode": "TI-DS-02.03.03-002",
+      "issuedName": "Bienes patrimoniales identificados"
+    },
+    "3516cbbf38e2": {
+      "shortCode": "BRIG-SAL",
+      "id": "3516cbbf38e2",
+      "sourceId": "3516cbbf38e2",
+      "fullCode": "TI-DS-01.01.02-003",
+      "issuedName": "Brigadas de salud realizadas en el municipio"
+    },
+    "2abe2a46f12d": {
+      "shortCode": "CAP-ALOJAM",
+      "id": "2abe2a46f12d",
+      "sourceId": "2abe2a46f12d",
+      "fullCode": "TI-DS-02.03.01-001",
+      "issuedName": "Capacidad de alojamiento turístico (camas disponibles)"
+    },
+    "ecb317d9ec68": {
+      "shortCode": "CASOS-NNA",
+      "id": "ecb317d9ec68",
+      "sourceId": "ecb317d9ec68",
+      "fullCode": "TI-DS-01.03.02-001",
+      "issuedName": "Casos de NNA atendidos por la Comisaría según categoría de motivo"
+    },
+    "a7ee5aad9092": {
+      "shortCode": "CITOLO-ADN",
+      "id": "a7ee5aad9092",
+      "sourceId": "a7ee5aad9092",
+      "fullCode": "TI-DS-01.01.02-004",
+      "issuedName": "Citologías con ADN de VPH realizadas en jornada"
+    },
+    "7d26b6f82141": {
+      "shortCode": "COB-ACCION",
+      "id": "7d26b6f82141",
+      "sourceId": "7d26b6f82141",
+      "fullCode": "TI-DS-01.01.07-002",
+      "issuedName": "Cobertura de Acciones en Seguridad Alimentaria y Nutricional (SAN) y Seguimiento a Menores con Malnutrición"
+    },
+    "e76655060f42": {
+      "shortCode": "COB-PROM",
+      "id": "e76655060f42",
+      "sourceId": "e76655060f42",
+      "fullCode": "TI-DS-01.01.02-005",
+      "issuedName": "Cobertura de Acciones de Promoción, Prevención y Caracterización de Riesgos en Salud (PIC APS)"
+    },
+    "930170e60fe4": {
+      "shortCode": "COB-ACUED",
+      "id": "930170e60fe4",
+      "sourceId": "930170e60fe4",
+      "fullCode": "TI-DS-03.02.03-002",
+      "issuedName": "Cobertura de Acueducto Rural"
+    },
+    "328a4073f583": {
+      "shortCode": "COB-BIBLIO",
+      "id": "328a4073f583",
+      "sourceId": "328a4073f583",
+      "fullCode": "TI-DS-01.04.02-003",
+      "issuedName": "Cobertura total de beneficiarios de la biblioteca"
+    },
+    "beaef807ae11": {
+      "shortCode": "COB-CARACT",
+      "id": "beaef807ae11",
+      "sourceId": "beaef807ae11",
+      "fullCode": "TI-DS-01.01.02-006",
+      "issuedName": "Cobertura de caracterización de viviendas en San Carlos"
+    },
+    "26830120ee76": {
+      "shortCode": "COB-INTERV",
+      "id": "26830120ee76",
+      "sourceId": "26830120ee76",
+      "fullCode": "TI-DS-01.01.02-007",
+      "issuedName": "Cobertura de Intervenciones en Salud Mental y Escucha Activa (Centro de Acompañamiento Psicológico)"
+    },
+    "fe39d2364266": {
+      "shortCode": "COB-SAL",
+      "id": "fe39d2364266",
+      "sourceId": "fe39d2364266",
+      "fullCode": "TI-DS-01.01.02-008",
+      "issuedName": "Cobertura de Intervenciones en Salud Oral y Entornos Educativos Libres de Caries (Curso de Vida: Infancia, Adolescencia y Gestantes)"
+    },
+    "2f51f6823731": {
+      "shortCode": "COB-VALORA",
+      "id": "2f51f6823731",
+      "sourceId": "2f51f6823731",
+      "fullCode": "TI-DS-01.01.06-001",
+      "issuedName": "Cobertura de Valoración Integral en Primera Infancia mediante Fichas AIEPI Comunitario (Atención Integral de Enfermedades Prevalentes de la Infancia)"
+    },
+    "bb089a44033a": {
+      "shortCode": "CONC-RESTIT",
+      "id": "bb089a44033a",
+      "sourceId": "bb089a44033a",
+      "fullCode": "TI-DS-01.01.01-016",
+      "issuedName": "Concentración de restituciones de UPC en Famisanar"
+    },
+    "9545134b7892": {
+      "shortCode": "CONVEN-EDU",
+      "id": "9545134b7892",
+      "sourceId": "9545134b7892",
+      "fullCode": "TI-DS-01.02.05-001",
+      "issuedName": "Beneficiarios de convenios de educación superior técnica, tecnológica y complementaria."
+    },
+    "dc0049d42a52": {
+      "shortCode": "EJEC-FINANC",
+      "id": "dc0049d42a52",
+      "sourceId": "dc0049d42a52",
+      "fullCode": "TI-DS-01.01.02-010",
+      "issuedName": "Ejecución Financiera y Cobertura de Acciones del Plan de Intervenciones Colectivas (PIC) en Atención Primaria en Salud (APS)"
+    },
+    "7546b713c8e8": {
+      "shortCode": "EMPREN-CAP",
+      "id": "7546b713c8e8",
+      "sourceId": "7546b713c8e8",
+      "fullCode": "TI-DS-02.02.02-001",
+      "issuedName": "Emprendedores capacitados y beneficiarios del Sistema Público de Empleo y del FEMS"
+    },
+    "24a98c962105": {
+      "shortCode": "EOT-AMB",
+      "id": "24a98c962105",
+      "sourceId": "24a98c962105",
+      "fullCode": "TI-DS-03.02.05-004",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en medio ambiente y recursos naturales"
+    },
+    "9350d5612d36": {
+      "shortCode": "EOT-CULT",
+      "id": "9350d5612d36",
+      "sourceId": "9350d5612d36",
+      "fullCode": "TI-DS-03.02.05-005",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en patrimonio histórico, arquitectónico y cultural"
+    },
+    "412b4ae2a514": {
+      "shortCode": "EOT-EDU",
+      "id": "412b4ae2a514",
+      "sourceId": "412b4ae2a514",
+      "fullCode": "TI-DS-03.02.05-002",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en educación"
+    },
+    "c43ce6662333": {
+      "shortCode": "EOT-EQUIP",
+      "id": "c43ce6662333",
+      "sourceId": "c43ce6662333",
+      "fullCode": "TI-DS-03.02.05-003",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en equipamientos"
+    },
+    "dcf3e564ccf0": {
+      "shortCode": "EOT-PROD",
+      "id": "dcf3e564ccf0",
+      "sourceId": "dcf3e564ccf0",
+      "fullCode": "TI-DS-03.02.05-008",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en sistemas productivos"
+    },
+    "7ada066ea1fa": {
+      "shortCode": "EOT-SAL",
+      "id": "7ada066ea1fa",
+      "sourceId": "7ada066ea1fa",
+      "fullCode": "TI-DS-03.02.05-006",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en salud"
+    },
+    "b465574f4787": {
+      "shortCode": "EOT-SERV",
+      "id": "b465574f4787",
+      "sourceId": "b465574f4787",
+      "fullCode": "TI-DS-03.02.05-007",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en servicios públicos"
+    },
+    "9b704b610d02": {
+      "shortCode": "EOT-TUR",
+      "id": "9b704b610d02",
+      "sourceId": "9b704b610d02",
+      "fullCode": "TI-DS-03.02.05-009",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en turismo"
+    },
+    "0e32190595d1": {
+      "shortCode": "EOT-VIAS",
+      "id": "0e32190595d1",
+      "sourceId": "0e32190595d1",
+      "fullCode": "TI-DS-03.02.05-010",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en vías y transporte"
+    },
+    "27052dcba323": {
+      "shortCode": "EOT-VIV",
+      "id": "27052dcba323",
+      "sourceId": "27052dcba323",
+      "fullCode": "TI-DS-03.02.05-011",
+      "issuedName": "Porcentaje de ejecución de los programas del EOT en vivienda"
+    },
+    "54dcc0ea13c2": {
+      "shortCode": "ESTUD-VINC",
+      "id": "54dcc0ea13c2",
+      "sourceId": "54dcc0ea13c2",
+      "fullCode": "TI-DS-01.02.02-002",
+      "issuedName": "Estudiantes vinculados a preparación de Pruebas Saber y orientación socio-ocupacional."
+    },
+    "4635de3b2a69": {
+      "shortCode": "EXCESO-PESO",
+      "id": "4635de3b2a69",
+      "sourceId": "4635de3b2a69",
+      "fullCode": "TI-DS-01.01.07-003",
+      "issuedName": "Exceso de peso en adultos según ASIS"
+    },
+    "8d0e1109df78": {
+      "shortCode": "FAM-CARACT",
+      "id": "8d0e1109df78",
+      "sourceId": "8d0e1109df78",
+      "fullCode": "TI-DS-01.01.02-012",
+      "issuedName": "Familias caracterizadas por PIC reportadas al COPACO"
+    },
+    "fd2d5b14b4f4": {
+      "shortCode": "FONDO-APOYO",
+      "id": "fd2d5b14b4f4",
+      "sourceId": "fd2d5b14b4f4",
+      "fullCode": "TI-DS-01.02.05-002",
+      "issuedName": "Beneficiarios del Fondo de Apoyo a la Educación Superior (FOES)"
+    },
+    "21211b78d4d0": {
+      "shortCode": "GESTAN-ATEN",
+      "id": "21211b78d4d0",
+      "sourceId": "21211b78d4d0",
+      "fullCode": "TI-DS-01.01.02-016",
+      "issuedName": "Gestantes atendidas por PIC reportadas al COPACO"
+    },
+    "3fba92d13138": {
+      "shortCode": "GESTAN-POB",
+      "id": "3fba92d13138",
+      "sourceId": "3fba92d13138",
+      "fullCode": "TI-DS-01.01.02-017",
+      "issuedName": "Gestantes y población atendida por el programa de salud sexual y reproductiva"
+    },
+    "4eeb425dacb7": {
+      "shortCode": "GUIAS-TUR",
+      "id": "4eeb425dacb7",
+      "sourceId": "4eeb425dacb7",
+      "fullCode": "TI-DS-02.03.01-004",
+      "issuedName": "Guías de turismo con RNT activo"
+    },
+    "445c6f67b37d": {
+      "shortCode": "HOG-JEFATU",
+      "id": "445c6f67b37d",
+      "sourceId": "445c6f67b37d",
+      "fullCode": "TI-DS-01.03.04-004",
+      "issuedName": "Hogares con jefatura femenina"
+    },
+    "0c294d8d8258": {
+      "shortCode": "INSCRI-PROG",
+      "id": "0c294d8d8258",
+      "sourceId": "0c294d8d8258",
+      "fullCode": "TI-DS-01.01.04-002",
+      "issuedName": "Personas inscritas en el Programa de Discapacidad por tipo de discapacidad"
+    },
+    "0af96c006c16": {
+      "shortCode": "INSUMO-AGRO",
+      "id": "0af96c006c16",
+      "sourceId": "0af96c006c16",
+      "fullCode": "TI-DS-02.01.03-001",
+      "issuedName": "Número de beneficiarios de Insumos Agrícolas"
+    },
+    "2ae2c84ea03d": {
+      "shortCode": "INV-ADQUIS",
+      "id": "2ae2c84ea03d",
+      "sourceId": "2ae2c84ea03d",
+      "fullCode": "TI-DS-01.05.05-002",
+      "issuedName": "Inversión y adquisición de implementos deportivos"
+    },
+    "508aacacb2d8": {
+      "shortCode": "INV-DOTACI",
+      "id": "508aacacb2d8",
+      "sourceId": "508aacacb2d8",
+      "fullCode": "TI-DS-01.04.06-002",
+      "issuedName": "Inversión y adquisición de dotaciones artísticas y culturales"
+    },
+    "3b4f2cb321d3": {
+      "shortCode": "INV-ALCALD",
+      "id": "3b4f2cb321d3",
+      "sourceId": "3b4f2cb321d3",
+      "fullCode": "TI-DS-01.03.00-001",
+      "issuedName": "Inversión de la alcaldía en desarrollo social"
+    },
+    "c6e668b05270": {
+      "shortCode": "INV-SAL",
+      "id": "c6e668b05270",
+      "sourceId": "c6e668b05270",
+      "fullCode": "TI-DS-01.01.01-018",
+      "issuedName": "Inversión de la alcaldía en salud"
+    },
+    "b5c7079bd1d1": {
+      "shortCode": "INV-CONST",
+      "id": "b5c7079bd1d1",
+      "sourceId": "b5c7079bd1d1",
+      "fullCode": "TI-DS-01.03.04-005",
+      "issuedName": "Inversión en la construcción de la Casa Social de la Mujer"
+    },
+    "948017f622f7": {
+      "shortCode": "INV-CONVEN",
+      "id": "948017f622f7",
+      "sourceId": "948017f622f7",
+      "fullCode": "TI-DS-03.02.03-030",
+      "issuedName": "Valor de la inversión en convenios entre la Alcaldía y la Empresa de Aguas y Aseo para la optimización del sistema de acueducto"
+    },
+    "3ff44536ce45": {
+      "shortCode": "IVC-RECONO",
+      "id": "3ff44536ce45",
+      "sourceId": "3ff44536ce45",
+      "fullCode": "TI-DS-01.01.01-019",
+      "issuedName": "IVC reconocido mediante resoluciones en agosto y septiembre"
+    },
+    "07f933f5ef30": {
+      "shortCode": "JORN-SAL",
+      "id": "07f933f5ef30",
+      "sourceId": "07f933f5ef30",
+      "fullCode": "TI-DS-01.01.02-018",
+      "issuedName": "Jornadas de salud registradas en el consolidado"
+    },
+    "b393e66ffca7": {
+      "shortCode": "JORN-SOCIAL",
+      "id": "b393e66ffca7",
+      "sourceId": "b393e66ffca7",
+      "fullCode": "TI-DS-01.03.02-002",
+      "issuedName": "Jornadas de socialización de las rutas de atención y personas asistentes"
+    },
+    "c7b7dc72f5e4": {
+      "shortCode": "LUM-PUBLIC",
+      "id": "c7b7dc72f5e4",
+      "sourceId": "c7b7dc72f5e4",
+      "fullCode": "TI-DS-02.05.02-001",
+      "issuedName": "Número de luminarias públicas por zona rural / urbana"
+    },
+    "50dea18a7992": {
+      "shortCode": "MAMOGR-JORN",
+      "id": "50dea18a7992",
+      "sourceId": "50dea18a7992",
+      "fullCode": "TI-DS-01.01.02-019",
+      "issuedName": "Mamografías realizadas en jornada de detección"
+    },
+    "26d22d3ac6fe": {
+      "shortCode": "MAYORE-ATEN",
+      "id": "26d22d3ac6fe",
+      "sourceId": "26d22d3ac6fe",
+      "fullCode": "TI-DS-01.01.05-003",
+      "issuedName": "Personas mayores atendidas en el programa de adulto mayor y discapacidad reportada"
+    },
+    "e0574dc8c3c0": {
+      "shortCode": "MEDIDA-PROT",
+      "id": "e0574dc8c3c0",
+      "sourceId": "e0574dc8c3c0",
+      "fullCode": "TI-DS-01.06.04-002",
+      "issuedName": "Medidas de protección dictadas e incidentes de incumplimiento"
+    },
+    "83ca31694565": {
+      "shortCode": "META-ACCION",
+      "id": "83ca31694565",
+      "sourceId": "83ca31694565",
+      "fullCode": "TI-DS-03.04.03-001",
+      "issuedName": "Meta de acciones de fortalecimiento a organismos de socorro"
+    },
+    "4d7b7ba75531": {
+      "shortCode": "META-ACT",
+      "id": "4d7b7ba75531",
+      "sourceId": "4d7b7ba75531",
+      "fullCode": "TI-DS-01.01.05-002",
+      "issuedName": "Meta de actividades cognitivas para mayores según PAS 2026"
+    },
+    "939c20e62eee": {
+      "shortCode": "META-GEST",
+      "id": "939c20e62eee",
+      "sourceId": "939c20e62eee",
+      "fullCode": "TI-DS-03.04.03-002",
+      "issuedName": "Meta de actas de gestión del riesgo"
+    },
+    "9a3501008f7e": {
+      "shortCode": "META-EMERG",
+      "id": "9a3501008f7e",
+      "sourceId": "9a3501008f7e",
+      "fullCode": "TI-DS-03.04.03-003",
+      "issuedName": "Meta de emergencias y desastres atendidos"
+    },
+    "ef2d58834e95": {
+      "shortCode": "META-ENCUEN",
+      "id": "ef2d58834e95",
+      "sourceId": "ef2d58834e95",
+      "fullCode": "TI-DS-01.01.02-020",
+      "issuedName": "Meta de encuentros educativos escolares según PAS 2026"
+    },
+    "327fe6e5c0a3": {
+      "shortCode": "META-FAM",
+      "id": "327fe6e5c0a3",
+      "sourceId": "327fe6e5c0a3",
+      "fullCode": "TI-DS-01.01.02-021",
+      "issuedName": "Meta de familias a caracterizar según PAS 2026"
+    },
+    "395291e7a3f4": {
+      "shortCode": "META-TALLER",
+      "id": "395291e7a3f4",
+      "sourceId": "395291e7a3f4",
+      "fullCode": "TI-DS-01.01.02-022",
+      "issuedName": "Meta de talleres de relaciones humanas saludables según PAS"
+    },
+    "40ef26b3c75f": {
+      "shortCode": "MORT-AJUSTA",
+      "id": "40ef26b3c75f",
+      "sourceId": "40ef26b3c75f",
+      "fullCode": "TI-DS-01.01.02-024",
+      "issuedName": "Mortalidad ajustada por enfermedades circulatorias"
+    },
+    "a44b536486d5": {
+      "shortCode": "MORT-NEOPLA",
+      "id": "a44b536486d5",
+      "sourceId": "a44b536486d5",
+      "fullCode": "TI-DS-01.01.02-026",
+      "issuedName": "Mortalidad ajustada por neoplasias"
+    },
+    "c7c78a8ef4f7": {
+      "shortCode": "MORT-CAUSAS",
+      "id": "c7c78a8ef4f7",
+      "sourceId": "c7c78a8ef4f7",
+      "fullCode": "TI-DS-01.01.02-023",
+      "issuedName": "Mortalidad ajustada por causas externas"
+    },
+    "d23a6c485bb3": {
+      "shortCode": "MORT-ENFERM",
+      "id": "d23a6c485bb3",
+      "sourceId": "d23a6c485bb3",
+      "fullCode": "TI-DS-01.01.02-025",
+      "issuedName": "Mortalidad ajustada por enfermedades transmisibles"
+    },
+    "9cef0543857d": {
+      "shortCode": "MORT-INFANT",
+      "id": "9cef0543857d",
+      "sourceId": "9cef0543857d",
+      "fullCode": "TI-DS-01.01.06-002",
+      "issuedName": "Mortalidad infantil y en la niñez, y atención materna"
+    },
+    "a1ac691437bb": {
+      "shortCode": "MUJ-ATEN",
+      "id": "a1ac691437bb",
+      "sourceId": "a1ac691437bb",
+      "fullCode": "TI-DS-01.01.02-028",
+      "issuedName": "Mujeres atendidas en jornada de detección temprana"
+    },
+    "b1320c9ff748": {
+      "shortCode": "MUJ-ESTRAT",
+      "id": "b1320c9ff748",
+      "sourceId": "b1320c9ff748",
+      "fullCode": "TI-DS-01.01.02-029",
+      "issuedName": "Mujeres beneficiadas con estrategias de detección temprana de cáncer."
+    },
+    "92fe87fd4371": {
+      "shortCode": "ORG-PERTEN",
+      "id": "92fe87fd4371",
+      "sourceId": "92fe87fd4371",
+      "fullCode": "TI-DS-02.02.04-002",
+      "issuedName": "Número de organizaciones a las que pertenecen los artesanos registrados"
+    },
+    "70432fbbc7ff": {
+      "shortCode": "PARCEL-DEM",
+      "id": "70432fbbc7ff",
+      "sourceId": "70432fbbc7ff",
+      "fullCode": "TI-DS-02.01.03-002",
+      "issuedName": "Parcelas demostrativas de mejoramiento de praderas establecidas"
+    },
+    "6d3d24676ae9": {
+      "shortCode": "PART-FAMI",
+      "id": "6d3d24676ae9",
+      "sourceId": "6d3d24676ae9",
+      "fullCode": "TI-DS-01.01.01-020",
+      "issuedName": "Participación de Famisanar en el giro neto de UPC"
+    },
+    "dd1d64cd249d": {
+      "shortCode": "PART-GIRO",
+      "id": "dd1d64cd249d",
+      "sourceId": "dd1d64cd249d",
+      "fullCode": "TI-DS-01.01.01-025",
+      "issuedName": "Participación territorial en el giro neto de UPC"
+    },
+    "534910b61ba9": {
+      "shortCode": "PART-LABORA",
+      "id": "534910b61ba9",
+      "sourceId": "534910b61ba9",
+      "fullCode": "TI-DS-01.03.04-007",
+      "issuedName": "Participación laboral y trabajo en el hogar de mujeres y hombres"
+    },
+    "18dc4a5d1c58": {
+      "shortCode": "PART-MUJ",
+      "id": "18dc4a5d1c58",
+      "sourceId": "18dc4a5d1c58",
+      "fullCode": "TI-DS-01.03.04-006",
+      "issuedName": "Participación de las mujeres en el personal directivo y docente de los colegios del municipio"
+    },
+    "bde1d8a84805": {
+      "shortCode": "PART-NACION",
+      "id": "bde1d8a84805",
+      "sourceId": "bde1d8a84805",
+      "fullCode": "TI-DS-01.01.01-021",
+      "issuedName": "Participación de Nación/ADRES en el giro neto de UPC"
+    },
+    "18698052c6fd": {
+      "shortCode": "PART-PREDIO",
+      "id": "18698052c6fd",
+      "sourceId": "18698052c6fd",
+      "fullCode": "TI-DS-03.02.06-003",
+      "issuedName": "Participación de Predios Rurales (%)"
+    },
+    "1ffaa28aa923": {
+      "shortCode": "PART-REG",
+      "id": "1ffaa28aa923",
+      "sourceId": "1ffaa28aa923",
+      "fullCode": "TI-DS-01.01.01-023",
+      "issuedName": "Participación del régimen contributivo en el aseguramiento"
+    },
+    "881be8f19382": {
+      "shortCode": "PCT-ARTES",
+      "id": "881be8f19382",
+      "sourceId": "881be8f19382",
+      "fullCode": "TI-DS-02.02.02-002",
+      "issuedName": "Porcentaje de artesanos cabeza de hogar"
+    },
+    "b8235c726444": {
+      "shortCode": "PCT-EDU",
+      "id": "b8235c726444",
+      "sourceId": "b8235c726444",
+      "fullCode": "TI-DS-02.02.03-001",
+      "issuedName": "Porcentaje de artesanos con educación técnica o superior"
+    },
+    "e2103c887f5c": {
+      "shortCode": "PCT-ENTREG",
+      "id": "e2103c887f5c",
+      "sourceId": "e2103c887f5c",
+      "fullCode": "TI-DS-02.01.02-007",
+      "issuedName": "Porcentaje de entregas de insumos en el casco urbano"
+    },
+    "c6580f42a51e": {
+      "shortCode": "PCT-ESTUD",
+      "id": "c6580f42a51e",
+      "sourceId": "c6580f42a51e",
+      "fullCode": "TI-DS-01.01.04-003",
+      "issuedName": "Porcentaje de estudiantes con discapacidad en la matrícula escolar del municipio"
+    },
+    "2688c4a7b95d": {
+      "shortCode": "PCT-HOG",
+      "id": "2688c4a7b95d",
+      "sourceId": "2688c4a7b95d",
+      "fullCode": "TI-DS-03.02.03-023",
+      "issuedName": "Porcentaje de hogares registrados en el Sisbén IV con servicio de gas"
+    },
+    "475676dcd140": {
+      "shortCode": "PCT-SISBEN",
+      "id": "475676dcd140",
+      "sourceId": "475676dcd140",
+      "fullCode": "TI-DS-03.02.03-020",
+      "issuedName": "Porcentaje de hogares registrados en el Sisbén IV con acueducto"
+    },
+    "4a8c4143678d": {
+      "shortCode": "HOG-SISBEN",
+      "id": "4a8c4143678d",
+      "sourceId": "4a8c4143678d",
+      "fullCode": "TI-DS-03.02.03-022",
+      "issuedName": "Porcentaje de hogares registrados en el Sisbén IV con servicio de energía"
+    },
+    "cc138ed03cc5": {
+      "shortCode": "PCT-ALCANT",
+      "id": "cc138ed03cc5",
+      "sourceId": "cc138ed03cc5",
+      "fullCode": "TI-DS-03.02.03-021",
+      "issuedName": "Porcentaje de hogares registrados en el Sisbén IV con alcantarillado"
+    },
+    "8b53a94a0319": {
+      "shortCode": "PCT-HOJAS",
+      "id": "8b53a94a0319",
+      "sourceId": "8b53a94a0319",
+      "fullCode": "TI-DS-02.04.02-002",
+      "issuedName": "Porcentaje de hojas de vida enviadas que terminan en contratación"
+    },
+    "d69c1ff48604": {
+      "shortCode": "PCT-INCREM",
+      "id": "d69c1ff48604",
+      "sourceId": "d69c1ff48604",
+      "fullCode": "TI-DS-01.01.01-027",
+      "issuedName": "Porcentaje de incremento presupuestal IVC régimen subsidiado"
+    },
+    "bf1cceb2df90": {
+      "shortCode": "PCT-MUJ",
+      "id": "bf1cceb2df90",
+      "sourceId": "bf1cceb2df90",
+      "fullCode": "TI-DS-02.02.02-003",
+      "issuedName": "Porcentaje de mujeres entre los artesanos registrados"
+    },
+    "215ed6fd09cc": {
+      "shortCode": "PCT-NNA",
+      "id": "215ed6fd09cc",
+      "sourceId": "215ed6fd09cc",
+      "fullCode": "TI-DS-01.03.02-003",
+      "issuedName": "Porcentaje de NNA en PARD que son niñas o adolescentes mujeres"
+    },
+    "3a4a5870f9af": {
+      "shortCode": "PCT-REC",
+      "id": "3a4a5870f9af",
+      "sourceId": "3a4a5870f9af",
+      "fullCode": "TI-DS-02.06.10-001",
+      "issuedName": "Porcentaje de recaudo"
+    },
+    "dd726ad8eeda": {
+      "shortCode": "POB-AREAS",
+      "id": "dd726ad8eeda",
+      "sourceId": "dd726ad8eeda",
+      "fullCode": "TI-DS-01.01.02-033",
+      "issuedName": "Población en áreas periféricas e inspecciones beneficiada con atención primaria en salud"
+    },
+    "034a857e462c": {
+      "shortCode": "PQRS-GESTIO",
+      "id": "034a857e462c",
+      "sourceId": "034a857e462c",
+      "fullCode": "TI-DS-04.04.04-001",
+      "issuedName": "Número de PQRS gestionadas por el SAC"
+    },
+    "4e5178fe2f3f": {
+      "shortCode": "PRES-ASIGNA",
+      "id": "4e5178fe2f3f",
+      "sourceId": "4e5178fe2f3f",
+      "fullCode": "TI-DS-03.02.03-025",
+      "issuedName": "Presupuesto asignado para subsidios por año en la Empresa de Aguas y Aseo de Subachoque"
+    },
+    "49479dfa59d8": {
+      "shortCode": "PRES-ATEN",
+      "id": "49479dfa59d8",
+      "sourceId": "49479dfa59d8",
+      "fullCode": "TI-DS-03.04.03-004",
+      "issuedName": "Presupuesto de atenciones de riesgo de desastre"
+    },
+    "7f00f538226f": {
+      "shortCode": "PRES-DEFINI",
+      "id": "7f00f538226f",
+      "sourceId": "7f00f538226f",
+      "fullCode": "TI-DS-01.01.01-028",
+      "issuedName": "Presupuesto definitivo de inspección vigilancia y control del régimen subsidiado"
+    },
+    "155d36f2b372": {
+      "shortCode": "PRES-FORM",
+      "id": "155d36f2b372",
+      "sourceId": "155d36f2b372",
+      "fullCode": "TI-DS-03.04.03-005",
+      "issuedName": "Presupuesto formulado para atención de emergencias"
+    },
+    "e1d91dc5b891": {
+      "shortCode": "PRES-INSUMO",
+      "id": "e1d91dc5b891",
+      "sourceId": "e1d91dc5b891",
+      "fullCode": "TI-DS-01.04.05-001",
+      "issuedName": "Presupuesto total de insumos invertidos en  la ejecución de productos patrimoniales de Subachoque"
+    },
+    "77ac62492c33": {
+      "shortCode": "PRES-MANT",
+      "id": "77ac62492c33",
+      "sourceId": "77ac62492c33",
+      "fullCode": "TI-DS-02.05.02-002",
+      "issuedName": "Presupuesto anual para el mantenimiento de luminarias públicas"
+    },
+    "035d9fa96299": {
+      "shortCode": "PRES-PREVIS",
+      "id": "035d9fa96299",
+      "sourceId": "035d9fa96299",
+      "fullCode": "TI-DS-03.04.03-006",
+      "issuedName": "Presupuesto previsto para combustible de respuesta"
+    },
+    "f1957c9f589f": {
+      "shortCode": "PRESTA-SERV",
+      "id": "f1957c9f589f",
+      "sourceId": "f1957c9f589f",
+      "fullCode": "TI-DS-02.03.01-005",
+      "issuedName": "Prestadores de servicios turísticos con Registro Nacional de Turismo (RNT) activo"
+    },
+    "9d07cec803a7": {
+      "shortCode": "PROD-AFIL",
+      "id": "9d07cec803a7",
+      "sourceId": "9d07cec803a7",
+      "fullCode": "TI-DS-02.01.04-002",
+      "issuedName": "Productores afiliados a asociaciones agropecuarias"
+    },
+    "4241b661141c": {
+      "shortCode": "PROD-MEJORA",
+      "id": "4241b661141c",
+      "sourceId": "4241b661141c",
+      "fullCode": "TI-DS-02.01.02-008",
+      "issuedName": "Productores beneficiados con mejoramiento de praderas"
+    },
+    "6d88ffa07e17": {
+      "shortCode": "PROD-PECUAR",
+      "id": "6d88ffa07e17",
+      "sourceId": "6d88ffa07e17",
+      "fullCode": "TI-DS-02.01.02-009",
+      "issuedName": "Productores pecuarios beneficiados con insumos"
+    },
+    "1a4dc2ebf708": {
+      "shortCode": "REC-ATRACT",
+      "id": "1a4dc2ebf708",
+      "sourceId": "1a4dc2ebf708",
+      "fullCode": "TI-DS-02.03.04-001",
+      "issuedName": "Recursos y atractivos turísticos identificados"
+    },
+    "66a134fade67": {
+      "shortCode": "REC-COLJUE",
+      "id": "66a134fade67",
+      "sourceId": "66a134fade67",
+      "fullCode": "TI-DS-01.01.01-029",
+      "issuedName": "Recursos de Coljuegos para la UPC subsidiada en septiembre"
+    },
+    "647bc3398baa": {
+      "shortCode": "REC-GIRADO",
+      "id": "647bc3398baa",
+      "sourceId": "647bc3398baa",
+      "fullCode": "TI-DS-01.01.04-004",
+      "issuedName": "Recursos girados en subsidios monetarios a personas con discapacidad y cuidadores, y perfil de los beneficiarios"
+    },
+    "ef07ba8e52c3": {
+      "shortCode": "REC-MANT",
+      "id": "ef07ba8e52c3",
+      "sourceId": "ef07ba8e52c3",
+      "fullCode": "TI-DS-03.04.03-007",
+      "issuedName": "Recursos para mantenimiento y recarga de extintores"
+    },
+    "6876e2d2d40e": {
+      "shortCode": "REC-PREVIS",
+      "id": "6876e2d2d40e",
+      "sourceId": "6876e2d2d40e",
+      "fullCode": "TI-DS-03.04.03-009",
+      "issuedName": "Recursos previstos para prevención y atención de desastres"
+    },
+    "87aa674e130c": {
+      "shortCode": "REC-FORTAL",
+      "id": "87aa674e130c",
+      "sourceId": "87aa674e130c",
+      "fullCode": "TI-DS-03.04.03-008",
+      "issuedName": "Recursos previstos para fortalecimiento de Defensa Civil"
+    },
+    "460401866758": {
+      "shortCode": "SISBEN-IV",
+      "id": "460401866758",
+      "sourceId": "460401866758",
+      "fullCode": "TI-DS-01.03.01-001",
+      "issuedName": "Personas registradas en el SISBÉN IV por grupo y zona"
+    },
+    "2d1e925a1f99": {
+      "shortCode": "SUSCR-ACUED",
+      "id": "2d1e925a1f99",
+      "sourceId": "2d1e925a1f99",
+      "fullCode": "TI-DS-03.02.03-029",
+      "issuedName": "Suscriptores de los acueductos veredales"
+    },
+    "e2b3707b5bc1": {
+      "shortCode": "SUSCR-CARGO",
+      "id": "e2b3707b5bc1",
+      "sourceId": "e2b3707b5bc1",
+      "fullCode": "TI-DS-03.02.03-009",
+      "issuedName": "Número de suscriptores de los acueductos a cargo de asociaciones de usuarios de acueducto"
+    },
+    "f6259413cd84": {
+      "shortCode": "TASA-COB",
+      "id": "f6259413cd84",
+      "sourceId": "f6259413cd84",
+      "fullCode": "TI-DS-01.02.01-003",
+      "issuedName": "Tasa de Cobertura y Caracterización de la Matrícula Escolar en Instituciones Educativas Rurales y Urbanas (Sede B)"
+    },
+    "15e061e710fd": {
+      "shortCode": "TASA-MORT",
+      "id": "15e061e710fd",
+      "sourceId": "15e061e710fd",
+      "fullCode": "TI-DS-01.01.06-003",
+      "issuedName": "Tasa de mortalidad neonatal"
+    },
+    "4d09e01d584d": {
+      "shortCode": "TASA-RESTIT",
+      "id": "4d09e01d584d",
+      "sourceId": "4d09e01d584d",
+      "fullCode": "TI-DS-01.01.01-031",
+      "issuedName": "Tasa de restitución de UPC en septiembre"
+    },
+    "166f0125e8c5": {
+      "shortCode": "UPC-APROPI",
+      "id": "166f0125e8c5",
+      "sourceId": "166f0125e8c5",
+      "fullCode": "TI-DS-01.01.01-032",
+      "issuedName": "UPC apropiada del régimen subsidiado en septiembre"
+    },
+    "20461306caba": {
+      "shortCode": "UPC-NETA",
+      "id": "20461306caba",
+      "sourceId": "20461306caba",
+      "fullCode": "TI-DS-01.01.01-033",
+      "issuedName": "UPC neta mensual reconocida por afiliado subsidiado"
+    },
+    "932ea1ccf0ab": {
+      "shortCode": "UPC-RECONO",
+      "id": "932ea1ccf0ab",
+      "sourceId": "932ea1ccf0ab",
+      "fullCode": "TI-DS-01.01.01-034",
+      "issuedName": "UPC neta reconocida del régimen subsidiado en septiembre"
+    },
+    "c45abd10a06b": {
+      "shortCode": "UPC-RESTIT",
+      "id": "c45abd10a06b",
+      "sourceId": "c45abd10a06b",
+      "fullCode": "TI-DS-01.01.01-035",
+      "issuedName": "UPC restituida del régimen subsidiado en septiembre"
+    },
+    "0200fba5a269": {
+      "shortCode": "USUARI-SERV",
+      "id": "0200fba5a269",
+      "sourceId": "0200fba5a269",
+      "fullCode": "TI-DS-03.02.03-017",
+      "issuedName": "Número total de usuarios del servicio de aseo"
+    },
+    "4345aa3f1d2c": {
+      "shortCode": "USUARI-GAS",
+      "id": "4345aa3f1d2c",
+      "sourceId": "4345aa3f1d2c",
+      "fullCode": "TI-DS-03.02.03-019",
+      "issuedName": "Número total de usuarios del servicio de gas"
+    },
+    "4b491e96f2d8": {
+      "shortCode": "SERV-GAS",
+      "id": "4b491e96f2d8",
+      "sourceId": "4b491e96f2d8",
+      "fullCode": "TI-DS-03.02.03-013",
+      "issuedName": "Número de usuarios del servicio de gas por zona"
+    },
+    "5cccfb9043ad": {
+      "shortCode": "VAR-EPS",
+      "id": "5cccfb9043ad",
+      "sourceId": "5cccfb9043ad",
+      "fullCode": "TI-DS-01.01.01-036",
+      "issuedName": "Variación de EPS distintas con afiliados subsidiados, junio-septiembre"
+    },
+    "7c21aabf0c98": {
+      "shortCode": "VAR-GESTIO",
+      "id": "7c21aabf0c98",
+      "sourceId": "7c21aabf0c98",
+      "fullCode": "TI-DS-01.01.03-021",
+      "issuedName": "Variación anual de gestiones SAC en 2025"
+    },
+    "d147d665c25a": {
+      "shortCode": "VIS-ASIST",
+      "id": "d147d665c25a",
+      "sourceId": "d147d665c25a",
+      "fullCode": "TI-DS-02.01.03-003",
+      "issuedName": "Visitas de asistencia técnica pecuaria y guías de movilización de animales"
+    },
+    "6875128abe1e": {
+      "shortCode": "VIS-CONTRO",
+      "id": "6875128abe1e",
+      "sourceId": "6875128abe1e",
+      "fullCode": "TI-DS-01.06.05-002",
+      "issuedName": "Visitas de control comercial y procesos urbanisticos adelantados"
+    }
+  },
+  "count": 341,
+  "updatedForRecords": 341
+}

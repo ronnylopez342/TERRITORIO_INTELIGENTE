@@ -25,24 +25,24 @@ const server=http.createServer((req,res)=>{
    await p.locator('#data-subachoque[data-ready="true"]').waitFor({timeout:40000});
    const example=records.find(x=>x.name.includes('Índice de Desempeño Institucional'));
    assert(example,'IDI must exist');
-   assert.equal(await root.locator('#ds5-code').innerText(),example.catalogCode,'header code visible');
+   assert.equal(await root.locator('#ds5-code').innerText(),example.shortCode,'short code in header');
    assert((await root.locator('.ds5-meta-card').innerText()).includes(example.catalogCode),'metadata code');
-   assert((await root.locator('.ds5-related-card').first().innerText()).includes(example.catalogCode),'related card code visible');
-   const rect=await root.locator('#ds5-code').boundingBox(); assert(rect?.width>110&&rect?.x>=0&&rect?.x+rect?.width<=width+2,'code badge fits screen');
+   assert((await root.locator('.ds5-related-card').first().innerText()).includes(example.shortCode),'related card short code visible');
+   const rect=await root.locator('#ds5-code').boundingBox(); assert(rect?.width>35&&rect?.x>=0&&rect?.x+rect?.width<=width+2,'code badge fits screen');
    const fromSheet=example.meta.code;
    if(fromSheet&&!/LO ASIGNAMOS|PENDIENTE/.test(fromSheet)&&!/^\d+$/.test(fromSheet))assert((await root.locator('.ds5-meta-card').innerText()).includes(fromSheet),'source code preserved');
    await root.locator('#ds5-search').fill(example.catalogCode);
    const results=root.locator('#ds5-results [data-ds5-search]');
    assert.equal(await results.count(),1,'find unique indicator by exact internal code');
-   assert((await results.first().innerText()).includes(example.catalogCode),'search shows internal code');
+   assert((await results.first().innerText()).includes(example.shortCode),'search shows short code');
    await results.first().click();
-   assert.equal(await root.locator('#ds5-code').innerText(),example.catalogCode);
+   assert.equal(await root.locator('#ds5-code').innerText(),example.shortCode);
    const pdf=await Promise.all([p.waitForEvent('download',{timeout:12000}),root.locator('#ds5-download').click()]).then(a=>a[0]);
-   assert(pdf.suggestedFilename().includes(example.catalogCode),'filename includes code');
+   assert(pdf.suggestedFilename().includes(example.shortCode),'filename includes short code');
    const file='/tmp/ti-codigo-'+width+'.pdf';await pdf.saveAs(file);
    const raw=fs.readFileSync(file).toString('latin1');
-   assert(raw.includes(example.catalogCode),'PDF header and metadata include exact code');
-   assert(raw.includes('Código interno TI')||raw.includes('CODIGO TI'),'code label in PDF');
+   assert(raw.includes(example.catalogCode)&&raw.includes(example.shortCode),'PDF includes short and technical code');
+   assert(raw.includes('Código rápido')||raw.includes('CODIGO'),'code label in PDF');
    assert.deepEqual(errors,[],'JS errors');
    await p.close();
   }
@@ -52,10 +52,13 @@ const server=http.createServer((req,res)=>{
   await page.goto(base+'/#data?seccion=data-subachoque&dimension=institucional',{waitUntil:'domcontentloaded'});
   await page.locator('#data-subachoque[data-ready="true"]').waitFor({timeout:40000});
   for(const r of records){
-   await page.locator('#ds5-search').fill(r.catalogCode);
-   const items=page.locator('#ds5-results [data-ds5-search]');
-   assert.equal(await items.count(),1,'code must resolve exactly one available fiche '+r.catalogCode);
-   assert.equal(await items.first().getAttribute('data-ds5-search'),r.id);
+   const input=page.locator('#ds5-search');
+   for(const code of [r.shortCode,r.catalogCode]){
+    await input.fill(code);
+    const matches=page.locator('#ds5-results [data-ds5-search]');
+    assert.equal(await matches.count(),1,'code resolves exactly one available fiche '+code);
+    assert.equal(await matches.first().getAttribute('data-ds5-search'),r.id);
+   }
   }
   console.log('CODE_UI_PASS',{searched:records.length,unique:341,viewports:[1600,920,390],pdfCode:true,relatedCards:true,sourceCodeIntact:true});
   await page.close();

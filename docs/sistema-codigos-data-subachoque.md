@@ -37,3 +37,28 @@ Ejecutar:
 3. PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64 node scripts/test_codigos_data_subachoque_ui.cjs
 
 Se verifican unicidad, formato, pertenencia jerárquica, conservación de valores y códigos originales, estabilidad al reimportar, búsqueda por los 290 códigos activos y exportación PDF. Se mantiene la suite independiente de gráficas, sus 435 series y las 246 imágenes JPG originales de Caracterización (2.3).
+
+
+## Códigos cortos para consulta cotidiana (TI-SHORT-v1)
+
+Se conserva íntegramente el identificador técnico TI-DS-DD.AA.CC-NNN anterior,
+pero la interfaz da prioridad al código corto pronunciable y descriptivo.
+
+- Ejemplos: IDI, POL05, PREDIAL, SAL-MENT, AGUA-PTAP, IRCA, REC-TRIB.
+- Cobertura: 341 fichas = 341 códigos cortos únicos (290 publicables y 51 sin datos).
+- Longitud máxima: 11 caracteres, incluyendo guiones.
+- Se prefieren acrónimos conocidos, nombres de impuestos y términos de trabajo
+  reconocibles; números adicionales solo cuando un alias equivalente ya existe.
+- El registro inmutable data/codigos-amigables-subachoque.json enlaza id,
+  shortCode y catalogCode; nunca se recalcula o recicla una clave existente.
+- El generador determinista scripts/asignar_codigos_amigables_subachoque.cjs
+  prioriza nomenclatura clara y garantiza la exclusividad.
+- Se aplica durante scripts/validar_clasificacion_subachoque.cjs después del
+  registro técnico. Los códigos de las dependencias (meta.code) siguen intactos.
+- Aparece en encabezado, búsqueda, tarjetas relacionadas, ficha técnica y PDF.
+  El código TI-DS histórico queda accesible en la ficha técnica y PDF, y sigue
+  siendo buscable junto con el código corto.
+- Estos alias no son códigos oficiales de DANE, la Gobernación o la Alcaldía.
+  Son etiquetas de uso interno para localizar fichas.
+- Pruebas: node scripts/test_codigos_amigables_subachoque.cjs
+  y PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64 node scripts/test_codigos_data_subachoque_ui.cjs.

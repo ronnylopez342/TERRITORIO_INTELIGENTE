@@ -178,13 +178,16 @@
   const slot=by('ds5-results');slot.innerHTML='';
   if(!state.search.trim()){slot.hidden=true;return;}
   const q=norm(state.search);const seen=new Set();
-  const results=catalogIndex.filter(({d,a,t,r})=>
-    r.available&&norm(r.catalogCode+' '+r.name+' '+r.meta?.code+' '+t.title+' '+a.title+' '+d.titulo).includes(q))
-    .filter(({r})=>{if(seen.has(r.id))return false;seen.add(r.id);return true;}).slice(0,35);
+  // Un código exacto se resuelve a una sola ficha antes de la búsqueda
+  // textual para evitar coincidencias accidentales entre códigos parecidos.
+  const exact=catalogIndex.filter(({r})=>r.available&&(norm(r.shortCode)===q||norm(r.catalogCode)===q));
+  const matches=exact.length?exact:catalogIndex.filter(({d,a,t,r})=>
+    r.available&&norm(r.shortCode+' '+r.catalogCode+' '+r.name+' '+r.meta?.code+' '+t.title+' '+a.title+' '+d.titulo).includes(q));
+  const results=matches.filter(({r})=>{if(seen.has(r.id))return false;seen.add(r.id);return true;}).slice(0,35);
   slot.hidden=false;
   slot.innerHTML=results.length?results.map(({d,a,t,r})=>
     '<button type="button" class="ds5-search-result" data-ds5-search="'+esc(r.id)+'">'+
-    '<strong>'+esc(r.name)+'</strong><small class="ds5-search-code">'+esc(r.catalogCode)+'</small><small>'+esc(d.titulo+' · '+a.title+' · '+t.title)+'</small></button>'
+    '<strong>'+esc(r.name)+'</strong><small class="ds5-search-code">'+esc(r.shortCode)+'</small><small>'+esc(d.titulo+' · '+a.title+' · '+t.title)+'</small></button>'
   ).join(''):'<p class="ds5-empty-search">No encontramos indicadores con datos para esa búsqueda.</p>';
  }
  function availableSeries(r){
@@ -379,7 +382,7 @@
  }
  function metadata(r){
   const m=r.meta||{},entries=[
-   ['Nombre del indicador',r.name],['Código interno TI',r.catalogCode],
+   ['Nombre del indicador',r.name],['Código rápido',r.shortCode],['Código técnico TI-DS',r.catalogCode],
    ['Código consignado en Excel',liveCode(m.code)],
    ['Definición',m.definition],['Unidad de medida',m.unit],
    ['Fórmula',m.formula],['Periodicidad',m.periodicity],
@@ -535,7 +538,7 @@
    '<span class="ds5-related-card-head"><span class="ds5-related-card-icon">'+relatedIcon(icon)+'</span>'+
    (sel?'<span class="ds5-related-current">En consulta</span>':'')+'</span>'+
    '<span class="ds5-related-name" title="'+esc(r.name)+'">'+esc(r.name)+'</span>'+
-   '<span class="ds5-related-ref" title="Identificador interno de la ficha">'+esc(r.catalogCode)+'</span>'+
+   '<span class="ds5-related-ref" title="Código corto para consultar esta ficha">'+esc(r.shortCode)+'</span>'+
    '<span class="ds5-related-measure" title="'+esc(val.full)+'">'+esc(val.value)+'</span>'+
    '<span class="ds5-related-meta"><span class="ds5-related-tag">'+esc(group.label)+'</span>'+
    '<small>'+esc(val.note)+'</small></span>'+relatedSparkline(r)+'</button>';
@@ -545,7 +548,7 @@
   const query=norm(state.relatedSearch);
   const filtered=context.rows.filter(r=>
     (group==='all'||groupForRelated(r,context)===group)&&
-    (!query||norm(r.name+' '+r.topicLabel+' '+r.meta?.code+' '+r.catalogCode).includes(query)));
+    (!query||norm(r.name+' '+r.topicLabel+' '+r.meta?.code+' '+r.catalogCode+' '+r.shortCode).includes(query)));
   filtered.sort((a,b)=>{
     if(a.id===current.id)return -1;
     if(b.id===current.id)return 1;
@@ -614,10 +617,10 @@
   });
  }
  function chooseIndicator(r){
-  const code=r.catalogCode;
+  const code=r.shortCode;
   by('ds5-title').textContent=r.name;
   by('ds5-code').textContent=code;
-  by('ds5-code').title='Código interno de Territorio Inteligente. No sustituye identificadores originales del Excel.';
+  by('ds5-code').title='Código corto de consulta. Identificador técnico: '+r.catalogCode;
   by('ds5-subtitle').textContent=nice(r.meta?.definition)||'Indicador municipal con datos reportados en el libro de origen.';
   by('ds5-source-tag').textContent=trace(r);
   by('ds5-kpis').innerHTML=kpis(r);
@@ -728,6 +731,9 @@
   const codes=sources.records.map(r=>r.catalogCode);
   if(codes.some(c=>!/^TI-DS-0[1-4]\.\d{2}\.\d{2}-\d{3}$/.test(c))||new Set(codes).size!==sources.records.length)
    throw Error('Catálogo sin 341 códigos internos válidos y exclusivos.');
+  const aliases=sources.records.map(r=>r.shortCode);
+  if(aliases.some(c=>!c||!/^[A-Z0-9]{2,12}(?:-[A-Z0-9]{1,8}){0,2}$/.test(c))||new Set(aliases).size!==sources.records.length)
+   throw Error('Catálogo sin 341 códigos cortos únicos y legibles.');
   if(sources.audit?.validation?.available!==290||sources.audit?.validation?.series!==435||sources.audit?.validation?.points!==1212||
      sources.audit?.validation?.categoryValues!==98||sources.records.some(r=>r.available&&!r.classification)||
      new Set(sources.records.map(r=>r.id)).size!==341)

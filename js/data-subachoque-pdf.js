@@ -117,7 +117,7 @@ window.TIDataPdf=(()=>{
   page.text(M,H-57,'TERRITORIO INTELIGENTE   /   DATA SUBACHOQUE',10,true,white);
   page.text(M,H-78,'FICHA DE INDICADOR MUNICIPAL',17,true,white);
   page.y=H-116;
-  page.text(M,page.y,'CODIGO TI: '+clean(r.catalogCode),10,true,teal);page.y-=18;
+  page.text(M,page.y,'CODIGO: '+clean(r.shortCode),12,true,teal);page.y-=22;
   const title=clean(r.name);for(const l of page.wrap(title,W-2*M,16,true)){page.text(M,page.y,l,16,true,navy);page.y-=22;}
   page.paragraph(r.meta?.definition||'Indicador registrado en las fichas Excel.',M,W-2*M,9.2,13,gray);
   page.y-=14;
@@ -156,7 +156,8 @@ window.TIDataPdf=(()=>{
   const meta=r.meta||{};
   for(const [label,value] of [
    ['Nombre del indicador',r.name],
-   ['Código interno TI',r.catalogCode],
+   ['Código rápido',r.shortCode],
+   ['Código técnico TI-DS',r.catalogCode],
    ['Código en Excel',(!meta.code?'No consignado':/LO ASIGNAMOS|PENDIENTE|POR DEFINIR/i.test(meta.code)?'Pendiente según el Excel':/^\d+$/.test(clean(meta.code))?clean(meta.code)+' (sin validar)':meta.code)],
    ['Definición',meta.definition],['Objetivo',meta.objective],['Unidad de medida',meta.unit],
    ['Fórmula',meta.formula],['Periodicidad',meta.periodicity],
@@ -196,7 +197,7 @@ window.TIDataPdf=(()=>{
   write('trailer\n<< /Size '+objects.length+' /Root 1 0 R >>\nstartxref\n'+ref+'\n%%EOF\n');
   const blob=new Blob(parts,{type:'application/pdf'});
   const url=URL.createObjectURL(blob),anchor=document.createElement('a');
-  const filename='Data-Subachoque-'+clean(r.catalogCode)+'-'+clean(r.name).normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  const filename='Data-Subachoque-'+clean(r.shortCode)+'-'+clean(r.name).normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,72)+'.pdf';
   anchor.href=url;anchor.download=filename;anchor.style.display='none';
   document.body.appendChild(anchor);anchor.click();anchor.remove();
