@@ -47,7 +47,7 @@ const server=http.createServer((req,res)=>{
    assert.match(await root.locator('#ds5-dual').innerText(),/2026/);
    assert.match(await root.locator('#ds5-related-root').innerText(),/Política/);
    assert.equal(await root.locator('.ds5-chart-frame svg').count(),1);
-   assert.equal(await root.locator('#ds5-code').innerText(),'IDI','short readable code shown in header');
+   assert.equal(await root.locator('#ds5-code').innerText(),'GRA-IN-002','standard GRA code in header');
    const g=await page.evaluate(()=>{
     const card=document.querySelector('#data-subachoque .ds5-ficha-card').getBoundingClientRect();
     const chart=document.querySelector('#data-subachoque .ds5-chart-card').getBoundingClientRect();

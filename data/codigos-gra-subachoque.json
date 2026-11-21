@@ -1,0 +1,2411 @@
+{
+  "version": 1,
+  "scheme": "GRA-DIM-NNN-v1",
+  "dimensions": {
+    "social": "SO",
+    "economica": "EC",
+    "ambiental": "AM",
+    "institucional": "IN"
+  },
+  "assignments": {
+    "5c1de640ebcd": {
+      "code": "GRA-SO-001",
+      "sourceId": "5c1de640ebcd",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.00.00-001",
+      "oldAlias": "INFRA-CULT"
+    },
+    "51069be26fa3": {
+      "code": "GRA-SO-002",
+      "sourceId": "51069be26fa3",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.00.00-002",
+      "oldAlias": "INFRA-DEP"
+    },
+    "15be6d98510b": {
+      "code": "GRA-SO-003",
+      "sourceId": "15be6d98510b",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.00.00-003",
+      "oldAlias": "POL-ACC"
+    },
+    "a0c7abad3975": {
+      "code": "GRA-SO-004",
+      "sourceId": "a0c7abad3975",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-001",
+      "oldAlias": "ADICIO-PRES"
+    },
+    "9505928caf91": {
+      "code": "GRA-SO-005",
+      "sourceId": "9505928caf91",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-002",
+      "oldAlias": "AFIL-SAL"
+    },
+    "ae031ffee5b5": {
+      "code": "GRA-SO-006",
+      "sourceId": "ae031ffee5b5",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-003",
+      "oldAlias": "AFIL-POB"
+    },
+    "5e45916e661c": {
+      "code": "GRA-SO-007",
+      "sourceId": "5e45916e661c",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-004",
+      "oldAlias": "AFIL-REG"
+    },
+    "30c5184a3bf6": {
+      "code": "GRA-SO-008",
+      "sourceId": "30c5184a3bf6",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-005",
+      "oldAlias": "AFIL-SUBS"
+    },
+    "2f97d5ae7cc7": {
+      "code": "GRA-SO-009",
+      "sourceId": "2f97d5ae7cc7",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-006",
+      "oldAlias": "APORTE-SGP"
+    },
+    "1a48c7bb7597": {
+      "code": "GRA-SO-010",
+      "sourceId": "1a48c7bb7597",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-007",
+      "oldAlias": "UPC-ADRES"
+    },
+    "f338959de5b1": {
+      "code": "GRA-SO-011",
+      "sourceId": "f338959de5b1",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-008",
+      "oldAlias": "FAMI-BRE"
+    },
+    "0138859b9ac8": {
+      "code": "GRA-SO-012",
+      "sourceId": "0138859b9ac8",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-009",
+      "oldAlias": "BRE-SUBS"
+    },
+    "92292b0838cd": {
+      "code": "GRA-SO-013",
+      "sourceId": "92292b0838cd",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-010",
+      "oldAlias": "COMP-CAMB"
+    },
+    "97ed225eac14": {
+      "code": "GRA-SO-014",
+      "sourceId": "97ed225eac14",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-011",
+      "oldAlias": "FAMI-CAMB"
+    },
+    "7380efb95772": {
+      "code": "GRA-SO-015",
+      "sourceId": "7380efb95772",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-012",
+      "oldAlias": "UPC-DEP"
+    },
+    "c4a30f7b5f8d": {
+      "code": "GRA-SO-016",
+      "sourceId": "c4a30f7b5f8d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-013",
+      "oldAlias": "COMP-CONC"
+    },
+    "7b86f672e8c9": {
+      "code": "GRA-SO-017",
+      "sourceId": "7b86f672e8c9",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-014",
+      "oldAlias": "FAMI-CONC"
+    },
+    "8073a4b78e65": {
+      "code": "GRA-SO-018",
+      "sourceId": "8073a4b78e65",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-015",
+      "oldAlias": "NEPS-CONC"
+    },
+    "bb089a44033a": {
+      "code": "GRA-SO-019",
+      "sourceId": "bb089a44033a",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-016",
+      "oldAlias": "CONC-RESTIT"
+    },
+    "356fdd15a02c": {
+      "code": "GRA-SO-020",
+      "sourceId": "356fdd15a02c",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-017",
+      "oldAlias": "UPC-REST"
+    },
+    "c6e668b05270": {
+      "code": "GRA-SO-021",
+      "sourceId": "c6e668b05270",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-018",
+      "oldAlias": "INV-SAL"
+    },
+    "3ff44536ce45": {
+      "code": "GRA-SO-022",
+      "sourceId": "3ff44536ce45",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-019",
+      "oldAlias": "IVC-RECONO"
+    },
+    "6d3d24676ae9": {
+      "code": "GRA-SO-023",
+      "sourceId": "6d3d24676ae9",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-020",
+      "oldAlias": "PART-FAMI"
+    },
+    "bde1d8a84805": {
+      "code": "GRA-SO-024",
+      "sourceId": "bde1d8a84805",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-021",
+      "oldAlias": "PART-NACION"
+    },
+    "bbb8c96f7f82": {
+      "code": "GRA-SO-025",
+      "sourceId": "bbb8c96f7f82",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-022",
+      "oldAlias": "AFIL-EXC"
+    },
+    "1ffaa28aa923": {
+      "code": "GRA-SO-026",
+      "sourceId": "1ffaa28aa923",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-023",
+      "oldAlias": "PART-REG"
+    },
+    "0465062130bb": {
+      "code": "GRA-SO-027",
+      "sourceId": "0465062130bb",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-024",
+      "oldAlias": "PART-SUBS"
+    },
+    "dd1d64cd249d": {
+      "code": "GRA-SO-028",
+      "sourceId": "dd1d64cd249d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-025",
+      "oldAlias": "PART-GIRO"
+    },
+    "a66eaab3e883": {
+      "code": "GRA-SO-029",
+      "sourceId": "a66eaab3e883",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-026",
+      "oldAlias": "POB-AFIL"
+    },
+    "d69c1ff48604": {
+      "code": "GRA-SO-030",
+      "sourceId": "d69c1ff48604",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-027",
+      "oldAlias": "PCT-INCREM"
+    },
+    "7f00f538226f": {
+      "code": "GRA-SO-031",
+      "sourceId": "7f00f538226f",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-028",
+      "oldAlias": "PRES-DEFINI"
+    },
+    "66a134fade67": {
+      "code": "GRA-SO-032",
+      "sourceId": "66a134fade67",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-029",
+      "oldAlias": "REC-COLJUE"
+    },
+    "448a93d25700": {
+      "code": "GRA-SO-033",
+      "sourceId": "448a93d25700",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-030",
+      "oldAlias": "IVC-PRES"
+    },
+    "4d09e01d584d": {
+      "code": "GRA-SO-034",
+      "sourceId": "4d09e01d584d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-031",
+      "oldAlias": "TASA-RESTIT"
+    },
+    "166f0125e8c5": {
+      "code": "GRA-SO-035",
+      "sourceId": "166f0125e8c5",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-032",
+      "oldAlias": "UPC-APROPI"
+    },
+    "20461306caba": {
+      "code": "GRA-SO-036",
+      "sourceId": "20461306caba",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-033",
+      "oldAlias": "UPC-NETA"
+    },
+    "932ea1ccf0ab": {
+      "code": "GRA-SO-037",
+      "sourceId": "932ea1ccf0ab",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-034",
+      "oldAlias": "UPC-RECONO"
+    },
+    "c45abd10a06b": {
+      "code": "GRA-SO-038",
+      "sourceId": "c45abd10a06b",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-035",
+      "oldAlias": "UPC-RESTIT"
+    },
+    "5cccfb9043ad": {
+      "code": "GRA-SO-039",
+      "sourceId": "5cccfb9043ad",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-036",
+      "oldAlias": "VAR-EPS"
+    },
+    "b94638da7a62": {
+      "code": "GRA-SO-040",
+      "sourceId": "b94638da7a62",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-037",
+      "oldAlias": "VAR-CONT"
+    },
+    "d0e41b79b8bd": {
+      "code": "GRA-SO-041",
+      "sourceId": "d0e41b79b8bd",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-038",
+      "oldAlias": "VAR-SUBS"
+    },
+    "0fa3d531969b": {
+      "code": "GRA-SO-042",
+      "sourceId": "0fa3d531969b",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.01-039",
+      "oldAlias": "VAR-EXC"
+    },
+    "1f7797065f4f": {
+      "code": "GRA-SO-043",
+      "sourceId": "1f7797065f4f",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-001",
+      "oldAlias": "VAC-BRIG"
+    },
+    "ad461de14311": {
+      "code": "GRA-SO-044",
+      "sourceId": "ad461de14311",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-002",
+      "oldAlias": "VAC-PRAD"
+    },
+    "3516cbbf38e2": {
+      "code": "GRA-SO-045",
+      "sourceId": "3516cbbf38e2",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-003",
+      "oldAlias": "BRIG-SAL"
+    },
+    "a7ee5aad9092": {
+      "code": "GRA-SO-046",
+      "sourceId": "a7ee5aad9092",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-004",
+      "oldAlias": "CITOLO-ADN"
+    },
+    "e76655060f42": {
+      "code": "GRA-SO-047",
+      "sourceId": "e76655060f42",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-005",
+      "oldAlias": "COB-PROM"
+    },
+    "beaef807ae11": {
+      "code": "GRA-SO-048",
+      "sourceId": "beaef807ae11",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-006",
+      "oldAlias": "COB-CARACT"
+    },
+    "26830120ee76": {
+      "code": "GRA-SO-049",
+      "sourceId": "26830120ee76",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-007",
+      "oldAlias": "COB-INTERV"
+    },
+    "fe39d2364266": {
+      "code": "GRA-SO-050",
+      "sourceId": "fe39d2364266",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-008",
+      "oldAlias": "COB-SAL"
+    },
+    "cd8b64bbd73b": {
+      "code": "GRA-SO-051",
+      "sourceId": "cd8b64bbd73b",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-009",
+      "oldAlias": "FIN-SGP"
+    },
+    "dc0049d42a52": {
+      "code": "GRA-SO-052",
+      "sourceId": "dc0049d42a52",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-010",
+      "oldAlias": "EJEC-FINANC"
+    },
+    "c15056b95733": {
+      "code": "GRA-SO-053",
+      "sourceId": "c15056b95733",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-011",
+      "oldAlias": "SAL-MENT"
+    },
+    "8d0e1109df78": {
+      "code": "GRA-SO-054",
+      "sourceId": "8d0e1109df78",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-012",
+      "oldAlias": "FAM-CARACT"
+    },
+    "0c21e13260af": {
+      "code": "GRA-SO-055",
+      "sourceId": "0c21e13260af",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-013",
+      "oldAlias": "FEC-10-19"
+    },
+    "eabbc9e65ff0": {
+      "code": "GRA-SO-056",
+      "sourceId": "eabbc9e65ff0",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-014",
+      "oldAlias": "FEC-15-19"
+    },
+    "ee19058a824d": {
+      "code": "GRA-SO-057",
+      "sourceId": "ee19058a824d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-015",
+      "oldAlias": "FEC-10-14"
+    },
+    "21211b78d4d0": {
+      "code": "GRA-SO-058",
+      "sourceId": "21211b78d4d0",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-016",
+      "oldAlias": "GESTAN-ATEN"
+    },
+    "3fba92d13138": {
+      "code": "GRA-SO-059",
+      "sourceId": "3fba92d13138",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-017",
+      "oldAlias": "GESTAN-POB"
+    },
+    "07f933f5ef30": {
+      "code": "GRA-SO-060",
+      "sourceId": "07f933f5ef30",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-018",
+      "oldAlias": "JORN-SAL"
+    },
+    "50dea18a7992": {
+      "code": "GRA-SO-061",
+      "sourceId": "50dea18a7992",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-019",
+      "oldAlias": "MAMOGR-JORN"
+    },
+    "ef2d58834e95": {
+      "code": "GRA-SO-062",
+      "sourceId": "ef2d58834e95",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-020",
+      "oldAlias": "META-ENCUEN"
+    },
+    "327fe6e5c0a3": {
+      "code": "GRA-SO-063",
+      "sourceId": "327fe6e5c0a3",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-021",
+      "oldAlias": "META-FAM"
+    },
+    "395291e7a3f4": {
+      "code": "GRA-SO-064",
+      "sourceId": "395291e7a3f4",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-022",
+      "oldAlias": "META-TALLER"
+    },
+    "c7c78a8ef4f7": {
+      "code": "GRA-SO-065",
+      "sourceId": "c7c78a8ef4f7",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-023",
+      "oldAlias": "MORT-CAUSAS"
+    },
+    "40ef26b3c75f": {
+      "code": "GRA-SO-066",
+      "sourceId": "40ef26b3c75f",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-024",
+      "oldAlias": "MORT-AJUSTA"
+    },
+    "d23a6c485bb3": {
+      "code": "GRA-SO-067",
+      "sourceId": "d23a6c485bb3",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-025",
+      "oldAlias": "MORT-ENFERM"
+    },
+    "a44b536486d5": {
+      "code": "GRA-SO-068",
+      "sourceId": "a44b536486d5",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-026",
+      "oldAlias": "MORT-NEOPLA"
+    },
+    "3778d9e62a23": {
+      "code": "GRA-SO-069",
+      "sourceId": "3778d9e62a23",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-027",
+      "oldAlias": "MUERT-EXT"
+    },
+    "a1ac691437bb": {
+      "code": "GRA-SO-070",
+      "sourceId": "a1ac691437bb",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-028",
+      "oldAlias": "MUJ-ATEN"
+    },
+    "b1320c9ff748": {
+      "code": "GRA-SO-071",
+      "sourceId": "b1320c9ff748",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-029",
+      "oldAlias": "MUJ-ESTRAT"
+    },
+    "99db61161e35": {
+      "code": "GRA-SO-072",
+      "sourceId": "99db61161e35",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-030",
+      "oldAlias": "ATEN-CENTRO"
+    },
+    "6ce1ee222be6": {
+      "code": "GRA-SO-073",
+      "sourceId": "6ce1ee222be6",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-031",
+      "oldAlias": "ATEN-JORN"
+    },
+    "0b4244b8a469": {
+      "code": "GRA-SO-074",
+      "sourceId": "0b4244b8a469",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-032",
+      "oldAlias": "ATEN-PIC"
+    },
+    "dd726ad8eeda": {
+      "code": "GRA-SO-075",
+      "sourceId": "dd726ad8eeda",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-033",
+      "oldAlias": "POB-AREAS"
+    },
+    "9464826f2602": {
+      "code": "GRA-SO-076",
+      "sourceId": "9464826f2602",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-034",
+      "oldAlias": "MAMO-JORN"
+    },
+    "26e5a4d8281b": {
+      "code": "GRA-SO-077",
+      "sourceId": "26e5a4d8281b",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.02-035",
+      "oldAlias": "VIV-SANCAR"
+    },
+    "31326edb74e7": {
+      "code": "GRA-SO-078",
+      "sourceId": "31326edb74e7",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-001",
+      "oldAlias": "APOYOS-SAC"
+    },
+    "1b968d5e0c60": {
+      "code": "GRA-SO-079",
+      "sourceId": "1b968d5e0c60",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-002",
+      "oldAlias": "ENF-BRIG"
+    },
+    "541d3935b461": {
+      "code": "GRA-SO-080",
+      "sourceId": "541d3935b461",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-003",
+      "oldAlias": "ORAL-BRIG"
+    },
+    "579edd47d49c": {
+      "code": "GRA-SO-081",
+      "sourceId": "579edd47d49c",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-004",
+      "oldAlias": "MED-BRIG"
+    },
+    "373d2ac1aecb": {
+      "code": "GRA-SO-082",
+      "sourceId": "373d2ac1aecb",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-005",
+      "oldAlias": "MED-PRAD"
+    },
+    "0644c342b968": {
+      "code": "GRA-SO-083",
+      "sourceId": "0644c342b968",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-006",
+      "oldAlias": "AUD-FAMI"
+    },
+    "d1249ad5b802": {
+      "code": "GRA-SO-084",
+      "sourceId": "d1249ad5b802",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-007",
+      "oldAlias": "CITAS-EFEC"
+    },
+    "40792a1bc217": {
+      "code": "GRA-SO-085",
+      "sourceId": "40792a1bc217",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-008",
+      "oldAlias": "CITAS-SAC"
+    },
+    "678e7e629c75": {
+      "code": "GRA-SO-086",
+      "sourceId": "678e7e629c75",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-009",
+      "oldAlias": "CONS-FEB"
+    },
+    "3dd95656ab6b": {
+      "code": "GRA-SO-087",
+      "sourceId": "3dd95656ab6b",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-010",
+      "oldAlias": "REF-NEPS"
+    },
+    "815b4dd23bb1": {
+      "code": "GRA-SO-088",
+      "sourceId": "815b4dd23bb1",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-011",
+      "oldAlias": "SAC-ESPEC"
+    },
+    "c4d159d18b06": {
+      "code": "GRA-SO-089",
+      "sourceId": "c4d159d18b06",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-012",
+      "oldAlias": "REF-STOT"
+    },
+    "8f3e6b40cba2": {
+      "code": "GRA-SO-090",
+      "sourceId": "8f3e6b40cba2",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-013",
+      "oldAlias": "ACCE-COMP"
+    },
+    "476b82a0c720": {
+      "code": "GRA-SO-091",
+      "sourceId": "476b82a0c720",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-014",
+      "oldAlias": "SAC-PART"
+    },
+    "d854895eb2bc": {
+      "code": "GRA-SO-092",
+      "sourceId": "d854895eb2bc",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-015",
+      "oldAlias": "DISP-COMP"
+    },
+    "262a6eca0dce": {
+      "code": "GRA-SO-093",
+      "sourceId": "262a6eca0dce",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-016",
+      "oldAlias": "DISP-FAMI"
+    },
+    "ed4f265b67f7": {
+      "code": "GRA-SO-094",
+      "sourceId": "ed4f265b67f7",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-017",
+      "oldAlias": "DISP-STOT"
+    },
+    "c7f0478c4829": {
+      "code": "GRA-SO-095",
+      "sourceId": "c7f0478c4829",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-018",
+      "oldAlias": "DISP-GAUDI"
+    },
+    "2d184c5aef57": {
+      "code": "GRA-SO-096",
+      "sourceId": "2d184c5aef57",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-019",
+      "oldAlias": "BRIG-SERV"
+    },
+    "6cad284e780d": {
+      "code": "GRA-SO-097",
+      "sourceId": "6cad284e780d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-020",
+      "oldAlias": "BRIG-SALUD"
+    },
+    "7c21aabf0c98": {
+      "code": "GRA-SO-098",
+      "sourceId": "7c21aabf0c98",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.03-021",
+      "oldAlias": "VAR-GESTIO"
+    },
+    "aa741788ddf2": {
+      "code": "GRA-SO-099",
+      "sourceId": "aa741788ddf2",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.04-001",
+      "oldAlias": "CUID-FORM"
+    },
+    "0c294d8d8258": {
+      "code": "GRA-SO-100",
+      "sourceId": "0c294d8d8258",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.04-002",
+      "oldAlias": "INSCRI-PROG"
+    },
+    "c6580f42a51e": {
+      "code": "GRA-SO-101",
+      "sourceId": "c6580f42a51e",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.04-003",
+      "oldAlias": "PCT-ESTUD"
+    },
+    "647bc3398baa": {
+      "code": "GRA-SO-102",
+      "sourceId": "647bc3398baa",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.04-004",
+      "oldAlias": "REC-GIRADO"
+    },
+    "c7c21ba25d2e": {
+      "code": "GRA-SO-103",
+      "sourceId": "c7c21ba25d2e",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.05-001",
+      "oldAlias": "ASISTE-60"
+    },
+    "4d7b7ba75531": {
+      "code": "GRA-SO-104",
+      "sourceId": "4d7b7ba75531",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.05-002",
+      "oldAlias": "META-ACT"
+    },
+    "26d22d3ac6fe": {
+      "code": "GRA-SO-105",
+      "sourceId": "26d22d3ac6fe",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.05-003",
+      "oldAlias": "MAYORE-ATEN"
+    },
+    "cd6eae694b52": {
+      "code": "GRA-SO-106",
+      "sourceId": "cd6eae694b52",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.05-004",
+      "oldAlias": "MAY-EDAD"
+    },
+    "2f51f6823731": {
+      "code": "GRA-SO-107",
+      "sourceId": "2f51f6823731",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.06-001",
+      "oldAlias": "COB-VALORA"
+    },
+    "9cef0543857d": {
+      "code": "GRA-SO-108",
+      "sourceId": "9cef0543857d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.06-002",
+      "oldAlias": "MORT-INFANT"
+    },
+    "15e061e710fd": {
+      "code": "GRA-SO-109",
+      "sourceId": "15e061e710fd",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.06-003",
+      "oldAlias": "TASA-MORT"
+    },
+    "53fd79684e0f": {
+      "code": "GRA-SO-110",
+      "sourceId": "53fd79684e0f",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.07-001",
+      "oldAlias": "BAJO-PESO"
+    },
+    "7d26b6f82141": {
+      "code": "GRA-SO-111",
+      "sourceId": "7d26b6f82141",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.07-002",
+      "oldAlias": "COB-ACCION"
+    },
+    "4635de3b2a69": {
+      "code": "GRA-SO-112",
+      "sourceId": "4635de3b2a69",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.01.07-003",
+      "oldAlias": "EXCESO-PESO"
+    },
+    "69d66d92b5d7": {
+      "code": "GRA-SO-113",
+      "sourceId": "69d66d92b5d7",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.01-001",
+      "oldAlias": "MAT-RURAL"
+    },
+    "70e0195dcc84": {
+      "code": "GRA-SO-114",
+      "sourceId": "70e0195dcc84",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.01-002",
+      "oldAlias": "MATRICULA"
+    },
+    "f6259413cd84": {
+      "code": "GRA-SO-115",
+      "sourceId": "f6259413cd84",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.01-003",
+      "oldAlias": "TASA-COB"
+    },
+    "06405ca821d7": {
+      "code": "GRA-SO-116",
+      "sourceId": "06405ca821d7",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.02-001",
+      "oldAlias": "INGLES"
+    },
+    "54dcc0ea13c2": {
+      "code": "GRA-SO-117",
+      "sourceId": "54dcc0ea13c2",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.02-002",
+      "oldAlias": "ESTUD-VINC"
+    },
+    "0621ff0d5434": {
+      "code": "GRA-SO-118",
+      "sourceId": "0621ff0d5434",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.03-001",
+      "oldAlias": "PAE"
+    },
+    "32ee2eb32467": {
+      "code": "GRA-SO-119",
+      "sourceId": "32ee2eb32467",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.03-002",
+      "oldAlias": "TRANS-ESC"
+    },
+    "824e0b9d9da6": {
+      "code": "GRA-SO-120",
+      "sourceId": "824e0b9d9da6",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.03-003",
+      "oldAlias": "ESC-PERM"
+    },
+    "c517cc8bff4c": {
+      "code": "GRA-SO-121",
+      "sourceId": "c517cc8bff4c",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.04-001",
+      "oldAlias": "SEDES-DOT"
+    },
+    "9545134b7892": {
+      "code": "GRA-SO-122",
+      "sourceId": "9545134b7892",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.05-001",
+      "oldAlias": "CONVEN-EDU"
+    },
+    "fd2d5b14b4f4": {
+      "code": "GRA-SO-123",
+      "sourceId": "fd2d5b14b4f4",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.02.05-002",
+      "oldAlias": "FONDO-APOYO"
+    },
+    "3b4f2cb321d3": {
+      "code": "GRA-SO-124",
+      "sourceId": "3b4f2cb321d3",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.00-001",
+      "oldAlias": "INV-ALCALD"
+    },
+    "460401866758": {
+      "code": "GRA-SO-125",
+      "sourceId": "460401866758",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.01-001",
+      "oldAlias": "SISBEN-IV"
+    },
+    "f5d790906a02": {
+      "code": "GRA-SO-126",
+      "sourceId": "f5d790906a02",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.01-002",
+      "oldAlias": "POBREZA"
+    },
+    "ecb317d9ec68": {
+      "code": "GRA-SO-127",
+      "sourceId": "ecb317d9ec68",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.02-001",
+      "oldAlias": "CASOS-NNA"
+    },
+    "b393e66ffca7": {
+      "code": "GRA-SO-128",
+      "sourceId": "b393e66ffca7",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.02-002",
+      "oldAlias": "JORN-SOCIAL"
+    },
+    "215ed6fd09cc": {
+      "code": "GRA-SO-129",
+      "sourceId": "215ed6fd09cc",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.02-003",
+      "oldAlias": "PCT-NNA"
+    },
+    "b0fd8a59e1e6": {
+      "code": "GRA-SO-130",
+      "sourceId": "b0fd8a59e1e6",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.02-004",
+      "oldAlias": "DER-VERIF"
+    },
+    "c2727d3280ab": {
+      "code": "GRA-SO-131",
+      "sourceId": "c2727d3280ab",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.04-001",
+      "oldAlias": "ACT-CONSEJ"
+    },
+    "7ffed41b7509": {
+      "code": "GRA-SO-132",
+      "sourceId": "7ffed41b7509",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.04-002",
+      "oldAlias": "ANOS-PROMED"
+    },
+    "7dc9589b1730": {
+      "code": "GRA-SO-133",
+      "sourceId": "7dc9589b1730",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.04-003",
+      "oldAlias": "VIOL-DENUNC"
+    },
+    "445c6f67b37d": {
+      "code": "GRA-SO-134",
+      "sourceId": "445c6f67b37d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.04-004",
+      "oldAlias": "HOG-JEFATU"
+    },
+    "b5c7079bd1d1": {
+      "code": "GRA-SO-135",
+      "sourceId": "b5c7079bd1d1",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.04-005",
+      "oldAlias": "INV-CONST"
+    },
+    "18dc4a5d1c58": {
+      "code": "GRA-SO-136",
+      "sourceId": "18dc4a5d1c58",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.04-006",
+      "oldAlias": "PART-MUJ"
+    },
+    "534910b61ba9": {
+      "code": "GRA-SO-137",
+      "sourceId": "534910b61ba9",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.04-007",
+      "oldAlias": "PART-LABORA"
+    },
+    "5277c4ad584c": {
+      "code": "GRA-SO-138",
+      "sourceId": "5277c4ad584c",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.04-008",
+      "oldAlias": "FEC-TASA"
+    },
+    "55d32255bb99": {
+      "code": "GRA-SO-139",
+      "sourceId": "55d32255bb99",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.07-001",
+      "oldAlias": "DEFUNC"
+    },
+    "64a1f561e21c": {
+      "code": "GRA-SO-140",
+      "sourceId": "64a1f561e21c",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.07-002",
+      "oldAlias": "MIGRANTES"
+    },
+    "214437970999": {
+      "code": "GRA-SO-141",
+      "sourceId": "214437970999",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.07-003",
+      "oldAlias": "POB-RURAL"
+    },
+    "dea19b1749d1": {
+      "code": "GRA-SO-142",
+      "sourceId": "dea19b1749d1",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.07-004",
+      "oldAlias": "POB-EDAD"
+    },
+    "17ec702e89e1": {
+      "code": "GRA-SO-143",
+      "sourceId": "17ec702e89e1",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.07-005",
+      "oldAlias": "POB-TOTAL"
+    },
+    "252dcad49835": {
+      "code": "GRA-SO-144",
+      "sourceId": "252dcad49835",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.07-006",
+      "oldAlias": "POB-URB"
+    },
+    "ca60a88b247e": {
+      "code": "GRA-SO-145",
+      "sourceId": "ca60a88b247e",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.07-007",
+      "oldAlias": "RURAL-PCT"
+    },
+    "86c9d66c3373": {
+      "code": "GRA-SO-146",
+      "sourceId": "86c9d66c3373",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.03.07-008",
+      "oldAlias": "URB-PCT"
+    },
+    "70565529cfeb": {
+      "code": "GRA-SO-147",
+      "sourceId": "70565529cfeb",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.01-001",
+      "oldAlias": "CULT-POB"
+    },
+    "7a7a370af45e": {
+      "code": "GRA-SO-148",
+      "sourceId": "7a7a370af45e",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.01-002",
+      "oldAlias": "CULT-RUR"
+    },
+    "b40452e7e976": {
+      "code": "GRA-SO-149",
+      "sourceId": "b40452e7e976",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.01-003",
+      "oldAlias": "CULT-DISC"
+    },
+    "7b442ace1541": {
+      "code": "GRA-SO-150",
+      "sourceId": "7b442ace1541",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.01-004",
+      "oldAlias": "CULT-TOTAL"
+    },
+    "e4225fe4f97e": {
+      "code": "GRA-SO-151",
+      "sourceId": "e4225fe4f97e",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.01-005",
+      "oldAlias": "CULT-ESC"
+    },
+    "ab2b20de7207": {
+      "code": "GRA-SO-152",
+      "sourceId": "ab2b20de7207",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.02-001",
+      "oldAlias": "BIB-SABER"
+    },
+    "53f2163420e6": {
+      "code": "GRA-SO-153",
+      "sourceId": "53f2163420e6",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.02-002",
+      "oldAlias": "ASIST-SERV"
+    },
+    "328a4073f583": {
+      "code": "GRA-SO-154",
+      "sourceId": "328a4073f583",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.02-003",
+      "oldAlias": "COB-BIBLIO"
+    },
+    "a85f369c517a": {
+      "code": "GRA-SO-155",
+      "sourceId": "a85f369c517a",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.03-001",
+      "oldAlias": "BENEFI-CADA"
+    },
+    "e1d91dc5b891": {
+      "code": "GRA-SO-156",
+      "sourceId": "e1d91dc5b891",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.05-001",
+      "oldAlias": "PRES-INSUMO"
+    },
+    "1c2330d75dea": {
+      "code": "GRA-SO-157",
+      "sourceId": "1c2330d75dea",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.06-001",
+      "oldAlias": "INC-ART"
+    },
+    "508aacacb2d8": {
+      "code": "GRA-SO-158",
+      "sourceId": "508aacacb2d8",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.04.06-002",
+      "oldAlias": "INV-DOTACI"
+    },
+    "96c80fe92275": {
+      "code": "GRA-SO-159",
+      "sourceId": "96c80fe92275",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.05.01-001",
+      "oldAlias": "DEP-POB"
+    },
+    "acfe4e61493a": {
+      "code": "GRA-SO-160",
+      "sourceId": "acfe4e61493a",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.05.01-002",
+      "oldAlias": "DEP-RUR"
+    },
+    "7000f622947e": {
+      "code": "GRA-SO-161",
+      "sourceId": "7000f622947e",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.05.01-003",
+      "oldAlias": "DEP-DISC"
+    },
+    "b4b4cf043505": {
+      "code": "GRA-SO-162",
+      "sourceId": "b4b4cf043505",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.05.01-004",
+      "oldAlias": "DEP-TOTAL"
+    },
+    "5bfbaba3e1e3": {
+      "code": "GRA-SO-163",
+      "sourceId": "5bfbaba3e1e3",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.05.01-005",
+      "oldAlias": "DEP-ESC"
+    },
+    "bc571d6b2931": {
+      "code": "GRA-SO-164",
+      "sourceId": "bc571d6b2931",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.05.02-001",
+      "oldAlias": "ACT-DEP"
+    },
+    "620476f75f55": {
+      "code": "GRA-SO-165",
+      "sourceId": "620476f75f55",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.05.05-001",
+      "oldAlias": "INC-DEP"
+    },
+    "2ae2c84ea03d": {
+      "code": "GRA-SO-166",
+      "sourceId": "2ae2c84ea03d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.05.05-002",
+      "oldAlias": "INV-ADQUIS"
+    },
+    "ce8854c38605": {
+      "code": "GRA-SO-167",
+      "sourceId": "ce8854c38605",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.06.01-001",
+      "oldAlias": "CONCILIA"
+    },
+    "db3f692f8165": {
+      "code": "GRA-SO-168",
+      "sourceId": "db3f692f8165",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.06.02-001",
+      "oldAlias": "VIOL-INTRA"
+    },
+    "19f06e9aea3d": {
+      "code": "GRA-SO-169",
+      "sourceId": "19f06e9aea3d",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.06.03-001",
+      "oldAlias": "POL-ACT"
+    },
+    "3124ed30dbb0": {
+      "code": "GRA-SO-170",
+      "sourceId": "3124ed30dbb0",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.06.04-001",
+      "oldAlias": "ATEN-COMISA"
+    },
+    "e0574dc8c3c0": {
+      "code": "GRA-SO-171",
+      "sourceId": "e0574dc8c3c0",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.06.04-002",
+      "oldAlias": "MEDIDA-PROT"
+    },
+    "ba35715f1621": {
+      "code": "GRA-SO-172",
+      "sourceId": "ba35715f1621",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.06.04-003",
+      "oldAlias": "TRAM-POL"
+    },
+    "c973b7db9245": {
+      "code": "GRA-SO-173",
+      "sourceId": "c973b7db9245",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.06.05-001",
+      "oldAlias": "COMPAREN"
+    },
+    "6875128abe1e": {
+      "code": "GRA-SO-174",
+      "sourceId": "6875128abe1e",
+      "dimensionAtIssue": "social",
+      "archivedCode": "TI-DS-01.06.05-002",
+      "oldAlias": "VIS-CONTRO"
+    },
+    "84ff855bbad1": {
+      "code": "GRA-EC-001",
+      "sourceId": "84ff855bbad1",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-001",
+      "oldAlias": "AGRO-ESC"
+    },
+    "c749cebcd1ef": {
+      "code": "GRA-EC-002",
+      "sourceId": "c749cebcd1ef",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-002",
+      "oldAlias": "AGRO-INS"
+    },
+    "83ca949b4748": {
+      "code": "GRA-EC-003",
+      "sourceId": "83ca949b4748",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-003",
+      "oldAlias": "MAQ-HORAS"
+    },
+    "75eff6d02c24": {
+      "code": "GRA-EC-004",
+      "sourceId": "75eff6d02c24",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-004",
+      "oldAlias": "TRAC-SERV"
+    },
+    "c98b1f23ae1e": {
+      "code": "GRA-EC-005",
+      "sourceId": "c98b1f23ae1e",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-005",
+      "oldAlias": "SAN-ANIM"
+    },
+    "e5271272ff59": {
+      "code": "GRA-EC-006",
+      "sourceId": "e5271272ff59",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-006",
+      "oldAlias": "TRAC-CUMP"
+    },
+    "e2103c887f5c": {
+      "code": "GRA-EC-007",
+      "sourceId": "e2103c887f5c",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-007",
+      "oldAlias": "PCT-ENTREG"
+    },
+    "4241b661141c": {
+      "code": "GRA-EC-008",
+      "sourceId": "4241b661141c",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-008",
+      "oldAlias": "PROD-MEJORA"
+    },
+    "6d88ffa07e17": {
+      "code": "GRA-EC-009",
+      "sourceId": "6d88ffa07e17",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-009",
+      "oldAlias": "PROD-PECUAR"
+    },
+    "1e705065dd2b": {
+      "code": "GRA-EC-010",
+      "sourceId": "1e705065dd2b",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-010",
+      "oldAlias": "TRAC-REC"
+    },
+    "fad9e7af2b34": {
+      "code": "GRA-EC-011",
+      "sourceId": "fad9e7af2b34",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-011",
+      "oldAlias": "ABASTO-TON"
+    },
+    "2e8a4bce4dfb": {
+      "code": "GRA-EC-012",
+      "sourceId": "2e8a4bce4dfb",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.02-012",
+      "oldAlias": "ABASTO-GRU"
+    },
+    "0af96c006c16": {
+      "code": "GRA-EC-013",
+      "sourceId": "0af96c006c16",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.03-001",
+      "oldAlias": "INSUMO-AGRO"
+    },
+    "70432fbbc7ff": {
+      "code": "GRA-EC-014",
+      "sourceId": "70432fbbc7ff",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.03-002",
+      "oldAlias": "PARCEL-DEM"
+    },
+    "d147d665c25a": {
+      "code": "GRA-EC-015",
+      "sourceId": "d147d665c25a",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.03-003",
+      "oldAlias": "VIS-ASIST"
+    },
+    "4578a9781eb7": {
+      "code": "GRA-EC-016",
+      "sourceId": "4578a9781eb7",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.04-001",
+      "oldAlias": "ASOCIA-AGRO"
+    },
+    "9d07cec803a7": {
+      "code": "GRA-EC-017",
+      "sourceId": "9d07cec803a7",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.04-002",
+      "oldAlias": "PROD-AFIL"
+    },
+    "2fb985d453d0": {
+      "code": "GRA-EC-018",
+      "sourceId": "2fb985d453d0",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.06-001",
+      "oldAlias": "ABASTO-PROD"
+    },
+    "c12faa758f76": {
+      "code": "GRA-EC-019",
+      "sourceId": "c12faa758f76",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.06-002",
+      "oldAlias": "HUERT-INS"
+    },
+    "a16e2c517491": {
+      "code": "GRA-EC-020",
+      "sourceId": "a16e2c517491",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.01.06-003",
+      "oldAlias": "HUERT-VER"
+    },
+    "7546b713c8e8": {
+      "code": "GRA-EC-021",
+      "sourceId": "7546b713c8e8",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.02.02-001",
+      "oldAlias": "EMPREN-CAP"
+    },
+    "881be8f19382": {
+      "code": "GRA-EC-022",
+      "sourceId": "881be8f19382",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.02.02-002",
+      "oldAlias": "PCT-ARTES"
+    },
+    "bf1cceb2df90": {
+      "code": "GRA-EC-023",
+      "sourceId": "bf1cceb2df90",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.02.02-003",
+      "oldAlias": "PCT-MUJ"
+    },
+    "b8235c726444": {
+      "code": "GRA-EC-024",
+      "sourceId": "b8235c726444",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.02.03-001",
+      "oldAlias": "PCT-EDU"
+    },
+    "eab303776139": {
+      "code": "GRA-EC-025",
+      "sourceId": "eab303776139",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.02.04-001",
+      "oldAlias": "ARTES-VINC"
+    },
+    "92fe87fd4371": {
+      "code": "GRA-EC-026",
+      "sourceId": "92fe87fd4371",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.02.04-002",
+      "oldAlias": "ORG-PERTEN"
+    },
+    "2abe2a46f12d": {
+      "code": "GRA-EC-027",
+      "sourceId": "2abe2a46f12d",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.01-001",
+      "oldAlias": "CAP-ALOJAM"
+    },
+    "a48836e69717": {
+      "code": "GRA-EC-028",
+      "sourceId": "a48836e69717",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.01-002",
+      "oldAlias": "MICE-ESP"
+    },
+    "4eea3f8d97eb": {
+      "code": "GRA-EC-029",
+      "sourceId": "4eea3f8d97eb",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.01-003",
+      "oldAlias": "TUR-GASTRO"
+    },
+    "4eeb425dacb7": {
+      "code": "GRA-EC-030",
+      "sourceId": "4eeb425dacb7",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.01-004",
+      "oldAlias": "GUIAS-TUR"
+    },
+    "f1957c9f589f": {
+      "code": "GRA-EC-031",
+      "sourceId": "f1957c9f589f",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.01-005",
+      "oldAlias": "PRESTA-SERV"
+    },
+    "2f907199af63": {
+      "code": "GRA-EC-032",
+      "sourceId": "2f907199af63",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.02-001",
+      "oldAlias": "VIS-TUR"
+    },
+    "6320b6dab01d": {
+      "code": "GRA-EC-033",
+      "sourceId": "6320b6dab01d",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.03-001",
+      "oldAlias": "TUR-NAT"
+    },
+    "afa68bac4c40": {
+      "code": "GRA-EC-034",
+      "sourceId": "afa68bac4c40",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.03-002",
+      "oldAlias": "BIENES-PATR"
+    },
+    "1a4dc2ebf708": {
+      "code": "GRA-EC-035",
+      "sourceId": "1a4dc2ebf708",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.03.04-001",
+      "oldAlias": "REC-ATRACT"
+    },
+    "9be033470d73": {
+      "code": "GRA-EC-036",
+      "sourceId": "9be033470d73",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.04.02-001",
+      "oldAlias": "EMPLEO"
+    },
+    "8b53a94a0319": {
+      "code": "GRA-EC-037",
+      "sourceId": "8b53a94a0319",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.04.02-002",
+      "oldAlias": "PCT-HOJAS"
+    },
+    "c7b7dc72f5e4": {
+      "code": "GRA-EC-038",
+      "sourceId": "c7b7dc72f5e4",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.05.02-001",
+      "oldAlias": "LUM-PUBLIC"
+    },
+    "77ac62492c33": {
+      "code": "GRA-EC-039",
+      "sourceId": "77ac62492c33",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.05.02-002",
+      "oldAlias": "PRES-MANT"
+    },
+    "ed19995f0bac": {
+      "code": "GRA-EC-040",
+      "sourceId": "ed19995f0bac",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.01-001",
+      "oldAlias": "INGRESOS"
+    },
+    "805f34a32b31": {
+      "code": "GRA-EC-041",
+      "sourceId": "805f34a32b31",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.02-001",
+      "oldAlias": "AVISOS"
+    },
+    "f638706658df": {
+      "code": "GRA-EC-042",
+      "sourceId": "f638706658df",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.02-002",
+      "oldAlias": "REC-TRIB"
+    },
+    "2b9ce4a075d2": {
+      "code": "GRA-EC-043",
+      "sourceId": "2b9ce4a075d2",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.03-001",
+      "oldAlias": "REC-NOTR"
+    },
+    "14262d490cda": {
+      "code": "GRA-EC-044",
+      "sourceId": "14262d490cda",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.04-001",
+      "oldAlias": "PREDIAL"
+    },
+    "e86769219baa": {
+      "code": "GRA-EC-045",
+      "sourceId": "e86769219baa",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.05-001",
+      "oldAlias": "ICA"
+    },
+    "db239d7b7ee8": {
+      "code": "GRA-EC-046",
+      "sourceId": "db239d7b7ee8",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.06-001",
+      "oldAlias": "GASOLINA"
+    },
+    "3bf8b39d9fb0": {
+      "code": "GRA-EC-047",
+      "sourceId": "3bf8b39d9fb0",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.07-001",
+      "oldAlias": "TRANSFER"
+    },
+    "0c01e2f03e7e": {
+      "code": "GRA-EC-048",
+      "sourceId": "0c01e2f03e7e",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.08-001",
+      "oldAlias": "REGALIAS"
+    },
+    "16ae27d57072": {
+      "code": "GRA-EC-049",
+      "sourceId": "16ae27d57072",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.09-001",
+      "oldAlias": "PRES-ING"
+    },
+    "3a4a5870f9af": {
+      "code": "GRA-EC-050",
+      "sourceId": "3a4a5870f9af",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.10-001",
+      "oldAlias": "PCT-REC"
+    },
+    "813ffd88d300": {
+      "code": "GRA-EC-051",
+      "sourceId": "813ffd88d300",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.11-001",
+      "oldAlias": "MGA-COSTO"
+    },
+    "3d85ed11d33e": {
+      "code": "GRA-EC-052",
+      "sourceId": "3d85ed11d33e",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.11-002",
+      "oldAlias": "INV-PUB"
+    },
+    "a72e50a9b842": {
+      "code": "GRA-EC-053",
+      "sourceId": "a72e50a9b842",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.11-003",
+      "oldAlias": "MGA-PROPIOS"
+    },
+    "f930d60fea1d": {
+      "code": "GRA-EC-054",
+      "sourceId": "f930d60fea1d",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.11-004",
+      "oldAlias": "MGA-EDU"
+    },
+    "25151226f08f": {
+      "code": "GRA-EC-055",
+      "sourceId": "25151226f08f",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.12-001",
+      "oldAlias": "TESORERIA"
+    },
+    "bf64515c1294": {
+      "code": "GRA-EC-056",
+      "sourceId": "bf64515c1294",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.13-001",
+      "oldAlias": "DEUDA"
+    },
+    "bfbc7346f690": {
+      "code": "GRA-EC-057",
+      "sourceId": "bfbc7346f690",
+      "dimensionAtIssue": "economica",
+      "archivedCode": "TI-DS-02.06.14-001",
+      "oldAlias": "CARTERA"
+    },
+    "35117db82088": {
+      "code": "GRA-AM-001",
+      "sourceId": "35117db82088",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.01-001",
+      "oldAlias": "ARB-REFO"
+    },
+    "40b61513f9ab": {
+      "code": "GRA-AM-002",
+      "sourceId": "40b61513f9ab",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.01-002",
+      "oldAlias": "ECO-AREA"
+    },
+    "0156dc4a041f": {
+      "code": "GRA-AM-003",
+      "sourceId": "0156dc4a041f",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.01-003",
+      "oldAlias": "CAUD-VER"
+    },
+    "1d9c83946329": {
+      "code": "GRA-AM-004",
+      "sourceId": "1d9c83946329",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.01-004",
+      "oldAlias": "PSA-HECT"
+    },
+    "aecffda750cd": {
+      "code": "GRA-AM-005",
+      "sourceId": "aecffda750cd",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.02-001",
+      "oldAlias": "ANIM-JORN"
+    },
+    "708108c16fcd": {
+      "code": "GRA-AM-006",
+      "sourceId": "708108c16fcd",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.02-002",
+      "oldAlias": "ANIM-RUR"
+    },
+    "2d5ae576b219": {
+      "code": "GRA-AM-007",
+      "sourceId": "2d5ae576b219",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.02-003",
+      "oldAlias": "PSA-APORT"
+    },
+    "8cbd609f7ed2": {
+      "code": "GRA-AM-008",
+      "sourceId": "8cbd609f7ed2",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.02-004",
+      "oldAlias": "ANIM-SENS"
+    },
+    "2ade5f2604ce": {
+      "code": "GRA-AM-009",
+      "sourceId": "2ade5f2604ce",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.02-005",
+      "oldAlias": "EDU-AMB"
+    },
+    "16afb310d3fc": {
+      "code": "GRA-AM-010",
+      "sourceId": "16afb310d3fc",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.04-001",
+      "oldAlias": "HUELLA-CO2"
+    },
+    "5efa1300b1ee": {
+      "code": "GRA-AM-011",
+      "sourceId": "5efa1300b1ee",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.01.06-001",
+      "oldAlias": "IRCA"
+    },
+    "dd47cd6a96c5": {
+      "code": "GRA-AM-012",
+      "sourceId": "dd47cd6a96c5",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.00-001",
+      "oldAlias": "VIV-RURAL"
+    },
+    "acaf04b7cb53": {
+      "code": "GRA-AM-013",
+      "sourceId": "acaf04b7cb53",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-001",
+      "oldAlias": "PTAP-CAP"
+    },
+    "930170e60fe4": {
+      "code": "GRA-AM-014",
+      "sourceId": "930170e60fe4",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-002",
+      "oldAlias": "COB-ACUED"
+    },
+    "1a6a3bc55c3c": {
+      "code": "GRA-AM-015",
+      "sourceId": "1a6a3bc55c3c",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-003",
+      "oldAlias": "RES-COSTO"
+    },
+    "42ec7c0a253e": {
+      "code": "GRA-AM-016",
+      "sourceId": "42ec7c0a253e",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-004",
+      "oldAlias": "PTAP-DISTR"
+    },
+    "ab6b9409a865": {
+      "code": "GRA-AM-017",
+      "sourceId": "ab6b9409a865",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-005",
+      "oldAlias": "AGUA-PTAP"
+    },
+    "f520f9c39735": {
+      "code": "GRA-AM-018",
+      "sourceId": "f520f9c39735",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-006",
+      "oldAlias": "LUM-CABLE"
+    },
+    "9a7a4136d31e": {
+      "code": "GRA-AM-019",
+      "sourceId": "9a7a4136d31e",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-007",
+      "oldAlias": "PTAP-ZON"
+    },
+    "e8712cba7a5d": {
+      "code": "GRA-AM-020",
+      "sourceId": "e8712cba7a5d",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-008",
+      "oldAlias": "PTAR-ZONA"
+    },
+    "e2b3707b5bc1": {
+      "code": "GRA-AM-021",
+      "sourceId": "e2b3707b5bc1",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-009",
+      "oldAlias": "SUSCR-CARGO"
+    },
+    "9eb818ffd3ef": {
+      "code": "GRA-AM-022",
+      "sourceId": "9eb818ffd3ef",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-010",
+      "oldAlias": "AGUA-USU"
+    },
+    "a7a8f29d1a1c": {
+      "code": "GRA-AM-023",
+      "sourceId": "a7a8f29d1a1c",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-011",
+      "oldAlias": "ACU-USU"
+    },
+    "a8ca361426cd": {
+      "code": "GRA-AM-024",
+      "sourceId": "a8ca361426cd",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-012",
+      "oldAlias": "ALCAN-USU"
+    },
+    "4b491e96f2d8": {
+      "code": "GRA-AM-025",
+      "sourceId": "4b491e96f2d8",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-013",
+      "oldAlias": "SERV-GAS"
+    },
+    "33061d8a21e7": {
+      "code": "GRA-AM-026",
+      "sourceId": "33061d8a21e7",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-014",
+      "oldAlias": "PTAP-TOTAL"
+    },
+    "01834c4bf7aa": {
+      "code": "GRA-AM-027",
+      "sourceId": "01834c4bf7aa",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-015",
+      "oldAlias": "PTAR-TOTAL"
+    },
+    "31e681db2d98": {
+      "code": "GRA-AM-028",
+      "sourceId": "31e681db2d98",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-016",
+      "oldAlias": "SUB-USU"
+    },
+    "0200fba5a269": {
+      "code": "GRA-AM-029",
+      "sourceId": "0200fba5a269",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-017",
+      "oldAlias": "USUARI-SERV"
+    },
+    "77def22bf180": {
+      "code": "GRA-AM-030",
+      "sourceId": "77def22bf180",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-018",
+      "oldAlias": "ENER-USU"
+    },
+    "4345aa3f1d2c": {
+      "code": "GRA-AM-031",
+      "sourceId": "4345aa3f1d2c",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-019",
+      "oldAlias": "USUARI-GAS"
+    },
+    "475676dcd140": {
+      "code": "GRA-AM-032",
+      "sourceId": "475676dcd140",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-020",
+      "oldAlias": "PCT-SISBEN"
+    },
+    "cc138ed03cc5": {
+      "code": "GRA-AM-033",
+      "sourceId": "cc138ed03cc5",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-021",
+      "oldAlias": "PCT-ALCANT"
+    },
+    "4a8c4143678d": {
+      "code": "GRA-AM-034",
+      "sourceId": "4a8c4143678d",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-022",
+      "oldAlias": "HOG-SISBEN"
+    },
+    "2688c4a7b95d": {
+      "code": "GRA-AM-035",
+      "sourceId": "2688c4a7b95d",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-023",
+      "oldAlias": "PCT-HOG"
+    },
+    "54ac4a24c2a0": {
+      "code": "GRA-AM-036",
+      "sourceId": "54ac4a24c2a0",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-024",
+      "oldAlias": "ACU-RIES"
+    },
+    "4e5178fe2f3f": {
+      "code": "GRA-AM-037",
+      "sourceId": "4e5178fe2f3f",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-025",
+      "oldAlias": "PRES-ASIGNA"
+    },
+    "03d9ba8c9521": {
+      "code": "GRA-AM-038",
+      "sourceId": "03d9ba8c9521",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-026",
+      "oldAlias": "ALCAN-RED"
+    },
+    "d33502752be0": {
+      "code": "GRA-AM-039",
+      "sourceId": "d33502752be0",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-027",
+      "oldAlias": "RES-SOL"
+    },
+    "505d17a77a3c": {
+      "code": "GRA-AM-040",
+      "sourceId": "505d17a77a3c",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-028",
+      "oldAlias": "ACU-COM"
+    },
+    "2d1e925a1f99": {
+      "code": "GRA-AM-041",
+      "sourceId": "2d1e925a1f99",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-029",
+      "oldAlias": "SUSCR-ACUED"
+    },
+    "948017f622f7": {
+      "code": "GRA-AM-042",
+      "sourceId": "948017f622f7",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.03-030",
+      "oldAlias": "INV-CONVEN"
+    },
+    "f423078e1d2a": {
+      "code": "GRA-AM-043",
+      "sourceId": "f423078e1d2a",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-001",
+      "oldAlias": "AREA-CONFLI"
+    },
+    "412b4ae2a514": {
+      "code": "GRA-AM-044",
+      "sourceId": "412b4ae2a514",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-002",
+      "oldAlias": "EOT-EDU"
+    },
+    "c43ce6662333": {
+      "code": "GRA-AM-045",
+      "sourceId": "c43ce6662333",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-003",
+      "oldAlias": "EOT-EQUIP"
+    },
+    "24a98c962105": {
+      "code": "GRA-AM-046",
+      "sourceId": "24a98c962105",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-004",
+      "oldAlias": "EOT-AMB"
+    },
+    "9350d5612d36": {
+      "code": "GRA-AM-047",
+      "sourceId": "9350d5612d36",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-005",
+      "oldAlias": "EOT-CULT"
+    },
+    "7ada066ea1fa": {
+      "code": "GRA-AM-048",
+      "sourceId": "7ada066ea1fa",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-006",
+      "oldAlias": "EOT-SAL"
+    },
+    "b465574f4787": {
+      "code": "GRA-AM-049",
+      "sourceId": "b465574f4787",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-007",
+      "oldAlias": "EOT-SERV"
+    },
+    "dcf3e564ccf0": {
+      "code": "GRA-AM-050",
+      "sourceId": "dcf3e564ccf0",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-008",
+      "oldAlias": "EOT-PROD"
+    },
+    "9b704b610d02": {
+      "code": "GRA-AM-051",
+      "sourceId": "9b704b610d02",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-009",
+      "oldAlias": "EOT-TUR"
+    },
+    "0e32190595d1": {
+      "code": "GRA-AM-052",
+      "sourceId": "0e32190595d1",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-010",
+      "oldAlias": "EOT-VIAS"
+    },
+    "27052dcba323": {
+      "code": "GRA-AM-053",
+      "sourceId": "27052dcba323",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.05-011",
+      "oldAlias": "EOT-VIV"
+    },
+    "188bb6d8e469": {
+      "code": "GRA-AM-054",
+      "sourceId": "188bb6d8e469",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.06-001",
+      "oldAlias": "AREA-CONSTR"
+    },
+    "5aa641c4f6a4": {
+      "code": "GRA-AM-055",
+      "sourceId": "5aa641c4f6a4",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.06-002",
+      "oldAlias": "AREA-URB"
+    },
+    "18698052c6fd": {
+      "code": "GRA-AM-056",
+      "sourceId": "18698052c6fd",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.02.06-003",
+      "oldAlias": "PART-PREDIO"
+    },
+    "f105446a40e0": {
+      "code": "GRA-AM-057",
+      "sourceId": "f105446a40e0",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.03.01-001",
+      "oldAlias": "VIAS-ZONA"
+    },
+    "7f7b2291ef23": {
+      "code": "GRA-AM-058",
+      "sourceId": "7f7b2291ef23",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.03.01-002",
+      "oldAlias": "VIAS-MANT"
+    },
+    "4201eedb6d69": {
+      "code": "GRA-AM-059",
+      "sourceId": "4201eedb6d69",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.03.01-003",
+      "oldAlias": "VIAS-PRES"
+    },
+    "b8812ce01e68": {
+      "code": "GRA-AM-060",
+      "sourceId": "b8812ce01e68",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.01-001",
+      "oldAlias": "RIES-AREA"
+    },
+    "9b0dd8e42c5f": {
+      "code": "GRA-AM-061",
+      "sourceId": "9b0dd8e42c5f",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.01-002",
+      "oldAlias": "RIES-OBRA"
+    },
+    "bde6c2688e11": {
+      "code": "GRA-AM-062",
+      "sourceId": "bde6c2688e11",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.01-003",
+      "oldAlias": "RIES-ESTUD"
+    },
+    "a6d2cc8657f4": {
+      "code": "GRA-AM-063",
+      "sourceId": "a6d2cc8657f4",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.01-004",
+      "oldAlias": "RIES-INV"
+    },
+    "eea59f142b00": {
+      "code": "GRA-AM-064",
+      "sourceId": "eea59f142b00",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.01-005",
+      "oldAlias": "RIES-GAL"
+    },
+    "541218380de9": {
+      "code": "GRA-AM-065",
+      "sourceId": "541218380de9",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.01-006",
+      "oldAlias": "RIES-PRAD"
+    },
+    "0a15e4ed5703": {
+      "code": "GRA-AM-066",
+      "sourceId": "0a15e4ed5703",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.01-007",
+      "oldAlias": "RIES-SILES"
+    },
+    "295a6df5542f": {
+      "code": "GRA-AM-067",
+      "sourceId": "295a6df5542f",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.01-008",
+      "oldAlias": "RIES-PRES"
+    },
+    "670d9635fa1d": {
+      "code": "GRA-AM-068",
+      "sourceId": "670d9635fa1d",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.02-001",
+      "oldAlias": "RIES-CAP"
+    },
+    "509022e7d99b": {
+      "code": "GRA-AM-069",
+      "sourceId": "509022e7d99b",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.02-002",
+      "oldAlias": "RIES-ADULT"
+    },
+    "e838dd04371c": {
+      "code": "GRA-AM-070",
+      "sourceId": "e838dd04371c",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.02-003",
+      "oldAlias": "RIES-MUJ"
+    },
+    "13e46ab2092c": {
+      "code": "GRA-AM-071",
+      "sourceId": "13e46ab2092c",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.02-004",
+      "oldAlias": "RIES-TANQ"
+    },
+    "3788f99c9d39": {
+      "code": "GRA-AM-072",
+      "sourceId": "3788f99c9d39",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.02-005",
+      "oldAlias": "RIES-EDUC"
+    },
+    "ad5c25b99e56": {
+      "code": "GRA-AM-073",
+      "sourceId": "ad5c25b99e56",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.02-006",
+      "oldAlias": "RIES-EDU"
+    },
+    "83ca31694565": {
+      "code": "GRA-AM-074",
+      "sourceId": "83ca31694565",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-001",
+      "oldAlias": "META-ACCION"
+    },
+    "939c20e62eee": {
+      "code": "GRA-AM-075",
+      "sourceId": "939c20e62eee",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-002",
+      "oldAlias": "META-GEST"
+    },
+    "9a3501008f7e": {
+      "code": "GRA-AM-076",
+      "sourceId": "9a3501008f7e",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-003",
+      "oldAlias": "META-EMERG"
+    },
+    "49479dfa59d8": {
+      "code": "GRA-AM-077",
+      "sourceId": "49479dfa59d8",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-004",
+      "oldAlias": "PRES-ATEN"
+    },
+    "155d36f2b372": {
+      "code": "GRA-AM-078",
+      "sourceId": "155d36f2b372",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-005",
+      "oldAlias": "PRES-FORM"
+    },
+    "035d9fa96299": {
+      "code": "GRA-AM-079",
+      "sourceId": "035d9fa96299",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-006",
+      "oldAlias": "PRES-PREVIS"
+    },
+    "ef07ba8e52c3": {
+      "code": "GRA-AM-080",
+      "sourceId": "ef07ba8e52c3",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-007",
+      "oldAlias": "REC-MANT"
+    },
+    "87aa674e130c": {
+      "code": "GRA-AM-081",
+      "sourceId": "87aa674e130c",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-008",
+      "oldAlias": "REC-FORTAL"
+    },
+    "6876e2d2d40e": {
+      "code": "GRA-AM-082",
+      "sourceId": "6876e2d2d40e",
+      "dimensionAtIssue": "ambiental",
+      "archivedCode": "TI-DS-03.04.03-009",
+      "oldAlias": "REC-PREVIS"
+    },
+    "e48851583333": {
+      "code": "GRA-IN-001",
+      "sourceId": "e48851583333",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-001",
+      "oldAlias": "EFIC-CONTR"
+    },
+    "3b6696367fed": {
+      "code": "GRA-IN-002",
+      "sourceId": "3b6696367fed",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-002",
+      "oldAlias": "IDI"
+    },
+    "eb6f3130c0f2": {
+      "code": "GRA-IN-003",
+      "sourceId": "eb6f3130c0f2",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-003",
+      "oldAlias": "POL05"
+    },
+    "d06a78d8dcbc": {
+      "code": "GRA-IN-004",
+      "sourceId": "d06a78d8dcbc",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-004",
+      "oldAlias": "POL19"
+    },
+    "e923a94078d6": {
+      "code": "GRA-IN-005",
+      "sourceId": "e923a94078d6",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-005",
+      "oldAlias": "POL09"
+    },
+    "420220ee3e9a": {
+      "code": "GRA-IN-006",
+      "sourceId": "420220ee3e9a",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-006",
+      "oldAlias": "POL06"
+    },
+    "e55c20d7a8aa": {
+      "code": "GRA-IN-007",
+      "sourceId": "e55c20d7a8aa",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-007",
+      "oldAlias": "POL17"
+    },
+    "1167a6a08ed9": {
+      "code": "GRA-IN-008",
+      "sourceId": "1167a6a08ed9",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-008",
+      "oldAlias": "POL18"
+    },
+    "06af2552f4fe": {
+      "code": "GRA-IN-009",
+      "sourceId": "06af2552f4fe",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-009",
+      "oldAlias": "POL16"
+    },
+    "ccece5fb2355": {
+      "code": "GRA-IN-010",
+      "sourceId": "ccece5fb2355",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-010",
+      "oldAlias": "POL01"
+    },
+    "698b75db67b7": {
+      "code": "GRA-IN-011",
+      "sourceId": "698b75db67b7",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-011",
+      "oldAlias": "POL04"
+    },
+    "a3c90027e897": {
+      "code": "GRA-IN-012",
+      "sourceId": "a3c90027e897",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-012",
+      "oldAlias": "POL07"
+    },
+    "818c95c420db": {
+      "code": "GRA-IN-013",
+      "sourceId": "818c95c420db",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-013",
+      "oldAlias": "POL02"
+    },
+    "a5e76685421b": {
+      "code": "GRA-IN-014",
+      "sourceId": "a5e76685421b",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-014",
+      "oldAlias": "POL13"
+    },
+    "4ce2438825e9": {
+      "code": "GRA-IN-015",
+      "sourceId": "4ce2438825e9",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-015",
+      "oldAlias": "POL03"
+    },
+    "776dc4543c04": {
+      "code": "GRA-IN-016",
+      "sourceId": "776dc4543c04",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-016",
+      "oldAlias": "POL12"
+    },
+    "f1afe3620417": {
+      "code": "GRA-IN-017",
+      "sourceId": "f1afe3620417",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-017",
+      "oldAlias": "POL14"
+    },
+    "71ec36275142": {
+      "code": "GRA-IN-018",
+      "sourceId": "71ec36275142",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-018",
+      "oldAlias": "POL08"
+    },
+    "73047edc94f7": {
+      "code": "GRA-IN-019",
+      "sourceId": "73047edc94f7",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-019",
+      "oldAlias": "POL11"
+    },
+    "9d055d22cd6c": {
+      "code": "GRA-IN-020",
+      "sourceId": "9d055d22cd6c",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-020",
+      "oldAlias": "POL15"
+    },
+    "e69231e683cf": {
+      "code": "GRA-IN-021",
+      "sourceId": "e69231e683cf",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.01.01-021",
+      "oldAlias": "CONTR-GOB"
+    },
+    "77066a3c64cb": {
+      "code": "GRA-IN-022",
+      "sourceId": "77066a3c64cb",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.02.02-001",
+      "oldAlias": "NET-EDU"
+    },
+    "ddeeca8f1ae4": {
+      "code": "GRA-IN-023",
+      "sourceId": "ddeeca8f1ae4",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.02.04-001",
+      "oldAlias": "SIST-ALCAL"
+    },
+    "8dde4fbc56c7": {
+      "code": "GRA-IN-024",
+      "sourceId": "8dde4fbc56c7",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.03.01-001",
+      "oldAlias": "SISBEN"
+    },
+    "14fc1bdce1eb": {
+      "code": "GRA-IN-025",
+      "sourceId": "14fc1bdce1eb",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.04.01-001",
+      "oldAlias": "CTSSS"
+    },
+    "bdb001bf952e": {
+      "code": "GRA-IN-026",
+      "sourceId": "bdb001bf952e",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.04.01-002",
+      "oldAlias": "COPACO"
+    },
+    "034a857e462c": {
+      "code": "GRA-IN-027",
+      "sourceId": "034a857e462c",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.04.04-001",
+      "oldAlias": "PQRS-GESTIO"
+    },
+    "123cb44d225e": {
+      "code": "GRA-IN-028",
+      "sourceId": "123cb44d225e",
+      "dimensionAtIssue": "institucional",
+      "archivedCode": "TI-DS-04.05.01-001",
+      "oldAlias": "DOC-ALUM"
+    }
+  },
+  "count": 341,
+  "summary": {
+    "records": 341,
+    "published": 290,
+    "countsByDimension": {
+      "social": 174,
+      "economica": 57,
+      "ambiental": 82,
+      "institucional": 28
+    },
+    "migrationPending": 0
+  }
+}

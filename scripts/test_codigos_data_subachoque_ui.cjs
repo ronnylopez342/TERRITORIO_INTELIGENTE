@@ -25,24 +25,24 @@ const server=http.createServer((req,res)=>{
    await p.locator('#data-subachoque[data-ready="true"]').waitFor({timeout:40000});
    const example=records.find(x=>x.name.includes('Índice de Desempeño Institucional'));
    assert(example,'IDI must exist');
-   assert.equal(await root.locator('#ds5-code').innerText(),example.shortCode,'short code in header');
-   assert((await root.locator('.ds5-meta-card').innerText()).includes(example.catalogCode),'metadata code');
-   assert((await root.locator('.ds5-related-card').first().innerText()).includes(example.shortCode),'related card short code visible');
+   assert.equal(await root.locator('#ds5-code').innerText(),example.graphCode,'GRA code in header');
+   assert((await root.locator('.ds5-meta-card').innerText()).includes(example.graphCode),'GRA code in metadata');
+   assert((await root.locator('.ds5-related-card').first().innerText()).includes(example.graphCode),'related card GRA code visible');
    const rect=await root.locator('#ds5-code').boundingBox(); assert(rect?.width>35&&rect?.x>=0&&rect?.x+rect?.width<=width+2,'code badge fits screen');
    const fromSheet=example.meta.code;
    if(fromSheet&&!/LO ASIGNAMOS|PENDIENTE/.test(fromSheet)&&!/^\d+$/.test(fromSheet))assert((await root.locator('.ds5-meta-card').innerText()).includes(fromSheet),'source code preserved');
-   await root.locator('#ds5-search').fill(example.catalogCode);
+   await root.locator('#ds5-search').fill(example.graphCode);
    const results=root.locator('#ds5-results [data-ds5-search]');
    assert.equal(await results.count(),1,'find unique indicator by exact internal code');
-   assert((await results.first().innerText()).includes(example.shortCode),'search shows short code');
+   assert((await results.first().innerText()).includes(example.graphCode),'search shows GRA code');
    await results.first().click();
-   assert.equal(await root.locator('#ds5-code').innerText(),example.shortCode);
+   assert.equal(await root.locator('#ds5-code').innerText(),example.graphCode);
    const pdf=await Promise.all([p.waitForEvent('download',{timeout:12000}),root.locator('#ds5-download').click()]).then(a=>a[0]);
-   assert(pdf.suggestedFilename().includes(example.shortCode),'filename includes short code');
+   assert(pdf.suggestedFilename().includes(example.graphCode),'filename includes graph code');
    const file='/tmp/ti-codigo-'+width+'.pdf';await pdf.saveAs(file);
    const raw=fs.readFileSync(file).toString('latin1');
-   assert(raw.includes(example.catalogCode)&&raw.includes(example.shortCode),'PDF includes short and technical code');
-   assert(raw.includes('Código rápido')||raw.includes('CODIGO'),'code label in PDF');
+   assert(raw.includes(example.graphCode),'PDF includes GRA code');
+   assert(raw.includes('CODIGO DE GRAFICA'),'code label in PDF');
    assert.deepEqual(errors,[],'JS errors');
    await p.close();
   }
@@ -53,7 +53,7 @@ const server=http.createServer((req,res)=>{
   await page.locator('#data-subachoque[data-ready="true"]').waitFor({timeout:40000});
   for(const r of records){
    const input=page.locator('#ds5-search');
-   for(const code of [r.shortCode,r.catalogCode]){
+   for(const code of [r.graphCode,r.shortCode,r.catalogCode]){
     await input.fill(code);
     const matches=page.locator('#ds5-results [data-ds5-search]');
     assert.equal(await matches.count(),1,'code resolves exactly one available fiche '+code);

@@ -157,10 +157,18 @@ const aliases=fs.existsSync(aliasesPath)?
   JSON.parse(fs.readFileSync(aliasesPath,'utf8')):
   {version:1,scheme:'TI-SHORT-v1',assignments:{}};
 applyHumanCodes(output,aliases);
+// Codigo publico unico y uniforme para graficas: GRA-SO-001, GRA-EC-001, etc.
+const {assignGraphCodes,SCHEME}=require('./asignar_codigos_gra_subachoque.cjs');
+const graPath=path.join(root,'data','codigos-gra-subachoque.json');
+const graRegistry=fs.existsSync(graPath)?
+  JSON.parse(fs.readFileSync(graPath,'utf8')):
+  {version:1,scheme:SCHEME,assignments:{}};
+assignGraphCodes(output,graRegistry);
 const dest=path.join(root,'data','fichas-2026-validadas.json');
 fs.writeFileSync(dest,JSON.stringify(output));
 fs.writeFileSync(codebookPath,JSON.stringify(registry,null,2)+'\n');
 fs.writeFileSync(aliasesPath,JSON.stringify(aliases,null,2)+'\n');
+fs.writeFileSync(graPath,JSON.stringify(graRegistry,null,2)+'\n');
 const log={version:1,sourceFiles:9,originalSheets:357,uniqueIndicators:341,available:290,
   dataValidation:{temporalValuesCheckedAgainstOriginalCells:1212,categoricalValuesCheckedAgainstOriginalCells:98},
   sourceFormat:{embeddedWorkbookCharts:0,embeddedWorkbookImages:0},
