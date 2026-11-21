@@ -250,32 +250,98 @@
     '</span><div><p>'+esc(k.label)+'</p><strong>'+esc(k.value)+'</strong><small>'+esc(k.note)+'</small></div></div>').join('');
  }
  // Chart: SVG with independent plot/legend zones; no overlapping labels.
- function lineChart(r){
+ // Layout uses the LIVE size of its parent card. W/H are SVG viewBox units
+ // matching the onscreen CSS pixels; no artificial empty area or stretched text.
+ function lineChart(r,width=850,height=525){
   const series=chartSeries(r)||mainMeasure(r),p=normalizedPoints(r,series),inf=unitInfo(r,series);
   if(!p.length)return '<p class="ds5-missing">No hay puntos publicables para la serie.</p>';
-  const W=1040,H=412,left=85,right=35,top=37,bottom=83;
+  const W=Math.max(300,Math.round(width)),H=Math.max(300,Math.round(height));
+  const narrow=W<530,small=W<720;
+  const ft=narrow?12:small?14:16;
+  const yearFont=narrow?13:small?15:18;
+  const valueFont=narrow?17:small?19:22;
+  const isPercent=inf.unit==='%'||/porcentaje/.test(norm(inf.unit));
+  const axisText=v=>{
+   const full=number(v,1)+(isPercent?' %':'');
+   return full.length>(narrow?9:14)?
+    new Intl.NumberFormat('es-CO',{notation:'compact',maximumFractionDigits:1}).format(v)+(isPercent?' %':''):full;
+  };
   const minX=Math.min(...p.map(q=>q.year)),maxX=Math.max(...p.map(q=>q.year));
   const low=Math.min(...p.map(q=>q.value)),high=Math.max(...p.map(q=>q.value));
-  const range=high-low||Math.abs(high)||1;
-  const ymin=low>=0?Math.max(0,low-range*.20):low-range*.20;
-  const ymax=high+range*.18;
-  const sx=x=>minX===maxX?W/2:left+(x-minX)/(maxX-minX)*(W-left-right);
-  const sy=y=>H-bottom-(y-ymin)/(ymax-ymin)*(H-top-bottom);
+  const range=high-low||Math.max(Math.abs(high),1);
+  const ymin=low>=0?Math.max(0,low-range*.19):low-range*.19;
+  const ymax=high+range*.20;
   const ticks=Array.from({length:5},(_,i)=>ymin+(ymax-ymin)*i/4);
-  const grid=ticks.map(v=>'<g><line x1="'+left+'" y1="'+sy(v).toFixed(1)+'" x2="'+(W-right)+'" y2="'+sy(v).toFixed(1)+
-    '" stroke="#315d6c" stroke-width="1"/><text x="'+(left-16)+'" y="'+(sy(v)+4).toFixed(1)+'" text-anchor="end" fill="#b3d2dd" font-size="13">'+esc(number(v,1))+'</text></g>').join('');
-  const bars=p.length===1||p.length>14;
-  const gap=Math.min(48,(W-left-right)/Math.max(1,p.length*1.7));
-  const columns=p.map(q=>'<rect x="'+(sx(q.year)-gap/2).toFixed(1)+'" y="'+sy(q.value).toFixed(1)+'" width="'+gap.toFixed(1)+
-    '" height="'+Math.max(1,sy(ymin)-sy(q.value)).toFixed(1)+'" rx="3" fill="#37bfcc" opacity=".9" />').join('');
+  const yStrings=ticks.map(axisText);
+  const estimated=Math.max(...yStrings.map(x=>x.length))*ft*.59;
+  const left=Math.min(W*.35,Math.max(narrow?64:86,estimated+20));
+  const right=narrow?19:29,top=narrow?46:58,bottom=narrow?55:67;
+  const usableW=W-left-right,usableH=H-top-bottom;
+  const sx=x=>minX===maxX?left+usableW/2:left+(x-minX)/(maxX-minX)*usableW;
+  const sy=y=>H-bottom-(y-ymin)/(ymax-ymin)*usableH;
+  const grid=ticks.map((v,i)=>'<g>'+
+    '<line x1="'+left.toFixed(1)+'" y1="'+sy(v).toFixed(1)+'" x2="'+(W-right)+'" y2="'+sy(v).toFixed(1)+
+      '" stroke="#477b8d" stroke-width="1" opacity=".65"/>'+
+    '<text class="ds5-graph-tick" x="'+(left-13).toFixed(1)+'" y="'+(sy(v)+ft*.36).toFixed(1)+
+      '" text-anchor="end" fill="#d1e9f1" font-size="'+ft+'" font-weight="650">'+esc(yStrings[i])+'</text></g>').join('');
+  const barWidth=Math.max(18,Math.min(88,usableW/(Math.max(2,p.length)*1.65)));
+  const bars=p.map(q=>'<rect x="'+(sx(q.year)-barWidth/2).toFixed(1)+'" y="'+Math.min(sy(q.value),sy(ymin)).toFixed(1)+
+    '" width="'+barWidth.toFixed(1)+'" height="'+Math.max(2,Math.abs(sy(ymin)-sy(q.value))).toFixed(1)+
+    '" rx="5" fill="#38c7d7" opacity=".9"><title>'+esc(q.year+': '+valueText(q.value,inf))+'</title></rect>').join('');
   const path=p.map((q,i)=>(i?'L':'M')+sx(q.year).toFixed(1)+' '+sy(q.value).toFixed(1)).join(' ');
-  const line=p.length>1?'<path d="'+path+'" fill="none" stroke="#36ccdb" stroke-width="3" stroke-linejoin="round"/>'+p.map(q=>
-    '<circle cx="'+sx(q.year).toFixed(1)+'" cy="'+sy(q.value).toFixed(1)+'" r="5" fill="#ffcf2f" stroke="#0a3144" stroke-width="2"/>').join(''):columns;
-  const years=p.map(q=>'<text x="'+sx(q.year).toFixed(1)+'" y="'+(H-bottom+29)+'" text-anchor="middle" font-size="14" fill="#cee4ec">'+q.year+'</text>').join('');
-  const labels=p.length<=9?p.map(q=>'<text x="'+sx(q.year).toFixed(1)+'" y="'+Math.max(14,sy(q.value)-13).toFixed(1)+'" text-anchor="middle" font-size="13" font-weight="750" fill="#ffffff">'+esc(number(q.value,2))+'</text>').join(''):'';
-  return '<svg class="ds5-chart-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Serie '+esc(series?.name||r.name)+
-   ' entre '+minX+' y '+maxX+'"><g>'+grid+'</g><g>'+line+labels+years+'</g>'+
-   '<text x="'+(W/2)+'" y="'+(H-14)+'" text-anchor="middle" font-size="14" fill="#b9d8e3">'+esc(series?.name||r.name)+' · '+esc(inf.unit)+'</text></svg>';
+  const dataMarks=p.length>1?
+   '<path d="'+path+'" fill="none" stroke="#36d8e8" stroke-width="'+(narrow?3:3.8)+'" stroke-linecap="round" stroke-linejoin="round"/>'+
+   p.map(q=>'<circle cx="'+sx(q.year).toFixed(1)+'" cy="'+sy(q.value).toFixed(1)+'" r="'+(narrow?5:7)+
+    '" fill="#ffce31" stroke="#063648" stroke-width="2"><title>'+esc(q.year+': '+valueText(q.value,inf))+'</title></circle>').join(''):bars;
+  // Render every point and year in accessible text, but only paint labels when
+  // there is room for their actual text. Prioritize the first and last year.
+  const gap=usableW/Math.max(1,p.length-1);
+  const maxYearLabels=Math.max(2,Math.floor(usableW/(narrow?55:68)));
+  const step=p.length<=maxYearLabels?1:Math.ceil((p.length-1)/(maxYearLabels-1));
+  const years=p.filter((q,i)=>i===0||i===p.length-1||i%step===0).map(q=>
+   '<text class="ds5-graph-year" x="'+sx(q.year).toFixed(1)+'" y="'+(H-bottom+yearFont+17).toFixed(1)+
+   '" text-anchor="middle" font-size="'+yearFont+'" font-weight="750" fill="#eefaff">'+q.year+'</text>').join('');
+  const boxes=[];const labels=[];
+  // Label the observed values visibly, not with the tiny original 13px.
+  const items=p.map((q,i)=>({q,i,priority:i===p.length-1?3:i===0?2:1})).sort((a,b)=>b.priority-a.priority||a.i-b.i);
+  for(const {q,i} of items){
+   const fullValue=number(q.value,2)+(isPercent?' %':'');
+   // On narrow charts, abbreviate only the painted text, never the value:
+   // every original number stays in the point tooltip and SVG aria-label.
+   const maxLabelWidth=Math.max(76,Math.min(usableW*.40,165));
+   const text=fullValue.length*valueFont*.59+10>maxLabelWidth?
+     new Intl.NumberFormat('es-CO',{notation:'compact',maximumFractionDigits:2}).format(q.value)+(isPercent?' %':''):
+     fullValue;
+   const estimatedWidth=text.length*valueFont*.59+10;
+   const px=sx(q.year),py=sy(q.value);
+   const cx=Math.max(left+estimatedWidth/2+5,Math.min(W-right-estimatedWidth/2-5,px));
+   const opts=[
+    {x:cx,y:py-(narrow?15:20)},
+    {x:cx,y:py+valueFont+18},
+    {x:Math.max(left+estimatedWidth/2+5,cx-estimatedWidth*.28),y:py-17},
+    {x:Math.min(W-right-estimatedWidth/2-5,cx+estimatedWidth*.28),y:py-17}
+   ];
+   let chosen=null,rect;
+   for(const opt of opts){
+    const x1=opt.x-estimatedWidth/2,x2=opt.x+estimatedWidth/2;
+    const y1=opt.y-valueFont,y2=opt.y+5;
+    if(y1<top-7||y2>H-bottom-7||x1<left||x2>W-right)continue;
+    if(boxes.some(b=>x1<b.x2+6&&x2>b.x1-6&&y1<b.y2+3&&y2>b.y1-3))continue;
+    chosen=opt;rect={x1,x2,y1,y2};break;
+   }
+   if(chosen){
+    boxes.push(rect);
+    labels.push({i,html:'<text class="ds5-graph-value" data-point-index="'+i+'" x="'+chosen.x.toFixed(1)+
+      '" y="'+chosen.y.toFixed(1)+'" text-anchor="middle" font-size="'+valueFont+
+      '" font-weight="850" fill="#fff">'+esc(text)+'</text>'});
+   }
+  }
+  labels.sort((a,b)=>a.i-b.i);
+  const pointDescription=p.map(q=>q.year+': '+valueText(q.value,inf)).join('; ');
+  return '<svg class="ds5-chart-svg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img"'+
+   ' aria-label="'+esc('Evolución de '+(series?.name||r.name)+'. '+pointDescription)+'">'+
+   '<g class="ds5-graph-grid">'+grid+'</g><g class="ds5-graph-data">'+dataMarks+
+    years+labels.map(x=>x.html).join('')+'</g></svg>';
  }
  function categoricalChart(r){
   const rows=(r.categories||[]).flatMap(c=>c.values.map(v=>({name:c.name+(c.values.length>1?' · '+v[0]:''),value:Number(v[1])})))
@@ -303,6 +369,8 @@
    '<div class="ds5-chart-head"><h3 id="ds5-chart-title">'+(useCategories?'Desagregaciones del indicador':'Evolución del indicador')+'</h3>'+seriesSelect+'</div>'+
    switches+
    '<div class="ds5-chart-frame">'+graph+'</div>'+
+   (!useCategories&&all.length?'<div class="ds5-chart-axis-name">'+
+     esc((chartSeries(r)||mainMeasure(r)).name)+' · '+esc(unitInfo(r,chartSeries(r)||mainMeasure(r)).unit)+'</div>':'')+
    '<p class="ds5-chart-foot">'+esc(m.info.note||'Visualización exclusiva de los valores y desagregaciones de la ficha Excel original.')+
    '</p></section>';
  }
@@ -510,6 +578,36 @@
    '<input id="ds5-related-search" type="search" placeholder="Buscar por nombre o código…" autocomplete="off" value="'+esc(state.relatedSearch)+'"></label>':'')+
    '<div class="ds5-related-results" aria-live="polite">'+relatedList(r,context)+'</div></section>';
  }
+ // Resized charts use the actual available pixel dimensions in the card.
+ // ResizeObserver only tracks the chart frame, avoiding all global layout hacks.
+ let plotObserver=null;
+ function fitChartFrame(frame){
+  if(!frame?.isConnected)return;
+  const r=active();
+  if(!r||!availableSeries(r).length)return;
+  if(state.chartMode==='categorias'&&(r.categories||[]).some(c=>c.values?.length))return;
+  const width=Math.round(frame.getBoundingClientRect().width);
+  const height=Math.round(frame.getBoundingClientRect().height);
+  if(width<120||height<120)return;
+  const signature=r.id+':'+state.series+':'+width+'x'+height;
+  if(frame.dataset.plotSize===signature)return;
+  frame.dataset.plotSize=signature;
+  frame.innerHTML=lineChart(r,width,height);
+ }
+ function updateChartFit(){
+  if(plotObserver){plotObserver.disconnect();plotObserver=null;}
+  requestAnimationFrame(()=>{
+   const frame=root.querySelector('.ds5-chart-frame');
+   if(!frame||!frame.isConnected)return;
+   fitChartFrame(frame);
+   if('ResizeObserver' in window){
+    plotObserver=new ResizeObserver(entries=>{
+     for(const entry of entries)if(entry.target===frame)fitChartFrame(frame);
+    });
+    plotObserver.observe(frame);
+   }
+  });
+ }
  function chooseIndicator(r){
   const code=liveCode(r.meta?.code),t=topic();
   by('ds5-title').textContent=r.name;
@@ -518,6 +616,7 @@
   by('ds5-source-tag').textContent=trace(r);
   by('ds5-kpis').innerHTML=kpis(r);
   by('ds5-dual').innerHTML=chart(r)+metadata(r);
+  updateChartFit();
   by('ds5-interpretation').textContent=analytical(r);
   by('ds5-findings-root').innerHTML=findings(r);
   by('ds5-related-root').innerHTML=related(r);
@@ -570,7 +669,14 @@
     const r=lookup.get(b.dataset.ds5Search);if(r?.nav)change(r.nav.dimension,r.nav.area,r.nav.topic,r.id);
     by('ds5-search').value='';
    }
-   else if(b.dataset.ds5Chartmode){state.chartMode=b.dataset.ds5Chartmode;const r=active();if(r)root.querySelector('.ds5-chart-card')?.replaceWith(document.createRange().createContextualFragment(chart(r)));}
+   else if(b.dataset.ds5Chartmode){
+    state.chartMode=b.dataset.ds5Chartmode;
+    const r=active();
+    if(r){
+      root.querySelector('.ds5-chart-card')?.replaceWith(document.createRange().createContextualFragment(chart(r)));
+      updateChartFit();
+    }
+   }
    else if(b.dataset.ds5RelatedGroup){
     state.relatedGroup=b.dataset.ds5RelatedGroup;
     state.relatedExpanded=false;state.relatedSearch='';
@@ -589,6 +695,7 @@
     const r=active();if(r){
      by('ds5-kpis').innerHTML=kpis(r);
      root.querySelector('.ds5-chart-card')?.replaceWith(document.createRange().createContextualFragment(chart(r)));
+     updateChartFit();
      by('ds5-interpretation').textContent=analytical(r);
      by('ds5-findings-root').innerHTML=findings(r);
     }

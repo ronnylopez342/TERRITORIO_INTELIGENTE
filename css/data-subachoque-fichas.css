@@ -429,3 +429,129 @@ body:has(#data-subachoque.active:not([hidden])) #assistantLaunch{display:none!im
   #data-subachoque .ds5-related-card,
   #data-subachoque .ds5-related-filter{transition:none!important}
 }
+
+/* ================================================================
+ * UNIVERSAL RESPONSIVE GRAPH SPACE — Data Subachoque 2.2
+ * Fill the full chart panel irrespective of technical-sheet height.
+ * All axes, point values, series and categories remain unchanged.
+ * ================================================================ */
+@media screen{
+ #data-subachoque .ds5-dual{align-items:stretch!important}
+ #data-subachoque .ds5-chart-card{
+   display:flex!important;flex-direction:column!important;align-items:stretch!important;
+   min-height:560px;overflow:hidden;
+   padding:clamp(15px,1.6vw,24px) clamp(13px,1.45vw,21px) 16px!important;
+ }
+ #data-subachoque .ds5-chart-head{
+   flex:0 0 auto;align-items:flex-start!important;gap:14px!important;
+   margin:0 0 6px!important;
+ }
+ #data-subachoque .ds5-chart-head h3{
+   font-size:clamp(21px,1.8vw,28px)!important;
+   line-height:1.2!important;
+   margin:0!important;letter-spacing:-.02em;
+   overflow-wrap:anywhere;flex:1 1 220px;
+ }
+ #data-subachoque .ds5-series-selector{
+   font-size:13px!important;line-height:1.35;
+   flex-wrap:wrap;max-width:100%;
+ }
+ #data-subachoque #ds5-series-select{
+   min-height:38px;font-size:12px;max-width:100%;
+ }
+ #data-subachoque .ds5-chart-frame{
+   display:flex!important;position:relative;align-items:stretch!important;
+   flex:1 1 460px!important;min-width:0!important;
+   min-height:clamp(410px,33vw,670px)!important;
+   width:100%!important;box-sizing:border-box;
+ }
+ #data-subachoque .ds5-chart-svg{
+   display:block!important;flex:1 1 auto;
+   width:100%!important;height:100%!important;
+   min-height:0!important;aspect-ratio:auto!important;
+   overflow:hidden!important;
+ }
+ #data-subachoque .ds5-chart-svg text{
+   font-family:Arial,Helvetica,sans-serif;
+   paint-order:stroke fill;
+   stroke:rgba(5,43,58,.60);stroke-width:2px;stroke-linejoin:round;
+ }
+ #data-subachoque .ds5-chart-svg .ds5-graph-tick,
+ #data-subachoque .ds5-chart-svg .ds5-graph-year{font-weight:750}
+ #data-subachoque .ds5-chart-svg .ds5-graph-value{
+   font-weight:850;stroke:rgba(5,43,58,.92);stroke-width:3.3px;
+ }
+ #data-subachoque .ds5-chart-axis-name{
+   margin:0 6px 9px!important;
+   font-size:clamp(12px,1.1vw,15px)!important;font-weight:750;
+   line-height:1.4;text-align:center;color:#d3edf4;
+   overflow-wrap:anywhere;white-space:normal;flex:0 0 auto;
+ }
+ #data-subachoque .ds5-chart-foot{
+   flex:0 0 auto;font-size:12px!important;line-height:1.55!important;
+   padding-top:11px!important;margin-top:7px!important;
+   overflow-wrap:anywhere;color:#c3e0e9!important;
+ }
+ #data-subachoque .ds5-modes{
+   flex:0 0 auto;gap:9px!important;margin:9px 0 8px!important;
+ }
+ #data-subachoque .ds5-modes button{
+   font-size:13px!important;min-height:40px;
+ }
+ /* Categorical representations: no clipped labels, no inner 490px scrollbar,
+    readable values and bars that share the available height. */
+ #data-subachoque .ds5-bar-list{
+   display:flex!important;flex-direction:column!important;
+   flex:1 1 auto;width:100%;
+   align-items:stretch;justify-content:space-evenly;
+   gap:clamp(12px,1.5vw,19px)!important;
+   min-height:100%;max-height:none!important;overflow:visible!important;
+   padding:15px 5px 13px!important;box-sizing:border-box;
+ }
+ #data-subachoque .ds5-bar-row{
+   grid-template-columns:minmax(110px,1.3fr) minmax(90px,2.1fr) minmax(45px,auto)!important;
+   gap:12px!important;min-width:0;min-height:34px;
+ }
+ #data-subachoque .ds5-bar-label{
+   font-size:clamp(12px,1.0vw,15px)!important;font-weight:700;
+   line-height:1.4;color:#d8edf4!important;
+ }
+ #data-subachoque .ds5-bar-track{height:clamp(17px,1.7vw,24px)!important;min-width:0}
+ #data-subachoque .ds5-bar-row strong{
+   font-size:clamp(14px,1.25vw,18px)!important;font-weight:800!important;
+   white-space:normal;overflow-wrap:anywhere;line-height:1.3;
+ }
+}
+@media screen and (max-width:990px){
+ #data-subachoque .ds5-chart-card{min-height:520px}
+ #data-subachoque .ds5-chart-frame{min-height:410px!important;flex-basis:410px!important}
+}
+@media screen and (max-width:620px){
+ #data-subachoque .ds5-chart-card{min-height:460px;padding:14px 11px!important}
+ #data-subachoque .ds5-chart-frame{min-height:345px!important;flex-basis:345px!important}
+ #data-subachoque .ds5-chart-head h3{font-size:22px!important}
+ #data-subachoque .ds5-chart-axis-name{font-size:12px!important}
+ #data-subachoque .ds5-chart-foot{font-size:11px!important}
+ #data-subachoque .ds5-bar-row{
+   grid-template-columns:minmax(0,1fr) auto!important;
+   row-gap:7px!important;column-gap:8px!important;
+ }
+ #data-subachoque .ds5-bar-label{grid-column:1!important;grid-row:1!important;font-size:13px!important}
+ #data-subachoque .ds5-bar-row strong{
+   grid-column:2!important;grid-row:1!important;font-size:16px!important;
+ }
+ #data-subachoque .ds5-bar-track{grid-column:1 / -1!important;grid-row:2!important;height:19px!important}
+}
+@media screen{
+ /* The long categorical listings must grow the card itself, never hide rows
+    behind an internal scrollbar or overflow the plot's own border. */
+ #data-subachoque .ds5-chart-card:has(.ds5-bar-list) .ds5-chart-frame{
+   display:block!important;flex:0 0 auto!important;height:auto!important;
+   min-height:0!important;overflow:visible!important;
+ }
+ #data-subachoque .ds5-chart-card:has(.ds5-bar-list) .ds5-bar-list{
+   display:flex!important;flex:0 0 auto!important;
+   height:auto!important;min-height:0!important;max-height:none!important;
+   overflow:visible!important;
+ }
+}
