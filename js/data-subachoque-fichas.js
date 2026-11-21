@@ -18,7 +18,7 @@
  const trace=r=>r.sourceFile+' · Hoja '+r.sourceSheet;
  const dimLabels={social:'Dimensión Social',economica:'Dimensión Económica',ambiental:'Dimensión Ambiental y Territorial',institucional:'Dimensión Institucional'};
  const icons={social:'♧',economica:'▰',ambiental:'♧',institucional:'▤'};
- const state={dim:'institucional',area:null,topic:null,indicator:null,series:0,chartMode:'temporal',search:''};
+ const state={dim:'institucional',area:null,topic:null,indicator:null,series:0,chartMode:'temporal',search:'',relatedGroup:'all',relatedExpanded:false,relatedSearch:''};
  let catalog=null, dataset=null,lookup=new Map(),catalogIndex=[];
  const dimensions=()=>catalog?.dimensiones||[];
  const dim=()=>dimensions().find(d=>d.id===state.dim)||dimensions()[0];
@@ -127,6 +127,7 @@
   const starter=t.documentCode==='4.1.1'?rs.find(v=>v.available&&/indice de desempeno institucional \(idi\)/.test(norm(v.name))):null;
   const r=rs.find(v=>v.id===rid&&v.available)||starter||rs.find(v=>v.available)||null;
   state.dim=d.id;state.area=a.id;state.topic=t.id;state.indicator=r?.id||null;state.series=0;state.chartMode='temporal';
+  state.relatedGroup='all';state.relatedExpanded=false;state.relatedSearch='';
  }
  function readHash(){
   if(!catalog)return;
@@ -352,23 +353,162 @@
   return '<section class="ds5-findings"><h3><span aria-hidden="true">▥</span> Principales hallazgos</h3>'+
     '<ul>'+items.slice(0,4).map(x=>'<li><span aria-hidden="true">✓</span>'+esc(x)+'</li>').join('')+'</ul></section>';
  }
+ // Organizador editorial — las cantidades y las fichas siempre se obtienen del
+ // catálogo realmente publicado. Nunca se suman puntuaciones con pesos o tasas.
+ const relatedSymbols={
+  all:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  gestion:'<path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="4.3"/>',
+  planeacion:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4m8-4v4M3 10h18m-13 5 2 2 5-5"/>',
+  control:'<path d="M12 2 20 6v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+  transparencia:'<circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M8.5 11h5m-2.5-2.5v5"/>',
+  ingresos:'<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M3 11h18M8 15h3M6 3h12"/>',
+  tributos:'<path d="M4 5h16v14H4zM8 9h8m-8 4h8m-8 4h5"/>',
+  presupuesto:'<path d="M3 19V5h18v14M7 15l3-4 4 2 4-5"/><path d="M7 19h10"/>',
+  deuda:'<path d="M4 8h16M5 12h14M7 16h10M12 3v4m0 10v4"/>',
+  otros:'<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',
+  medalla:'<circle cx="12" cy="9" r="6"/><path d="m8 14-2 8 6-3 6 3-2-8M12 6l.9 1.9 2.1.3-1.5 1.5.4 2.1-1.9-1-1.9 1 .4-2.1L9 8.2l2.1-.3z"/>',
+  compras:'<circle cx="9" cy="20" r="1"/><circle cx="19" cy="20" r="1"/><path d="M2 3h3l3 13h12l2-10H6"/>'
+ };
+ function relatedIcon(type){
+  return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+(relatedSymbols[type]||relatedSymbols.otros)+'</svg>';
+ }
+ function groupForRelated(r,context){
+  const t=context.topics.find(x=>x.id===r.nav?.topic);
+  const n=norm(r.name);
+  // 4.1: categorías editoriales para las políticas de gestión, no escalas
+  // comparables entre sí. El identificador POL se usa cuando existe.
+  if(context.code==='4.1'&&context.dimension==='institucional'){
+   const pol=(n.match(/\bpol\s*0?(\d{1,2})\b/)||[])[1];
+   const id=pol?Number(pol):null;
+   if(/indice de desempeno institucional/.test(n)||[1,5,6,7,11,16,18].includes(id))return 'gestion';
+   if([3,4,14,17].includes(id))return 'planeacion';
+   if([2,8,9,19].includes(id))return 'control';
+   if([12,13,15].includes(id))return 'transparencia';
+   return 'otros';
+  }
+  // Hacienda: clasificación coherente con la naturaleza financiera de la ficha.
+  if(context.code==='2.6'&&context.dimension==='economica'){
+   if(/deuda|cartera|tesoreria/.test(n))return 'deuda';
+   if(/presupuest|inversion|gasto publico/.test(n))return 'presupuesto';
+   if(/predial|industria y comercio|sobretasa|recaudo tributario|avisos y tableros/.test(n))return 'tributos';
+   if(/ingresos|recaudo no tributario|regalias|transferencia/.test(n))return 'ingresos';
+   return 'otros';
+  }
+  return t?.id||'otros';
+ }
+ const relatedBuiltins={
+  gestion:'Gestión',planeacion:'Planeación',control:'Control',
+  transparencia:'Transparencia',ingresos:'Ingresos',tributos:'Tributos',
+  presupuesto:'Presupuesto e inversión',deuda:'Deuda y cartera',otros:'Otros'
+ };
+ function relatedContext(){
+  const a=area();
+  const rows=a.topics.flatMap(t=>indicators(t)).filter(x=>x.available);
+  const seen=new Set();
+  const unique=rows.filter(r=>{if(seen.has(r.id))return false;seen.add(r.id);return true;});
+  const context={dimension:state.dim,code:a.code,topics:a.topics,rows:unique};
+  const groups=new Map();
+  for(const r of unique){
+   const id=groupForRelated(r,context);
+   const label=relatedBuiltins[id]||a.topics.find(t=>t.id===id)?.title||'Otros';
+   if(!groups.has(id))groups.set(id,{id,label,count:0,icon:relatedSymbols[id]?id:'all'});
+   groups.get(id).count++;
+  }
+  const order=context.code==='4.1'&&state.dim==='institucional'?
+   ['gestion','planeacion','control','transparencia','otros']:
+   context.code==='2.6'&&state.dim==='economica'?
+   ['ingresos','tributos','presupuesto','deuda','otros']:[];
+  context.groups=[...groups.values()].sort((a,b)=>{
+    if(order.length)return order.indexOf(a.id)-order.indexOf(b.id);
+    const ai=context.topics.findIndex(t=>t.id===a.id),bi=context.topics.findIndex(t=>t.id===b.id);
+    return (ai<0?999:ai)-(bi<0?999:bi);
+  });
+  return context;
+ }
+ function relatedValue(r){
+  const series=availableSeries(r)[0];
+  const info=unitInfo(r,series),data=normalizedPoints(r,series),last=data.at(-1);
+  const cat=(r.categories||[])[0]?.values?.[0];
+  if(last){
+   const original=last.value;
+   const unit=norm(r.meta?.unit);
+   // Format only the label; original exact values remain in the full fiche.
+   const isCOP=/pesos colombianos|cop/.test(unit)&&!info.million&&Math.abs(original)>=1e6;
+   if(isCOP)return {value:number(original/1e6,1)+' M',note:'COP · '+last.year,full:valueText(original,info)};
+   return {value:valueText(original,info),note:'Vigencia '+last.year,full:valueText(original,info)};
+  }
+  if(cat&&Number.isFinite(Number(cat[1])))return {value:number(Number(cat[1]),2),note:'Desagregación disponible',full:number(Number(cat[1]),2)};
+  return {value:'Ver ficha',note:'Dato disponible en ficha',full:'Ver ficha'};
+ }
+ function relatedSparkline(r){
+  const s=availableSeries(r)[0],data=normalizedPoints(r,s);
+  if(data.length<2||new Set(data.map(x=>x.year)).size<2)return '';
+  const p=data.slice(-7);
+  const a=Math.min(...p.map(x=>x.value)),b=Math.max(...p.map(x=>x.value)),lo=Math.min(...p.map(x=>x.year)),hi=Math.max(...p.map(x=>x.year));
+  const y=v=>35-((v-a)/(b-a||1))*25,x=v=>6+((v-lo)/(hi-lo||1))*114;
+  const points=p.map(z=>x(z.year).toFixed(1)+','+y(z.value).toFixed(1)).join(' ');
+  const last=p.at(-1);
+  return '<svg class="ds5-related-spark" viewBox="0 0 126 43" aria-hidden="true" focusable="false"><polyline points="'+
+   points+'" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>'+
+   '<circle cx="'+x(last.year).toFixed(1)+'" cy="'+y(last.value).toFixed(1)+'" r="4" fill="currentColor"/></svg>';
+ }
+ function relatedCard(r,context,current){
+  const groupId=groupForRelated(r,context);
+  const group=context.groups.find(g=>g.id===groupId)||{label:'Otros',icon:'otros'};
+  const val=relatedValue(r),sel=r.id===current.id;
+  const icon=/indice de desempeno institucional/i.test(norm(r.name))?'medalla':
+   /compras y contratacion/i.test(norm(r.name))?'compras':group.icon;
+  return '<button type="button" class="ds5-related-card'+(sel?' is-current':'')+'" data-ds5-indicator="'+esc(r.id)+'"'+
+   (sel?' aria-current="true"':'')+' aria-label="'+esc(r.name+', '+val.full+', '+(sel?'indicador en consulta':'abrir ficha'))+'">'+
+   '<span class="ds5-related-card-head"><span class="ds5-related-card-icon">'+relatedIcon(icon)+'</span>'+
+   (sel?'<span class="ds5-related-current">En consulta</span>':'')+'</span>'+
+   '<span class="ds5-related-name" title="'+esc(r.name)+'">'+esc(r.name)+'</span>'+
+   '<span class="ds5-related-measure" title="'+esc(val.full)+'">'+esc(val.value)+'</span>'+
+   '<span class="ds5-related-meta"><span class="ds5-related-tag">'+esc(group.label)+'</span>'+
+   '<small>'+esc(val.note)+'</small></span>'+relatedSparkline(r)+'</button>';
+ }
+ function relatedList(current,context){
+  const group=state.relatedGroup;
+  const query=norm(state.relatedSearch);
+  const filtered=context.rows.filter(r=>
+    (group==='all'||groupForRelated(r,context)===group)&&
+    (!query||norm(r.name+' '+r.topicLabel+' '+r.meta?.code).includes(query)));
+  filtered.sort((a,b)=>{
+    if(a.id===current.id)return -1;
+    if(b.id===current.id)return 1;
+    const sameA=a.nav?.topic===current.nav?.topic,sameB=b.nav?.topic===current.nav?.topic;
+    if(sameA!==sameB)return sameA?-1:1;
+    // Preserve the stable workbook order for each source; never rank
+    // money, percentages and indexes by their numeric value.
+    return context.rows.indexOf(a)-context.rows.indexOf(b);
+  });
+  const display=state.relatedExpanded?filtered:filtered.slice(0,3);
+  const remaining=filtered.length-display.length;
+  const noData='<p class="ds5-related-empty">No hay indicadores que coincidan con esta búsqueda.</p>';
+  const cards=display.length?'<div class="ds5-related-grid">'+display.map(r=>relatedCard(r,context,current)).join('')+'</div>':noData;
+  const toggle=filtered.length>3||state.relatedExpanded?
+   '<button type="button" class="ds5-related-show-all" data-ds5-related-expand="'+(state.relatedExpanded?'false':'true')+
+   '" aria-expanded="'+state.relatedExpanded+'">'+
+   (state.relatedExpanded?'Mostrar menos':'Ver los '+filtered.length+' indicadores')+
+   '<span aria-hidden="true">'+(state.relatedExpanded?' ↑':' →')+'</span></button>':'';
+  return cards+'<div class="ds5-related-footer"><span class="ds5-related-visible">'+
+   (filtered.length?'Mostrando '+display.length+' de '+filtered.length+' indicadores':'Sin coincidencias')+'</span>'+toggle+'</div>';
+ }
  function related(r){
-  const siblings=area().topics.flatMap(t=>indicators(t)).filter(x=>x.available&&x.id!==r.id)
-    .sort((a,b)=>Number(b.nav?.topic===state.topic)-Number(a.nav?.topic===state.topic));
-  return '<section class="ds5-related"><div class="ds5-related-heading"><h3>Otros indicadores del componente</h3>'+
-   '<small>'+siblings.length+' indicadores del área disponibles</small></div>'+
-   (siblings.length?'<div class="ds5-related-grid">'+siblings.map(other=>{
-    const rawSeries=availableSeries(other)[0];
-    const info=unitInfo(other,rawSeries),pts=normalizedPoints(other,rawSeries);
-    const top=pts.at(-1);
-    const categorical=(other.categories||[])[0]?.values?.[0];
-    const value=top?valueText(top.value,info):categorical?number(Number(categorical[1]),2):'Ver detalle';
-    return '<button type="button" class="ds5-related-card" data-ds5-indicator="'+esc(other.id)+'"><span class="ds5-related-icon" aria-hidden="true">▤</span>'+
-     '<span class="ds5-related-name">'+esc(other.name)+'</span><strong>'+esc(value)+'</strong>'+
-     '<small>'+esc((top?'Vigencia '+top.year+' · ':'')+
-       (area().topics.find(t=>t.id===other.nav?.topic)?.title||liveCode(other.meta?.code)))+'</small></button>';
-   }).join('')+'</div>':'<p class="ds5-no-related">No hay otros indicadores con datos en esta categoría.</p>')+
-   '</section>';
+  const context=relatedContext();
+  if(!context.groups.some(g=>g.id===state.relatedGroup))state.relatedGroup='all';
+  const tabs=[{id:'all',label:'Todos',icon:'all',count:context.rows.length},...context.groups];
+  const controls=tabs.map(g=>
+   '<button type="button" class="ds5-related-filter'+(g.id===state.relatedGroup?' active':'')+
+   '" data-ds5-related-group="'+esc(g.id)+'" aria-pressed="'+(g.id===state.relatedGroup)+'">'+
+   relatedIcon(g.icon||g.id)+'<span>'+esc(g.label)+' <span class="ds5-related-count">('+g.count+')</span></span></button>').join('');
+  return '<section class="ds5-related" aria-labelledby="ds5-related-title">'+
+   '<div class="ds5-related-heading"><h3 id="ds5-related-title">'+relatedIcon('all')+' Otros indicadores del componente</h3>'+
+   '<small>'+context.rows.length+' indicadores del área disponibles</small></div>'+
+   '<nav class="ds5-related-filters" aria-label="Filtrar indicadores por tema">'+controls+'</nav>'+
+   (state.relatedExpanded?'<label class="ds5-related-search-label" for="ds5-related-search">Buscar entre los indicadores del área'+
+   '<input id="ds5-related-search" type="search" placeholder="Buscar por nombre o código…" autocomplete="off" value="'+esc(state.relatedSearch)+'"></label>':'')+
+   '<div class="ds5-related-results" aria-live="polite">'+relatedList(r,context)+'</div></section>';
  }
  function chooseIndicator(r){
   const code=liveCode(r.meta?.code),t=topic();
@@ -417,12 +557,30 @@
    if(b.dataset.ds5Dim)change(b.dataset.ds5Dim,null,null,null);
    else if(b.dataset.ds5Area)change(state.dim,b.dataset.ds5Area,null,null);
    else if(b.dataset.ds5Topic)change(state.dim,state.area,b.dataset.ds5Topic,null);
-   else if(b.dataset.ds5Indicator){const r=lookup.get(b.dataset.ds5Indicator);if(r?.nav)change(r.nav.dimension,r.nav.area,r.nav.topic,r.id);}
+   else if(b.dataset.ds5Indicator){
+    const r=lookup.get(b.dataset.ds5Indicator);
+    if(r?.nav){
+      if(r.id!==state.indicator){
+        change(r.nav.dimension,r.nav.area,r.nav.topic,r.id);
+        requestAnimationFrame(()=>root.querySelector('.ds5-content')?.scrollIntoView({behavior:'smooth',block:'start'}));
+      }
+    }
+   }
    else if(b.dataset.ds5Search){
     const r=lookup.get(b.dataset.ds5Search);if(r?.nav)change(r.nav.dimension,r.nav.area,r.nav.topic,r.id);
     by('ds5-search').value='';
    }
    else if(b.dataset.ds5Chartmode){state.chartMode=b.dataset.ds5Chartmode;const r=active();if(r)root.querySelector('.ds5-chart-card')?.replaceWith(document.createRange().createContextualFragment(chart(r)));}
+   else if(b.dataset.ds5RelatedGroup){
+    state.relatedGroup=b.dataset.ds5RelatedGroup;
+    state.relatedExpanded=false;state.relatedSearch='';
+    const r=active();if(r)by('ds5-related-root').innerHTML=related(r);
+   }
+   else if(b.dataset.ds5RelatedExpand){
+    state.relatedExpanded=b.dataset.ds5RelatedExpand==='true';
+    if(!state.relatedExpanded)state.relatedSearch='';
+    const r=active();if(r)by('ds5-related-root').innerHTML=related(r);
+   }
    else if(b.id==='ds5-download')printPdf();
   });
   root.addEventListener('change',e=>{
@@ -435,6 +593,13 @@
      by('ds5-findings-root').innerHTML=findings(r);
     }
    }
+  });
+  root.addEventListener('input',e=>{
+    if(e.target.id==='ds5-related-search'){
+      state.relatedSearch=e.target.value;
+      const r=active(),list=root.querySelector('.ds5-related-results');
+      if(r&&list)list.innerHTML=relatedList(r,relatedContext());
+    }
   });
   by('ds5-search').addEventListener('input',e=>{state.search=e.target.value;renderSearch();});
   window.addEventListener('popstate',readHash);
