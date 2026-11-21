@@ -47,7 +47,7 @@ const server=http.createServer((req,res)=>{
    assert.match(await root.locator('#ds5-dual').innerText(),/2026/);
    assert.match(await root.locator('#ds5-related-root').innerText(),/Política/);
    assert.equal(await root.locator('.ds5-chart-frame svg').count(),1);
-   assert.equal(await root.locator('#ds5-code').innerText(),'4.1.1','no invented code');
+   assert.equal(await root.locator('#ds5-code').innerText(),'TI-DS-04.01.01-002','issued internal code from immutable registry');
    const g=await page.evaluate(()=>{
     const card=document.querySelector('#data-subachoque .ds5-ficha-card').getBoundingClientRect();
     const chart=document.querySelector('#data-subachoque .ds5-chart-card').getBoundingClientRect();

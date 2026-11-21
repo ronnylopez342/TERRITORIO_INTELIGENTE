@@ -144,8 +144,15 @@ const seen=new Set();for(const r of output.records){assert(!seen.has(r.id));seen
 output.version=4;
 output.audit={...output.audit,validation,classificationCorrections:corrections.length,
  manualClassificationIssues:review.length,classificationPolicy:'Primero correspondencia exacta con la taxonomía municipal; después correcciones sectoriales documentadas. Sin inferencias de ausencia de datos.'};
+// Reproduce the data exactly as before and reapply immutable internal codes.
+const {applyCodes}=require('./asignar_codigos_data_subachoque.cjs');
+const codebookPath=path.join(root,'data','codigos-data-subachoque.json');
+const registry=fs.existsSync(codebookPath)?
+  JSON.parse(fs.readFileSync(codebookPath,'utf8')):{version:1,scheme:'TI-DS-v1',assignments:{}};
+applyCodes(output,registry);
 const dest=path.join(root,'data','fichas-2026-validadas.json');
 fs.writeFileSync(dest,JSON.stringify(output));
+fs.writeFileSync(codebookPath,JSON.stringify(registry,null,2)+'\n');
 const log={version:1,sourceFiles:9,originalSheets:357,uniqueIndicators:341,available:290,
   dataValidation:{temporalValuesCheckedAgainstOriginalCells:1212,categoricalValuesCheckedAgainstOriginalCells:98},
   sourceFormat:{embeddedWorkbookCharts:0,embeddedWorkbookImages:0},

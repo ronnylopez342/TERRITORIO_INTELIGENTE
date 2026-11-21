@@ -30,7 +30,10 @@
  const hasData=r=>r&&r.available&&((r.series||[]).some(s=>s.points?.length)||r.categories?.length);
  const liveCode=raw=>{
   const s=nice(raw);
-  return !s||/lo asignamos|pendiente|por confirmar|por definir|no aplica/i.test(s)||/^\d+$/.test(s)?'Sin código asignado':s;
+  if(!s)return 'No consignado en el Excel';
+  if(/lo asignamos|pendiente|por confirmar|por definir|no aplica/i.test(s))return 'Pendiente según el Excel';
+  if(/^\d+$/.test(s))return s+' (sin validar)';
+  return s;
  };
  const validLink=raw=>{
   const m=String(raw||'').match(/https?:\/\/[^\s<>";]+/i);
@@ -176,12 +179,12 @@
   if(!state.search.trim()){slot.hidden=true;return;}
   const q=norm(state.search);const seen=new Set();
   const results=catalogIndex.filter(({d,a,t,r})=>
-    r.available&&norm(r.name+' '+r.meta?.code+' '+t.title+' '+a.title+' '+d.titulo).includes(q))
+    r.available&&norm(r.catalogCode+' '+r.name+' '+r.meta?.code+' '+t.title+' '+a.title+' '+d.titulo).includes(q))
     .filter(({r})=>{if(seen.has(r.id))return false;seen.add(r.id);return true;}).slice(0,35);
   slot.hidden=false;
   slot.innerHTML=results.length?results.map(({d,a,t,r})=>
     '<button type="button" class="ds5-search-result" data-ds5-search="'+esc(r.id)+'">'+
-    '<strong>'+esc(r.name)+'</strong><small>'+esc(d.titulo+' · '+a.title+' · '+t.title)+'</small></button>'
+    '<strong>'+esc(r.name)+'</strong><small class="ds5-search-code">'+esc(r.catalogCode)+'</small><small>'+esc(d.titulo+' · '+a.title+' · '+t.title)+'</small></button>'
   ).join(''):'<p class="ds5-empty-search">No encontramos indicadores con datos para esa búsqueda.</p>';
  }
  function availableSeries(r){
@@ -376,7 +379,8 @@
  }
  function metadata(r){
   const m=r.meta||{},entries=[
-   ['Nombre del indicador',r.name],['Código',liveCode(m.code)],
+   ['Nombre del indicador',r.name],['Código interno TI',r.catalogCode],
+   ['Código consignado en Excel',liveCode(m.code)],
    ['Definición',m.definition],['Unidad de medida',m.unit],
    ['Fórmula',m.formula],['Periodicidad',m.periodicity],
    ['Fuente de información',[m.source,m.sourceEntity].filter(Boolean).join(' · ')],
@@ -531,6 +535,7 @@
    '<span class="ds5-related-card-head"><span class="ds5-related-card-icon">'+relatedIcon(icon)+'</span>'+
    (sel?'<span class="ds5-related-current">En consulta</span>':'')+'</span>'+
    '<span class="ds5-related-name" title="'+esc(r.name)+'">'+esc(r.name)+'</span>'+
+   '<span class="ds5-related-ref" title="Identificador interno de la ficha">'+esc(r.catalogCode)+'</span>'+
    '<span class="ds5-related-measure" title="'+esc(val.full)+'">'+esc(val.value)+'</span>'+
    '<span class="ds5-related-meta"><span class="ds5-related-tag">'+esc(group.label)+'</span>'+
    '<small>'+esc(val.note)+'</small></span>'+relatedSparkline(r)+'</button>';
@@ -540,7 +545,7 @@
   const query=norm(state.relatedSearch);
   const filtered=context.rows.filter(r=>
     (group==='all'||groupForRelated(r,context)===group)&&
-    (!query||norm(r.name+' '+r.topicLabel+' '+r.meta?.code).includes(query)));
+    (!query||norm(r.name+' '+r.topicLabel+' '+r.meta?.code+' '+r.catalogCode).includes(query)));
   filtered.sort((a,b)=>{
     if(a.id===current.id)return -1;
     if(b.id===current.id)return 1;
@@ -609,9 +614,10 @@
   });
  }
  function chooseIndicator(r){
-  const code=liveCode(r.meta?.code),t=topic();
+  const code=r.catalogCode;
   by('ds5-title').textContent=r.name;
-  by('ds5-code').textContent=code==='Sin código asignado'?(t.documentCode||'Ficha'):(code);
+  by('ds5-code').textContent=code;
+  by('ds5-code').title='Código interno de Territorio Inteligente. No sustituye identificadores originales del Excel.';
   by('ds5-subtitle').textContent=nice(r.meta?.definition)||'Indicador municipal con datos reportados en el libro de origen.';
   by('ds5-source-tag').textContent=trace(r);
   by('ds5-kpis').innerHTML=kpis(r);
@@ -719,6 +725,9 @@
   fetch('data/fichas-2026-validadas.json').then(r=>{if(!r.ok)throw Error('Fichas Excel inaccesibles');return r.json();})
  ]).then(([tax,sources])=>{
   if(sources.records?.length!==341||tax.dimensiones?.length!==4)throw Error('Fuentes inesperadas; no se publicarán datos incompletos.');
+  const codes=sources.records.map(r=>r.catalogCode);
+  if(codes.some(c=>!/^TI-DS-0[1-4]\.\d{2}\.\d{2}-\d{3}$/.test(c))||new Set(codes).size!==sources.records.length)
+   throw Error('Catálogo sin 341 códigos internos válidos y exclusivos.');
   if(sources.audit?.validation?.available!==290||sources.audit?.validation?.series!==435||sources.audit?.validation?.points!==1212||
      sources.audit?.validation?.categoryValues!==98||sources.records.some(r=>r.available&&!r.classification)||
      new Set(sources.records.map(r=>r.id)).size!==341)
