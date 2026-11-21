@@ -54,7 +54,7 @@ async function run(){
      assert.ok(result.text>200,'Contenido vacio en '+id);
    }
    await page.evaluate(()=>selectDataPanel('data-subachoque'));
-   await page.waitForFunction(()=>document.querySelectorAll('#ds4-dims [data-ds4-dimension]').length===4,{timeout:25000});
+   await page.waitForFunction(()=>document.querySelectorAll('#ds4-dims [data-ds5-dim]').length===4,{timeout:25000});
    await page.evaluate(()=>selectDataPanel('data-encuesta'));
    await page.waitForFunction(
      ()=>document.querySelectorAll('#k23-dims [data-k23-dim]').length===4,

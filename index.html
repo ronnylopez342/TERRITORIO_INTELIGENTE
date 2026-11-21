@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="css/caracterizacion-kobo.css?v=kobo-23-02">
 <link rel="stylesheet" href="css/ti-dimensiones-layout.css?v=20261118-v3">
 <link rel="stylesheet" href="css/data-subachoque-como-caracterizacion.css?v=20261120-01">
+<link rel="stylesheet" href="css/data-subachoque-fichas.css?v=20261120-fichas-1">
 
 <link rel="stylesheet" href="css/atlas-original-fidelity.css?v=20261118-final-2">
 <link rel="stylesheet" href="css/ti-chart-containment.css?v=20261120-fix-1">
@@ -563,58 +564,64 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 
 </section>
 <section aria-labelledby="tab-data-subachoque" class="module-panel ti-data-subachoque" data-panel-group="data" id="data-subachoque" role="tabpanel" data-ready="false" hidden>
-  <div class="k23-app ds4-app" id="ds4-app">
-    <header class="k23-hero">
+  <div class="k23-app ds4-app ds5-app">
+    <header class="k23-hero ds5-hero">
       <div class="k23-wrap">
-        <p class="k23-breadcrumb">Data Territorio <span aria-hidden="true">/</span> 2.2 Data Subachoque <span aria-hidden="true">/</span> <span id="ds4-dimension-breadcrumb">Dimensión Social</span></p>
-        <div class="k23-hero-top">
-          <div>
-            <p class="k23-tag">INFORMACIÓN TERRITORIAL · ORGANIZACIÓN TEMÁTICA</p>
-            <h1 id="ds4-main-title" tabindex="-1"><span class="k23-title-line">DATA</span><span class="k23-title-line">SUBACHOQUE</span></h1>
-            <p class="k23-hero-lead">Explora las dimensiones, áreas y categorías del territorio. Consulta sus fuentes y registros publicados sin gráficas.</p>
+        <p class="k23-breadcrumb">Data Territorio <span aria-hidden="true">/</span> 2.2 Data Subachoque <span aria-hidden="true">/</span> <span id="ds4-dimension-breadcrumb">Dimensión Institucional</span></p>
+        <div class="ds5-hero-intro">
+          <div><h1 id="ds4-main-title" tabindex="-1">Data Subachoque</h1>
+            <p>Información territorial por dimensiones, áreas y categorías. Fichas de indicadores elaboradas con registros documentados.</p>
+          </div>
+          <div class="ds5-search-wrap">
+            <label for="ds5-search">Buscar indicadores</label>
+            <input id="ds5-search" type="search" autocomplete="off" placeholder="Buscar indicador o componente…"/>
+            <div id="ds5-results" class="ds5-search-results" hidden></div>
           </div>
         </div>
-        <div class="k23-dim-section">
-          <p class="k23-overline">01 — EXPLORA LAS CUATRO DIMENSIONES DEL TERRITORIO</p>
-          <nav id="ds4-dims" class="k23-dims" aria-label="Dimensiones de Data Subachoque">
-            <p role="status">Cargando las dimensiones del territorio…</p>
-          </nav>
-        </div>
+        <nav id="ds4-dims" class="k23-dims ds5-dims" aria-label="Dimensiones de Data Subachoque">
+          <p role="status">Cargando las cuatro dimensiones…</p>
+        </nav>
       </div>
     </header>
-    <main class="k23-body">
+    <main class="k23-body ds5-body">
       <div class="k23-wrap">
-        <div class="k23-filters" aria-label="Navegación por áreas y categorías">
+        <div class="k23-filters ds5-filters" aria-label="Áreas y categorías de Data Subachoque">
           <div class="k23-filter-line">
-            <span class="k23-filter-title"><span aria-hidden="true">◈</span> Áreas:</span>
-            <nav id="ds4-areas" class="k23-areas" aria-label="Áreas de la dimensión seleccionada"></nav>
+            <span class="k23-filter-title"><span aria-hidden="true">◇</span> Áreas:</span>
+            <nav id="ds4-areas" class="k23-areas" aria-label="Áreas de la dimensión"></nav>
           </div>
           <div class="k23-filter-line k23-filter-categories">
             <span class="k23-filter-title"><span aria-hidden="true">◇</span> Categorías:</span>
-            <nav id="ds4-topics" class="k23-topics-list" aria-label="Categorías del área seleccionada"></nav>
-            <details class="k23-search-popover">
-              <summary title="Buscar categorías" aria-label="Buscar entre todas las categorías">⌕</summary>
-              <div class="k23-search-box">
-                <label for="ds4-search">Buscar dimensión, área o categoría</label>
-                <input id="ds4-search" type="search" placeholder="Buscar categoría…" autocomplete="off">
-                <div class="k23-search-results" id="ds4-results" hidden></div>
-              </div>
-            </details>
+            <nav id="ds4-topics" class="k23-topics-list" aria-label="Categorías del área"></nav>
           </div>
         </div>
-        <div class="k23-display ds4-display">
-          <nav class="k23-selection-path" aria-label="Ubicación de la categoría">
-            <span aria-hidden="true">⌂</span><span id="ds4-topic-breadcrumb">Dimensión Social › Salud y Protección Social › Aseguramiento</span>
+        <div class="ds5-content">
+          <nav class="ds5-breadcrumb" aria-label="Ubicación de la ficha">
+            <span aria-hidden="true">⌂</span> <span id="ds4-topic-breadcrumb">Dimensión Institucional › Gobierno Territorial › Desempeño Institucional</span>
           </nav>
-          <section class="ds4-detail" aria-labelledby="ds4-topic-title">
-            <header class="ds4-heading">
-              <p id="ds4-topic-context">Dimensión Social · Salud y Protección Social</p>
-              <div class="ds4-topic-header"><span id="ds4-topic-code">1.1.1</span><h2 id="ds4-topic-title" tabindex="-1">Aseguramiento</h2></div>
-              <p>Información y fuentes organizadas por ámbito territorial, sin visualizaciones gráficas.</p>
-            </header>
-            <div class="ds4-levels" id="ds4-information" aria-live="polite"></div>
-          </section>
-          <p class="ds4-footnote">Los datos se presentan solo cuando existen registros con fuente, periodo y unidad identificables. La ausencia de un registro no significa que el indicador tenga valor cero.</p>
+          <p id="ds5-unavailable" class="ds5-no-indicator" role="status" hidden>Sin indicadores con datos publicables.</p>
+          <article id="ds5-ficha-card" class="ds5-ficha-card" aria-labelledby="ds5-title">
+            <div class="ds5-ficha-heading">
+              <span class="ds5-heading-icon" aria-hidden="true">▤</span>
+              <div class="ds5-heading-copy">
+                <div class="ds5-title-row"><span id="ds5-code" class="ds5-code">Ficha</span><h2 id="ds5-title">Indicador</h2></div>
+                <p id="ds5-subtitle"></p><small id="ds5-source-tag"></small>
+              </div>
+              <button id="ds5-download" type="button" class="ds5-pdf-button" aria-label="Preparar descarga de la ficha en PDF">
+                <span aria-hidden="true">⇩</span> Descargar ficha (PDF)
+              </button>
+            </div>
+            <div id="ds5-kpis" class="ds5-kpis" aria-label="Cinco valores destacados de la ficha"></div>
+            <div id="ds5-dual" class="ds5-dual" aria-label="Gráfica y ficha del indicador"></div>
+            <div class="ds5-insights">
+              <section class="ds5-analysis"><h3><span aria-hidden="true">◉</span> Interpretación analítica</h3>
+                <p id="ds5-interpretation"></p>
+              </section>
+              <div id="ds5-findings-root"></div>
+            </div>
+            <div id="ds5-related-root"></div>
+            <p class="ds5-footer-note">Datos transcritos de las fichas Excel originales. Los cálculos descriptivos se identifican como derivados. No se publican metas, valores ni soportes ausentes de la fuente. La ausencia de una serie no equivale a valor cero.</p>
+          </article>
         </div>
       </div>
     </main>
@@ -871,7 +878,8 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 
 
 
-<script defer src="js/data-subachoque-navegacion.js?v=20261120-01"></script>
+<script defer src="js/data-subachoque-pdf.js?v=20261120-pdf-1"></script>
+<script defer src="js/data-subachoque-fichas.js?v=20261120-fichas-1"></script>
 
 <script defer src="js/caracterizacion-kobo.js?v=20261120-legends-v1"></script>
 <script defer src="js/conoce-publicaciones.js?v=pub21-editorial-02"></script>

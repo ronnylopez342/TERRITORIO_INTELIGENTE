@@ -15,7 +15,7 @@ for(const id of active){
   assert.equal((html.match(new RegExp('id="'+id+'"','g'))||[]).length,1,'Panel activo ausente/duplicado: '+id);
 }
 assert.equal((html.match(/data-module-panel="data-[^"]+"/g)||[]).length,4,'Navegacion Data: cuatro paneles');
-const scripts=['data-conoce','data-subachoque-navegacion','caracterizacion-kobo','explorando-territorio','subachoque-map'];
+const scripts=['data-conoce','data-subachoque-fichas','data-subachoque-pdf','caracterizacion-kobo','explorando-territorio','subachoque-map'];
 for(const part of scripts){
  const file='js/'+part+'.js';
  assert.ok(html.includes('src="'+file),'Script no cargado: '+file);
