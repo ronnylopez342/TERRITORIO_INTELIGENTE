@@ -130,6 +130,28 @@ html.ti-data-embed #data-explorando:not([hidden]) {
   margin-bottom:0 !important;
   padding-bottom:0 !important;
 }
+/*
+ * El iframe de Data Territorio no dispone de navegación global.
+ * Los desplegables del portal original no deben aparecer como overlays,
+ * incluso si una regla externa los vuelve a abrir con position:fixed.
+ * El portal normal no usa .ti-data-embed y queda intacto.
+ */
+html.ti-data-embed #tiPlanDropdown,
+html.ti-data-embed #tiPlanDropdownMenu,
+html.ti-data-embed #tiDataDropdown,
+html.ti-data-embed #tiDataDropdownMenu,
+html.ti-data-embed #tiUnitDropdown,
+html.ti-data-embed #tiUnitDropdownMenu,
+html.ti-data-embed .ti-nav-dropdown-menu,
+html.ti-data-embed .ti-mobile-data-submenu,
+html.ti-data-embed #tiMobilePlanMenu,
+html.ti-data-embed #tiMobileUnitMenu,
+html.ti-data-embed #tiMobileDataMenu {
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  opacity:0!important;
+}
 html.ti-data-embed .site-header,
 html.ti-data-embed #mobileMenu,
 html.ti-data-embed .skip-link,
