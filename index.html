@@ -1044,6 +1044,20 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
       notifyHeight();
     }).finally(()=>{host.dataset.ppMapLoading='false';});
   }
+  // Práctica País: la pestaña Caracterización Municipal (KoBo) debe ser
+  // verdaderamente vacía. El contenido original sigue íntegro en Territorio
+  // Inteligente (portal normal). Solo se vacía el DOM del iframe con skin.
+  const clearPracticaKobo = () => {
+    if (!document.documentElement.classList.contains('ti-practica-embed')) return;
+    const kobo = document.getElementById('data-conoce');
+    if (!kobo) return;
+    if (kobo.hasChildNodes()) kobo.replaceChildren();
+    kobo.classList.add('pp-kobo-empty');
+  };
+  if (document.documentElement.classList.contains('ti-practica-embed')) {
+    document.addEventListener('DOMContentLoaded', clearPracticaKobo, { once: true });
+    window.addEventListener('load', clearPracticaKobo, { once: true });
+  }
   const localLabels = {
     'data-conoce':'CARACTERIZACIÓN MUNICIPAL (KOBO)',
     'data-subachoque':'DATA SUBACHOQUE',
@@ -1076,6 +1090,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
         });
       }
       nav.querySelectorAll('button').forEach(el=>el.setAttribute('aria-selected',String(el===b)));
+      if (id==='data-conoce') clearPracticaKobo();
       if(id==='data-encuesta'&&document.documentElement.classList.contains('ti-practica-embed')){
         requestAnimationFrame(()=>requestAnimationFrame(ensurePracticaViviendaMap));
       }
