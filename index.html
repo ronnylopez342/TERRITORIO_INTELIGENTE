@@ -76,8 +76,39 @@
 <!-- Embedded Data Territorio only; the ordinary portal remains unchanged. -->
 <script>
 (function () {
-  if (new URLSearchParams(location.search).get('embed') !== 'data') return;
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') !== 'data') return;
   document.documentElement.classList.add('ti-data-embed');
+
+  // Único puente de presentación: activo solo dentro de Práctica País.
+  // El CSS se mantiene y se edita exclusivamente en subachoque-platform.
+  if (params.get('skin') === 'practica-pais') {
+    document.documentElement.classList.add('ti-practica-embed');
+    const parentOrigin = 'https://subachoque-platform.vercel.app';
+    window.addEventListener('message', function(event) {
+      if (event.origin !== parentOrigin || event.source !== window.parent) return;
+      if (!event.data || event.data.type !== 'TI_PRACTICA_PAIS_SKIN') return;
+      const css = event.data.css;
+      if (typeof css !== 'string' || css.length < 100 || css.length > 40000) return;
+      if (!css.includes('html.ti-practica-embed')) return;
+      let style = document.getElementById('tiPracticaPaisLocalSkin');
+      if (!style) {
+        style = document.createElement('style');
+        style.id = 'tiPracticaPaisLocalSkin';
+        document.head.appendChild(style);
+      }
+      style.textContent = css;
+      document.documentElement.classList.add('ti-practica-skin-loaded');
+      window.requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+    });
+    const notifyParent = function() {
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'TI_PRACTICA_PAIS_READY' }, parentOrigin);
+      }
+    };
+    window.addEventListener('DOMContentLoaded', notifyParent, { once: true });
+    window.addEventListener('load', notifyParent, { once: true });
+  }
   if (location.hash !== '#data') history.replaceState(null, '', location.pathname + location.search + '#data');
 })();
 </script>
@@ -125,7 +156,7 @@ html.ti-data-embed .app-view[data-view="data"] > .view-body {
 }
 html.ti-data-embed #tiEmbedTabs {
   position:sticky; top:0; z-index:10000;
-  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  display:grid; grid-template-columns:repeat(var(--ti-embed-tab-count,4),minmax(0,1fr));
   align-items:stretch; width:100%; margin:0;
   background:#10191f; border-bottom:2px solid #ffe000;
   box-shadow:0 2px 8px rgba(0,0,0,.17);
@@ -889,17 +920,28 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 <script>
 (function(){
   if (!document.documentElement.classList.contains('ti-data-embed')) return;
-  const entries = [
-    ['data-conoce','CARACTERIZACIÓN MUNICIPAL (KOBO)'],
-    ['data-subachoque','DATA SUBACHOQUE'],
-    ['data-encuesta','VIVIENDA'],
-    ['data-explorando','RECURSOS']
-  ];
+  // Los paneles existentes provienen del portal original; solo los títulos
+  // y la presentación son específicos de Práctica País. Los nuevos paneles
+  // del origen aparecen aquí al recargar sin duplicar datos ni contenido.
+  const localLabels = {
+    'data-conoce':'CARACTERIZACIÓN MUNICIPAL (KOBO)',
+    'data-subachoque':'DATA SUBACHOQUE',
+    'data-encuesta':'VIVIENDA',
+    'data-explorando':'RECURSOS'
+  };
+  const entries = [...document.querySelectorAll('#dataSubnav [data-module-panel]')]
+    .map(tab => [tab.dataset.modulePanel, tab.textContent.trim()])
+    .filter(([id]) => id && document.getElementById(id)?.dataset.panelGroup === 'data')
+    .map(([id, label]) => [id, localLabels[id] || label.replace(/^[0-9.]+ */, '').toLocaleUpperCase('es')]);
+  const initialId = document.documentElement.classList.contains('ti-practica-embed')
+    && entries.some(([id]) => id === 'data-subachoque')
+    ? 'data-subachoque' : (entries[0]?.[0] || 'data-conoce');
   const nav=document.createElement('nav');
   nav.id='tiEmbedTabs';nav.setAttribute('aria-label','Secciones de Data Territorio');
+  nav.style.setProperty('--ti-embed-tab-count', String(Math.max(1, entries.length)));
   for(const [id,label] of entries){
     const b=document.createElement('button');b.type='button';b.textContent=label;
-    b.dataset.embedDestination=id;b.setAttribute('aria-selected',String(id==='data-conoce'));
+    b.dataset.embedDestination=id;b.setAttribute('aria-selected',String(id===initialId));
     b.addEventListener('click',function(){
       if(typeof selectDataPanel==='function') selectDataPanel(id);
       // Fallback explícito: no depender del enrutador del portal externo.
@@ -926,6 +968,12 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
   }
   const root=document.getElementById('mainContent');
   if(root)root.parentNode.insertBefore(nav,root);
+  // Solo Práctica País abre directamente la sección con contenido.
+  if (initialId !== 'data-conoce') {
+    window.addEventListener('DOMContentLoaded', function() {
+      nav.querySelector('button[data-embed-destination="' + initialId + '"]')?.click();
+    }, { once: true });
+  }
   function notifyHeight(){
     if(window.parent===window)return;
     // No usar documentElement.scrollHeight: incluye la altura del viewport
