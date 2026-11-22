@@ -923,6 +923,70 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
   // Los paneles existentes provienen del portal original; solo los títulos
   // y la presentación son específicos de Práctica País. Los nuevos paneles
   // del origen aparecen aquí al recargar sin duplicar datos ni contenido.
+  // Mapa de Vivienda SOLO para la vista embebida de Práctica País.
+  // Reutiliza el motor y las capas puntuales WGS84 del sitio original.
+  // Los puntos son colegios y servicios; jamás se presentan como hogares
+  // individuales ni se inventan coordenadas de vivienda.
+  function ensurePracticaViviendaMap(){
+    if(!document.documentElement.classList.contains('ti-practica-embed'))return;
+    const panel=document.getElementById('data-encuesta');
+    if(!panel)return;
+    let host=document.getElementById('ppViviendaMapCanvas');
+    if(!host){
+      const wrapper=document.createElement('div');
+      wrapper.className='pp-vivienda-map';
+      wrapper.id='ppViviendaMap';
+      host=document.createElement('div');
+      host.id='ppViviendaMapCanvas';
+      host.className='pp-vivienda-map-canvas ti-ed-map';
+      host.setAttribute('role','region');
+      host.setAttribute('aria-label','Mapa interactivo de Subachoque, con puntos georreferenciados de colegios y servicios de referencia; no representa domicilios');
+      const key=document.createElement('div');
+      key.className='pp-vivienda-map-key';
+      const schools=document.createElement('span');
+      schools.textContent='Colegios';
+      const services=document.createElement('span');
+      services.textContent='Servicios';
+      key.append(schools,services);
+      wrapper.append(host,key);
+      panel.appendChild(wrapper);
+    }
+    const engine=window.TISubachoqueMap;
+    if(!engine?.mount){
+      host.textContent='El mapa territorial no está disponible en este momento.';
+      host.classList.add('pp-vivienda-map-error');
+      notifyHeight();
+      return;
+    }
+    const existing=engine.getInstance?.(host);
+    if(existing){
+      existing.invalidateSize();
+      notifyHeight();
+      return;
+    }
+    if(host.dataset.ppMapLoading==='true')return;
+    host.dataset.ppMapLoading='true';
+    engine.mount(host).then(async api=>{
+      if(!api)return;
+      // Capas documentadas en GeoJSON (fuente compartida con Territorio).
+      await Promise.all([
+        api.toggle('escuelas',true),
+        api.toggle('servicios',true)
+      ]);
+      requestAnimationFrame(()=>{
+        api.invalidateSize();
+        api.fit();
+        notifyHeight();
+      });
+    }).catch(error=>{
+      const notice=document.createElement('p');
+      notice.className='pp-vivienda-map-error';
+      notice.textContent='No se pudo cargar el mapa: '+error.message;
+      host.parentElement?.append(notice);
+      console.error('[Práctica País] Mapa de Vivienda:',error);
+      notifyHeight();
+    }).finally(()=>{host.dataset.ppMapLoading='false';});
+  }
   const localLabels = {
     'data-conoce':'CARACTERIZACIÓN MUNICIPAL (KOBO)',
     'data-subachoque':'DATA SUBACHOQUE',
@@ -955,6 +1019,9 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
         });
       }
       nav.querySelectorAll('button').forEach(el=>el.setAttribute('aria-selected',String(el===b)));
+      if(id==='data-encuesta'&&document.documentElement.classList.contains('ti-practica-embed')){
+        requestAnimationFrame(()=>requestAnimationFrame(ensurePracticaViviendaMap));
+      }
       requestAnimationFrame(()=>requestAnimationFrame(notifyHeight));
     });
     nav.appendChild(b);
