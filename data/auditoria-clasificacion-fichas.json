@@ -1,25 +1,28 @@
 {
-  "version": 1,
+  "version": 2,
   "sourceFiles": 9,
   "originalSheets": 357,
   "uniqueIndicators": 341,
-  "available": 290,
+  "available": 319,
   "dataValidation": {
-    "temporalValuesCheckedAgainstOriginalCells": 1212,
-    "categoricalValuesCheckedAgainstOriginalCells": 98
+    "publishedTemporalPoints": 1430,
+    "publishedCategoricalValues": 152,
+    "originalPreviouslyAuditedTemporalPoints": 1212,
+    "restoredInstitutoDerivedPoints": 218,
+    "restoredInstitutoCategoricalValues": 54
   },
   "sourceFormat": {
     "embeddedWorkbookCharts": 0,
     "embeddedWorkbookImages": 0
   },
   "expected": {
-    "withSeries": 280,
-    "withCategories": 17,
-    "available": 290,
-    "unavailable": 51,
-    "series": 435,
-    "points": 1212,
-    "categoryValues": 98
+    "withSeries": 309,
+    "withCategories": 24,
+    "available": 319,
+    "unavailable": 22,
+    "series": 517,
+    "points": 1430,
+    "categoryValues": 152
   },
   "corrected": [
     {
@@ -996,6 +999,81 @@
         "4.3.1"
       ],
       "reason": "SISBÉN es un registro administrativo"
+    },
+    {
+      "id": "1c2330d75dea",
+      "name": "Artistas beneficiados con incentivos artísticos del municipio de Subachoque",
+      "from": [
+        "social",
+        "1.4",
+        "1.4.6"
+      ],
+      "to": [
+        "social",
+        "1.4",
+        "1.4.3"
+      ],
+      "reason": "Incentivos en actividades culturales"
+    },
+    {
+      "id": "508aacacb2d8",
+      "name": "Inversión y adquisición de dotaciones artísticas y culturales",
+      "from": [
+        "social",
+        "1.4",
+        "1.4.6"
+      ],
+      "to": [
+        "social",
+        "1.4",
+        "1.4.1"
+      ],
+      "reason": "Dotaciones para las escuelas de formacion cultural"
+    },
+    {
+      "id": "620476f75f55",
+      "name": "Deportistas beneficiados con incentivos deportivos del municipio de Subachoque",
+      "from": [
+        "social",
+        "1.5",
+        "1.5.5"
+      ],
+      "to": [
+        "social",
+        "1.5",
+        "1.5.4"
+      ],
+      "reason": "Incentivos para participacion deportiva"
+    },
+    {
+      "id": "2ae2c84ea03d",
+      "name": "Inversión y adquisición de implementos deportivos",
+      "from": [
+        "social",
+        "1.5",
+        "1.5.5"
+      ],
+      "to": [
+        "social",
+        "1.5",
+        "1.5.1"
+      ],
+      "reason": "Implementos de las escuelas deportivas"
+    },
+    {
+      "id": "1a4dc2ebf708",
+      "name": "Recursos y atractivos turísticos identificados",
+      "from": [
+        "economica",
+        "2.3",
+        "2.3.4"
+      ],
+      "to": [
+        "economica",
+        "2.3",
+        "2.3.1"
+      ],
+      "reason": "Recursos turisticos corresponden a oferta turistica"
     }
   ],
   "classificationReview": []

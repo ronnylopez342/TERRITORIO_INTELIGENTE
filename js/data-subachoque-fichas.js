@@ -389,7 +389,7 @@
    ['Fuente de información',[m.source,m.sourceEntity].filter(Boolean).join(' · ')],
    ['Responsable del dato',m.responsible],['Metodología',m.methodology],
    ['Año de actualización',m.updated],['Enlace de soporte',m.support],
-   ['Observaciones',m.observations]
+   ['Observaciones',m.observations],['Aclaración metodológica de la fuente',r.sourceCaveat]
   ];
   const rows=entries.map(([label,value])=>'<div class="ds5-meta-row"><dt>'+esc(label)+'</dt>'+
    '<dd>'+ (value?
@@ -401,14 +401,15 @@
  function analytical(r){
   const m=metrics(r);
   const p=m.p;const name=r.name;
+  const caveat=r.sourceCaveat?' Aclaración metodológica: '+r.sourceCaveat:'';
   if(p.length<2)return 'La ficha registra '+(p.length===1?'un periodo con valor numérico':'valores desagregados sin una serie temporal comparable')+
-   '. No se calcula una tendencia anual ni una variación sin una segunda observación verificable.';
+   '. No se calcula una tendencia anual ni una variación sin una segunda observación verificable.'+caveat;
   const first=p[0],last=p.at(-1),absolute=last.value-first.value,relative=first.value!==0?absolute/Math.abs(first.value)*100:null;
   return 'La serie de '+name+' presenta '+p.length+' observaciones entre '+first.year+' y '+last.year+
    '. El valor pasó de '+valueText(first.value,m.info)+' a '+valueText(last.value,m.info)+
    ', una diferencia de '+(absolute>=0?'+':'')+number(absolute,2)+
    (relative===null?'':', equivalente a '+(relative>=0?'+':'')+number(relative,1)+' % frente al primer periodo')+
-   '. Este resultado describe los registros de la ficha, sin atribuir causas ni implicar por sí mismo una mejora en el bienestar.';
+   '. Este resultado describe los registros de la ficha, sin atribuir causas ni implicar por sí mismo una mejora en el bienestar.'+caveat;
  }
  function findings(r){
   const m=metrics(r),p=m.p,items=[];
@@ -739,8 +740,8 @@
      new Set(graCodes).size!==sources.records.length||
      sources.records.some(r=>r.graphCodeStatus!=='vigente'||r.graphCode.split('-')[1]!==({social:'SO',economica:'EC',ambiental:'AM',institucional:'IN'})[r.dim]))
    throw Error('Catálogo sin los 341 códigos GRA exclusivos y válidos.');
-  if(sources.audit?.validation?.available!==290||sources.audit?.validation?.series!==435||sources.audit?.validation?.points!==1212||
-     sources.audit?.validation?.categoryValues!==98||sources.records.some(r=>r.available&&!r.classification)||
+  if(sources.audit?.validation?.available!==319||sources.audit?.validation?.series!==517||sources.audit?.validation?.points!==1430||
+     sources.audit?.validation?.categoryValues!==152||sources.records.some(r=>r.available&&!r.classification)||
      new Set(sources.records.map(r=>r.id)).size!==341)
     throw Error('La integridad de las fichas Excel o su clasificación no coincide.');
   dataset=sources;

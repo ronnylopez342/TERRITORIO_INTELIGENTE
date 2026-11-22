@@ -18,7 +18,7 @@ Los valores 00 en el área o la categoría son reservas para **clasificación po
 
 ## Reglas de asignación, persistencia y cambios
 
-- 341 fichas consolidadas; 341 códigos únicos; 290 indicadores con datos y 51 sin publicación habilitada.
+- 341 fichas consolidadas; 341 códigos únicos; 319 indicadores con datos y 22 sin publicación habilitada.
 - 336 códigos con jerarquía completa; cinco con área o categoría pendiente de confirmación.
 - Campos inmutables: catalogCode y catalogCodeScheme. catalogCodeStatus describe si corresponde a la clasificación vigente o si hay una migración pendiente.
 - Registro persistente data/codigos-data-subachoque.json: une cada ID original del indicador con el código asignado; los códigos anteriores NO se reciclan.

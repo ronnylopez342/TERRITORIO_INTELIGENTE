@@ -15,7 +15,7 @@ Cada indicador conserva el mismo código para sus series, años, vistas, gráfic
 
 ## Correspondencia y trazabilidad
 
-- Todos los 341 registros tienen un código único graphCode, incluido el inventario de 51 fichas sin información publicable. Las 290 fichas consultables muestran graphCode en encabezado, ficha, búsqueda, tarjetas relacionadas y PDF.
+- Todos los 341 registros tienen un código único graphCode, incluido el inventario de 22 fichas sin información publicable. Las 319 fichas consultables muestran graphCode en encabezado, ficha, búsqueda, tarjetas relacionadas y PDF.
 - El registro permanente data/codigos-gra-subachoque.json vincula id original con código público, dimensión de emisión y equivalencias anteriores.
 - Los antiguos TI-DS-... (catalogCode), IDI, POL05, SAL-MENT (shortCode) y meta.code de Excel no se borran ni se muestran como código de gráfica; se conservan internamente para trazabilidad y búsqueda histórica.
 - Las reclasificaciones mantienen el código original, marcan requiere_migracion y requieren una migración explícita si se decide cambiar el prefijo, con alias para no romper referencias previas.

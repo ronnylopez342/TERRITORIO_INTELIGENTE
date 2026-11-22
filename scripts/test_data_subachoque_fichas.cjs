@@ -18,8 +18,8 @@ const server=http.createServer((req,res)=>{
  if(!base){await new Promise(r=>server.listen(0,'127.0.0.1',r));base='http://127.0.0.1:'+server.address().port;}
  const source=JSON.parse(fs.readFileSync(path.join(root,'data/fichas-2026-consolidadas.json')));
  assert.equal(source.records.length,341);
- assert.equal(source.records.filter(r=>r.available).length,290);
- assert.equal(source.records.filter(r=>!r.available).length,51);
+ assert.equal(source.records.filter(r=>r.available).length,319);
+ assert.equal(source.records.filter(r=>!r.available).length,22);
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  let checks=0;
  try{
@@ -94,6 +94,6 @@ const server=http.createServer((req,res)=>{
   await page.locator('#data-encuesta[data-kobo-ready="true"]').waitFor({timeout:30000});
   assert.match(await page.locator('#data-encuesta .k23-dim').nth(3).innerText(),/Percepci[oó]n ciudadana/i);
   await page.close();
-  console.log('DATA SUBACHOQUE FICHAS PASS: 341 consolidated, 290 with values, 51 unavailable, four widths, IDI 87.9 from 2025, Hacienda, print PDF, 2.3 unchanged. Tests',checks);
+  console.log('DATA SUBACHOQUE FICHAS PASS: 341 consolidated, 319 with values, 22 unavailable, four widths, IDI 87.9 from 2025, Hacienda, print PDF, 2.3 unchanged. Tests',checks);
  }finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e.stack||e);server.close();process.exit(1)});

@@ -2052,8 +2052,9 @@
   "count": 341,
   "summary": {
     "records": 341,
-    "active": 290,
-    "clasificado": 336,
-    "pendiente_clasificacion": 5
+    "active": 319,
+    "clasificado": 331,
+    "pendiente_clasificacion": 5,
+    "reclasificado_desde_emision": 5
   }
 }

@@ -7,12 +7,12 @@ const file=require('../data/fichas-2026-validadas.json');
 const audit=require('../data/auditoria-clasificacion-fichas.json');
 const data=file.records;
 const available=data.filter(r=>r.available);
-assert.equal(available.length,290);
-assert.equal(audit.corrected.length,65);
+assert.equal(available.length,319);
+assert.equal(audit.corrected.length,70);
 assert.equal(audit.sourceFiles,9);
-assert.equal(available.reduce((n,r)=>n+r.series.length,0),435);
-assert.equal(available.reduce((n,r)=>n+r.series.reduce((k,s)=>k+s.points.length,0),0),1212);
-assert.equal(available.reduce((n,r)=>n+r.categories.reduce((k,c)=>k+c.values.length,0),0),98);
+assert.equal(available.reduce((n,r)=>n+r.series.length,0),517);
+assert.equal(available.reduce((n,r)=>n+r.series.reduce((k,s)=>k+s.points.length,0),0),1430);
+assert.equal(available.reduce((n,r)=>n+r.categories.reduce((k,c)=>k+c.values.length,0),0),152);
 const topiccodes=new Set(catalog.dimensiones.flatMap(d=>d.areas.flatMap(a=>a.topics.map(t=>t.documentCode))));
 for(const r of available){
  assert(topiccodes.has(r.topicCode)||(r.topicCode===''&&r.topicLabel==='Inversión social municipal'),'Strict official taxonomy mapping: '+r.name);
@@ -78,9 +78,9 @@ const server=http.createServer((req,res)=>{
    const selectedDims=[...root.querySelectorAll('.k23-dim')].map(b=>b.textContent.trim());
    return {checked,series,dual,selectedDims,failures};
   },available);
-  assert.equal(result.checked,290);
-  assert.equal(result.series,435);
-  assert.equal(result.dual,7);
+  assert.equal(result.checked,319);
+  assert.equal(result.series,517);
+  assert.equal(result.dual,14);
   assert.deepEqual(result.failures,[]);
   for(const d of catalog.dimensiones){
    await page.locator('[data-ds5-dim="'+d.id+'"]').click();

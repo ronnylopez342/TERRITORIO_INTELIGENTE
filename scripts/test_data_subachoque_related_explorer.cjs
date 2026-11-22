@@ -84,12 +84,12 @@ const server=http.createServer((req,res)=>{
     areaCount++;
    }
   }
-  assert.equal(found.size,290);
+  assert.equal(found.size,319);
   assert.deepEqual(found,new Set(records.map(r=>r.id)));
   await page.goto(base+'/#data?seccion=data-encuesta',{waitUntil:'domcontentloaded'});
   await page.locator('#data-encuesta[data-kobo-ready="true"]').waitFor({timeout:35000});
   assert.match(await page.locator('#data-encuesta .k23-dim').nth(3).innerText(),/Percepci[oó]n ciudadana/i);
   await page.close();
-  console.log('RELATED_EXPLORER_PASS 4 widths, filters, search, all 290 records across '+areaCount+' areas, KoBo untouched.');
+  console.log('RELATED_EXPLORER_PASS 4 widths, filters, search, all 319 records across '+areaCount+' areas, KoBo untouched.');
  }finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e.stack||e);server.close();process.exit(1)});

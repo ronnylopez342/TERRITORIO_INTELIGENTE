@@ -18,7 +18,7 @@ async function selectIndicator(page,r){
  await panel.locator('#ds5-search').fill(r.name);
  await panel.locator('[data-ds5-search="'+r.id+'"]').click();
  const selected=await panel.locator('#ds5-title').innerText();
- assert.equal(selected,r.name,'wrong indicator');
+ assert.equal(selected.replace(/\s+/g,' ').trim(),r.name.replace(/\s+/g,' ').trim(),'wrong indicator');
  const frame=panel.locator('.ds5-chart-frame');
  if(r.series.length){
   await page.waitForFunction(()=>{const n=document.querySelector('#data-subachoque .ds5-chart-frame');return n?.dataset.plotSize&&!!n.querySelector('svg');},{timeout:20000});

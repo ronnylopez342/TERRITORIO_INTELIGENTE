@@ -28,6 +28,20 @@ for(const r of output.records){
   let code=r.topicCode,reason='',level='fuente';
   const force=(c,why)=>{code=c;reason=why;level='correccion_documentada';};
   if(r.available){
+    // El Instituto utilizaba subcategorías fuera de la taxonomía municipal
+    // y códigos 1.5.1 repetidos en el documento fuente.
+    if(r.sourceFile==='Fichas de indicadores INSTITUTO.xlsx'){
+      const instituteMap={
+        '12':['1.4.1','Dotaciones para las escuelas de formacion cultural'],
+        '13':['1.4.3','Incentivos en actividades culturales'],
+        '19':['1.5.2','Participacion en actividades fisicas y deportivas'],
+        '21':['1.5.1','Implementos de las escuelas deportivas'],
+        '22':['1.5.4','Incentivos para participacion deportiva'],
+        '24':['2.3.1','Recursos turisticos corresponden a oferta turistica']
+      };
+      const mapped=instituteMap[r.sourceSheet];
+      if(mapped)force(mapped[0],mapped[1]);
+    }
     // A. Hacienda original: varias hojas copiaron por error «2.6.6 Sobretasa
     //    a la gasolina» para indicadores de naturaleza tributaria distinta.
     if(/(?:^Fichas HACIENDA.xlsx$|^Indicadores Hcienda - Prueba.xlsx$)/.test(r.sourceFile)){
@@ -134,11 +148,11 @@ for(const r of output.records){
   }
 }
 assert.equal(output.records.length,341);
-assert.equal(validation.available,290);
-assert.equal(validation.unavailable,51);
-assert.equal(validation.series,435);
-assert.equal(validation.points,1212);
-assert.equal(validation.categoryValues,98);
+assert.equal(validation.available,319);
+assert.equal(validation.unavailable,22);
+assert.equal(validation.series,517);
+assert.equal(validation.points,1430);
+assert.equal(validation.categoryValues,152);
 assert.equal(output.records.filter(r=>r.available&&r.classification.status==='corregida').length>60,true);
 const seen=new Set();for(const r of output.records){assert(!seen.has(r.id));seen.add(r.id);}
 output.version=4;
@@ -169,8 +183,8 @@ fs.writeFileSync(dest,JSON.stringify(output));
 fs.writeFileSync(codebookPath,JSON.stringify(registry,null,2)+'\n');
 fs.writeFileSync(aliasesPath,JSON.stringify(aliases,null,2)+'\n');
 fs.writeFileSync(graPath,JSON.stringify(graRegistry,null,2)+'\n');
-const log={version:1,sourceFiles:9,originalSheets:357,uniqueIndicators:341,available:290,
-  dataValidation:{temporalValuesCheckedAgainstOriginalCells:1212,categoricalValuesCheckedAgainstOriginalCells:98},
+const log={version:2,sourceFiles:9,originalSheets:357,uniqueIndicators:341,available:validation.available,
+  dataValidation:{publishedTemporalPoints:validation.points,publishedCategoricalValues:validation.categoryValues,originalPreviouslyAuditedTemporalPoints:1212,restoredInstitutoDerivedPoints:218,restoredInstitutoCategoricalValues:54},
   sourceFormat:{embeddedWorkbookCharts:0,embeddedWorkbookImages:0},
   expected:validation,corrected:corrections,classificationReview:review};
 fs.writeFileSync(path.join(root,'data','auditoria-clasificacion-fichas.json'),JSON.stringify(log,null,2));

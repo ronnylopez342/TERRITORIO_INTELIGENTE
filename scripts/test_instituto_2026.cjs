@@ -1,0 +1,42 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..');
+const read=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
+const raw=read('data/fichas-2026-consolidadas.json'),published=read('data/fichas-2026-validadas.json');
+const patch=read('data/instituto-datos-recuperados-2026.json');
+const byId=new Map(raw.records.map(r=>[r.id,r]));
+const registry=read('data/codigos-gra-subachoque.json');
+const institute=published.records.filter(r=>r.sourceFile==='Fichas de indicadores INSTITUTO.xlsx');
+assert.equal(institute.length,32);
+let available=0,series=0,points=0,cats=0;
+for(const r of institute){
+ const p=patch[r.sourceSheet];assert(p,'Missing worksheet '+r.sourceSheet);
+ assert.equal(r.available,p.a,'Availability');
+ assert.deepEqual(r.series,p.s,'Temporal values differ from verified workbook '+r.name);
+ assert.deepEqual(r.categories,p.c,'Category values differ from verified workbook '+r.name);
+ assert.equal(r.meta.code,byId.get(r.id).meta.code,'Excel code changed');
+ assert(/^GRA-(SO|EC|AM|IN)-\d{3}$/.test(r.graphCode));
+ assert.equal(r.graphCode,registry.assignments[r.id].code);
+ if(r.available)available++;
+ series+=r.series.length;
+ points+=r.series.reduce((n,x)=>n+x.points.length,0);
+ cats+=r.categories.reduce((n,x)=>n+x.values.length,0);
+}
+assert.equal(available,29);
+assert.equal(series,82);
+assert.equal(points,218);
+assert.equal(cats,54);
+assert.deepEqual(institute.filter(r=>!r.available).map(r=>r.sourceSheet).sort(),['10','20','23']);
+const all=published.records;
+assert.equal(all.length,341);
+assert.equal(all.filter(r=>r.available).length,319);
+assert.equal(new Set(all.map(r=>r.graphCode)).size,341);
+assert.equal(all.reduce((n,r)=>n+r.series.length,0),517);
+assert.equal(all.reduce((n,r)=>n+r.series.reduce((a,s)=>a+s.points.length,0),0),1430);
+assert.equal(all.reduce((n,r)=>n+r.categories.reduce((a,c)=>a+c.values.length,0),0),152);
+const codes=new Set(published.records.map(r=>r.graphCode));
+const s=read('data/data-subachoque-dimensiones.json').dimensiones
+ .find(d=>d.id==='social').areas.find(a=>a.code==='1.5').topics;
+assert.deepEqual(s.map(t=>t.documentCode),['1.5.1','1.5.2','1.5.3','1.5.4']);
+for(const r of institute.filter(r=>r.available))assert(r.topicCode,'Recovered institute indicator lacks classification '+r.name);
+console.log('INSTITUTO_DATA_SOURCE_PASS',JSON.stringify({worksheets:32,recovered:29,blank:3,series,points,categorical:cats,publicIndicators:319,allCodesUnique:codes.size}));

@@ -164,6 +164,7 @@ window.TIDataPdf=(()=>{
    ['Responsable del dato',meta.responsible],['Metodología',meta.methodology],
    ['Año de actualización',meta.updated],['Link de soporte',meta.support],
    ['Observaciones',meta.observations],
+   ['Aclaración metodológica',r.sourceCaveat],
    ['Libro de procedencia',r.sourceFile],['Hoja del libro',r.sourceSheet]
   ])field(label,value);
   page.y-=17;page.ensure(50);

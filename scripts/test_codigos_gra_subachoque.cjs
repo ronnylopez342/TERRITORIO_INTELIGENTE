@@ -7,7 +7,7 @@ const rows=read('data/fichas-2026-validadas.json').records;
 const original=read('data/fichas-2026-consolidadas.json').records;
 const reg=read('data/codigos-gra-subachoque.json');
 const originalMap=new Map(original.map(r=>[r.id,r]));
-assert.equal(rows.length,341);assert.equal(rows.filter(r=>r.available).length,290);
+assert.equal(rows.length,341);assert.equal(rows.filter(r=>r.available).length,319);
 assert.equal(reg.scheme,SCHEME);
 assert.equal(Object.keys(reg.assignments).length,341);
 const unique=new Set(rows.map(r=>r.graphCode));assert.equal(unique.size,341);
@@ -30,8 +30,8 @@ for(const [dim,seq] of Object.entries(counts)){
  assert.deepEqual(numbers,Array.from({length:numbers.length},(_,i)=>i+1),'Gap or duplicate '+dim);
 }
 for(const r of rows)assert(new Set((r.series||[]).map(_=>r.graphCode)).size<=1);
-assert.equal(rows.reduce((n,r)=>n+r.series.length,0),435);
-assert.equal(rows.reduce((n,r)=>n+r.series.reduce((a,s)=>a+s.points.length,0),0),1212);
+assert.equal(rows.reduce((n,r)=>n+r.series.length,0),517);
+assert.equal(rows.reduce((n,r)=>n+r.series.reduce((a,s)=>a+s.points.length,0),0),1430);
 const shuffled={records:JSON.parse(JSON.stringify(rows)).reverse(),audit:{}};
 const persistent=JSON.parse(JSON.stringify(reg));
 assignGraphCodes(shuffled,persistent);
@@ -48,4 +48,4 @@ moved.records[0].dim='economica';const code=moved.records[0].graphCode;
 assignGraphCodes(moved,persistent);
 assert.equal(moved.records[0].graphCode,code,'Renumbering on reclassification');
 assert.equal(moved.records[0].graphCodeStatus,'requiere_migracion');
-console.log('GRA_ALL_CODES_PASS',JSON.stringify({total:341,published:290,unique:true,dimensions:Object.fromEntries(Object.entries(counts).map(([k,v])=>[k,v.length])),series:435,unchangedData:true,persistent:true,legacyPreserved:true}));
+console.log('GRA_ALL_CODES_PASS',JSON.stringify({total:341,published:319,unique:true,dimensions:Object.fromEntries(Object.entries(counts).map(([k,v])=>[k,v.length])),series:517,unchangedData:true,persistent:true,legacyPreserved:true}));
