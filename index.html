@@ -99,6 +99,13 @@
       document.querySelectorAll(
         '#siteHeader .ti-nav-dropdown-menu, #mobileMenu .ti-mobile-data-submenu'
       ).forEach(node => node.remove());
+      // El encabezado global del portal es fijo y una regla posterior por ID
+      // puede hacerlo visible sobre el breadcrumb del visor, creando una
+      // franja azul oscura. No basta con ocultar sus menus hijos.
+      // El iframe tiene su propia barra #tiEmbedTabs, de modo que la
+      // cabecera original NO debe formar parte del DOM renderizado.
+      document.getElementById('siteHeader')?.remove();
+      document.getElementById('mobileMenu')?.remove();
     };
     document.addEventListener('DOMContentLoaded', removeOriginalDropdowns, { once: true });
     window.addEventListener('load', removeOriginalDropdowns, { once: true });
@@ -153,6 +160,17 @@ html.ti-data-embed #data-explorando:not([hidden]) {
  * incluso si una regla externa los vuelve a abrir con position:fixed.
  * El portal normal no usa .ti-data-embed y queda intacto.
  */
+/* Nunca mostrar el header fijo del portal dentro de Visores. */
+html.ti-data-embed #siteHeader,
+html.ti-data-embed #mobileMenu,
+html.ti-data-embed header.site-header {
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  opacity:0!important;
+  height:0!important;
+  min-height:0!important;
+}
 html.ti-data-embed #tiPlanDropdown,
 html.ti-data-embed #tiPlanDropdownMenu,
 html.ti-data-embed #tiDataDropdown,
