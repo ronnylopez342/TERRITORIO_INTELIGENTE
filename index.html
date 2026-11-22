@@ -85,6 +85,23 @@
   if (params.get('skin') === 'practica-pais') {
     document.documentElement.classList.add('ti-practica-embed');
     const parentOrigin = 'https://subachoque-platform.vercel.app';
+
+    // Navegacion del portal original: NO se debe renderizar en el iframe.
+    // Quitar los nodos en el duplicado evita menus persistentes que un CSS
+    // de escritorio puede reabrir con display:flex!important al pasar el raton.
+    // El documento principal (sin skin=practica-pais) conserva sus menus.
+    const removeOriginalDropdowns = function() {
+      const ids = [
+        'tiPlanDropdownMenu', 'tiDataDropdownMenu', 'tiUnitDropdownMenu',
+        'tiMobilePlanMenu', 'tiMobileDataMenu', 'tiMobileUnitMenu'
+      ];
+      for (const id of ids) document.getElementById(id)?.remove();
+      document.querySelectorAll(
+        '#siteHeader .ti-nav-dropdown-menu, #mobileMenu .ti-mobile-data-submenu'
+      ).forEach(node => node.remove());
+    };
+    document.addEventListener('DOMContentLoaded', removeOriginalDropdowns, { once: true });
+    window.addEventListener('load', removeOriginalDropdowns, { once: true });
     window.addEventListener('message', function(event) {
       if (event.origin !== parentOrigin || event.source !== window.parent) return;
       if (!event.data || event.data.type !== 'TI_PRACTICA_PAIS_SKIN') return;
