@@ -1,0 +1,112 @@
+{
+  "version": "2026-11-23-levantamientos-v1",
+  "title": "Programa de mejoramiento de vivienda — Subachoque",
+  "scope": "Visitas y levantamientos técnicos para identificación de necesidades en cocina, baño y pisos; los resultados reflejan el operativo y no constituyen obras ejecutadas.",
+  "totals": {
+    "identified": 109,
+    "visited": 69,
+    "surveys": 66,
+    "prioritized": 41
+  },
+  "classification": [
+    {
+      "key": "priorizada",
+      "label": "Priorizadas",
+      "count": 41,
+      "color": "#20733C"
+    },
+    {
+      "key": "espera",
+      "label": "En espera",
+      "count": 8,
+      "color": "#2D99C7"
+    },
+    {
+      "key": "revision",
+      "label": "Revisión técnica",
+      "count": 5,
+      "color": "#E1B22C"
+    },
+    {
+      "key": "descartada",
+      "label": "Descartadas",
+      "count": 12,
+      "color": "#D85550"
+    }
+  ],
+  "improvements": [
+    {
+      "key": "cocina",
+      "label": "Cocinas",
+      "count": 22
+    },
+    {
+      "key": "baño",
+      "label": "Baños",
+      "count": 16
+    },
+    {
+      "key": "pisos",
+      "label": "Pisos",
+      "count": 23
+    }
+  ],
+  "sources": [
+    {
+      "id": "soporte",
+      "title": "Documento soporte presentación 21_09 (2).pdf",
+      "type": "PDF",
+      "details": "Reporte de mejoramiento de vivienda; criterios, resultados y necesidades de intervención.",
+      "sections": "pp. 1–8",
+      "publicFile": false
+    },
+    {
+      "id": "presentacion",
+      "title": "Presentación ORG.pdf",
+      "type": "PDF",
+      "details": "Informe de visitas técnicas, clasificación 41/8/5/12 y resultados del programa.",
+      "sections": "pp. 1–7",
+      "publicFile": false
+    },
+    {
+      "id": "auditoria",
+      "title": "AUDITORÍA LEVANTAMIENTO DE VIVIENDA PARA EL PROGRAMA DE MEJORAMIENTO (1).xlsx",
+      "type": "XLSX",
+      "details": "Base de 66 levantamientos, evaluación técnica y comparación con agendamiento; contiene datos personales protegidos.",
+      "sections": "BASE DE DATOS LEVANTAMIENTOS / COMPARACIÓN CON AGENDAMIENTO",
+      "publicFile": false
+    },
+    {
+      "id": "base",
+      "title": "Base de datos mejoramientos de vivienda Subachoque.xlsx",
+      "type": "XLSX",
+      "details": "Registro de 41 viviendas priorizadas y sus coordenadas en el archivo técnico; contiene datos personales protegidos.",
+      "sections": "Hoja1",
+      "publicFile": false
+    }
+  ],
+  "methodology": [
+    {
+      "title": "Documentación del predio",
+      "detail": "Soportes de tenencia y coherencia de la documentación presentada.",
+      "source": "soporte"
+    },
+    {
+      "title": "Situación del propietario",
+      "detail": "Condiciones consideradas en la evaluación del programa.",
+      "source": "soporte"
+    },
+    {
+      "title": "Condición física de la vivienda",
+      "detail": "Necesidad y factibilidad del mejoramiento de cocina, baño o pisos.",
+      "source": "soporte"
+    }
+  ],
+  "notes": [
+    "La auditoría registra 77 familias de base y 31 nuevas (108); la presentación registra 32 nuevas para 109. La diferencia debe conciliarse administrativamente.",
+    "Los 69 hogares visitados incluyen tres visitas sin levantamiento técnico. Las categorías 41/8/5/12 se calculan sobre 66 levantamientos.",
+    "Los 22, 16 y 23 mejoramientos son necesidades no excluyentes: una vivienda puede requerir más de un tipo.",
+    "La fuente anónima no publica nombres ni coordenadas individualizadas; estas requieren autorización administrativa y validación espacial."
+  ],
+  "coordinateNotice": "33 viviendas priorizadas presentan coordenadas interpretables en la base, con 31 pares diferentes. Pendiente validación territorial."
+}
