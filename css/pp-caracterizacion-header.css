@@ -220,3 +220,22 @@ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-add input{
   top:49%;height:49%;
  }
 }
+
+/* Estado de subida visible solo cuando está pendiente o falla: no altera la maqueta en reposo. */
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-feedback {
+  display:block!important;position:absolute!important;z-index:12!important;
+  bottom:8%;left:7%;width:86%;padding:9px 8px!important;margin:0!important;
+  border-radius:5px!important;background:#173d32eb!important;color:#fff!important;
+  text-align:center!important;line-height:1.24!important;
+  font:700 clamp(10px,.94cqw,14px)/1.26 Arial,Helvetica,sans-serif!important;
+  overflow-wrap:anywhere!important;pointer-events:none!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-feedback[hidden] {
+  display:none!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-feedback[data-state="error"] {
+  background:#7a2423f0!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-num[hidden] {
+  display:none!important;
+}
