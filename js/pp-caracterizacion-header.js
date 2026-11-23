@@ -11,6 +11,7 @@
   let canUpload = false;
   let mounted = false;
   const status = Array(SLOT_COUNT).fill(false);
+  const verifiedUrls = Array(SLOT_COUNT).fill('');
   const busy = new Set();
   const errors = Array(SLOT_COUNT).fill('');
   const timeouts = new Map();
@@ -39,25 +40,60 @@
     }
     if (input) input.disabled = !canUpload || exists || busy.has(slot);
     if (add) add.hidden = !canUpload || exists || busy.has(slot);
-    if (img) { img.hidden = !exists; if(exists && img.getAttribute('src') !== pictureUrl(slot)) img.src = pictureUrl(slot); }
+    if (img) {
+      const verifiedUrl = verifiedUrls[slot - 1];
+      // Nunca reutilizar la URL que pudo quedar cacheada como 404 antes de la carga.
+      if (exists && verifiedUrl && img.getAttribute('src') !== verifiedUrl) img.src = verifiedUrl;
+      img.hidden = !exists || !verifiedUrl;
+    }
     if(num) num.hidden = exists || busy.has(slot);
     cell.setAttribute('aria-label', exists ? 'Fotografía original ' + slot + ' publicada' : 'Espacio de fotografía ' + slot + (canUpload ? '. Agregar foto' : '. Pendiente'));
   }
   function notifyHeight() {
     if (window.parent !== window) window.parent.postMessage({type: 'TI_DATA_EMBED_HEIGHT', height: Math.max(540, Math.ceil((document.querySelector('[data-panel-group="data"]:not([hidden])')?.getBoundingClientRect().bottom || 540) + window.scrollY + 12))}, ORIGIN);
   }
+  function preflightImage(url) {
+    // Una respuesta HTTP 200 no basta: comprobar que el navegador pueda mostrar la imagen.
+    return new Promise(resolve => {
+      const probe = new Image();
+      probe.onload = () => resolve(probe.naturalWidth > 0 && probe.naturalHeight > 0);
+      probe.onerror = () => resolve(false);
+      probe.src = url;
+    });
+  }
   async function refresh(slot) {
     try {
-      // Cada carga comprueba el objeto real. Evita un 404 previo conservado en caché.
       const checkUrl = pictureUrl(slot) + '?check=' + Date.now();
       const res = await fetch(checkUrl, {method:'HEAD', cache:'no-store'});
-      const exists = res.ok && (res.headers.get('content-type') || '').toLowerCase().startsWith('image/');
-      status[slot-1] = exists;
-      if (exists) errors[slot-1] = '';
+      if (!res.ok) {
+        if (res.status === 400 || res.status === 404) {
+          // Un espacio sin imagen permanece editable hasta publicarse correctamente.
+          status[slot-1] = false;
+          verifiedUrls[slot-1] = '';
+          errors[slot-1] = '';
+        } else {
+          errors[slot-1] = 'No se pudo comprobar el almacenamiento (' + res.status + ').';
+        }
+        updateSlot(slot);
+        return false;
+      }
+      // Ya existe un archivo remoto: nunca habilitar reemplazo, incluso si falla su descarga.
+      status[slot-1] = true;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const url = pictureUrl(slot) + '?image=' + Date.now() + '-' + attempt;
+        if (await preflightImage(url)) {
+          verifiedUrls[slot-1] = url;
+          errors[slot-1] = '';
+          updateSlot(slot);
+          return true;
+        }
+      }
+      verifiedUrls[slot-1] = '';
+      errors[slot-1] = 'Imagen almacenada, pero no se pudo mostrar. Vuelve a cargar la página.';
       updateSlot(slot);
-      return exists;
+      return false;
     } catch (_) {
-      slotMessage(slot, 'No se pudo verificar esta fotografía. Revisa tu conexión.');
+      slotMessage(slot, 'No se pudo verificar el servidor. Revisa tu conexión.');
       return false;
     }
   }
@@ -106,7 +142,10 @@
       '<input type="file" accept="image/jpeg,image/png,image/webp" aria-label="Publicar fotografía '+label+' (una sola vez)"></label>'+
       '<span class="pp-char-photo-feedback" role="status" aria-live="polite" hidden></span>';
     cell.querySelector('img').addEventListener('error', () => {
-      if (status[slot-1]) slotMessage(slot, 'Esta imagen se guardó, pero no se pudo mostrar.');
+      if (status[slot-1]) {
+        verifiedUrls[slot-1] = '';
+        slotMessage(slot, 'La imagen está almacenada, pero falló su visualización. Recarga la página.');
+      }
     });
     cell.querySelector('input').addEventListener('change',function() {
       const file=this.files && this.files[0];
