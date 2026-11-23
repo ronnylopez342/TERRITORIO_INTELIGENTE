@@ -262,16 +262,17 @@ html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-car
 }
 html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card .pp-results-card-action{
   display:flex!important;justify-content:space-between!important;align-items:center!important;
-  gap:12px!important;margin:auto 0 0!important;padding:12px 15px!important;
-  border-radius:24px!important;width:100%!important;
-  background:#184b38!important;color:#fffefa!important;
+  gap:12px!important;margin:auto 0 0!important;padding:13px 1px 0!important;
+  width:100%!important;border-top:1px solid #d9e3da!important;
+  border-radius:0!important;box-shadow:none!important;
+  background:transparent!important;color:#184b38!important;
   font:700 13px/1.3 Arial,sans-serif!important;text-align:left!important;
 }
 html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card .pp-results-card-action > span{
-  color:#fff!important;font:700 19px/1 Arial,sans-serif!important;flex:0 0 auto!important;
+  color:#184b38!important;font:700 20px/1 Arial,sans-serif!important;flex:0 0 auto!important;
 }
 html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card[aria-selected="true"] .pp-results-card-action{
-  background:#266947!important;
+  background:transparent!important;color:#0c4830!important;
 }
 html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card[aria-selected="true"] .pp-results-step-number{
   background:#c89f3c!important;color:#143a2a!important;
@@ -290,3 +291,5 @@ html.ti-practica-embed #data-conoce[data-pp-results-mode="kobo"] #pp-characteriz
    min-height:0!important;
  }
 }
+
+html.ti-practica-embed #data-conoce[data-pp-results-mode="revista"] #pp-characterization-results .pp-results-container{padding-bottom:15px!important;}
