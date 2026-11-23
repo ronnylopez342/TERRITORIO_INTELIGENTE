@@ -1061,27 +1061,36 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
     frame.title = 'Gráficas de la revista de caracterización de Subachoque';
     frame.loading = 'eager';
     frame.setAttribute('aria-label', frame.title);
-    frame.style.cssText = 'display:block!important;visibility:visible!important;width:100%;height:1450px;min-height:700px;border:0;background:#f7f9f7;';
+    frame.style.cssText = 'display:block!important;visibility:visible!important;width:100%;height:700px;min-height:700px;border:0;background:#f7f9f7;';
     let lastHeight = 0;
+    // Medir el final del contenido real: scrollHeight del documento incluye
+    // el alto del propio iframe y ocasiona crecimiento continuo al reajustarlo.
     const syncHeight = () => {
       const doc = frame.contentDocument;
       if (!doc || !doc.body) return;
-      const next = Math.ceil(Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight)+12);
-      if (Math.abs(next-lastHeight)>2) {
-        lastHeight=next;
-        frame.style.height=Math.max(700,next)+'px';
+      const end = doc.querySelector('footer.rs-footer') || doc.querySelector('main');
+      if (!end) return;
+      const bottom = end.getBoundingClientRect().bottom + (frame.contentWindow?.scrollY || 0);
+      if (!Number.isFinite(bottom)) return;
+      const next = Math.max(700, Math.ceil(bottom + 16));
+      if (Math.abs(next - lastHeight) > 6) {
+        lastHeight = next;
+        frame.style.height = next + 'px';
+        requestAnimationFrame(notifyHeight);
       }
-      requestAnimationFrame(notifyHeight);
     };
     frame.addEventListener('load', () => {
       const doc = frame.contentDocument;
       if (doc && window.ResizeObserver) {
-        const ro = new ResizeObserver(()=>requestAnimationFrame(syncHeight));
+        const ro = new ResizeObserver(() => requestAnimationFrame(syncHeight));
         ro.observe(doc.body);
-        ro.observe(doc.documentElement);
       }
-      if (doc) doc.addEventListener('click',()=>requestAnimationFrame(syncHeight));
+      if (doc) doc.addEventListener('click', () => requestAnimationFrame(syncHeight));
       syncHeight();
+    });
+    window.addEventListener('message', event => {
+      if (event.source !== frame.contentWindow || event.origin !== window.location.origin) return;
+      if (event.data?.type === 'subachoque:revista:resize') requestAnimationFrame(syncHeight);
     });
     kobo.appendChild(frame);
     requestAnimationFrame(notifyHeight);

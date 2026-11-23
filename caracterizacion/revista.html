@@ -425,13 +425,9 @@ function draw(id){
  card.querySelectorAll('[data-mode]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.mode===mode)));
 }
 
-if('IntersectionObserver' in window){
- const observer=new IntersectionObserver(entries=>{
-  entries.filter(e=>e.isIntersecting).forEach(e=>{let id=e.target.id;if(!rendersDone.has(id))draw(id);observer.unobserve(e.target)})
- },{rootMargin:'400px 0px'});
- CHARTS.forEach(d=>observer.observe(document.getElementById(d.id)));
-}else CHARTS.forEach(d=>draw(d.id));
-CHARTS.slice(0,2).forEach(d=>draw(d.id));
+// Generar las 41 vistas principales antes de desplazar la página.
+// Evita saltos de altura al entrar cada gráfica en el viewport.
+CHARTS.forEach(d => draw(d.id));
 
 function makeTable(d){
  const note=d.multiple?'Una unidad puede mencionar más de una opción. Los porcentajes de las categorías pueden superar el 100 % al sumarse.':'Las categorías se presentan con dos bases: la muestra total y las respuestas válidas.';
@@ -486,10 +482,14 @@ window.__visorAudit=()=>CHARTS.map(d=>({id:d.id,universe:d.universe,valid:d.vali
 
 <script>
 (function(){
+ let lastSent = 0;
  function sendSize(){
   if(window.parent===window)return;
-  const h=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight);
-  window.parent.postMessage({type:'subachoque:revista:resize',height:h},window.location.origin==='null'?'*':window.location.origin);
+  const footer = document.querySelector('footer.rs-footer');
+  const h=Math.ceil((footer ? footer.getBoundingClientRect().bottom + window.scrollY : document.body.scrollHeight) + 16);
+  if(!Number.isFinite(h) || Math.abs(h-lastSent) < 6) return;
+  lastSent=h;
+  window.parent.postMessage({type:'subachoque:revista:resize',height:h},window.location.origin);
  }
  if('ResizeObserver' in window)new ResizeObserver(sendSize).observe(document.body);
  window.addEventListener('load',sendSize);
