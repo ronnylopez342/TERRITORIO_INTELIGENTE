@@ -1,0 +1,181 @@
+{
+  "date": "2026-11-23",
+  "source": "Supabase kobo_mirror_records NT; survey fields sec_14/atractivos(_cuales), sec_14/tradiciones(_cuales), sec_16/programas_deseados",
+  "universe": 324,
+  "coded": {
+    "G27": {
+      "observed": 312,
+      "unanswered": 12,
+      "matched": 304,
+      "unassigned_interpretable_count": 0,
+      "unassigned_nonspecific_count": 8,
+      "themes": [
+        {
+          "name": "El Tablazo",
+          "value": 104
+        },
+        {
+          "name": "Ferias y celebraciones",
+          "value": 103
+        },
+        {
+          "name": "Lagunas, cascadas y quebradas",
+          "value": 67
+        },
+        {
+          "name": "Fiestas religiosas y patronales",
+          "value": 53
+        },
+        {
+          "name": "Día del campesino",
+          "value": 48
+        },
+        {
+          "name": "Naturaleza, páramos y paisajes",
+          "value": 44
+        },
+        {
+          "name": "La Ferrería y patrimonio",
+          "value": 43
+        },
+        {
+          "name": "No señala atractivos ni tradiciones",
+          "value": 43
+        },
+        {
+          "name": "La Pradera",
+          "value": 35
+        },
+        {
+          "name": "Caminatas y senderismo",
+          "value": 26
+        },
+        {
+          "name": "Cultura y actividades comunitarias",
+          "value": 24
+        },
+        {
+          "name": "Navidad y novenas",
+          "value": 22
+        },
+        {
+          "name": "Gastronomía tradicional",
+          "value": 15
+        },
+        {
+          "name": "Parques y espacios públicos",
+          "value": 15
+        },
+        {
+          "name": "Ciclismo y cabalgatas",
+          "value": 9
+        },
+        {
+          "name": "Artesanías y saberes",
+          "value": 2
+        },
+        {
+          "name": "Pantano de Arce",
+          "value": 2
+        },
+        {
+          "name": "Carraposo",
+          "value": 1
+        },
+        {
+          "name": "La Antena",
+          "value": 1
+        },
+        {
+          "name": "La Trunchera",
+          "value": 1
+        },
+        {
+          "name": "Pandora",
+          "value": 1
+        },
+        {
+          "name": "San Fernando",
+          "value": 1
+        }
+      ]
+    },
+    "G35": {
+      "observed": 303,
+      "unanswered": 21,
+      "matched": 285,
+      "without_explicit_theme": 18,
+      "themes": [
+        {
+          "name": "Vías e infraestructura",
+          "value": 100
+        },
+        {
+          "name": "Seguridad y alumbrado",
+          "value": 59
+        },
+        {
+          "name": "Educación y juventud",
+          "value": 43
+        },
+        {
+          "name": "Apoyos sociales",
+          "value": 37
+        },
+        {
+          "name": "Salud y atención",
+          "value": 36
+        },
+        {
+          "name": "Trabajo y economía",
+          "value": 35
+        },
+        {
+          "name": "Servicios básicos",
+          "value": 31
+        },
+        {
+          "name": "Gestión municipal y participación",
+          "value": 27
+        },
+        {
+          "name": "Cultura y deporte",
+          "value": 26
+        },
+        {
+          "name": "Transporte y rutas",
+          "value": 26
+        },
+        {
+          "name": "Medioambiente y limpieza",
+          "value": 15
+        },
+        {
+          "name": "Vivienda",
+          "value": 12
+        },
+        {
+          "name": "Campo y producción agrícola",
+          "value": 10
+        },
+        {
+          "name": "Nada / Ninguno",
+          "value": 7
+        },
+        {
+          "name": "No sabe / No opina",
+          "value": 5
+        },
+        {
+          "name": "Bien / Felicitaciones",
+          "value": 3
+        },
+        {
+          "name": "Turismo",
+          "value": 3
+        }
+      ]
+    }
+  },
+  "method": "Expresiones regulares no exhaustivas; una observación puede contabilizarse en varios temas. No se crean unidades ni se imputan declaraciones individuales."
+}
