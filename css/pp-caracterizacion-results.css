@@ -225,3 +225,68 @@ html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-bac
  html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-process {gap:6px!important;}
  html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-process i {display:none!important;}
 }
+
+
+/* Las tres tarjetas son botones completos: un unico tabpanel activo. */
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-journey button.pp-results-card{
+  appearance:none!important;-webkit-appearance:none!important;
+  width:100%!important;min-width:0!important;
+  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+  text-align:left!important;white-space:normal!important;
+  color:#17392d!important;cursor:pointer!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  transition:box-shadow .2s ease,border-color .2s ease,transform .2s ease!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card:hover{
+  border-color:#b99947!important;box-shadow:0 13px 32px rgba(24,72,48,.13)!important;
+  transform:translateY(-2px)!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card[aria-selected="true"]{
+  border:2px solid #1b5b41!important;border-top:4px solid #dfb650!important;
+  background:#f5f9f2!important;
+  box-shadow:0 0 0 2px #d8e9d9,0 10px 28px #1c49311c!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card:focus-visible {
+  outline:3px solid #c99c28!important;outline-offset:4px!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card .pp-results-step-heading{
+  display:block!important;
+  color:#193929!important;font:700 clamp(19px,1.45vw,23px)/1.18 Georgia,serif!important;
+  letter-spacing:-.022em!important;white-space:normal!important;
+  margin:0 0 13px!important;min-height:55px!important;padding:0!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card .pp-results-step-description{
+  display:block!important;color:#536759!important;
+  font:400 14px/1.56 Arial,sans-serif!important;
+  margin:0 0 24px!important;padding:0!important;white-space:normal!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card .pp-results-card-action{
+  display:flex!important;justify-content:space-between!important;align-items:center!important;
+  gap:12px!important;margin:auto 0 0!important;padding:12px 15px!important;
+  border-radius:24px!important;width:100%!important;
+  background:#184b38!important;color:#fffefa!important;
+  font:700 13px/1.3 Arial,sans-serif!important;text-align:left!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card .pp-results-card-action > span{
+  color:#fff!important;font:700 19px/1 Arial,sans-serif!important;flex:0 0 auto!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card[aria-selected="true"] .pp-results-card-action{
+  background:#266947!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card[aria-selected="true"] .pp-results-step-number{
+  background:#c89f3c!important;color:#143a2a!important;
+}
+html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-stage[hidden] {
+  display:none!important;
+}
+html.ti-practica-embed #data-conoce[data-pp-results-mode="kobo"] #pp-characterization-results .pp-results-container {
+  padding-bottom:0!important;
+}
+html.ti-practica-embed #data-conoce[data-pp-results-mode="kobo"] #pp-characterization-results .pp-results-stage {
+  margin-bottom:0!important;
+}
+@media(max-width:730px){
+ html.ti-practica-embed #data-conoce #pp-characterization-results .pp-results-card .pp-results-step-heading{
+   min-height:0!important;
+ }
+}
