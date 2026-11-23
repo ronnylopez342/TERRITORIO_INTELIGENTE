@@ -7,6 +7,27 @@
 <meta content="#111820" name="theme-color"/>
 <meta content="Territorio Inteligente articula datos, planeación, seguimiento y capacidades institucionales para fortalecer decisiones públicas basadas en evidencia." name="description"/>
 <title>Territorio Inteligente | Subachoque</title>
+
+<script>
+/* Preconectar y precargar las primeras tres fotos inmutables ANTES de montar la
+   revista. Solo en el iframe de Práctica País; no cambia el sitio original. */
+(() => {
+  const p = new URLSearchParams(location.search);
+  if (p.get('skin') !== 'practica-pais' || p.get('embed') !== 'data') return;
+  const base = 'https://nlhbedssakkafrvvbqyt.supabase.co';
+  const pre = document.createElement('link');
+  pre.rel = 'preconnect'; pre.href = base;
+  document.head.appendChild(pre);
+  for (let slot=1; slot<=3; slot++) {
+    const link = document.createElement('link');
+    link.rel = 'preload'; link.as = 'image';
+    link.href = base + '/storage/v1/object/public/practica-pais-cabecera/caracterizacion/foto-' + String(slot).padStart(2,'0');
+    link.fetchPriority = 'high';
+    document.head.appendChild(link);
+  }
+})();
+</script>
+
 <link href="https://territorio-inteligente.vercel.app/" rel="canonical"/>
 <meta content="Territorio Inteligente | Subachoque" property="og:title"/>
 <meta content="Datos, planeación, cumplimiento y evidencia territorial para apoyar decisiones públicas en Subachoque." property="og:description"/>
@@ -245,7 +266,7 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
 <link rel="stylesheet" href="css/ti-cumplimiento-42-resumen-auditoria.css?v=20261116-auditoria">
 <link rel="stylesheet" href="css/asi-cumplimos-32.css?v=20261117-cierre-word">
 <link rel="stylesheet" href="css/ti-conoce-video-scope.css?v=20261117-only-conoce-02" />
-<link rel="stylesheet" href="css/pp-caracterizacion-header.css?v=20261123-fit-title-persist-v4">
+<link rel="stylesheet" href="css/pp-caracterizacion-header.css?v=20261123-fast-framing-v5">
 </head>
 <body data-build="territorio-demo-functional-v2.5-da-editorial-rebuild">
 <a class="skip-link" href="#mainContent">Saltar al contenido</a>
@@ -1180,6 +1201,6 @@ html.ti-data-embed .app-view[data-view="data"] .view-body>.inner {
   requestAnimationFrame(notifyHeight);
 })();
 </script>
-<script defer src="js/pp-caracterizacion-header.js?v=20261123-fit-title-persist-v4"></script>
+<script defer src="js/pp-caracterizacion-header.js?v=20261123-fast-framing-v5"></script>
 </body>
 </html>
