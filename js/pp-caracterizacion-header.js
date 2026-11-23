@@ -82,11 +82,11 @@
     const hero=document.createElement('header');
     hero.id='pp-char-header';
     hero.className='pp-char-header';
-    hero.innerHTML='<div class="pp-char-copy"><p class="pp-char-eyebrow">SUBACHOQUE · PRÁCTICA PAÍS</p>'+
+    hero.innerHTML='<div class="pp-char-copy"><p class="pp-char-eyebrow">SUBACHOQUE PLATFORM</p>'+
       '<h1>Caracterización<br>Municipal</h1>'+
       '<span class="pp-char-rule" aria-hidden="true"></span>'+
-      '<p class="pp-char-lead">Un recorrido por el trabajo de campo y el encuentro con las comunidades de Subachoque.</p>'+
-      '<p class="pp-char-photo-status" id="pp-char-photo-message" role="status" aria-live="polite">Fotografías originales del proceso de caracterización.</p></div>'+
+      '<p class="pp-char-lead">Levantamiento y análisis de información<br class="pp-char-break">del municipio a través de <strong>encuestas<br class="pp-char-break">técnicas y no técnicas</strong>, con el propósito<br class="pp-char-break">de conocer las condiciones, necesidades<br class="pp-char-break">y realidades de su población.</p>'+
+      '<p class="pp-char-photo-status" id="pp-char-photo-message" role="status" aria-live="polite"></p></div>'+
       '<div class="pp-char-photos" id="pp-char-photos" aria-label="Siete fotografías del trabajo de campo"></div>';
     const grid=hero.querySelector('#pp-char-photos');
     for(let i=1;i<=SLOT_COUNT;i++)grid.appendChild(createSlot(i));
