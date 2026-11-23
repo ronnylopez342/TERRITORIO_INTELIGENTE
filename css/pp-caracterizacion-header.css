@@ -123,7 +123,7 @@ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos::after {
 html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo img{
  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
  max-width:none!important;max-height:none!important;margin:0!important;
- display:block!important;object-fit:cover!important;object-position:center!important;
+ display:block!important;object-fit:cover!important;object-position:var(--pp-object-x,50%) var(--pp-object-y,50%)!important;
  border:0!important;border-radius:0!important;filter:none!important;
  transform:none!important;
 }
@@ -240,4 +240,130 @@ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-feedback[data
 }
 html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-num[hidden] {
   display:none!important;
+}
+
+
+/* INTEGRACIÓN SIN FRANJA VACÍA.
+   La vista pública conserva su propio header; el espejo no renderiza su
+   cabecera antigua. Su padding-top reservado provocaba la franja crema. */
+html.ti-data-embed.ti-practica-embed .app-view.view-shell[data-view="data"] {
+  padding-top:0!important;
+  min-height:0!important;
+  animation:none!important;
+}
+html.ti-data-embed.ti-practica-embed #mainContent {
+  padding-top:0!important;
+  margin-top:0!important;
+}
+html.ti-data-embed.ti-practica-embed .app-view[data-view="data"]:has(#data-conoce.pp-kobo-revista:not([hidden])) > .view-body,
+html.ti-data-embed.ti-practica-embed .app-view[data-view="data"]:has(#data-conoce.pp-kobo-revista:not([hidden])) > .view-body > .inner {
+  padding:0!important;
+  margin:0!important;
+  min-height:0!important;
+}
+html.ti-data-embed.ti-practica-embed #data-conoce.pp-kobo-revista:not([hidden]){
+  padding:0!important;margin:0!important;
+}
+html.ti-data-embed.ti-practica-embed #data-conoce.pp-kobo-revista:not([hidden]) > #pp-char-header {
+  margin:0!important;padding:0!important;
+}
+
+/* El botón de encuadre aparece solo para la cuenta administradora y desaparece
+   definitivamente tras el primer guardado; no reemplaza la fotografía. */
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-adjust {
+  position:absolute!important;z-index:10!important;left:50%!important;bottom:8%!important;
+  transform:translateX(-50%)!important;
+  width:max-content!important;max-width:88%!important;
+  border:1px solid #f1ecdbab!important;border-radius:30px!important;
+  padding:7px 12px!important;
+  background:#0b392edb!important;color:#fff!important;
+  font:700 clamp(10px,.9cqw,13px)/1.15 Arial,Helvetica,sans-serif!important;
+  cursor:pointer!important;box-shadow:0 2px 9px #09251b55!important;
+  text-align:center!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-adjust[hidden] {
+  display:none!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-adjust:hover,
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-adjust:focus-visible {
+  background:#0a5946!important;
+}
+
+/* Editor en capa superior (fuera de la máscara diagonal), con vista previa real. */
+html.ti-practica-embed .pp-char-frame-dialog {
+  box-sizing:border-box!important;
+  width:min(720px,94vw)!important;max-width:94vw!important;
+  max-height:min(90vh,880px)!important;overflow:auto!important;
+  padding:0!important;margin:auto!important;border:1px solid #d8dccd!important;
+  border-radius:16px!important;background:#fffdf8!important;
+  color:#17382c!important;box-shadow:0 22px 80px #0005!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+html.ti-practica-embed .pp-char-frame-dialog::backdrop {
+  background:rgba(7,31,23,.65)!important;backdrop-filter:blur(3px);
+}
+html.ti-practica-embed .pp-char-frame-panel {
+  padding:clamp(20px,3vw,32px)!important;
+}
+html.ti-practica-embed .pp-char-frame-kicker {
+  margin:0 0 9px!important;letter-spacing:.2em!important;
+  font:700 11px Arial,sans-serif!important;color:#94741d!important;
+}
+html.ti-practica-embed .pp-char-frame-panel h2 {
+  margin:0 0 9px!important;color:#143a2a!important;
+  font:700 clamp(25px,3vw,38px)/1.1 Georgia,serif!important;
+}
+html.ti-practica-embed .pp-char-frame-description {
+  margin:0 0 18px!important;font:400 14px/1.55 Arial,sans-serif!important;
+  color:#456456!important;
+}
+html.ti-practica-embed .pp-char-frame-viewport {
+  display:block!important;position:relative!important;
+  width:100%!important;height:clamp(200px,34vh,290px)!important;
+  overflow:hidden!important;cursor:grab!important;
+  touch-action:none!important;user-select:none!important;
+  background:#d5e1d5!important;
+}
+html.ti-practica-embed .pp-char-frame-viewport.dragging { cursor:grabbing!important; }
+html.ti-practica-embed .pp-char-frame-viewport img {
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:50% 50%;
+  pointer-events:none!important;user-select:none!important;max-width:none!important;
+}
+html.ti-practica-embed .pp-char-frame-controls {
+  display:grid!important;grid-template-columns:1fr 1fr!important;
+  gap:18px!important;margin-top:21px!important;
+}
+html.ti-practica-embed .pp-char-frame-controls label {
+  display:flex!important;flex-direction:column!important;gap:12px!important;
+  font:700 13px Arial,sans-serif!important;color:#254c3e!important;
+}
+html.ti-practica-embed .pp-char-frame-controls input[type="range"] {
+  display:block!important;width:100%!important;accent-color:#1e704d!important;
+  margin:0!important;padding:0!important;
+}
+html.ti-practica-embed .pp-char-frame-status {
+  min-height:18px!important;margin:13px 0!important;color:#a73a32!important;
+  font:700 13px Arial,sans-serif!important;
+}
+html.ti-practica-embed .pp-char-frame-actions {
+  display:flex!important;flex-wrap:wrap!important;justify-content:flex-end!important;
+  align-items:center!important;gap:10px!important;
+}
+html.ti-practica-embed .pp-char-frame-actions button {
+  border-radius:8px!important;padding:11px 17px!important;
+  font:700 14px Arial,sans-serif!important;
+  border:1px solid #b7c9bd!important;cursor:pointer!important;
+  background:#f7f6ef!important;color:#244a3b!important;
+}
+html.ti-practica-embed .pp-char-frame-actions [data-action="save"] {
+  color:#fff!important;background:#15573d!important;border-color:#15573d!important;
+}
+html.ti-practica-embed .pp-char-frame-actions button:disabled {
+  opacity:.6!important;cursor:wait!important;
+}
+@media(max-width:720px) {
+  html.ti-practica-embed .pp-char-frame-controls { grid-template-columns:1fr!important;gap:15px!important; }
+  html.ti-practica-embed .pp-char-frame-actions { justify-content:stretch!important; }
+  html.ti-practica-embed .pp-char-frame-actions button { flex:1!important; }
 }
