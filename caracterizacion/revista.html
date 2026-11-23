@@ -89,7 +89,7 @@ body{background:var(--bg)}.container{max-width:1260px}
     <h1 id="rs-magazine-title">Subachoque,<br/><em>territorio en cifras.</em></h1>
     <p class="rs-magazine-deck">Una lectura visual de la caracterizaci&oacute;n municipal: c&oacute;mo viven los hogares, qui&eacute;nes integran el territorio y qu&eacute; necesidades se hacen visibles en sus respuestas.</p>
     <p class="rs-magazine-detail">Explora 41 preguntas con una visualizaci&oacute;n principal y cinco perspectivas alternativas. Consulta frecuencias, porcentajes y los datos que respaldan cada gr&aacute;fica.</p>
-    <div class="rs-magazine-cta-row"><a class="rs-magazine-cta" href="#explorar">Explorar las gr&aacute;ficas <span aria-hidden="true">&#8595;</span></a><a class="rs-magazine-cta rs-download-fuentes" href="/caracterizacion/SUBACHOQUE_FUENTES_PUBLICAS_41_RESUMEN.xlsx" download>Descargar Excel de resultados</a><span class="rs-magazine-cut">Corte del proyecto: <strong id="cut-date">17/10/2026</strong></span></div>
+    <div class="rs-magazine-cta-row"><a class="rs-magazine-cta" href="#explorar">Explorar las gr&aacute;ficas <span aria-hidden="true">&#8595;</span></a><a class="rs-magazine-cta rs-download-fuentes" href="/caracterizacion/SUBACHOQUE_FUENTES_PUBLICAS_41_RESUMEN.xlsx" download>Descargar Excel de frecuencias</a><span class="rs-magazine-cut">Corte del proyecto: <strong id="cut-date">17/10/2026</strong></span></div>
    </div>
    <aside class="rs-magazine-metrics" aria-label="Alcance del conjunto de datos">
     <div class="rs-metrics-top">REVISTA DE CARACTERIZACI&Oacute;N <span>SUBACHOQUE / 2026</span></div>
@@ -115,7 +115,11 @@ body{background:var(--bg)}.container{max-width:1260px}
 const dataset=JSON.parse(document.getElementById('data-payload').textContent);
 const CHARTS=dataset.charts;
 // Add audited, publication-ready URLs only after each source has been reviewed.
-const PUBLIC_SOURCE_URLS=Object.freeze(Object.fromEntries(CHARTS.map(d=>[d.id,'/caracterizacion/fuentes.html?grafica='+d.id])));
+// Cada botón abre la pestaña individual correspondiente en la hoja
+// privada de 41 pestañas; su acceso lo controla Google Drive.
+const INDIVIDUAL_SOURCE_URLS=Object.freeze(Object.fromEntries(
+ CHARTS.map((d,i)=>[d.id,'https://docs.google.com/spreadsheets/d/18029xJowduZMW83We8_9yFUPjnlOqIXsL21uihhfrh4/edit#gid='+(1001+i)])
+));
 const COLORS=['#245e48','#b47a4c','#5f8798','#92a76e','#a99057','#8b7473','#507a66','#c2a57b','#7a8d8c','#647458','#9a8970','#568e86','#8d9f9b'];
 const MODES={
  bar:'Barras horizontales',columns:'Columnas',donut:'Dona',stack:'Barra proporcional',waffle:'Matriz de 100',
@@ -387,9 +391,9 @@ document.getElementById('stat-representations').textContent=CHARTS.length*6;
 document.getElementById('cut-date').textContent=dataset.cut;
 
 function renderCard(d){
- const url=PUBLIC_SOURCE_URLS[d.id];
+ const url=INDIVIDUAL_SOURCE_URLS[d.id];
  const sourceButton=url
-  ? `<a class="action-btn source-active" href="${xesc(url)}" target="_blank" rel="noopener noreferrer">Abrir fuente</a>`
+  ? `<a class="action-btn source-active" href="${xesc(url)}" target="_blank" rel="noopener noreferrer" title="Ver respuestas individuales de esta gráfica en el Excel (requiere acceso autorizado)">Abrir fuente</a>`
   : `<button class="action-btn source-pending" type="button" disabled title="Fuente disponible cuando se publique el archivo revisado" aria-label="Abrir fuente de ${d.id}: pendiente de publicaci&oacute;n">Abrir fuente</button>`;
  const labels=d.plan.map((m,i)=>`<button class="view-btn" type="button" data-graph="${d.id}" data-mode="${m}" aria-pressed="${i===0}">${i===0?'Principal · ':''}${xesc(MODES[m])}</button>`).join('');
  const meta=[`Muestra total: <strong>${integer(d.universe)}</strong>`,
