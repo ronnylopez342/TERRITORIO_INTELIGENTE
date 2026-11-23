@@ -155,8 +155,13 @@ function shareTenths(rows,base){
 }
 const fmtTenths=t=>(t/10).toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1})+' %';
 const shareMap=Object.fromEntries(CHARTS.filter(d=>!d.multiple).map(d=>{const a=shareTenths(d.values,d.base);return [d.id,Object.fromEntries(d.values.map((r,i)=>[r.name,a[i]]))]}));
+const ageFiveMap=(()=>{const d=CHARTS.find(x=>x.id==='G06');if(!d?.age?.freq5)return {};const shares=shareTenths(d.age.freq5,d.base);return Object.fromEntries(d.age.freq5.map((r,i)=>[r.name,shares[i]]));})();
 const pct=(v,d,label)=>{
  const m=shareMap[d.id];
+ if(d.id==='G06'&&typeof label==='string'&&Object.hasOwn(ageFiveMap,label)){
+  const row=d.age.freq5.find(r=>r.name===label);
+  if(row&&row.value===v)return fmtTenths(ageFiveMap[label]);
+ }
  if(m&&typeof label==='string'&&Object.hasOwn(m,label)){
   const row=d.values.find(x=>x.name===label);
   if(row&&row.value===v)return fmtTenths(m[label]);
