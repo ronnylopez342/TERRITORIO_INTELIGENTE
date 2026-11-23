@@ -49,6 +49,27 @@
   requestAnimationFrame(()=>{height();requestAnimationFrame(height);});
   focus(selection);
  }
+ function resetSelection(){
+  const {panel,magazine,intro}=getNodes();
+  if(!panel||!magazine||!intro)return;
+  mode='inicio';
+  panel.dataset.ppResultsMode='inicio';
+  magazine.style.setProperty('display','none','important');
+  magazine.setAttribute('aria-hidden','true');
+  magazine.tabIndex=-1;
+  intro.querySelectorAll('[role="tabpanel"]').forEach(pane=>{pane.hidden=true;});
+  const tabs=[...intro.querySelectorAll('button[data-pp-route]')];
+  tabs.forEach((tab,i)=>{
+    tab.setAttribute('aria-selected','false');
+    tab.classList.remove('is-open');
+    tab.tabIndex=i===0?0:-1;
+  });
+  requestAnimationFrame(()=>{height();requestAnimationFrame(height);});
+ }
+ window.addEventListener('message',event=>{
+  if(event.origin!==HOST||event.source!==window.parent||!event.data)return;
+  if(event.data.type==='PP_CHARACTERIZATION_RESULT_RESET')resetSelection();
+ });
  function mount(){
   if(mounted)return;
   const {panel,hero,magazine}=getNodes();
