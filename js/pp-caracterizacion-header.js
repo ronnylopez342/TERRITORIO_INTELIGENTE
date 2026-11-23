@@ -292,6 +292,68 @@
       ))
     });
   }
+  /* La plantilla antigua reserva ~80px bajo las pestañas para un header
+   * que se ha eliminado. El CSS de la página fuente contiene reglas tardías
+   * para .view-shell: esta reparación actúa sobre el DOM real, sin alterar
+   * el tamaño ni los píxeles de las siete fotografías.
+   */
+  let flushQueued = false;
+  function queueFlush() {
+    if (flushQueued) return;
+    flushQueued = true;
+    requestAnimationFrame(() => {
+      flushQueued = false;
+      flushHeaderAgainstTabs();
+      requestAnimationFrame(() => {
+        flushHeaderAgainstTabs();
+        notifyHeight();
+      });
+    });
+  }
+
+  function flushHeaderAgainstTabs() {
+    const nav = document.getElementById('tiEmbedTabs');
+    const main = document.getElementById('mainContent');
+    const view = main?.querySelector('.app-view.view-shell[data-view="data"]');
+    const shell = view?.querySelector('.view-body');
+    const inner = shell?.querySelector('.inner');
+    const section = document.getElementById('data-conoce');
+    const hero = document.getElementById('pp-char-header');
+    if (!nav || !main || !view || !section || !hero) return;
+
+    const charTab = nav.querySelector('button[data-embed-destination="data-conoce"]');
+    const active = charTab?.getAttribute('aria-selected') === 'true' && !section.hidden;
+    // El desplazamiento compensatorio afecta ÚNICAMENTE a Caracterización.
+    if (!active) {
+      main.style.removeProperty('margin-top');
+      return;
+    }
+
+    // Quitar la reserva del encabezado global, aunque se restablezca por
+    // cascada dinámica del CSS del portal o de la piel de la plataforma.
+    for (const element of [main, view, shell, inner, section]) {
+      if (!element) continue;
+      element.style.setProperty('padding-top', '0px', 'important');
+    }
+    for (const element of [view, shell, inner, section]) {
+      if (!element) continue;
+      element.style.setProperty('margin-top', '0px', 'important');
+    }
+
+    // Eliminar primero la compensación previa para medir el espacio real;
+    // así no se acumulan márgenes negativos en recargas o al cambiar pestaña.
+    main.style.removeProperty('margin-top');
+    const navBottom = nav.getBoundingClientRect().bottom;
+    const heroTop = hero.getBoundingClientRect().top;
+    const gap = Math.round(heroTop - navBottom);
+    if (gap > 2 && gap < 241 && navBottom >= 0 && navBottom < 240
+      && heroTop > navBottom && heroTop < 500) {
+      main.style.setProperty('margin-top', '-' + gap + 'px', 'important');
+    }
+    document.documentElement.dataset.ppCharGap = String(Math.max(0,
+      Math.round(hero.getBoundingClientRect().top - nav.getBoundingClientRect().bottom)));
+  }
+
   function mount() {
     if (mounted) return;
     const section = document.getElementById('data-conoce');
@@ -313,7 +375,15 @@
     section.insertBefore(hero, section.firstChild);
     post('PP_HEADER_REQUEST_AUTH');
     post('PP_HEADER_REQUEST_FRAMINGS');
-    requestAnimationFrame(notifyHeight);
+    // La pestaña y el hero deben quedar contiguos: cero franja crema.
+    const nav = document.getElementById('tiEmbedTabs');
+    if (nav) {
+      nav.addEventListener('click', () => queueFlush());
+      new MutationObserver(queueFlush).observe(nav, {
+        subtree: true, attributes: true, attributeFilter: ['aria-selected'],
+      });
+    }
+    queueFlush();
   }
   window.addEventListener('message', event => {
     if (event.origin !== HOST || event.source !== window.parent || !event.data) return;
