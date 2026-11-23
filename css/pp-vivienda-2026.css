@@ -1,0 +1,155 @@
+/* Vivienda institucional 2026. Exclusiva de embed=Data & skin=Práctica País.
+   Mantiene intactos los componentes cartográficos y pestañas originales. */
+html.ti-practica-embed #data-encuesta.ppv-ready{background:#fbf8f1!important;padding:0!important;margin:0!important;min-height:0!important;overflow:visible!important;color:#16392e!important}
+html.ti-practica-embed #data-encuesta.ppv-ready>.ppv-shell{display:block!important;visibility:visible!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;background:#fbf8f1!important}
+html.ti-practica-embed #data-encuesta.ppv-ready>:not(.ppv-shell):not(#ppViviendaMap){display:none!important}
+html.ti-practica-embed .ppv-shell{--ppv-green:#12472f;--ppv-ink:#16382c;--ppv-gold:#c69f30;--ppv-cream:#fbf8f1;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.43}
+html.ti-practica-embed .ppv-shell *{box-sizing:border-box}
+html.ti-practica-embed .ppv-shell button{font:inherit;cursor:pointer}
+html.ti-practica-embed .ppv-shell button:focus-visible,html.ti-practica-embed .ppv-shell input:focus-visible{outline:3px solid #cc9b25;outline-offset:3px}
+html.ti-practica-embed .ppv-shell h1,html.ti-practica-embed .ppv-shell h2,html.ti-practica-embed .ppv-shell h3{color:var(--ppv-ink);font-family:Georgia,"Times New Roman",serif;letter-spacing:-.025em;margin:0}
+html.ti-practica-embed .ppv-shell h2{font-size:clamp(24px,2vw,32px);line-height:1.12}
+html.ti-practica-embed .ppv-shell h3{font-size:clamp(18px,1.5vw,22px);line-height:1.17}
+html.ti-practica-embed .ppv-shell p{margin:0}
+html.ti-practica-embed .ppv-hero{position:relative;isolation:isolate;min-height:145px;display:flex;align-items:center;padding:22px clamp(24px,6vw,100px);background:linear-gradient(95deg,#fbf8f1 0%,#f5f3e9 64%,#e5ead7 100%);overflow:hidden;border-bottom:1px solid #dfe2d7}
+html.ti-practica-embed .ppv-hero-copy{position:relative;z-index:2;max-width:660px;padding:4px 0 4px 20px;border-left:5px solid #d2ac3a}
+html.ti-practica-embed .ppv-eyebrow{font:700 11px Arial,sans-serif;letter-spacing:.28em;color:#a57b1d;margin-bottom:10px}
+html.ti-practica-embed .ppv-hero h1{font-size:clamp(36px,3.35vw,57px);line-height:1.05;white-space:normal}
+html.ti-practica-embed .ppv-hero p{font:italic clamp(15px,1.45vw,20px) Georgia,serif;margin-top:8px;color:#253c30}
+html.ti-practica-embed .ppv-landscape{position:absolute;z-index:1;bottom:0;right:-1%;height:100%;width:67%;max-width:none;opacity:.94;pointer-events:none}
+html.ti-practica-embed .ppv-top{display:flex;gap:22px;align-items:stretch;padding:16px clamp(22px,6vw,98px) 7px}
+html.ti-practica-embed .ppv-intro{display:flex;align-items:center;gap:14px;width:245px;flex:0 0 245px;line-height:1.45;font-size:14px;color:#294638}
+html.ti-practica-embed .ppv-symbol{font:700 28px Georgia,serif;background:linear-gradient(145deg,#dcb64a,#af8a20);border-radius:12px;color:#fff;padding:11px 14px;flex:0 0 auto}
+html.ti-practica-embed .ppv-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;flex:1;min-width:0}
+html.ti-practica-embed .ppv-kpi{display:flex;gap:13px;align-items:center;min-width:0;padding:12px 14px;border-radius:14px;border:1px solid #e0ddce;background:#fffdf8;box-shadow:0 3px 14px #1538280d}
+html.ti-practica-embed .ppv-kpi-icon{flex:0 0 47px;width:47px;height:47px;border-radius:11px;display:grid;place-items:center;color:#fff;background:linear-gradient(140deg,#739d60,#265f36);font:700 27px Georgia,serif}
+html.ti-practica-embed .ppv-kpi:last-child .ppv-kpi-icon{background:linear-gradient(140deg,#e3bd50,#ba8e28)}
+html.ti-practica-embed .ppv-kpi>div{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+html.ti-practica-embed .ppv-kpi strong{font:700 clamp(27px,2.3vw,38px)/1 Georgia,serif;color:#0e3f2d}
+html.ti-practica-embed .ppv-kpi span:not(.ppv-kpi-icon){font-weight:600;font-size:12px;line-height:1.3;margin:4px 0;color:#284238}
+html.ti-practica-embed .ppv-inline-source{border:0;background:none;color:#42644f;text-decoration:underline;text-underline-offset:2px;padding:0!important;text-align:left;font:500 11px Arial,sans-serif!important}
+html.ti-practica-embed .ppv-inline-source:hover{color:#bd8520}
+html.ti-practica-embed .ppv-steps{display:grid;grid-template-columns:auto repeat(3,minmax(80px,1fr) 26px) minmax(80px,1fr);gap:10px;align-items:center;padding:11px clamp(22px,6vw,98px) 18px}
+html.ti-practica-embed .ppv-steps>strong{color:white;background:#075231;border-radius:22px;padding:10px 19px;margin-right:11px;font-size:14px;white-space:nowrap}
+html.ti-practica-embed .ppv-steps>div>b{display:block;font-size:14px;color:#194231;white-space:nowrap}
+html.ti-practica-embed .ppv-steps>div>small{display:block;font-size:11px;color:#657868;line-height:1.25}
+html.ti-practica-embed .ppv-steps>i{font:700 23px Georgia,serif;color:#c9a332;font-style:normal;text-align:center}
+html.ti-practica-embed .ppv-map-card{display:grid;grid-template-columns:minmax(205px,22%) minmax(350px,1fr) minmax(260px,25%);gap:14px;margin:0 clamp(22px,6vw,98px);min-height:492px;background:#fffdf8;border:1px solid #e5e0d3;border-radius:18px;padding:15px;box-shadow:0 3px 16px #163e2a0a;align-items:stretch}
+html.ti-practica-embed .ppv-map-filters{padding:12px 12px 9px}
+html.ti-practica-embed .ppv-map-filters h2{margin-bottom:10px}
+html.ti-practica-embed .ppv-map-filters>p{font-size:12px;color:#637365;line-height:1.5}
+html.ti-practica-embed .ppv-filters{display:grid;gap:9px;margin-top:18px}
+html.ti-practica-embed .ppv-filter{display:flex;align-items:center;gap:9px;padding:9px 10px;border:1px solid #e6e4d9;border-radius:12px;background:#fbfbf5;color:#183b2a;cursor:pointer;font-size:13px}
+html.ti-practica-embed .ppv-filter input{accent-color:#16734a;width:17px;height:17px;margin:0}
+html.ti-practica-embed .ppv-filter strong{flex:1;font-weight:700}
+html.ti-practica-embed .ppv-filter small{font-size:12px;color:#54685a}
+html.ti-practica-embed .ppv-dot{width:12px;height:12px;background:var(--status-color);display:inline-block;border-radius:50%;flex:0 0 auto}
+html.ti-practica-embed .ppv-only-located{display:flex;align-items:center;gap:7px;margin-top:14px;font-size:11px;color:#425c4a;cursor:pointer}
+html.ti-practica-embed .ppv-only-located input{accent-color:#166541}
+html.ti-practica-embed .ppv-map-caption{margin-top:14px!important;font-size:11px!important;line-height:1.5!important;color:#617566}
+html.ti-practica-embed .ppv-map-slot{min-width:0;min-height:462px;position:relative;overflow:hidden;border-radius:12px;background:#faf5e9}
+html.ti-practica-embed .ppv-map-loading{padding:25px;font-size:13px;color:#66786a}
+html.ti-practica-embed #data-encuesta .ppv-map-slot>.pp-vivienda-map{display:block!important;position:relative!important;inset:auto!important;width:100%!important;max-width:none!important;min-width:0!important;height:100%!important;min-height:462px!important;margin:0!important;padding:0!important;border:0!important;border-radius:12px!important;overflow:hidden!important;background:#fbf2e8!important}
+html.ti-practica-embed #data-encuesta .ppv-map-slot .pp-vivienda-map-canvas.ti-ed-map{display:block!important;width:100%!important;height:100%!important;min-height:462px!important;border-radius:12px!important}
+html.ti-practica-embed #data-encuesta .ppv-map-slot .pp-vivienda-map-key{position:absolute!important;bottom:0!important;left:0!important;right:0!important;margin:0!important;font-size:10px!important;padding:7px 12px!important;background:#fffef6ef!important}
+html.ti-practica-embed .ppv-detail{border:1px solid #e0ddd1;border-radius:14px;overflow:hidden;background:#fffefa;display:flex;flex-direction:column;min-width:0}
+html.ti-practica-embed .ppv-detail>h3{background:linear-gradient(120deg,#104e31,#1c6143);color:#fff!important;font-size:20px;padding:14px 17px}
+html.ti-practica-embed .ppv-detail-content{flex:1;padding:18px 17px;color:#506454;font-size:14px}
+html.ti-practica-embed .ppv-detail-content p{margin-bottom:12px}
+html.ti-practica-embed .ppv-detail-content small{font-size:12px;line-height:1.45;display:block}
+html.ti-practica-embed .ppv-detail-content dl{display:grid;grid-template-columns:42% 58%;gap:0;margin:15px 0}
+html.ti-practica-embed .ppv-detail-content dt,html.ti-practica-embed .ppv-detail-content dd{border-bottom:1px solid #e5e5dd;padding:8px 3px;margin:0;font-size:12px;min-width:0;overflow-wrap:anywhere}
+html.ti-practica-embed .ppv-detail-content dt{font-weight:700;color:#315341}
+html.ti-practica-embed .ppv-detail-content dd{color:#2e4336}
+html.ti-practica-embed .ppv-case-name{font:700 24px Georgia,serif;color:#16482f}
+html.ti-practica-embed .ppv-detail-open{display:block;margin:13px 17px 17px;padding:12px;border:0;border-radius:11px;background:#135337;color:white!important;font-weight:700!important}
+html.ti-practica-embed .ppv-detail-open:disabled{background:#d8ddd5;color:#5d6b60!important;cursor:not-allowed}
+html.ti-practica-embed .ppv-case-option{display:block;width:100%;margin:5px 0;padding:9px;text-align:left;border:1px solid #dfe3d8;border-radius:8px;background:#f8fbf4;color:#215438}
+html.ti-practica-embed .ppv-record-reference{margin-top:12px;padding:11px;border-radius:9px;background:#f0f5e9}
+html.ti-practica-embed .ppv-record-reference button{border:0;color:#0b5538;background:transparent;text-decoration:underline;padding:8px 0}
+html.ti-practica-embed .ppv-results{margin:14px clamp(22px,6vw,98px) 20px;padding:18px;background:#fffdf7;border:1px solid #e0ddd3;border-radius:18px;box-shadow:0 3px 15px #163e2a0a}
+html.ti-practica-embed .ppv-results h2{margin-bottom:18px}
+html.ti-practica-embed .ppv-results-grid{display:grid;grid-template-columns:1.1fr 1fr 1.06fr;gap:20px}
+html.ti-practica-embed .ppv-results-grid>article{min-width:0;padding:7px 10px 11px}
+html.ti-practica-embed .ppv-results-grid>article+article{border-left:1px solid #ddd6c8;padding-left:20px}
+html.ti-practica-embed .ppv-results-grid h3{font-size:20px!important;margin-bottom:12px}
+html.ti-practica-embed #ppv-donut{display:flex;align-items:center;gap:17px}
+html.ti-practica-embed .ppv-donut-figure{flex:0 0 160px;width:160px;height:160px;border-radius:50%;display:grid;place-items:center}
+html.ti-practica-embed .ppv-donut-figure>span{width:106px;height:106px;border-radius:50%;background:#fffefa;display:flex;align-items:center;justify-content:center;flex-direction:column;font:700 38px Georgia,serif;color:#123f2e}
+html.ti-practica-embed .ppv-donut-figure>span small{font:11px Arial,sans-serif;color:#667568}
+html.ti-practica-embed .ppv-donut-legend p{display:flex;align-items:center;gap:7px;margin:7px 0!important;white-space:nowrap;font-size:13px}
+html.ti-practica-embed .ppv-donut-legend b{font:700 23px Georgia,serif;min-width:33px;color:#15503a}
+html.ti-practica-embed .ppv-donut-legend small{font-size:10px;color:#748477}
+html.ti-practica-embed .ppv-minor{color:#67756a;font-size:11px;margin-top:5px!important;margin-bottom:12px!important}
+html.ti-practica-embed .ppv-bar-figure{height:180px;display:flex;align-items:flex-end;justify-content:space-evenly;gap:12px;border-bottom:1px solid #aec4ad;padding:6px 15px 0;margin:4px 3px 12px}
+html.ti-practica-embed .ppv-bar-figure>div{display:flex;flex:1;align-items:center;justify-content:flex-end;flex-direction:column;gap:5px;height:100%}
+html.ti-practica-embed .ppv-bar-figure b{font:700 24px Georgia,serif;color:#174732}
+html.ti-practica-embed .ppv-bar-figure i{width:min(90%,85px);max-height:145px;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#6f9e5d,#236a39)}
+html.ti-practica-embed .ppv-bar-figure>div:nth-child(2) i{background:linear-gradient(180deg,#a0ba69,#5b8b43)}
+html.ti-practica-embed .ppv-bar-figure>div:nth-child(3) i{background:linear-gradient(180deg,#c2d67f,#7da94a)}
+html.ti-practica-embed .ppv-bar-figure span{font-size:12px;color:#405b4b;font-weight:700;margin-bottom:-27px}
+html.ti-practica-embed #ppv-bars>.ppv-minor{margin-top:32px!important}
+html.ti-practica-embed .ppv-criterion{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid #ebe6d6}
+html.ti-practica-embed .ppv-criterion>span{display:grid;place-items:center;width:28px;height:28px;color:#fff;background:#c59b2d;border-radius:50%;font-weight:700}
+html.ti-practica-embed .ppv-criterion strong{display:block;font-size:12px;color:#233e31}
+html.ti-practica-embed .ppv-criterion small{display:block;font-size:10px;color:#637667}
+html.ti-practica-embed .ppv-docs{margin-top:16px}
+html.ti-practica-embed .ppv-docs>button{border:0;border-bottom:1px solid #91ac95;background:none;padding:8px 0;font-weight:700;color:#1a5338}
+html.ti-practica-embed .ppv-admin-records{margin:22px clamp(22px,6vw,98px);padding:22px;border:1px solid #e0d8c8;border-radius:14px;background:#f5f9f2}
+html.ti-practica-embed .ppv-admin-records[hidden]{display:none!important}
+html.ti-practica-embed .ppv-admin-records>p{color:#57705d;font-size:12px;margin:5px 0 14px}
+html.ti-practica-embed #ppv-cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px;max-height:255px;overflow:auto}
+html.ti-practica-embed .ppv-record-button{background:#fff!important;text-align:left;border:1px solid #d8e2d4;border-radius:8px;padding:9px!important;color:#28503a;display:flex;flex-direction:column;gap:5px}
+html.ti-practica-embed .ppv-record-button b{font-size:13px}
+html.ti-practica-embed .ppv-record-button span,html.ti-practica-embed .ppv-record-button small{font-size:11px}
+html.ti-practica-embed .ppv-footer-note{margin:14px clamp(22px,6vw,98px) 24px!important;color:#6b786c;font-size:11px;line-height:1.5}
+html.ti-practica-embed #data-explorando .ppv-source-section{max-width:none;margin:0 auto 20px;padding:28px clamp(22px,6vw,98px);background:#faf8f2;border-bottom:1px solid #dfdacf}
+html.ti-practica-embed .ppv-sources-title>span{letter-spacing:.2em;font:700 10px Arial,sans-serif;color:#ad8322}
+html.ti-practica-embed .ppv-sources-title h2{font:700 clamp(29px,2.7vw,44px) Georgia,serif;color:#16432e;margin:8px 0}
+html.ti-practica-embed .ppv-sources-title p{font-size:14px;color:#617162;max-width:800px}
+html.ti-practica-embed .ppv-source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:24px}
+html.ti-practica-embed .ppv-source-grid article{padding:20px;border:1px solid #e0ded2;background:white;border-radius:14px;scroll-margin-top:90px}
+html.ti-practica-embed .ppv-source-grid article>span{font-size:10px;color:#b08a2d;font-weight:700}
+html.ti-practica-embed .ppv-source-grid h3{font:700 18px Georgia,serif;color:#173f2c;margin:8px 0}
+html.ti-practica-embed .ppv-source-grid p{font-size:13px;line-height:1.5;color:#4b6953;margin-bottom:8px}
+html.ti-practica-embed .ppv-source-grid small{font-size:11px;color:#8b7463}
+html.ti-practica-embed .ppv-source-selected{outline:3px solid #bd9a30;outline-offset:3px}
+html.ti-practica-embed .ppv-source-note{color:#637260;margin-top:17px;font-size:12px}
+@media(max-width:1250px){
+ html.ti-practica-embed .ppv-top{flex-direction:column}
+ html.ti-practica-embed .ppv-intro{width:auto;flex:none}
+ html.ti-practica-embed .ppv-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+ html.ti-practica-embed .ppv-map-card{grid-template-columns:210px minmax(310px,1fr);gap:12px}
+ html.ti-practica-embed .ppv-detail{grid-column:1/-1}
+ html.ti-practica-embed .ppv-results-grid{grid-template-columns:1fr 1fr}
+ html.ti-practica-embed .ppv-results-grid>article:last-child{grid-column:1/-1;border-left:0;border-top:1px solid #ddd6c8;padding:20px 10px 10px}
+}
+@media(max-width:780px){
+ html.ti-practica-embed .ppv-hero{min-height:165px;padding:17px 24px}
+ html.ti-practica-embed .ppv-landscape{width:100%;opacity:.36}
+ html.ti-practica-embed .ppv-hero h1{font-size:36px}
+ html.ti-practica-embed .ppv-top{padding:14px 15px}
+ html.ti-practica-embed .ppv-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ html.ti-practica-embed .ppv-kpi{padding:10px 8px;gap:7px}
+ html.ti-practica-embed .ppv-kpi-icon{width:35px;height:35px;flex-basis:35px;font-size:20px}
+ html.ti-practica-embed .ppv-kpi strong{font-size:27px}
+ html.ti-practica-embed .ppv-steps{grid-template-columns:1fr 1fr;gap:8px;padding:5px 15px 15px}
+ html.ti-practica-embed .ppv-steps>strong{grid-column:1/-1}
+ html.ti-practica-embed .ppv-steps>i{display:none}
+ html.ti-practica-embed .ppv-steps>div{padding:5px 0}
+ html.ti-practica-embed .ppv-map-card{grid-template-columns:minmax(0,1fr);margin:0 12px;padding:11px}
+ html.ti-practica-embed .ppv-filters{grid-template-columns:1fr 1fr}
+ html.ti-practica-embed .ppv-filter{padding:8px 5px;gap:6px;font-size:11px}
+ html.ti-practica-embed .ppv-map-slot{min-height:370px;height:55vh}
+ html.ti-practica-embed #data-encuesta .ppv-map-slot>.pp-vivienda-map,
+ html.ti-practica-embed #data-encuesta .ppv-map-slot .pp-vivienda-map-canvas.ti-ed-map{min-height:370px!important;height:100%!important}
+ html.ti-practica-embed .ppv-results{margin:12px;padding:16px}
+ html.ti-practica-embed .ppv-results-grid{grid-template-columns:minmax(0,1fr);gap:13px}
+ html.ti-practica-embed .ppv-results-grid>article+article{grid-column:auto!important;border-left:0;border-top:1px solid #e1ddcf;padding:20px 10px 9px}
+ html.ti-practica-embed .ppv-donut-figure{width:132px;height:132px;flex-basis:132px}
+ html.ti-practica-embed .ppv-donut-figure>span{width:82px;height:82px;font-size:28px}
+ html.ti-practica-embed .ppv-criterion{grid-template-columns:27px minmax(0,1fr)}
+ html.ti-practica-embed .ppv-criterion .ppv-inline-source{grid-column:2}
+ html.ti-practica-embed .ppv-source-grid{grid-template-columns:1fr}
+ html.ti-practica-embed .ppv-footer-note{margin:12px 18px 20px!important}
+}

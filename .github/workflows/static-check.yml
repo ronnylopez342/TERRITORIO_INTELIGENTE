@@ -25,6 +25,8 @@ jobs:
           python scripts/verify_structure.py
       - name: Verificar sintaxis JavaScript de todos los modulos
         run: find js -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Verificar contrato Vivienda 2026, clasificación y privacidad
+        run: node scripts/test_pp_vivienda_2026.cjs
       - name: Verificar importaciones Data
         run: node scripts/test_data_core.cjs
       - name: Verificar Unidad de Cumplimiento 4.2 con datos reales
@@ -50,6 +52,8 @@ jobs:
         run: |
           npm install --no-save --no-package-lock playwright
           npx playwright install chromium --with-deps
+      - name: Vivienda 2026 - smoke de escritorio y móvil, mapa original y recursos
+        run: node scripts/smoke_pp_vivienda_2026.cjs
       - name: Smoke de las cuatro vistas Data actuales
         run: node scripts/smoke_current_modules.cjs
       - name: Video solo en Conoce y titulares completos en la portada 2.3
@@ -60,6 +64,13 @@ jobs:
         run: node scripts/smoke_plan33_full_tabs.cjs
       - name: Smoke interactivo de Asi cumplimos 3.2
         run: node scripts/smoke_asi_cumplimos32.cjs
+      - name: Guardar evidencia visual de Vivienda 2026
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pp-vivienda-2026
+          path: screenshots/pp-vivienda-2026-*.png
+          if-no-files-found: warn
       - name: Guardar capturas de portada 2.3 sin letras partidas
         if: always()
         uses: actions/upload-artifact@v4
