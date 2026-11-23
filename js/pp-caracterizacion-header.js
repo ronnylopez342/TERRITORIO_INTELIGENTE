@@ -12,6 +12,12 @@
   let mounted = false;
   const status = Array(SLOT_COUNT).fill(false);
   const busy = new Set();
+  const errors = Array(SLOT_COUNT).fill('');
+  const timeouts = new Map();
+  function slotMessage(slot, message) {
+    errors[slot-1] = String(message || '');
+    updateSlot(slot);
+  }
   function pictureUrl(slot) { return PUBLIC_BASE + String(slot).padStart(2, '0'); }
   function slotEl(slot) { return document.getElementById('pp-char-photo-' + slot); }
   function updateSlot(slot) {
@@ -24,10 +30,17 @@
     const add = cell.querySelector('.pp-char-photo-add');
     const img = cell.querySelector('img');
     const num = cell.querySelector('.pp-char-photo-num');
+    const feedback = cell.querySelector('.pp-char-photo-feedback');
+    if (feedback) {
+      const message = errors[slot - 1] || (busy.has(slot) ? 'Publicando fotografía…' : '');
+      feedback.textContent = message;
+      feedback.hidden = !message;
+      feedback.dataset.state = errors[slot - 1] ? 'error' : 'progress';
+    }
     if (input) input.disabled = !canUpload || exists || busy.has(slot);
     if (add) add.hidden = !canUpload || exists || busy.has(slot);
     if (img) { img.hidden = !exists; if(exists && img.getAttribute('src') !== pictureUrl(slot)) img.src = pictureUrl(slot); }
-    if(num) num.hidden = exists;
+    if(num) num.hidden = exists || busy.has(slot);
     cell.setAttribute('aria-label', exists ? 'Fotografía original ' + slot + ' publicada' : 'Espacio de fotografía ' + slot + (canUpload ? '. Agregar foto' : '. Pendiente'));
   }
   function notifyHeight() {
@@ -35,27 +48,51 @@
   }
   async function refresh(slot) {
     try {
-      const res = await fetch(pictureUrl(slot), {method:'HEAD', cache:'no-store'});
-      status[slot-1] = res.ok && (res.headers.get('content-type') || '').startsWith('image/');
-    } catch (_) { /* No asumir que falta una imagen si falla la conexión */ }
-    updateSlot(slot);
+      // Cada carga comprueba el objeto real. Evita un 404 previo conservado en caché.
+      const checkUrl = pictureUrl(slot) + '?check=' + Date.now();
+      const res = await fetch(checkUrl, {method:'HEAD', cache:'no-store'});
+      const exists = res.ok && (res.headers.get('content-type') || '').toLowerCase().startsWith('image/');
+      status[slot-1] = exists;
+      if (exists) errors[slot-1] = '';
+      updateSlot(slot);
+      return exists;
+    } catch (_) {
+      slotMessage(slot, 'No se pudo verificar esta fotografía. Revisa tu conexión.');
+      return false;
+    }
+  }
+  async function verifyPublished(slot) {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      if (await refresh(slot)) return true;
+      await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)));
+    }
+    return false;
   }
   function announce(text) { const el=document.getElementById('pp-char-photo-message'); if(el) el.textContent=text; }
   async function submitPhoto(slot, file) {
     if (!file || busy.has(slot) || status[slot-1] || !canUpload) return;
     const allowed=['image/jpeg','image/png','image/webp'];
     if (!allowed.includes(file.type) || file.size < 100 || file.size > 8*1024*1024) {
-      announce('Selecciona una imagen JPG, PNG o WebP de hasta 8 MB.');
+      slotMessage(slot, 'Solo JPG, PNG o WebP de hasta 8 MB.');
       return;
     }
+    // Evitar confiar en la selección hasta que Supabase confirme la publicación.
+    errors[slot-1] = '';
     busy.add(slot); updateSlot(slot);
     announce('Publicando fotografía ' + slot + '…');
     try {
       const bytes=await file.arrayBuffer();
+      // Si el iframe/host pierde la respuesta, no dejar el espacio bloqueado.
+      timeouts.set(slot, setTimeout(() => {
+        if (!busy.has(slot)) return;
+        busy.delete(slot); timeouts.delete(slot);
+        slotMessage(slot, 'Sin confirmación del servidor. Recarga para verificar antes de reintentar.');
+      }, 30000));
       window.parent.postMessage({type:'PP_HEADER_UPLOAD',slot,mime:file.type,bytes},ORIGIN,[bytes]);
     } catch (_) {
-      busy.delete(slot);updateSlot(slot);
-      announce('No fue posible leer la fotografía seleccionada.');
+      if (timeouts.has(slot)) clearTimeout(timeouts.get(slot));
+      timeouts.delete(slot);busy.delete(slot);
+      slotMessage(slot, 'No se pudo enviar la fotografía. Inténtalo nuevamente.');
     }
   }
   function createSlot(slot) {
@@ -66,7 +103,11 @@
     cell.innerHTML='<img alt="Fotografía original del trabajo de caracterización, espacio '+label+'" hidden>'+
       '<span class="pp-char-photo-num" aria-hidden="true">'+label+'</span>'+
       '<label class="pp-char-photo-add" hidden><span class="pp-char-photo-plus" aria-hidden="true">+</span><span>Agregar foto</span>'+
-      '<input type="file" accept="image/jpeg,image/png,image/webp" aria-label="Publicar fotografía '+label+' (una sola vez)"></label>';
+      '<input type="file" accept="image/jpeg,image/png,image/webp" aria-label="Publicar fotografía '+label+' (una sola vez)"></label>'+
+      '<span class="pp-char-photo-feedback" role="status" aria-live="polite" hidden></span>';
+    cell.querySelector('img').addEventListener('error', () => {
+      if (status[slot-1]) slotMessage(slot, 'Esta imagen se guardó, pero no se pudo mostrar.');
+    });
     cell.querySelector('input').addEventListener('change',function() {
       const file=this.files && this.files[0];
       this.value='';
@@ -105,15 +146,25 @@
     if(event.data.type==='PP_HEADER_UPLOAD_RESULT') {
       const slot=Number(event.data.slot);
       if(!Number.isInteger(slot)||slot<1||slot>SLOT_COUNT)return;
+      if (timeouts.has(slot)) clearTimeout(timeouts.get(slot));
+      timeouts.delete(slot);
       busy.delete(slot);
       if(event.data.ok) {
-        status[slot-1]=true;
-        announce('Fotografía '+slot+' publicada. Este espacio quedó bloqueado permanentemente.');
-        updateSlot(slot);
-        requestAnimationFrame(notifyHeight);
+        // Solo se confirma al constatar que la URL pública ya existe.
+        void verifyPublished(slot).then(exists => {
+          if (exists) {
+            announce('Fotografía '+slot+' guardada y verificada.');
+          } else {
+            slotMessage(slot, 'El servidor aceptó la carga, pero aún no se puede verificar. Recarga antes de intentar de nuevo.');
+          }
+          requestAnimationFrame(notifyHeight);
+        });
       } else {
-        announce(String(event.data.error||'No se pudo publicar la fotografía.'));
-        void refresh(slot);
+        const message=String(event.data.error||'No se pudo publicar la fotografía.');
+        slotMessage(slot,message);
+        announce(message);
+        // Si otro dispositivo la publicó primero, se recupera la foto existente.
+        if(/ya tiene una foto|no se puede sustituir/i.test(message)) void refresh(slot);
       }
     }
   });
