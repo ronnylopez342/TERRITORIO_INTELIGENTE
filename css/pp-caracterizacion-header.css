@@ -1,84 +1,222 @@
-/* Solo la cabecera de la pestaña Caracterización, modo Práctica País. */
+/* Referencia aprobada: download.png 1065 × 312; ÚNICAMENTE cabecera KoBo.
+   Posiciones de los siete cortes diagonales derivadas de la imagen aprobada.
+   Los archivos originales subidos se presentan mediante <img> sin transformaciones de píxeles. */
 html.ti-practica-embed #data-conoce #pp-char-header,
-html.ti-practica-embed #data-conoce #pp-char-header * { box-sizing:border-box; }
+html.ti-practica-embed #data-conoce #pp-char-header * { box-sizing:border-box!important; }
 html.ti-practica-embed #data-conoce #pp-char-header {
-  display:grid!important;grid-template-columns:minmax(300px,34%) minmax(0,66%)!important;
-  width:100%;max-width:none;margin:0!important;padding:0!important;
-  min-height:382px;background:#fbfaf5;color:#12392e;
-  border-bottom:4px solid #d9ad28;overflow:hidden;
+  display:block!important;position:relative!important;isolation:isolate;
+  width:100%!important;max-width:none!important;height:auto!important;
+  min-height:0!important;aspect-ratio:1065 / 312;
+  container-type:inline-size;
+  padding:0!important;margin:0!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background:#fffdf7!important;color:#0b3027!important;overflow:hidden!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-copy {
-  position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;
-  justify-content:center;padding:38px clamp(25px,4vw,75px)!important;
-  background:linear-gradient(145deg,#fffdf7,#f5f2e8);
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-copy {
+  display:block!important;position:absolute!important;z-index:2;
+  left:0;top:0;width:29%;height:100%;
+  padding:0!important;margin:0!important;
+  border:0!important;background:transparent!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-eyebrow {
-  margin:0 0 19px!important;letter-spacing:.19em;font:750 12px/1.3 Arial,sans-serif!important;
-  color:#a27b15!important;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-copy::after{
+  content:"";position:absolute;left:0;bottom:0;z-index:-1;
+  width:69.35%;height:30.13%;
+  background-image:url("data:image/webp;base64,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");
+  background-position:left bottom;background-size:100% 100%;background-repeat:no-repeat;
+  pointer-events:none;
 }
-html.ti-practica-embed #data-conoce .pp-char-copy h1 {
-  font:700 clamp(37px,3.6vw,64px)/1.02 Georgia,serif!important;
-  letter-spacing:-.04em!important;color:#103b2a!important;margin:0 0 23px!important;
-  text-transform:none!important;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-eyebrow {
+  position:absolute;left:4.55%;top:11.8%;
+  margin:0!important;padding:0!important;
+  color:#174d3e!important;font:700 .92cqw/1.2 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.24cqw!important;white-space:nowrap!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-rule {
-  display:block;width:53px;height:4px;background:#d9ae27;margin-bottom:18px;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-eyebrow::after{
+  content:"";display:inline-block;vertical-align:middle;width:2.0cqw;
+  height:1px;margin-left:3.0cqw;background:#78a89c;
 }
-html.ti-practica-embed #data-conoce .pp-char-lead {
-  margin:0 0 13px!important;font:400 clamp(14px,1.08vw,18px)/1.55 Arial,sans-serif!important;
-  max-width:390px;color:#415c52!important;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-copy h1 {
+  position:absolute;left:4.2%;top:18.0%;max-width:none;
+  padding:0!important;margin:0!important;
+  color:#0a3027!important;font:700 3.51cqw/.96 Georgia,'Times New Roman',serif!important;
+  letter-spacing:-.09cqw!important;text-align:left!important;text-transform:none!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-photo-status {
-  color:#64786e!important;font:400 12px/1.45 Arial,sans-serif!important;margin:0!important;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-rule {
+  position:absolute;left:4.55%;top:46.2%;width:.42cqw;height:23.2%;
+  display:block!important;background:#ffca20!important;border:0!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-photos {
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
-  grid-template-rows:repeat(2,minmax(0,1fr));gap:5px;
-  min-height:382px;padding:5px;background:#fff;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-lead {
+  position:absolute;left:10.2%;top:46.1%;width:78%;
+  margin:0!important;padding:0!important;
+  color:#162e2d!important;font:400 .98cqw/1.36 Arial,Helvetica,sans-serif!important;
+  text-align:left!important;letter-spacing:-.009cqw!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-photo {
-  min-width:0;min-height:180px;position:relative;overflow:hidden;
-  background:linear-gradient(125deg,#d8e4d6,#e9eee3);
-  border-radius:4px;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-lead strong {
+  color:inherit!important;font-weight:750!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-photo:nth-child(-n+3){grid-column:span 4}
-html.ti-practica-embed #data-conoce .pp-char-photo:nth-child(n+4){grid-column:span 3}
-html.ti-practica-embed #data-conoce .pp-char-photo img {
-  display:block;width:100%;height:100%;object-fit:cover;object-position:center;
-  background:#e2e8df;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-status {
+  position:absolute!important;width:1px!important;height:1px!important;
+  padding:0!important;margin:-1px!important;overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-photo img[hidden]{display:none!important}
-html.ti-practica-embed #data-conoce .pp-char-photo-num {
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  font:400 38px/1 Georgia,serif;color:#839d87;opacity:.75;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos {
+  display:block!important;position:absolute!important;z-index:3;
+  inset:0!important;width:100%!important;height:100%!important;
+  min-height:0!important;padding:0!important;margin:0!important;
+  background:transparent!important;border:0!important;
+  overflow:hidden!important;
 }
-html.ti-practica-embed #data-conoce .pp-char-photo-add {
-  position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:5px;
-  cursor:pointer;background:rgba(13,58,39,.09);
-  color:#13482e;font:750 12px Arial,sans-serif;
-  transition:background .18s ease;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo {
+  position:absolute!important;min-width:0!important;min-height:0!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  margin:0!important;padding:0!important;
+  overflow:hidden!important;isolation:isolate;
+  background:#cfdbcf!important;
+  -webkit-clip-path:polygon(var(--clip));
+  clip-path:polygon(var(--clip));
 }
-html.ti-practica-embed #data-conoce .pp-char-photo-add:hover{background:rgba(24,72,45,.17)}
-html.ti-practica-embed #data-conoce .pp-char-photo-add[hidden]{display:none!important}
-html.ti-practica-embed #data-conoce .pp-char-photo-plus {
-  width:39px;height:39px;display:flex;align-items:center;justify-content:center;
-  border-radius:50%;background:#fffef9;box-shadow:0 2px 10px #193f3326;
-  font:400 27px Arial,sans-serif;
+/* Top: tres fragmentos, separadores oblicuos de cuatro píxeles de referencia. */
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(1){
+ left:23.76%;top:3.53%;width:28.54%;height:47.12%;
+ --clip:16.2% 0,100% 0,86.55% 100%,0 100%;
 }
-html.ti-practica-embed #data-conoce .pp-char-photo-add input{
-  opacity:0;position:absolute;width:1px;height:1px;pointer-events:none;
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(2){
+ left:48.64%;top:3.53%;width:26.37%;height:47.12%;
+ --clip:14.7% 0,100% 0,86.7% 100%,0 100%;
 }
-html.ti-practica-embed #data-conoce .pp-char-photo--ready{background:#f6f3ed}
-@media(max-width:900px){
-  html.ti-practica-embed #data-conoce #pp-char-header{grid-template-columns:1fr!important}
-  html.ti-practica-embed #data-conoce .pp-char-copy{padding:38px 28px!important}
-  html.ti-practica-embed #data-conoce .pp-char-photos{min-height:350px}
-  html.ti-practica-embed #data-conoce .pp-char-photo{min-height:160px}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(3){
+ left:71.92%;top:3.53%;width:28.08%;height:47.12%;
+ --clip:12.6% 0,100% 0,87.3% 100%,0 100%;
 }
-@media(max-width:520px){
-  html.ti-practica-embed #data-conoce .pp-char-photos{grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,135px);min-height:0}
-  html.ti-practica-embed #data-conoce .pp-char-photo{min-height:135px}
-  html.ti-practica-embed #data-conoce .pp-char-photo:nth-child(-n+3){grid-column:span 2}
-  html.ti-practica-embed #data-conoce .pp-char-photo:nth-child(n+4){grid-column:span 3}
+/* Bottom: cuatro fragmentos con proporciones deliberadamente no uniformes. */
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(4){
+ left:19.53%;top:51.62%;width:25.25%;height:44.87%;
+ --clip:17.1% 0,100% 0,84.8% 100%,0 100%;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(5){
+ left:41.03%;top:51.62%;width:21.60%;height:44.87%;
+ --clip:18.5% 0,100% 0,95.8% 100%,0 100%;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(6){
+ left:61.88%;top:51.62%;width:18.13%;height:44.87%;
+ --clip:5.1% 0,100% 0,98.0% 100%,0 100%;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(7){
+ left:79.72%;top:51.62%;width:20.28%;height:44.87%;
+ --clip:1.9% 0,100% 0,82.8% 100%,0 100%;
+}
+/* La banda amarilla recorre el borde derecho en ambas hileras. */
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos::before,
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos::after {
+ content:"";position:absolute;z-index:9;right:0;width:4%;pointer-events:none;
+ background:#ffca20!important;
+ clip-path:polygon(86% 0,100% 0,17% 100%,0 100%);
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos::before {
+ top:3.53%;height:47.12%;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos::after {
+ top:51.62%;height:44.87%;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ max-width:none!important;max-height:none!important;margin:0!important;
+ display:block!important;object-fit:cover!important;object-position:center!important;
+ border:0!important;border-radius:0!important;filter:none!important;
+ transform:none!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo img[hidden]{
+ display:none!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-num {
+ position:absolute;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%);
+ font:400 2.5cqw Georgia,serif!important;color:#698976!important;opacity:.6;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-add {
+ position:absolute!important;z-index:5;inset:0!important;
+ display:flex!important;flex-direction:column;align-items:center;justify-content:center;
+ padding:0!important;margin:0!important;gap:.55cqw!important;
+ background:rgba(17,54,34,.035)!important;color:#103c2b!important;
+ cursor:pointer!important;border:0!important;
+ font:700 clamp(10px,1.12cqw,17px)/1.18 Arial,Helvetica,sans-serif!important;
+ text-align:center!important;transition:background .15s ease!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-add:hover,
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-add:focus-within {
+ background:rgba(17,54,34,.16)!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-add[hidden]{
+ display:none!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-plus{
+ display:flex!important;justify-content:center;align-items:center;
+ width:clamp(28px,3.4cqw,55px);height:clamp(28px,3.4cqw,55px);
+ border-radius:50%;background:#fffefa!important;
+ box-shadow:0 3px 14px #23413222;
+ color:#005236!important;font:400 clamp(20px,2.4cqw,38px)/1 Arial,sans-serif!important;
+}
+html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-add input{
+ opacity:0!important;position:absolute!important;width:1px!important;
+ height:1px!important;pointer-events:none!important;
+}
+@media(max-width:720px) {
+ html.ti-practica-embed #data-conoce #pp-char-header{
+  min-height:630px!important;height:630px!important;aspect-ratio:auto;container-type:normal;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-copy {
+  width:100%;height:245px;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-eyebrow{
+  left:20px;top:22px;font-size:10px!important;letter-spacing:2.3px!important;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-copy h1{
+  left:18px;top:53px;font-size:37px!important;letter-spacing:-1px!important;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-rule{
+  left:19px;top:145px;width:4px;height:80px;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-lead{
+  left:31px;top:144px;width:calc(100% - 45px);
+  font-size:12px!important;line-height:1.4!important;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-break{display:none}
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-copy::after {
+  width:230px;height:96px;opacity:.55;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos{
+  top:245px!important;height:385px!important;inset-inline:0!important;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(1){
+  left:0;top:1%;width:34%;height:47%;--clip:8% 0,100% 0,91% 100%,0 100%;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(2){
+  left:33%;top:1%;width:35%;height:47%;--clip:8% 0,100% 0,91% 100%,0 100%;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(3){
+  left:67%;top:1%;width:33%;height:47%;--clip:8% 0,100% 0,91% 100%,0 100%;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(4){
+  left:0;top:49%;width:26%;height:49%;--clip:8% 0,100% 0,91% 100%,0 100%;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(5){
+  left:25%;top:49%;width:26%;height:49%;--clip:8% 0,100% 0,91% 100%,0 100%;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(6){
+  left:50%;top:49%;width:26%;height:49%;--clip:8% 0,100% 0,91% 100%,0 100%;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo:nth-child(7){
+  left:75%;top:49%;width:25%;height:49%;--clip:8% 0,100% 0,91% 100%,0 100%;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-add{
+  font-size:10px!important;gap:4px!important;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photo-plus{
+  width:30px;height:30px;font-size:21px!important;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos::before{
+  top:1%;height:47%;
+ }
+ html.ti-practica-embed #data-conoce #pp-char-header .pp-char-photos::after{
+  top:49%;height:49%;
+ }
 }
