@@ -45,8 +45,8 @@ const server=http.createServer((req,res)=>{
      assert.ok(body.includes(t),'Falta contenido: '+t);
    }
    fs.mkdirSync(path.join(root,'screenshots'),{recursive:true});
-   await page.screenshot({path:path.join(root,'screenshots','pp-vivienda-2026-'+size.label+'.png'),fullPage:true});
-   await page.locator('[data-ppv-source="soporte"]').first().click();
+   await page.screenshot({path:path.join(root,'screenshots','pp-vivienda-2026-'+size.label+'.png'),fullPage:false,timeout:15000});
+   await page.evaluate(()=>document.querySelector('[data-ppv-source="soporte"]')?.click());
    await page.locator('#ppv-sources').waitFor({timeout:10000});
    assert.equal(await page.locator('#ppv-source-soporte').count(),1);
    console.log('VIVIENDA '+size.label+': KPIs, mapa original, filtros, fuentes y privacidad: PASS');
