@@ -401,7 +401,9 @@ html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-
    font-size:1.12cqw!important;line-height:1.40!important;
  }
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-copy::after{
-   width:90%!important;height:28%!important;bottom:6%!important;
+   /* La ilustración superpuesta terminaba en 31.5% del banner y tapaba
+      la diagonal de la fotografía inferior, creando un corte vertical. */
+   width:78%!important;height:28%!important;bottom:6%!important;
  }
  /* Panorama principal: un único rectángulo amplio con entrada diagonal. */
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(1){
@@ -410,9 +412,10 @@ html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-
  }
  /* Segunda fila: dos fotos no rectangulares con separador inclinado blanco. */
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(2){
-   left:26.5%!important;top:61%!important;width:39%!important;height:37.5%!important;
-   /* borde derecho: 65.5% arriba, 60.0% abajo */
-   --clip:12% 0,100% 0,86% 100%,0 100%;
+   left:29%!important;top:61%!important;width:36.5%!important;height:37.5%!important;
+   /* Mover solo el borde izquierdo 2.5% a la derecha; el borde superior
+      derecho permanece en 65.5% y el inferior en 60.0%. */
+   --clip:9.5% 0,100% 0,85% 100%,0 100%;
  }
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(3){
    left:56%!important;top:61%!important;width:43%!important;height:37.5%!important;
