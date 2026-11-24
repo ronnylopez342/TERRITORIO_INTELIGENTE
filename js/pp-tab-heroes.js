@@ -17,7 +17,13 @@
       layout:'panorama-top',
       lead:'Consulta los <strong>indicadores del municipio</strong> organizados por dimensiones, áreas y categorías, a partir de las fichas y registros documentados del territorio.',
       // Tres espacios independientes: una panoramica sobre dos fotografias.
-      images:photos(7,3,6)
+      // Solo DATA: imagenes existentes del proyecto, sin reutilizar las fotos
+      // personales del levantamiento de Caracterizacion Municipal.
+      images:[
+        {url:'assets/img/editorial/territorio-aereo.jpg',position:'50% 50%'},
+        {url:'assets/img/editorial/gestion.jpg',position:'50% 50%'},
+        {url:'assets/img/editorial/hero-poster.jpg',position:'50% 50%'}
+      ]
     },
     'data-encuesta':{
       title:'Vivienda',
