@@ -432,6 +432,14 @@ html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-
    clip-path:polygon(0 0,100% 0,100% 2%,94.4% 98%,0 98%)!important;
  }
 
+ /* Título móvil de dos líneas: el párrafo y su acento dorado
+    comienzan después del título, sin cambiar palabras ni tipografías. */
+ html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-rule{
+   top:148px!important;height:80px!important;
+ }
+ html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-lead{
+   top:147px!important;
+ }
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(1){
    left:0!important;top:2%!important;width:100%!important;height:47%!important;
    --clip:0 0,100% 0,100% 100%,0 100%;
