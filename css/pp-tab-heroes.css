@@ -293,20 +293,6 @@ html.ti-practica-embed.pp-tab-heroes #data-subachoque .ds5-dims{margin-top:0!imp
    Las siete fotos ORIGINALES de Caracterización quedan intactas.
    =============================================== */
 
-/* DATA SUBACHOQUE: una panorámica superior + dos recortes inferiores. */
-html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(1){
-  left:23.5%!important;top:3.53%!important;width:76.5%!important;height:47.12%!important;
-  --clip:8% 0,100% 0,100% 100%,0 100%;
-}
-html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(2){
-  left:20%!important;top:51.62%!important;width:47%!important;height:44.87%!important;
-  --clip:19% 0,100% 0,82% 100%,0 100%;
-}
-html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(3){
-  left:58.5%!important;top:51.62%!important;width:41.5%!important;height:44.87%!important;
-  --clip:20.5% 0,100% 0,100% 100%,0 100%;
-}
-
 /* VIVIENDA: una fotografía vertical protagonista a la izquierda,
    complementada por dos rectángulos a la derecha. */
 html.ti-practica-embed.pp-tab-heroes #data-encuesta > .pp-tab-hero[data-photo-layout="portrait-left"] .pp-char-photo:nth-child(1){
@@ -332,18 +318,6 @@ html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-
 /* Misma composición en móviles: el texto permanece arriba y el mosaico
    ocupa la mitad inferior sin cambiar el tamaño entre pestañas. */
 @media(max-width:720px){
-  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(1){
-    left:0!important;top:1%!important;width:100%!important;height:47%!important;
-    --clip:0 0,100% 0,100% 100%,0 100%;
-  }
-  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(2){
-    left:0!important;top:49%!important;width:57%!important;height:49%!important;
-    --clip:0 0,100% 0,94.8% 100%,0 100%;
-  }
-  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(3){
-    left:54%!important;top:49%!important;width:46%!important;height:49%!important;
-    --clip:6.5% 0,100% 0,100% 100%,0 100%;
-  }
   html.ti-practica-embed.pp-tab-heroes #data-encuesta > .pp-tab-hero[data-photo-layout="portrait-left"] .pp-char-photo:nth-child(1){
     left:0!important;top:1%!important;width:57%!important;height:97%!important;
     --clip:0 0,100% 0,88% 100%,0 100%;
@@ -369,6 +343,15 @@ html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-
   }
 }
 
+
+/* DATA: un solo borde exterior para las fotos Y la cinta amarilla.
+   En el inicio (y=3.7%) termina en x=100%; abajo (y=98.5%)
+   termina en x=89.88%. Todo lo situado a su derecha es fondo crema.
+   La misma diagonal se utiliza para el extremo derecho de la cinta. */
+html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photos {
+  -webkit-clip-path:polygon(0 0,100% 0,100% 3.7%,89.88% 98.5%,0 98.5%)!important;
+  clip-path:polygon(0 0,100% 0,100% 3.7%,89.88% 98.5%,0 98.5%)!important;
+}
 
 /* =====================================================================
    AJUSTE EXCLUSIVO DE DATA SUBACHOQUE · REFERENCIA FOTOGRAFICA APROBADA
@@ -407,7 +390,7 @@ html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-
  }
  /* Panorama principal: un único rectángulo amplio con entrada diagonal. */
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(1){
-   left:33.7%!important;top:3.7%!important;width:65.3%!important;height:55.7%!important;
+   left:33.7%!important;top:3.7%!important;width:66.3%!important;height:55.7%!important;
    --clip:8.5% 0,100% 0,100% 100%,0 100%;
  }
  /* Segunda fila: dos fotos no rectangulares con separador inclinado blanco. */
@@ -425,7 +408,8 @@ html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-
  /* La banda amarilla exterior forma una sola diagonal continua. */
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photos::before{
    right:0!important;top:3.7%!important;height:94.8%!important;width:11%!important;
-   clip-path:polygon(95% 0,100% 0,8% 100%,0 100%)!important;
+   -webkit-clip-path:polygon(94% 0,100% 0,8% 100%,2% 100%)!important;
+   clip-path:polygon(94% 0,100% 0,8% 100%,2% 100%)!important;
    background:#ffca20!important;
  }
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photos::after{
@@ -442,6 +426,12 @@ html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-
 /* En móvil se preserva la disposición de tres imágenes con dos niveles
    y una banda diagonal; los otros encabezados no cambian. */
 @media(max-width:720px){
+ html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photos{
+   /* El límite amarillo en móvil pasa de x=100% a x=94.4%. */
+   -webkit-clip-path:polygon(0 0,100% 0,100% 2%,94.4% 98%,0 98%)!important;
+   clip-path:polygon(0 0,100% 0,100% 2%,94.4% 98%,0 98%)!important;
+ }
+
  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(1){
    left:0!important;top:2%!important;width:100%!important;height:47%!important;
    --clip:0 0,100% 0,100% 100%,0 100%;
