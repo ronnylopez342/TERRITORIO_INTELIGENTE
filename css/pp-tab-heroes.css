@@ -284,3 +284,87 @@ html.ti-practica-embed.pp-tab-heroes #data-subachoque .ds5-dims{margin-top:0!imp
   }
   html.ti-practica-embed.pp-tab-heroes #data-subachoque :is(.ds5-hero,.k23-hero){padding:12px 0 16px!important}
 }
+
+
+/* ===============================================
+   PRÁCTICA PAÍS · Propuesta 2 · Modular universitaria
+   Cuatro cabeceras comparten papel, altura, títulos y línea mostaza.
+   Solo varía el reparto de las fotografías: 7 | 3 | 3 | 4.
+   Las siete fotos ORIGINALES de Caracterización quedan intactas.
+   =============================================== */
+
+/* DATA SUBACHOQUE: una panorámica superior + dos recortes inferiores. */
+html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(1){
+  left:23.5%!important;top:3.53%!important;width:76.5%!important;height:47.12%!important;
+  --clip:8% 0,100% 0,100% 100%,0 100%;
+}
+html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(2){
+  left:20%!important;top:51.62%!important;width:47%!important;height:44.87%!important;
+  --clip:19% 0,100% 0,82% 100%,0 100%;
+}
+html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(3){
+  left:58.5%!important;top:51.62%!important;width:41.5%!important;height:44.87%!important;
+  --clip:20.5% 0,100% 0,100% 100%,0 100%;
+}
+
+/* VIVIENDA: una fotografía vertical protagonista a la izquierda,
+   complementada por dos rectángulos a la derecha. */
+html.ti-practica-embed.pp-tab-heroes #data-encuesta > .pp-tab-hero[data-photo-layout="portrait-left"] .pp-char-photo:nth-child(1){
+  left:20%!important;top:3.53%!important;width:47%!important;height:92.96%!important;
+  --clip:19% 0,100% 0,87% 100%,0 100%;
+}
+html.ti-practica-embed.pp-tab-heroes #data-encuesta > .pp-tab-hero[data-photo-layout="portrait-left"] .pp-char-photo:nth-child(2){
+  left:60.89%!important;top:3.53%!important;width:39.11%!important;height:47.12%!important;
+  --clip:15.6% 0,100% 0,100% 100%,0 100%;
+}
+html.ti-practica-embed.pp-tab-heroes #data-encuesta > .pp-tab-hero[data-photo-layout="portrait-left"] .pp-char-photo:nth-child(3){
+  left:60.89%!important;top:51.62%!important;width:39.11%!important;height:44.87%!important;
+  --clip:8.3% 0,100% 0,100% 100%,0 100%;
+}
+
+/* RECURSOS: tres fotos superiores + una panorámica de ancho completo debajo.
+   Las primeras tres mantienen la geometría aprobada para cortes diagonales. */
+html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-layout="panorama-bottom"] .pp-char-photo:nth-child(4){
+  left:19.53%!important;top:51.62%!important;width:80.47%!important;height:44.87%!important;
+  --clip:6.6% 0,100% 0,100% 100%,0 100%;
+}
+
+/* Misma composición en móviles: el texto permanece arriba y el mosaico
+   ocupa la mitad inferior sin cambiar el tamaño entre pestañas. */
+@media(max-width:720px){
+  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(1){
+    left:0!important;top:1%!important;width:100%!important;height:47%!important;
+    --clip:0 0,100% 0,100% 100%,0 100%;
+  }
+  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(2){
+    left:0!important;top:49%!important;width:57%!important;height:49%!important;
+    --clip:0 0,100% 0,94.8% 100%,0 100%;
+  }
+  html.ti-practica-embed.pp-tab-heroes #data-subachoque > .pp-tab-hero[data-photo-layout="panorama-top"] .pp-char-photo:nth-child(3){
+    left:54%!important;top:49%!important;width:46%!important;height:49%!important;
+    --clip:6.5% 0,100% 0,100% 100%,0 100%;
+  }
+  html.ti-practica-embed.pp-tab-heroes #data-encuesta > .pp-tab-hero[data-photo-layout="portrait-left"] .pp-char-photo:nth-child(1){
+    left:0!important;top:1%!important;width:57%!important;height:97%!important;
+    --clip:0 0,100% 0,88% 100%,0 100%;
+  }
+  html.ti-practica-embed.pp-tab-heroes #data-encuesta > .pp-tab-hero[data-photo-layout="portrait-left"] .pp-char-photo:nth-child(2){
+    left:50%!important;top:1%!important;width:50%!important;height:47%!important;
+    --clip:14% 0,100% 0,100% 100%,0 100%;
+  }
+  html.ti-practica-embed.pp-tab-heroes #data-encuesta > .pp-tab-hero[data-photo-layout="portrait-left"] .pp-char-photo:nth-child(3){
+    left:50%!important;top:49%!important;width:50%!important;height:49%!important;
+    --clip:7% 0,100% 0,100% 100%,0 100%;
+  }
+  html.ti-practica-embed.pp-tab-heroes #data-explorando > .pp-tab-hero[data-photo-layout="panorama-bottom"] .pp-char-photo:nth-child(4){
+    left:0!important;top:49%!important;width:100%!important;height:49%!important;
+    --clip:0 0,100% 0,100% 100%,0 100%;
+  }
+}
+/* Foco y transición accesibles: las imágenes conservan sus encuadres,
+   sin zoom ni recorte animado que modifique temporalmente los originales. */
+@media(prefers-reduced-motion:reduce){
+  html.ti-practica-embed.pp-tab-heroes .pp-tab-hero .pp-char-photo img{
+    transition:none!important;
+  }
+}

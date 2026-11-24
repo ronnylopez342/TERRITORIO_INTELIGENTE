@@ -13,18 +13,25 @@
   const sections={
     'data-subachoque':{
       title:'Data Subachoque',
+      titleHtml:'Data<br>Subachoque',
+      layout:'panorama-top',
       lead:'Consulta los <strong>indicadores del municipio</strong> organizados por dimensiones, áreas y categorías, a partir de las fichas y registros documentados del territorio.',
-      images:photos(1,2,3,4,5,6,7)
+      // Tres espacios independientes: una panoramica sobre dos fotografias.
+      images:photos(7,3,6)
     },
     'data-encuesta':{
       title:'Vivienda',
+      layout:'portrait-left',
       lead:'Conoce las <strong>condiciones habitacionales</strong> del municipio y el proceso de visitas técnicas, evaluación y priorización de las viviendas.',
-      images:photos(1,2,3,4,5,6,7)
+      // Una fotografia vertical amplia y otras dos a la derecha.
+      images:photos(4,5,6)
     },
     'data-explorando':{
       title:'Recursos',
+      layout:'panorama-bottom',
       lead:'Un espacio para consultar los <strong>materiales y recursos</strong> relacionados con el trabajo de caracterización y conocimiento del territorio.',
-      images:photos(1,2,3,4,5,6,7)
+      // Tres fotografias superiores y una panoramica debajo.
+      images:photos(2,3,4,7)
     }
   };
   document.documentElement.classList.add('pp-tab-heroes');
@@ -35,8 +42,11 @@
       const hero=document.createElement('header');
       hero.className='pp-tab-hero pp-char-header';
       hero.dataset.section=id;
+      // Cada pagina comparte altura y tipografia; varia solo su mosaico.
+      hero.dataset.photoLayout=config.layout;
+      hero.dataset.photoCount=String(config.images.length);
       hero.setAttribute('aria-labelledby','pp-tab-title-'+id);
-      hero.innerHTML='<div class="pp-char-copy"><p class="pp-char-eyebrow">SUBACHOQUE PLATFORM</p><h1 id="pp-tab-title-'+id+'">'+config.title+'</h1><span class="pp-char-rule" aria-hidden="true"></span><p class="pp-char-lead">'+config.lead+'</p></div><div class="pp-char-photos" aria-label="Fotografías del trabajo de campo"></div>';
+      hero.innerHTML='<div class="pp-char-copy"><p class="pp-char-eyebrow">SUBACHOQUE PLATFORM</p><h1 id="pp-tab-title-'+id+'">'+(config.titleHtml||config.title)+'</h1><span class="pp-char-rule" aria-hidden="true"></span><p class="pp-char-lead">'+config.lead+'</p></div><div class="pp-char-photos" aria-label="Fotografías del trabajo de campo"></div>';
       const grid=hero.querySelector('.pp-char-photos');
       config.images.forEach((item,i)=>{
         const tile=document.createElement('div');
