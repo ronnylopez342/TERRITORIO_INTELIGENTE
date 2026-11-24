@@ -20,9 +20,23 @@
       // Solo DATA: imagenes existentes del proyecto, sin reutilizar las fotos
       // personales del levantamiento de Caracterizacion Municipal.
       images:[
-        {url:'assets/img/editorial/territorio-aereo.jpg',position:'50% 50%'},
-        {url:'assets/img/editorial/gestion.jpg',position:'50% 50%'},
-        {url:'assets/img/editorial/hero-poster.jpg',position:'50% 50%'}
+        {
+          url:'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Subachoque_aerea1.jpg/1280px-Subachoque_aerea1.jpg',
+          position:'50% 48%',alt:'Vista aérea del casco urbano de Subachoque',
+          credit:'OrlandriguezC, CC BY-SA 4.0',
+          creditUrl:'https://commons.wikimedia.org/wiki/File:Subachoque_aerea1.jpg'
+        },
+        {
+          url:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85',
+          position:'50% 50%',alt:'Computador con gráficos e indicadores de datos',
+          credit:'Unsplash, licencia Unsplash'
+        },
+        {
+          url:'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/2018_Cundinamarca_-_carretera_en_el_valle_de_Subachoque.jpg/1280px-2018_Cundinamarca_-_carretera_en_el_valle_de_Subachoque.jpg',
+          position:'50% 48%',alt:'Paisaje verde del valle de Subachoque',
+          credit:'Felipe Restrepo Acosta, CC BY-SA 4.0',
+          creditUrl:'https://commons.wikimedia.org/wiki/File:2018_Cundinamarca_-_carretera_en_el_valle_de_Subachoque.jpg'
+        }
       ]
     },
     'data-encuesta':{
@@ -59,8 +73,9 @@
         tile.className='pp-char-photo pp-char-photo--ready';
         tile.dataset.photoSlot=String(i+1);
         const img=document.createElement('img');
-        img.alt='Registro fotográfico del trabajo de campo';
-        img.decoding='async';img.loading='lazy';
+        img.alt=item.alt||'Registro fotográfico del trabajo de campo';
+        if(item.credit)img.title=item.credit+(item.creditUrl?' · '+item.creditUrl:'');
+        img.decoding='async';img.loading=id==='data-subachoque'?'eager':'lazy';
         const [x,y]=item.position.split(' ');
         tile.style.setProperty('--pp-object-x',x);tile.style.setProperty('--pp-object-y',y);
         img.src=item.url;
